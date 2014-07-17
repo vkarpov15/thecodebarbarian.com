@@ -1,0 +1,32 @@
+{
+  "name": "thecodebarbarian.com",
+  "version": "0.0.0",
+  "description": "www.thecodebarbarian.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vkarpov15/thecodebarbarian.com.git"
+  },
+  "author": "Valeri Karpov",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/vkarpov15/thecodebarbarian.com/issues"
+  },
+  "dependencies": {
+    "commander": "2.3.0",
+    "file": "0.2.2",
+    "grunt": "~0.4",
+    "grunt-contrib-watch": "0.6.1",
+    "jade": "1.1.5",
+    "markdown": "0.5.0",
+    "moment": "2.4.0",
+    "node-static": "0.7.3",
+    "orchestrator": "0.3.6",
+    "underscore": "1.5.2"
+  },
+  "homepage": "https://github.com/vkarpov15/thecodebarbarian.com"
+}

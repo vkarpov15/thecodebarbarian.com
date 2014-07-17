@@ -1,0 +1,27 @@
+html
+  head
+    title #{post.title} | www.thecodebarbarian.com
+    link( href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css",
+          rel="stylesheet"
+          type="text/css")
+    link( href="/style/style.css",
+          rel="stylesheet"
+          type="text/css")
+    link( href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600',
+          rel='stylesheet',
+          type='text/css')
+    link( href='//fonts.googleapis.com/css?family=Merriweather:400,600',
+          rel='stylesheet',
+          type='text/css')
+
+  body
+    div.container
+      div#nav.navbar
+        div.navbar-header
+          img(src='/images/Barbarian_Head.png')
+          h1 The Code Barbarian
+    div.container
+      div.col-lg-9
+        | !{content}
+      div.col-lg-3.right-bar
+        h2 Search
