@@ -1,11 +1,27 @@
-.navbar {
-  background-color: #DDDDDD;
+body {
+	font-size:18px;
+	/* Commented out in bootstrap.css */
+	font-family: "source Sans pro", Helvetica, Arial, sans-serif;
+}
+.social-links {
+	background-color:#637394;
 }
 
-h1 {
-  font-family: 'Source Sans Pro';
+.social-links a {
+	color:white;
+	font-variant: small-caps;
+	letter-spacing:1px;
+	font-size:18px;
+	min-height:35px;
+	height:35px;
+	margin-bottom:0px;
 }
 
-.right-bar {
-  background-color: #BBBBDD;
+#nav {
+	background-color:#f7f7f7;
+}
+
+#nav li a {
+	text-transform:uppercase;
+	color:#333;
 }
