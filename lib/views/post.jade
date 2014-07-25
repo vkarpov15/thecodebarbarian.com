@@ -15,13 +15,42 @@ html
           type='text/css')
 
   body
-    div.container
-      div#nav.navbar
-        div.navbar-header
-          img(src='/images/Barbarian_Head.png')
-          h1 The Code Barbarian
+    navbar.social-links
+      div.container
+        ul.nav.navbar-nav.navbar-right
+            li
+              a(href="#") twitter
+            li
+              a(href="#") github
+            li
+              a(href="#") facebook
+    
+    #nav.navbar
+      .container
+        .navbar-header
+          .btn.btn-default.navbar-toggle(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand.big-brand(href="/") 
+            img(src='/images/Barbarian_Head.png')
+            | The Code Barbarian
+        .navbar-right
+          .collapse.navbar-collapse#bs-example-navbar-collapse-1
+            ul.nav.navbar-nav
+              li 
+                a MongoDB
+              li 
+                a ExpressJS
+              li 
+                a AngularJS
+              li 
+                a Node.js
+
     div.container
       div.col-lg-9
         | !{content}
       div.col-lg-3.right-bar
         h2 Search
+
