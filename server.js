@@ -10,8 +10,8 @@ require('http').createServer(function (request, response) {
   request.addListener('end', function() {
     console.log(request.url);
     var p = path.join('./bin', request.url);
-    fs.exists(p, function(exists) {
-      if (!exists) {
+    fs.stat(p, function(err, stats) {
+      if (err || !stats || !stats.isFile()) {
         response.writeHead(404, {
           'Cache-Control': 'max-age=7200',
           'Content-Type': 'text/plain'
@@ -27,3 +27,5 @@ require('http').createServer(function (request, response) {
     });
   }).resume();
 }).listen(commander.port || 8080);
+
+console.log('Server listening on port ' + (commander.port || 8080));
