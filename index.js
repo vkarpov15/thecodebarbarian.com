@@ -11,6 +11,18 @@ var posts = require('./lib/posts');
 
 var postTemplate = null;
 
+orchestrator.add('compileIndex', function(callback) {
+  fs.readFile('./lib/views/index.jade', function(err, view) {
+    if (err) {
+      console.error('Error loading index template: ' + err);
+      return callback(err);
+    }
+    fs.writeFile('./bin/index', jade.compile(view, {})(), function(error) {
+      callback(error);
+    });
+  });
+});
+
 orchestrator.add('loadPostTemplate', function(callback) {
   fs.readFile('./lib/views/post.jade', function(err, view) {
     if (err) {
@@ -22,7 +34,7 @@ orchestrator.add('loadPostTemplate', function(callback) {
   });
 });
 
-var tasks = [];
+var tasks = ['compileIndex'];
 _.each(posts, function(post) {
   var taskName = 'post-' + post.title;
   tasks.push(taskName);
