@@ -5,6 +5,8 @@ body {
 }
 .social-links {
 	background-color:#637394;
+	margin-bottom:0;
+	border-radius:0px;
 }
 
 .social-links a {
@@ -19,9 +21,46 @@ body {
 
 #nav {
 	background-color:#f7f7f7;
+	height:106px;
 }
 
 #nav li a {
 	text-transform:uppercase;
 	color:#333;
+	line-height:106px;
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.navbar-toggle {
+	margin-top:35px;
+}
+
+.icon-bar {
+	background-color:#637394;
+	height:3px;
+}
+.navbar-brand {
+	height:80px;
+	padding:0;
+	margin-top:8px;
+
+}
+
+.site-name {
+	text-align:left;
+	text-transform:uppercase;
+	color:#333;
+	width:40px;
+	display:inline-block;
+	font-weight:600;
+	margin-top:10px;
+	vertical-align:middle;
+	margin-left:5px;
+}
+
+.logo {
+	display:inline-block;
+	width:61px;
+	height:auto;
 }
