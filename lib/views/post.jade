@@ -7,16 +7,15 @@ html
     link( href="/style/style.css",
           rel="stylesheet"
           type="text/css")
-    link( href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600',
+    link( href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600',
           rel='stylesheet',
           type='text/css')
-    link( href='//fonts.googleapis.com/css?family=Merriweather:400,600',
+    link( href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,600',
           rel='stylesheet',
           type='text/css')
-    script( href='http://code.jquery.com/jquery-2.1.1.min.js',
-            type='text/javascript')
-    script( href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
-            type='text/javascript')
+    script( href='http://code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
+    script( href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', type='text/javascript')
+
   body
     .navbar.social-links.hidden-sm.hidden-xs
       div.container
@@ -58,7 +57,24 @@ html
 
 
     div.container
-      div.col-lg-9
-        | !{content}
+      div.col-lg-9.post-text
+        .row
+          .title-byline-container 
+            h1.post-title How to Code Like A Bawse
+            p.byline by Val Karpov
+          .source-code-button
+            .btn.btn-orange.btn-block
+              i.glyphicon.glyphicon-heart
+              | Code for this Post
+
+        .row.post-body-text-container
+          .col-lg-12
+            p.post-paragraph
+              | Mongoose right now doesn't run validators on calls to Model.update(). 
+              | I've found often that its more elegant and performant to call update() 
+              | directly instead of loading the document, modifying it, and then 
+              | saving it. Mongoose should have better support for this paradigm in the future.
+
       div.col-lg-3.right-bar
         h2 Search
+        | !{content}

@@ -7,16 +7,21 @@ body {
 	background-color:#637394;
 	margin-bottom:0;
 	border-radius:0px;
+	min-height:35px;
+	height:35px;
 }
 
-.social-links a {
+.social-links li a {
 	color:white;
 	font-variant: small-caps;
 	letter-spacing:1px;
 	font-size:18px;
 	min-height:35px;
 	height:35px;
+	line-height:35px;
 	margin-bottom:0px;
+	padding-top:0px;
+	padding-bottom:0px;
 }
 
 #nav {
@@ -63,4 +68,62 @@ body {
 	display:inline-block;
 	width:61px;
 	height:auto;
+}
+
+/* post body style */
+
+.title-byline-container {
+	font-family:'merriweather', Georgia, serif;
+	text-align:center;
+}
+
+.post-title {
+	line-height:1.6em;
+	font-weight:700;
+	font-size:32px;
+	color:#637394;
+	text-align:center;
+	margin-bottom:0px;
+}
+
+.byline {
+	font-style:italic;
+	font-size:16px;
+}
+
+.source-code-button {
+	width:200px;
+	position:relative;
+	margin:auto;
+	left:0;
+	right:0;
+	margin-top:13px;
+}
+
+.btn-orange {
+	background-color:#f7a04b;
+	color:white;
+	margin:auto;
+	left:0;
+	right:0;
+	font-weight:200;
+	font-size:18px;
+}
+
+.btn-orange:hover {
+	background-color:#e79341;
+	color:white;
+}
+
+.btn-orange i {
+	margin-right:10px;
+}
+
+.post-body-text-container {
+	margin-top:35px;
+}
+
+.post-paragraph {
+	font-weight:300;
+	line-height:1.5em;
 }
