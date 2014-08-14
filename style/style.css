@@ -87,7 +87,7 @@ body {
 	font-size:32px;
 	color:#637394;
 	text-align:center;
-	margin-bottom:0px;
+	margin-bottom:10px;
 }
 
 .byline {
@@ -153,7 +153,6 @@ body {
 /* sharing */
 
 #desktop-sharing-options {
-	position:fixed;
 	margin-left: -70px;
 	margin-top: 30px;
 }
@@ -205,4 +204,42 @@ body {
 /* right bar */
 .right-bar {
 	background-color:#e1e6e8;
+	font-size:16px;
+	position:fixed;
+}
+
+.right-bar input {
+	height:32px;
+	box-shadow:none;
+}
+
+.right-bar input, .right-bar .input-group-addon {
+	border-radius:0px;
+}
+
+.right-bar label {
+	color:#637394;
+	font-weight:400;
+	font-family:'merriweather', Georgia, serif;
+}
+
+.search-button {
+	color:white;
+	border:none;
+	background-color:#637394;
+	font-size:18px;
+}
+
+.right-bar-label {
+	font-family:'merriweather', Georgia, serif;
+	color:#637394;
+}
+
+.search-container, .right-bar-group {
+	margin-bottom:15px;
+}
+
+.right-bar-li {
+	margin-bottom:15px;
+	font-weight:300;
 }
