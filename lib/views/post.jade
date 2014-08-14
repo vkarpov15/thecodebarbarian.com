@@ -4,15 +4,17 @@ html
     link( href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css",
           rel="stylesheet"
           type="text/css")
-    link( href="/style/style.css",
-          rel="stylesheet"
-          type="text/css")
     link( href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600',
           rel='stylesheet',
           type='text/css')
-    link( href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,600',
+    link( href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700',
           rel='stylesheet',
           type='text/css')
+    link( href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css',
+          rel='stylesheet')
+    link( href="/style/style.css",
+          rel="stylesheet"
+          type="text/css")
     script( href='http://code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
     script( href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', type='text/javascript')
 
@@ -55,26 +57,80 @@ html
             li.hidden-md.hidden-lg
               a(href='#') TCB Facebook
 
-
+    div.container-fluid#mobile-sharing-options
+      .row
+          .col-lg-12
+            .post-sharing-options.hidden-sm.hidden-md.hidden-lg
+              .row
+                .col-xs-3.twitter-share.sharing-option
+                  i.fa.fa-twitter
+                .col-xs-3.facebook-share.sharing-option
+                  i.fa.fa-facebook
+                .col-xs-3.google-share.sharing-option
+                  i.fa.fa-google-plus
+                .col-xs-3.comment.sharing-option
+                  i.fa.fa-comment
     div.container
       div.col-lg-9.post-text
+        .post-sharing-options.hidden-xs#desktop-sharing-options
+          ul.list-unstyled
+            li.twitter-share
+              i.fa.fa-twitter.sharing-option
+            li.facebook-share
+              i.fa.fa-facebook.sharing-option
+            li.google-share
+              i.fa.fa-google-plus.sharing-option
         .row
           .title-byline-container 
-            h1.post-title How to Code Like A Bawse
+            h1.post-title How I Fixed My Love Life: A Programmer's Guide to Tinder
             p.byline by Val Karpov
           .source-code-button
             .btn.btn-orange.btn-block
-              i.glyphicon.glyphicon-heart
+              i.fa.fa-github-alt
               | Code for this Post
 
         .row.post-body-text-container
           .col-lg-12
+            p.post-paragraph.description 
+              | This post was featured as a guest blog post for MongoDB on April
+              | 30th 2013, which can be found here. 
+            p.post-paragraph
+              | Two weeks ago marked a big milestone: mongoose 3.9.0 was released. 
+              | Be warned, mongoose's versioning practice is that even numbered 
+              | branches are stable and odd are unstable. While all our tests 
+              | check out on 3.9.0, I would recommend sticking to 3.8.x releases
+              | in production for now. 3.9.0 was mongoose's first unstable release 
+              | since October 2013. 
+            h3.post-body-heading 1.) Update() with validators
             p.post-paragraph
               | Mongoose right now doesn't run validators on calls to Model.update(). 
               | I've found often that its more elegant and performant to call update() 
               | directly instead of loading the document, modifying it, and then 
               | saving it. Mongoose should have better support for this paradigm in the future.
+            p.post-paragraph
+              | Populate is extremely useful, but also has some very unfortunate 
+              | dark corners and counter-intuitive behavior that I'd like to rework. 
+              | There are numerous features, such as caching integration, manual 
+              | population, and populating on fields other than _id that the 
+              | current implementation makes very difficult. I'm hoping to get 
+              | all these features into 4.0.
+            img.post-image.img-responsive.img-rounded(src="https://lh3.googleusercontent.com/k6d_qxZ9i_3Hla4Pvd5rWOvQMsTf4v5yTo2e0FazplwcI92M9NIxPok9g3r0os4l4znNZKN0Z-LH4ZHLBfxqfnklsX8Ozm6uwJxtrvbcLKis7Ops_kAT6UpiWuNI9A")
+            h3.post-body-heading 2.) Browser-friendly and browserify-friendly schema validation module.
+            p.post-paragraph
+              |Currently, there's no good way to send your schemas to the browser 
+              | to do client-side validation. While introducing an 
+              a(href="#") API endpoint 
+              | for validation is quite possible, hooking up mongoose schema 
+              | validation directly to a tool like AngularJS in the browser can 
+              | open up some incredibly cool opportunities.
+            p.post-paragraph
+              | Populate is extremely useful, but also has some very unfortunate 
+              | dark corners and counter-intuitive behavior that I'd like to rework. 
+              | There are numerous features, such as caching integration, manual 
+              | population, and populating on fields other than _id that the 
+              | current implementation makes very difficult. I'm hoping to get 
+              | all these features into 4.0.
 
       div.col-lg-3.right-bar
         h2 Search
-        | !{content}
+        div.hidden !{content}
