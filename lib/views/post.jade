@@ -1,6 +1,7 @@
 html
   head
     title #{post.title} | www.thecodebarbarian.com
+    meta( name="viewport" content="width=device-width, initial-scale=1")
     link( href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css",
           rel="stylesheet"
           type="text/css")
@@ -58,29 +59,30 @@ html
               a(href='#') TCB Facebook
 
     div.container-fluid
-      div.col-lg-3.col-lg-offset-9.right-bar
-        .row.search-container
-            .col-lg-12
-              .form-group
-              label Search
-              .input-group
-                input.form-control(type="text")
-                .input-group-addon.search-button
-                  i.fa.fa-search
-        .row.recent-posts.right-bar-group
-            .col-lg-12
-              p.right-bar-label Recent Posts
-              ul.list-unstyled
-                li.right-bar-li Introduction to the Mean Stack
-                li.right-bar-li How to Validate Any Form Ever Using MongooseJS
-                li.right-bar-li Some Paleo Nonsense
-        .row.recent-posts.right-bar-group
-            .col-lg-12
-              p.right-bar-label Popular Posts
-              ul.list-unstyled
-                li.right-bar-li Introduction to the Mean Stack
-                li.right-bar-li How to Validate Any Form Ever Using MongooseJS
-                li.right-bar-li Some Paleo Nonsense
+      div.col-lg-3.col-lg-offset-9.right-bar.hidden-md.hidden-sm.hidden-xs
+        .right-bar-content-slider.pull-right
+          .row.search-container
+              .col-lg-12
+                .form-group
+                label Search
+                .input-group
+                  input.form-control(type="text")
+                  .input-group-addon.search-button
+                    i.fa.fa-search
+          .row.recent-posts.right-bar-group
+              .col-lg-12
+                p.right-bar-label Recent Posts
+                ul.list-unstyled
+                  li.right-bar-li Introduction to the Mean Stack
+                  li.right-bar-li How to Validate Any Form Ever Using MongooseJS
+                  li.right-bar-li Some Paleo Nonsense
+          .row.recent-posts.right-bar-group
+              .col-lg-12
+                p.right-bar-label Popular Posts
+                ul.list-unstyled
+                  li.right-bar-li Introduction to the Mean Stack
+                  li.right-bar-li How to Validate Any Form Ever Using MongooseJS
+                  li.right-bar-li Some Paleo Nonsense
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
           .col-lg-12
@@ -107,12 +109,16 @@ html
         .row
           .title-byline-container 
             h1.post-title How I Fixed My Love Life: A Programmer's Guide to Tinder
-            p.byline by Val Karpov
-            p.bydate 6.12.14
+            .credits
+              span.byline by Val Karpov
+              span.byhandle
+                a(href="http://www.twitter.com/code_barbarian") @code_barbarian
+              span.bydate June 12, 2014
           .source-code-button
             .btn.btn-orange.btn-block
               i.fa.fa-github-alt
-              | Code for this Post
+              span.hidden-lg.hidden-md.hidden-sm View the Code on Github
+              span.hidden-xs View the Code for this Post on Github
 
         .row.post-body-text-container
           .col-lg-12
