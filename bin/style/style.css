@@ -78,7 +78,7 @@ body {
 
 .title-byline-container {
 	font-family:'merriweather', Georgia, serif;
-	text-align:center;
+	text-align:left;
 }
 
 .post-title {
@@ -86,7 +86,6 @@ body {
 	font-weight:700;
 	font-size:32px;
 	color:#637394;
-	text-align:center;
 	margin-bottom:10px;
 }
 
