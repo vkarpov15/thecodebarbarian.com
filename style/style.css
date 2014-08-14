@@ -2,6 +2,7 @@ body {
 	font-size:18px;
 	/* Commented out in bootstrap.css */
 	font-family: "source Sans pro", Helvetica, Arial, sans-serif;
+	color:#666;
 }
 .social-links {
 	background-color:#637394;
@@ -26,12 +27,14 @@ body {
 
 #nav {
 	background-color:#f7f7f7;
+	background-color:transparent;
 	height:106px;
+	margin-bottom:0px;
 }
 
 #nav li a {
 	text-transform:uppercase;
-	color:#333;
+	color:#666;
 	line-height:106px;
 	padding-top:0;
 	padding-bottom:0;
@@ -41,10 +44,11 @@ body {
 	margin-top:35px;
 }
 
-.icon-bar {
+.navbar-toggle .icon-bar {
+	height:4px;
 	background-color:#637394;
-	height:3px;
 }
+
 .navbar-brand {
 	height:80px;
 	padding:0;
@@ -88,7 +92,8 @@ body {
 
 .byline {
 	font-style:italic;
-	font-size:16px;
+	font-size:18px;
+	color:#666;
 }
 
 .source-code-button {
@@ -97,7 +102,7 @@ body {
 	margin:auto;
 	left:0;
 	right:0;
-	margin-top:13px;
+	margin-top:32px;
 }
 
 .btn-orange {
@@ -106,7 +111,7 @@ body {
 	margin:auto;
 	left:0;
 	right:0;
-	font-weight:200;
+	font-weight:400;
 	font-size:18px;
 }
 
@@ -125,5 +130,79 @@ body {
 
 .post-paragraph {
 	font-weight:300;
-	line-height:1.5em;
+	line-height:1.7em;
+	margin-bottom:30px;
+}
+
+.post-image {
+	margin-bottom:30px;
+}
+
+.post-body-heading {
+	color:#637394;
+	font-size:20px;
+	line-height:1.7em;
+	margin-bottom:20px;
+}
+
+.description {
+	font-style:italic;
+	font-weight:400;
+}
+
+/* sharing */
+
+#desktop-sharing-options {
+	position:fixed;
+	margin-left: -70px;
+	margin-top: 30px;
+}
+
+#mobile-sharing-options {
+	width:100%;
+	position:fixed;
+	z-index:999;
+	bottom:0;
+}
+
+.post-sharing-options {
+	color:white;
+}
+
+.post-sharing-options li {
+	width:50px;
+	height:50px;
+	text-align:center;
+}
+
+.sharing-option {
+	line-height:50px;
+	font-size:25px;
+	text-align:center;
+	min-height:50px;
+}
+
+.sharing-option i {
+	line-height:50px;
+}
+
+.twitter-share {
+	background-color:#6cdfea;
+}
+
+.facebook-share {
+	background-color:#3b5998;
+}
+
+.google-share {
+	background-color:#e34429;
+}
+
+.comment {
+	background-color:#637394;
+}
+
+/* right bar */
+.right-bar {
+	background-color:#e1e6e8;
 }
