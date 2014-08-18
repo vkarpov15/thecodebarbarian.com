@@ -1,6 +1,6 @@
 var _ = require('underscore');
 var fs = require('fs');
-var markdown = require('markdown').markdown;
+var markdown = require('marked');
 var jade = require('jade');
 var file = require('file');
 
@@ -44,7 +44,7 @@ _.each(posts, function(post) {
         console.error('Error reading file: ' + err);
         return callback(err);
       }
-      var output = postTemplate({ post: post, content: markdown.toHTML(md.toString()) });
+      var output = postTemplate({ post: post, content: markdown(md.toString()) });
       file.mkdirs(post.dest.directory, 0777, function(err) {
         if (err) {
           console.error('Error making dir: ' + err);
