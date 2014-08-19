@@ -157,7 +157,7 @@ body {
 	margin-top:35px;
 }
 
-.post-paragraph {
+.post-body-text-container p {
 	font-weight:400;
 	line-height:1.7em;
 	margin-bottom:30px;
@@ -167,7 +167,7 @@ body {
 	margin-bottom:30px;
 }
 
-.post-body-heading {
+.post-body-text-container h3 {
 	color:#637394;
 	font-size:20px;
 	line-height:1.7em;
