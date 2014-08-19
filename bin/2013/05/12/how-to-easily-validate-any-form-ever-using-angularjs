@@ -1,0 +1,181 @@
+<html><head><title>How to Easily Validate Any Form Ever Using AngularJS | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="#">twitter</a></li><li><a href="#">github</a></li><li><a href="#">facebook</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="#">MongoDB</a></li><li><a href="#">ExpressJS</a></li><li><a href="#">AngularJS</a></li><li><a href="#">NodeJS</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar hidden-md hidden-sm hidden-xs"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><div class="input-group"><input type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li">Introduction to the Mean Stack</li><li class="right-bar-li">How to Validate Any Form Ever Using MongooseJS</li><li class="right-bar-li">Some Paleo Nonsense</li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Popular Posts</p><ul class="list-unstyled"><li class="right-bar-li">Introduction to the Mean Stack</li><li class="right-bar-li">How to Validate Any Form Ever Using MongooseJS</li><li class="right-bar-li">Some Paleo Nonsense</li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><i class="fa fa-twitter"></i></div><div class="col-xs-3 facebook-share sharing-option"><i class="fa fa-facebook"></i></div><div class="col-xs-3 google-share sharing-option"><i class="fa fa-google-plus"></i></div><div class="col-xs-3 comment sharing-option"><i class="fa fa-comment"></i></div></div></div></div></div></div><div class="container"><div class="col-lg-9 post-text"><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><i class="fa fa-twitter sharing-option"></i></li><li class="facebook-share"><i class="fa fa-facebook sharing-option"></i></li><li class="google-share"><i class="fa fa-google-plus sharing-option"></i></li></ul></div><div class="row"><div class="title-byline-container"><h1 class="post-title">How to Easily Validate Any Form Ever Using AngularJS </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 12, 2013</span></div></div><div class="source-code-button"><div class="btn btn-orange btn-block"><i class="fa fa-github-alt"></i><span class="hidden-lg hidden-md hidden-sm">View the Code on Github</span><span class="hidden-xs">View the Code for this Post on Github</span></div></div></div><div class="row post-body-text-container"><div class="col-lg-12"></div></div><div><p>If you&#39;ve ever tried to build any kind of website, odds are you&#39;ve had to create some way of validating and saving input from a form.  Back in the bad old days this used to be a huge pain, because there were no good frameworks to help get the job done right.  The three primary pain points that you have to deal with when trying to validate a form without the aid of a framework are:</p>
+<ul>
+<li><strong>Pain Point #1.</strong> How to avoid writing a wall of if-statements for validating each data item</li>
+<li><strong>Pain Point #2.</strong> How to handle adding and deleting data items as your code base evolves, i.e. how to avoid having to make changes in several different locations when you want to add/remove a data item</li>
+<li><strong>Pain Point #3.</strong> How to display validation errors to your client</li>
+</ul>
+<p>Thankfully there are now multiple frameworks available to help make the entire form process easier.  But how do you decide which one to use for your shiny new web application?   I&#39;d personally recommend using the MEAN stack, because it addresses all three of the Pain Points listed above better than any framework I&#39;ve ever worked with.  You shouldn&#39;t just take my word for it though, so we&#39;ll start by walking through each Pain Point and why other solutions fall short in dealing with them.  Then we&#39;ll wrap up with a walkthrough of how to build some very reusable MEAN stack middleware and get you on your way toward implementing it.</p>
+<p>The first Pain Point, avoiding writing a long list of ifs, is the easiest one to solve, and could hypothetically be fixed without the use of an existing framework.  In fact, back in college I built my own Python web development framework as an academic exercise that addressed this issue.  It was essentially a more specialized version of Hydra, a Python dependency injection tool that you can find on my <a href="http://www.github.com/vkarpov15">Github</a>. If you were using Hydra to build a typical HTTP server on top of a MySQL database (not recommended, this is only for the sake of making a point), you&#39;d define your save form function like this:</p>
+<pre><code>def saveInput(db, name = &quot;String&quot;, age = &quot;int:0&quot;):
+  dict = {}
+  dict[u_name&quot;] = name
+  dict[&quot;u_age&quot;] = age
+  db.insert(dict)
+</code></pre><p>And on the client side we&#39;d submit our form by pointing the browser to:</p>
+<pre><code>?op=saveInput&amp;name=[name]&amp;age=[age]
+</code></pre><p>This rough approach successfully solves Pain Point #1; Hydra will make sure <code>name</code> is non-empty and age is a non-negative integer, all while avoiding extra if-statements.  However, you&#39;ll notice that we unnecessarily repeat ourselves quite a bit in the code above.  This brings us to Pain Point #2- what happens when we try to add or delete data items?  As you will quickly find out, adding even a single field to the database would require a ridiculous amount of extra code.  For example, if we wanted to add a new field to our database (say &quot;hometown&quot;), we would have to add:</p>
+<ul>
+<li>An input in our client view</li>
+<li>An extra parameter to the form submit URL</li>
+<li>An extra parameter to the <code>saveInput</code> function</li>
+<li>An extra line to add this field to the dictionary that we save to the database, i.e. <code>dict[&#39;u_hometown&#39;] = hometown</code></li>
+<li>A &quot;u_hometown&quot; column to our <code>users</code> table</li>
+</ul>
+<p>Every.  Damn.  Time.  Clearly this is not the best method of handling our forms by any stretch of the imagination.  One solution that can accomplish this type of validation while also allowing for the easy addition and removal of data items is the form_for statement in Rails.  But is Rails the optimal solution for validation?  Let&#39;s take a closer look.</p>
+<p>With Rails, our database model takes care of validation for us, so we simply need decide what conditions this data item needs to satisfy and declare them in our model.  To add or remove a data item, we need to change our view, change our model, and run the rake command.  Not bad, right?  This makes our lives a lot easier, but we are still left with Pain Point #3: displaying the results of validation to the user.  It is fairly easy to display validation results to a user with Rails, but it comes with one glaring issue: <em>the user has wait for the page to reload every single time</em>.  This can be a huge problem, because unnecessary page reloads make your site slower, put extra load on your server, and are generally a terrible UI/UX decision. It would be much better if we had some client side Javascript that could do this for us, without reloading the page.</p>
+<p>So Rails isn&#39;t quite perfect because it fails to address Pain Point #3. Is there something out there that can successfully address all three Pain Points?  Yes, and as you&#39;ve probably guessed already, this is where the MEAN stack in general and AngularJS in particular come into the fray.</p>
+<p>The &quot;A&quot; in MEAN stands for &quot;AngularJS,&quot; and the AngularJS frontend is our star player when it comes to displaying validation results.  To illustrate this, let&#39;s walk through an example.  Say that we are building a page where a user can input a list of stocks they bought, how many shares they bought, and at what price they bought them.  We have a form allowing the user to input a stock symbol, quantity, price, and currency, and below that we have a list of the stocks the user has already entered.  In this situation, there are several reasons to require form validation, such as making sure the stock symbols entered actually exist.  But we also want to make sure that this validation happens without reloading the page.  In addition to the usual reasons why reloads are bad, chances are this user is will be playing around with portfolio data dynamically and doesn&#39;t want to sit and wait for a refresh every time.</p>
+<p>Below we will build a simple backend for our stocks list.  If you want to see what this looks like without sifting through all of my code, feel free to check out the git repo at <a href="https://github.com/vkarpov15/mean-stock-list-js">https://github.com/vkarpov15/mean-stock-list-js</a> and run it yourself.</p>
+<pre><code>var StockSchema = new Mongoose.Schema(
+    { symbol : { type : String,
+                 required : true,
+                 validate : [
+                     function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
+                     &#39;Invalid symbol, valid stocks are &#39; + VALID_SYMBOLS
+                 ]
+               },
+      price : {
+        price : {
+          type : Number,
+          required : true,
+          validate : [
+              function(v) { return v &gt;= 0; },
+              &#39;Price must be positive&#39;]
+        },
+        currency : {
+          type : String,
+          required : true,
+          validate : [
+              function(v) { return CURRENCIES.indexOf(v) != -1; },
+              &quot;Invalid currency, valid currencies are &quot; + CURRENCIES
+          ]
+      }
+    },
+    quantity : { type : Number,
+                 required : true,
+                 validate : [
+                     function(v) { return v &gt;= 0; },
+                     &#39;Quantity must be positive&#39;
+                 ]
+               }
+});
+
+var StockListSchema = new Mongoose.Schema({
+  stocks : [StockSchema]
+});
+
+var Stock = db.model(&#39;stocks&#39;, StockSchema);
+var StocksList = db.model(&#39;stockslists&#39;, StockListSchema);
+var stocksList = new StocksList();
+
+app.get(&#39;/stocks&#39;, function(req, res) {
+  res.render(&#39;list_view&#39;, { stocksList : stocksList, currencies : CURRENCIES });
+});
+
+app.post(&#39;/stocks.json&#39;, function(req, res) {
+  var stock = new Stock(req.body.stock);
+
+  stock.validate(function(error) {
+    if (error) {
+      res.json({ error : error });
+    } else {
+      stocksList.stocks.push(stock);
+      stocksList.save(function(error, stocksList) {
+        // Should never fail
+        res.json({ stocksList : stocksList });
+      });
+    }
+  });
+});
+</code></pre><p>Now the interesting part, <code>list_view.jade</code>. Lets declare an AngularJS controller:</p>
+<pre><code>function StocksListController($scope, $http, $window) {
+  $scope.stocksList = [];
+  $scope.newStock = {};
+  $scope.init = function(stocksList) {
+    $scope.stocksList = stocksList;
+  }
+
+  $scope.save = function(form) {
+    $http.post(&#39;/stocks.json&#39;, { stock : $scope.newStock }).success(function(response) {
+      // Remove all error markers
+      for (var key in form) {
+        if (form[key].$error) {
+          form[key].$error.mongoose = null;
+        }
+      }
+
+      if (response.error) {
+        // We got some errors, put them into angular
+        for (key in response.error.errors) {
+          form[key].$error.mongoose = response.error.errors[key].type;
+        }
+      } else if (response.stocksList) {
+        $scope.stocksList = response.stocksList;
+        $scope.newStock = {};
+      }
+    });
+  };
+}
+</code></pre><p>And finally our view, in <a href="http://jade-lang.com/">Jade</a>:</p>
+<pre><code>div(ng-controller=&quot;StocksListController&quot;,
+    ng-init=&quot;init( #{JSON.stringify(stocksList)} );&quot;)
+  | Add a stock:
+  br
+  form(name=&quot;stocksForm&quot;,
+       ng-submit=&quot;save(stocksForm)&quot;)
+    input(type=&quot;text&quot;,
+          ng-model=&quot;newStock.symbol&quot;,
+          name=&quot;symbol&quot;,
+          placeholder=&quot;Symbol&quot;)
+    div(ng-show=&quot;stocksForm.symbol.$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm.symbol.$error.mongoose}}
+    br
+    select(ng-model=&quot;newStock.price.currency&quot;,
+           name=&quot;price.currency&quot;,
+           ng-options=&quot;currency for currency in #{JSON.stringify(currencies)}&quot;)
+    input(type=&quot;number&quot;,
+          ng-model=&quot;newStock.price.price&quot;,
+          name=&quot;price.price&quot;,
+          placeholder=&quot;Price&quot;)
+    div(ng-show=&quot;stocksForm[&#39;price.currency&#39;].$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm[&#39;price.currency&#39;].$error.mongoose}}
+    div(ng-show=&quot;stocksForm[&#39;price.price&#39;].$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm[&#39;price.price&#39;].$error.mongoose}}
+    br
+    input(type=&quot;number&quot;,
+          ng-model=&quot;newStock.quantity&quot;,
+          name=&quot;quantity&quot;,
+          placeholder=&quot;Quantity&quot;)
+    div(ng-show=&quot;stocksForm.quantity.$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm.quantity.$error.mongoose}}
+    br
+    input(type=&quot;submit&quot;)
+  br
+  hr
+  br
+  div(ng-repeat=&quot;stock in stocksList.stocks&quot;)
+    | Symbol : {{stock.symbol}}, Price : {{stock.price}}, Quantity : {{stock.quantity}}
+</code></pre><p>You might not realize it, but we&#39;re already done!  Is the UI ugly?  Absolutely.  In the words of Han Solo, &quot;she may not look like much, but she&#39;s got it where it counts, kid.&quot;  Lets do a brief walkthrough of what happens when the user tries to enter a stock:</p>
+<ol>
+<li>User goes to <code>/stocks</code>.  ExpressJS renders <code>list_view.jade</code> with the current list of stocks.</li>
+<li>User enters in some data into our input fields and selects a currency, clicks submit.</li>
+<li>AngularJS intercepts the form submit and gives the controller a copy of the AngularJS representation of the form.</li>
+<li>AngularJS submits the contents of the form as JSON to our backend.</li>
+<li>Our backend creates a Stock model with the contents of the form and validates it.  If validation succeeds, we add the new stock to our list and return the list. Otherwise, we pass back the validation errors.</li>
+<li>Lets assume that there were errors in validation.  AngularJS gets back a Mongoose error object, which unsurprisingly fits very nicely with AngularJS&#39;s own built-in form validation.  The AngularJS controller clears out all the previous error messages and then marks each invalid data item with a <code>.mongoose</code> error field.</li>
+<li>AngularJS&#39;s two-way data binding automatically displays the validation errors when we update them in our controller. The two-way data binding means that the divs that we declared with <code>ng-show=&quot;stocksForm.field.$error.mongoose&quot;</code> automatically display when we set the error field, with no extra work for us.</li>
+</ol>
+<p>As you can see, this simple software stack that we just put together has addressed all of our pain points:</p>
+<ul>
+<li><strong>Pain Point #1:</strong> We have only 1 if-statement on the backend and 2 on the frontend.</li>
+<li><strong>Pain Point #2:</strong> Adding or removing a data item consists solely of changing our view and our model, everything in between is completely content agnostic; we could easily add a &#39;date&#39; field to our schema with no changes to our AngularJS controller or our routes.</li>
+<li><strong>Pain Point #3:</strong> Our client has complete control over how we display server-side validation errors, and we never have to reload the page.</li>
+</ul>
+<p>Please feel free to take this code that we&#39;ve written and use it as the basis for your own applications.  I would highly recommend that you tweak and expand on it, if for no other reason than the aforementioned ugly UI.  And as always, remember that I&#39;m just some guy on the internet- your code is YOUR code, and if you find a better way to make your application work you should absolutely do so!</p>
+<p><em>A side note about AngularJS:</em>  Hopefully you now see how AngularJS earned its spot in the MEAN Stack- it certainly lives up to the mantra of &quot;write less code, go have beer sooner.&quot;  It provides us with extremely sophisticated control of the view that&#39;s presented to the user with very little work, enabling us to write complex web clients with ease.  AngularJS is a very rich library, and in this post we&#39;ve barely scratched the surface of the kinds of sorcery that AngularJS makes possible.  I&#39;ll be writing plenty more about AngularJS in the future, but if you&#39;ve already fallen in love and can&#39;t wait, I&#39;d recommend that you work through the tutorials at <a href="http://angularjs.org/">http://angularjs.org/</a>.</p>
+<p><em>Have any questions about the code featured in this post?  Want to suggest a better approach?  Feel like telling me why the MEAN Stack is the worst thing that ever happened in the history of the world and how horrible I am?  Go ahead and leave a comment below, or shoot me an email at valkar207@gmail.com and I&#39;ll do my best to answer any questions you might have. You can also find me on github at <a href="https://github.com/vkarpov15">https://github.com/vkarpov15</a>.  My current venture is called The Ascot Project, and you can find that over at <a href="http://www.AscotProject.com">http://www.AscotProject.com</a>. Thanks again to my partner William Kelly (@idostartups) for helping to make this post happen.</em></p>
+</div></div></div></body></html>
