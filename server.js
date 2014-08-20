@@ -9,6 +9,13 @@ commander.
 require('http').createServer(function (request, response) {
   request.addListener('end', function() {
     console.log(request.url);
+    // Backwards-compatible support for wordpress, because wordpress allows
+    // URLs like `/2013/06/06/61/` to map to the blog post `61`
+    if (request.url.length > 1 &&
+        request.url.charAt(request.url.length - 1) === '/') {
+      request.url = request.url.substr(0, request.url.length - 1);
+    }
+
     var p = path.join('./bin', request.url);
     fs.stat(p, function(err, stats) {
       if (err || !stats) {
