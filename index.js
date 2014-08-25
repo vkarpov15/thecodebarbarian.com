@@ -103,7 +103,10 @@ _.each(tags, function(list, tag) {
   // Build up tag pages. Depends on loading the list template and loading the md
   // for each individual post in the template
   var dependencies = ['loadListTemplate'];
-  dependencies.concat(_.map(list, function(p) { return 'load-' + p.src; }));
+
+  var loadingPosts = _.map(list, function(p) { return 'load-' + p.src; });
+  dependencies = dependencies.concat(loadingPosts);
+
   orchestrator.add(taskName, dependencies, function(callback) {
     // Template should contain a list of posts, augmented with a preview of
     // their content (first line of markdown)
