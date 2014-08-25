@@ -127,7 +127,7 @@ _.each(tags, function(list, tag) {
 
 orchestrator.start(tasks, function(err) {
   if (err) {
-    return console.log("Errors occurred: " + err);
+    return console.log("Errors occurred: " + err + '\n' + err.stack);
   }
   console.log("Done");
 });
