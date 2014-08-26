@@ -123,11 +123,13 @@ html
               span.byhandle
                 a(href="http://www.twitter.com/code_barbarian") @code_barbarian
               span.bydate #{post.date.format('MMMM DD, YYYY')}
-          .source-code-button
-            .btn.btn-orange.btn-block
-              i.fa.fa-github-alt
-              span.hidden-lg.hidden-md.hidden-sm View the Code on Github
-              span.hidden-xs View the Code for this Post on Github
+          - if (post.code)
+            a(href="#{post.code}")
+              .source-code-button
+                .btn.btn-orange.btn-block
+                  i.fa.fa-github-alt
+                  span.hidden-lg.hidden-md.hidden-sm View the Code on Github
+                  span.hidden-xs View the Code for this Post on Github
 
         .row.post-body-text-container
           .col-lg-12
