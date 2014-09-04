@@ -11,38 +11,42 @@ var posts = require('./lib/posts');
 
 var postTemplate = null;
 var listTemplate = null;
+var indexTemplate = null;
 var postsContent = {};
+var postBySource = {};
 
-orchestrator.add('compileIndex', function(callback) {
-  fs.readFile('./lib/views/index.jade', function(err, view) {
+orchestrator.add('loadIndex', function(callback) {
+  var path = './lib/views/index.jade';
+  fs.readFile(path, function(err, view) {
     if (err) {
       console.log('Error loading index template: ' + err);
       return callback(err);
     }
-    fs.writeFile('./bin/index', jade.compile(view, {})(), function(error) {
-      callback(error);
-    });
+    indexTemplate = jade.compile(view, { filename: path });
+    callback(null);
   });
 });
 
 orchestrator.add('loadPostTemplate', function(callback) {
-  fs.readFile('./lib/views/post.jade', function(err, view) {
+  var path = './lib/views/post.jade';
+  fs.readFile(path, function(err, view) {
     if (err) {
       console.log('Error loading post template: ' + err);
       return callback(err);
     }
-    postTemplate = jade.compile(view, {});
+    postTemplate = jade.compile(view, { filename: path });
     callback(null);
   });
 });
 
 orchestrator.add('loadListTemplate', function(callback) {
-  fs.readFile('./lib/views/list.jade', function(err, view) {
+  var path = './lib/views/list.jade';
+  fs.readFile(path, function(err, view) {
     if (err) {
       console.log('Error loading list template: ' + err);
       return callback(err);
     }
-    listTemplate = jade.compile(view, {});
+    listTemplate = jade.compile(view, { filename: path });
     callback(null);
   });
 });
@@ -56,12 +60,13 @@ _.each(posts, function(post) {
         return callback(err);
       }
       postsContent[post.src] = md;
+      postBySource[post.src] = post;
       callback(null);
     });
   });
 });
 
-var tasks = ['compileIndex'];
+var tasks = ['loadIndex'];
 var tags = {};
 _.each(posts, function(post) {
   _.each(post.tags || [], function(tag) {
@@ -111,12 +116,13 @@ _.each(tags, function(list, tag) {
     // Template should contain a list of posts, augmented with a preview of
     // their content (first line of markdown)
     var output = listTemplate({
+      tag: tag,
       posts: _.map(list, function(p) {
         var newPost = _.clone(p);
         var md = postsContent[p.src].toString();
         newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
         return newPost;
-      })
+      }).reverse()
     });
     fs.writeFile('./bin/tag/' + tag.toLowerCase(), output, function(err) {
       if (err) {
@@ -127,6 +133,31 @@ _.each(tags, function(list, tag) {
     });
   });
 });
+
+var compileIndexDependencies = _.map(posts, function(post) {
+  return taskName = 'post-' + post.title;
+});
+compileIndexDependencies.push('loadIndex');
+orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
+  var posts = _.map(postsContent, function(ignored, key) {
+    var p = postBySource[key];
+    var newPost = _.clone(p);
+    var md = postsContent[p.src].toString();
+    newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
+    return newPost;
+  }).reverse();
+  var output = indexTemplate({
+    posts: posts
+  });
+  fs.writeFile('./bin/index', output, function(err) {
+    if (err) {
+      console.log('Error writing index: ' + err);
+      return callback(err);
+    }
+    return callback(null);
+  });
+});
+tasks.push('compileIndex');
 
 orchestrator.start(tasks, function(err) {
   if (err) {
