@@ -99,7 +99,7 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
 (function() {
   function loadChartbeat() {
     window._sf_endpt = (new Date()).getTime();
