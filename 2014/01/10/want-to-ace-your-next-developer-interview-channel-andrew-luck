@@ -4,7 +4,15 @@
 <p>However, Luck has built up a reputation as a player who continues to play with poise and confidence, no matter how bad things seem. In the end, no matter how many times the opposing Kansas City Chiefs hit him or made plays to take the ball away, he continued to play effectively. In these situations, other players often either start sulking or start playing with wild desperation. Luck certainly made some adjustments, but he continued to play to his strengths and didn&#39;t lose faith in his abilities. More importantly, he kept his head in the game rather than succumb to doubt, as evidenced by a ridiculous play where he turned an unexpected fumble into a touchdown. In the end, the Colts pulled off an incredible comeback to win and advance in the playoffs.</p>
 <p>As software developers, there&#39;s definitely something we can learn here. I&#39;ve interviewed plenty of people who have caved badly under the pressure of having to admit that they don&#39;t know the answer. I&#39;ve had plenty of times where I didn&#39;t debug problems as effectively as I should have because I decided that I would not be able to do it or because I was too desperate to find the answer. In order to be an effective software developer, you need to stay calm, keep focused, and remember to do things the right way, even when you&#39;re under a great deal of pressure.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140110_andrew_luck.md">Github</a></em></div></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140110_andrew_luck.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
 (function() {
   function loadChartbeat() {
     window._sf_endpt = (new Date()).getTime();

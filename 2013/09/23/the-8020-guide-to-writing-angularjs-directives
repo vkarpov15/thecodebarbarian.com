@@ -274,7 +274,15 @@ link : function(scope, element, attrs) {}
 <p>So, do you feel like a master of AngularJS directives yet? So far we&#39;ve covered the basics of AngularJS directives and the design patterns that go into writing simple ones. Hopefully this blog post will help to reduce the endless wave of Stack Overflow questions asking, &quot;how do I integrate jQuery plugin X with AngularJS?&quot; If you came across this article because someone linked to it from Stack Overflow, welcome! By reading this far, you&#39;ve probably already come across the answer you needed.  If not, leave a comment about your problems and I will be happy to help you figure it out.</p>
 <p><em>Chances are that for every question I just answered in this post, you now have three more. What do you want to learn next? What sorts of examples would you like to see in the next blog post? How are you successfully applying the MEAN Stack in your application? Let me know in the comments below!  You can also follow me on Twitter at @Code_Barbarian for random programming insights, news about the MEAN Stack from around the world, and occasional pictures of me eating absurd quantities of food. As always, big thanks to my partners William Kelly (@idostartups) and Cesar Devers (@Cesar_Devers) for their help in putting this post together.</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20130923_directives.md">Github</a></em></div></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20130923_directives.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
 (function() {
   function loadChartbeat() {
     window._sf_endpt = (new Date()).getTime();

@@ -6,7 +6,15 @@
 <p>Similarly, graph theory is absolutely integral to the day-to-day of being a software developer, even if you&#39;re not working with graphs directly. Speaking of modules, to an experienced developer, a well-organized codebase looks a lot like a graph. Pieces of code are bits of logic with dependencies which are references to other bits of logic, which, of course, intuitively maps to nodes and edges. All refactoring work comes down to just thinking about graphs and how to make your code graph comprehensible. Beyond this simple example of refactoring and managing dependencies in code, the applications of reasoning about graphs in software development are endless, from breaking a bulky task down into components, to thinking about points of failure in a sophisticated network topology. While I&#39;ve never had to think about Hadwinger&#39;s conjecture in a professional context, my undergrad Graph Theory course gave me a lot of valuable practice reasoning about graphs in a rigorous way. This practice continues to serve me well to this day, whether I&#39;m trying to organize my dependencies in AngularJS, thinking about the topology of my MongoDB cluster, or just figuring what tasks I need to get done today.</p>
 <p>Bottom line, kids out there, if you really want to be a successful software developer, taking proof-based math (and proof-based graph theory in particular) is an excellent step in the right direction. It won&#39;t be easy, but becoming good at something never is.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140314_math.md">Github</a></em></div></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140314_math.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><script type="text/javascript">var _sf_async_config = { uid: 57424, domain: 'rearden.us.to', useCanonical: true };
 (function() {
   function loadChartbeat() {
     window._sf_endpt = (new Date()).getTime();
