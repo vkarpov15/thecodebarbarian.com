@@ -69,10 +69,11 @@ html
               .col-lg-12
                 .form-group
                 label Search
-                .input-group
-                  input.form-control(type="text")
-                  .input-group-addon.search-button
-                    i.fa.fa-search
+                form(onsubmit="window.location.href = 'http://blekko.com/ws/?q=' + encodeURIComponent(document.getElementById('searchQ').value) +  ' /vkarpov15/thecodebarbarian'; return false;",)
+                  .input-group
+                    input.form-control#searchQ(type="text")
+                    .input-group-addon.search-button
+                      i.fa.fa-search
           .row.recent-posts.right-bar-group
               .col-lg-12
                 p.right-bar-label Recent Posts
