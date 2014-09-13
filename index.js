@@ -10,47 +10,30 @@ var orchestrator = new Orchestrator();
 var posts = require('./lib/posts');
 var postsConfig = posts;
 
-var postTemplate = null;
-var listTemplate = null;
-var indexTemplate = null;
+var templates = {
+  index: null,
+  post: null,
+  list: null
+};
 var postsContent = {};
 var postBySource = {};
 
-orchestrator.add('loadIndex', function(callback) {
-  var path = './lib/views/index.jade';
-  fs.readFile(path, function(err, view) {
-    if (err) {
-      console.log('Error loading index template: ' + err);
-      return callback(err);
-    }
-    indexTemplate = jade.compile(view, { filename: path });
-    callback(null);
-  });
-});
+var loadTemplate = function(path, key) {
+  return function(callback) {
+    fs.readFile(path, function(err, view) {
+      if (err) {
+        console.log('Error loading index template: ' + err);
+        return callback(err);
+      }
+      templates[key] = jade.compile(view, { filename: path });
+      callback(null);
+    });
+  };
+};
 
-orchestrator.add('loadPostTemplate', function(callback) {
-  var path = './lib/views/post.jade';
-  fs.readFile(path, function(err, view) {
-    if (err) {
-      console.log('Error loading post template: ' + err);
-      return callback(err);
-    }
-    postTemplate = jade.compile(view, { filename: path });
-    callback(null);
-  });
-});
-
-orchestrator.add('loadListTemplate', function(callback) {
-  var path = './lib/views/list.jade';
-  fs.readFile(path, function(err, view) {
-    if (err) {
-      console.log('Error loading list template: ' + err);
-      return callback(err);
-    }
-    listTemplate = jade.compile(view, { filename: path });
-    callback(null);
-  });
-});
+orchestrator.add('loadIndex', loadTemplate('./lib/views/index.jade', 'index'));
+orchestrator.add('loadPostTemplate', loadTemplate('./lib/views/post.jade', 'post'));
+orchestrator.add('loadListTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
 _.each(posts, function(post) {
   var taskName = 'load-' + post.src;
@@ -85,7 +68,7 @@ _.each(posts, function(post) {
   var dependencies = ['loadPostTemplate', 'load-' + post.src];
   orchestrator.add(taskName, dependencies, function(callback) {
     var md = postsContent[post.src];
-    var output = postTemplate({ post: post, content: markdown(md.toString()), allPosts: postsConfig });
+    var output = templates.post({ post: post, content: markdown(md.toString()), allPosts: postsConfig });
     file.mkdirs(post.dest.directory, 0777, function(err) {
       if (err) {
         console.log('Error making dir: ' + err);
@@ -116,7 +99,7 @@ _.each(tags, function(list, tag) {
   orchestrator.add(taskName, dependencies, function(callback) {
     // Template should contain a list of posts, augmented with a preview of
     // their content (first line of markdown)
-    var output = listTemplate({
+    var output = templates.list({
       tag: tag,
       posts: _.map(list, function(p) {
         var newPost = _.clone(p);
@@ -148,7 +131,8 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
     newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
     return newPost;
   }).reverse();
-  var output = indexTemplate({
+
+  var output = templates.index({
     posts: posts,
     allPosts: postsConfig
   });
