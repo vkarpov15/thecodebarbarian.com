@@ -8,6 +8,7 @@ var Orchestrator = require('orchestrator');
 var orchestrator = new Orchestrator();
 
 var posts = require('./lib/posts');
+var postsConfig = posts;
 
 var postTemplate = null;
 var listTemplate = null;
@@ -84,7 +85,7 @@ _.each(posts, function(post) {
   var dependencies = ['loadPostTemplate', 'load-' + post.src];
   orchestrator.add(taskName, dependencies, function(callback) {
     var md = postsContent[post.src];
-    var output = postTemplate({ post: post, content: markdown(md.toString()) });
+    var output = postTemplate({ post: post, content: markdown(md.toString()), allPosts: postsConfig });
     file.mkdirs(post.dest.directory, 0777, function(err) {
       if (err) {
         console.log('Error making dir: ' + err);
@@ -122,7 +123,8 @@ _.each(tags, function(list, tag) {
         var md = postsContent[p.src].toString();
         newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
         return newPost;
-      }).reverse()
+      }).reverse(),
+      allPosts: postsConfig
     });
     fs.writeFile('./bin/tag/' + tag.toLowerCase(), output, function(err) {
       if (err) {
@@ -147,7 +149,8 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
     return newPost;
   }).reverse();
   var output = indexTemplate({
-    posts: posts
+    posts: posts,
+    allPosts: postsConfig
   });
   fs.writeFile('./bin/index', output, function(err) {
     if (err) {

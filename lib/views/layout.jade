@@ -76,18 +76,28 @@ html
                       i.fa.fa-search
           .row.recent-posts.right-bar-group
               .col-lg-12
-                p.right-bar-label Recent Posts
+                p.right-bar-label All Time Most Popular 
                 ul.list-unstyled
-                  li.right-bar-li Introduction to the Mean Stack
-                  li.right-bar-li How to Validate Any Form Ever Using MongooseJS
-                  li.right-bar-li Some Paleo Nonsense
+                  li.right-bar-li
+                    a(href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/")
+                      | Introduction to the MEAN Stack, Part One: Setting Up Your Tools
+                  li.right-bar-li
+                    a(href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/")
+                      | The 80/20 Guide to Writing AngularJS Directives
+                  li.right-bar-li
+                    a(href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/")
+                      | Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List
+                  li.right-bar-li
+                    a(href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/")
+                      | How to Easily Validate Any Form Ever Using AngularJS
           .row.recent-posts.right-bar-group
               .col-lg-12
-                p.right-bar-label Popular Posts
+                p.right-bar-label Recent Posts
                 ul.list-unstyled
-                  li.right-bar-li Introduction to the Mean Stack
-                  li.right-bar-li How to Validate Any Form Ever Using MongooseJS
-                  li.right-bar-li Some Paleo Nonsense
+                  - each post in allPosts.reverse().slice(0, 4)
+                    li.right-bar-li
+                      a(href="#{post.dest.directory.substr('./bin'.length)}#{post.dest.name}")
+                        | #{post.title}
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
           .col-lg-12
