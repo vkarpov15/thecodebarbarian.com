@@ -14,9 +14,7 @@ block opengraphTags
         content="The Code Barbarian")
 
 block content
-  div.container
-    div.col-lg-9.post-text
-      .post-sharing-options.hidden-xs.pull-left#desktop-sharing-options
+  .post-sharing-options.hidden-xs.pull-left#desktop-sharing-options
         ul.list-unstyled
           li.twitter-share
             i.fa.fa-twitter.sharing-option
@@ -24,6 +22,8 @@ block content
             i.fa.fa-facebook.sharing-option
           li.google-share
             i.fa.fa-google-plus.sharing-option
+  div.container
+    div.col-lg-9.post-text
       .row
         .title-byline-container 
           h1.post-title #{post.title} 
