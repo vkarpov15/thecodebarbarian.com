@@ -23,6 +23,14 @@ h2 {
 	line-height:1.4em;
 }
 
+h3 {
+	color:#637394;
+	font-size:20px;
+	line-height:1.7em;
+	padding-bottom:0.5em;
+	padding-top:1em;
+}
+
 img {
 	max-width:100%;
 	height:auto;
@@ -112,6 +120,10 @@ img {
 
 /* post body style */
 
+.post-body-text-container {
+	padding-top:35px;
+}
+
 .title-byline-container {
 	font-family:'merriweather', Georgia, serif;
 	text-align:left;
@@ -178,23 +190,12 @@ img {
 	margin-right:10px;
 }
 
-.post-body-text-container {
-	margin-top:35px;
-}
-
-.post-body-text-container p {
-	
-}
-
 .post-image {
 	margin-bottom:30px;
 }
 
 .post-body-text-container h3 {
-	color:#637394;
-	font-size:20px;
-	line-height:1.7em;
-	margin-bottom:20px;
+	
 }
 
 .description {
