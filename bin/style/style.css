@@ -58,6 +58,10 @@ img {
 	padding-bottom:0px;
 }
 
+a.social {
+	color: white;
+}
+
 .social-links li a:hover {
 	background-color:transparent;
 }

@@ -7,7 +7,7 @@ block opengraphTags
   meta( property="og:title",
         content="#{post.title}")
   meta( property="og:url",
-        content="http://www.thecodebarbarian.com#{post.dest.directory.substr('./bin'.length)}#{post.dest.name}")
+        content="http://www.thecodebarbarian.com#{post.dest.directory.substr('./bin'.length)}/#{post.dest.name}")
   meta( property="og:image",
         content="#{post.image || '/images/Barbarian_Head.png'}")
   meta( property="og:site_name",
@@ -15,13 +15,16 @@ block opengraphTags
 
 block content
   .post-sharing-options.hidden-xs.pull-left#desktop-sharing-options
-        ul.list-unstyled
-          li.twitter-share
-            i.fa.fa-twitter.sharing-option
-          li.facebook-share
-            i.fa.fa-facebook.sharing-option
-          li.google-share
-            i.fa.fa-google-plus.sharing-option
+    ul.list-unstyled
+      li.twitter-share
+        a.social(href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&via=code_barbarian")
+          i.fa.fa-twitter.sharing-option
+      li.facebook-share
+        a.social(href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}")
+          i.fa.fa-facebook.sharing-option
+      li.google-share
+        a.social(href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}")
+          i.fa.fa-google-plus.sharing-option
   div.container
     div.col-lg-9.post-text
       .row
