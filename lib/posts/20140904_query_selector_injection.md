@@ -3,9 +3,11 @@ In case you haven't come across Petko Petkov's post on injection attacks against
 The general idea behind Petko's exploit is that, typically, when you want to get all documents where username is equal to the user-provided username, you may do something like this:
 
 ```
-User.findOne({ username: req.body.username }, function(err, user) {
-  // Handler code here
-});
+User.findOne(
+  { username: req.body.username },
+  function(err, user) {
+    // Handler code here
+  });
 ```
 
 However, let's say you've exposed a JSON-based API and I'm a malicious user that sends you the following body JSON:
@@ -32,9 +34,13 @@ Remove keys that start with `$` from user input
 One of the cruxes of Petko's exploit is that, in the above example, MongoDB determines the query selector by scanning the `req.body.username` object for a key that matches a [query selector](http://docs.mongodb.org/manual/reference/operator/query/#query-selectors). There are two ways you can avoid this. The first, and probably most obvious, is to make sure `req.body.username` is a string rather than an object. JavaScript's `toString()` function should be sufficient:
 
 ```
-User.findOne({ username: (req.body.username || "").toString(10) }, function(err, user) {
-  // Handler code here
-});
+var username = (req.body.username || "");
+username = username.toString();
+User.findOne(
+  { username: username },
+  function(err, user) {
+    // Handler code here
+  });
 ```
 
 However, in some cases, you may want to query on user-provided objects, and so casting to a string isn't sufficient. Since all MongoDB query selectors start with `$`, you can check if `req.body.username` is an object, and, if so, remove any keys from the object that start with `$`. I put together a really simple npm module called [mongo-sanitize](https://www.npmjs.org/package/mongo-sanitize) (see it on [Github](https://github.com/vkarpov15/mongo-sanitize)) does this for you, in case you don't want to implement this yourself.
@@ -42,9 +48,9 @@ However, in some cases, you may want to query on user-provided objects, and so c
 ```
 var sanitize = require('mongo-sanitize');
  
-// The sanitize function will strip out any keys that start with '$' in the input,
-// so you can pass it to MongoDB without worrying about malicious users overwriting
-// query selectors.
+// The sanitize function will strip out any keys that start with '$' in the
+// input, so you can pass it to MongoDB without worrying about malicious users
+// overwriting query selectors.
 var clean = sanitize(req.params.username);
  
 Users.findOne({ name: clean }, function(err, doc) {
@@ -60,9 +66,11 @@ Explicitly specify the query selector when querying with untrusted data
 The other crux of Petko's exploit is that, typically, you don't specify a query selector when you want to find a document where username is exactly equal to the user input. As a matter of fact, MongoDB doesn't have a fully supported `$eq` query selector just yet (although the core server team is [working on it](https://jira.mongodb.org/browse/SERVER-14973)). In lieu of `$eq`, however, you can use the `$in` selector:
 
 ```
-User.findOne({ username: { $in: [req.body.username] } }, function(err, user) {
-  // Handler code here
-});
+User.findOne(
+  { username: { $in: [req.body.username] } },
+  function(err, user) {
+    // Handler code here
+  });
 ```
 
 This is slightly more verbose, but if a malicious user tried a query selector injection attack, the query passed would look like this:

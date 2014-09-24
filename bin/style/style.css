@@ -13,6 +13,14 @@ p {
 
 pre {
 	margin:20px 0px;
+	word-wrap: normal !important;
+	white-space: pre !important;
+}
+
+pre code {
+	word-wrap: normal !important;
+	white-space: pre !important;
+	overflow-x: visible !important;
 }
 
 h2 {
