@@ -100,17 +100,8 @@ html
                         | #{post.title}
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
-          .col-lg-12
-            .post-sharing-options
-              .row
-                .col-xs-3.twitter-share.sharing-option
-                  i.fa.fa-twitter
-                .col-xs-3.facebook-share.sharing-option
-                  i.fa.fa-facebook
-                .col-xs-3.google-share.sharing-option
-                  i.fa.fa-google-plus
-                .col-xs-3.comment.sharing-option
-                  i.fa.fa-comment
+        .col-lg-12
+          block mobile_sharing
 
     block content
 

@@ -13,6 +13,22 @@ block opengraphTags
   meta( property="og:site_name",
         content="The Code Barbarian")
 
+block mobile_sharing
+  .post-sharing-options
+    .row
+      .col-xs-3.twitter-share.sharing-option
+        a.social(href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&via=code_barbarian")
+          i.fa.fa-twitter
+      .col-xs-3.facebook-share.sharing-option
+        a.social(href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}")
+          i.fa.fa-facebook
+      .col-xs-3.google-share.sharing-option
+        a.social(href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}")
+          i.fa.fa-google-plus
+      .col-xs-3.comment.sharing-option
+        a.social(href="#disqus_thread")
+          i.fa.fa-comment
+
 block content
   .post-sharing-options.hidden-xs.pull-left#desktop-sharing-options
     ul.list-unstyled
