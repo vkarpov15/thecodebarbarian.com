@@ -19,9 +19,18 @@ Our to-dos are going to have a description, a due date, and a boolean flag to in
 Let's create a very simple layout to display our to-dos. We'll have to separate our to-dos into two lists: one for completed to-dos, and one for outstanding to-dos. It's very important here to note that by default, ExpressJS uses Jade for templating. Jade is a controversial templating library which uses a simplified and more human-readable version of HTML syntax. For example, let's say we have the following HTML:
 
 ```
-<ul class="span6 text-center" id="tools-list">
-  <li><a href="http://www.angularjs.org">AngularJS</a></li>
-  <li><a href="http://www.expressjs.com">ExpressJS</a></li>
+<ul class="span6 text-center"
+    id="tools-list">
+  <li>
+    <a href="http://www.angularjs.org">
+      AngularJS
+    </a>
+  </li>
+  <li>
+    <a href="http://www.expressjs.com">
+      ExpressJS
+    </a>
+  </li>
 </ul>
 ```
 

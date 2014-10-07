@@ -11,9 +11,18 @@
 <p>Our to-dos are going to have a description, a due date, and a boolean flag to indicate whether or not they&#39;re already done. Our app.js file shows that when the user accesses the <code>GET /</code> route, ExpressJS will call <code>routes/index.js</code> &quot;index&quot; function, which in turn renders <code>views/index.jade</code>. Let&#39;s add a couple of sample to-dos to <code>index.jade</code>&#39;s template parameters.</p>
 <h2 id="2-modify-the-index-jade-template-to-display-our-sample-data-using-expressjs-templates-diff-https-github-com-vkarpov15-mean-stack-todo-commit-4ca0e7cdac304e4da0b84d4fe2452be0f8742a05-">2) Modify the index.jade template to display our sample data using ExpressJS templates <a href="https://github.com/vkarpov15/mean-stack-todo/commit/4ca0e7cdac304e4da0b84d4fe2452be0f8742a05">(diff)</a></h2>
 <p>Let&#39;s create a very simple layout to display our to-dos. We&#39;ll have to separate our to-dos into two lists: one for completed to-dos, and one for outstanding to-dos. It&#39;s very important here to note that by default, ExpressJS uses Jade for templating. Jade is a controversial templating library which uses a simplified and more human-readable version of HTML syntax. For example, let&#39;s say we have the following HTML:</p>
-<pre><code>&lt;ul class=&quot;span6 text-center&quot; id=&quot;tools-list&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.angularjs.org&quot;&gt;AngularJS&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.expressjs.com&quot;&gt;ExpressJS&lt;/a&gt;&lt;/li&gt;
+<pre><code>&lt;ul class=&quot;span6 text-center&quot;
+    id=&quot;tools-list&quot;&gt;
+  &lt;li&gt;
+    &lt;a href=&quot;http://www.angularjs.org&quot;&gt;
+      AngularJS
+    &lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href=&quot;http://www.expressjs.com&quot;&gt;
+      ExpressJS
+    &lt;/a&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 </code></pre><p>In Jade, this looks like:</p>
 <pre><code>ul#tools-list.span6.text-center
