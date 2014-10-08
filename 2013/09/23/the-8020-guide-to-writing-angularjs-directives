@@ -1,5 +1,5 @@
 <html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
-</script><title>The 80/20 Guide to Writing AngularJS Directives | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><meta property="og:title" content="The 80/20 Guide to Writing AngularJS Directives"/><meta property="og:url" content="http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives"/><meta property="og:image" content="//thehospitalitycoach.net/wp-content/uploads/2011/07/80-20-Cafe-Restaurant-Rule.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar hidden-md hidden-sm hidden-xs"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'http://blekko.com/ws/?q=' + encodeURIComponent(document.getElementById('searchQ').value) +  ' /vkarpov15/thecodebarbarian'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">Introduction to the MEAN Stack, Part One: Setting Up Your Tools</a></li><li class="right-bar-li"><a href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">The 80/20 Guide to Writing AngularJS Directives</a></li><li class="right-bar-li"><a href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/">Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/">How to Easily Validate Any Form Ever Using AngularJS</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/04/29/easy-web-prototyping-with-mongodb-and-nodejs">The MEAN Stack: MongoDB, ExpressJS, AngularJS, and Node.js</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">How to Easily Validate Any Form Ever Using AngularJS</a></li><li class="right-bar-li"><a href="/2013/06/06/61">Mistakes You're Probably Making With MongooseJS, And How To Fix Them</a></li><li class="right-bar-li"><a href="/2013/06/21/8-reasons-why-better-nutrition-makes-you-a-better-developer">8 Reasons Why Better Nutrition Makes You a Better Developer</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">The 80/20 Guide to Writing AngularJS Directives </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 23, 2013</span></div></div></div><div class="post-body-text-container"><p>AngularJS is blowing up right now, and with good reason. There&#39;s nothing more satisfying than using AngularJS to turn 1,000 messy lines of Backbone.js and jQuery spaghetti code into a trivial 10 lines. To put it in a broader context, you can think of AngularJS&#39; place in the world this way: AngularJS is to jQuery as C++11 is to x86 Assembly. However, your quest to capture all the wonderful benefits of AngularJS may be hindered because the documentation is a bit difficult to wrap your mind around. In particular, many readers have told me that the documentation for directives is pretty intimidating, and a lot of experienced users still don&#39;t quite grok how to use them properly.</p>
+</script><title>The 80/20 Guide to Writing AngularJS Directives | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><meta property="og:title" content="The 80/20 Guide to Writing AngularJS Directives"/><meta property="og:url" content="http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives"/><meta property="og:image" content="//thehospitalitycoach.net/wp-content/uploads/2011/07/80-20-Cafe-Restaurant-Rule.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar hidden-md hidden-sm hidden-xs"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'http://blekko.com/ws/?q=' + encodeURIComponent(document.getElementById('searchQ').value) +  ' /vkarpov15/thecodebarbarian'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">Introduction to the MEAN Stack, Part One: Setting Up Your Tools</a></li><li class="right-bar-li"><a href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">The 80/20 Guide to Writing AngularJS Directives</a></li><li class="right-bar-li"><a href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/">Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/">How to Easily Validate Any Form Ever Using AngularJS</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2014/09/04defending-against-query-selector-injection-attacks">Defending Against Query Selector Injection Attacks</a></li><li class="right-bar-li"><a href="/2014/06/03the-future-of-mongoosejs">The Future of MongooseJS</a></li><li class="right-bar-li"><a href="/2014/05/09whats-new-in-mongoose-3-8-9">What's New in Mongoose 3.8.9</a></li><li class="right-bar-li"><a href="/2014/04/25a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-ii-aggregation-out">A NodeJS Perspective on What's New in MongoDB 2.6, Part II: Aggregation $out</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">The 80/20 Guide to Writing AngularJS Directives </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 23, 2013</span></div></div></div><div class="post-body-text-container"><p>AngularJS is blowing up right now, and with good reason. There&#39;s nothing more satisfying than using AngularJS to turn 1,000 messy lines of Backbone.js and jQuery spaghetti code into a trivial 10 lines. To put it in a broader context, you can think of AngularJS&#39; place in the world this way: AngularJS is to jQuery as C++11 is to x86 Assembly. However, your quest to capture all the wonderful benefits of AngularJS may be hindered because the documentation is a bit difficult to wrap your mind around. In particular, many readers have told me that the documentation for directives is pretty intimidating, and a lot of experienced users still don&#39;t quite grok how to use them properly.</p>
 <p>First of all, let&#39;s take a moment to recognize that you&#39;re almost certainly not the only one confused.  Even I sometimes have trouble distinguishing between compile and link, or figuring out how the hell <em>ngTransclude</em> works- and I&#39;ve been working with AngularJS since version 0.9.4 in late 2010. You&#39;ll find that AngularJS directives roughly follow the <a href="http://en.wikipedia.org/wiki/Pareto_distribution">Pareto Distribution</a> - 80% of the directives that you want to build will only use 20% of the features and design patterns that are available. In other words, don&#39;t worry too much about understanding every little detail of directives. Think about git- how many programmers truly understand all the internals of interactive rebasing as opposed to simply doing pull and push to Github?</p>
 <p>For most of you, the reason that you&#39;re writing directives is probably pretty straightforward, such as to integrate with existing Bootstrap modules and jQuery extensions, or to DRY up your UI. In this post, I&#39;ll lay out the basic idea behind AngularJS directives, demonstrate what they do with roughly corresponding jQuery code, and provide you with enough knowledge to develop some pretty sophisticated directives.</p>
 <h2 id="your-first-directive-setting-a-background-image">Your First Directive: Setting a Background Image</h2>
@@ -11,72 +11,81 @@
   background-position : &#39;center center&#39;;
 }
 </code></pre><p>Now let&#39;s say we wanted to automate this process, so that our designers don&#39;t have to write a separate CSS class for each image. We&#39;ll do this by adding an attribute called &#39;cover-background-image&#39; to some divs so our Javascript knows which image to set as the background. We can do this with jQuery or AngularJS, but lets do jQuery first. The general idea looks like this <a href="http://jsfiddle.net/vkarpov15/BQvbg/1/">(see it in action on JSFiddle)</a>:</p>
-<pre><code>$(&#39;div[cover-background-image]&#39;).each(function(i, el) {
-  $(element).css({
-    &#39;background-image&#39;: &#39;url()&#39;,
-    &#39;background-size&#39; : &#39;cover&#39;,
-    &#39;background-repeat&#39; : &#39;no-repeat&#39;,
-    &#39;background-position&#39; : &#39;center center&#39;
+<pre><code>$(&#39;div[cover-background-image]&#39;).
+  each(function(i, el) {
+    $(element).css({
+      &#39;background-image&#39;: &#39;url()&#39;,
+      &#39;background-size&#39;: &#39;cover&#39;,
+      &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+      &#39;background-position&#39;: &#39;center center&#39;
+    });
   });
-});
 </code></pre><p>The general process will be the same with a directive - AngularJS calls your custom directive code for each element with a given attribute. Below is the equivalent directive in AngularJS, and on <a href="http://jsfiddle.net/vkarpov15/NE9cu/">JSFiddle</a>:</p>
-<pre><code>angular.
-  module(&#39;myApp&#39;, []).
-  directive(&#39;myBackgroundImage&#39;, function () {
-    return function (scope, element, attrs) {
-      element.css({
-        &#39;background-image&#39;: &#39;url(&#39; + attrs.myBackgroundImage + &#39;)&#39;,
-        &#39;background-size&#39;: &#39;cover&#39;,
-        &#39;background-repeat&#39;: &#39;no-repeat&#39;,
-        &#39;background-position&#39;: &#39;center center&#39;
-      });
-    };
-  });
+<pre><code>var m = angular.module(&#39;myApp&#39;, []).
+m.directive(&#39;myBackgroundImage&#39;, function () {
+  return function (scope, element, attrs) {
+    var url = &#39;url(&#39; +
+      attrs.myBackgroundImage + &#39;)&#39;;
+    var pos = &#39;center center&#39;;
+    element.css({
+      &#39;background-image&#39;: url,
+      &#39;background-size&#39;: &#39;cover&#39;,
+      &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+      &#39;background-position&#39;: pos
+    });
+  };
+});
 </code></pre><h2 id="making-the-directive-dynamic">Making The Directive Dynamic</h2>
 <p>At this point some of you might be thinking, &quot;Hey, the only difference is that AngularJS requires more code!&quot; This is true for a relatively simple example like the one above. However, the real advantage to the AngularJS approach comes when you introduce two-way data-binding and the power of AngularJS scopes. Lets say that we want to introduce some carousel behavior to this image (switching the image every 5 seconds and allowing the user to navigate between images). In jQuery, supporting multiple carousels on the same page turns out to be a huge pain, because we have no easy way for mapping which images and which buttons belong to which carousel. When you try it the hard way, things end up looking a little something like this <a href="http://jsfiddle.net/vkarpov15/DDnUt/">JSFiddle</a>:</p>
 <pre><code>$(document).ready(function () {
-  $(&#39;div[cover-background-image]&#39;).each(function (i, el) {
-    var ctr = -1;
-    var images = eval($(el).attr(&#39;cover-background-image&#39;));
-    var name = $(el).attr(&#39;carousel-name&#39;);
-    var nextImage = function() {
-      ctr = (ctr + 1) % images.length;
-      $(el).css({
-        &#39;background-image&#39;: &#39;url(&#39; + images[ctr] + &#39;)&#39;,
-        &#39;background-size&#39;: &#39;cover&#39;,
-        &#39;background-repeat&#39;: &#39;no-repeat&#39;,
-        &#39;background-position&#39;: &#39;center center&#39;
-      });
-    };
-    var previousImage = function() {
-      ctr = (ctr - 1);
-      if (ctr &amp;amp;lt; 0) {
-        ctr = images.length - 1;
-      }
-      $(el).css({
-        &#39;background-image&#39;: &#39;url(&#39; + images[ctr] + &#39;)&#39;,
-        &#39;background-size&#39;: &#39;cover&#39;,
-        &#39;background-repeat&#39;: &#39;no-repeat&#39;,
-        &#39;background-position&#39;: &#39;center center&#39;
-      });
-    };
-    $(&quot;div[carousel-next=&#39;&quot; + name + &quot;&#39;]&quot;).each(function (i, el) {
-      $(el).click(function() {
-        nextImage();
-      });
-    });
-    $(&quot;div[carousel-prev=&#39;&quot; + name + &quot;&#39;]&quot;).each(function (i, el) {
-      $(el).click(function() {
-        previousImage();
-      });
-    });
-    nextImage();
-    var nextImageTimeout = function() {
+  $(&#39;div[cover-background-image]&#39;).
+    each(function (i, el) {
+      var ctr = -1;
+      var images = eval(
+        $(el).attr(&#39;cover-background-image&#39;));
+      var name = $(el).attr(&#39;carousel-name&#39;);
+      var nextImage = function() {
+        ctr = (ctr + 1) % images.length;
+        var url = &#39;url(&#39; + images[ctr] + &#39;)&#39;;
+        $(el).css({
+          &#39;background-image&#39;: url,
+          &#39;background-size&#39;: &#39;cover&#39;,
+          &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+          &#39;background-position&#39;: &#39;center center&#39;
+        });
+      };
+      var previousImage = function() {
+        ctr = (ctr - 1);
+        if (ctr &amp;amp;lt; 0) {
+          ctr = images.length - 1;
+        }
+        var url = &#39;url(&#39; + images[ctr] + &#39;)&#39;;
+        $(el).css({
+          &#39;background-image&#39;: url,
+          &#39;background-size&#39;: &#39;cover&#39;,
+          &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+          &#39;background-position&#39;: &#39;center center&#39;
+        });
+      };
+      $(&quot;div[carousel-next=&#39;&quot; + name + &quot;&#39;]&quot;).
+        each(function (i, el) {
+          $(el).click(function() {
+            nextImage();
+          });
+        });
+      $(&quot;div[carousel-prev=&#39;&quot; + name + &quot;&#39;]&quot;).
+        each(function (i, el) {
+          $(el).click(function() {
+            previousImage();
+          });
+        });
       nextImage();
+      var nextImageTimeout = function() {
+        nextImage();
+        setTimeout(nextImageTimeout, 5 * 1000);
+      };
       setTimeout(nextImageTimeout, 5 * 1000);
-    };
-    setTimeout(nextImageTimeout, 5 * 1000);
-  });
+    });
 });
 </code></pre><p>As you can see, this is pretty quickly getting a bit more complex than we&#39;d like. More importantly, we&#39;ve needed to hard-code the <em>my-background-image</em> pseudo-directive with certain properties that will make our lives difficult later.</p>
 <p>First of all, we require the input of an array of images to be cycled. That may be fine for this specific application, but what if we want to re-use this code for a single image with no cycling? Then we&#39;ve got a timer that&#39;s doing nothing. Furthermore, putting an array variable in &#39;my-background-image&#39; requires that the variable be visible from the scope of the jQuery code. This leads to both headaches and lots of image arrays in the global scope. Finally, lets say that we want to add additional behaviors, such as swipe handling via <a href="http://eightmedia.github.io/hammer.js/">Hammer.js</a>. It becomes difficult to configure this behavior on a per-carousel basis - what if we have some carousels that should have swipe recognition and some that shouldn&#39;t?</p>
@@ -89,20 +98,21 @@
 module(&#39;myApp&#39;, []).
 directive(&#39;myBackgroundImage&#39;, function () {
   return function (scope, element, attrs) {
-    scope.$watch(attrs.myBackgroundImage, function(v) {
-      element.css({
-        &#39;background-image&#39;: &#39;url(&#39; + v + &#39;)&#39;,
-        &#39;background-size&#39;: &#39;cover&#39;,
-        &#39;background-repeat&#39;: &#39;no-repeat&#39;,
-        &#39;background-position&#39;: &#39;center center&#39;
+    scope.$watch(attrs.myBackgroundImage,
+      function(v) {
+        element.css({
+          &#39;background-image&#39;: &#39;url(&#39; + v + &#39;)&#39;,
+          &#39;background-size&#39;: &#39;cover&#39;,
+          &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+          &#39;background-position&#39;: &#39;center center&#39;
+        });
       });
-    });
   };
 });
 
 function CarouselController($scope, $timeout) {
   $scope.images = [];
-  $scope.image = &amp;quot;&amp;quot;
+  $scope.image = &quot;&quot;
   $scope.index = 0;
 
   $scope.setImages = function(images) {
@@ -112,12 +122,15 @@ function CarouselController($scope, $timeout) {
   };
 
   $scope.nextImage = function() {
-    $scope.index = ($scope.index + 1) % $scope.images.length;
+    $scope.index = ($scope.index + 1) %
+      $scope.images.length;
     $scope.image = $scope.images[$scope.index];
   };
 
   $scope.prevImage = function() {
-    $scope.index = ($scope.index - 1 &amp;amp;gt;= 0 ? $scope.index - 1 : $scope.images.length - 1);
+    $scope.index = ($scope.index - 1 &gt;= 0 ?
+      $scope.index - 1 :
+      $scope.images.length - 1);
     $scope.image = $scope.images[$scope.index];
   };
 
@@ -144,14 +157,16 @@ function CarouselController($scope, $timeout) {
   module(&#39;myApp&#39;, []).
   directive(&#39;myBackgroundImage&#39;, function () {
     return function (scope, element, attrs) {
-      scope.$watch(attrs.myBackgroundImage, function(v) {
-        element.css({
-          &#39;background-image&#39;: &#39;url(&#39; + v + &#39;)&#39;,
-          &#39;background-size&#39;: &#39;cover&#39;,
-          &#39;background-repeat&#39;: &#39;no-repeat&#39;,
-          &#39;background-position&#39;: &#39;center center&#39;
+      scope.$watch(attrs.myBackgroundImage,
+        function(v) {
+          var url = &#39;url(&#39; + v + &#39;)&#39;;
+          element.css({
+            &#39;background-image&#39;: url,
+            &#39;background-size&#39;: &#39;cover&#39;,
+            &#39;background-repeat&#39;: &#39;no-repeat&#39;,
+            &#39;background-position&#39;: &#39;center center&#39;
+          });
         });
-      });
     };
   }).directive(&#39;swipeLeft&#39;, function() {
     return function(scope, element, attrs) {
@@ -173,7 +188,9 @@ function CarouselController($scope, $timeout) {
     };
   });
 </code></pre><p>The calls to <code>$eval</code> evaluate the <code>swipeRight</code> and <code>swipeLeft</code> attributes, which will typically be function calls. For example, in our <a href="http://jsfiddle.net/vkarpov15/5vajr/">little carousel JSFiddle</a>, these calls will look something like this:</p>
-<pre><code>&lt;div my-background-image=&#39;image&#39; swipe-left=&#39;nextImage()&#39; swipe-right=&#39;prevImage()&#39;&gt;
+<pre><code>&lt;div  my-background-image=&#39;image&#39;
+      swipe-left=&#39;nextImage()&#39;
+      swipe-right=&#39;prevImage()&#39;&gt;
 &lt;/div&gt;
 </code></pre><p>Notice that in the second image, we only allow the user to swipe left, whereas on the first one we allow swiping both left and right. Our <code>swipeLeft</code> and <code>swipeRight</code> directives are completely decoupled from the actual carousel implementation - we can use them anywhere to handle any sort of action we want to take when the user swipes on any element.</p>
 <p>In contrast, this is a far cry from the mostly equivalent jQuery implementation (<a href="http://jsfiddle.net/vkarpov15/GWZj3/">view on JSFiddle</a>), where we declare our Hammer.js handlers in jQuery (lines 46 and 47) and have no way of reusing them from HTML. We also have no easy way of allowing only &quot;swipe left&quot; without having to deal with some sort of configuration object. One potential alternative is to expose swipe left and swipe right as separate attributes (similar to our approach with the <code>cover-background-image</code> function), but then we run into a brick wall with scoping - we don&#39;t have an easy way to allow these event handlers to access the <code>previousImage</code> and <code>nextImage</code> functions within the <code>cover-background-image</code> code.</p>
@@ -188,8 +205,10 @@ function CarouselController($scope, $timeout) {
     return function(scope, element, attrs) {
       $(document).ready(function() {
         var init = scope.$eval(attrs.ngModel);
-        var min = scope.$eval(attrs.bootstrapSliderMin);
-        var max = scope.$eval(attrs.bootstrapSliderMax);
+        var min = scope.$eval(
+          attrs.bootstrapSliderMin);
+        var max = scope.$eval(
+          attrs.bootstrapSliderMax);
         $(element[0]).slider({
           value : init,
           min : min,
@@ -203,11 +222,12 @@ function CarouselController($scope, $timeout) {
         });
 
         // Update model to reflect view
-        $(element[0]).slider().on(&#39;slide&#39;, function(ev) {
-          scope.$apply(function() {
-            scope[attrs.ngModel] = ev.value;
+        $(element[0]).slider().on(&#39;slide&#39;,
+          function(ev) {
+            scope.$apply(function() {
+              scope[attrs.ngModel] = ev.value;
+            });
           });
-        });
       });
     };
   });
@@ -226,7 +246,25 @@ function CarouselController($scope, $timeout) {
 <li>We can wire these behaviors together in any way we want.</li>
 </ol>
 <p>So what if we&#39;re going to reuse our carousel over and over again in the same form, and we&#39;d like to keep our UI nice and DRY? Easy! We just need to create a single new directive that wires together all the previous directives into a single carousel directive. If you read the <a href="http://docs.angularjs.org/guide/directive">AngularJS directives documentation</a>, this type of directive is loosely referred to as a component. The term component is not particularly well defined in the context of directives, but you can generally take it to mean a directive which has its own controller and thus can find its own data. A component has the general implication that it needs little to no external data to do its job properly, essentially something that you can put into a page and just let it run in isolation (view on <a href="http://jsfiddle.net/vkarpov15/NGDzm/">JSFiddle</a>).</p>
-<pre><code>directive(&#39;carousel&#39;, function() {
+<pre><code>var template =
+  &quot;&lt;div my-background-image=&#39;images[index]&#39;&quot; +
+  &quot;     class=&#39;tall&#39;&quot; +
+  &quot;     swipe-left=&#39;nextImage()&#39;&gt;&lt;/div&gt;&quot; +
+  &quot;&lt;div ng-click=&#39;prevImage()&#39; class=&#39;pointer&#39;&gt;&quot; +
+  &quot;  Prev&quot; +
+  &quot;&lt;/div&gt;&quot; +
+  &quot;&lt;div ng-click=&#39;nextImage()&#39; class=&#39;pointer&#39;&gt;&quot; +
+  &quot;  Next&quot; +
+  &quot;&lt;/div&gt;&quot; +
+  &quot;&lt;div id=&#39;mySlider&#39;&gt;&quot; +
+  &quot;  &lt;div bootstrap-slider=&#39;true&#39;&quot; +
+  &quot;       ng-model=&#39;index&#39;&quot; +
+  &quot;       bootstrap-slider-min=&#39;0&#39;&quot; +
+  &quot;       bootstrap-slider-max=&#39;images.length - 1&#39;&gt;&quot; +
+  &quot;  &lt;/div&gt;&quot; +
+  &quot;&lt;/div&gt;&quot;;
+
+directive(&#39;carousel&#39;, function() {
  return {
    restrict : &#39;E&#39;,
    require : &#39;ngImages&#39;,
@@ -234,12 +272,7 @@ function CarouselController($scope, $timeout) {
      images : &#39;=ngImages&#39;
    },
    controller : CarouselController,
-   template : &quot;&lt;div my-background-image=&#39;images[index]&#39; class=&#39;tall&#39; swipe-left=&#39;nextImage()&#39;&gt;&lt;/div&gt;&quot; +
-              &quot;&lt;div ng-click=&#39;prevImage()&#39; class=&#39;pointer&#39;&gt;Prev&lt;/div&gt;&quot; +
-              &quot;&lt;div ng-click=&#39;nextImage()&#39; class=&#39;pointer&#39;&gt;Next&lt;/div&gt;&quot; +
-              &quot;&lt;div id=&#39;mySlider&#39;&gt;&quot; +
-              &quot; &lt;div bootstrap-slider=&#39;true&#39; ng-model=&#39;index&#39; bootstrap-slider-min=&#39;0&#39; bootstrap-slider-max=&#39;images.length - 1&#39;&gt;&lt;/div&gt;&quot; +
-              &quot;&lt;/div&gt;&quot;,
+   template : template,
    link : function(scope, element, attrs) {}
  };
 });
@@ -261,11 +294,23 @@ link : function(scope, element, attrs) {}
 <p>Finally, note that in the fiddle, we replaced one carousel with the carousel directive:</p>
 <pre><code>&lt;carousel ng-images=&#39;[&quot;http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif&quot;, &quot;http://fc03.deviantart.net/fs28/i/2009/250/7/4/MUSASHI_MIYAMOTO_by_BARCYD.jpg&quot;, &quot;http://fc08.deviantart.net/fs71/f/2012/066/3/5/goku_happy_by_kzo-d4s20sy.png&quot;;]&#39; /&gt;
 </code></pre><p>while leaving the other one in the old form:</p>
-<pre><code>&lt;div ng-controller=&quot;CarouselController&quot; ng-init=&#39;setImages([&quot;http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif&quot;,&quot;http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png&quot;,&quot;http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg&quot;])&#39;&gt;
-  &lt;div my-background-image=&#39;images[index]&#39; class=&quot;wide&quot; swipe-left=&quot;nextImage()&quot; swipe-right=&quot;prevImage()&quot;&gt;&lt;/div&gt;
-  &lt;div ng-click=&quot;prevImage()&quot; class=&quot;pointer&quot;&gt;Prev&lt;/div&gt;
-  &lt;div ng-click=&quot;nextImage()&quot; class=&quot;pointer&quot;&gt;Next&lt;/div&gt;
-  &lt;div ng-click=&quot;images.push(&#39;http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg&#39;);&quot; class=&quot;pointer&quot;&gt;&lt;em&gt;Add Image&lt;/em&gt;&lt;/div&gt;
+<pre><code>&lt;div  ng-controller=&quot;CarouselController&quot;
+      ng-init=&#39;setImages([&quot;http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif&quot;,&quot;http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png&quot;,&quot;http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg&quot;])&#39;&gt;
+  &lt;div  my-background-image=&#39;images[index]&#39;
+        class=&quot;wide&quot;
+        swipe-left=&quot;nextImage()&quot;
+        swipe-right=&quot;prevImage()&quot;&gt;
+  &lt;/div&gt;
+  &lt;div ng-click=&quot;prevImage()&quot; class=&quot;pointer&quot;&gt;
+    Prev
+  &lt;/div&gt;
+  &lt;div ng-click=&quot;nextImage()&quot; class=&quot;pointer&quot;&gt;
+    Next
+  &lt;/div&gt;
+  &lt;div  ng-click=&quot;images.push(&#39;http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg&#39;);&quot;
+        class=&quot;pointer&quot;&gt;
+    &lt;em&gt;Add Image&lt;/em&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </code></pre><p>This illustrates the tradeoff between flexibility and convenience when defining a universal <code>&lt;carousel&gt;</code> directive.  In many cases, that initial work we did to combine the definitions of slider, background image, and swipe directives into a single <code>&lt;carousel&gt;</code> template will save an enormous amount of hassle later.  However, it&#39;s important to recognize the weakness of using a template for your directive- there is no good way to override that template.  Once you define the template, anything using that <code>&lt;carousel&gt;</code> directive will look and behave exactly like the original definition unless you change the template itself.  Personally, I like to separate directives as much as possible for the sake of flexibility, but every project is different so do whatever works for your application.</p>
 <h2 id="special-bonus-rule-1-directives-are-already-hard-keep-them-simple-don-t-ping-the-server-or-reformat-underlying-data-">Special Bonus Rule #1: Directives are already hard, keep them simple. Don&#39;t ping the server or reformat underlying data.</h2>
