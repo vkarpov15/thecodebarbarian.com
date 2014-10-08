@@ -21,31 +21,34 @@ At the highest level, a directive allows you to wire your custom UI components i
 Now let's say we wanted to automate this process, so that our designers don't have to write a separate CSS class for each image. We'll do this by adding an attribute called 'cover-background-image' to some divs so our Javascript knows which image to set as the background. We can do this with jQuery or AngularJS, but lets do jQuery first. The general idea looks like this [(see it in action on JSFiddle)](http://jsfiddle.net/vkarpov15/BQvbg/1/):
 
 ```
-$('div[cover-background-image]').each(function(i, el) {
-  $(element).css({
-    'background-image': 'url()',
-    'background-size' : 'cover',
-    'background-repeat' : 'no-repeat',
-    'background-position' : 'center center'
+$('div[cover-background-image]').
+  each(function(i, el) {
+    $(element).css({
+      'background-image': 'url()',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    });
   });
-});
 ```
 
 The general process will be the same with a directive - AngularJS calls your custom directive code for each element with a given attribute. Below is the equivalent directive in AngularJS, and on [JSFiddle](http://jsfiddle.net/vkarpov15/NE9cu/):
 
 ```
-angular.
-  module('myApp', []).
-  directive('myBackgroundImage', function () {
-    return function (scope, element, attrs) {
-      element.css({
-        'background-image': 'url(' + attrs.myBackgroundImage + ')',
-        'background-size': 'cover',
-        'background-repeat': 'no-repeat',
-        'background-position': 'center center'
-      });
-    };
-  });
+var m = angular.module('myApp', []).
+m.directive('myBackgroundImage', function () {
+  return function (scope, element, attrs) {
+    var url = 'url(' +
+      attrs.myBackgroundImage + ')';
+    var pos = 'center center';
+    element.css({
+      'background-image': url,
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': pos
+    });
+  };
+});
 ```
 
 Making The Directive Dynamic
@@ -55,48 +58,54 @@ At this point some of you might be thinking, "Hey, the only difference is that A
 
 ```
 $(document).ready(function () {
-  $('div[cover-background-image]').each(function (i, el) {
-    var ctr = -1;
-    var images = eval($(el).attr('cover-background-image'));
-    var name = $(el).attr('carousel-name');
-    var nextImage = function() {
-      ctr = (ctr + 1) % images.length;
-      $(el).css({
-        'background-image': 'url(' + images[ctr] + ')',
-        'background-size': 'cover',
-        'background-repeat': 'no-repeat',
-        'background-position': 'center center'
-      });
-    };
-    var previousImage = function() {
-      ctr = (ctr - 1);
-      if (ctr &amp;lt; 0) {
-        ctr = images.length - 1;
-      }
-      $(el).css({
-        'background-image': 'url(' + images[ctr] + ')',
-        'background-size': 'cover',
-        'background-repeat': 'no-repeat',
-        'background-position': 'center center'
-      });
-    };
-    $("div[carousel-next='" + name + "']").each(function (i, el) {
-      $(el).click(function() {
-        nextImage();
-      });
-    });
-    $("div[carousel-prev='" + name + "']").each(function (i, el) {
-      $(el).click(function() {
-        previousImage();
-      });
-    });
-    nextImage();
-    var nextImageTimeout = function() {
+  $('div[cover-background-image]').
+    each(function (i, el) {
+      var ctr = -1;
+      var images = eval(
+        $(el).attr('cover-background-image'));
+      var name = $(el).attr('carousel-name');
+      var nextImage = function() {
+        ctr = (ctr + 1) % images.length;
+        var url = 'url(' + images[ctr] + ')';
+        $(el).css({
+          'background-image': url,
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'background-position': 'center center'
+        });
+      };
+      var previousImage = function() {
+        ctr = (ctr - 1);
+        if (ctr &amp;lt; 0) {
+          ctr = images.length - 1;
+        }
+        var url = 'url(' + images[ctr] + ')';
+        $(el).css({
+          'background-image': url,
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'background-position': 'center center'
+        });
+      };
+      $("div[carousel-next='" + name + "']").
+        each(function (i, el) {
+          $(el).click(function() {
+            nextImage();
+          });
+        });
+      $("div[carousel-prev='" + name + "']").
+        each(function (i, el) {
+          $(el).click(function() {
+            previousImage();
+          });
+        });
       nextImage();
+      var nextImageTimeout = function() {
+        nextImage();
+        setTimeout(nextImageTimeout, 5 * 1000);
+      };
       setTimeout(nextImageTimeout, 5 * 1000);
-    };
-    setTimeout(nextImageTimeout, 5 * 1000);
-  });
+    });
 });
 ```
 
@@ -120,20 +129,21 @@ angular.
 module('myApp', []).
 directive('myBackgroundImage', function () {
   return function (scope, element, attrs) {
-    scope.$watch(attrs.myBackgroundImage, function(v) {
-      element.css({
-        'background-image': 'url(' + v + ')',
-        'background-size': 'cover',
-        'background-repeat': 'no-repeat',
-        'background-position': 'center center'
+    scope.$watch(attrs.myBackgroundImage,
+      function(v) {
+        element.css({
+          'background-image': 'url(' + v + ')',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'background-position': 'center center'
+        });
       });
-    });
   };
 });
  
 function CarouselController($scope, $timeout) {
   $scope.images = [];
-  $scope.image = &quot;&quot;
+  $scope.image = ""
   $scope.index = 0;
  
   $scope.setImages = function(images) {
@@ -143,12 +153,15 @@ function CarouselController($scope, $timeout) {
   };
  
   $scope.nextImage = function() {
-    $scope.index = ($scope.index + 1) % $scope.images.length;
+    $scope.index = ($scope.index + 1) %
+      $scope.images.length;
     $scope.image = $scope.images[$scope.index];
   };
  
   $scope.prevImage = function() {
-    $scope.index = ($scope.index - 1 &amp;gt;= 0 ? $scope.index - 1 : $scope.images.length - 1);
+    $scope.index = ($scope.index - 1 >= 0 ?
+      $scope.index - 1 :
+      $scope.images.length - 1);
     $scope.image = $scope.images[$scope.index];
   };
  
@@ -186,14 +199,16 @@ angular.
   module('myApp', []).
   directive('myBackgroundImage', function () {
     return function (scope, element, attrs) {
-      scope.$watch(attrs.myBackgroundImage, function(v) {
-        element.css({
-          'background-image': 'url(' + v + ')',
-          'background-size': 'cover',
-          'background-repeat': 'no-repeat',
-          'background-position': 'center center'
+      scope.$watch(attrs.myBackgroundImage,
+        function(v) {
+          var url = 'url(' + v + ')';
+          element.css({
+            'background-image': url,
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'background-position': 'center center'
+          });
         });
-      });
     };
   }).directive('swipeLeft', function() {
     return function(scope, element, attrs) {
@@ -219,7 +234,9 @@ angular.
 The calls to `$eval` evaluate the `swipeRight` and `swipeLeft` attributes, which will typically be function calls. For example, in our [little carousel JSFiddle](http://jsfiddle.net/vkarpov15/5vajr/), these calls will look something like this:
 
 ```
-<div my-background-image='image' swipe-left='nextImage()' swipe-right='prevImage()'>
+<div  my-background-image='image'
+      swipe-left='nextImage()'
+      swipe-right='prevImage()'>
 </div>
 ```
 
@@ -245,8 +262,10 @@ angular.
     return function(scope, element, attrs) {
       $(document).ready(function() {
         var init = scope.$eval(attrs.ngModel);
-        var min = scope.$eval(attrs.bootstrapSliderMin);
-        var max = scope.$eval(attrs.bootstrapSliderMax);
+        var min = scope.$eval(
+          attrs.bootstrapSliderMin);
+        var max = scope.$eval(
+          attrs.bootstrapSliderMax);
         $(element[0]).slider({
           value : init,
           min : min,
@@ -260,11 +279,12 @@ angular.
         });
  
         // Update model to reflect view
-        $(element[0]).slider().on('slide', function(ev) {
-          scope.$apply(function() {
-            scope[attrs.ngModel] = ev.value;
+        $(element[0]).slider().on('slide',
+          function(ev) {
+            scope.$apply(function() {
+              scope[attrs.ngModel] = ev.value;
+            });
           });
-        });
       });
     };
   });
@@ -297,6 +317,24 @@ So far we've put together some very nice decoupled components that we can reuse 
 So what if we're going to reuse our carousel over and over again in the same form, and we'd like to keep our UI nice and DRY? Easy! We just need to create a single new directive that wires together all the previous directives into a single carousel directive. If you read the [AngularJS directives documentation](http://docs.angularjs.org/guide/directive), this type of directive is loosely referred to as a component. The term component is not particularly well defined in the context of directives, but you can generally take it to mean a directive which has its own controller and thus can find its own data. A component has the general implication that it needs little to no external data to do its job properly, essentially something that you can put into a page and just let it run in isolation (view on [JSFiddle](http://jsfiddle.net/vkarpov15/NGDzm/)).
 
 ```
+var template =
+  "<div my-background-image='images[index]'" +
+  "     class='tall'" +
+  "     swipe-left='nextImage()'></div>" +
+  "<div ng-click='prevImage()' class='pointer'>" +
+  "  Prev" +
+  "</div>" +
+  "<div ng-click='nextImage()' class='pointer'>" +
+  "  Next" +
+  "</div>" +
+  "<div id='mySlider'>" +
+  "  <div bootstrap-slider='true'" +
+  "       ng-model='index'" +
+  "       bootstrap-slider-min='0'" +
+  "       bootstrap-slider-max='images.length - 1'>" +
+  "  </div>" +
+  "</div>";
+
 directive('carousel', function() {
  return {
    restrict : 'E',
@@ -305,12 +343,7 @@ directive('carousel', function() {
      images : '=ngImages'
    },
    controller : CarouselController,
-   template : "<div my-background-image='images[index]' class='tall' swipe-left='nextImage()'></div>" +
-              "<div ng-click='prevImage()' class='pointer'>Prev</div>" +
-              "<div ng-click='nextImage()' class='pointer'>Next</div>" +
-              "<div id='mySlider'>" +
-              " <div bootstrap-slider='true' ng-model='index' bootstrap-slider-min='0' bootstrap-slider-max='images.length - 1'></div>" +
-              "</div>",
+   template : template,
    link : function(scope, element, attrs) {}
  };
 });
@@ -352,11 +385,23 @@ Finally, note that in the fiddle, we replaced one carousel with the carousel dir
 while leaving the other one in the old form:
 
 ```
-<div ng-controller="CarouselController" ng-init='setImages(["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif","http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png","http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg"])'>
-  <div my-background-image='images[index]' class="wide" swipe-left="nextImage()" swipe-right="prevImage()"></div>
-  <div ng-click="prevImage()" class="pointer">Prev</div>
-  <div ng-click="nextImage()" class="pointer">Next</div>
-  <div ng-click="images.push('http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg');" class="pointer"><em>Add Image</em></div>
+<div  ng-controller="CarouselController"
+      ng-init='setImages(["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif","http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png","http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg"])'>
+  <div  my-background-image='images[index]'
+        class="wide"
+        swipe-left="nextImage()"
+        swipe-right="prevImage()">
+  </div>
+  <div ng-click="prevImage()" class="pointer">
+    Prev
+  </div>
+  <div ng-click="nextImage()" class="pointer">
+    Next
+  </div>
+  <div  ng-click="images.push('http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg');"
+        class="pointer">
+    <em>Add Image</em>
+  </div>
 </div>
 ```
 
