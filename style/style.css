@@ -130,6 +130,21 @@ a.social {
 	margin-top:7px;
 }
 
+/* home page only styles */
+
+.hero-image {
+	width:100%;
+	height:200px;
+}
+
+.home-post-title {
+	text-align:center;
+}
+
+.home-preview {
+	background-color:#eee;
+}
+
 /* post body style */
 
 .post-body-text-container {
@@ -271,6 +286,9 @@ a.social {
 	font-size:16px;
 	position:fixed;
 	min-height:100%;
+	overflow:hidden;
+	top:0;
+	display:none;
 }
 
 .right-bar-content-slider {
