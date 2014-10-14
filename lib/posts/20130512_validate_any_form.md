@@ -41,38 +41,41 @@ The "A" in MEAN stands for "AngularJS," and the AngularJS frontend is our star p
 Below we will build a simple backend for our stocks list.  If you want to see what this looks like without sifting through all of my code, feel free to check out the git repo at https://github.com/vkarpov15/mean-stock-list-js and run it yourself.
 
 ```
-var StockSchema = new Mongoose.Schema(
-    { symbol : { type : String,
-                 required : true,
-                 validate : [
-                     function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
-                     'Invalid symbol, valid stocks are ' + VALID_SYMBOLS
-                 ]
-               },
-      price : {
-        price : {
-          type : Number,
-          required : true,
-          validate : [
-              function(v) { return v >= 0; },
-              'Price must be positive']
-        },
-        currency : {
-          type : String,
-          required : true,
-          validate : [
-              function(v) { return CURRENCIES.indexOf(v) != -1; },
-              "Invalid currency, valid currencies are " + CURRENCIES
-          ]
-      }
+var StockSchema = new Mongoose.Schema({
+  symbol : {
+    type : String,
+    required : true,
+    validate : [
+      function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
+      'Invalid symbol, valid stocks are ' + VALID_SYMBOLS
+    ]
+  },
+  price : {
+    price : {
+      type : Number,
+      required : true,
+      validate : [
+        function(v) { return v >= 0; },
+        'Price must be positive'
+      ]
     },
-    quantity : { type : Number,
-                 required : true,
-                 validate : [
-                     function(v) { return v >= 0; },
-                     'Quantity must be positive'
-                 ]
-               }
+    currency : {
+      type : String,
+      required : true,
+      validate : [
+        function(v) { return CURRENCIES.indexOf(v) != -1; },
+        "Invalid currency, valid currencies are " + CURRENCIES
+      ]
+    }
+  },
+  quantity : {
+    type : Number,
+    required : true,
+    validate : [
+      function(v) { return v >= 0; },
+      'Quantity must be positive'
+    ]
+  }
 });
  
 var StockListSchema = new Mongoose.Schema({
@@ -84,7 +87,10 @@ var StocksList = db.model('stockslists', StockListSchema);
 var stocksList = new StocksList();
  
 app.get('/stocks', function(req, res) {
-  res.render('list_view', { stocksList : stocksList, currencies : CURRENCIES });
+  res.render('list_view', {
+    stocksList : stocksList,
+    currencies : CURRENCIES
+  });
 });
  
 app.post('/stocks.json', function(req, res) {
@@ -115,24 +121,26 @@ function StocksListController($scope, $http, $window) {
   }
  
   $scope.save = function(form) {
-    $http.post('/stocks.json', { stock : $scope.newStock }).success(function(response) {
-      // Remove all error markers
-      for (var key in form) {
-        if (form[key].$error) {
-          form[key].$error.mongoose = null;
+    $http.
+      post('/stocks.json', { stock : $scope.newStock }).
+      success(function(response) {
+        // Remove all error markers
+        for (var key in form) {
+          if (form[key].$error) {
+            form[key].$error.mongoose = null;
+          }
         }
-      }
  
-      if (response.error) {
-        // We got some errors, put them into angular
-        for (key in response.error.errors) {
-          form[key].$error.mongoose = response.error.errors[key].type;
+        if (response.error) {
+          // We got some errors, put them into angular
+          for (key in response.error.errors) {
+            form[key].$error.mongoose = response.error.errors[key].type;
+          }
+        } else if (response.stocksList) {
+          $scope.stocksList = response.stocksList;
+          $scope.newStock = {};
         }
-      } else if (response.stocksList) {
-        $scope.stocksList = response.stocksList;
-        $scope.newStock = {};
-      }
-    });
+      });
   };
 }
 ```
