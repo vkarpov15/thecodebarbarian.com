@@ -5,19 +5,35 @@ block title
 
 block content
   div.container
-    div.col-lg-9
+    div.col-lg-12
+      - for post, i in posts 
+        - if (i === 0 || i === 1)
+          div.col-lg-6
+            div.row
+              div.col-lg-12.hero-image
+                img.hero-image(src="#{post.image || '/images/Barbarian_Head.png'}",
+                      style="width: 100%")
+              div.row
+                div.col-lg-12
+                  h1
+                    a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+                      | #{post.title}
+                  div.title-byline-container
+                    div.credits
+                      | #{post.date.format('MMMM DD, YYYY')}
+                  div.hero-preview
+                    em !{post.preview}
+    div.col-lg-12
+      div.row
       - each post in posts
-        div.container-fluid
-          div.row
-            h2
+        - if (i != 0 || i != 1)
+          div.col-lg-4
+            img(src="#{post.image || '/images/Barbarian_Head.png'}",
+                    style="width: 100%")
+            h2.home-post-title
               a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
                 | #{post.title}
-            div.title-byline-container
-              div.credits
-                | #{post.date.format('MMMM DD, YYYY')}
-          div.row
-            div.col-lg-3
-              img(src="#{post.image || '/images/Barbarian_Head.png'}",
-                  style="width: 100%")
-            div.col-lg-9
-              em !{post.preview}
+            div.home-date
+              | #{post.date.format('MMMM DD, YYYY')}
+            div.row
+              em.home-preview !{post.preview}
