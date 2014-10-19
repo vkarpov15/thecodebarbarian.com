@@ -11,9 +11,7 @@ block content
           a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
             div.col-lg-8
               div.row
-                div.col-lg-12.hero-image
-                  img.hero-image(src="#{post.image || '/images/Barbarian_Head.png'}",
-                        style="width: 100%")
+                div.col-lg-12.hero-image(style="background-image:url('#{post.image || '/images/Barbarian_Head.png'}');")
                 div.row
                   div.col-lg-12
                     h1.hero-title
@@ -39,7 +37,7 @@ block content
 
     div.col-lg-12
       div.row
-        h2.home-grid-label Most Recent
+        p.home-grid-label Most Recent
       - for post, i in posts
         - if ( i < 7 && i != 0 )
           div.col-lg-4.home-post-grid-member
