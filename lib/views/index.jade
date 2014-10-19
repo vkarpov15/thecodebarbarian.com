@@ -5,35 +5,49 @@ block title
 
 block content
   div.container
-    div.col-lg-12
+    div.col-lg-12.hero-row
       - for post, i in posts 
-        - if (i === 0 || i === 1)
-          div.col-lg-6
-            div.row
-              div.col-lg-12.hero-image
-                img.hero-image(src="#{post.image || '/images/Barbarian_Head.png'}",
-                      style="width: 100%")
+        - if (i === 0)
+          a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+            div.col-lg-8
               div.row
-                div.col-lg-12
-                  h1
-                    a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+                div.col-lg-12.hero-image
+                  img.hero-image(src="#{post.image || '/images/Barbarian_Head.png'}",
+                        style="width: 100%")
+                div.row
+                  div.col-lg-12
+                    h1.hero-title
                       | #{post.title}
-                  div.title-byline-container
-                    div.credits
-                      | #{post.date.format('MMMM DD, YYYY')}
-                  div.hero-preview
-                    em !{post.preview}
+                    div.title-byline-container
+                      div.hero-credits
+                        | #{post.date.format('MMMM DD, YYYY')}
+          div.col-lg-4.home-popular
+            p.right-bar-label#home-popular-label Popular 
+                ul.list-unstyled
+                  li.right-bar-li
+                    a(href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/")
+                      | Introduction to the MEAN Stack, Part One: Setting Up Your Tools
+                  li.right-bar-li
+                    a(href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/")
+                      | The 80/20 Guide to Writing AngularJS Directives
+                  li.right-bar-li
+                    a(href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/")
+                      | Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List
+                  li.right-bar-li
+                    a(href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/")
+                      | How to Easily Validate Any Form Ever Using AngularJS
+
     div.col-lg-12
       div.row
-      - each post in posts
-        - if (i != 0 || i != 1)
-          div.col-lg-4
-            img(src="#{post.image || '/images/Barbarian_Head.png'}",
-                    style="width: 100%")
-            h2.home-post-title
-              a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+        h2.home-grid-label Most Recent
+      - for post, i in posts
+        - if ( i < 7 && i != 0 )
+          div.col-lg-4.home-post-grid-member
+            a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+              div.home-post-image(style="background-image:url('#{post.image || '/images/Barbarian_Head.png'}');")
+              h3.home-post-title
                 | #{post.title}
-            div.home-date
-              | #{post.date.format('MMMM DD, YYYY')}
-            div.row
-              em.home-preview !{post.preview}
+              div.home-date
+                | #{post.date.format('MMMM DD, YYYY')}
+              div.home-preview
+                em !{post.preview}

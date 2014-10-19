@@ -44,6 +44,10 @@ img {
 	height:auto;
 }
 
+a:hover {
+	text-decoration:none;
+}
+
 
 .social-links {
 	background-color:#637394;
@@ -132,18 +136,96 @@ a.social {
 
 /* home page only styles */
 
+.hero-row {
+	margin-bottom:50px;
+}
+
 .hero-image {
 	width:100%;
-	height:200px;
+	height:300px;
+}
+
+.home-grid-label {
+	text-align:center;
+	color:#637394;
+}
+
+.home-post-grid-member {
+	max-height:400px;
+	overflow:hidden;
+	margin-bottom:40px;
+	-webkit-transition:all .2s ease-in-out;
+}
+
+.home-post-grid-member a {
+	color:#333;
+}
+
+.hero-row h1 {
+	color:#637394;;
+}
+
+.home-post-grid-member:hover {
+	-webkit-transform:scale(1.05);
+	-webkit-transition:all .2s ease-in-out;
 }
 
 .home-post-title {
 	text-align:center;
+	font-family:'merriweather', Georgia, serif;
+	font-weight:400;
+	margin: 0;
+	padding-bottom:0;
+}
+
+.home-date {
+	text-align:center;
+	font-family:"source Sans pro", Helvetica, Arial, sans-serif;
+	text-transform:uppercase;
+	color:#999;
 }
 
 .home-preview {
-	background-color:#eee;
+	text-align:center;
+	font-family:'merriweather', Georgia, serif;
+	font-size:16px;
+	line-height:1.3em;
+	padding:0px 20px;
 }
+
+.hero-title {
+	font-weight: 400;
+	padding: 0px 30px;
+	text-align: center;
+	font-family:'merriweather', Georgia, serif;
+	line-height:1.4em;
+	margin-bottom:0px;
+}
+
+.hero-credits {
+	text-align:center;
+	font-family:"source Sans pro", Helvetica, Arial, sans-serif;
+	text-transform:uppercase;
+	color:#999;
+}
+
+#home-popular-label {
+	margin-bottom:10px;
+	font-weight:400;
+}
+
+.home-post-image {
+	width:100%;
+	height:200px;
+	background-origin:center center;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.home-preview, .home-date, .home-post-title {
+	background-color:#f7f7f7;
+}
+
 
 /* post body style */
 
