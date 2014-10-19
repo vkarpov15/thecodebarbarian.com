@@ -27,38 +27,41 @@
 <p>So Rails isn&#39;t quite perfect because it fails to address Pain Point #3. Is there something out there that can successfully address all three Pain Points?  Yes, and as you&#39;ve probably guessed already, this is where the MEAN stack in general and AngularJS in particular come into the fray.</p>
 <p>The &quot;A&quot; in MEAN stands for &quot;AngularJS,&quot; and the AngularJS frontend is our star player when it comes to displaying validation results.  To illustrate this, let&#39;s walk through an example.  Say that we are building a page where a user can input a list of stocks they bought, how many shares they bought, and at what price they bought them.  We have a form allowing the user to input a stock symbol, quantity, price, and currency, and below that we have a list of the stocks the user has already entered.  In this situation, there are several reasons to require form validation, such as making sure the stock symbols entered actually exist.  But we also want to make sure that this validation happens without reloading the page.  In addition to the usual reasons why reloads are bad, chances are this user is will be playing around with portfolio data dynamically and doesn&#39;t want to sit and wait for a refresh every time.</p>
 <p>Below we will build a simple backend for our stocks list.  If you want to see what this looks like without sifting through all of my code, feel free to check out the git repo at <a href="https://github.com/vkarpov15/mean-stock-list-js">https://github.com/vkarpov15/mean-stock-list-js</a> and run it yourself.</p>
-<pre><code>var StockSchema = new Mongoose.Schema(
-    { symbol : { type : String,
-                 required : true,
-                 validate : [
-                     function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
-                     &#39;Invalid symbol, valid stocks are &#39; + VALID_SYMBOLS
-                 ]
-               },
-      price : {
-        price : {
-          type : Number,
-          required : true,
-          validate : [
-              function(v) { return v &gt;= 0; },
-              &#39;Price must be positive&#39;]
-        },
-        currency : {
-          type : String,
-          required : true,
-          validate : [
-              function(v) { return CURRENCIES.indexOf(v) != -1; },
-              &quot;Invalid currency, valid currencies are &quot; + CURRENCIES
-          ]
-      }
+<pre><code>var StockSchema = new Mongoose.Schema({
+  symbol : {
+    type : String,
+    required : true,
+    validate : [
+      function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
+      &#39;Invalid symbol, valid stocks are &#39; + VALID_SYMBOLS
+    ]
+  },
+  price : {
+    price : {
+      type : Number,
+      required : true,
+      validate : [
+        function(v) { return v &gt;= 0; },
+        &#39;Price must be positive&#39;
+      ]
     },
-    quantity : { type : Number,
-                 required : true,
-                 validate : [
-                     function(v) { return v &gt;= 0; },
-                     &#39;Quantity must be positive&#39;
-                 ]
-               }
+    currency : {
+      type : String,
+      required : true,
+      validate : [
+        function(v) { return CURRENCIES.indexOf(v) != -1; },
+        &quot;Invalid currency, valid currencies are &quot; + CURRENCIES
+      ]
+    }
+  },
+  quantity : {
+    type : Number,
+    required : true,
+    validate : [
+      function(v) { return v &gt;= 0; },
+      &#39;Quantity must be positive&#39;
+    ]
+  }
 });
 
 var StockListSchema = new Mongoose.Schema({
@@ -70,7 +73,10 @@ var StocksList = db.model(&#39;stockslists&#39;, StockListSchema);
 var stocksList = new StocksList();
 
 app.get(&#39;/stocks&#39;, function(req, res) {
-  res.render(&#39;list_view&#39;, { stocksList : stocksList, currencies : CURRENCIES });
+  res.render(&#39;list_view&#39;, {
+    stocksList : stocksList,
+    currencies : CURRENCIES
+  });
 });
 
 app.post(&#39;/stocks.json&#39;, function(req, res) {
@@ -97,24 +103,26 @@ app.post(&#39;/stocks.json&#39;, function(req, res) {
   }
 
   $scope.save = function(form) {
-    $http.post(&#39;/stocks.json&#39;, { stock : $scope.newStock }).success(function(response) {
-      // Remove all error markers
-      for (var key in form) {
-        if (form[key].$error) {
-          form[key].$error.mongoose = null;
+    $http.
+      post(&#39;/stocks.json&#39;, { stock : $scope.newStock }).
+      success(function(response) {
+        // Remove all error markers
+        for (var key in form) {
+          if (form[key].$error) {
+            form[key].$error.mongoose = null;
+          }
         }
-      }
 
-      if (response.error) {
-        // We got some errors, put them into angular
-        for (key in response.error.errors) {
-          form[key].$error.mongoose = response.error.errors[key].type;
+        if (response.error) {
+          // We got some errors, put them into angular
+          for (key in response.error.errors) {
+            form[key].$error.mongoose = response.error.errors[key].type;
+          }
+        } else if (response.stocksList) {
+          $scope.stocksList = response.stocksList;
+          $scope.newStock = {};
         }
-      } else if (response.stocksList) {
-        $scope.stocksList = response.stocksList;
-        $scope.newStock = {};
-      }
-    });
+      });
   };
 }
 </code></pre><p>And finally our view, in <a href="http://jade-lang.com/">Jade</a>:</p>
