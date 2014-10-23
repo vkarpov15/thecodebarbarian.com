@@ -6,34 +6,32 @@ block title
 block content
   div.container
     div.col-lg-12.hero-row
-      - for post, i in posts 
-        - if (i === 0)
-          a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
-            div.col-lg-8
-              div.row
-                div.col-lg-12.hero-image(style="background-image:url('#{post.image || '/images/Barbarian_Head.png'}');")
-                div.row
-                  div.col-lg-12
-                    h1.hero-title
-                      | #{post.title}
-                    div.title-byline-container
-                      div.hero-credits
-                        | #{post.date.format('MMMM DD, YYYY')}
-          div.col-lg-4.home-popular
-            p.right-bar-label#home-popular-label Popular 
-                ul.list-unstyled
-                  li.right-bar-li
-                    a(href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/")
-                      | Introduction to the MEAN Stack, Part One: Setting Up Your Tools
-                  li.right-bar-li
-                    a(href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/")
-                      | The 80/20 Guide to Writing AngularJS Directives
-                  li.right-bar-li
-                    a(href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/")
-                      | Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List
-                  li.right-bar-li
-                    a(href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/")
-                      | How to Easily Validate Any Form Ever Using AngularJS
+      a(href="#{posts[0].dest.directory.substr('./bin'.length) + '/' + posts[0].dest.name}")
+        div.col-lg-8
+          div.row
+            div.col-lg-12.hero-image(style="background-image:url('#{posts[0].image || '/images/Barbarian_Head.png'}');")
+            div.row
+              div.col-lg-12
+                h1.hero-title
+                  | #{posts[0].title}
+              div.title-byline-container
+                div.hero-credits
+                  | #{posts[0].date.format('MMMM DD, YYYY')}
+        div.col-lg-4.home-popular
+          p.right-bar-label#home-popular-label Popular 
+            ul.list-unstyled
+              li.right-bar-li
+                a(href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/")
+                  | Introduction to the MEAN Stack, Part One: Setting Up Your Tools
+              li.right-bar-li
+                a(href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/")
+                  | The 80/20 Guide to Writing AngularJS Directives
+              li.right-bar-li
+                a(href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/")
+                  | Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List
+              li.right-bar-li
+                a(href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/")
+                  | How to Easily Validate Any Form Ever Using AngularJS
 
     div.col-lg-12
       div.row
