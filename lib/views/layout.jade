@@ -64,18 +64,19 @@ html
               a(href='#') TCB Facebook
 
     div.container-fluid
-      div.col-lg-3.col-lg-offset-9.right-bar.hidden-md.hidden-sm.hidden-xs
-        .right-bar-content-slider.pull-right
-          .row.search-container
-              .col-lg-12
-                .form-group
-                label Search
-                form(onsubmit="window.location.href = 'http://blekko.com/ws/?q=' + encodeURIComponent(document.getElementById('searchQ').value) +  ' /vkarpov15/thecodebarbarian'; return false;",)
-                  .input-group
-                    input.form-control#searchQ(type="text")
-                    .input-group-addon.search-button
-                      i.fa.fa-search
-          .row.recent-posts.right-bar-group
+      - if (!!post)
+        div.col-lg-3.col-lg-offset-9.right-bar#desktop-right-bar
+          .right-bar-content-slider.pull-right
+            .row.search-container
+                .col-lg-12
+                  .form-group
+                  label Search
+                  form(onsubmit="window.location.href = 'http://blekko.com/ws/?q=' + encodeURIComponent(document.getElementById('searchQ').value) +  ' /vkarpov15/thecodebarbarian'; return false;",)
+                    .input-group
+                      input.form-control#searchQ(type="text")
+                      .input-group-addon.search-button
+                        i.fa.fa-search
+            .row.recent-posts.right-bar-group
               .col-lg-12
                 p.right-bar-label All Time Most Popular 
                 ul.list-unstyled
@@ -91,7 +92,7 @@ html
                   li.right-bar-li
                     a(href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/")
                       | How to Easily Validate Any Form Ever Using AngularJS
-          .row.recent-posts.right-bar-group
+            .row.recent-posts.right-bar-group
               .col-lg-12
                 p.right-bar-label Recent Posts
                 ul.list-unstyled
