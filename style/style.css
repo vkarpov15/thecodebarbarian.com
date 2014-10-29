@@ -377,7 +377,8 @@ a.social {
 	position:fixed;
 	min-height:100%;
 	overflow:hidden;
-	top:0;
+	top: 0px;
+	margin-top: 115px;
 }
 
 .right-bar-content-slider {
