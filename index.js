@@ -130,7 +130,16 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
     var md = postsContent[p.src].toString();
     newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
     return newPost;
-  }).reverse();
+  });
+  posts.sort(function(a, b) {
+    if (a.date.isBefore(b.date)) {
+      return 1;
+    }
+    if (b.date.isBefore(a.date)) {
+      return -1;
+    }
+    return 0;
+  });
 
   var output = templates.index({
     posts: posts,
