@@ -96,7 +96,7 @@ html
               .col-lg-12
                 p.right-bar-label Recent Posts
                 ul.list-unstyled
-                  - each post in allPosts.reverse().slice(0, 4)
+                  - each post in allPosts.slice(0, 4)
                     li.right-bar-li
                       a(href="#{post.dest.directory.substr('./bin'.length)}#{post.dest.name}")
                         | #{post.title}

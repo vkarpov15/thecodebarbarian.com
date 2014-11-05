@@ -8,7 +8,7 @@ var Orchestrator = require('orchestrator');
 var orchestrator = new Orchestrator();
 
 var posts = require('./lib/posts');
-var postsConfig = posts;
+var postsConfig = _.sortBy(posts, function(post) { return -post.date.unix(); });
 
 var templates = {
   index: null,
@@ -142,7 +142,7 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
   });
 
   var output = templates.index({
-    posts: posts,
+    posts: posts.reverse(),
     allPosts: postsConfig
   });
   fs.writeFile('./bin/index', output, function(err) {
