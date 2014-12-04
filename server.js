@@ -52,6 +52,6 @@ require('http').createServer(function (request, response) {
       }
     });
   }).resume();
-}).listen(commander.port || 8080);
+}).listen(process.env.TCB_PORT || commander.port || 8080);
 
-console.log('Server listening on port ' + (commander.port || 8080));
+console.log('Server listening on port ' + (process.env.TCB_PORT || commander.port || 8080));
