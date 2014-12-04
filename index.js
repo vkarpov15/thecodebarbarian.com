@@ -133,10 +133,10 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
   });
   posts.sort(function(a, b) {
     if (a.date.isBefore(b.date)) {
-      return 1;
+      return -1;
     }
     if (b.date.isBefore(a.date)) {
-      return -1;
+      return 1;
     }
     return 0;
   });
