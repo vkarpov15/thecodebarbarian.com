@@ -443,3 +443,10 @@ a.social {
 		font-weight:300;
 	}
 }
+
+/* Hide right sidebar on mobile */
+@media (max-width: 1200px) {
+	#desktop-right-bar {
+		display: none;
+	}
+}
