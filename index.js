@@ -161,3 +161,12 @@ orchestrator.start(tasks, function(err) {
   }
   console.log("Done");
 });
+
+module.exports = function() {
+  orchestrator.start(tasks, function(err) {
+    if (err) {
+      return console.log("Errors occurred: " + err + '\n' + err.stack);
+    }
+    console.log("Done");
+  });
+};
