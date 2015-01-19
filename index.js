@@ -4,8 +4,7 @@ var markdown = require('marked');
 var jade = require('jade');
 var file = require('file');
 
-var Orchestrator = require('orchestrator');
-var orchestrator = new Orchestrator();
+var wagner = require('wagner-core');
 
 var posts = require('./lib/posts');
 var postsConfig = _.sortBy(posts, function(post) { return -post.date.unix(); });
@@ -25,29 +24,26 @@ var loadTemplate = function(path, key) {
         console.log('Error loading index template: ' + err);
         return callback(err);
       }
-      templates[key] = jade.compile(view, { filename: path });
-      callback(null);
+      var result = jade.compile(view, { filename: path });
+      callback(null, result);
     });
   };
 };
 
-orchestrator.add('loadIndex', loadTemplate('./lib/views/index.jade', 'index'));
-orchestrator.add('loadPostTemplate', loadTemplate('./lib/views/post.jade', 'post'));
-orchestrator.add('loadListTemplate', loadTemplate('./lib/views/list.jade', 'list'));
+wagner.task('index', loadTemplate('./lib/views/index.jade', 'index'));
+wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
+wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
-_.each(posts, function(post) {
-  var taskName = 'load-' + post.src;
-  orchestrator.add(taskName, function(callback) {
-    fs.readFile(post.src, function(err, md) {
-      if (err) {
-        console.log('Error reading file: ' + err);
-        return callback(err);
-      }
-      postsContent[post.src] = md;
-      postBySource[post.src] = post;
-      callback(null);
-    });
-  });
+wagner.task('posts', function(callback) {
+  wagner.parallel(
+    posts,
+    function(post, key, callback) {
+      fs.readFile(post.src, function(error, md) {
+        post.md = md.toString();
+        callback(error, post);
+      });
+    },
+    callback);
 });
 
 var tasks = ['loadIndex'];
@@ -62,86 +58,76 @@ _.each(tags, function(list, tag) {
   tags[tag] = _.sortBy(tags[tag], function(post) { return post.date.unix(); })
 });
 
-_.each(posts, function(post) {
-  var taskName = 'post-' + post.title;
-  tasks.push(taskName);
-  var dependencies = ['loadPostTemplate', 'load-' + post.src];
-  orchestrator.add(taskName, dependencies, function(callback) {
-    var md = postsContent[post.src];
-    var output = templates.post({ post: post, content: markdown(md.toString()), allPosts: postsConfig });
-    file.mkdirs(post.dest.directory, 0777, function(err) {
-      if (err) {
-        console.log('Error making dir: ' + err);
-        return callback(err);
-      }
-      fs.writeFile(file.path.join(post.dest.directory, post.dest.name), output,
-        function(err) {
-          if (err) {
-            console.log('Error writing file: ' + err);
-            return callback(err);
-          }
-          return callback(null);
+wagner.task('compiledPosts', function(posts, postTemplate, callback) {
+  wagner.parallel(
+    posts,
+    function(post, key, callback) {
+      post = post.result;
+      var output = postTemplate({
+        post: post,
+        content: markdown(post.md.toString()),
+        allPosts: postsConfig
       });
-    });
-  });
+
+      post.compiled = output;
+      post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
+      callback(null, post);
+    },
+    callback);
 });
 
-_.each(tags, function(list, tag) {
-  var taskName = 'list-' + tag;
-  tasks.push(taskName);
-  // Build up tag pages. Depends on loading the list template and loading the md
-  // for each individual post in the template
-  var dependencies = ['loadListTemplate'];
+wagner.task('generatePosts', function(compiledPosts, callback) {
+  console.log('Generating posts');
+  wagner.parallel(
+    compiledPosts,
+    function(post, key, callback) {
+      post = post.result;
 
-  var loadingPosts = _.map(list, function(p) { return 'load-' + p.src; });
-  dependencies = dependencies.concat(loadingPosts);
-
-  orchestrator.add(taskName, dependencies, function(callback) {
-    // Template should contain a list of posts, augmented with a preview of
-    // their content (first line of markdown)
-    var output = templates.list({
-      tag: tag,
-      posts: _.map(list, function(p) {
-        var newPost = _.clone(p);
-        var md = postsContent[p.src].toString();
-        newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
-        return newPost;
-      }).reverse(),
-      allPosts: postsConfig
-    });
-    fs.writeFile('./bin/tag/' + tag.toLowerCase(), output, function(err) {
-      if (err) {
-        console.log('Error writing file: ' + err);
-        return callback(err);
-      }
-      return callback(null);
-    });
-  });
+      console.log('Generating "' + post.title + "'");
+      file.mkdirs(post.dest.directory, 0777, function(err) {
+        if (err) {
+          console.log('Error making dir: ' + err);
+          return callback(err);
+        }
+        fs.writeFile(file.path.join(post.dest.directory, post.dest.name),
+          post.compiled, function(err) {
+            if (err) {
+              console.log('Error writing file: ' + err);
+              return callback(err);
+            }
+            return callback(null);
+        });
+      });
+    },
+    callback);
 });
 
-var compileIndexDependencies = _.map(posts, function(post) {
-  return taskName = 'post-' + post.title;
-});
-compileIndexDependencies.push('loadIndex');
-orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
-  var posts = _.map(postsContent, function(ignored, key) {
-    var p = postBySource[key];
-    var newPost = _.clone(p);
-    var md = postsContent[p.src].toString();
-    newPost.preview = markdown(md.substr(0, md.indexOf('\n')));
-    return newPost;
-  });
-  posts.sort(function(a, b) {
-    if (a.date.isBefore(b.date)) {
-      return -1;
-    }
-    if (b.date.isBefore(a.date)) {
-      return 1;
-    }
-    return 0;
-  });
+wagner.task('tags', function(compiledPosts, listTemplate, callback) {
+  for (var key in compiledPosts) {
+    compiledPosts[key] = compiledPosts[key].result;
+  }
 
-  var output = templates.index({
+  wagner.parallel(
+    tags,
+    function(tag, key, callback) {
+      var output = listTemplate({
+        tag: key,
+        posts: tag,
+        allPosts: postsConfig
+      });
+
+      fs.writeFile('./bin/tag/' + key.toLowerCase(), output, function(err) {
+        if (err) {
+          console.log('Error writing file: ' + err);
+          return callback(err);
+        }
+        return callback(null);
+      });
+    }, callback);
+});
+
+wagner.task('compiledIndex', function(index, callback) {
+  var output = index({
     posts: posts.reverse(),
     allPosts: postsConfig
   });
@@ -153,20 +139,19 @@ orchestrator.add('compileIndex', compileIndexDependencies, function(callback) {
     return callback(null);
   });
 });
-tasks.push('compileIndex');
 
-orchestrator.start(tasks, function(err) {
-  if (err) {
-    return console.log("Errors occurred: " + err + '\n' + err.stack);
+wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
+  if (error) {
+    return console.log('Errors occurred: ' + error + '\n' + error.stack);
   }
-  console.log("Done");
+  console.log('Done');
 });
 
 module.exports = function() {
-  orchestrator.start(tasks, function(err) {
-    if (err) {
-      return console.log("Errors occurred: " + err + '\n' + err.stack);
+  wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
+    if (error) {
+      return console.log('Errors occurred: ' + error + '\n' + error.stack);
     }
-    console.log("Done");
+    console.log('Done');
   });
 };

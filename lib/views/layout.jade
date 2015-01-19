@@ -98,7 +98,7 @@ html
                 ul.list-unstyled
                   - each post in allPosts.slice(0, 4)
                     li.right-bar-li
-                      a(href="#{post.dest.directory.substr('./bin'.length)}#{post.dest.name}")
+                      a(href="#{post.dest.directory.substr('./bin'.length)}/#{post.dest.name}")
                         | #{post.title}
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
