@@ -51,11 +51,8 @@ var tags = {};
 _.each(posts, function(post) {
   _.each(post.tags || [], function(tag) {
     tags[tag] = tags[tag] || [];
-    tags[tag].push(post);
+    tags[tag].unshift(post);
   });
-});
-_.each(tags, function(list, tag) {
-  tags[tag] = _.sortBy(tags[tag], function(post) { return post.date.unix(); })
 });
 
 wagner.task('compiledPosts', function(posts, postTemplate, callback) {
