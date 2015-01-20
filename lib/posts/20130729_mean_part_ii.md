@@ -55,7 +55,7 @@ As an aside, you'll want to install bootstrap via
 
 ```
 bower install bootstrap-css
-bower-install bootstrap-javascript
+bower install bootstrap-javascript
 ```
 
 because `bower install bootstrap` only gives you an un-compiled version of Bootstrap. This is pretty silly considering the fact that Twitter maintains both Bower and Bootstrap. [Fate, it seems, is not without a sense of irony](http://www.quickmeme.com/meme/3vbz9u/).
