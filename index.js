@@ -4,6 +4,13 @@ var markdown = require('marked');
 var jade = require('jade');
 var file = require('file');
 
+var highlight = require('highlight.js');
+markdown.setOptions({
+  highlight: function(code) {
+    return highlight.highlightAuto(code).value;
+  }
+});
+
 var wagner = require('wagner-core');
 
 var posts = require('./lib/posts');
