@@ -112,18 +112,9 @@ html
 
     div(style="padding-bottom: 100px") &nbsp;
 
-    script(type="text/javascript").
-      var _sf_async_config = { uid: 57424, domain: 'thecodebarbarian.com', useCanonical: true };
-      (function() {
-        function loadChartbeat() {
-          window._sf_endpt = (new Date()).getTime();
-          var e = document.createElement('script');
-          e.setAttribute('language', 'javascript');
-          e.setAttribute('type', 'text/javascript');
-          e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
-          document.body.appendChild(e);
-        };
-        var oldonload = window.onload;
-        window.onload = (typeof window.onload != 'function') ?
-          loadChartbeat : function() { oldonload(); loadChartbeat(); };
-      })();
+    block analytics
+      script(type="text/javascript").
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+          analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+          analytics.page()
+        }}();

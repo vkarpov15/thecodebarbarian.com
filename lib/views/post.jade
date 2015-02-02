@@ -13,6 +13,11 @@ block opengraphTags
   meta( property="og:site_name",
         content="The Code Barbarian")
 
+append analytics
+  script(type="text/javascript").
+    analytics.track('opened post',
+      { title: "#{post.title}", time: new Date() });
+
 block mobile_sharing
   .post-sharing-options
     .row
