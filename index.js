@@ -130,7 +130,10 @@ wagner.task('tags', function(compiledPosts, listTemplate, callback) {
     }, callback);
 });
 
-wagner.task('compiledIndex', function(index, callback) {
+wagner.task('compiledIndex', function(compiledPosts, index, callback) {
+  var posts = _.map(compiledPosts, function(p) {
+    return p.result;
+  });
   var output = index({
     posts: posts.reverse(),
     allPosts: postsConfig

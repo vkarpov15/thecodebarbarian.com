@@ -1,7 +1,5 @@
-HTTP *interceptors* are an impressive AngularJS feature that doesn't get
-nearly enough press. Interceptors define custom transformations for HTTP
-requests and responses at the application level. In other words, interceptors
-define general rules for how your application processes HTTP requests and
+HTTP *interceptors* are an impressive AngularJS feature that doesn't get nearly enough press. Interceptors define custom transformations for HTTP requests and responses at the application level.
+In other words, interceptors define general rules for how your application processes HTTP requests and
 responses.
 
 Sound a little vague? Now you know how I felt scouring the internet for

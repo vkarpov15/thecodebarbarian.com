@@ -161,7 +161,7 @@ a.social {
 }
 
 .home-post-grid-member {
-	max-height:400px;
+	height:400px;
 	overflow:hidden;
 	margin-bottom:40px;
 	-webkit-transition:all .2s ease-in-out;
