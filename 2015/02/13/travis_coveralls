@@ -1,0 +1,172 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building Better npm Modules with Travis and Coveralls | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building Better npm Modules with Travis and Coveralls"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/02/13/travis_coveralls"/><meta property="og:image" content="//www.progearphil.com/-/products/b-coverall-01.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">Introduction to the MEAN Stack, Part One: Setting Up Your Tools</a></li><li class="right-bar-li"><a href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">The 80/20 Guide to Writing AngularJS Directives</a></li><li class="right-bar-li"><a href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/">Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/">How to Easily Validate Any Form Ever Using AngularJS</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2015/02/13/travis_coveralls">Building Better npm Modules with Travis and Coveralls</a></li><li class="right-bar-li"><a href="/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F02%2F13%2Ftravis_coveralls&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F13%2Ftravis_coveralls" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F13%2Ftravis_coveralls" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F02%2F13%2Ftravis_coveralls&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F13%2Ftravis_coveralls" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F13%2Ftravis_coveralls" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building Better npm Modules with Travis and Coveralls </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 13, 2015</span></div></div></div><div class="post-body-text-container"><p><em>This blog originally appeared on <a href="http://strongloop.com/strongblog/npm-modules-travis-coveralls/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
+<p>Part of what makes NodeJS so great is the wide variety of high-quality modules available on npm. But, way too many modules don&#39;t take advantage of testing tools like <a href="https://travis-ci.org">Travis</a> and <a href="https://coveralls.io/">Coveralls</a>. Travis is a lightweight continuous integration tool that runs tests on every commit to your GitHub repo, even pull requests. Coveralls is a test coverage reporter that you can integrate with Travis. These tools improve your workflow, make reviewing pull requests easier, and make users more confident in your module&#39;s quality. In this article, you&#39;ll learn how to integrate these tools with <a href="https://www.npmjs.com/package/mocha">mocha</a> and <a href="https://www.npmjs.com/package/istanbul">istanbul</a> for a simple NodeJS project.</p>
+<p>This example will use a <a href="https://github.com/vkarpov15/fizzbuzz-coverage">JavaScript implementation</a> of the well-known <a href="http://en.wikipedia.org/wiki/Fizz_buzz">&quot;fizzbuzz&quot; programming challenge</a>. Fizzbuzz is far from a <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">complex module</a>, but it&#39;s just complex enough to get real test coverage results. To walk through this example, <a href="https://github.com/vkarpov15/fizzbuzz-coverage">fork it on GitHub</a>. The actual code is below.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(n)</span> </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> n !== <span class="hljs-string">'number'</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> === <span class="hljs-number">0</span> &amp;&amp; n % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'fizzbuzz'</span>;
+  }
+  <span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'fizz'</span>;
+  }
+  <span class="hljs-keyword">if</span> (n % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'buzz'</span>;
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> + n;
+};
+</code></pre>
+<p>The module&#39;s code is not particularly interesting. Testing it is a more subtle task. Most modern testing practices are based on the notion of <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic complexity</a>. In other words, 100% test coverage means that your tests execute every possible code path. The fizzbuzz example above has 10 possible code paths (or &quot;branches&quot; in Coveralls parlance). Each <code>if</code> statement contributes 2 code paths, except the one with <code>&amp;&amp;</code>, which contributes 4. For instance, if you were to replace</p>
+<pre><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">n</span> % 3 === 0 &amp;&amp; <span class="hljs-keyword">n</span> % 5 === 0)
+</code></pre><p>with</p>
+<pre><code><span class="hljs-keyword">if</span> <span class="hljs-comment">(n % 15 === 0)</span>
+</code></pre><p>there would be only 8 branches.</p>
+<h1 id="setting-up-mocha-tests-and-producing-coverage-output">Setting Up Mocha Tests and Producing Coverage Output</h1>
+<p>The first step is to get test coverage output locally. There are several good test frameworks and coverage tools available on npm. But, my tools of choice are the <a href="https://www.npmjs.com/package/mocha">mocha</a> test framework and <a href="https://www.npmjs.com/package/istanbul">istanbul</a>. You should be able to use any test framework you like in place of mocha in this tutorial, but I find mocha to be a sensible default. First, add mocha and istanbul to your <code>devDependencies</code> in <code>package.json</code>.</p>
+<pre><code>  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"istanbul"</span>: <span class="hljs-string">"0.3.5"</span>,
+    <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"2.0.0"</span>
+  },
+</code></pre><p>You should also add a <code>test</code> script to your <code>package.json</code>, so you can run your tests with the <code>npm test</code> command.</p>
+<pre><code>  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test"</span>: <span class="hljs-string">"./node_modules/mocha/bin/mocha ./test/*"</span>
+  }
+</code></pre><p>Now, here are some mocha tests for the fizzbuzz module. Mocha uses a BDD-style syntax, which means <code>describe()</code> and <code>it()</code> correspond roughly to &quot;suites&quot; and &quot;tests&quot; in more conventional testing frameworks like JUnit.</p>
+<pre><code>var <span class="hljs-built_in">assert</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+var fizzbuzz = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../'</span>);
+
+describe(<span class="hljs-string">'fizzbuzz'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+  it(<span class="hljs-string">'returns null when passed a non-number'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-built_in">assert</span>.equal(fizzbuzz(<span class="hljs-string">'abc'</span>), null);
+  });
+
+  it(<span class="hljs-string">'returns fizzbuzz when divisible by 15'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-built_in">assert</span>.equal(fizzbuzz(<span class="hljs-number">45</span>), <span class="hljs-string">'fizzbuzz'</span>);
+  });
+
+  it(<span class="hljs-string">'returns fizz when divisible by 3 but not 5'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-built_in">assert</span>.equal(fizzbuzz(<span class="hljs-number">6</span>), <span class="hljs-string">'fizz'</span>);
+  });
+
+  it(<span class="hljs-string">'returns buzz when divisble by 5 but not 3'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-built_in">assert</span>.equal(fizzbuzz(<span class="hljs-number">10</span>), <span class="hljs-string">'buzz'</span>);
+  });
+
+  it(<span class="hljs-string">'returns input otherwise'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-built_in">assert</span>.equal(fizzbuzz(<span class="hljs-number">7</span>), <span class="hljs-string">'7'</span>);
+  });
+});
+</code></pre><p>Run these tests with <code>npm test</code>, and you should see a simple test report.</p>
+<pre><code><span class="hljs-attribute">specter</span>:fizzbuzz-coverage vkarpov$ <span class="hljs-built_in">npm</span> test
+
+&gt; fizzbuzz-coverage@<span class="hljs-number">0.0</span>.<span class="hljs-number">0</span> test /Users/vkarpov/Personal/fizzbuzz-coverage
+&gt; .<span class="hljs-pi">/node_modules/mocha/bin/mocha ./test/</span>*
+
+
+
+  fizzbuzz
+    ✓ returns <span class="hljs-literal">null</span> <span class="hljs-keyword">when</span> passed a non-number 
+    ✓ returns fizzbuzz <span class="hljs-keyword">when</span> divisible <span class="hljs-keyword">by</span> <span class="hljs-number">15</span> 
+    ✓ returns fizz <span class="hljs-keyword">when</span> divisible <span class="hljs-keyword">by</span> <span class="hljs-number">3</span> but <span class="hljs-keyword">not</span> <span class="hljs-number">5</span> 
+    ✓ returns buzz <span class="hljs-keyword">when</span> divisble <span class="hljs-keyword">by</span> <span class="hljs-number">5</span> but <span class="hljs-keyword">not</span> <span class="hljs-number">3</span> 
+    ✓ returns input <span class="hljs-keyword">otherwise</span> 
+
+
+  <span class="hljs-number">5</span> passing (<span class="hljs-number">7ms</span>)
+</code></pre><p>Now the question is, how do you get coverage output? That&#39;s where istanbul comes in. Istanbul provides a simple executable that wraps your test command and produces <a href="http://ltp.sourceforge.net/coverage/lcov.php">lcov output</a> by default. Add a <code>test-travis</code> script to your <code>package.json</code> scripts as shown below.</p>
+<pre><code>  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test"</span>: <span class="hljs-string">"./node_modules/mocha/bin/mocha ./test/*"</span>,
+    <span class="hljs-string">"test-travis"</span>: <span class="hljs-string">"./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"</span>
+  }
+</code></pre><p>The script may seem intimidating, but its simple once you look at it carefully. The <code>./node_modules/istanbul/lib/cli.js</code> executable is istanbul&#39;s CLI wrapper. You can also <code>require()</code> istanbul in your NodeJS scripts, but the executable is sufficient for this example. The istanbul CLI takes a <code>cover</code> option that tells it to produce coverage output.</p>
+<p>The rest of the <code>test-travis</code> script configures mocha. First, note that the above script uses the <code>_mocha</code> executable, whereas the <code>test</code> script used <code>./node_modules/mocha/bin/mocha</code>. This is a <a href="https://github.com/gotwarlost/istanbul/issues/44">common source of confusion when beginners try to set up istanbul and mocha</a>. The <code>mocha</code> executable forks off a separate executable, <code>_mocha</code>, to actually runs tests. If you were to run the <code>mocha</code> executable through istanbul, you would get no coverage output.</p>
+<p>The <code>--</code> means the <a href="http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash">end of options passed to the istanbul executable</a>. Everything after <code>--</code> will actually be interpretted as an option to the <code>_mocha</code> executable.</p>
+<p>Now that you have the <code>test-travis</code> script, run it to see test coverage output.</p>
+<pre><code>specter:fizzbuzz-coverage vkarpov$ npm run-script test-travis
+
+&gt; fizzbuzz-coverage@0.0.0 test-travis /Users/vkarpov/Personal/fizzbuzz-coverage
+&gt; ./node<span class="hljs-emphasis">_modules/istanbul/lib/cli.js cover ./node_</span>modules/mocha/bin/<span class="hljs-emphasis">_mocha -- -R spec ./test/*
+
+</span>
+
+<span class="hljs-code">  fizzbuzz</span>
+<span class="hljs-code">    ✓ returns null when passed a non-number </span>
+<span class="hljs-code">    ✓ returns fizzbuzz when divisible by 15 </span>
+<span class="hljs-code">    ✓ returns fizz when divisible by 3 but not 5 </span>
+<span class="hljs-code">    ✓ returns buzz when divisble by 5 but not 3 </span>
+<span class="hljs-code">    ✓ returns input otherwise </span>
+
+
+<span class="hljs-code">  5 passing (6ms)</span>
+
+=============================================================================
+Writing coverage object [/Users/vkarpov/Personal/fizzbuzz-coverage/coverage/coverage.json]
+Writing coverage reports at [/Users/vkarpov/Personal/fizzbuzz-coverage/coverage]
+=============================================================================
+
+=============================== Coverage summary ===============================
+Statements   : 100% ( 10/10 )
+Branches     : 100% ( 10/10 )
+Functions    : 100% ( 1/1 )
+<span class="hljs-header">Lines        : 100% ( 10/10 )
+================================================================================</span>
+</code></pre><p>Congratulations, you have 100% test coverage! Next up, you&#39;re going to set up Travis to run this command automatically on every commit and pull request.</p>
+<h1 id="running-tests-and-generating-coverage-output-with-travis">Running Tests and Generating Coverage Output with Travis</h1>
+<p>Travis is a tool that enables you to run a script on every GitHub commit. You can instrument Travis to run the <code>test-travis</code> script you saw above. Also, you can configure Travis to post the coverage output to Coveralls. </p>
+<p>First, if you don&#39;t have a Travis account yet, <a href="https://travis-ci.org">sign up for one</a>. Next, add a new repository to Travis using the &quot;Add New Repository&quot; button.</p>
+<p><img src="http://i.imgur.com/VDiWlu3.png"></p>
+<p>Find the <code>fizzbuzz-coverage</code> repo and add it. Next, sign up for an <a href="https://coveralls.io">account on Coveralls</a>. Click on the &quot;Add Repos&quot; button and add <code>fizzbuzz-coverage</code>.</p>
+<p><img src="http://i.imgur.com/8EXrUvj.png"></p>
+<p>In order to use Travis, your GitHub repo should have a <code>.travis.yml</code> file. This file tells Travis how to run tests. For instance, below is the <code>.travis.yml</code> file for the <code>fizzbuzz-coverage</code> repo (minus one line that you&#39;ll learn about later).</p>
+<pre><code><span class="hljs-label">language:</span> node_js
+<span class="hljs-label">node_js:</span>
+  - <span class="hljs-string">"0.11"</span>
+  - <span class="hljs-string">"0.10"</span>
+<span class="hljs-label">script:</span> <span class="hljs-string">"npm run-script test-travis"</span>
+</code></pre><p>This file should seem simple even if you&#39;ve never worked with Travis before. This configuration tells Travis to run <code>npm run-script test-travis</code> on NodeJS 0.10 and 0.11. When you specify <code>language: node_js</code>, Travis handles installing NodeJS, cloning your repo, and running <code>npm install</code> for you.</p>
+<p>Now, how do you send istanbul&#39;s coverage output to Coveralls? Like just about everything these days, <a href="https://www.npmjs.com/package/coveralls">there&#39;s an npm module for that</a>. The coveralls npm module contains an executable file <code>coveralls.js</code> that you can use to send coverage output to Coveralls. You just need to add coveralls to your <code>package.json</code>:</p>
+<pre><code class="lang-javascript">  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"coveralls"</span>: <span class="hljs-string">"2.10.0"</span>,
+    <span class="hljs-string">"istanbul"</span>: <span class="hljs-string">"0.3.5"</span>,
+    <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"2.0.0"</span>
+  },
+</code></pre>
+<p>and one line to your <code>.travis.yml</code> file.</p>
+<pre><code><span class="hljs-label">language:</span> node_js
+<span class="hljs-label">node_js:</span>
+  - <span class="hljs-string">"0.11"</span>
+  - <span class="hljs-string">"0.10"</span>
+<span class="hljs-label">script:</span> <span class="hljs-string">"npm run-script test-travis"</span>
+<span class="hljs-preprocessor"># Send coverage data to Coveralls</span>
+<span class="hljs-label">after_script:</span> <span class="hljs-string">"cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"</span>
+</code></pre><p>That&#39;s it! You should now have <a href="https://coveralls.io/builds/1849085">automatic code coverage for every future commit in an elegant GUI</a>.</p>
+<h1 id="adding-badges">Adding Badges</h1>
+<p>Now that you&#39;ve wired your repo to run tests on Travis and send coverage data to Coveralls, you&#39;re probably wondering how to get those sweet badges on your GitHub repo.</p>
+<p><img src="http://i.imgur.com/cUsEmPC.png"></p>
+<p>Travis and Coveralls expose API endpoints that let you get these SVG (or PNG) representations of your repo&#39;s status. To get the SVGs for <code>fizzbuzz-coverage</code>, you should wrap the following images in an <code>&lt;img&gt;</code> tag.</p>
+<pre><code><span class="hljs-string">https:</span><span class="hljs-comment">//api.travis-ci.org/vkarpov15/fizzbuzz-coverage.svg?branch=master</span>
+<span class="hljs-string">https:</span><span class="hljs-comment">//coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg?branch=master</span>
+</code></pre><p>You can get the build status and coverage info for any branch by changing the <code>branch</code> query param. Below is the markdown code that generates the badges for the GitHub README.</p>
+<pre><code>[<span class="hljs-link_label">![Build Status</span>](<span class="hljs-link_url">https://travis-ci.org/vkarpov15/fizzbuzz-coverage.svg?branch=master</span>)](<span class="hljs-link_url">https://travis-ci.org/vkarpov15/fizzbuzz-coverage</span>)
+[<span class="hljs-link_label">![Coverage Status</span>](<span class="hljs-link_url">https://coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg</span>)](<span class="hljs-link_url">https://coveralls.io/r/vkarpov15/fizzbuzz-coverage</span>)
+</code></pre><h1 id="conclusion">Conclusion</h1>
+<p>In this article, you saw how easy it can be to tie your npm modules into Travis and Coveralls. Continuous integration and code coverage used to only be feasible for the Googles of the world, but now even small npm modules can take advantage of these sophisticated dev practices. I look forward to seeing more npm authors take advantage of these excellent tools and get serious about test coverage.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150213_travis_coveralls.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Building Better npm Modules with Travis and Coveralls", time: new Date() });
+  </script></body></html>
