@@ -23,6 +23,10 @@ pre code {
 	overflow-x: visible !important;
 }
 
+code {
+	background-color: #f6f6f6;
+}
+
 h2 {
 	padding-top:1.4em;
 	padding-bottom:0.9em;
