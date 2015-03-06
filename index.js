@@ -154,11 +154,13 @@ wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
   console.log('Done');
 });
 
-module.exports = function() {
+module.exports = function(cb) {
   wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
     if (error) {
+      cb(error);
       return console.log('Errors occurred: ' + error + '\n' + error.stack);
     }
+    cb();
     console.log('Done');
   });
 };
