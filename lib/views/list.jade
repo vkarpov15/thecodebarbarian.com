@@ -6,19 +6,27 @@ block title
 
 block content
   div.container
-    div.col-lg-9
-      - each post in posts
-        div.container-fluid
-          div.row
-            h2
-              a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
-                | #{post.title}
-            div.title-byline-container
-              div.credits
-                | #{post.date.format('MMMM DD, YYYY')}
-          div.row
-            div.col-lg-3
-              img(src="#{post.image || '/images/Barbarian_Head.png'}",
-                  style="width: 100%")
-            div.col-lg-9
-              em !{post.preview}
+    div.row
+      div.col-lg-9
+        - each post in posts
+          div.container-fluid
+            div.row
+              h2
+                a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+                  | #{post.title}
+              div.title-byline-container
+                div.credits
+                  | #{post.date.format('MMMM DD, YYYY')}
+            div.row
+              div.col-lg-3
+                img(src="#{post.image || '/images/Barbarian_Head.png'}",
+                    style="width: 100%")
+              div.col-lg-9
+                em !{post.preview}
+    div.row
+      - if (pageNum > 1)
+        div.pull-left
+          a(href="/page/#{pageNum - 1}") << Newer Articles
+      - if (pageNum && !isLastPage)
+        div.pull-right
+          a(href="/page/#{pageNum + 1}") Older Articles >>

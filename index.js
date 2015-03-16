@@ -117,7 +117,9 @@ wagner.task('tags', function(compiledPosts, listTemplate, callback) {
       var output = listTemplate({
         tag: key,
         posts: tag,
-        allPosts: postsConfig
+        allPosts: postsConfig,
+        pageNum: 0,
+        isLastPage: false
       });
 
       fs.writeFile('./bin/tag/' + key.toLowerCase(), output, function(err) {
@@ -147,7 +149,30 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
   });
 });
 
-wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
+wagner.task('pages', function(compiledPosts, listTemplate, callback) {
+  var posts = _.map(compiledPosts, function(p) {
+    return p.result;
+  });
+
+  var pages = [];
+  for (var i = 8; i < posts.length; i += 8) {
+    pages.push(listTemplate({
+      tag: 'Page ' + Math.floor(i / 8),
+      posts: posts.reverse().slice(i, i + 8),
+      allPosts: postsConfig,
+      pageNum: Math.floor(i / 8),
+      isLastPage: !(i + 8 < posts.length)
+    }));
+  }
+
+  wagner.parallel(pages, function(page, index, callback) {
+    fs.writeFile('./bin/page/' + (index + 1), page, function(err) {
+      callback(err);
+    });
+  }, callback);
+});
+
+wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags) {
   if (error) {
     return console.log('Errors occurred: ' + error + '\n' + error.stack);
   }
