@@ -28,30 +28,30 @@
 <ul>
 <li><a href="https://github.com/mongodb/node-mongodb-native">MongoDB NodeJS driver</a>: &gt;= 1.4.0 is recommended, but it seems to work going back to at least 1.2.0 in my personal experiments.</li>
 <li><a href="https://github.com/aheckmann/mquery">mquery</a>: &gt;= 0.6.0</li>
-<li><a href="https://github.com/LearnBoost/mongoose">Mongoose</a>: &gt;= 3.8.9 (unfortunately not released yet as of 4/9/14)</li>
+<li><a href="https://github.com/LearnBoost/mongoose">Mongoose</a>: &gt;= 3.8.9</li>
 </ul>
 <p>Now that you know which versions are supported, let&#39;s demonstrate how to actually do text search with the NodeJS driver. I created a simple food journal (e.g. an app that counts calories for you when you enter in how much of a certain food you&#39;ve eaten) app that is meant to tie in to the SR-25 data set. This app is available on GitHub <a href="https://github.com/vkarpov15/lean-mean-nutrition-sample">here</a>, so feel free to play with it.</p>
-<p>The LeanMEAN app exposes an API endpoint, <code>GET /api/food/search/:search</code>, that runs text search on a local copy of the SR-25 data set. The implementation of this endpoint is here. For convenience, here is the actual implementation, where the <code>foodItem</code> variable is a wrapper around the Node driver&#39;s connection to the SR-25 collection.</p>
-<pre><code><span class="hljs-comment">/* Because MongooseJS doesn't quite support sorting by text search score
-* just yet, just use the NodeJS driver directly */</span>
-exports.searchFood = function(foodItem) {
- <span class="hljs-keyword">return</span> function(req, res) {
-   <span class="hljs-keyword">var</span> <span class="hljs-keyword">search</span> = req.params.<span class="hljs-keyword">search</span>;
-   foodItem.connection().
-     find(
-       { <span class="hljs-label">$text</span> : { <span class="hljs-label">$search</span> : <span class="hljs-keyword">search</span> } },
-       { <span class="hljs-keyword">score</span> : { <span class="hljs-label">$meta</span>: <span class="hljs-string">"textScore"</span> } }
-     ).
-     <span class="hljs-keyword">sort</span>({ <span class="hljs-keyword">score</span>: { <span class="hljs-label">$meta</span> : <span class="hljs-string">"textScore"</span> } }).
-     limit(10).
-     toArray(function(<span class="hljs-keyword">error</span>, foodItems) {
-       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">error</span>) {
-         res.json(500, { <span class="hljs-keyword">error</span> : <span class="hljs-keyword">error</span> });
-       } <span class="hljs-keyword">else</span> {
-         res.json(foodItems);
-       }
-     });
- }
+<p>The LeanMEAN app exposes an API endpoint, <code>GET /api/food/search/:search</code>, that runs text search on a local copy of the SR-25 data set. The implementation of this endpoint is here. For convenience, here is the actual implementation, where the <code>FoodItem</code> variable is the Mongoose model for the SR-25 collection.</p>
+<pre><code><span class="hljs-comment">/* Mongoose &gt;= 3.8.9 supports text search */</span>
+exports.searchFood = function(FoodItem) {
+  <span class="hljs-keyword">return</span> function(req, res) {
+    <span class="hljs-keyword">var</span> <span class="hljs-keyword">search</span> = req.params.<span class="hljs-keyword">search</span>;
+
+    FoodItem.
+      find(
+        { <span class="hljs-label">$text</span> : { <span class="hljs-label">$search</span> : <span class="hljs-keyword">search</span> } },
+        { <span class="hljs-keyword">score</span> : { <span class="hljs-label">$meta</span>: <span class="hljs-string">"textScore"</span> } }
+      ).
+      <span class="hljs-keyword">sort</span>({ <span class="hljs-keyword">score</span>: { <span class="hljs-label">$meta</span> : <span class="hljs-string">"textScore"</span> } }).
+      limit(10).
+      exec(function(<span class="hljs-keyword">error</span>, foodItems) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">error</span>) {
+          res.json(500, { <span class="hljs-keyword">error</span> : <span class="hljs-keyword">error</span> });
+        } <span class="hljs-keyword">else</span> {
+          res.json(foodItems);
+        }
+      });
+  }
 };
 </code></pre><p>Unsurprisingly, this code looks pretty similar to the shell version, so it shouldn&#39;t look unfamiliar to you NodeJS pros :)</p>
 <h2 id="looking-forward">Looking Forward</h2>

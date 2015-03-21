@@ -48,33 +48,33 @@ First, an important note on the compatibility of text search with NodeJS communi
 
 * [MongoDB NodeJS driver](https://github.com/mongodb/node-mongodb-native): >= 1.4.0 is recommended, but it seems to work going back to at least 1.2.0 in my personal experiments.
 * [mquery](https://github.com/aheckmann/mquery): >= 0.6.0
-* [Mongoose](https://github.com/LearnBoost/mongoose): >= 3.8.9 (unfortunately not released yet as of 4/9/14)
+* [Mongoose](https://github.com/LearnBoost/mongoose): >= 3.8.9
 
 Now that you know which versions are supported, let's demonstrate how to actually do text search with the NodeJS driver. I created a simple food journal (e.g. an app that counts calories for you when you enter in how much of a certain food you've eaten) app that is meant to tie in to the SR-25 data set. This app is available on GitHub [here](https://github.com/vkarpov15/lean-mean-nutrition-sample), so feel free to play with it.
 
-The LeanMEAN app exposes an API endpoint, `GET /api/food/search/:search`, that runs text search on a local copy of the SR-25 data set. The implementation of this endpoint is here. For convenience, here is the actual implementation, where the `foodItem` variable is a wrapper around the Node driver's connection to the SR-25 collection.
+The LeanMEAN app exposes an API endpoint, `GET /api/food/search/:search`, that runs text search on a local copy of the SR-25 data set. The implementation of this endpoint is here. For convenience, here is the actual implementation, where the `FoodItem` variable is the Mongoose model for the SR-25 collection.
 
 ```
-/* Because MongooseJS doesn't quite support sorting by text search score
-* just yet, just use the NodeJS driver directly */
-exports.searchFood = function(foodItem) {
- return function(req, res) {
-   var search = req.params.search;
-   foodItem.connection().
-     find(
-       { $text : { $search : search } },
-       { score : { $meta: "textScore" } }
-     ).
-     sort({ score: { $meta : "textScore" } }).
-     limit(10).
-     toArray(function(error, foodItems) {
-       if (error) {
-         res.json(500, { error : error });
-       } else {
-         res.json(foodItems);
-       }
-     });
- }
+/* Mongoose >= 3.8.9 supports text search */
+exports.searchFood = function(FoodItem) {
+  return function(req, res) {
+    var search = req.params.search;
+
+    FoodItem.
+      find(
+        { $text : { $search : search } },
+        { score : { $meta: "textScore" } }
+      ).
+      sort({ score: { $meta : "textScore" } }).
+      limit(10).
+      exec(function(error, foodItems) {
+        if (error) {
+          res.json(500, { error : error });
+        } else {
+          res.json(foodItems);
+        }
+      });
+  }
 };
 ```
 
