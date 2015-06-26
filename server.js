@@ -16,7 +16,8 @@ require('http').createServer(function (request, response) {
       request.url = request.url.substr(0, request.url.length - 1);
     }
 
-    var p = path.join('./bin', request.url);
+    // Defend against directory traversals
+    var p = path.join('./bin', request.url.replace('../', ''));
     fs.stat(p, function(err, stats) {
       if (err || !stats) {
         response.writeHead(404, {
