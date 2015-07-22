@@ -152,10 +152,11 @@ wagner.task('pages', function(compiledPosts, listTemplate, callback) {
   });
 
   var pages = [];
+  var reversed = posts.reverse();
   for (var i = 8; i < posts.length; i += 8) {
     pages.push(listTemplate({
       tag: 'Page ' + Math.floor(i / 8),
-      posts: posts.reverse().slice(i, i + 8),
+      posts: reversed.slice(i, i + 8),
       allPosts: postsConfig,
       pageNum: Math.floor(i / 8),
       isLastPage: !(i + 8 < posts.length)
