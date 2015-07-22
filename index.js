@@ -66,7 +66,6 @@ wagner.task('compiledPosts', function(posts, postTemplate, callback) {
   wagner.parallel(
     posts,
     function(post, key, callback) {
-      post = post.result;
       var output = postTemplate({
         post: post,
         content: markdown(post.md.toString()),
@@ -85,8 +84,6 @@ wagner.task('generatePosts', function(compiledPosts, callback) {
   wagner.parallel(
     compiledPosts,
     function(post, key, callback) {
-      post = post.result;
-
       console.log('Generating "' + post.title + "'");
       file.mkdirs(post.dest.directory, 0777, function(err) {
         if (err) {
@@ -134,7 +131,7 @@ wagner.task('tags', function(compiledPosts, listTemplate, callback) {
 
 wagner.task('compiledIndex', function(compiledPosts, index, callback) {
   var posts = _.map(compiledPosts, function(p) {
-    return p.result;
+    return p;
   });
   var output = index({
     posts: posts.reverse(),
@@ -151,7 +148,7 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
 
 wagner.task('pages', function(compiledPosts, listTemplate, callback) {
   var posts = _.map(compiledPosts, function(p) {
-    return p.result;
+    return p;
   });
 
   var pages = [];

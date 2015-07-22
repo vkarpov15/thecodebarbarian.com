@@ -28,7 +28,7 @@
     "moment": "2.4.0",
     "node-static": "0.7.3",
     "underscore": "1.5.2",
-    "wagner-core": "0.0.3"
+    "wagner-core": "0.1.0"
   },
   "homepage": "https://github.com/vkarpov15/thecodebarbarian.com"
 }
