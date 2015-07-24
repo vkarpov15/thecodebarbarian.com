@@ -248,3 +248,8 @@ similar documents in the same collection with different schema constraints.
 They are often handy in situations when you're tempted to just use a `Mixed`
 type and bypass validation entirely. In particular, for applications like events
 tracking and user permissions, discriminators can be indispensable.
+
+*Like learning by watching? Check out
+[this article's corresponding screencast](https://www.youtube.com/watch?v=xjjM06_mnls&feature=youtu.be).
+This is my first attempt at screencasting, so feedback is always welcome in the
+comments!*
