@@ -197,7 +197,7 @@ can achieve this with a single aggregation:</p>
   {
 <span class="hljs-label">    $group:</span> {
 <span class="hljs-label">      _id:</span> <span class="hljs-string">'$kind'</span>,
-<span class="hljs-label">      count:</span> { <span class="hljs-string">$inc:</span> <span class="hljs-number">1</span> }
+<span class="hljs-label">      count:</span> { <span class="hljs-string">$sum:</span> <span class="hljs-number">1</span> }
     }
   }
 ]);
@@ -208,6 +208,10 @@ similar documents in the same collection with different schema constraints.
 They are often handy in situations when you&#39;re tempted to just use a <code>Mixed</code>
 type and bypass validation entirely. In particular, for applications like events
 tracking and user permissions, discriminators can be indispensable.</p>
+<p><em>Like learning by watching? Check out
+<a href="https://www.youtube.com/watch?v=xjjM06_mnls&amp;feature=youtu.be">this article&#39;s corresponding screencast</a>.
+This is my first attempt at screencasting, so feedback is always welcome in the
+comments!</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150724_mongoose_discriminators.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
