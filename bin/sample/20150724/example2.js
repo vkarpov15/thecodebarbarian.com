@@ -42,12 +42,19 @@ assert.ok(error);
 // Prints ['to'] because no 'to' link specified
 console.log(Object.keys(error.errors));
 
-setupData();
+clear();
+
+function clear() {
+  Event.remove({}, function() {
+    setupData();
+  });
+}
 
 function setupData() {
-  ClickedLinkEvent.create({ from: 'abc', to: '123' }, function(err) {
+  var id = '00000000000000000000000c';
+  ClickedLinkEvent.create({ from: 'abc', to: '/product/' + id }, function(err) {
     assert.ifError(err);
-    var product = { product: '00000000000000000000000c' };
+    var product = { product: id };
     PurchasedEvent.create(product, function(err) {
       assert.ifError(err);
 
@@ -74,6 +81,32 @@ function example2() {
 
     assert.equal(events[0].from, 'abc');
 
+    aggregate();
+  });
+}
+
+function aggregate() {
+  Event.aggregate([
+    {
+      $match: {
+        $or: [
+          { kind: 'ClickedLink', to: '/product/00000000000000000000000c' },
+          {
+            kind: 'Purchased',
+            product: mongoose.Types.ObjectId('00000000000000000000000c')
+          }
+        ]
+      }
+    },
+    {
+      $group: {
+        _id: '$kind',
+        count: { $sum: 1 }
+      }
+    }
+  ]).exec(function(error, result) {
+    assert.ifError(error);
+    console.log(require('util').inspect(result));
     process.exit(0);
   });
 }

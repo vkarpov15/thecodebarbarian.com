@@ -234,7 +234,7 @@ Event.aggregate([
   {
     $group: {
       _id: '$kind',
-      count: { $inc: 1 }
+      count: { $sum: 1 }
     }
   }
 ]);
