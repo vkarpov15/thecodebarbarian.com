@@ -214,7 +214,7 @@ $http.get('/sample').
   });
 ```
 
-So what does a `requestError` interceptor look like? Below
+So what does a `responseError` interceptor look like? Below
 is the interceptor that will handle HTTP 401's.
 
 ```javascript
