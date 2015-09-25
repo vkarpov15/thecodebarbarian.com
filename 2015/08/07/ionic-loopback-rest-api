@@ -1,0 +1,394 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Ionic Framework and LoopBack, Part I: Building a LoopBack REST API | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Ionic Framework and LoopBack, Part I: Building a LoopBack REST API"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/08/07/ionic-loopback-rest-api"/><meta property="og:image" content="http://i.imgur.com/gh86st3.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">Introduction to the MEAN Stack, Part One: Setting Up Your Tools</a></li><li class="right-bar-li"><a href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">The 80/20 Guide to Writing AngularJS Directives</a></li><li class="right-bar-li"><a href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/">Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/">How to Easily Validate Any Form Ever Using AngularJS</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2015/09/04/ionic-loopback-rest-api">Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK</a></li><li class="right-bar-li"><a href="/2015/08/07/ionic-loopback-rest-api">Ionic Framework and LoopBack, Part I: Building a LoopBack REST API</a></li><li class="right-bar-li"><a href="/2015/07/24/guide-to-mongoose-discriminators">An 80/20 Guide to Mongoose Discriminators</a></li><li class="right-bar-li"><a href="/2015/06/26/crunching-nba-finals-history-with-mongodb">Crunching NBA Finals History with MongoDB</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F08%2F07%2Fionic-loopback-rest-api&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F08%2F07%2Fionic-loopback-rest-api" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F08%2F07%2Fionic-loopback-rest-api" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F08%2F07%2Fionic-loopback-rest-api&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F08%2F07%2Fionic-loopback-rest-api" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F08%2F07%2Fionic-loopback-rest-api" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Ionic Framework and LoopBack, Part I: Building a LoopBack REST API </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 07, 2015</span></div></div></div><div class="post-body-text-container"><p><em>This post originally appeared on <a href="https://strongloop.com/strongblog/karma-test-client-side-javascript/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
+<p>I have a confession: I hate native mobile development. Most of the reason why
+I started working with NodeJS was my struggles with managing mobile app
+development for a small startup in 2012. Back then, native mobile development
+struggled with painfully slow feedback - to see the results of your work in
+action, you need to start a server, re-compile, wait for the app to load, and
+click around in a simulator.</p>
+<p>Code sharing was also a lost cause. In my experience, it&#39;s hard to get code right
+once. When your server is in Ruby, your iOS app is in Objective-C, your Android
+app is in Java, and your web client is in JavaScript, you end up maintaining 4
+separate implementations of the same code in 4 different languages. Even worse,
+each implementation is bound to have its own bugs, quirks, and performance
+issues.</p>
+<p>Now, with StrongLoop <a href="http://loopback.io/">LoopBack</a> and the
+<a href="http://ionicframework.com/">Ionic framework</a>, you can quickly build out a
+server and a corresponding mobile app using only JavaScript. LoopBack enables
+you to quickly build up a REST API from your command line. Ionic enables you
+to build &quot;hybrid&quot; mobile apps, that is, mobile apps that work by launching
+a browser and executing JavaScript.</p>
+<p>In this series of articles, you&#39;ll see how you can build a server using
+LoopBack. Then you&#39;ll use LoopBack&#39;s AngularJS SDK to create AngularJS
+components which you will use to create an Ionic framework hybrid mobile app.
+There will be 4 articles in this series:</p>
+<ol>
+<li>Building a LoopBack REST API</li>
+<li>Building AngularJS Directives with the LoopBack AngularJS SDK</li>
+<li>Using AngularJS Directives in Ionic Framework Mobile Apps</li>
+<li>Testing Your Mobile App in Travis</li>
+</ol>
+<p>You&#39;ll be building a simple stopwatch application. Users of the app will be
+able to log in with Facebook, track times, and save their times to the server.
+Let&#39;s get started!</p>
+<h2 id="getting-started-with-loopback">Getting Started with LoopBack</h2>
+<p>StrongLoop LoopBack is a tool for rapidly generating NodeJS REST API&#39;s. LoopBack
+also has a powerful AngularJS SDK that enables you to generate AngularJS clients
+for your REST API&#39;s. Since the Ionic framework is based on AngularJS, the
+LoopBack AngularJS SDK makes building a mobile app even easier. You&#39;ll learn
+more about the AngularJS SDK in the next article. In this article, you&#39;ll use
+LoopBack to create a REST API with Facebook login. You can find the
+<a href="https://github.com/vkarpov15/stopwatch-server-example">complete stopwatch server on GitHub</a></p>
+<p>The first step is to install the <code>strongloop</code> npm module using
+<code>npm install strongloop -g</code>. The <code>strongloop</code> module gives you the <code>slc</code>
+executable. Run <code>slc loopback</code> to start a new application - you should see
+the below output in your terminal. Call your application
+&#39;stopwatch-server-example&#39;.</p>
+<pre><code>$ ./node_modules/strongloop/bin/slc loopback
+
+     _<span class="hljs-comment">-----_</span>
+    |       |    .<span class="hljs-comment">--------------------------.</span>
+    |<span class="hljs-comment">--(o)--|    |  Let's create a LoopBack |</span>
+   `<span class="hljs-comment">---------Â´   |       application!       |</span>
+    ( _Â´U`_ )    '<span class="hljs-comment">--------------------------'</span>
+    /___A___\
+     |  ~  |
+   __'.___.'__
+ Â´   `  |Â° Â´ Y `
+
+? What's <span class="hljs-keyword">the</span> <span class="hljs-property">name</span> <span class="hljs-keyword">of</span> your <span class="hljs-type">application</span>? stopwatch-server-example
+</code></pre><p>LoopBack will create a directory called <code>stopwatch-server-example</code>. The
+<a href="https://github.com/vkarpov15/stopwatch-server-example/commit/23010aedf9eb9093b5a7357bd01dccc1b551470b">stopwatch-server-example directory&#39;s code will look like this</a> once LoopBack is done.</p>
+<h2 id="setting-up-facebook-login">Setting Up Facebook Login</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697">See a diff for this step on GitHub</a></em></p>
+<p>Adding Facebook login to your LoopBack server is easy. LoopBack is great for
+reducing the amount of wiring code you need to write; most of the code you&#39;ll
+write in this section will be either on the command line or in JSON
+configurations rather than actual JavaScript. There&#39;s nothing stopping you
+from writing a plain-old Express REST API on top of LoopBack&#39;s scaffolding.
+However, effective LoopBack developers rely on the command line interface to do
+most of the work.</p>
+<p>First, you&#39;re going to need to add 2 npm modules to the
+&#39;stopwatch-server-example&#39; directory&#39;s <code>package.json</code> file:</p>
+<ul>
+<li><code>npm install loopback-component-passport --save</code></li>
+<li><code>npm install passport-facebook --save</code></li>
+</ul>
+<p>Once you have these 2 modules, you&#39;re going to write a little code to wire them
+together in your server. First, open up your <code>server/model-config.json</code> file.
+This is where LoopBack stores high-level metadata about your data models. In
+order to integrate Facebook login with LoopBack, you&#39;re going to need to pull
+in the <code>loopback-component-passport</code> module&#39;s
+<a href="http://docs.strongloop.com/pages/releaseview.action?pageId=3836277#Third-partylogin%28Passport%29-UserIdentitymodel">UserIdentity</a>
+and <a href="http://docs.strongloop.com/pages/releaseview.action?pageId=3836277#Third-partylogin%28Passport%29-UserCredentialmodel">UserCredential</a>
+models. You won&#39;t have to interact with these models directly, but LoopBack
+needs to be aware of them.</p>
+<p>To add these models, first you should add
+<code>&quot;./node_modules/loopback-component-passport/lib/models&quot;</code> to the <code>sources</code>
+list. This tells LoopBack where to find these models. You also need to add
+<a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697#diff-3">&#39;UserCredential&#39; and &#39;UserIdentity&#39; to the top-level object</a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"UserCredential"</span>: {
+  <span class="hljs-string">"dataSource"</span>: <span class="hljs-string">"db"</span>,
+  <span class="hljs-string">"public"</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-string">"UserIdentity"</span>: {
+  <span class="hljs-string">"dataSource"</span>: <span class="hljs-string">"db"</span>,
+  <span class="hljs-string">"public"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre>
+<p>Once that&#39;s done, you&#39;re going to have to configure your server to allow
+Facebook login. You should
+<a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697#diff-2">add a boot script to LoopBack&#39;s <code>server/boot</code> directory that configures  LoopBack&#39;s <code>PassportConfigurator</code></a>.
+<a href="http://docs.strongloop.com/display/public/LB/Defining+boot+scripts;jsessionid=68BB30C5B41D43772DC77CED25005089">Boot scripts</a>
+are a powerful mechanism for configuring your LoopBack server. A boot script
+enables you to add operations to your server startup process without adding
+extra bloat to your <code>server/server.js</code> file.</p>
+<pre><code class="lang-javascript"><span class="hljs-regexp">//</span> Make sure to also put <span class="hljs-keyword">this</span> <span class="hljs-keyword">in</span> `<span class="javascript">server/server.js</span>`
+<span class="hljs-reserved">var</span> PassportConfigurator =
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">'loopback-component-passport'</span>).PassportConfigurator;
+
+<span class="hljs-regexp">//</span> Include <span class="hljs-keyword">this</span> <span class="hljs-keyword">in</span> your <span class="hljs-string">'facebook-oauth.js'</span> boot script <span class="hljs-keyword">in</span> `<span class="javascript">server/boot</span>`.
+<span class="hljs-reserved">var</span> passportConfigurator = <span class="hljs-keyword">new</span> PassportConfigurator(app);
+
+passportConfigurator.init();
+passportConfigurator.setupModels({
+  <span class="hljs-attribute">userModel</span>: app.models.User,
+  <span class="hljs-attribute">userIdentityModel</span>: app.models.UserIdentity,
+  <span class="hljs-attribute">userCredentialModel</span>: app.models.UserCredential
+});
+passportConfigurator.configureProvider(<span class="hljs-string">'facebook-login'</span>,
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">'../providers.json'</span>)[<span class="hljs-string">'facebook-login'</span>]);
+</code></pre>
+<p>Notice the <code>providers.json</code> file that <code>require()</code> loads above. That file
+contains JSON configuration parameters for Facebook login, including your
+client id and secret. In the interest of avoiding Facebook&#39;s inane labyrinth
+of OAuth configurations, a functioning <code>providers.json</code> is included in the
+above commit and shown below.</p>
+<pre><code class="lang-javascript">{
+  "<span class="hljs-attribute">facebook-login</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">provider</span>": <span class="hljs-value"><span class="hljs-string">"facebook"</span></span>,
+    "<span class="hljs-attribute">module</span>": <span class="hljs-value"><span class="hljs-string">"passport-facebook"</span></span>,
+    "<span class="hljs-attribute">clientID</span>": <span class="hljs-value"><span class="hljs-string">"919651901409502"</span></span>,
+    "<span class="hljs-attribute">clientSecret</span>": <span class="hljs-value"><span class="hljs-string">"5ca481b467aa7f80c24702f093e64417"</span></span>,
+    "<span class="hljs-attribute">callbackURL</span>": <span class="hljs-value"><span class="hljs-string">"http://localhost:3000/auth/facebook/callback"</span></span>,
+    "<span class="hljs-attribute">authPath</span>": <span class="hljs-value"><span class="hljs-string">"/auth/facebook"</span></span>,
+    "<span class="hljs-attribute">callbackPath</span>": <span class="hljs-value"><span class="hljs-string">"/auth/facebook/callback"</span></span>,
+    "<span class="hljs-attribute">successRedirect</span>": <span class="hljs-value"><span class="hljs-string">"/api/Users/me"</span></span>,
+    "<span class="hljs-attribute">scope</span>": <span class="hljs-value">[<span class="hljs-string">"public_profile"</span>]
+  </span>}
+</span>}
+</code></pre>
+<p>That&#39;s all you need to set up Facebook login! Now, if you start the server with
+<code>node .</code> and go to <code>http://localhost:3000/auth/facebook</code>, LoopBack will redirect
+users back to the <code>/api/Users/me</code> route. Notice, however, that this route is
+currently not implemented. While you can log in, there&#39;s no way to get data
+about the currently logged in user. That&#39;s what you&#39;ll implement in the next
+section.</p>
+<h2 id="getting-the-currently-logged-in-user">Getting the Currently Logged In User</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/78d16c1fd1d10437c8eff6e9fcdd94f01a855bd8">See a diff for this step on GitHub</a></em></p>
+<p>The ability to send the user to Facebook to log in is just the first step -
+logging in isn&#39;t very useful if you can&#39;t track the currently logged in user.
+To actually track the currently logged in user, you&#39;re going to have to add
+a session store and a cookie parser.</p>
+<ul>
+<li><code>npm install express-session --save</code></li>
+<li><code>npm install cookie-parser --save</code></li>
+</ul>
+<p>Once you have installed the session middleware and cookie parser middleware,
+you&#39;ll need to plug them into your REST API. Specifically, you&#39;ll need to
+plug in 3 middleware modules:</p>
+<ul>
+<li>A middleware that parses cookies.</li>
+<li>A middleware that uses cookies to track the currently logged in user via
+sessions.</li>
+<li>A middleware that converts the <code>/me</code> part of the <code>/api/Users/me</code> into a
+reference to the currently logged in user.</li>
+</ul>
+<p>To add these middleware, add the below code to your <code>server/middleware.json</code> file.</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"session:before"</span>: {
+  <span class="hljs-string">"cookie-parser"</span>: { <span class="hljs-string">"params"</span>: <span class="hljs-string">"test secret"</span> }
+},
+<span class="hljs-string">"session"</span>: {
+  <span class="hljs-string">"express-session"</span>: {
+    <span class="hljs-string">"params"</span>: {
+      <span class="hljs-string">"secret"</span>: <span class="hljs-string">"other test secret"</span>,
+      <span class="hljs-string">"saveUninitialized"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"resave"</span>: <span class="hljs-literal">true</span>
+    }
+  }
+}
+</code></pre>
+<p>You will also need to add the below code to your <code>server/boot/authentication.js</code>
+boot script.</p>
+<pre><code class="lang-javascript"><span class="hljs-tag">server</span><span class="hljs-class">.middleware</span>(<span class="hljs-string">'auth'</span>, loopback.<span class="hljs-function">token</span>({
+  <span class="hljs-attribute">model</span>: server.models.accessToken,
+  <span class="hljs-attribute">currentUserLiteral</span>: <span class="hljs-string">'me'</span>
+}));
+</code></pre>
+<p>The first two middleware modules are standard boilerplate that you may have
+seen if you&#39;ve used <a href="https://www.npmjs.com/package/express">Express</a> before. In
+fact, what you&#39;re doing with the <code>middleware.json</code> file is wiring up the the
+<code>cookie-parser</code> and <code>express-session</code> npm packages, respectively, to your
+LoopBack server.</p>
+<p>Once you set up the first two middleware modules and log in using Facebook, you
+should be able to visit <code>http://localhost:3000/api/Users/1</code> and see what
+information LoopBack has stored about you. For instance, below is the output
+when I log in.</p>
+<pre><code class="lang-javascript">{"<span class="hljs-attribute">username</span>":<span class="hljs-value"><span class="hljs-string">"facebook-login.383798881820166"</span></span>,"<span class="hljs-attribute">email</span>":<span class="hljs-value"><span class="hljs-string">"383798881820166@loopback.facebook.com"</span></span>,"<span class="hljs-attribute">id</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>}
+</code></pre>
+<p>However, getting this data depends on you knowing what your user ID is. You&#39;ll
+notice that your Facebook login is configured to redirect the user to <code>http://localhost:3000/api/Users/me</code> when they&#39;ve successfully logged in. The
+third middleware, the &#39;auth&#39; middleware, transforms <code>/me</code> into the ID for the
+currently logged in user. This makes it easier to set up an Ionic framework
+app on top of your REST API. Since you can leverage browser cookies in your
+hybrid mobile app, your app code doesn&#39;t need to track any sort of
+authentication token. LoopBack enables you to specify the token in your
+<code>Authorization</code> header, but, for the purposes of this tutorial, you&#39;ll use
+cookies in order to minimize the amount of code you need to write.</p>
+<h2 id="setting-up-a-times-model">Setting Up a Times Model</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/dd684b09b592a84f843bc61551b6962f6115448e">See a diff for this step on GitHub</a></em></p>
+<p>Once you have authentication set up, now you need to create a new model that
+will store the user&#39;s recorded times. The times will contain the recorded
+time in milliseconds and an optional tag. For instance, if your user is using
+the app to track their 200 meter and 400 meter sprint times, they could tag
+once set of times with &quot;200m&quot; and the other with &quot;400m&quot; to see their progress
+in each sprint over time.</p>
+<p>To create a new model, use the <code>slc loopback:model</code> command. Let&#39;s call this
+model &#39;Time&#39;. You can use any of the databases LoopBack supports, but, in the
+interest of keeping this tutorial lightweight, you&#39;re just going to use the
+in-memory database.</p>
+<pre><code>$ slc loopback:model
+? Enter the model name: <span class="hljs-typename">Time</span>
+? <span class="hljs-keyword">Select</span> the data-source <span class="hljs-keyword">to</span> attach <span class="hljs-typename">Time</span> <span class="hljs-keyword">to</span>: db (memory)
+? <span class="hljs-keyword">Select</span> model<span class="hljs-attribute">'s</span> base class: PersistedModel
+? Expose <span class="hljs-typename">Time</span> via the REST API? Yes
+? Custom plural form (used <span class="hljs-keyword">to</span> build REST URL): Times
+Let<span class="hljs-attribute">'s</span> add some <span class="hljs-typename">Time</span> properties now.
+
+Enter an empty <span class="hljs-keyword">property</span> name <span class="hljs-keyword">when</span> done.
+? <span class="hljs-keyword">Property</span> name: <span class="hljs-typename">time</span>
+   invoke   loopback:<span class="hljs-keyword">property</span>
+? <span class="hljs-keyword">Property</span> <span class="hljs-keyword">type</span>: number
+? Required? Yes
+
+Let<span class="hljs-attribute">'s</span> add another <span class="hljs-typename">Time</span> <span class="hljs-keyword">property</span>.
+Enter an empty <span class="hljs-keyword">property</span> name <span class="hljs-keyword">when</span> done.
+? <span class="hljs-keyword">Property</span> name: tag
+   invoke   loopback:<span class="hljs-keyword">property</span>
+? <span class="hljs-keyword">Property</span> <span class="hljs-keyword">type</span>: <span class="hljs-typename">string</span>
+? Required? No
+
+Let<span class="hljs-attribute">'s</span> add another <span class="hljs-typename">Time</span> <span class="hljs-keyword">property</span>.
+Enter an empty <span class="hljs-keyword">property</span> name <span class="hljs-keyword">when</span> done.
+? <span class="hljs-keyword">Property</span> name:
+</code></pre><p>Once you have run this command and filled out the prompts as shown above,
+you should now have a <code>common/models/time.json</code> file that looks like what
+you see below.</p>
+<pre><code class="lang-javascript">{
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Time"</span></span>,
+  "<span class="hljs-attribute">plural</span>": <span class="hljs-value"><span class="hljs-string">"Times"</span></span>,
+  "<span class="hljs-attribute">base</span>": <span class="hljs-value"><span class="hljs-string">"PersistedModel"</span></span>,
+  "<span class="hljs-attribute">idInjection</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">options</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">validateUpsert</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">time</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">required</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">tag</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">validations</span>": <span class="hljs-value">[]</span>,
+  "<span class="hljs-attribute">relations</span>": <span class="hljs-value">{}</span>,
+  "<span class="hljs-attribute">acls</span>": <span class="hljs-value">[]</span>,
+  "<span class="hljs-attribute">methods</span>": <span class="hljs-value">[]
+</span>}
+</code></pre>
+<p>You now have a &#39;Time&#39; model with 2 properties: a required <code>time</code> number, and
+an optional <code>tag</code> string. However, this model doesn&#39;t take into account one
+important detail: the relationship between users and times. Specifically,
+you have a one-to-many relationship between users and times. LoopBack has a
+neat
+<a href="http://docs.strongloop.com/display/public/LB/Tutorial%3A+model+relations#Tutorial:modelrelations-Createmodelrelation">command line interface for creating relations between models</a>.
+But since &#39;User&#39; is a built-in model that lives in your <code>node_modules</code> directory,
+it isn&#39;t tracked by source control. You can declare the relation in your
+<code>server/server.js</code> file.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> User = app.models.User;
+User.hasMany(app.models.Time, { <span class="hljs-keyword">as</span>: <span class="hljs-string">'times'</span>, foreignKey: <span class="hljs-string">'userId'</span> });
+</code></pre>
+<p>Now &#39;Times&#39; has a &#39;userId&#39; field that tracks which user this time belongs to.
+So now, when you log in, you should be able to go to
+<code>http://localhost:3000/api/Users/me/times</code> and get an HTTP 401 unauthorized.
+Believe it or not, this error is a good thing: this means that you have
+created the relation correctly. Now you just need to set up permissions.</p>
+<p>First, you should create permissions for the &#39;Time&#39; model. Users should only
+be able to access times that belong to them, and authenticated users should
+be able to create new times. LoopBack has the <code>slc loopback:acl</code> command
+for creating permissions. You can use this command 3 times to create 3
+access control rules for the &#39;Time&#39; model.</p>
+<pre><code>$ slc loopback:acl
+? <span class="hljs-operator"><span class="hljs-keyword">Select</span> the model <span class="hljs-keyword">to</span> apply the ACL entry <span class="hljs-keyword">to</span>: <span class="hljs-keyword">Time</span>
+? <span class="hljs-keyword">Select</span> the ACL scope: <span class="hljs-keyword">All</span> methods <span class="hljs-keyword">and</span> properties
+? <span class="hljs-keyword">Select</span> the access type: <span class="hljs-keyword">All</span> (<span class="hljs-keyword">match</span> <span class="hljs-keyword">all</span> types)
+? <span class="hljs-keyword">Select</span> the role: <span class="hljs-keyword">All</span> users
+? <span class="hljs-keyword">Select</span> the permission <span class="hljs-keyword">to</span> apply: Explicitly deny access
+$ slc loopback:acl
+? <span class="hljs-keyword">Select</span> the model <span class="hljs-keyword">to</span> apply the ACL entry <span class="hljs-keyword">to</span>: <span class="hljs-keyword">Time</span>
+? <span class="hljs-keyword">Select</span> the ACL scope: <span class="hljs-keyword">All</span> methods <span class="hljs-keyword">and</span> properties
+? <span class="hljs-keyword">Select</span> the access type: <span class="hljs-keyword">All</span> (<span class="hljs-keyword">match</span> <span class="hljs-keyword">all</span> types)
+? <span class="hljs-keyword">Select</span> the role: The <span class="hljs-keyword">user</span> owning the object
+? <span class="hljs-keyword">Select</span> the permission <span class="hljs-keyword">to</span> apply: Explicitly <span class="hljs-keyword">grant</span> access
+$ slc loopback:acl
+? <span class="hljs-keyword">Select</span> the model <span class="hljs-keyword">to</span> apply the ACL entry <span class="hljs-keyword">to</span>: <span class="hljs-keyword">Time</span>
+? <span class="hljs-keyword">Select</span> the ACL scope: A single method
+? Enter the method name: <span class="hljs-keyword">create</span>
+? <span class="hljs-keyword">Select</span> the role: <span class="hljs-keyword">Any</span> authenticated <span class="hljs-keyword">user</span>
+? <span class="hljs-keyword">Select</span> the permission <span class="hljs-keyword">to</span> apply: Explicitly <span class="hljs-keyword">grant</span> access</span>
+</code></pre><p>The above process defines 3 access control rules for the &#39;Time&#39; model.</p>
+<ol>
+<li>By default, access to all operations on the &#39;Time&#39; model is denied.</li>
+<li>A user can do whatever they want to a &#39;Time&#39; instance that they own.</li>
+<li>An authenticated user can create a new &#39;Time&#39; instance.</li>
+</ol>
+<p>Take a look at <code>common/models/time.json</code>, you should see the following:</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"acls"</span>: [
+  {
+    <span class="hljs-string">"accessType"</span>: <span class="hljs-string">"*"</span>,
+    <span class="hljs-string">"principalType"</span>: <span class="hljs-string">"ROLE"</span>,
+    <span class="hljs-string">"principalId"</span>: <span class="hljs-string">"<span class="hljs-variable">$everyone</span>"</span>,
+    <span class="hljs-string">"permission"</span>: <span class="hljs-string">"DENY"</span>
+  },
+  {
+    <span class="hljs-string">"accessType"</span>: <span class="hljs-string">"*"</span>,
+    <span class="hljs-string">"principalType"</span>: <span class="hljs-string">"ROLE"</span>,
+    <span class="hljs-string">"principalId"</span>: <span class="hljs-string">"<span class="hljs-variable">$owner</span>"</span>,
+    <span class="hljs-string">"permission"</span>: <span class="hljs-string">"ALLOW"</span>
+  },
+  {
+    <span class="hljs-string">"accessType"</span>: <span class="hljs-string">"EXECUTE"</span>,
+    <span class="hljs-string">"principalType"</span>: <span class="hljs-string">"ROLE"</span>,
+    <span class="hljs-string">"principalId"</span>: <span class="hljs-string">"<span class="hljs-variable">$authenticated</span>"</span>,
+    <span class="hljs-string">"permission"</span>: <span class="hljs-string">"ALLOW"</span>,
+    <span class="hljs-string">"property"</span>: <span class="hljs-string">"create"</span>
+  }
+]
+</code></pre>
+<p>Even after you do this, you&#39;re still going to get an HTTP 401 when you go to
+<code>http://localhost:3000/api/Users/me/times</code>. In order to make this work, you&#39;re
+going to have to add an ACL to the User model as well. The
+<a href="http://docs.strongloop.com/display/public/LB/Accessing+related+models"><code>__get__times</code> function is the function the User model uses to get related times</a>.
+Once again, since the &#39;User&#39; model isn&#39;t tracked by git, the easiest place to
+make this change is in
+<a href="https://github.com/vkarpov15/stopwatch-server-example/commit/27148a641c1af3b1c83ad65c456c881340325312#diff-2">a boot script called <code>server/boot/user-permissions.js</code></a>.</p>
+<pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app)</span> </span>{
+  <span class="hljs-keyword">var</span> User = app.models.User;
+  <span class="hljs-keyword">var</span> ACL = app.models.ACL;
+  User.hasMany(app.models.Time, { <span class="hljs-keyword">as</span>: <span class="hljs-string">'times'</span>, foreignKey: <span class="hljs-string">'userId'</span> });
+  ACL.create({
+    accessType: ACL.ALL,
+    permission: ACL.ALLOW,
+    principalType: ACL.ROLE,
+    principalId: <span class="hljs-string">'$owner'</span>,
+    model: <span class="hljs-string">'User'</span>,
+    property: <span class="hljs-string">'__get__times'</span>
+  });
+};
+</code></pre>
+<p>Now you should be able to access <code>http://localhost:3000/api/Users/me/times</code>
+after logging in. There&#39;s just one tiny permission issue left. Remember that
+you enabled any authenticated user to create a new time. The problem is that
+you didn&#39;t put any restriction on the <code>userId</code> field, so any user can create
+times for any other user! Naturally, you want to disallow this. However,
+this is a 3-liner using <a href="http://docs.strongloop.com/display/public/LB/Remote+hooks">LoopBack remote hooks</a>. The easiest
+place to make this change is in
+<a href="https://github.com/vkarpov15/stopwatch-server-example/commit/27148a641c1af3b1c83ad65c456c881340325312#diff-0">the <code>common/models/Time.js</code> file</a>, which is where &#39;Time&#39; model configuration
+belongs.</p>
+<pre><code class="lang-javascript">app.models.Time.beforeRemote(<span class="hljs-string">'create'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ctx, modelInstance, next)</span></span> {
+  ctx.args.data.userId = ctx.req.accessToken.userId;
+  <span class="hljs-built_in">next</span>();
+});
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Congratulations, you just built a full REST API with permissions and OAuth
+integration with 3 simple steps. Once you get familiar with LoopBack, you can
+generate REST APIs with minimal work. However, this is just the tip of the
+iceberg with LoopBack. In the next article, you&#39;ll use the LoopBack AngularJS
+SDK to build AngularJS directives that will form the basis of your mobile app.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150807_loopback_ionic_i.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Ionic Framework and LoopBack, Part I: Building a LoopBack REST API", time: new Date() });
+  </script></body></html>
