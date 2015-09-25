@@ -1,0 +1,456 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/09/04/ionic-loopback-rest-api"/><meta property="og:image" content="http://i.imgur.com/gh86st3.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">Introduction to the MEAN Stack, Part One: Setting Up Your Tools</a></li><li class="right-bar-li"><a href="/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">The 80/20 Guide to Writing AngularJS Directives</a></li><li class="right-bar-li"><a href="/2013/07/29/introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list/">Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List</a></li><li class="right-bar-li"><a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs/">How to Easily Validate Any Form Ever Using AngularJS</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/2015/09/04/ionic-loopback-rest-api">Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK</a></li><li class="right-bar-li"><a href="/2015/08/07/ionic-loopback-rest-api">Ionic Framework and LoopBack, Part I: Building a LoopBack REST API</a></li><li class="right-bar-li"><a href="/2015/07/24/guide-to-mongoose-discriminators">An 80/20 Guide to Mongoose Discriminators</a></li><li class="right-bar-li"><a href="/2015/06/26/crunching-nba-finals-history-with-mongodb">Crunching NBA Finals History with MongoDB</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F09%2F04%2Fionic-loopback-rest-api&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F09%2F04%2Fionic-loopback-rest-api" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F09%2F04%2Fionic-loopback-rest-api" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F09%2F04%2Fionic-loopback-rest-api&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F09%2F04%2Fionic-loopback-rest-api" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F09%2F04%2Fionic-loopback-rest-api" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 04, 2015</span></div></div></div><div class="post-body-text-container"><p><em>This post originally appeared on <a href="https://strongloop.com/strongblog/karma-test-client-side-javascript/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
+<p>In the
+<a href="https://strongloop.com/strongblog/part-1-ionic-loopback-node-js-mobile/">first article in this series</a>,
+you built out a simple REST API for tracking times using StrongLoop LoopBack.
+The REST API enabled you to log in using Facebook OAuth and save times
+recorded by a stopwatch. In order to make this API useful, you&#39;re
+going to build a mobile app.</p>
+<p>Remember that the <a href="http://ionicframework.com/">Ionic framework</a> is a tool for
+building hybrid mobile apps on top of <a href="https://angularjs.org/">AngularJS</a>.
+In this article, you&#39;ll use the
+<a href="https://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK">LoopBack AngularJS SDK</a>
+to build AngularJS directives that will be used in your Ionic mobile app.
+The directives you&#39;re going to build won&#39;t depend on Ionic, so you&#39;ll work
+on them in your browser. Let&#39;s see how the LoopBack AngularJS SDK will make
+building these directives easy.</p>
+<h2 id="generating-services-with-the-loopback-angularjs-sdk">Generating Services with the LoopBack AngularJS SDK</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/e8ffeba399d727a49b7223d1cdcb455ca97cdc71">See a diff for this step on GitHub</a></em></p>
+<p>Since LoopBack has a well-defined format for declaring models, the LoopBack
+AngularJS SDK can generate AngularJS services corresponding to your models.
+These services will provide a mechanism for your client-side JavaScript to
+communicate with your REST API.</p>
+<p>Getting started with the LoopBack AngularJS SDK is easy. If you successfully
+ran <code>npm install loopback -g</code>, you should already have the <code>lb-ng</code> executable.
+The <code>lb-ng</code> executable takes 2 parameters; the entry point to your LoopBack
+server, and the file to write the JavaScript to. Running the below command
+from the
+<a href="https://github.com/vkarpov15/stopwatch-server-example">stopwatch server directory root</a>
+will generate AngularJS services in the <code>client/js/services.js</code> file.</p>
+<pre><code>$ lb-ng ./<span class="hljs-built_in">server</span>/<span class="hljs-built_in">server</span>.js ./client/js/services.js
+Loading LoopBack app <span class="hljs-string">"./server/server.js"</span>
+Generating <span class="hljs-string">"lbServices"</span> <span class="hljs-keyword">for</span> the API endpoint <span class="hljs-string">"/api"</span>
+Warning: scope User.accessTokens targets <span class="hljs-keyword">class</span> <span class="hljs-string">"AccessToken"</span>, which <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> exposed
+via remoting. The Angular code <span class="hljs-keyword">for</span> this scope won<span class="hljs-comment">'t be generated.</span>
+Saving the generated services source <span class="hljs-keyword">to</span> <span class="hljs-string">"./client/js/services.js"</span>
+</code></pre><p>What do these services actually do? These services are wrappers around
+the
+<a href="http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/">AngularJS <code>$resource</code> service</a>.
+This means that you now have a &#39;Time&#39; service which enables you to create
+a new time and save it like you see in the below pseudocode. The LoopBack
+service takes care of translating your <code>$save()</code> call into a <code>POST</code> request
+to your REST API.</p>
+<pre><code class="lang-javascript">var <span class="hljs-built_in">time</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Time</span>({ <span class="hljs-built_in">time</span>: <span class="hljs-number">250</span> });
+<span class="hljs-built_in">time</span>.$save();
+</code></pre>
+<p>Now that you have this JavaScript file, you need to make it accessible in
+the browser. Thankfully, serving this JavaScript file from your LoopBack
+server is trivial. You just need to add a static middleware to the
+&#39;files&#39; phase in your <code>server/middleware.json</code> file. The below middleware
+will make it so that a browser can get your <code>services.js</code> file from
+<code>http://localhost:3000/js/services.js</code>.</p>
+<pre><code class="lang-javascript">  <span class="hljs-string">"files"</span>: {
+    <span class="hljs-string">"loopback<span class="hljs-subst">#static</span>"</span>: {
+      <span class="hljs-string">"params"</span>: <span class="hljs-string">"$!../client"</span>
+    }
+  }
+</code></pre>
+<h2 id="setting-up-your-first-directive">Setting Up Your First Directive</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/f9b035c6d04037bf1b6930387e8ca5753f4a2e05">See a diff for this step on GitHub</a></em></p>
+<p>Now that you have AngularJS services that enable you to communicate with
+your REST API, let&#39;s build a simple AngularJS directive that will enable
+the user to log in. AngularJS <em>directives</em> are bundles of HTML and JavaScript
+that you can plug into your page. Directives are analogous to
+<a href="http://webcomponents.org/">web components</a> or
+<a href="http://react-components.com/">ReactJS components</a>. The first directive
+you&#39;ll build is a user menu; if the user is not logged in, it will show
+a log-in button, otherwise it&#39;ll show a welcome message.</p>
+<p>First, you should create the entry point to your web app
+in the <code>client/index.html</code> file. The HTML looks like this.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">ng-app</span>=<span class="hljs-value">"core"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>
+            <span class="hljs-attribute">src</span>=<span class="hljs-value">"//code.angularjs.org/1.4.3/angular.js"</span>&gt;</span><span class="javascript">
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>
+            <span class="hljs-attribute">src</span>=<span class="hljs-value">"//code.angularjs.org/1.4.3/angular-resource.js"</span>&gt;</span><span class="javascript">
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>
+            <span class="hljs-attribute">src</span>=<span class="hljs-value">"js/services.js"</span>&gt;</span><span class="javascript">
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>
+            <span class="hljs-attribute">src</span>=<span class="hljs-value">"js/index.js"</span>&gt;</span><span class="javascript">
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">user-menu</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">user-menu</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p>If you&#39;ve seen HTML before, this shouldn&#39;t look too complicated. The
+above HTML includes 4 JavaScript files: the AngularJS core, the &#39;ngResource&#39;
+module that the LoopBack AngularJS module depends on, the <code>services.js</code>
+file that the AngularJS SDK generated, and an <code>index.js</code> file that you&#39;ll
+learn about shortly.
+<a href="https://docs.angularjs.org/api/ng/directive/ngApp">The &#39;ngApp&#39; directive</a>
+says that the main AngularJS module for this page is called &#39;core&#39;.</p>
+<p>Now what&#39;s this <code>user-menu</code> tag about? This is the user menu directive in
+action. Here&#39;s how it&#39;s implemented.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Create the 'core' module and make it depend on 'lbServices'</span>
+<span class="hljs-comment">// 'lbServices' is the module that your 'services.js' file exports</span>
+angular.module(<span class="hljs-string">'core'</span>, [<span class="hljs-string">'lbServices'</span>]).
+  <span class="hljs-comment">// The $user service represents the currently logged in user</span>
+  factory(<span class="hljs-string">'$user'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(User)</span> </span>{
+    <span class="hljs-keyword">var</span> ret = {};
+
+    <span class="hljs-comment">// This function reloads the currently logged in user</span>
+    ret.load = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+      User.findById({ id: <span class="hljs-string">'me'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(v)</span> </span>{
+        ret.data = v;
+      });
+    };
+
+    ret.load();
+
+    <span class="hljs-keyword">return</span> ret;
+  }).
+  <span class="hljs-comment">// Declare the user menu directive</span>
+  directive(<span class="hljs-string">'userMenu'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> {
+      templateUrl: <span class="hljs-string">'templates/user_menu.html'</span>,
+      controller: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-variable">$scope</span>, <span class="hljs-variable">$user</span>)</span> </span>{
+        <span class="hljs-comment">// Expose the $user service to the template HTML</span>
+        <span class="hljs-variable">$scope</span>.user = <span class="hljs-variable">$user</span>;
+      }
+    };
+  });
+</code></pre>
+<p>The <code>$user</code> service is a caching layer on top of the <code>User</code> service,
+which comes from the LoopBack AngularJS SDK. The <code>User</code> service provides
+a convenient interface to interact with the user REST API from
+<a href="https://strongloop.com/strongblog/part-1-ionic-loopback-node-js-mobile/">the REST API article</a>.
+The <code>User.findById()</code> function translates to a <code>GET</code> request to
+<code>/api/Users/me</code>. Below is the console output from Chrome when you load
+the &#39;index.html&#39; page.</p>
+<p><img src="http://i.imgur.com/uXO8NXV.png"></p>
+<p>The <code>userMenu</code> directive attaches the <code>$user</code> service to the AngularJS scope,
+which enables the template defined in <code>templates/user_menu.html</code> to access
+it. The <code>userMenu</code> directive could use the <code>User</code> service directly, however,
+it&#39;s typically better to have a separate service to track which user is
+currently logged in. In particular, since
+<a href="https://docs.angularjs.org/guide/services">AngularJS services are lazily-instantiated singletons</a>,
+multiple controllers can use the <code>$user</code> service without having to make extra
+<code>GET /api/Users/me</code> HTTP requests. You can learn more about this paradigm
+and other related AngularJS best practices in
+<a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/">Professional AngularJS&#39; architecture chapter</a>.</p>
+<p>Now, let&#39;s take a look at the user menu&#39;s template, in
+<code>templates/user_menu.html</code>. The HTML looks like this:</p>
+<pre><code class="lang-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"user-data"</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"user.data"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      Welcome, </span><span class="hljs-expression">{{<span class="hljs-variable">user.data.username</span>}}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"login"</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"!user.data"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/auth/facebook"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"//i.stack.imgur.com/LKMP7.png"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></span>
+</code></pre>
+<p>This HTML defines two smaller components. The first shows a welcome message
+when the user is actually logged in. The second shows a Facebook login button
+if the user is not logged in.</p>
+<p>That&#39;s it for the user menu. Now you&#39;re ready to build the real functionality
+for the stopwatch app: a timer directive, and a directive that shows a list
+of times.</p>
+<h2 id="building-the-stopwatch-directives">Building the Stopwatch Directives</h2>
+<p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/835a95eba98e99fb5c9a89b6d87249f7d91ae885">See a diff for this step on GitHub</a></em></p>
+<p>So far, you used the &#39;User&#39; service to build a simple login button. You can
+use a similar paradigm to build the actual stopwatch functionality using
+the &#39;Time&#39; service. The &#39;Time&#39; service corresponds to the &#39;Time&#39; API you
+built out in the
+<a href="https://strongloop.com/strongblog/part-1-ionic-loopback-node-js-mobile/">first article in this series</a>.
+Using this service, you&#39;ll build out two directives; an actual timer, and
+a list of times that you&#39;ve recorded. First, let&#39;s take a look at the
+timer directive.</p>
+<p>The timer directive has a few subtle quirks. As you&#39;ll learn in the final
+article in this series, it&#39;s pretty easy to test this directive in a CI
+framework, but for now you&#39;ll just eyeball it in the browser. The timer
+directive is organized as a state machine with the following states.</p>
+<ol>
+<li>The &#39;INIT&#39; state: the initial state.</li>
+<li>The &#39;RUNNING&#39; state: the timer is running.</li>
+<li>The &#39;STOPPED&#39; state: the timer is stopped, but the time hasn&#39;t been saved</li>
+<li>The &#39;SUCCESS&#39; state: the time has been saved successfully.</li>
+</ol>
+<p>Here&#39;s how the states look visually. First, there&#39;s the &#39;INIT&#39; state, where
+the user hasn&#39;t done anything.</p>
+<p><img src="http://i.imgur.com/ozlq9Ed.png"></p>
+<p>Next, when the user hits &#39;start&#39;, the directive enters the &#39;RUNNING&#39; state,
+and a &#39;stop&#39; button shows up.</p>
+<p><img src="http://i.imgur.com/JNXu1pc.png"></p>
+<p>When the user hits the &#39;stop&#39; button, the directive enters the &#39;STOPPED&#39;
+state. Now the user can either start the timer again,
+reset the timer, or enter in an optional label and save the timer.</p>
+<p><img src="http://i.imgur.com/NfEIyld.png"></p>
+<p>If the user enters in a label and hits &#39;save&#39;, they then enter the &#39;SUCCESS&#39;
+state. In a real application you&#39;d have to add a state to account for
+network errors, but you&#39;re going to skip that step in the interest of keeping
+this tutorial simple.</p>
+<p><img src="http://i.imgur.com/gGOonmO.png"></p>
+<p>Organizing your directive as a state machine is typically useful for
+directives like this timer directive, which have a lot of different bits
+of internal state. The states make it easy to configure your UI to display
+the correct elements. Below is the directive JavaScript.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Declare the timer directive</span>
+directive(<span class="hljs-string">'timer'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">return</span> {
+    templateUrl: <span class="hljs-string">'templates/timer.html'</span>,
+    scope: {
+      <span class="hljs-comment">// If you specify an 'on-time-saved' attribute on a timer,</span>
+      <span class="hljs-comment">// AngularJS will evaluate it every time you save a new time</span>
+      onTimeSaved: <span class="hljs-string">'&amp;'</span>
+    },
+    controller: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-variable">$scope</span>, Time, <span class="hljs-variable">$interval</span>)</span> </span>{
+      <span class="hljs-variable">$scope</span>.ms = <span class="hljs-keyword">null</span>;
+      <span class="hljs-variable">$scope</span>.interval = <span class="hljs-keyword">null</span>;
+      <span class="hljs-variable">$scope</span>.display = <span class="hljs-keyword">null</span>;
+      <span class="hljs-variable">$scope</span>.time = <span class="hljs-keyword">null</span>;
+      <span class="hljs-variable">$scope</span>.state = <span class="hljs-string">'INIT'</span>;
+
+      <span class="hljs-comment">// Switch to the 'RUNNING' state, and set an interval to increment</span>
+      <span class="hljs-comment">// the timer.</span>
+      <span class="hljs-variable">$scope</span>.startTimer = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-variable">$scope</span>.ms = <span class="hljs-variable">$scope</span>.ms || <span class="hljs-number">0</span>;
+        <span class="hljs-variable">$scope</span>.state = <span class="hljs-string">'RUNNING'</span>;
+
+        <span class="hljs-variable">$scope</span>.interval = <span class="hljs-variable">$interval</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+          <span class="hljs-variable">$scope</span>.ms += <span class="hljs-number">1000</span>;
+          <span class="hljs-keyword">var</span> diff = moment.utc(<span class="hljs-variable">$scope</span>.ms);
+          <span class="hljs-variable">$scope</span>.display = diff.format(<span class="hljs-string">'HH:mm:ss'</span>);
+        }, <span class="hljs-number">1000</span>);
+      };
+
+      <span class="hljs-comment">// Stop the timer and create a time model so the user can</span>
+      <span class="hljs-comment">// modify the time's 'tag'.</span>
+      <span class="hljs-variable">$scope</span>.stopTimer = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-variable">$scope</span>.state = <span class="hljs-string">'STOPPED'</span>;
+        <span class="hljs-variable">$interval</span>.cancel(<span class="hljs-variable">$scope</span>.interval);
+        <span class="hljs-variable">$scope</span>.interval = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$scope</span>.time) {
+          <span class="hljs-variable">$scope</span>.time.time = <span class="hljs-variable">$scope</span>.ms;
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-variable">$scope</span>.time = { time: <span class="hljs-variable">$scope</span>.ms };
+        }
+      };
+
+      <span class="hljs-comment">// Reset internal state</span>
+      <span class="hljs-variable">$scope</span>.resetTimer = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-variable">$scope</span>.ms = <span class="hljs-keyword">null</span>;
+        <span class="hljs-variable">$scope</span>.display = <span class="hljs-keyword">null</span>;
+        <span class="hljs-variable">$scope</span>.time = <span class="hljs-keyword">null</span>;
+      };
+
+      <span class="hljs-comment">// Persist the time to the server and enter the 'SUCCESS' state.</span>
+      <span class="hljs-variable">$scope</span>.save = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        Time.create(<span class="hljs-variable">$scope</span>.time).<span class="hljs-variable">$promise</span>.then(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span> </span>{
+          <span class="hljs-variable">$scope</span>.state = <span class="hljs-string">'SUCCESS'</span>;
+          <span class="hljs-variable">$scope</span>.resetTimer();
+
+          <span class="hljs-comment">// If there's an 'on-time-saved' attribute, evaluate it.</span>
+          <span class="hljs-keyword">if</span> (<span class="hljs-variable">$scope</span>.onTimeSaved) {
+            <span class="hljs-variable">$scope</span>.onTimeSaved({ time: time });
+          }
+        });
+      };
+    }
+  };
+});
+</code></pre>
+<p>Thankfully, this is the most complex JavaScript you&#39;ll write in this
+article series. Once you implement this directive, you&#39;ll be able to
+plug it as-is into your Ionic framework mobile app in the next article
+in this series.</p>
+<p>There are 4 functions, <code>startTimer()</code>, <code>stopTimer()</code>,
+<code>resetTimer()</code>, and <code>save()</code>, which are exposed to the UI to enable
+state transitions. In particular, the <code>save()</code> function uses the LoopBack
+&#39;Time&#39; model. The &#39;Time.create()&#39; function triggers a <code>POST</code> request to
+<code>/api/Times</code> to create a new time.</p>
+<p>The <code>save()</code> function also uses the
+<code>onTimeSaved()</code> function; here&#39;s a
+<a href="https://thinkster.io/egghead/isolate-scope-am">brief overview of AngularJS <code>&amp;</code> syntax</a>
+if you&#39;re not familiar with it.</p>
+<p>Now, let&#39;s take a look at the template in <code>templates/timer.html</code>.</p>
+<pre><code class="lang-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"timer"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"timer-display"</span>&gt;</span>
+    </span><span class="hljs-expression">{{<span class="hljs-variable">display</span> || '00:00:00'}}</span><span class="xml">
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">" state === 'INIT' ||
+                      state === 'STOPPED' ||
+                      state === 'SUCCESS'"</span>
+            <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"startTimer()"</span>&gt;</span>
+      Start
+    <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"state === 'RUNNING'"</span> <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"stopTimer()"</span>&gt;</span>
+      Stop
+    <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"reset-button"</span>
+            <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"state === 'STOPPED'"</span>
+            <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"resetTimer()"</span>&gt;</span>
+      Reset
+    <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"save-time"</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"state === 'STOPPED'"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">input</span>  <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>
+              <span class="hljs-attribute">ng-model</span>=<span class="hljs-value">"time.tag"</span>
+              <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Time tag (e.g. '200m')"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"save()"</span>&gt;</span>
+      Save
+    <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"success-message"</span> <span class="hljs-attribute">ng-show</span>=<span class="hljs-value">"state === 'SUCCESS'"</span>&gt;</span>
+    Saved Successfully!
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></span>
+</code></pre>
+<p>The template has various UI elements corresponding to the different states
+the directive can be in. The start button lets you start the timer,
+the stop button stops the timer if you&#39;re in the &#39;RUNNING&#39; state, and
+the reset button resets the timer if you&#39;re in the &#39;STOPPED&#39; state.
+There&#39;s also the &#39;save-time&#39; element, which enables the user to enter a
+tag and save the time when you&#39;re in the &#39;STOPPED&#39; state. Finally, there&#39;s
+a &#39;success-message&#39; element that shows up when you&#39;re in the &#39;SUCCESS&#39; state.</p>
+<p>Now that you&#39;ve implemented the actual timer directive, you need to implement
+one more directive to make this usable. You need a directive that lists all
+times you&#39;ve saved. Here&#39;s how the <code>timeList</code> directive looks.</p>
+<p><img src="http://i.imgur.com/UZd2OZm.png"></p>
+<p>Below is the AngularJS directive JavaScript. It&#39;s going to use both the
+&#39;User&#39; and &#39;Time&#39; services, because the correct way to get all times that
+belong to a user is <code>User.times({ id: &#39;me&#39; });</code>. The <code>timeList</code> directive
+will also enable you to delete a time from the server using
+the <code>Time.deleteById()</code> function.</p>
+<pre><code class="lang-javascript">directive(<span class="hljs-string">'timeList'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">return</span> {
+    templateUrl: <span class="hljs-string">'templates/time_list.html'</span>,
+    controller: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-variable">$scope</span>, User, Time)</span> </span>{
+      <span class="hljs-comment">// List of colors for badges that display tags</span>
+      <span class="hljs-keyword">var</span> COLORS = [
+        <span class="hljs-string">'#f379ad'</span>,
+        <span class="hljs-string">'#7979f3'</span>,
+        <span class="hljs-string">'#9079f3'</span>,
+        <span class="hljs-string">'#79e5f3'</span>,
+        <span class="hljs-string">'#8979f3'</span>
+      ];
+      <span class="hljs-keyword">var</span> colorIndex = <span class="hljs-number">0</span>;
+
+      <span class="hljs-variable">$scope</span>.times = [];
+      <span class="hljs-variable">$scope</span>.tagToColor = {};
+
+      <span class="hljs-comment">// Load times from the server using 'User' service</span>
+      User.times({ id: <span class="hljs-string">'me'</span> }).<span class="hljs-variable">$promise</span>.then(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(times)</span> </span>{
+        times.<span class="hljs-keyword">forEach</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span> </span>{
+          <span class="hljs-keyword">if</span> (time.tag &amp;&amp; !<span class="hljs-variable">$scope</span>.tagToColor[time.tag]) {
+            <span class="hljs-variable">$scope</span>.tagToColor[time.tag] =
+              COLORS[colorIndex++ % COLORS.length];
+            colorIndex = colorIndex % COLORS.length;
+          }
+        });
+        <span class="hljs-variable">$scope</span>.times = times.reverse().concat(<span class="hljs-variable">$scope</span>.times);
+      });
+
+      <span class="hljs-comment">// Every time there's a new time, add it to the array</span>
+      <span class="hljs-variable">$scope</span>.<span class="hljs-variable">$on</span>(<span class="hljs-string">'NEW_TIME'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ev, time)</span> </span>{
+        <span class="hljs-variable">$scope</span>.times.unshift(time);
+        <span class="hljs-keyword">if</span> (time.tag &amp;&amp; !<span class="hljs-variable">$scope</span>.tagToColor[time.tag]) {
+          <span class="hljs-variable">$scope</span>.tagToColor[time.tag] =
+            COLORS[colorIndex++ % COLORS.length];
+          colorIndex = colorIndex % COLORS.length;
+        }
+      });
+
+      <span class="hljs-comment">// Compute the string to display</span>
+      <span class="hljs-variable">$scope</span>.display = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span> </span>{
+        <span class="hljs-keyword">return</span> moment.utc(time).format(<span class="hljs-string">'HH:mm:ss'</span>);
+      };
+
+      <span class="hljs-comment">// Delete the given time</span>
+      <span class="hljs-variable">$scope</span>.delete = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span> </span>{
+        <span class="hljs-keyword">var</span> index = <span class="hljs-variable">$scope</span>.times.indexOf(time);
+        <span class="hljs-keyword">if</span> (index !== -<span class="hljs-number">1</span>) {
+          Time.deleteById({ id: time.id });
+          <span class="hljs-variable">$scope</span>.times.splice(index, <span class="hljs-number">1</span>);
+        }
+      };
+    }
+  };
+});
+</code></pre>
+<p>The above controller should be pretty straightforward. Most of the logic is
+related to the color codes, and that&#39;s only to ensure that you get
+contrasting colors to use as backgrounds for your tag badges. Speaking of
+the tag badges, let&#39;s take a look at the directive&#39;s template HTML,
+<code>templates/time_list.html</code>.</p>
+<pre><code class="lang-html"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"time"</span> <span class="hljs-attribute">ng-repeat</span>=<span class="hljs-value">"time in times"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"time-delete"</span> <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"delete(time)"</span>&gt;</span>
+      X
+    <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+    </span><span class="hljs-expression">{{<span class="hljs-variable">display</span>(<span class="hljs-variable">time.time</span>)}}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">ng-if</span>=<span class="hljs-value">"time.tag"</span>
+          <span class="hljs-attribute">class</span>=<span class="hljs-value">"time-tag"</span>
+          <span class="hljs-attribute">ng-style</span>=<span class="hljs-value">"{ 'background-color': tagToColor[time.tag] }"</span>&gt;</span>
+      </span><span class="hljs-expression">{{<span class="hljs-variable">time.tag</span>}}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></span>
+</code></pre>
+<p>The template includes 3 simple elements. The first is a delete button that
+calls the <code>delete()</code> function. The second renders the time&#39;s value in
+the app&#39;s standard <code>HH:mm:ss</code> format. The third displays the time&#39;s tag,
+if it exists, using the correct color.</p>
+<p>Now that you have the <code>timer</code> and <code>timeList</code> directives, how are you
+going to tie them together? The top-level HTML in <code>index.html</code> is
+simple. There&#39;s just one subtlety; the &#39;NEW_TIME&#39; event that the
+<code>timeList</code> directive listens for. Since the <code>timeList</code> directive doesn&#39;t
+know when the <code>timer</code> directive has saved a new time, you need to make
+sure the <code>timer</code> directive communicates with the <code>timeList</code> directive.
+That&#39;s what the <code>onTimeSaved</code> property that you added to the <code>timer</code>
+directive is for.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">user-menu</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">user-menu</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">hr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">timer</span> <span class="hljs-attribute">on-time-saved</span>=<span class="hljs-value">"$emit('NEW_TIME', time)"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">timer</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">hr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">time-list</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">time-list</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Congratulations, you&#39;ve just used the LoopBack AngularJS SDK to build
+an AngularJS client on top of your REST API! In particular, the LoopBack
+AngularJS SDK provided you with services that enabled you to interact
+with your REST API in a clean and intuitive way, without touching any URLs.
+However, you might be concerned that you have yet to do any mobile app
+development in this series of articles about mobile app development. As
+you&#39;ll see in the next article, the Ionic framework will allow you to put
+the stopwatch directives to work in a mobile app with no changes.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150904_loopback_ionic_ii.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK", time: new Date() });
+  </script></body></html>
