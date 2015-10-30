@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mongodb": "https://github.com/mongodb/node-mongodb-native/archive/gridfs-specification.tar.gz"
+  }
+}
