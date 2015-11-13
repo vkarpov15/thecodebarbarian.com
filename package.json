@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "commander": "2.3.0",
+    "feed": "0.2.6",
     "file": "0.2.2",
     "forever": "0.13.0",
     "gulp": "3.8.10",

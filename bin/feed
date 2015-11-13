@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>TheCodeBarbarian.com</title>
+        <description>Detailed articles about the MEAN stack and related topics</description>
+        <link>http://thecodebarbarian.com</link>
+        <lastBuildDate>Fri, 13 Nov 2015 19:46:17 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <image>
+            <title>TheCodeBarbarian.com</title>
+            <url>http://thecodebarbarian.com/images/Barbarian_Head.png</url>
+            <link>http://thecodebarbarian.com</link>
+        </image>
+        <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Ionic Framework and LoopBack, Part IV: Testing with Travis]]></title>
+            <link>http://www.thecodebarbarian.com/ionic-loopback-testing</link>
+            <guid>http://www.thecodebarbarian.com/ionic-loopback-testing</guid>
+            <pubDate>Fri, 13 Nov 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The MongoDB Node.js Driver's New Streaming GridFS API]]></title>
+            <link>http://www.thecodebarbarian.com/mongodb-gridfs-stream</link>
+            <guid>http://www.thecodebarbarian.com/mongodb-gridfs-stream</guid>
+            <pubDate>Fri, 23 Oct 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Ionic Framework and LoopBack, Part III: Building an Ionic App]]></title>
+            <link>http://www.thecodebarbarian.com/2015/10/09/ionic-loopback-mobile-app</link>
+            <guid>http://www.thecodebarbarian.com/2015/10/09/ionic-loopback-mobile-app</guid>
+            <pubDate>Fri, 09 Oct 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Ionic Framework and LoopBack, Part II: Directives with the AngularJS LoopBack SDK]]></title>
+            <link>http://www.thecodebarbarian.com/2015/09/04/ionic-loopback-directives</link>
+            <guid>http://www.thecodebarbarian.com/2015/09/04/ionic-loopback-directives</guid>
+            <pubDate>Fri, 04 Sep 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Ionic Framework and LoopBack, Part I: Building a LoopBack REST API]]></title>
+            <link>http://www.thecodebarbarian.com/2015/08/07/ionic-loopback-rest-api</link>
+            <guid>http://www.thecodebarbarian.com/2015/08/07/ionic-loopback-rest-api</guid>
+            <pubDate>Fri, 07 Aug 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[An 80/20 Guide to Mongoose Discriminators]]></title>
+            <link>http://www.thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators</link>
+            <guid>http://www.thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators</guid>
+            <pubDate>Fri, 24 Jul 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Crunching NBA Finals History with MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/2015/06/26/crunching-nba-finals-history-with-mongodb</link>
+            <guid>http://www.thecodebarbarian.com/2015/06/26/crunching-nba-finals-history-with-mongodb</guid>
+            <pubDate>Fri, 26 Jun 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Testing AngularJS Directives]]></title>
+            <link>http://www.thecodebarbarian.com/2015/06/12/testing-angularjs-directives</link>
+            <guid>http://www.thecodebarbarian.com/2015/06/12/testing-angularjs-directives</guid>
+            <pubDate>Fri, 12 Jun 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Testing Client-side JavaScript with Karma]]></title>
+            <link>http://www.thecodebarbarian.com/2015/05/08/testing-client-side-javascript-with-karma</link>
+            <guid>http://www.thecodebarbarian.com/2015/05/08/testing-client-side-javascript-with-karma</guid>
+            <pubDate>Fri, 08 May 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[An 80/20 Guide to ECMAScript 6 Proxies]]></title>
+            <link>http://www.thecodebarbarian.com/2015/04/24/80-20-guide-to-ecmascript-6-proxies</link>
+            <guid>http://www.thecodebarbarian.com/2015/04/24/80-20-guide-to-ecmascript-6-proxies</guid>
+            <pubDate>Fri, 24 Apr 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Shippable: An Alternative Take on Travis]]></title>
+            <link>http://www.thecodebarbarian.com/2015/04/10/shippable-an-alternative-take-on-travis</link>
+            <guid>http://www.thecodebarbarian.com/2015/04/10/shippable-an-alternative-take-on-travis</guid>
+            <pubDate>Fri, 10 Apr 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Callback Hell is a Myth]]></title>
+            <link>http://www.thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth</link>
+            <guid>http://www.thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth</guid>
+            <pubDate>Fri, 20 Mar 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Testing and Documenting Node.js APIs with Mocha and Acquit]]></title>
+            <link>http://www.thecodebarbarian.com/2015/03/13/testing-rest-apis-with-acquit</link>
+            <guid>http://www.thecodebarbarian.com/2015/03/13/testing-rest-apis-with-acquit</guid>
+            <pubDate>Fri, 13 Mar 2015 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[An 80/20 Guide to Mongoose Plugins]]></title>
+            <link>http://www.thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins</link>
+            <guid>http://www.thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins</guid>
+            <pubDate>Fri, 06 Mar 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Why I (Almost) Never Use npm's -g Flag]]></title>
+            <link>http://www.thecodebarbarian.com/2015/02/27/npm-install--g</link>
+            <guid>http://www.thecodebarbarian.com/2015/02/27/npm-install--g</guid>
+            <pubDate>Fri, 27 Feb 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Better AngularJS Form Validation with Mongoose]]></title>
+            <link>http://www.thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose</link>
+            <guid>http://www.thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose</guid>
+            <pubDate>Fri, 20 Feb 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Building Better npm Modules with Travis and Coveralls]]></title>
+            <link>http://www.thecodebarbarian.com/2015/02/13/travis_coveralls</link>
+            <guid>http://www.thecodebarbarian.com/2015/02/13/travis_coveralls</guid>
+            <pubDate>Fri, 13 Feb 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Static Site Generators are Overkill]]></title>
+            <link>http://www.thecodebarbarian.com/2015/02/06/static_site_generators</link>
+            <guid>http://www.thecodebarbarian.com/2015/02/06/static_site_generators</guid>
+            <pubDate>Fri, 06 Feb 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[An 80/20 Guide to AngularJS HTTP Interceptors]]></title>
+            <link>http://www.thecodebarbarian.com/2015/01/24/angularjs-interceptors</link>
+            <guid>http://www.thecodebarbarian.com/2015/01/24/angularjs-interceptors</guid>
+            <pubDate>Sat, 24 Jan 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Creating REST APIs and Clients with LoopBack and AngularJS]]></title>
+            <link>http://www.thecodebarbarian.com/2015/01/17/angularjs-loopback</link>
+            <guid>http://www.thecodebarbarian.com/2015/01/17/angularjs-loopback</guid>
+            <pubDate>Sat, 17 Jan 2015 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[What's new in Mongoose 3.9.7]]></title>
+            <link>http://www.thecodebarbarian.com/2014/12/19/mongoose-397</link>
+            <guid>http://www.thecodebarbarian.com/2014/12/19/mongoose-397</guid>
+            <pubDate>Fri, 19 Dec 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[New Blog and Book Announcement]]></title>
+            <link>http://www.thecodebarbarian.com/2014/12/04/new-blog-and-book-announcement</link>
+            <guid>http://www.thecodebarbarian.com/2014/12/04/new-blog-and-book-announcement</guid>
+            <pubDate>Thu, 04 Dec 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Defending Against Query Selector Injection Attacks]]></title>
+            <link>http://www.thecodebarbarian.com/2014/09/04/defending-against-query-selector-injection-attacks</link>
+            <guid>http://www.thecodebarbarian.com/2014/09/04/defending-against-query-selector-injection-attacks</guid>
+            <pubDate>Thu, 04 Sep 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The Future of MongooseJS]]></title>
+            <link>http://www.thecodebarbarian.com/2014/06/03/the-future-of-mongoosejs</link>
+            <guid>http://www.thecodebarbarian.com/2014/06/03/the-future-of-mongoosejs</guid>
+            <pubDate>Tue, 03 Jun 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[What's New in Mongoose 3.8.9]]></title>
+            <link>http://www.thecodebarbarian.com/2014/05/09/whats-new-in-mongoose-3-8-9</link>
+            <guid>http://www.thecodebarbarian.com/2014/05/09/whats-new-in-mongoose-3-8-9</guid>
+            <pubDate>Fri, 09 May 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[A NodeJS Perspective on What's New in MongoDB 2.6, Part II: Aggregation $out]]></title>
+            <link>http://www.thecodebarbarian.com/2014/04/25/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-ii-aggregation-out</link>
+            <guid>http://www.thecodebarbarian.com/2014/04/25/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-ii-aggregation-out</guid>
+            <pubDate>Fri, 25 Apr 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[A NodeJS Perspective on What's New in MongoDB 2.6, Part I: Text Search]]></title>
+            <link>http://www.thecodebarbarian.com/2014/04/10/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search</link>
+            <guid>http://www.thecodebarbarian.com/2014/04/10/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search</guid>
+            <pubDate>Thu, 10 Apr 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Plugging USDA Nutrition Data into MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/2014/03/28/plugging-usda-nutrition-data-into-mongodb</link>
+            <guid>http://www.thecodebarbarian.com/2014/03/28/plugging-usda-nutrition-data-into-mongodb</guid>
+            <pubDate>Fri, 28 Mar 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Why Math is Necessary for CS Majors]]></title>
+            <link>http://www.thecodebarbarian.com/2014/03/14/why-math-is-necessary-for-cs-majors</link>
+            <guid>http://www.thecodebarbarian.com/2014/03/14/why-math-is-necessary-for-cs-majors</guid>
+            <pubDate>Fri, 14 Mar 2014 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The Optimal Setup for Listening to Talks at 2x Playback Speed]]></title>
+            <link>http://www.thecodebarbarian.com/2014/02/28/the-optimal-setup-for-listening-to-talks-at-2x-playback-speed</link>
+            <guid>http://www.thecodebarbarian.com/2014/02/28/the-optimal-setup-for-listening-to-talks-at-2x-playback-speed</guid>
+            <pubDate>Fri, 28 Feb 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Crunching 30 Years of NBA Data with MongoDB Aggregation]]></title>
+            <link>http://www.thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation</link>
+            <guid>http://www.thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation</guid>
+            <pubDate>Fri, 14 Feb 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[What You Need To Know About AngularJS Data Binding]]></title>
+            <link>http://www.thecodebarbarian.com/2014/01/31/what-you-need-to-know-about-angularjs-data-binding</link>
+            <guid>http://www.thecodebarbarian.com/2014/01/31/what-you-need-to-know-about-angularjs-data-binding</guid>
+            <pubDate>Fri, 31 Jan 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[My Top 5 Paleo Lifestyle Hacks for New Yorkers]]></title>
+            <link>http://www.thecodebarbarian.com/2014/01/24/my-top-5-paleo-lifestyle-hacks-for-new-yorkers</link>
+            <guid>http://www.thecodebarbarian.com/2014/01/24/my-top-5-paleo-lifestyle-hacks-for-new-yorkers</guid>
+            <pubDate>Fri, 24 Jan 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The 80/20 Guide to Writing and Using AngularJS Filters]]></title>
+            <link>http://www.thecodebarbarian.com/2014/01/17/the-8020-guide-to-writing-and-using-angularjs-filters</link>
+            <guid>http://www.thecodebarbarian.com/2014/01/17/the-8020-guide-to-writing-and-using-angularjs-filters</guid>
+            <pubDate>Fri, 17 Jan 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Want To Ace Your Next Developer Interview? Channel Andrew Luck]]></title>
+            <link>http://www.thecodebarbarian.com/2014/01/10/want-to-ace-your-next-developer-interview-channel-andrew-luck</link>
+            <guid>http://www.thecodebarbarian.com/2014/01/10/want-to-ace-your-next-developer-interview-channel-andrew-luck</guid>
+            <pubDate>Fri, 10 Jan 2014 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Price Internationalization with the MEAN Stack]]></title>
+            <link>http://www.thecodebarbarian.com/2013/12/02/price-internationalization-with-the-mean-stack</link>
+            <guid>http://www.thecodebarbarian.com/2013/12/02/price-internationalization-with-the-mean-stack</guid>
+            <pubDate>Mon, 02 Dec 2013 05:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The 80/20 Guide to Writing AngularJS Directives]]></title>
+            <link>http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives</link>
+            <guid>http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives</guid>
+            <pubDate>Mon, 23 Sep 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to the MEAN Stack, Part Two: Building and Testing a To-do List]]></title>
+            <link>http://www.thecodebarbarian.com/2013/07/29//introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list</link>
+            <guid>http://www.thecodebarbarian.com/2013/07/29//introduction-to-the-mean-stack-part-two-building-and-testing-a-to-do-list</guid>
+            <pubDate>Mon, 29 Jul 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to the MEAN Stack, Part One: Setting Up Your Tools]]></title>
+            <link>http://www.thecodebarbarian.com/2013/07/22//introduction-to-the-mean-stack-part-one-setting-up-your-tools</link>
+            <guid>http://www.thecodebarbarian.com/2013/07/22//introduction-to-the-mean-stack-part-one-setting-up-your-tools</guid>
+            <pubDate>Mon, 22 Jul 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[8 Reasons Why Better Nutrition Makes You a Better Developer]]></title>
+            <link>http://www.thecodebarbarian.com/2013/06/21//8-reasons-why-better-nutrition-makes-you-a-better-developer</link>
+            <guid>http://www.thecodebarbarian.com/2013/06/21//8-reasons-why-better-nutrition-makes-you-a-better-developer</guid>
+            <pubDate>Fri, 21 Jun 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[Mistakes You're Probably Making With MongooseJS, And How To Fix Them]]></title>
+            <link>http://www.thecodebarbarian.com/2013/06/06//61</link>
+            <guid>http://www.thecodebarbarian.com/2013/06/06//61</guid>
+            <pubDate>Thu, 06 Jun 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[How to Easily Validate Any Form Ever Using AngularJS]]></title>
+            <link>http://www.thecodebarbarian.com/2013/05/12//how-to-easily-validate-any-form-ever-using-angularjs</link>
+            <guid>http://www.thecodebarbarian.com/2013/05/12//how-to-easily-validate-any-form-ever-using-angularjs</guid>
+            <pubDate>Sun, 12 May 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+        <item>
+            <title><![CDATA[The MEAN Stack: MongoDB, ExpressJS, AngularJS, and Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/2013/04/29//easy-web-prototyping-with-mongodb-and-nodejs</link>
+            <guid>http://www.thecodebarbarian.com/2013/04/29//easy-web-prototyping-with-mongodb-and-nodejs</guid>
+            <pubDate>Mon, 29 Apr 2013 04:00:00 GMT</pubDate>
+            <content:encoded/>
+        </item>
+    </channel>
+</rss>

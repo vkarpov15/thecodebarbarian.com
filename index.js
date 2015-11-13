@@ -3,6 +3,7 @@ var fs = require('fs');
 var markdown = require('marked');
 var jade = require('jade');
 var file = require('file');
+var feed = require('feed');
 
 var highlight = require('highlight.js');
 markdown.setOptions({
@@ -170,7 +171,34 @@ wagner.task('pages', function(compiledPosts, listTemplate, callback) {
   }, callback);
 });
 
-wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags) {
+wagner.task('feed', function(compiledPosts, callback) {
+  var posts = _.map(compiledPosts, function(p) {
+    return p;
+  });
+
+  var f = new feed({
+    title: 'TheCodeBarbarian.com',
+    description: 'Detailed articles about the MEAN stack and related topics',
+    link: 'http://thecodebarbarian.com',
+    image: 'http://thecodebarbarian.com/images/Barbarian_Head.png',
+    author: {
+      name: 'Valeri Karpov'
+    }
+  });
+
+  var reversed = posts.reverse();
+  for (var i = 0; i < reversed.length; ++i) {
+    f.addItem({
+      title: posts[i].title,
+      link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name,
+      date: posts[i].date.toDate()
+    });
+  }
+
+  fs.writeFile('./bin/feed', f.render('rss-2.0'), callback);
+});
+
+wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed) {
   if (error) {
     return console.log('Errors occurred: ' + error + '\n' + error.stack);
   }
