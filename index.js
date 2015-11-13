@@ -195,7 +195,7 @@ wagner.task('feed', function(compiledPosts, callback) {
     });
   }
 
-  fs.writeFile('./bin/feed', f.render('rss-2.0'), callback);
+  fs.writeFile('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''), callback);
 });
 
 wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed) {

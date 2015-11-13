@@ -32,6 +32,9 @@ require('http').createServer(function (request, response) {
       }
       if (stats.isFile()) {
         var type = path.extname(p);
+        if (type === '.xml') {
+          type = 'application/xml'
+        }
         response.writeHead(200, {
           'Cache-Control': 'max-age=7200',
           'Content-Type': type || 'text/html'
