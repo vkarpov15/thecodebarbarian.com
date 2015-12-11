@@ -60,7 +60,7 @@ Let&#39;s take a look at how that works in the shell.</p>
 <h1 id="bitwise-query-operators-in-the-mongodb-shell">Bitwise Query Operators in the MongoDB Shell</h1>
 <p>Let&#39;s create a user with a fake <code>booked</code> buffer. This user will be booked
 for the first 8 hours of the year and free after that. To create
-this user, run this command in the shell. The <code>HexData</code> field is just
+this user, run this command in the shell. The <code>HexData</code> function is just
 a handy way to create a buffer from a hex string in the MongoDB shell.</p>
 <pre><code class="lang-javascript"><span class="hljs-tag">db</span><span class="hljs-class">.users</span><span class="hljs-class">.insert</span>({ <span class="hljs-attribute">name</span>: <span class="hljs-string">'Val'</span>, <span class="hljs-attribute">booked</span>: <span class="hljs-function">HexData</span>(<span class="hljs-number">0</span>, <span class="hljs-string">'FF0000'</span>) });
 </code></pre>
