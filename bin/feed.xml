@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 13 Nov 2015 20:01:43 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 11 Dec 2015 15:47:53 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators]]></title>
+            <link>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-bitwise-query-operators</link>
+            <guid>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-bitwise-query-operators</guid>
+            <pubDate>Thu, 10 Dec 2015 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Ionic Framework and LoopBack, Part IV: Testing with Travis]]></title>
             <link>http://www.thecodebarbarian.com/ionic-loopback-testing</link>
