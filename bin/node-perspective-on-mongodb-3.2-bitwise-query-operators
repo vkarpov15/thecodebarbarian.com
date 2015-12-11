@@ -104,7 +104,7 @@ db.users.find({ booked: { $bitsAllSet: [<span class="hljs-number">7</span>] } })
 <a href="https://www.npmjs.com/package/mongodb">mongodb driver</a> <code>&gt;= 2.1.0</code> or
 <a href="https://www.npmjs.com/package/mongoose">mongoose</a> <code>&gt;= 4.3.1</code>. Here&#39;s
 how executing a basic query for users that are available on January 1
-at 8am.</p>
+at 8am looks.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   name: <span class="hljs-built_in">String</span>,
   booked: {
