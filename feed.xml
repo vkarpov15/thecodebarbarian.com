@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 11 Dec 2015 16:01:40 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 18 Dec 2015 17:39:04 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample]]></title>
+            <link>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-$lookup-$sample</link>
+            <guid>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-$lookup-$sample</guid>
+            <pubDate>Fri, 18 Dec 2015 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators]]></title>
             <link>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-bitwise-query-operators</link>
