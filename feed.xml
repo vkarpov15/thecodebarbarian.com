@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 18 Dec 2015 17:39:04 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 07 Jan 2016 22:27:43 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Mongoose 2015 Year in Review]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-2015-year-in-review</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-2015-year-in-review</guid>
+            <pubDate>Thu, 07 Jan 2016 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample]]></title>
             <link>http://www.thecodebarbarian.com/node-perspective-on-mongodb-3.2-$lookup-$sample</link>
