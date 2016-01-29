@@ -27,6 +27,14 @@ code {
 	background-color: #f6f6f6;
 }
 
+.books div {
+	margin-top: 10px;
+}
+
+.books img {
+	width: 50%;
+}
+
 h2 {
 	padding-top:1.4em;
 	padding-bottom:0.9em;
@@ -320,7 +328,7 @@ a.social {
 }
 
 .post-body-text-container h3 {
-	
+
 }
 
 .description {
@@ -432,7 +440,7 @@ a.social {
 }
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 	.credits span{
 		display:inline-block;
 	}
