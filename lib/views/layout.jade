@@ -82,6 +82,14 @@ html
                       .input-group-addon.search-button
                         i.fa.fa-search
             .row.recent-posts.right-bar-group
+              .col-lg-12.books
+                div
+                  a(href="http://es2015generators.com")
+                    img(src="http://i.imgur.com/iBT2ZEw.png")
+                div
+                  a(href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/")
+                    img(src="http://i.imgur.com/NjE7AN9.png")
+            .row.recent-posts.right-bar-group
               .col-lg-12
                 p.right-bar-label All Time Most Popular 
                 ul.list-unstyled
@@ -100,14 +108,6 @@ html
                   li.right-bar-li
                     a(href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins")
                       | An 80/20 Guide to Mongoose Plugins
-            .row.recent-posts.right-bar-group
-              .col-lg-12
-                p.right-bar-label Recent Posts
-                ul.list-unstyled
-                  - each post in allPosts.slice(0, 4)
-                    li.right-bar-li
-                      a(href="#{post.dest.directory.substr('./bin'.length)}/#{post.dest.name}")
-                        | #{post.title}
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
         .col-lg-12
