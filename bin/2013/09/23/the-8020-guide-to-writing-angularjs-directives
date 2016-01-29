@@ -1,18 +1,18 @@
 <html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
-</script><title>The 80/20 Guide to Writing AngularJS Directives | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="The 80/20 Guide to Writing AngularJS Directives"/><meta property="og:url" content="http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives"/><meta property="og:image" content="//thehospitalitycoach.net/wp-content/uploads/2011/07/80-20-Cafe-Restaurant-Rule.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li><li class="right-bar-li"><a href="/ionic-loopback-testing">Ionic Framework and LoopBack, Part IV: Testing with Travis</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">The 80/20 Guide to Writing AngularJS Directives </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 23, 2013</span></div></div></div><div class="post-body-text-container"><p>AngularJS is blowing up right now, and with good reason. There&#39;s nothing more satisfying than using AngularJS to turn 1,000 messy lines of Backbone.js and jQuery spaghetti code into a trivial 10 lines. To put it in a broader context, you can think of AngularJS&#39; place in the world this way: AngularJS is to jQuery as C++11 is to x86 Assembly. However, your quest to capture all the wonderful benefits of AngularJS may be hindered because the documentation is a bit difficult to wrap your mind around. In particular, many readers have told me that the documentation for directives is pretty intimidating, and a lot of experienced users still don&#39;t quite grok how to use them properly.</p>
+</script><title>The 80/20 Guide to Writing AngularJS Directives | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="The 80/20 Guide to Writing AngularJS Directives"/><meta property="og:url" content="http://www.thecodebarbarian.com/2013/09/23//the-8020-guide-to-writing-angularjs-directives"/><meta property="og:image" content="//thehospitalitycoach.net/wp-content/uploads/2011/07/80-20-Cafe-Restaurant-Rule.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/introducing-80-20-guide-to-es2015-generators">Introducing The 80/20 Guide to ES2015 Generators</a></li><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2013%2F09%2F23%2F%2Fthe-8020-guide-to-writing-angularjs-directives" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">The 80/20 Guide to Writing AngularJS Directives </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 23, 2013</span></div></div></div><div class="post-body-text-container"><p>AngularJS is blowing up right now, and with good reason. There&#39;s nothing more satisfying than using AngularJS to turn 1,000 messy lines of Backbone.js and jQuery spaghetti code into a trivial 10 lines. To put it in a broader context, you can think of AngularJS&#39; place in the world this way: AngularJS is to jQuery as C++11 is to x86 Assembly. However, your quest to capture all the wonderful benefits of AngularJS may be hindered because the documentation is a bit difficult to wrap your mind around. In particular, many readers have told me that the documentation for directives is pretty intimidating, and a lot of experienced users still don&#39;t quite grok how to use them properly.</p>
 <p>First of all, let&#39;s take a moment to recognize that you&#39;re almost certainly not the only one confused.  Even I sometimes have trouble distinguishing between compile and link, or figuring out how the hell <em>ngTransclude</em> works- and I&#39;ve been working with AngularJS since version 0.9.4 in late 2010. You&#39;ll find that AngularJS directives roughly follow the <a href="http://en.wikipedia.org/wiki/Pareto_distribution">Pareto Distribution</a> - 80% of the directives that you want to build will only use 20% of the features and design patterns that are available. In other words, don&#39;t worry too much about understanding every little detail of directives. Think about git- how many programmers truly understand all the internals of interactive rebasing as opposed to simply doing pull and push to Github?</p>
 <p>For most of you, the reason that you&#39;re writing directives is probably pretty straightforward, such as to integrate with existing Bootstrap modules and jQuery extensions, or to DRY up your UI. In this post, I&#39;ll lay out the basic idea behind AngularJS directives, demonstrate what they do with roughly corresponding jQuery code, and provide you with enough knowledge to develop some pretty sophisticated directives.</p>
 <h2 id="your-first-directive-setting-a-background-image">Your First Directive: Setting a Background Image</h2>
 <p>At the highest level, a directive allows you to wire your custom UI components in to AngularJS&#39;s two-way data-binding and scoping features, allowing you to define easily reusable ways for your users to view and interact with your underlying data. By default, a directive is a function that is run on every element with a particular attribute. This function takes as parameters the associated element and the AngularJS scope that this element is in. Let&#39;s start out with an extremely simple example: setting the minimum height and width of an image while preserving its aspect ratio. There are several ways to do this, but the easiest is to make set the image as the background of a div using the following CSS:</p>
-<pre><code><span class="hljs-class">.fill-bg</span> <span class="hljs-rules">{
-  <span class="hljs-rule"><span class="hljs-attribute">background-image</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">'MYURLHERE'</span>)</span></span>;
-  <span class="hljs-rule"><span class="hljs-attribute">background-size </span>:<span class="hljs-value"> <span class="hljs-string">'cover'</span></span></span>;
-  <span class="hljs-rule"><span class="hljs-attribute">background-repeat </span>:<span class="hljs-value"> <span class="hljs-string">'no-repeat'</span></span></span>;
-  <span class="hljs-rule"><span class="hljs-attribute">background-position </span>:<span class="hljs-value"> <span class="hljs-string">'center center'</span></span></span>;
-<span class="hljs-rule">}</span></span>
+<pre><code>.fill-bg {
+  background-image: url(<span class="hljs-string">'MYURLHERE'</span>);
+  background-size : <span class="hljs-string">'cover'</span>;
+  background-repeat : <span class="hljs-string">'no-repeat'</span>;
+  background-position : <span class="hljs-string">'center center'</span>;
+}
 </code></pre><p>Now let&#39;s say we wanted to automate this process, so that our designers don&#39;t have to write a separate CSS class for each image. We&#39;ll do this by adding an attribute called &#39;cover-background-image&#39; to some divs so our Javascript knows which image to set as the background. We can do this with jQuery or AngularJS, but lets do jQuery first. The general idea looks like this <a href="http://jsfiddle.net/vkarpov15/BQvbg/1/">(see it in action on JSFiddle)</a>:</p>
 <pre><code>$(<span class="hljs-string">'div[cover-background-image]'</span>).
-  each(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(i, el)</span> </span>{
+  each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
     $(element).css({
       <span class="hljs-string">'background-image'</span>: <span class="hljs-string">'url()'</span>,
       <span class="hljs-string">'background-size'</span>: <span class="hljs-string">'cover'</span>,
@@ -22,8 +22,8 @@
   });
 </code></pre><p>The general process will be the same with a directive - AngularJS calls your custom directive code for each element with a given attribute. Below is the equivalent directive in AngularJS, and on <a href="http://jsfiddle.net/vkarpov15/NE9cu/">JSFiddle</a>:</p>
 <pre><code><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []).
-m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(scope, element, attrs)</span> </span>{
+m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scope, element, attrs</span>) </span>{
     <span class="hljs-keyword">var</span> url = <span class="hljs-string">'url('</span> +
       attrs.myBackgroundImage + <span class="hljs-string">')'</span>;
     <span class="hljs-keyword">var</span> pos = <span class="hljs-string">'center center'</span>;
@@ -37,14 +37,14 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
 });
 </code></pre><h2 id="making-the-directive-dynamic">Making The Directive Dynamic</h2>
 <p>At this point some of you might be thinking, &quot;Hey, the only difference is that AngularJS requires more code!&quot; This is true for a relatively simple example like the one above. However, the real advantage to the AngularJS approach comes when you introduce two-way data-binding and the power of AngularJS scopes. Lets say that we want to introduce some carousel behavior to this image (switching the image every 5 seconds and allowing the user to navigate between images). In jQuery, supporting multiple carousels on the same page turns out to be a huge pain, because we have no easy way for mapping which images and which buttons belong to which carousel. When you try it the hard way, things end up looking a little something like this <a href="http://jsfiddle.net/vkarpov15/DDnUt/">JSFiddle</a>:</p>
-<pre><code>$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+<pre><code>$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   $(<span class="hljs-string">'div[cover-background-image]'</span>).
-    each(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(i, el)</span> </span>{
-      <span class="hljs-keyword">var</span> ctr = -<span class="hljs-number">1</span>;
+    each(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i, el</span>) </span>{
+      <span class="hljs-keyword">var</span> ctr = <span class="hljs-number">-1</span>;
       <span class="hljs-keyword">var</span> images = <span class="hljs-built_in">eval</span>(
         $(el).attr(<span class="hljs-string">'cover-background-image'</span>));
       <span class="hljs-keyword">var</span> name = $(el).attr(<span class="hljs-string">'carousel-name'</span>);
-      <span class="hljs-keyword">var</span> nextImage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">var</span> nextImage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         ctr = (ctr + <span class="hljs-number">1</span>) % images.length;
         <span class="hljs-keyword">var</span> url = <span class="hljs-string">'url('</span> + images[ctr] + <span class="hljs-string">')'</span>;
         $(el).css({
@@ -54,7 +54,7 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
           <span class="hljs-string">'background-position'</span>: <span class="hljs-string">'center center'</span>
         });
       };
-      <span class="hljs-keyword">var</span> previousImage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">var</span> previousImage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         ctr = (ctr - <span class="hljs-number">1</span>);
         <span class="hljs-keyword">if</span> (ctr &amp;amp;lt; <span class="hljs-number">0</span>) {
           ctr = images.length - <span class="hljs-number">1</span>;
@@ -68,19 +68,19 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
         });
       };
       $(<span class="hljs-string">"div[carousel-next='"</span> + name + <span class="hljs-string">"']"</span>).
-        each(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(i, el)</span> </span>{
-          $(el).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        each(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i, el</span>) </span>{
+          $(el).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
             nextImage();
           });
         });
       $(<span class="hljs-string">"div[carousel-prev='"</span> + name + <span class="hljs-string">"']"</span>).
-        each(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(i, el)</span> </span>{
-          $(el).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+        each(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i, el</span>) </span>{
+          $(el).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
             previousImage();
           });
         });
       nextImage();
-      <span class="hljs-keyword">var</span> nextImageTimeout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+      <span class="hljs-keyword">var</span> nextImageTimeout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         nextImage();
         setTimeout(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
       };
@@ -95,11 +95,11 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
 <p><em>Alternative Example: <a href="https://github.com/angular-ui/bootstrap/blob/master/src/progressbar/progressbar.js">angular-ui/bootstrap&#39;s progressbar directive</a></em></p>
 <p>One design pattern you&#39;ll see frequently with AngularJS directives is &quot;Watch and Update:&quot; watching a single value and updating the DOM when this value changes to reflect our internal state. Often this can be taken care of using combinations of the built-in <a href="http://docs.angularjs.org/api/ng.directive:ngClass"><code>ngClass</code></a> and <a href="http://docs.angularjs.org/api/ng.directive:ngStyle"><code>ngStyle</code></a> directives, but for more complex manipulations you may want to use your own directive to make sure your code is DRY. Our new myBackgroundImage directive will use a very simple &quot;watch and update&quot; pattern (view on <a href="http://jsfiddle.net/vkarpov15/B6kUJ/">JSFiddle</a>):</p>
 <pre><code>angular.
-module(<span class="hljs-string">'myApp'</span>, []).
-directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(scope, element, attrs)</span> </span>{
-    scope.<span class="hljs-variable">$watch</span>(attrs.myBackgroundImage,
-      <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(v)</span> </span>{
+<span class="hljs-built_in">module</span>(<span class="hljs-string">'myApp'</span>, []).
+directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scope, element, attrs</span>) </span>{
+    scope.$watch(attrs.myBackgroundImage,
+      <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
         element.css({
           <span class="hljs-string">'background-image'</span>: <span class="hljs-string">'url('</span> + v + <span class="hljs-string">')'</span>,
           <span class="hljs-string">'background-size'</span>: <span class="hljs-string">'cover'</span>,
@@ -110,36 +110,36 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
   };
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CarouselController</span><span class="hljs-params">(<span class="hljs-variable">$scope</span>, <span class="hljs-variable">$timeout</span>)</span> </span>{
-  <span class="hljs-variable">$scope</span>.images = [];
-  <span class="hljs-variable">$scope</span>.image = <span class="hljs-string">""</span>
-  <span class="hljs-variable">$scope</span>.index = <span class="hljs-number">0</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CarouselController</span>(<span class="hljs-params">$scope, $timeout</span>) </span>{
+  $scope.images = [];
+  $scope.image = <span class="hljs-string">""</span>
+  $scope.index = <span class="hljs-number">0</span>;
 
-  <span class="hljs-variable">$scope</span>.setImages = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(images)</span> </span>{
-    <span class="hljs-variable">$scope</span>.images = images;
-    <span class="hljs-variable">$scope</span>.image = images[<span class="hljs-number">0</span>];
-    <span class="hljs-variable">$scope</span>.index = <span class="hljs-number">0</span>;
+  $scope.setImages = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">images</span>) </span>{
+    $scope.images = images;
+    $scope.image = images[<span class="hljs-number">0</span>];
+    $scope.index = <span class="hljs-number">0</span>;
   };
 
-  <span class="hljs-variable">$scope</span>.nextImage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-variable">$scope</span>.index = (<span class="hljs-variable">$scope</span>.index + <span class="hljs-number">1</span>) %
-      <span class="hljs-variable">$scope</span>.images.length;
-    <span class="hljs-variable">$scope</span>.image = <span class="hljs-variable">$scope</span>.images[<span class="hljs-variable">$scope</span>.index];
+  $scope.nextImage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $scope.index = ($scope.index + <span class="hljs-number">1</span>) %
+      $scope.images.length;
+    $scope.image = $scope.images[$scope.index];
   };
 
-  <span class="hljs-variable">$scope</span>.prevImage = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-variable">$scope</span>.index = (<span class="hljs-variable">$scope</span>.index - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span> ?
-      <span class="hljs-variable">$scope</span>.index - <span class="hljs-number">1</span> :
-      <span class="hljs-variable">$scope</span>.images.length - <span class="hljs-number">1</span>);
-    <span class="hljs-variable">$scope</span>.image = <span class="hljs-variable">$scope</span>.images[<span class="hljs-variable">$scope</span>.index];
+  $scope.prevImage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $scope.index = ($scope.index - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span> ?
+      $scope.index - <span class="hljs-number">1</span> :
+      $scope.images.length - <span class="hljs-number">1</span>);
+    $scope.image = $scope.images[$scope.index];
   };
 
-  <span class="hljs-keyword">var</span> nextImageTimeout = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-variable">$scope</span>.nextImage();
-    <span class="hljs-variable">$timeout</span>(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">var</span> nextImageTimeout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $scope.nextImage();
+    $timeout(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
   };
 
-  <span class="hljs-variable">$timeout</span>(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
+  $timeout(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
 }
 </code></pre><p>With two-way data-binding, our directive changes very minimally from the previous example. Instead of taking the <code>my-background-image</code> attribute as a vanilla string, we tell AngularJS to interpret it as a variable and watch its value with a <code>scope.$watch</code> call. When the value changes, we update our CSS. We then move the carousel functionality to an AngularJS controller, so that we can reuse our directive in other non-carousel contexts. As you can see in the JSFiddle, we added an &quot;Add Image&quot; button that pushes another image to the top carousel&#39;s images collection, allowing the carousel to update automatically.</p>
 <p>Most importantly, AngularJS handles scoping for us, meaning that we can reference functions within the AngularJS controller from our HTML. Imagine trying to do something similar with onclick and jQuery - we would have to get very creative with refactoring our code to take all of our user behaviors out of <code>myBackgroundImage</code>.</p>
@@ -155,10 +155,10 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
 <p>When you include external event handlers, such as the <code>.on()</code> calls that many jQuery plugins support, AngularJS does not know that they exist, so your directive needs to tell AngularJS how to handle them. In our case, lets hook up a directive that will listen to Hammer.js&#39;s swipe left and swipe right events (view on <a href="http://jsfiddle.net/vkarpov15/5vajr/">JSFiddle</a> - you don&#39;t need a phone or tablet to trigger a swipe event, just drag your mouse quickly across one of the images):</p>
 <pre><code>angular.
   <span class="hljs-built_in">module</span>(<span class="hljs-string">'myApp'</span>, []).
-  directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(scope, element, attrs)</span> </span>{
+  directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scope, element, attrs</span>) </span>{
       scope.$watch(attrs.myBackgroundImage,
-        <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(v)</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
           <span class="hljs-keyword">var</span> url = <span class="hljs-string">'url('</span> + v + <span class="hljs-string">')'</span>;
           element.css({
             <span class="hljs-string">'background-image'</span>: url,
@@ -168,19 +168,19 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
           });
         });
     };
-  }).directive(<span class="hljs-string">'swipeLeft'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(scope, element, attrs)</span> </span>{
-      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        Hammer(element).on(<span class="hljs-string">'swipeleft'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  }).directive(<span class="hljs-string">'swipeLeft'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{
+      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        Hammer(element).on(<span class="hljs-string">'swipeleft'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
           scope.$<span class="hljs-built_in">eval</span>(attrs.swipeLeft);
           scope.$apply();
         });
       });
     };
-  }).directive(<span class="hljs-string">'swipeRight'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(scope, element, attrs)</span> </span>{
-      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-        Hammer(element).on(<span class="hljs-string">'swiperight'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  }).directive(<span class="hljs-string">'swipeRight'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{
+      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        Hammer(element).on(<span class="hljs-string">'swiperight'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
           scope.$<span class="hljs-built_in">eval</span>(attrs.swipeRight);
           scope.$apply();
         });
@@ -188,10 +188,10 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
     };
   });
 </code></pre><p>The calls to <code>$eval</code> evaluate the <code>swipeRight</code> and <code>swipeLeft</code> attributes, which will typically be function calls. For example, in our <a href="http://jsfiddle.net/vkarpov15/5vajr/">little carousel JSFiddle</a>, these calls will look something like this:</p>
-<pre><code>&lt;<span class="hljs-tag">div</span>  my-<span class="hljs-attribute">background-image</span>=<span class="hljs-string">'image'</span>
-      swipe-<span class="hljs-attribute">left</span>=<span class="hljs-string">'nextImage()'</span>
-      swipe-<span class="hljs-attribute">right</span>=<span class="hljs-string">'prevImage()'</span>&gt;
-&lt;/div&gt;
+<pre><code>&lt;div  my-background-image=<span class="hljs-string">'image'</span>
+      swipe-left=<span class="hljs-string">'nextImage()'</span>
+      swipe-right=<span class="hljs-string">'prevImage()'</span>&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 </code></pre><p>Notice that in the second image, we only allow the user to swipe left, whereas on the first one we allow swiping both left and right. Our <code>swipeLeft</code> and <code>swipeRight</code> directives are completely decoupled from the actual carousel implementation - we can use them anywhere to handle any sort of action we want to take when the user swipes on any element.</p>
 <p>In contrast, this is a far cry from the mostly equivalent jQuery implementation (<a href="http://jsfiddle.net/vkarpov15/GWZj3/">view on JSFiddle</a>), where we declare our Hammer.js handlers in jQuery (lines 46 and 47) and have no way of reusing them from HTML. We also have no easy way of allowing only &quot;swipe left&quot; without having to deal with some sort of configuration object. One potential alternative is to expose swipe left and swipe right as separate attributes (similar to our approach with the <code>cover-background-image</code> function), but then we run into a brick wall with scoping - we don&#39;t have an easy way to allow these event handlers to access the <code>previousImage</code> and <code>nextImage</code> functions within the <code>cover-background-image</code> code.</p>
 <h2 id="basic-directive-design-pattern-combining-watch-and-update-with-eval-on-an-external-event-handler">Basic Directive Design Pattern: Combining &quot;watch and update&quot; with <code>$eval</code> on an external event handler</h2>
@@ -201,9 +201,9 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
 <p>First, take a look at <a href="http://www.eyecon.ro/bootstrap-slider/">bootstrap-slider</a>. This slider is a simple drag-and-drop interface for setting numerical values. We&#39;re going to use it for controlling which image is displayed in our image carousel. The directive looks like this (view on <a href="http://jsfiddle.net/vkarpov15/zn5AM/">JSFiddle</a>):</p>
 <pre><code>angular.
   <span class="hljs-built_in">module</span>(<span class="hljs-string">'myApp'</span>, []).
-  directive(<span class="hljs-string">'bootstrapSlider'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(scope, element, attrs)</span> </span>{
-      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  directive(<span class="hljs-string">'bootstrapSlider'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{
+      $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">var</span> init = scope.$<span class="hljs-built_in">eval</span>(attrs.ngModel);
         <span class="hljs-keyword">var</span> min = scope.$<span class="hljs-built_in">eval</span>(
           attrs.bootstrapSliderMin);
@@ -217,14 +217,14 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
         });
 
         <span class="hljs-comment">// Update view to reflect model</span>
-        scope.$watch(attrs.ngModel, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(v)</span> </span>{
+        scope.$watch(attrs.ngModel, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
           $(element[<span class="hljs-number">0</span>]).slider(<span class="hljs-string">'setValue'</span>, v);
         });
 
         <span class="hljs-comment">// Update model to reflect view</span>
         $(element[<span class="hljs-number">0</span>]).slider().on(<span class="hljs-string">'slide'</span>,
-          <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ev)</span> </span>{
-            scope.$apply(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+          <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) </span>{
+            scope.$apply(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
               scope[attrs.ngModel] = ev.value;
             });
           });
@@ -232,7 +232,7 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
     };
   });
 </code></pre><p>The general idea here is that we do both of the first two design patterns in a single directive. We first initialize the slider using:</p>
-<pre><code>$(<span class="hljs-tag">element</span><span class="hljs-attr_selector">[0]</span>)<span class="hljs-class">.slider</span>(<span class="hljs-rules">{ <span class="hljs-comment">/*config options */</span> <span class="hljs-rule">}</span></span>);
+<pre><code>$(element[<span class="hljs-number">0</span>]).slider({ <span class="hljs-comment">/*config options */</span> });
 </code></pre><p>Then we use the <code>.on()</code> event handler to watch for changes in the view, and update <code>ngModel</code> to reflect these changes. Note how we make sure to call <code>scope.$apply</code> so that AngularJS knows that something happened.</p>
 <p>You may have noticed that we don&#39;t bother with handling updates to the <code>bootstrapSliderMin</code> and <code>bootstrapSliderMax</code> fields. The <code>bootstrap-slider</code> component doesn&#39;t support updating these attributes and improving <code>bootstrap-slider</code> is beyond the scope of this post.</p>
 <h2 id="basic-directive-design-pattern-creating-components-with-nesting-and-templating">Basic Directive Design Pattern: Creating Components with Nesting And Templating</h2>
@@ -246,7 +246,7 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
 <li>We can wire these behaviors together in any way we want.</li>
 </ol>
 <p>So what if we&#39;re going to reuse our carousel over and over again in the same form, and we&#39;d like to keep our UI nice and DRY? Easy! We just need to create a single new directive that wires together all the previous directives into a single carousel directive. If you read the <a href="http://docs.angularjs.org/guide/directive">AngularJS directives documentation</a>, this type of directive is loosely referred to as a component. The term component is not particularly well defined in the context of directives, but you can generally take it to mean a directive which has its own controller and thus can find its own data. A component has the general implication that it needs little to no external data to do its job properly, essentially something that you can put into a page and just let it run in isolation (view on <a href="http://jsfiddle.net/vkarpov15/NGDzm/">JSFiddle</a>).</p>
-<pre><code><span class="hljs-keyword">var</span> <span class="hljs-keyword">template</span> =
+<pre><code><span class="hljs-keyword">var</span> template =
   <span class="hljs-string">"&lt;div my-background-image='images[index]'"</span> +
   <span class="hljs-string">"     class='tall'"</span> +
   <span class="hljs-string">"     swipe-left='nextImage()'&gt;&lt;/div&gt;"</span> +
@@ -264,54 +264,54 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
   <span class="hljs-string">"  &lt;/div&gt;"</span> +
   <span class="hljs-string">"&lt;/div&gt;"</span>;
 
-directive('carousel', function() {
+directive(<span class="hljs-string">'carousel'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
  <span class="hljs-keyword">return</span> {
-   restrict : 'E',
-   require : 'ngImages',
+   restrict : <span class="hljs-string">'E'</span>,
+   <span class="hljs-built_in">require</span> : <span class="hljs-string">'ngImages'</span>,
    scope : {
-     images : '=ngImages'
+     images : <span class="hljs-string">'=ngImages'</span>
    },
-   controller : <span class="hljs-type">CarouselController</span>,
-   <span class="hljs-keyword">template</span> : <span class="hljs-keyword">template</span>,
-   link : function(scope, element, attrs) {}
+   controller : CarouselController,
+   template : template,
+   link : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
  };
 });
 </code></pre><p>The big difference here is that instead of returning a plain function, we&#39;re now returning an object with a bunch of options. Here&#39;s a brief walkthrough of what the above jibber-jabber actually does:</p>
 <ul>
-<li><code>restrict : &#39;E&#39;</code> means that this directive can only be used as an element. For example,<pre><code><span class="hljs-tag">&lt;<span class="hljs-title">carousel</span> <span class="hljs-attribute">ng-images</span>=<span class="hljs-value">"[]"</span> /&gt;</span>
-</code></pre>will work, but<pre><code>&lt;div <span class="hljs-variable">carousel=</span><span class="hljs-string">"true"</span> <span class="hljs-variable">ng-images=</span><span class="hljs-string">"[]"</span> /&gt;
+<li><code>restrict : &#39;E&#39;</code> means that this directive can only be used as an element. For example,<pre><code>&lt;carousel ng-images=<span class="hljs-string">"[]"</span> /&gt;
+</code></pre>will work, but<pre><code>&lt;div carousel=<span class="hljs-string">"true"</span> ng-images=<span class="hljs-string">"[]"</span> /&gt;
 </code></pre>won&#39;t. Other possible values of this option are detailed in <a href="http://docs.angularjs.org/guide/directive">http://docs.angularjs.org/guide/directive</a></li>
 <li><code>require : &#39;ngImages&#39;</code> states that the <code>&lt;carousel&gt;</code> element must have an <code>ng-images</code> attribute; otherwise this directive will not be used on that element.</li>
 <li><code>Scope : { images : &#39;=ngImages&#39; }</code> shows that the directive will create a new scope. That scope will have an <code>images</code> variable that is two-way data-bound to the resulting value of <code>ngImages</code>.</li>
 <li><code>Controller: &#39;CarouselController&#39;</code> will wrap the template in an element that has <code>ng-controller=&quot;CarouselController&quot;</code></li>
 <li><code>template: ...</code> will populate the <code>&lt;carousel&gt;</code> element&#39;s inner HTML. Note that it can access <code>CarouselController</code>&#39;s functions.</li>
-<li><code>Link : ...</code> Here, the<pre><code><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(scope, element, attrs)</span> </span>{}
+<li><code>Link : ...</code> Here, the<pre><code><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
 </code></pre>syntax that we used in the first three paterns is a convenient shorthand for:<pre><code><span class="hljs-keyword">return</span> {
-link : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(scope, element, attrs)</span> </span>{}
+link : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
 };
 </code></pre>AngularJS lets you do different things with your directive at different steps of its internal processing, providing options like <code>preLink</code>, <code>postLink</code>, <code>compile</code>, etc. If you&#39;re curious, you can read more about them <a href="http://docs.angularjs.org/guide/directive">here</a>, but most of the time you can get away with just using <code>link</code> until you become an AngularJS whiz.</li>
 </ul>
 <p>Finally, note that in the fiddle, we replaced one carousel with the carousel directive:</p>
-<pre><code>&lt;carousel <span class="hljs-variable">ng-images=</span>'[<span class="hljs-string">"http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif"</span>, <span class="hljs-string">"http://fc03.deviantart.net/fs28/i/2009/250/7/4/MUSASHI_MIYAMOTO_by_BARCYD.jpg"</span>, <span class="hljs-string">"http://fc08.deviantart.net/fs71/f/2012/066/3/5/goku_happy_by_kzo-d4s20sy.png"</span>;]' /&gt;
+<pre><code>&lt;carousel ng-images=<span class="hljs-string">'["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif", "http://fc03.deviantart.net/fs28/i/2009/250/7/4/MUSASHI_MIYAMOTO_by_BARCYD.jpg", "http://fc08.deviantart.net/fs71/f/2012/066/3/5/goku_happy_by_kzo-d4s20sy.png";]'</span> /&gt;
 </code></pre><p>while leaving the other one in the old form:</p>
-<pre><code>&lt;<span class="hljs-keyword">div</span>  ng-controller=<span class="hljs-string">"CarouselController"</span>
-      ng-init='setImages([<span class="hljs-string">"http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif"</span>,<span class="hljs-string">"http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png"</span>,<span class="hljs-string">"http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg"</span>])'&gt;
-  &lt;<span class="hljs-keyword">div</span>  <span class="hljs-keyword">my</span>-background-image='images[index]'
-        <span class="hljs-type">class</span>=<span class="hljs-string">"wide"</span>
-        swipe-left=<span class="hljs-string">"nextImage()"</span>
-        swipe-right=<span class="hljs-string">"prevImage()"</span>&gt;
-  &lt;/<span class="hljs-keyword">div</span>&gt;
-  &lt;<span class="hljs-keyword">div</span> ng-click=<span class="hljs-string">"prevImage()"</span> <span class="hljs-type">class</span>=<span class="hljs-string">"pointer"</span>&gt;
+<pre><code>&lt;div  ng-controller=<span class="hljs-string">"CarouselController"</span>
+      ng-init=<span class="hljs-string">'setImages(["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif","http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png","http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg"])'</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>  <span class="hljs-attr">my-background-image</span>=<span class="hljs-string">'images[index]'</span>
+        <span class="hljs-attr">class</span>=<span class="hljs-string">"wide"</span>
+        <span class="hljs-attr">swipe-left</span>=<span class="hljs-string">"nextImage()"</span>
+        <span class="hljs-attr">swipe-right</span>=<span class="hljs-string">"prevImage()"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"prevImage()"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pointer"</span>&gt;</span>
     Prev
-  &lt;/<span class="hljs-keyword">div</span>&gt;
-  &lt;<span class="hljs-keyword">div</span> ng-click=<span class="hljs-string">"nextImage()"</span> <span class="hljs-type">class</span>=<span class="hljs-string">"pointer"</span>&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"nextImage()"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"pointer"</span>&gt;</span>
     Next
-  &lt;/<span class="hljs-keyword">div</span>&gt;
-  &lt;<span class="hljs-keyword">div</span>  ng-click=<span class="hljs-string">"images.push('http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg');"</span>
-        <span class="hljs-type">class</span>=<span class="hljs-string">"pointer"</span>&gt;
-    &lt;em&gt;Add Image&lt;/em&gt;
-  &lt;/<span class="hljs-keyword">div</span>&gt;
-&lt;/<span class="hljs-keyword">div</span>&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>  <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"images.push('http://upload.wikimedia.org/wikipedia/en/5/59/Himura_Kenshin_OVA.jpg');"</span>
+        <span class="hljs-attr">class</span>=<span class="hljs-string">"pointer"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Add Image<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 </code></pre><p>This illustrates the tradeoff between flexibility and convenience when defining a universal <code>&lt;carousel&gt;</code> directive.  In many cases, that initial work we did to combine the definitions of slider, background image, and swipe directives into a single <code>&lt;carousel&gt;</code> template will save an enormous amount of hassle later.  However, it&#39;s important to recognize the weakness of using a template for your directive- there is no good way to override that template.  Once you define the template, anything using that <code>&lt;carousel&gt;</code> directive will look and behave exactly like the original definition unless you change the template itself.  Personally, I like to separate directives as much as possible for the sake of flexibility, but every project is different so do whatever works for your application.</p>
 <h2 id="special-bonus-rule-1-directives-are-already-hard-keep-them-simple-don-t-ping-the-server-or-reformat-underlying-data-">Special Bonus Rule #1: Directives are already hard, keep them simple. Don&#39;t ping the server or reformat underlying data.</h2>
 <p>A brief aside on code modularity: a directive&#39;s functions should almost never be responsible for getting or formatting their own data.  There&#39;s nothing to stop you from using the <code>$http</code> service from within a directive, but this is almost always the wrong thing to do.  Writing a controller to use <code>$http</code> is the right way to do it. A directive already touches a DOM element, which is a very complex object and is difficult to stub out for testing.  Adding network I/O to the mix makes your code that much more difficult to understand and that much more difficult to test. In addition, network I/O locks in the way that your directive will get its data - maybe in some other place you&#39;ll want to have this directive receive data from a socket or take in preloaded data.  Your directive should either take data in as an attribute through scope.$eval and/or have a controller to handle acquiring and storing the data.</p>

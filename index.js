@@ -8,7 +8,7 @@ var feed = require('feed');
 var highlight = require('highlight.js');
 markdown.setOptions({
   highlight: function(code) {
-    return highlight.highlightAuto(code).value;
+    return highlight.highlight('JavaScript', code).value;
   }
 });
 

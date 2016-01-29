@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 08 Jan 2016 18:58:12 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 29 Jan 2016 16:01:07 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing The 80/20 Guide to ES2015 Generators]]></title>
+            <link>http://www.thecodebarbarian.com/introducing-80-20-guide-to-es2015-generators</link>
+            <guid>http://www.thecodebarbarian.com/introducing-80-20-guide-to-es2015-generators</guid>
+            <pubDate>Fri, 29 Jan 2016 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Mongoose 2015 Year in Review]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-2015-year-in-review</link>
