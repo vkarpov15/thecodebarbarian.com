@@ -1,5 +1,5 @@
 <html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
-</script><title>Ionic Framework and LoopBack, Part IV: Testing with Travis | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Ionic Framework and LoopBack, Part IV: Testing with Travis"/><meta property="og:url" content="http://www.thecodebarbarian.com/ionic-loopback-testing"/><meta property="og:image" content="http://i.imgur.com/gh86st3.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li><li class="right-bar-li"><a href="/ionic-loopback-testing">Ionic Framework and LoopBack, Part IV: Testing with Travis</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fionic-loopback-testing&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fionic-loopback-testing&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Ionic Framework and LoopBack, Part IV: Testing with Travis </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 13, 2015</span></div></div></div><div class="post-body-text-container"><p><em>This post originally appeared on <a href="https://strongloop.com/strongblog/part-4-ionic-loopback-frameworks-testing-with-travis/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
+</script><title>Ionic Framework and LoopBack, Part IV: Testing with Travis | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Ionic Framework and LoopBack, Part IV: Testing with Travis"/><meta property="og:url" content="http://www.thecodebarbarian.com/ionic-loopback-testing"/><meta property="og:image" content="http://i.imgur.com/gh86st3.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/introducing-80-20-guide-to-es2015-generators">Introducing The 80/20 Guide to ES2015 Generators</a></li><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fionic-loopback-testing&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fionic-loopback-testing&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fionic-loopback-testing" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Ionic Framework and LoopBack, Part IV: Testing with Travis </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 13, 2015</span></div></div></div><div class="post-body-text-container"><p><em>This post originally appeared on <a href="https://strongloop.com/strongblog/part-4-ionic-loopback-frameworks-testing-with-travis/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
 <p>In the first three articles in this series, you built a simple mobile app and
 server using the Ionic Framework and StrongLoop LoopBack. In this article,
 you&#39;ll learn about one key advantage of building mobile apps with Ionic:
@@ -27,7 +27,7 @@ a plugin to do anything non-trivial. In particular, you need plugins to enable
 karma to launch specific browsers. For this article, you&#39;ll use 2 karma plugins:
 one that enables karma to launch PhantomJS, and one that provides an adapter for
 the <a href="https://www.npmjs.com/package/mocha">mocha testing framework</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-label">devDependencies:</span> {
+<pre><code class="lang-javascript">devDependencies: {
   <span class="hljs-string">"karma"</span>: <span class="hljs-string">"0.13.15"</span>,
   <span class="hljs-string">"karma-mocha"</span>: <span class="hljs-string">"0.2.0"</span>,
   <span class="hljs-string">"karma-phantomjs-launcher"</span>: <span class="hljs-string">"0.2.1"</span>,
@@ -49,37 +49,37 @@ with all of your stopwatch-specific directives, it&#39;s time to set up a karma
 config file. Karma config files can be intimidating at first, but they make
 sense once you remember the 3 things that karma is responsible for: starting
 browsers, running some JavaScript, and reporting output.</p>
-<pre><code class="lang-javascript"><span class="xml">module.exports = function(config) </span><span class="hljs-expression">{
-  <span class="hljs-variable">config.set</span>({
-    /<span class="hljs-end-block">/ Start these browsers</span>
-    <span class="hljs-variable">browsers</span>: ['<span class="hljs-variable">PhantomJS</span>'],
-    /<span class="hljs-end-block">/ Load these files</span>
-    <span class="hljs-variable">basePath</span>: '<span class="hljs-variable">..</span>/',
-    <span class="hljs-variable">files</span>: [
-      '<span class="hljs-variable">http</span>:/<span class="hljs-end-block">/code.jquery.com</span><span class="hljs-end-block">/jquery-</span>1<span class="hljs-variable">.</span>9<span class="hljs-variable">.</span>1<span class="hljs-variable">.js</span>',
-      '<span class="hljs-variable">https</span>:/<span class="hljs-end-block">/cdnjs.cloudflare.com</span><span class="hljs-end-block">/ajax</span><span class="hljs-end-block">/libs</span><span class="hljs-end-block">/chai</span>/3<span class="hljs-variable">.</span>4<span class="hljs-variable">.</span>0<span class="hljs-end-block">/chai.js</span>',
-      '<span class="hljs-variable">https</span>:/<span class="hljs-end-block">/ajax.googleapis.com</span><span class="hljs-end-block">/ajax</span><span class="hljs-end-block">/libs</span><span class="hljs-end-block">/angularjs</span>/1<span class="hljs-variable">.</span>4<span class="hljs-variable">.</span>7<span class="hljs-end-block">/angular.js</span>',
-      '<span class="hljs-variable">https</span>:/<span class="hljs-end-block">/ajax.googleapis.com</span><span class="hljs-end-block">/ajax</span><span class="hljs-end-block">/libs</span><span class="hljs-end-block">/angularjs</span>/1<span class="hljs-variable">.</span>4<span class="hljs-variable">.</span>7<span class="hljs-end-block">/angular-resource.js</span>',
-      '<span class="hljs-variable">https</span>:/<span class="hljs-end-block">/ajax.googleapis.com</span><span class="hljs-end-block">/ajax</span><span class="hljs-end-block">/libs</span><span class="hljs-end-block">/angularjs</span>/1<span class="hljs-variable">.</span>4<span class="hljs-variable">.</span>7<span class="hljs-end-block">/angular-mocks.js</span>',
-      '<span class="hljs-variable">https</span>:/<span class="hljs-end-block">/cdnjs.cloudflare.com</span><span class="hljs-end-block">/ajax</span><span class="hljs-end-block">/libs</span><span class="hljs-end-block">/moment.js</span>/2<span class="hljs-variable">.</span>10<span class="hljs-variable">.</span>6<span class="hljs-end-block">/moment.js</span>',
-      '<span class="hljs-variable">www</span><span class="hljs-end-block">/js</span><span class="hljs-end-block">/stopwatch.js</span>',
-      '<span class="hljs-variable">www</span><span class="hljs-end-block">/js</span><span class="hljs-end-block">/directives</span><span class="hljs-end-block">/index.js</span>',
-      '<span class="hljs-variable">www</span><span class="hljs-end-block">/js</span><span class="hljs-end-block">/templates</span><span class="hljs-end-block">/index.js</span>',
-      /<span class="hljs-end-block">/ These are all your test files</span>
-      '<span class="hljs-variable">test</span>/*<span class="hljs-variable">.test.js</span>'
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+  config.set({
+    <span class="hljs-comment">// Start these browsers</span>
+    browsers: [<span class="hljs-string">'PhantomJS'</span>],
+    <span class="hljs-comment">// Load these files</span>
+    basePath: <span class="hljs-string">'../'</span>,
+    files: [
+      <span class="hljs-string">'http://code.jquery.com/jquery-1.9.1.js'</span>,
+      <span class="hljs-string">'https://cdnjs.cloudflare.com/ajax/libs/chai/3.4.0/chai.js'</span>,
+      <span class="hljs-string">'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js'</span>,
+      <span class="hljs-string">'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.js'</span>,
+      <span class="hljs-string">'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-mocks.js'</span>,
+      <span class="hljs-string">'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'</span>,
+      <span class="hljs-string">'www/js/stopwatch.js'</span>,
+      <span class="hljs-string">'www/js/directives/index.js'</span>,
+      <span class="hljs-string">'www/js/templates/index.js'</span>,
+      <span class="hljs-comment">// These are all your test files</span>
+      <span class="hljs-string">'test/*.test.js'</span>
     ],
-    <span class="hljs-variable">frameworks</span>: ['<span class="hljs-variable">mocha</span>'],
-    /<span class="hljs-end-block">/ And a couple other details</span>
-    <span class="hljs-variable">port</span>: 9876,
-    <span class="hljs-variable">singleRun</span>: <span class="hljs-variable">true</span>
-  }</span><span class="xml">);
-};</span>
+    frameworks: [<span class="hljs-string">'mocha'</span>],
+    <span class="hljs-comment">// And a couple other details</span>
+    port: <span class="hljs-number">9876</span>,
+    singleRun: <span class="hljs-literal">true</span>
+  });
+};
 </code></pre>
 <p>The above config assumes that all the tests will be in the <code>test/</code> directory.
 Let&#39;s write a basic mocha test and run it.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
-  it(<span class="hljs-string">'works'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
-    <span class="hljs-built_in">assert</span>.equal(<span class="hljs-string">'A'</span>, <span class="hljs-string">'A'</span>);
+<pre><code class="lang-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  it(<span class="hljs-string">'works'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    assert.equal(<span class="hljs-string">'A'</span>, <span class="hljs-string">'A'</span>);
   });
 });
 </code></pre>
@@ -90,14 +90,14 @@ Let&#39;s write a basic mocha test and run it.</p>
 }
 </code></pre>
 <p>Now, once you run <code>npm test</code>, you should see output that looks like this:</p>
-<pre><code><span class="hljs-variable">$ </span>npm test
+<pre><code>$ npm test
 
-&gt; stopwatch-example<span class="hljs-variable">@1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span> test
+&gt; stopwatch-example@<span class="hljs-number">1.0</span><span class="hljs-number">.0</span> test
 &gt; karma start test/karma.phantom.conf.js
 
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span><span class="hljs-symbol">:</span><span class="hljs-number">43</span><span class="hljs-symbol">:</span><span class="hljs-number">30.691</span><span class="hljs-symbol">:INFO</span> [karma]<span class="hljs-symbol">:</span> <span class="hljs-constant">Karma </span>v<span class="hljs-number">0</span>.<span class="hljs-number">13.15</span> server started at <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/localhost:9876/</span>
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span><span class="hljs-symbol">:</span><span class="hljs-number">43</span><span class="hljs-symbol">:</span><span class="hljs-number">30.699</span><span class="hljs-symbol">:INFO</span> [launcher]<span class="hljs-symbol">:</span> <span class="hljs-constant">Starting </span>browser <span class="hljs-constant">PhantomJS</span>
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span><span class="hljs-symbol">:</span><span class="hljs-number">43</span><span class="hljs-symbol">:</span><span class="hljs-number">31.357</span><span class="hljs-symbol">:INFO</span> [<span class="hljs-constant">PhantomJS </span><span class="hljs-number">1.9</span>.<span class="hljs-number">8</span> (<span class="hljs-constant">Linux </span><span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>)]<span class="hljs-symbol">:</span> <span class="hljs-constant">Executed </span><span class="hljs-number">1</span> of <span class="hljs-number">1</span> <span class="hljs-constant">SUCCESS </span>(<span class="hljs-number">0</span>.<span class="hljs-number">03</span>8 secs / <span class="hljs-number">0</span> secs)
+<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.691</span>:INFO [karma]: Karma v0<span class="hljs-number">.13</span><span class="hljs-number">.15</span> server started at http:<span class="hljs-comment">//localhost:9876/</span>
+<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.699</span>:INFO [launcher]: Starting browser PhantomJS
+<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">31.357</span>:INFO [PhantomJS <span class="hljs-number">1.9</span><span class="hljs-number">.8</span> (Linux <span class="hljs-number">0.0</span><span class="hljs-number">.0</span>)]: Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.038</span> secs / <span class="hljs-number">0</span> secs)
 </code></pre><h2 id="testing-angularjs-directives">Testing AngularJS Directives</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/e6c278b3d5a9cf612e112bea38fc1f4874fcac9b">See a diff for this step on GitHub</a></em></p>
 <p>No offense to Aristotle, but a test that asserts that
@@ -114,11 +114,11 @@ scope, and compiles the HTML into a DOM element attached to the given scope.
 In other words, the  <code>$compile</code> service lets you instantiate your directives.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> injector = angular.injector([<span class="hljs-string">'stopwatch'</span>, <span class="hljs-string">'ngMockE2E'</span>]);
 
-injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-variable">$rootScope</span>, <span class="hljs-variable">$compile</span>)</span> </span>{
-  parentScope = <span class="hljs-variable">$rootScope</span>.<span class="hljs-variable">$new</span>();
+injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile</span>) </span>{
+  parentScope = $rootScope.$<span class="hljs-keyword">new</span>();
 
   <span class="hljs-keyword">var</span> html = <span class="hljs-string">'&lt;timer on-time-saved="onSaved(time);"&gt;&lt;/timer&gt;'</span>;
-  element = <span class="hljs-variable">$compile</span>(html)(parentScope);
+  element = $compile(html)(parentScope);
   <span class="hljs-comment">// Can now do things like `element.css('display')` and</span>
   <span class="hljs-comment">// `element.find('button').click();`</span>
 });
@@ -131,7 +131,7 @@ directive and give you a jQuery handle to an instantiated <code>timer</code> dir
 <p>In order to really run this test, you&#39;re going to need three more details.
 First, you&#39;re going to need to define the <code>onSaved()</code> function. This is just
 going to be a stub for testing.</p>
-<pre><code class="lang-javascript">parentScope.onSaved = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(time)</span> </span>{
+<pre><code class="lang-javascript">parentScope.onSaved = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) </span>{
   parentScope.onSaved.calls.push(time);
 };
 parentScope.onSaved.calls = [];
@@ -140,14 +140,14 @@ parentScope.onSaved.calls = [];
 The <code>parentScope</code> variable is useful, but what if we want access to the
 directive&#39;s internals? Thankfully, a scope has a <code>$$childHead</code> member that
 points to its first child scope.</p>
-<pre><code class="lang-javascript"><span class="hljs-title">scope</span> = parentScope.$<span class="hljs-variable">$childHead</span>;
+<pre><code class="lang-javascript">scope = parentScope.$$childHead;
 </code></pre>
 <p>Finally, you&#39;re going to want to test that clicking on the &#39;Save&#39; button
 triggers the correct HTTP request. Thankfully, that&#39;s what AngularJS&#39;
 <code>$httpBackend</code> service (part of the <code>ngMockE2E</code> module you saw above) is for.</p>
-<pre><code class="lang-javascript">injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(<span class="hljs-variable">$rootScope</span>, <span class="hljs-variable">$compile</span>, <span class="hljs-variable">$httpBackend</span>)</span> </span>{
-  parentScope = <span class="hljs-variable">$rootScope</span>.<span class="hljs-variable">$new</span>();
-  httpBackend = <span class="hljs-variable">$httpBackend</span>;
+<pre><code class="lang-javascript">injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile, $httpBackend</span>) </span>{
+  parentScope = $rootScope.$<span class="hljs-keyword">new</span>();
+  httpBackend = $httpBackend;
 });
 </code></pre>
 <p>With that, you&#39;re ready to write your first test. The full code can be
@@ -157,18 +157,18 @@ Let&#39;s walk through the high-level concepts in this test. Now that you have t
 element, you first want to click on the &#39;Start&#39; button in the <code>timer</code> directive
 and make sure the directive reacted correctly.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Click the 'Start' button</span>
-element.<span class="hljs-built_in">find</span>('button[ng-click=<span class="hljs-string">"startTimer()"</span>]').click();
+element.find(<span class="hljs-string">'button[ng-click="startTimer()"]'</span>).click();
 <span class="hljs-comment">// Make sure the internal state updated</span>
-<span class="hljs-built_in">assert</span>.<span class="hljs-built_in">equal</span>(scope.state, '<span class="hljs-type">RUNNING'</span>);
-<span class="hljs-built_in">assert</span>.<span class="hljs-built_in">equal</span>(scope.ms, <span class="hljs-number">0</span>);
+assert.equal(scope.state, <span class="hljs-string">'RUNNING'</span>);
+assert.equal(scope.ms, <span class="hljs-number">0</span>);
 <span class="hljs-comment">// And make sure the 'Start' button no longer appears</span>
-<span class="hljs-built_in">assert</span>.ok(element.<span class="hljs-built_in">find</span>('button[ng-click=<span class="hljs-string">"startTimer()"</span>]').
-  hasClass('ng-hide'));
+assert.ok(element.find(<span class="hljs-string">'button[ng-click="startTimer()"]'</span>).
+  hasClass(<span class="hljs-string">'ng-hide'</span>));
 </code></pre>
 <p>Now, you want to wait a while and make sure the timer updates every second
 correctly.</p>
-<pre><code class="lang-javascript">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
-  <span class="hljs-built_in">assert</span>.equal(scope.ms, <span class="hljs-number">1000</span>);
+<pre><code class="lang-javascript">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  assert.equal(scope.ms, <span class="hljs-number">1000</span>);
 }, <span class="hljs-number">1100</span>);
 </code></pre>
 <p>Once the timer has updated to 1 second, your test is going to click the stop
@@ -176,16 +176,16 @@ button and assert that the directive reacted correctly.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Click on the 'Stop' button</span>
 element.find(<span class="hljs-string">'button[ng-click="stopTimer()"]'</span>).click();
 <span class="hljs-comment">// Make sure the internal state updated correctly</span>
-<span class="hljs-keyword">assert</span>.equal(scope.state, <span class="hljs-string">'STOPPED'</span>);
+assert.equal(scope.state, <span class="hljs-string">'STOPPED'</span>);
 
 <span class="hljs-comment">// Tell AngularJS to expect an HTTP POST request whose body satisfies</span>
 <span class="hljs-comment">// this function</span>
-var validateData = function(data) {
-  <span class="hljs-keyword">assert</span>.deepEqual(JSON.parse(data), { <span class="hljs-string">time:</span> <span class="hljs-number">1000</span> });
+<span class="hljs-keyword">var</span> validateData = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+  assert.deepEqual(<span class="hljs-built_in">JSON</span>.parse(data), { time: <span class="hljs-number">1000</span> });
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 };
 httpBackend.expectPOST(<span class="hljs-string">'http://localhost:3000/api/Times'</span>, validateData).
-  respond(<span class="hljs-number">200</span>, { <span class="hljs-string">result:</span> <span class="hljs-string">'success'</span> });
+  respond(<span class="hljs-number">200</span>, { result: <span class="hljs-string">'success'</span> });
 
 <span class="hljs-comment">// Click on the 'Save' button and trigger the request</span>
 element.find(<span class="hljs-string">'button[ng-click="save()"]'</span>).click();
@@ -194,7 +194,7 @@ element.find(<span class="hljs-string">'button[ng-click="save()"]'</span>).click
 httpBackend.flush();
 
 <span class="hljs-comment">// Make sure the internal state updated correctly</span>
-<span class="hljs-keyword">assert</span>.equal(scope.state, <span class="hljs-string">'SUCCESS'</span>);
+assert.equal(scope.state, <span class="hljs-string">'SUCCESS'</span>);
 </code></pre>
 <p>If you&#39;re interested in learning more, there&#39;s a
 <a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">detailed guide to testing AngularJS directives on my blog</a>.</p>
@@ -206,10 +206,10 @@ The tests are the hard part, setting up Travis to work with Node is
 much easier than Android or iOS. All you need to do is set up an account
 on Travis, add your Ionic app&#39;s GitHub repo, and add the below <code>.travis.yml</code>
 file to your repo.</p>
-<pre><code><span class="hljs-label">language:</span> node_js
-<span class="hljs-label">node_js:</span>
+<pre><code>language: node_js
+node_js:
   - <span class="hljs-string">"4"</span>
-<span class="hljs-label">script:</span> <span class="hljs-string">"npm test"</span>
+script: <span class="hljs-string">"npm test"</span>
 </code></pre><p>Easy, right? If you need extra help setting up Travis, there&#39;s a
 <a href="https://strongloop.com/strongblog/npm-modules-travis-coveralls/">detailed guide to setting up Travis for Node.js on the StrongLoop blog</a>.</p>
 <h2 id="conclusion">Conclusion</h2>

@@ -1,5 +1,5 @@
 <html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
-</script><title>Crunching NBA Finals History with MongoDB | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Crunching NBA Finals History with MongoDB"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/06/26/crunching-nba-finals-history-with-mongodb"/><meta property="og:image" content="http://i.imgur.com/ffjB4tP.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li><li class="right-bar-li"><a href="/ionic-loopback-testing">Ionic Framework and LoopBack, Part IV: Testing with Travis</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Crunching NBA Finals History with MongoDB </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">June 26, 2015</span></div></div></div><div class="post-body-text-container"><p>The NBA Finals just concluded last week, and LeBron James officially has
+</script><title>Crunching NBA Finals History with MongoDB | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Crunching NBA Finals History with MongoDB"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/06/26/crunching-nba-finals-history-with-mongodb"/><meta property="og:image" content="http://i.imgur.com/ffjB4tP.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Recent Posts</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/introducing-80-20-guide-to-es2015-generators">Introducing The 80/20 Guide to ES2015 Generators</a></li><li class="right-bar-li"><a href="/mongoose-2015-year-in-review">Mongoose 2015 Year in Review</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-$lookup-$sample">A Node.js Perspective on MongoDB 3.2, Part 2: $lookup and $sample</a></li><li class="right-bar-li"><a href="/node-perspective-on-mongodb-3.2-bitwise-query-operators">A Node.js Perspective on MongoDB 3.2: Bitwise Query Operators</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F06%2F26%2Fcrunching-nba-finals-history-with-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Crunching NBA Finals History with MongoDB </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">June 26, 2015</span></div></div></div><div class="post-body-text-container"><p>The NBA Finals just concluded last week, and LeBron James officially has
 the dubious honor of being tied for the 5th most NBA Finals loses in history.
 However, watching Game 6 last week, I found myself wondering whether any other
 player had lost twice with at least 2 different franchises. Sounds like a job
@@ -12,12 +12,12 @@ investigating this data, you&#39;ll learn about the MongoDB aggregation framewor
 figure out some fun NBA finals minutae, and answer the question about LeBron
 James&#39; prolific losing.</p>
 <pre><code>{
-    "<span class="hljs-attribute">_id</span>" : <span class="hljs-value">ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>)</span>,
-    "<span class="hljs-attribute">year</span>" : <span class="hljs-value"><span class="hljs-string">"2015"</span></span>,
-    "<span class="hljs-attribute">winner</span>" : <span class="hljs-value"><span class="hljs-string">"Golden State Warriors"</span></span>,
-    "<span class="hljs-attribute">loser</span>" : <span class="hljs-value"><span class="hljs-string">"Cleveland Cavaliers"</span></span>,
-    "<span class="hljs-attribute">mvp</span>" : <span class="hljs-value"><span class="hljs-string">"A. Iguodala"</span></span>,
-    "<span class="hljs-attribute">winnerRoster</span>" : <span class="hljs-value">[
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>),
+    <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>,
+    <span class="hljs-string">"winner"</span> : <span class="hljs-string">"Golden State Warriors"</span>,
+    <span class="hljs-string">"loser"</span> : <span class="hljs-string">"Cleveland Cavaliers"</span>,
+    <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"A. Iguodala"</span>,
+    <span class="hljs-string">"winnerRoster"</span> : [
         <span class="hljs-string">"Andrew Bogut"</span>,
         <span class="hljs-string">"David Lee"</span>,
         <span class="hljs-string">"Stephen Curry"</span>,
@@ -33,8 +33,8 @@ James&#39; prolific losing.</p>
         <span class="hljs-string">"Ognjen Kuzmic"</span>,
         <span class="hljs-string">"Leandro Barbosa"</span>,
         <span class="hljs-string">"James Michael McAdoo"</span>
-    ]</span>,
-    "<span class="hljs-attribute">loserRoster</span>" : <span class="hljs-value">[
+    ],
+    <span class="hljs-string">"loserRoster"</span> : [
         <span class="hljs-string">"Brendan Haywood"</span>,
         <span class="hljs-string">"Anderson Varejao"</span>,
         <span class="hljs-string">"Kyrie Irving"</span>,
@@ -51,7 +51,7 @@ James&#39; prolific losing.</p>
         <span class="hljs-string">"Joe Harris"</span>,
         <span class="hljs-string">"Kendrick Perkins"</span>
     ]
-</span>}
+}
 </code></pre><p>The preferred way to import a JSON array into MongoDB is
 <a href="http://docs.mongodb.org/manual/reference/program/mongoimport/">mongoimport</a>,
 which comes packaged with MongoDB. The command I used to import this data is
@@ -60,7 +60,7 @@ which comes packaged with MongoDB. The command I used to import this data is
 <p>Let&#39;s take a look at some basic examples to get the hang of this data set.
 The most basic query: when&#39;s the last year the Golden State Warriors won the
 NBA Finals?</p>
-<pre><code>&gt; db.finals.find({ <span class="hljs-string">winner:</span> <span class="hljs-string">'Golden State Warriors'</span> }, { <span class="hljs-string">year:</span> <span class="hljs-number">1</span> });
+<pre><code>&gt; db.finals.find({ winner: <span class="hljs-string">'Golden State Warriors'</span> }, { year: <span class="hljs-number">1</span> });
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245c1"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"1975"</span> }
 </code></pre><p>The answer is 1975. I feel vindicated because as recently as 2 years ago I
@@ -69,15 +69,15 @@ thought I&#39;d never live to see the day the Warriors won the Finals.</p>
 Andre Iguodala would win the Finals MVP. He must be
 <a href="http://ftw.usatoday.com/2015/06/steve-kerr-andre-iguodala-steph-curry-augusta">really love golf</a>.
 Turns out, if you order Finals MVPs by first name, he comes first.</p>
-<pre><code>&gt; db<span class="hljs-class">.finals</span><span class="hljs-class">.find</span>({ mvp<span class="hljs-value">: { <span class="hljs-variable">$ne</span>: <span class="hljs-string">''</span> } }, { year: <span class="hljs-number">1</span>, mvp: <span class="hljs-number">1</span> }).<span class="hljs-function">sort</span>({ mvp: <span class="hljs-number">1</span> }).<span class="hljs-function">limit</span>(<span class="hljs-number">3</span>);</span>
-{ "_id" <span class="hljs-value">: <span class="hljs-function">ObjectId</span>(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"A. Iguodala"</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-function">ObjectId</span>(<span class="hljs-string">"558c6b8b8262b879393245b8"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"1977"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"B. Walton"</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-function">ObjectId</span>(<span class="hljs-string">"558c6b8b8262b8793932459c"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2004"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"C. Billups"</span> }</span>
+<pre><code>&gt; db.finals.find({ mvp: { $ne: <span class="hljs-string">''</span> } }, { year: <span class="hljs-number">1</span>, mvp: <span class="hljs-number">1</span> }).sort({ mvp: <span class="hljs-number">1</span> }).limit(<span class="hljs-number">3</span>);
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"A. Iguodala"</span> }
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245b8"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"1977"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"B. Walton"</span> }
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b8793932459c"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2004"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"C. Billups"</span> }
 </code></pre><p>The Warriors&#39; Stephen Curry is from a prolific basketball family. His father
 played in the NBA and his younger brother is in the NBA Development League.
 While he is the first member of his family to win an NBA Championship, he&#39;s
 not the first Curry:</p>
-<pre><code>&gt; db.finals.find({ <span class="hljs-string">winnerRoster:</span> <span class="hljs-regexp">/Curry/</span> }, { <span class="hljs-string">year:</span> <span class="hljs-number">1</span>, <span class="hljs-string">team:</span> <span class="hljs-number">1</span>, <span class="hljs-string">'winnerRoster.$'</span>: <span class="hljs-number">1</span> })
+<pre><code>&gt; db.finals.find({ winnerRoster: <span class="hljs-regexp">/Curry/</span> }, { year: <span class="hljs-number">1</span>, team: <span class="hljs-number">1</span>, <span class="hljs-string">'winnerRoster.$'</span>: <span class="hljs-number">1</span> })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>, <span class="hljs-string">"winnerRoster"</span> : [ <span class="hljs-string">"Stephen Curry"</span> ] }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245a2"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2012"</span>, <span class="hljs-string">"winnerRoster"</span> : [ <span class="hljs-string">"Eddy Curry"</span> ] }
 </code></pre><h2 id="who-s-lost-the-most-nba-finals-">Who&#39;s Lost the Most NBA Finals?</h2>
@@ -85,7 +85,7 @@ not the first Curry:</p>
 5th all-time. Who are the players that have lost the NBA Finals more? Much to
 my shame as a lifelong Lakers fan, Lakers greats Elgin Baylor and Jerry West
 each were part of 8 Finals-losing Lakers teams in the 50&#39;s, 60&#39;s, and 70&#39;s.</p>
-<pre><code>&gt; db.finals.aggregate([{ <span class="hljs-string">$unwind:</span> <span class="hljs-string">'$loserRoster'</span> }, { <span class="hljs-string">$group:</span> { <span class="hljs-string">_id:</span> <span class="hljs-string">'$loserRoster'</span>, <span class="hljs-string">count:</span> { <span class="hljs-string">$sum:</span> <span class="hljs-number">1</span> }, <span class="hljs-string">teams:</span> { <span class="hljs-string">$push:</span> { <span class="hljs-string">team:</span> <span class="hljs-string">'$loser'</span>, <span class="hljs-string">year:</span> <span class="hljs-string">'$year'</span> } } } }, { <span class="hljs-string">$sort:</span> { <span class="hljs-string">count:</span> -<span class="hljs-number">1</span> } }, { <span class="hljs-string">$limit:</span> <span class="hljs-number">4</span> }]).pretty();
+<pre><code>&gt; db.finals.aggregate([{ $unwind: <span class="hljs-string">'$loserRoster'</span> }, { $group: { _id: <span class="hljs-string">'$loserRoster'</span>, count: { $sum: <span class="hljs-number">1</span> }, teams: { $push: { team: <span class="hljs-string">'$loser'</span>, year: <span class="hljs-string">'$year'</span> } } } }, { $sort: { count: <span class="hljs-number">-1</span> } }, { $limit: <span class="hljs-number">4</span> }]).pretty();
 {
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Elgin Baylor"</span>,
     <span class="hljs-string">"count"</span> : <span class="hljs-number">8</span>,
@@ -216,16 +216,16 @@ each were part of 8 Finals-losing Lakers teams in the 50&#39;s, 60&#39;s, and 70
 }
 </code></pre><p>Let&#39;s take a closer look at the aggregation pipeline.</p>
 <pre><code class="lang-javascript">[
-    { <span class="hljs-string">$unwind:</span> <span class="hljs-string">'$loserRoster'</span> },
+    { $unwind: <span class="hljs-string">'$loserRoster'</span> },
     {
-<span class="hljs-label">        $group:</span> {
-<span class="hljs-label">            _id:</span> <span class="hljs-string">'$loserRoster'</span>,
-<span class="hljs-label">            count:</span> { <span class="hljs-string">$sum:</span> <span class="hljs-number">1</span> },
-<span class="hljs-label">            teams:</span> { <span class="hljs-string">$push:</span> { <span class="hljs-string">team:</span> <span class="hljs-string">'$loser'</span>, <span class="hljs-string">year:</span> <span class="hljs-string">'$year'</span> } }
+        $group: {
+            _id: <span class="hljs-string">'$loserRoster'</span>,
+            count: { $sum: <span class="hljs-number">1</span> },
+            teams: { $push: { team: <span class="hljs-string">'$loser'</span>, year: <span class="hljs-string">'$year'</span> } }
         }
     },
-    { <span class="hljs-string">$sort:</span> { <span class="hljs-string">count:</span> -<span class="hljs-number">1</span> } },
-    { <span class="hljs-string">$limit:</span> <span class="hljs-number">4</span> }
+    { $sort: { count: <span class="hljs-number">-1</span> } },
+    { $limit: <span class="hljs-number">4</span> }
 ]
 </code></pre>
 <p>There are 4 stages. The first stage, <code>$unwind</code>, breaks up the <code>loserRoster</code>
@@ -249,7 +249,7 @@ named to the All-NBA First Team until LeBron James in 2005-06.</p>
 the only player whose name ends in &#39;sky&#39; to play for teams that made it to
 the Finals. There were a few &#39;ski&#39; last names, the latest being Jim Rowinski,
 who played 6 games and scored 4 points for the 1989 &#39;Bad Boys&#39; Detroit Pistons.</p>
-<pre><code>&gt; db.finals.aggregate([{ <span class="hljs-string">$project:</span> { <span class="hljs-string">year:</span> <span class="hljs-number">1</span>, <span class="hljs-string">players:</span> { <span class="hljs-string">$setUnion:</span> [<span class="hljs-string">'$winnerRoster'</span>, <span class="hljs-string">'$loserRoster'</span>] } } }, { <span class="hljs-string">$unwind:</span> <span class="hljs-string">'$players'</span> }, { <span class="hljs-string">$group:</span> { <span class="hljs-string">_id:</span> <span class="hljs-string">'$players'</span>, <span class="hljs-string">years:</span> { <span class="hljs-string">$push:</span> <span class="hljs-string">'$year'</span> } } }, { <span class="hljs-string">$match:</span> { <span class="hljs-string">_id:</span> <span class="hljs-regexp">/sk[iy]$/</span>ig } }]);
+<pre><code>&gt; db.finals.aggregate([{ $project: { year: <span class="hljs-number">1</span>, players: { $setUnion: [<span class="hljs-string">'$winnerRoster'</span>, <span class="hljs-string">'$loserRoster'</span>] } } }, { $unwind: <span class="hljs-string">'$players'</span> }, { $group: { _id: <span class="hljs-string">'$players'</span>, years: { $push: <span class="hljs-string">'$year'</span> } } }, { $match: { _id: <span class="hljs-regexp">/sk[iy]$/ig</span> } }]);
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Johnny Macknowski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1950"</span> ] }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Joe Graboski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1956"</span> ] }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Max Zaslofsky"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1955"</span>, <span class="hljs-string">"1953"</span>, <span class="hljs-string">"1956"</span>, <span class="hljs-string">"1952"</span>, <span class="hljs-string">"1951"</span> ] }
@@ -259,14 +259,14 @@ who played 6 games and scored 4 points for the 1989 &#39;Bad Boys&#39; Detroit P
 </code></pre><p>This is another interesting aggregation worth taking a closer look at.</p>
 <pre><code class="lang-javascript">[
     {
-<span class="hljs-label">        $project:</span> {
-<span class="hljs-label">            year:</span> <span class="hljs-number">1</span>,
-<span class="hljs-label">            players:</span> { <span class="hljs-string">$setUnion:</span> [<span class="hljs-string">'$winnerRoster'</span>, <span class="hljs-string">'$loserRoster'</span>] }
+        $project: {
+            year: <span class="hljs-number">1</span>,
+            players: { $setUnion: [<span class="hljs-string">'$winnerRoster'</span>, <span class="hljs-string">'$loserRoster'</span>] }
         }
     },
-    { <span class="hljs-string">$unwind:</span> <span class="hljs-string">'$players'</span> },
-    { <span class="hljs-string">$group:</span> { <span class="hljs-string">_id:</span> <span class="hljs-string">'$players'</span>, <span class="hljs-string">years:</span> { <span class="hljs-string">$push:</span> <span class="hljs-string">'$year'</span> } } },
-    { <span class="hljs-string">$match:</span> { <span class="hljs-string">_id:</span> <span class="hljs-regexp">/sk[iy]$/</span>ig } }
+    { $unwind: <span class="hljs-string">'$players'</span> },
+    { $group: { _id: <span class="hljs-string">'$players'</span>, years: { $push: <span class="hljs-string">'$year'</span> } } },
+    { $match: { _id: <span class="hljs-regexp">/sk[iy]$/ig</span> } }
 ]
 </code></pre>
 <p>The interesting part is the <code>$project</code> operator. This operator transforms
@@ -284,7 +284,7 @@ Hawks, and another one with the Minneapolis Lakers to boot.</p>
 <p>This begs 2 questions. First, are these the only 3? Second, how many other
 players have been on the losing end of the NBA Finals for 3 different teams?
 Turns out, just 4 others:</p>
-<pre><code>&gt; db.finals.aggregate([{ <span class="hljs-string">$unwind:</span> <span class="hljs-string">'$loserRoster'</span> }, { <span class="hljs-string">$group:</span> { <span class="hljs-string">_id:</span> { <span class="hljs-string">player:</span> <span class="hljs-string">'$loserRoster'</span>, <span class="hljs-string">team:</span> <span class="hljs-string">'$loser'</span> } } }, { <span class="hljs-string">$group:</span> { <span class="hljs-string">_id:</span> <span class="hljs-string">'$_id.player'</span>, <span class="hljs-string">count:</span> { <span class="hljs-string">$sum:</span> <span class="hljs-number">1</span> } } }, { <span class="hljs-string">$sort:</span> { <span class="hljs-string">count:</span> -<span class="hljs-number">1</span> } }, { <span class="hljs-string">$limit:</span> <span class="hljs-number">6</span> }]).pretty();
+<pre><code>&gt; db.finals.aggregate([{ $unwind: <span class="hljs-string">'$loserRoster'</span> }, { $group: { _id: { player: <span class="hljs-string">'$loserRoster'</span>, team: <span class="hljs-string">'$loser'</span> } } }, { $group: { _id: <span class="hljs-string">'$_id.player'</span>, count: { $sum: <span class="hljs-number">1</span> } } }, { $sort: { count: <span class="hljs-number">-1</span> } }, { $limit: <span class="hljs-number">6</span> }]).pretty();
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Eric Snow"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Danny Ainge"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Larry Foust"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
@@ -309,34 +309,34 @@ NBA Finals losses with.</li>
 they have at least 2 NBA Finals losses with.</li>
 </ol>
 <pre><code class="lang-javascript">[
-    { <span class="hljs-label">$unwind</span>: '<span class="hljs-label">$loserRoster</span>' },
+    { $unwind: <span class="hljs-string">'$loserRoster'</span> },
     {
-        <span class="hljs-label">$group</span>: {
+        $group: {
             _id: {
-                player: '<span class="hljs-label">$loserRoster</span>',
-                team: '<span class="hljs-label">$loser</span>'
+                player: <span class="hljs-string">'$loserRoster'</span>,
+                team: <span class="hljs-string">'$loser'</span>
             },
-            <span class="hljs-keyword">count</span>: { <span class="hljs-label">$sum</span>: 1 }
+            count: { $sum: <span class="hljs-number">1</span> }
         }
     },
     {
-        <span class="hljs-label">$match</span>: { <span class="hljs-keyword">count</span>: { <span class="hljs-label">$gte</span>: 2 } }
+        $match: { count: { $gte: <span class="hljs-number">2</span> } }
     },
     {
-        <span class="hljs-label">$group</span>: {
-            _id: '<span class="hljs-label">$_id</span>.player',
-            <span class="hljs-keyword">count</span>: { <span class="hljs-label">$sum</span>: 1 },
-            teams: { <span class="hljs-label">$push</span>: '<span class="hljs-label">$_id</span>.team' }
+        $group: {
+            _id: <span class="hljs-string">'$_id.player'</span>,
+            count: { $sum: <span class="hljs-number">1</span> },
+            teams: { $push: <span class="hljs-string">'$_id.team'</span> }
         }
     },
-    { <span class="hljs-label">$match</span>: { <span class="hljs-keyword">count</span>: { <span class="hljs-label">$gte</span>: 2 } } }
+    { $match: { count: { $gte: <span class="hljs-number">2</span> } } }
 ]
 </code></pre>
 <p>The result is what you might expect - its just LeBron James, Max Zaslofsky,
 and Larry Foust, no others.</p>
-<pre><code>{ "<span class="hljs-attribute">_id</span>" : <span class="hljs-value"><span class="hljs-string">"Max Zaslofsky"</span></span>, "<span class="hljs-attribute">count</span>" : <span class="hljs-value"><span class="hljs-number">2</span></span>, "<span class="hljs-attribute">teams</span>" : <span class="hljs-value">[ <span class="hljs-string">"New York Knicks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] </span>}
-{ "<span class="hljs-attribute">_id</span>" : <span class="hljs-value"><span class="hljs-string">"LeBron James"</span></span>, "<span class="hljs-attribute">count</span>" : <span class="hljs-value"><span class="hljs-number">2</span></span>, "<span class="hljs-attribute">teams</span>" : <span class="hljs-value">[ <span class="hljs-string">"Cleveland Cavaliers"</span>, <span class="hljs-string">"Miami Heat"</span> ] </span>}
-{ "<span class="hljs-attribute">_id</span>" : <span class="hljs-value"><span class="hljs-string">"Larry Foust"</span></span>, "<span class="hljs-attribute">count</span>" : <span class="hljs-value"><span class="hljs-number">2</span></span>, "<span class="hljs-attribute">teams</span>" : <span class="hljs-value">[ <span class="hljs-string">"St. Louis Hawks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] </span>}
+<pre><code>{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Max Zaslofsky"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"New York Knicks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] }
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"LeBron James"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"Cleveland Cavaliers"</span>, <span class="hljs-string">"Miami Heat"</span> ] }
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Larry Foust"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"St. Louis Hawks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] }
 </code></pre><h2 id="conclusion">Conclusion</h2>
 <p>That&#39;s a lot of aggregations! Hopefully you&#39;ve seen some of the interesting
 and powerful things you can do with the MongoDB aggregation framework. In
