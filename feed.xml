@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 29 Jan 2016 18:32:31 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 05 Feb 2016 17:19:46 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[3 Neat Tricks With npm run]]></title>
+            <link>http://www.thecodebarbarian.com/3-neat-tricks-with-npm-run</link>
+            <guid>http://www.thecodebarbarian.com/3-neat-tricks-with-npm-run</guid>
+            <pubDate>Fri, 05 Feb 2016 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing The 80/20 Guide to ES2015 Generators]]></title>
             <link>http://www.thecodebarbarian.com/introducing-80-20-guide-to-es2015-generators</link>
