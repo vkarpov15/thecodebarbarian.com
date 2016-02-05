@@ -22,7 +22,7 @@ to involve a brittle <code>require(&#39;../../../lib/server/my_feature_utils&#39
 command that&#39;ll break every time your directory structure changes. However,
 if you run <code>env NODE_PATH=./ node test/e2e/my_feature/my_feature.test.js</code>,
 <code>require()</code> will know to look in the current directory, so you can instead use
-<code>require(&#39;lib/server/my_feature/utils&#39;);</code>.80-20-guide-to-ecmascript-6-proxies</p>
+<code>require(&#39;lib/server/my_feature/utils&#39;);</code>.</p>
 <p>Unfortunately, every environment variable and flag you need to set adds
 extra complexity to starting your application. Odds are, if you need to set
 17 environment variables and flags to start your application, you&#39;re going
