@@ -1,0 +1,279 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Introducing Dookie, A Better Way To Import/Export MongoDB Data | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Introducing Dookie, A Better Way To Import/Export MongoDB Data"/><meta property="og:url" content="http://www.thecodebarbarian.com/dookie-import-export-mongodb"/><meta property="og:image" content="http://i.imgur.com/DL9R14Y.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fdookie-import-export-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fdookie-import-export-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fdookie-import-export-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fdookie-import-export-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fdookie-import-export-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fdookie-import-export-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Introducing Dookie, A Better Way To Import/Export MongoDB Data </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 12, 2016</span></div></div></div><div class="post-body-text-container"><p>Getting data into and out of MongoDB is a pain. Although MongoDB 3.0 and 3.2
+introduced a lot of great new features, changes in MongoDB&#39;s authentication
+have introduced a lot of nasty quirks to the
+<a href="https://docs.mongodb.org/v3.0/reference/method/db.copyDatabase/">shell&#39;s <code>copyDatabase()</code> function</a>.
+Similarly, the
+<a href="http://www.thegeekstuff.com/2013/09/mongodump-mongorestore/">mongodump/mongorestore</a> and
+<a href="http://www.mkyong.com/mongodb/mongodb-import-and-export-example/">mongoimport/mongoexport</a>
+binaries that come with MongoDB are only useful for a small handful of
+use cases.
+Mongoimport and mongoexport only let you import/export a single collection,
+and mongodump/mongorestore produce binary data that isn&#39;t human readable.
+Neither is an adequate solution to &quot;I want to put some
+sample data into my GitHub repo so I don&#39;t have to generate data by
+pointing and clicking in my web app.&quot;</p>
+<p>One common pattern I see for this task is &quot;seed scripts,&quot; complex scripts that
+generate a data set and put it into MongoDB. This pattern seems to be
+particularly popular among <a href="http://www.fullstackacademy.com/">Fullstack Academy</a>
+grads. However, seed scripts are limited: they build up data imperatively
+rather than declaratively, and building multiple seed scripts for different
+data sets requires a lot of discipline. Seed scripts are only marginally
+better than writing shell script wrappers around mongoimport/export, which is
+why I wrote
+<a href="https://www.npmjs.com/package/dookie">dookie</a>, a tool that allows you to
+pre-process JSON or YAML data before inserting it into MongoDB.</p>
+<h2 id="how-dookie-works">How Dookie Works</h2>
+<p>Dookie has two fundamental operations, &#39;push&#39; and &#39;pull&#39;. In other words,
+you can push data into MongoDB and pull data out of MongoDB. Let&#39;s say you have
+the following JSON object:</p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-string">"people"</span>: [
+    {
+      <span class="hljs-string">"_id"</span>: {
+        <span class="hljs-string">"$oid"</span>: <span class="hljs-string">"561d87b8b260cf35147998ca"</span>
+      },
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Axl Rose"</span>
+    },
+    {
+      <span class="hljs-string">"_id"</span>: {
+        <span class="hljs-string">"$oid"</span>: <span class="hljs-string">"561d88f5b260cf35147998cb"</span>
+      },
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Slash"</span>
+    }
+  ],
+  <span class="hljs-string">"bands"</span>: [
+    {
+      <span class="hljs-string">"_id"</span>: <span class="hljs-string">"Guns N' Roses"</span>,
+      <span class="hljs-string">"members"</span>: [
+        <span class="hljs-string">"Axl Rose"</span>,
+        <span class="hljs-string">"Slash"</span>
+      ]
+    }
+  ]
+}
+</code></pre>
+<p>This object represents the state of a MongoDB database. The database has 2
+collections: &quot;people&quot; and &quot;bands&quot;. The &quot;people&quot; collection has two documents,
+and the &quot;bands&quot; collection has one. In the MongoDB shell, this database
+looks like what you see below. Note that the objects with <code>$oid</code> keys in the
+JSON representation become MongoDB ObjectIds - dookie supports
+<a href="https://docs.mongodb.org/manual/reference/mongodb-extended-json/">MongoDB extended JSON syntax</a>.</p>
+<pre><code>&gt; show collections
+bands
+people
+&gt; db.bands.find().pretty()
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Guns N' Roses"</span>, <span class="hljs-string">"members"</span> : [ <span class="hljs-string">"Axl Rose"</span>, <span class="hljs-string">"Slash"</span> ] }
+&gt; db.people.find().pretty()
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"561d87b8b260cf35147998ca"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Axl Rose"</span> }
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"561d88f5b260cf35147998cb"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Slash"</span> }
+&gt;
+</code></pre><p>Dookie&#39;s &quot;pull&quot; operation lets you export this data from MongoDB into
+a JSON file. The below command exports the database named &quot;test&quot; into
+the file <code>export.json</code>.</p>
+<pre><code>$ ./node_modules/.bin/dookie pull --db test --file ./<span class="hljs-keyword">export</span>.json
+Writing data <span class="hljs-keyword">from</span> mongodb:<span class="hljs-comment">//localhost:27017/test to ./export.json</span>
+$ head <span class="hljs-keyword">export</span>.json
+{
+  <span class="hljs-string">"people"</span>: [
+    {
+      <span class="hljs-string">"_id"</span>: {
+        <span class="hljs-string">"$oid"</span>: <span class="hljs-string">"561d87b8b260cf35147998ca"</span>
+      },
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"Axl Rose"</span>
+    },
+    {
+      <span class="hljs-string">"_id"</span>: {
+</code></pre><p>You can also use dookie from Node.js. Dookie has a <code>pull()</code> function that
+takes in a
+<a href="https://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection string</a> and
+returns a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>. The below script writes the contents of the &quot;test&quot;
+database to <code>export.json</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+dookie.pull(<span class="hljs-string">'mongodb://localhost:27017/test'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+  fs.writeFileSync(<span class="hljs-string">'./export.json'</span>, res);
+});
+</code></pre>
+<p>The &quot;push&quot; operation does the opposite. Once you have <code>export.json</code>, you
+can then replace the test database with the contents of <code>export.json</code>.</p>
+<pre><code>$ mongo
+MongoDB shell version: <span class="hljs-number">3.2</span><span class="hljs-number">.0</span>
+connecting to: test
+&gt; db.dropDatabase();
+{ <span class="hljs-string">"dropped"</span> : <span class="hljs-string">"test"</span>, <span class="hljs-string">"ok"</span> : <span class="hljs-number">1</span> }
+&gt; ^C
+bye
+$ dookie push --db test --file ./<span class="hljs-keyword">export</span>.json
+Writing data <span class="hljs-keyword">from</span> ./<span class="hljs-keyword">export</span>.json to test
+Success!
+$ mongo
+MongoDB shell version: <span class="hljs-number">3.2</span><span class="hljs-number">.0</span>
+connecting to: test
+Server has startup warnings:
+&gt; show collections
+bands
+people
+&gt; db.bands.find().pretty()
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Guns N' Roses"</span>, <span class="hljs-string">"members"</span> : [ <span class="hljs-string">"Axl Rose"</span>, <span class="hljs-string">"Slash"</span> ] }
+&gt;
+</code></pre><p>You can also do the same thing from Node.js. This is very handy for mocha
+tests. These days my
+<a href="http://thecodebarbarian.com/2015/03/13/testing-rest-apis-with-acquit">API integration tests</a>
+almost always have <code>dookie.push()</code> in a <code>beforeEach()</code> hook.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> data = <span class="hljs-built_in">JSON</span>.parse(fs.readFileSync(<span class="hljs-string">'./export.json'</span>, <span class="hljs-string">'utf8'</span>));
+dookie.push(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, data).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>);
+});
+</code></pre>
+<p>The &quot;push&quot; operation also supports <a href="http://yaml.org/">YAML</a>, so if you have
+a file named <code>export.yml</code> like you see below:</p>
+<pre><code class="lang-yaml">people:
+  - _id:
+      # MongoDB extended JSON syntax
+      $oid: 561d87b8b260cf35147998ca
+    name: Axl Rose
+  - _id:
+      $oid: 561d88f5b260cf35147998cb
+    name: Slash
+
+bands:
+  - _id: Guns N&#39; Roses
+    members:
+      - Axl Rose
+      - Slash
+</code></pre>
+<p>You can import it using <code>dookie push</code>. In my experience YAML a better language
+for dookie data sets than JSON, because it&#39;s easier to read and supports
+comments.</p>
+<h2 id="pre-processors-for-dookie-push">Pre-processors For Dookie Push</h2>
+<p>So far you&#39;ve used dookie to import and export data as-is. However, dookie&#39;s
+push operation has some powerful syntactic sugar inspired by the CSS
+pre-processor <a href="https://www.npmjs.com/package/stylus">stylus</a>. I occasionally
+describe dookie as &quot;stylus for MongoDB data sets.&quot;</p>
+<p>The first helper you&#39;ll learn about is <code>$extend</code>. Let&#39;s say your web app
+allows you to search through Arnold Schwarzenegger movies, and you want to
+create a data set to test your search API. Every movie has some things in
+common, and you don&#39;t want to copy/paste these details everywhere. The
+<code>$extend</code> syntax lets your documents inherit properties from &quot;variables.&quot;
+In dookie, a &quot;variable&quot; is a top-level field that starts with &quot;$&quot; (because
+MongoDB collection names can&#39;t start with &quot;$&quot;).</p>
+<pre><code class="lang-yaml">$movie:
+  deleted: <span class="hljs-literal">false</span>
+  leadActor: Arnold Schwarzenegger
+
+movies:
+  - $extend: $movie
+    name: Jingle All The Way
+    supportingActors:
+      - Jake Lloyd
+  - $extend: $movie
+    name: <span class="hljs-string">"Terminator 2: Judgment Day"</span>
+    supportingActors:
+      - Linda Hamilton
+      - Robert Patrick
+</code></pre>
+<p>If you run <code>dookie push</code> on the above YAML file, you&#39;ll get a database with
+1 collection that contains 2 documents, both with the correct <code>deleted</code> and
+<code>leadActor</code> fields.</p>
+<pre><code>$ dookie push --db test --file ./test.yml
+Writing data <span class="hljs-keyword">from</span> ./test.yml to test
+Success!
+$ mongo
+MongoDB shell version: <span class="hljs-number">3.2</span><span class="hljs-number">.0</span>
+connecting to: test
+&gt; show collections
+movies
+&gt; db.movies.find().pretty()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56bcbeb496339ea4340a71b3"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Jingle All The Way"</span>,
+    <span class="hljs-string">"supportingActors"</span> : [
+        <span class="hljs-string">"Jake Lloyd"</span>
+    ],
+    <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
+}
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56bcbeb496339ea4340a71b4"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Terminator 2: Judgment Day"</span>,
+    <span class="hljs-string">"supportingActors"</span> : [
+        <span class="hljs-string">"Linda Hamilton"</span>,
+        <span class="hljs-string">"Robert Patrick"</span>
+    ],
+    <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
+}
+</code></pre><p>The <code>$extend</code> syntax is even more powerful when you combine it with <code>$require</code>.
+Let&#39;s say you want to write multiple test files that leverage the above
+data set. For instance, suppose you wanted to test what happens when a movie
+has <code>deleted</code> set to true, so you wrote the below file <code>deleted.yml</code>.</p>
+<pre><code class="lang-yaml">$<span class="hljs-built_in">require</span>: <span class="hljs-string">"./test.yml"</span>
+
+movies:
+  - $extend: $movie
+    deleted: <span class="hljs-literal">true</span>
+    name: Hercules <span class="hljs-keyword">in</span> New York
+</code></pre>
+<p>The <code>$require</code> syntax above pulls in the <code>test.yml</code> file from the <code>$extend</code>
+example, including all of its variables. The <code>$require</code> syntax also allows
+you to attach an additional movie. Once you push the above file, you get
+a &#39;movies&#39; collection with 3 documents.</p>
+<pre><code>$ dookie push --db test --file ./deleted.yml
+Writing data <span class="hljs-keyword">from</span> ./deleted.yml to test
+Success!
+$ mongo
+MongoDB shell version: <span class="hljs-number">3.2</span><span class="hljs-number">.0</span>
+connecting to: test
+&gt; db.movies.find().pretty()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56bcc074b57de15135356a0f"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Jingle All The Way"</span>,
+    <span class="hljs-string">"supportingActors"</span> : [
+        <span class="hljs-string">"Jake Lloyd"</span>
+    ],
+    <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
+}
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56bcc074b57de15135356a10"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Terminator 2: Judgement Day"</span>,
+    <span class="hljs-string">"supportingActors"</span> : [
+        <span class="hljs-string">"Linda Hamilton"</span>,
+        <span class="hljs-string">"Robert Patrick"</span>
+    ],
+    <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
+}
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56bcc074b57de15135356a11"</span>),
+    <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Hercules in New York"</span>,
+    <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
+}
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p>Stop using seed scripts and mongoimport/mongoexport scripts for your
+MongoDB and Node.js test data! Dookie lets you build and compose data sets
+in a declarative manner, and stand up the data sets from mocha tests or from
+the command line. Dookie has been the single biggest time-saver in my
+MongoDB REST API workflow over the last year.
+<a href="https://www.npmjs.com/package/dookie">Check dookie out on npm</a> and
+save yourself a lot of headache with MongoDB sample data.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20160212_dookie.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Introducing Dookie, A Better Way To Import/Export MongoDB Data", time: new Date() });
+  </script></body></html>
