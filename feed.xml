@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 19 Feb 2016 23:12:59 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 26 Feb 2016 23:20:08 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Diving Into React Native Java for Android Keep Awake]]></title>
+            <link>http://www.thecodebarbarian.com/react-native-keep-awake-android-java</link>
+            <guid>http://www.thecodebarbarian.com/react-native-keep-awake-android-java</guid>
+            <pubDate>Fri, 26 Feb 2016 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Write Your Own Co Using ES2015 Generators]]></title>
             <link>http://www.thecodebarbarian.com/write-your-own-co-using-es2015-generators</link>
