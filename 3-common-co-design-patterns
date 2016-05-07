@@ -117,7 +117,7 @@ than callbacks, without sacrificing the async nature of JavaScript.</p>
 loop, despite the fact that they look fully synchronous? Check out chapter
 2 of my book, <a href="http://es2015generators.com/">The 80/20 Guide to ES2015 Generators</a>, which teaches you how to write
 your own co implementation. I also wrote a
-<a href="http://localhost:8080/write-your-own-co-using-es2015-generators">blog post about writing your own co</a>.</em></p>
+<a href="http://thecodebarbarian.com/write-your-own-co-using-es2015-generators">blog post about writing your own co</a>.</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20160506_co_design.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
