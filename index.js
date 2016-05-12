@@ -143,7 +143,13 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
       console.log('Error writing index: ' + err);
       return callback(err);
     }
-    return callback(null);
+    fs.writeFile('./bin/index.html', output, function(err) {
+      if (err) {
+        console.log('Error writing index.html: ' + err);
+        return callback(err);
+      }
+      return callback(null);
+    });
   });
 });
 
