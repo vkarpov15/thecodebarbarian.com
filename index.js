@@ -148,7 +148,7 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
         console.log('Error writing index.html: ' + err);
         return callback(err);
       }
-      fs.writeFile('./bin/CNAME', 'karpov.us.to', function(err) {
+      fs.writeFile('./bin/CNAME', 'thecodebarbarian.com', function(err) {
         if (err) {
           console.log('Error writing CNAME: ' + err);
           return callback(err);
