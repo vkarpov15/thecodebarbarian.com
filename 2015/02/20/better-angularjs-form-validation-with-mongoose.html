@@ -1,0 +1,188 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Better AngularJS Form Validation with Mongoose | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Better AngularJS Form Validation with Mongoose"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose"/><meta property="og:image" content="//i.imgur.com/gZwWByl.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F02%2F20%2Fbetter-angularjs-form-validation-with-mongoose" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Better AngularJS Form Validation with Mongoose </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 20, 2015</span></div></div></div><div class="post-body-text-container"><p>People have often asked me about my biggest pain points with AngularJS.
+I don&#39;t have many complaints about AngularJS 1.x. But, my biggest by far is the <a href="https://code.angularjs.org/1.2.16/docs/api/ng/directive/form">form validation code</a>. Besides being unwieldy, it has a fundamental flaw: writing form validation logic in HTML is wrong. I wrote about a better way to <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">handle form validation using Mongoose on the server side</a> two years ago. In this article, I&#39;ll present a more modern approach using <a href="http://www.mongoosejs.com">Mongoose</a> 4.0.0-rc2&#39;s isomorphic component.</p>
+<h1 id="what-s-wrong-with-ngform-">What&#39;s Wrong With <code>ngForm</code>?</h1>
+<p>Now don&#39;t get me wrong, the ability to call scope functions in HTML is an awesome feature. But using it to define form validation logic has three key disadvantages. First, it breaks separation of concerns. Form validation logic should operate on data (a plain-old JavaScript object, or POJO for short) as opposed to the state of HTML inputs. In other words, if a designer decides to change an <code>input</code> to a <code>select</code>, this should not affect the validation code at all. Secondly, it&#39;s tricky to control when form validation is executed. You might want to only run validation when an input element uses focus, but AngularJS runs it on every change by default. Even I&#39;m not quite comfortable with tweaking that behavior, and I <a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&amp;qid=1424385919&amp;sr=8-1&amp;keywords=professional+angularjs">wrote a ~400 page book on AngularJS</a>. I can only imagine how beginners struggle with that.</p>
+<p>Lastly, in-HTML form validation logic fails to take advantage of isomorphism. In other words, its difficult to run your HTML form validation logic on the server. This means you need to write validation logic in two separate languages, a violation of the core MEAN stack principle &quot;thou shalt not maintain the same code in 2 different languages.&quot; If you&#39;re using Mongoose to validate data on the server, why not use the same validation logic in the browser?</p>
+<h1 id="enter-mongoose-s-browser-component">Enter Mongoose&#39;s Browser Component</h1>
+<p>As you may know, Mongoose is a ORM-like layer (ODM) for NodeJS and MongoDB.
+By virtue of the fact that MongoDB has no notion of a schema, Mongoose has built up a rich set of validation functionality over the years.
+A couple years ago I described how to <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">integrate AngularJS with Mongoose server-side validation output</a>.
+But, its 2015, and &quot;isomorphic JavaScript&quot; is the new buzzword.
+Mongoose is written in pure JavaScript, so it could be isomorphic in theory.
+Since 3.9.6, Mongoose supports limited isomorphism. Specifically, Mongoose 4.0.0-rc2&#39;s isomorphic component packages Mongoose&#39;s schema validation for the browser.</p>
+<p>To use Mongoose&#39;s browser component, you can include the <a href="http://d1l4stvdmqmdzl.cloudfront.net/4.0.0-rc2/mongoose.min.js">pre-built source in a <code>script</code> tag</a>. You can also <code>require(&#39;mongoose&#39;)</code> in code you&#39;ll build with <a href="https://www.npmjs.org/package/browserify">browserify</a>. Once you&#39;ve included Mongoose in your page, you should be able to run the below simple example. You can find <a href="http://jsfiddle.net/tq6rgodt/">this example on JSFiddle</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    name: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">true</span>
+    }
+});
+
+<span class="hljs-keyword">var</span> doc = <span class="hljs-keyword">new</span> mongoose.Document({}, schema);
+
+doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    print(<span class="hljs-string">'Validation error: '</span> + err);
+    doc.name = <span class="hljs-string">'Val'</span>;
+    doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+        print(<span class="hljs-string">'No more error: '</span> + err); 
+    });
+});
+</code></pre>
+<p>The above example doesn&#39;t look like anything special. But, you now have the ability to utilize advanced Mongoose features, like <a href="http://mongoosejs.com/docs/validation.html">custom validators</a>, <a href="http://mongoosejs.com/docs/middleware.html">pre and post validate middleware</a>, <a href="http://mongoosejs.com/docs/2.7.x/docs/virtuals.html">virtuals</a>, and <a href="http://mongoosejs.com/docs/plugins.html">plugins</a>.</p>
+<p><em>Mongoose makes heavy use of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">the <code>Object.defineProperty</code> function</a> in ECMAScript 5. As such, the browser component is not expected to work in browsers that don&#39;t support ECMAScript 5. This <a href="http://kangax.github.io/compat-table/es5/">includes Internet Explorer 8 and Safari 4</a>. I have not tested to see if Mongoose works in IE8 with an ES5 shim yet.</em></p>
+<h1 id="using-mongoose-custom-validators-in-the-browser">Using Mongoose Custom Validators in the Browser</h1>
+<p>Suppose you have a document that contains a list of prime numbers. Mongoose doesn&#39;t include a validator for checking if a number is prime (although I&#39;m <a href="http://en.wikipedia.org/wiki/Adleman%E2%80%93Pomerance%E2%80%93Rumely_primality_test">open to a pull request with a performant implementation</a>). Custom validators let you define your own primality test (<a href="http://jsfiddle.net/368an924/1/">JSFiddle</a>):</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> primeNumbersSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    primes: [{
+        type: <span class="hljs-built_in">Number</span>,
+        min: <span class="hljs-number">2</span>,
+        validate: {
+            validator: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">2</span>; i &lt;= <span class="hljs-built_in">Math</span>.sqrt(v); ++i) {
+                    <span class="hljs-keyword">if</span> (v % i === <span class="hljs-number">0</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                    }
+                }
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            },
+            msg: <span class="hljs-string">'{VALUE} is not prime!'</span>
+        }
+    }]
+});
+
+<span class="hljs-keyword">var</span> doc = <span class="hljs-keyword">new</span> mongoose.Document({ primes: [<span class="hljs-number">2</span>] }, primeNumbersSchema);
+
+<span class="hljs-comment">/*
+ * Output looks like:
+ * No validation error: null
+ * Error: ValidationError: 4 is not prime! 
+ */</span>
+doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    print(<span class="hljs-string">'No validation error: '</span> + err);
+    doc.primes.push(<span class="hljs-number">4</span>);
+    doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+        print(<span class="hljs-string">'Error: '</span> + err); 
+    });
+});
+</code></pre>
+<h1 id="tying-in-angularjs">Tying in AngularJS</h1>
+<p>When I wrote about <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">how to validate any form ever with AngularJS</a>, I defined a non-trivial schema describing a list of stocks.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> stockSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  symbol: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    enum: VALID_SYMBOLS
+  },
+  price: {
+    price: {
+      type: <span class="hljs-built_in">Number</span>,
+      required: <span class="hljs-literal">true</span>,
+      min: <span class="hljs-number">0</span>
+    },
+    currency : {
+      type: <span class="hljs-built_in">String</span>,
+      required: <span class="hljs-literal">true</span>,
+      enum: CURRENCIES
+    }
+  },
+  quantity : {
+    type: <span class="hljs-built_in">Number</span>,
+    required: <span class="hljs-literal">true</span>,
+    min: <span class="hljs-number">0</span>
+  }
+});
+
+stockSchema.virtual(<span class="hljs-string">'displayPrice'</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.price.currency + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.price.price;
+});
+
+<span class="hljs-keyword">var</span> stockListSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  stocks: [stockSchema]
+});
+</code></pre>
+<p>The <code>stockListSchema</code> uses Mongoose&#39;s ability to nest schemas, so each element in <code>stocks</code> needs to match <code>stockSchema</code>. To fit into <code>stockSchema</code>, a document must have a <code>symbol</code>, <code>price.price</code>, <code>price.currency</code>, and <code>quantity</code>. The symbol and currency must be one of the allowed values specified in <code>VALID_SYMBOLS</code> and <code>CURRENCIES</code>, respectively.</p>
+<p>Here&#39;s the JavaScript you need to tie <code>stockListSchema</code> in with AngularJS and bypass the need for an HTTP call. You can read the below code or skip ahead to the <a href="http://jsfiddle.net/3d0405jc/3/">JSFiddle</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mongooseExample = angular.module(<span class="hljs-string">'mongooseExample'</span>, []);
+
+mongooseExample.controller(<span class="hljs-string">'TestController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>{
+    $scope.stockList = <span class="hljs-keyword">new</span> mongoose.Document({}, stockListSchema);
+    $scope.validationError = <span class="hljs-literal">null</span>;
+
+    $scope.resetInput = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        $scope.newStock = <span class="hljs-keyword">new</span> mongoose.Document({}, stockSchema);
+    };
+    $scope.resetInput();
+    $scope.VALID_SYMBOLS = VALID_SYMBOLS;
+    $scope.CURRENCIES = CURRENCIES;
+
+    $scope.saveStock = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        $scope.validationError = <span class="hljs-literal">null</span>;
+        $scope.newStock.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span> (err) {
+                $scope.validationError = err;
+                <span class="hljs-keyword">return</span> $scope.$apply();
+            }
+            $scope.stockList.stocks.push($scope.newStock);
+            $scope.resetInput();
+            $scope.$apply();
+        });
+    };
+});
+</code></pre>
+<p>Utilizing this controller in HTML is easy. You create <code>input</code> and <code>select</code> elements that AngularJS binds to your <code>newStock</code> Mongoose document. When the user clicks &quot;Add Stock&quot;, you use Mongoose to validate <code>newStock</code>. If its invalid, you make the validation errors visible to the <code>$scope</code>, so AngularJS can show the correct <code>div</code> elements with class &#39;error&#39;. If <code>newStock</code> is valid, you push the document onto the stock list and clear the input for the user.</p>
+<pre><code class="lang-javascript">&lt;div ng-app=<span class="hljs-string">"mongooseExample"</span>&gt;  
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"TestController"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Add New Stock<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Symbol<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"newStock.symbol"</span> <span class="hljs-attr">ng-options</span>=<span class="hljs-string">"symbol for symbol in VALID_SYMBOLS"</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-if</span>=<span class="hljs-string">"validationError.errors['symbol'].kind"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>&gt;</span>
+            {{validationError.errors['symbol'].message}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Price<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"newStock.price.currency"</span> <span class="hljs-attr">ng-options</span>=<span class="hljs-string">"currency for currency in CURRENCIES"</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"newStock.price.price"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-if</span>=<span class="hljs-string">"validationError.errors['price.price'].kind"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>&gt;</span>
+            {{validationError.errors['price.price'].message}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-if</span>=<span class="hljs-string">"validationError.errors['price.currency'].kind"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>&gt;</span>
+            {{validationError.errors['price.currency'].message}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Quantity<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"newStock.quantity"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-if</span>=<span class="hljs-string">"validationError.errors['quantity'].kind"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>&gt;</span>
+            {{validationError.errors['quantity'].message}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"saveStock()"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Add Stock"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>List of Stocks<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-repeat</span>=<span class="hljs-string">"stock in stockList.stocks"</span>&gt;</span>
+            {{stock.symbol}} @ {{stock.displayPrice}}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>I hope you realize how sweet Mongoose&#39;s browser component is. It&#39;s so cool that <a href="https://m.bookalokal.com/">it&#39;s already used in production with AngularJS</a> and it isn&#39;t even marked stable yet. If you&#39;re using the MEAN stack, this will make your apps faster (no need for HTTP calls to do server-side validation) as well as easier to maintain (one schema, one definitive source of what constitutes valid data). In addition, mobile web sites and <a href="http://ionicframework.com/">hybrid mobile apps</a> can now use Mongoose validation without an internet connection. Admit it: there is almost certainly a time when you did validation on the client that you didn&#39;t do on the server, or vice versa. Mongoose makes that sort of mistake a relic of the past.</p>
+<p><em>If you liked this article, check out my upcoming book,
+<a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&amp;qid=1421864096&amp;sr=8-1&amp;keywords=professional+angularjs">Professional AngularJS</a>.
+Chapter 10 contains a more detailed overview of using Mongoose with AngularJS. Chapter 10 also contains an introduction to the <a href="http://ionicframework.com/">Ionic Framework</a> (partially written by the author of the <a href="https://github.com/diegonetto/generator-ionic">Yeoman Ionic generator</a>) and an overview of <a href="http://angular-ui.github.io/bootstrap/">AngularUI Bootstrap</a>.</em></p>
+<p><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&amp;qid=1421864096&amp;sr=8-1&amp;keywords=professional+angularjs"><img src="//i.imgur.com/0UWUUOd.jpg"></a></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150220_angularjs_mongoose.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Better AngularJS Form Validation with Mongoose", time: new Date() });
+  </script></body></html>
