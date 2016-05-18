@@ -6,7 +6,7 @@ block title
 block content
   div.container
     div.col-lg-12.hero-row
-      a(href="#{posts[0].dest.directory.substr('./bin'.length) + '/' + posts[0].dest.name}")
+      a(href="#{posts[0].dest.directory.substr('./bin'.length) + '/' + posts[0].dest.name}.html")
         div.col-lg-8
           div.row
             div.col-lg-12.hero-image(style="background-image:url('#{posts[0].image || '/images/Barbarian_Head.png'}');")
@@ -21,19 +21,19 @@ block content
           p.right-bar-label#home-popular-label All Time Most Popular 
             ul.list-unstyled
               li.right-bar-li
-                a(href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors")
+                a(href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html")
                   | An 80/20 Guide to AngularJS HTTP Interceptors
               li.right-bar-li
-                a(href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback")
+                a(href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html")
                   | Creating REST APIs and Clients with LoopBack and AngularJS
               li.right-bar-li
-                a(href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose")
+                a(href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose.html")
                   | Better AngularJS Form Validation with Mongoose
               li.right-bar-li
-                a(href="http://thecodebarbarian.com/2015/02/06/static_site_generators")
+                a(href="http://thecodebarbarian.com/2015/02/06/static_site_generators.html")
                   | Static Site Generators are Overkill
               li.right-bar-li
-                a(href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins")
+                a(href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins.html")
                   | An 80/20 Guide to Mongoose Plugins
 
     div.col-lg-12
@@ -42,7 +42,7 @@ block content
       - for post, i in posts
         - if ( i < 7 && i != 0 )
           div.col-lg-4.home-post-grid-member
-            a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
+            a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}.html")
               div.home-post-image(style="background-image:url('#{post.image || '/images/Barbarian_Head.png'}');")
               h3.home-post-title
                 | #{post.title}

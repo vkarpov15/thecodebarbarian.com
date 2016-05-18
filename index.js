@@ -91,7 +91,7 @@ wagner.task('generatePosts', function(compiledPosts, callback) {
           console.log('Error making dir: ' + err);
           return callback(err);
         }
-        fs.writeFile(file.path.join(post.dest.directory, post.dest.name),
+        fs.writeFile(file.path.join(post.dest.directory, post.dest.name + '.html'),
           post.compiled, function(err) {
             if (err) {
               console.log('Error writing file: ' + err);
@@ -120,7 +120,7 @@ wagner.task('tags', function(compiledPosts, listTemplate, callback) {
         isLastPage: false
       });
 
-      fs.writeFile('./bin/tag/' + key.toLowerCase(), output, function(err) {
+      fs.writeFile('./bin/tag/' + key.toLowerCase() + '.html', output, function(err) {
         if (err) {
           console.log('Error writing file: ' + err);
           return callback(err);
@@ -138,23 +138,17 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
     posts: posts.reverse(),
     allPosts: postsConfig
   });
-  fs.writeFile('./bin/index', output, function(err) {
+  fs.writeFile('./bin/index.html', output, function(err) {
     if (err) {
       console.log('Error writing index: ' + err);
       return callback(err);
     }
-    fs.writeFile('./bin/index.html', output, function(err) {
+    fs.writeFile('./bin/CNAME', 'thecodebarbarian.com', function(err) {
       if (err) {
-        console.log('Error writing index.html: ' + err);
+        console.log('Error writing CNAME: ' + err);
         return callback(err);
       }
-      fs.writeFile('./bin/CNAME', 'thecodebarbarian.com', function(err) {
-        if (err) {
-          console.log('Error writing CNAME: ' + err);
-          return callback(err);
-        }
-        return callback(null);
-      });
+      return callback(null);
     });
   });
 });
@@ -177,7 +171,7 @@ wagner.task('pages', function(compiledPosts, listTemplate, callback) {
   }
 
   wagner.parallel(pages, function(page, index, callback) {
-    fs.writeFile('./bin/page/' + (index + 1), page, function(err) {
+    fs.writeFile('./bin/page/' + (index + 1) + '.html', page, function(err) {
       callback(err);
     });
   }, callback);
@@ -202,7 +196,7 @@ wagner.task('feed', function(compiledPosts, callback) {
   for (var i = 0; i < reversed.length; ++i) {
     f.addItem({
       title: posts[i].title,
-      link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name,
+      link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
       date: posts[i].date.toDate()
     });
   }

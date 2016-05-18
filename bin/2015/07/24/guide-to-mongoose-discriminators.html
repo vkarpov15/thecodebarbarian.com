@@ -1,0 +1,229 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>An 80/20 Guide to Mongoose Discriminators | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="An 80/20 Guide to Mongoose Discriminators"/><meta property="og:url" content="http://www.thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators"/><meta property="og:image" content="http://i.imgur.com/HCseIcc.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb">MongoDB</a></li><li><a href="/tag/angularjs">AngularJS</a></li><li><a href="/tag/nodejs">NodeJS</a></li><li><a href="/tag/paleo">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2015%2F07%2F24%2Fguide-to-mongoose-discriminators" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">An 80/20 Guide to Mongoose Discriminators </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 24, 2015</span></div></div></div><div class="post-body-text-container"><p>Discriminators are a powerful yet <a href="https://github.com/Automattic/mongoose/issues/2743">unfortunately poorly documented</a>
+feature of <a href="http://npmjs.org/package/mongoose">mongoose</a>. Discriminators
+enable you to store documents with slightly different schemas in the same
+collection and query them back in a consistent way. In this article, you&#39;ll
+learn about how to use discriminators to store different types of events. You&#39;ll
+also see how to use the aggregation framework to run rudimentary analyses.</p>
+<h2 id="why-discriminators-">Why Discriminators?</h2>
+<p>Suppose you&#39;re using mongoose to track 2 different types of events; a user
+clicking a link, and a user buying a product. Storing both types of event in
+the same collection would be handy so you could use the
+<a href="http://thecodebarbarian.com/2015/06/26/crunching-nba-finals-history-with-mongodb">MongoDB aggregation framework</a>
+for tasks like calculating how many users that clicked on a certain link bought
+a certain product. However, these two event types have slightly different
+schema requirements. A <code>ClickedLinkEvent</code> should track the URL the user clicked
+on and the page they were on when they clicked it, but these fields would be
+irrelevant for the <code>PurchasedEvent</code> schema. Instead, the <code>PurchasedEvent</code> schema
+should track the product id and the final purchase price.</p>
+<p>If you didn&#39;t know about discriminators, you might implement this as a single
+schema using <a href="http://mongoosejs.com/docs/schematypes.html#mixed">mongoose&#39;s <code>Mixed</code> type</a>.
+The <code>Mixed</code> type is mongoose&#39;s wildcard type - mongoose doesn&#39;t run casting or
+validation on <code>Mixed</code> fields.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> eventSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  <span class="hljs-comment">// The type of event</span>
+  kind: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    enum: [<span class="hljs-string">'ClickedLink'</span>, <span class="hljs-string">'Purchased'</span>]
+  },
+  <span class="hljs-comment">// The time the event took place</span>
+  time: {
+    type: <span class="hljs-built_in">Date</span>,
+    <span class="hljs-keyword">default</span>: <span class="hljs-built_in">Date</span>.now
+  },
+  <span class="hljs-comment">/* Arbitrary data associated with the event.
+   * `{}` corresponds to `Mixed` type in mongoose,
+   * so no validation is run on this field */</span>
+  data: {}
+});
+
+<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
+</code></pre>
+<p>Unfortunately, using <code>Mixed</code> defeats the purpose of using mongoose in the
+first place. If you&#39;re not going to validate the data at all, you should
+consider just using the <a href="https://github.com/mongodb/node-mongodb-native">MongoDB driver</a>
+directly.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> Event({
+  kind: <span class="hljs-string">'ClickedLink'</span>,
+  data: { badField: <span class="hljs-string">'abc'</span> }
+});
+
+<span class="hljs-comment">// No error, 'badField' is perfectly valid</span>
+assert.ifError(e.validateSync());
+</code></pre>
+<h2 id="the-discriminator-function">The <code>discriminator()</code> Function</h2>
+<p>Suppose you created a general event model that looked like what you see below.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> options = { discriminatorKey: <span class="hljs-string">'kind'</span> };
+
+<span class="hljs-keyword">var</span> eventSchema = <span class="hljs-keyword">new</span> mongoose.Schema(
+  {
+    <span class="hljs-comment">// The time the event took place</span>
+    time: {
+      type: <span class="hljs-built_in">Date</span>,
+      <span class="hljs-keyword">default</span>: <span class="hljs-built_in">Date</span>.now
+    }
+  },
+  options);
+<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
+</code></pre>
+<p>The <code>discriminatorKey</code> option tells mongoose to add a path to the schema called
+&#39;kind&#39; and use it to track which type of document this is. For instance, suppose
+you declared two discriminators, <code>ClickedLinkEvent</code> and <code>PurchasedEvent</code>, as
+shown below.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// ClickedLinkEvent</span>
+<span class="hljs-keyword">var</span> clickedEventSchema = <span class="hljs-keyword">new</span> mongoose.Schema(
+  {
+    <span class="hljs-keyword">from</span>: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
+    to: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> }
+  },
+  options);
+<span class="hljs-keyword">var</span> ClickedLinkEvent = Event.discriminator(<span class="hljs-string">'ClickedLink'</span>,
+  clickedEventSchema);
+
+<span class="hljs-comment">// PurchasedEvent</span>
+<span class="hljs-keyword">var</span> purchasedSchema = <span class="hljs-keyword">new</span> mongoose.Schema(
+  {
+    product: { type: mongoose.Schema.Types.ObjectId }
+  },
+  options);
+<span class="hljs-keyword">var</span> PurchasedEvent = Event.discriminator(<span class="hljs-string">'Purchased'</span>,
+  purchasedSchema);
+</code></pre>
+<p>The <code>ClickedLinkEvent</code> and <code>PurchasedEvent</code> discriminators work almost exactly
+like regular mongoose models. For instance, you can create a new
+<code>ClickedLinkEvent</code> and mongoose validation will ensure that the <code>to</code> field is
+specified.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> ClickedLinkEvent({
+  <span class="hljs-keyword">from</span>: <span class="hljs-string">'http://www.google.com'</span>
+});
+
+<span class="hljs-built_in">console</span>.log(e.kind); <span class="hljs-comment">// Prints 'ClickedLink'</span>
+<span class="hljs-built_in">console</span>.log(e.time); <span class="hljs-comment">// Prints current time</span>
+
+<span class="hljs-keyword">var</span> error = e.validateSync();
+assert.ok(error);
+<span class="hljs-comment">// Prints ['to'] because no 'to' link specified</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(error.errors));
+</code></pre>
+<p>Note that the schema for the <code>ClickedLinkEvent</code> discriminator is the <strong>union</strong>
+of <code>eventSchema</code> and <code>clickedEventSchema</code>. That is, the schema for
+<code>ClickedLinkEvent</code> has:</p>
+<ul>
+<li>The discriminator field <code>kind</code></li>
+<li>The <code>time</code> field from <code>eventSchema</code></li>
+<li>The <code>from</code> and <code>to</code> from <code>clickedEventSchema</code></li>
+</ul>
+<p>However, <code>ClickedLinkEvent</code> is different from a conventional model. In
+particular, documents that are instances of <code>ClickedLinkEvent</code> and
+<code>PurchasedEvent</code> get stored in the &#39;events&#39; collection. Querying with the
+<code>Event</code> model can then find <strong>all</strong> documents that are of either type.</p>
+<pre><code class="lang-javascript">ClickedLinkEvent.create({ <span class="hljs-keyword">from</span>: <span class="hljs-string">'abc'</span>, to: <span class="hljs-string">'123'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  assert.ifError(err);
+  <span class="hljs-keyword">var</span> product = { product: <span class="hljs-string">'00000000000000000000000c'</span> };
+  PurchasedEvent.create(product, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    assert.ifError(err);
+
+    Event.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, events</span>) </span>{
+      assert.ifError(error);
+
+      <span class="hljs-comment">// Got back both events!</span>
+      assert.equal(events.length, <span class="hljs-number">2</span>);
+      assert.equal(events[<span class="hljs-number">0</span>].kind, <span class="hljs-string">'ClickedLink'</span>);
+      assert.equal(events[<span class="hljs-number">1</span>].kind, <span class="hljs-string">'Purchased'</span>);
+
+      <span class="hljs-comment">// `from` field gets pulled in too</span>
+      assert.equal(events[<span class="hljs-number">0</span>].from, <span class="hljs-string">'abc'</span>);
+
+      example2();
+    });
+  });
+});
+</code></pre>
+<p>For instance, if you were to look at the &#39;events&#39; collection in MongoDB
+after running the above code, you&#39;d see:</p>
+<pre><code>&gt; db.events.find().pretty()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"55afdeeb3b91d05562821ab4"</span>),
+    <span class="hljs-string">"from"</span> : <span class="hljs-string">"abc"</span>,
+    <span class="hljs-string">"to"</span> : <span class="hljs-string">"123"</span>,
+    <span class="hljs-string">"kind"</span> : <span class="hljs-string">"ClickedLink"</span>,
+    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-07-22T18:20:27.248Z"</span>),
+    <span class="hljs-string">"__v"</span> : <span class="hljs-number">0</span>
+}
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"55afdeeb3b91d05562821ab5"</span>),
+    <span class="hljs-string">"product"</span> : ObjectId(<span class="hljs-string">"00000000000000000000000c"</span>),
+    <span class="hljs-string">"kind"</span> : <span class="hljs-string">"Purchased"</span>,
+    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-07-22T18:20:27.378Z"</span>),
+    <span class="hljs-string">"__v"</span> : <span class="hljs-number">0</span>
+}
+</code></pre><p>However, if you use the <code>ClickedLinkEvent</code> discriminator to query, you&#39;ll get
+back just the documents that have <code>kind === &#39;ClickedLink&#39;</code>.</p>
+<pre><code class="lang-javascript">ClickedLinkEvent.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, events</span>) </span>{
+  assert.ifError(error);
+  assert.equal(events.length, <span class="hljs-number">1</span>);
+  assert.equal(events[<span class="hljs-number">0</span>].kind, <span class="hljs-string">'ClickedLink'</span>);
+
+  assert.equal(events[<span class="hljs-number">0</span>].from, <span class="hljs-string">'abc'</span>);
+});
+</code></pre>
+<h2 id="using-the-aggregation-framework">Using the Aggregation Framework</h2>
+<p>In mongoose, aggregations are discriminator-aware, so you can do tasks like
+&#39;find the most commonly purchased products&#39; without even being aware of the
+discriminator&#39;s existence.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Get back top 5 most purchased products</span>
+PurchasedEvent.aggregate([
+  { $group: { _id: <span class="hljs-string">'$product'</span>, count: { $inc: <span class="hljs-number">1</span> } } },
+  { $sort: { count: <span class="hljs-number">-1</span> } },
+  { $limit: <span class="hljs-number">5</span> }
+], callback);
+</code></pre>
+<p>However, you have the additional ability to switch back and forth between
+aggregating across all events versus aggregating across just <code>PurchasedEvent</code>
+documents without any joins. For instance, suppose you wanted to compare the
+number of users that purchased product <code>00000000000000000000000c</code> and the
+number of users that visited the page <code>/product/00000000000000000000000c</code>. You
+can achieve this with a single aggregation:</p>
+<pre><code class="lang-javascript">Event.aggregate([
+  {
+    $match: {
+      $or: [
+        { kind: <span class="hljs-string">'ClickedLink'</span>, to: <span class="hljs-string">'/product/00000000000000000000000c'</span> },
+        { kind: <span class="hljs-string">'Purchased'</span>, product: mongoose.Types.ObjectId(<span class="hljs-string">'00000000000000000000000c'</span>) }
+      ]
+    }
+  },
+  {
+    $group: {
+      _id: <span class="hljs-string">'$kind'</span>,
+      count: { $sum: <span class="hljs-number">1</span> }
+    }
+  }
+]);
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>Discriminators are a powerful mongoose feature that enable you to store
+similar documents in the same collection with different schema constraints.
+They are often handy in situations when you&#39;re tempted to just use a <code>Mixed</code>
+type and bypass validation entirely. In particular, for applications like events
+tracking and user permissions, discriminators can be indispensable.</p>
+<p><em>Like learning by watching? Check out
+<a href="https://www.youtube.com/watch?v=xjjM06_mnls&amp;feature=youtu.be">this article&#39;s corresponding screencast</a>.
+This is my first attempt at screencasting, so feedback is always welcome in the
+comments!</em></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20150724_mongoose_discriminators.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "An 80/20 Guide to Mongoose Discriminators", time: new Date() });
+  </script></body></html>
