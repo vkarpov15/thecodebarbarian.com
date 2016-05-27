@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 18 May 2016 14:05:22 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 May 2016 20:45:08 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Cursors in Mongoose 4.5]]></title>
+            <link>http://www.thecodebarbarian.com/cursors-in-mongoose-45.html</link>
+            <guid>http://www.thecodebarbarian.com/cursors-in-mongoose-45.html</guid>
+            <pubDate>Mon, 23 May 2016 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[3 Common Co Design Patterns]]></title>
             <link>http://www.thecodebarbarian.com/3-common-co-design-patterns.html</link>
