@@ -112,4 +112,4 @@ week. Feel free to open up any issues or pull requests on [GitHub](https://githu
 That's what [superagent-promise](https://www.npmjs.com/package/superagent-promise) is for.
 However, `superagent.then()` makes it possible to `yield` a superagent
 request from [co](https://www.npmjs.com/package/co). Want to learn why?
-Check out my ebook, ["The 80/20 Guide To ES2015 Generators"](https://www.npmjs.com/package/co).*
+Check out my ebook, ["The 80/20 Guide To ES2015 Generators"](http://thecodebarbarian.com/introducing-80-20-guide-to-es2015-generators).*
