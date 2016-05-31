@@ -144,6 +144,8 @@ app.controller('MyController', function($scope) {
 });
 ```
 
+**Edit:** In late 2015 I started using [gulp-html2js](https://www.npmjs.com/package/gulp-html2js) to avoid the need for an event emitter. That module pre-populates your AngularJS template cache (see [Professional AngularJS chapter 6](http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078)) so your tests don't have to make HTTP requests to get your templates.
+
 The new `counterDirective` now uses a template loaded over HTTP,
 `directive.html`. In order to make it possible for the tests to detect when
 the directive template has been loaded, the `$emit()` call above runs
