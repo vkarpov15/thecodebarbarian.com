@@ -122,6 +122,7 @@ app.controller(<span class="hljs-string">'MyController'</span>, <span class="hlj
   }, <span class="hljs-number">0</span>);
 });
 </code></pre>
+<p><strong>Edit:</strong> In late 2015 I started using <a href="https://www.npmjs.com/package/gulp-html2js">gulp-html2js</a> to avoid the need for an event emitter. That module pre-populates your AngularJS template cache (see <a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078">Professional AngularJS chapter 6</a>) so your tests don&#39;t have to make HTTP requests to get your templates.</p>
 <p>The new <code>counterDirective</code> now uses a template loaded over HTTP,
 <code>directive.html</code>. In order to make it possible for the tests to detect when
 the directive template has been loaded, the <code>$emit()</code> call above runs
