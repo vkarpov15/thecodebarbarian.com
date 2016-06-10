@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 23 May 2016 20:45:08 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 10 Jun 2016 14:01:24 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[React Native: The Bad Parts]]></title>
+            <link>http://www.thecodebarbarian.com/react-native-the-bad-parts.html</link>
+            <guid>http://www.thecodebarbarian.com/react-native-the-bad-parts.html</guid>
+            <pubDate>Fri, 10 Jun 2016 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Cursors in Mongoose 4.5]]></title>
             <link>http://www.thecodebarbarian.com/cursors-in-mongoose-45.html</link>
