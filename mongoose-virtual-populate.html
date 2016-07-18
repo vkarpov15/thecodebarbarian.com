@@ -1,0 +1,133 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Mongoose 4.5 Virtual Populate | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Mongoose 4.5 Virtual Populate"/><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-virtual-populate"/><meta property="og:image" content="http://i.imgur.com/OBMNAFj.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-virtual-populate&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-virtual-populate" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-virtual-populate" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-virtual-populate&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-virtual-populate" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-virtual-populate" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mongoose 4.5 Virtual Populate </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 18, 2016</span></div></div></div><div class="post-body-text-container"><p>Mongoose 4.5 introduces a new API for <a href="http://mongoosejs.com/docs/populate.html">populating</a> documents. The new
+virtual populate API addresses some significant limitations in the conventional
+populate API. Before you learn about the virtual populate API, let&#39;s see what&#39;s
+wrong with conventional populate.</p>
+<h2 id="but-populate-is-awesome-">But Populate Is Awesome!</h2>
+<p>The <code>populate()</code> function is mongoose&#39;s mechanism for pseudo-joins. Let&#39;s say
+you have 2 collections, &#39;Author&#39; and &#39;BlogPost&#39;:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
+  name: <span class="hljs-built_in">String</span>,
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: <span class="hljs-string">'BlogPost'</span> }]
+});
+
+<span class="hljs-keyword">const</span> BlogPostSchema = <span class="hljs-keyword">new</span> Schema({
+  title: <span class="hljs-built_in">String</span>,
+  comments: [{
+    author: { type: mongoose.Schema.Types.ObjectId, ref: <span class="hljs-string">'Author'</span> },
+    content: <span class="hljs-built_in">String</span>
+  }]
+});
+
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, AuthorSchema, <span class="hljs-string">'Author'</span>);
+<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);
+</code></pre>
+<p>Using the conventional <code>populate()</code> API, you can load all an author&#39;s blog
+posts with a single query.</p>
+<pre><code class="lang-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+  <span class="hljs-comment">// `author.posts` is an array of `BlogPost` documents</span>
+});
+</code></pre>
+<p>You can even load all an author&#39;s blog posts and all the authors of comments
+on the author&#39;s blog posts.</p>
+<pre><code class="lang-javascript">Author.
+  findOne().
+  populate({
+    path: <span class="hljs-string">'posts'</span>,
+    populate: {
+      path: <span class="hljs-string">'comments.author'</span>
+    }
+  }).
+  exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+    <span class="hljs-comment">// `author.posts.comments.author` now contains `Author` documents</span>
+  });
+</code></pre>
+<p>Populate is powerful, but encourages you to design your MongoDB schemas
+poorly. The relationship between authors and blog posts is a one-to-many
+relationship - each blog post has exactly one author, but an author can have
+multiple blog posts. The best way to model this in MongoDB would be for a
+blog post to have an &#39;author&#39; field that points to the author of the post.
+Having an array of blog post refs in the author document is bad because the
+&#39;posts&#39; array will grow without bound, so an author with thousands of posts
+will lead to an unwieldy document. These huge documents lead to wasted
+bandwidth. Even worse, the &#39;posts&#39; array is not useful unless you <code>populate()</code>
+it. Furthermore, what if you want to find blog posts and populate the
+author of the post?</p>
+<h2 id="introducing-virtual-populate">Introducing Virtual Populate</h2>
+<p>The correct way to model this relationship is using an &#39;author&#39; property in
+<code>BlogPostSchema</code>. You can then define the &#39;posts&#39; property as a <em>virtual</em>,
+that is, a field that mongoose never persists to the database.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
+  name: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-comment">// Specifying a virtual with a `ref` property is how you enable virtual</span>
+<span class="hljs-comment">// population</span>
+AuthorSchema.virtual(<span class="hljs-string">'posts'</span>, {
+  ref: <span class="hljs-string">'BlogPost'</span>,
+  localField: <span class="hljs-string">'_id'</span>,
+  foreignField: <span class="hljs-string">'author'</span>
+});
+
+<span class="hljs-keyword">const</span> BlogPostSchema = <span class="hljs-keyword">new</span> Schema({
+  title: <span class="hljs-built_in">String</span>,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: <span class="hljs-string">'Author'</span> },
+  comments: [{
+    author: { type: mongoose.Schema.Types.ObjectId, ref: <span class="hljs-string">'Author'</span> },
+    content: <span class="hljs-built_in">String</span>
+  }]
+});
+
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, AuthorSchema, <span class="hljs-string">'Author'</span>);
+<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);
+</code></pre>
+<p>You can use the &#39;posts&#39; virtual to get all an author&#39;s blog posts in the same
+way:</p>
+<pre><code class="lang-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+  <span class="hljs-comment">// `author.posts` is an array of `BlogPost` documents</span>
+});
+</code></pre>
+<p>But now, even if your author has thousands of blog posts, your author document
+and blog post documents will always be small. Plus, you can use the
+<code>populate()</code> to get a blog post&#39;s author:</p>
+<pre><code class="lang-javascript">BlogPost.findOne().populate(<span class="hljs-string">'author'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+  <span class="hljs-comment">// `author` now contains an 'Author' document</span>
+});
+</code></pre>
+<p>If you want to get super fancy, you can even find the posts posted by
+every user that&#39;s commented on a blog post:</p>
+<pre><code class="lang-javascript">BlogPost.
+  findOne().
+  populate({
+    path: <span class="hljs-string">'comments.author'</span>,
+    populate: {
+      path: <span class="hljs-string">'posts'</span>
+    }
+  }).
+  exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+    <span class="hljs-comment">// `comments.author.posts` now contains an array of all posts that the</span>
+    <span class="hljs-comment">// comment's author wrote</span>
+  });
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The virtual populate API is an exciting addition to mongoose that enables you
+to design your schemas in an idiomatic way rather than design around the
+populate API. Virtual populate is not a replacement for the conventional
+populate API, its a complementary feature that lets you do things like
+<code>populate()</code> in reverse and <a href="https://github.com/Automattic/mongoose/issues/2562"><code>populate()</code> without an id field</a>. Virtual populate
+is the most important new feature of mongoose 4.5.0, so be sure to check it out!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20160718_mongoose_virtual_populate.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Mongoose 4.5 Virtual Populate", time: new Date() });
+  </script></body></html>
