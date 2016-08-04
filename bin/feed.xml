@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 18 Jul 2016 14:03:20 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 04 Aug 2016 21:27:37 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Mongoose 4.5 Custom Query Methods]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-custom-query-methods.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-custom-query-methods.html</guid>
+            <pubDate>Thu, 04 Aug 2016 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Mongoose 4.5 Virtual Populate]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-virtual-populate.html</link>
