@@ -92,7 +92,7 @@ Since the `next()` function returns a promise, you can use [co](http://npmjs.org
 ```javascript
 co(function*() {
   const cursor = User.find({ name: 'Axl' }).populate('band').cursor();
-  for (let doc = yield cursor.next(); doc != null; doc = yield doc.next()) {
+  for (let doc = yield cursor.next(); doc != null; doc = yield cursor.next()) {
     // Print the user, with the `band` field populated
     console.log(doc);
   }
