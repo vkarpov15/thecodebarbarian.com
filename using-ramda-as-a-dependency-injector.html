@@ -1,0 +1,172 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Using Ramda as a Dependency Injector | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Using Ramda as a Dependency Injector"/><meta property="og:url" content="http://www.thecodebarbarian.com/using-ramda-as-a-dependency-injector"/><meta property="og:image" content="http://i.imgur.com/MttUY1D.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><button type="button" data-toggle="collapse" data-target="#home-nav-mobile" class="btn btn-default navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-ramda-as-a-dependency-injector&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-ramda-as-a-dependency-injector" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-ramda-as-a-dependency-injector" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-ramda-as-a-dependency-injector&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-ramda-as-a-dependency-injector" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-ramda-as-a-dependency-injector" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Using Ramda as a Dependency Injector </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 23, 2016</span></div></div></div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/package/ramda">Ramda</a> is quickly becoming an indispensible part of my node projects. Lodash is more accessible and beginner-friendly, but ramda is far more powerful and expressive once you wrap your mind around it. In this article, I&#39;ll take a look at the [<code>applySpec()</code> function] and how it can replace dependency injectors like <a href="http://npmjs.org/package/wagner-core">wagner</a>.</p>
+<h1 id="what-s-dependency-injection-about-">What&#39;s Dependency Injection About?</h1>
+<p>The fundamental idea of dependency injection is to separate out business logic
+and service initialization. For example, let&#39;s say you have some code that
+runs a query against MongoDB:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">let</span> db;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMongo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (db) {
+    <span class="hljs-keyword">return</span> db;
+  }
+  db = mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+  <span class="hljs-keyword">return</span> db;
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> getMongo().
+    then(db =&gt; db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id }));
+};
+</code></pre>
+<p>Node.js beginners tend to write code that differs only superficially from the
+tangled mess above. Little refactors like putting the <code>getMongo()</code> function
+in a separate file, getting the connection string from environment variables,
+and adding error handling don&#39;t help the fundamental issue that your query is
+tied one-to-one to a mongodb database handle. A better approach is something
+like this:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id });
+};
+</code></pre>
+<p>This way, your database handle is completely decoupled from the query you run.
+You can initialize one or many database handles and still use the same
+business logic.</p>
+<p><img src="http://i.imgur.com/HXKxWYS.png" /></p>
+<p>This is particularly important for MongoDB, which
+<a href="http://api.mongodb.com/python/current/faq.html#how-does-connection-pooling-work-in-pymongo">limits you to one operation per open socket at a time</a>. In other words, unless you tweak the pool size in the
+Node.js driver, MongoDB will only process up to 5 operations in parallel per
+database handle.
+This can be bad if you have a lot of fast operations queued up behind a few
+very slow operations, like if a few heavy queries from your admin dashboard
+are blocking user logins. Decoupling initialization from business logic makes
+it easy to have separate database handles for queries you expect to be slow.</p>
+<h1 id="where-di-goes-wrong">Where DI Goes Wrong</h1>
+<p>Dependency injectors are powerful tools for breaking code up into services
+that depend on each other.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// db service</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">db</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// initialize db</span>
+}
+
+<span class="hljs-comment">// logger service</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logger</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// initialize logger</span>
+}
+
+<span class="hljs-comment">// query service</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">queryBuilder</span>(<span class="hljs-params">db, config, logger</span>) </span>{
+  <span class="hljs-comment">// initialize query builder</span>
+}
+</code></pre>
+<p>For example, in the above code, a dependency injector like <a href="http://npmjs.org/package/wagner-core">wagner</a> would be smart enough to walk
+the graph of dependencies and see that in order to initialize <code>queryBuilder</code>,
+it needs to initialize <code>config</code> and <code>logger</code> first, then <code>db</code>, and then
+<code>queryBuilder</code>. A DI tool lets you separate logic from initialization in a
+convenient way where you don&#39;t really have to think about where the services
+you depend on come from.</p>
+<p>Unfortunately, convenience is a false god. Driving your car to the grocery
+store 1 mile away rather than walking is convenient, but it&#39;s also
+bad for your bank account, your health, and your waistline. Similarly, DI
+tools often lead to building weak abstractions and &quot;service soup.&quot; Each
+individual service may be easy understand on it&#39;s own, but the high-level
+structure is hard to understand because there&#39;s no effective way to group
+services together. When everything in your codebase is a &quot;service&quot;, the term
+&quot;service&quot; becomes meaningless.</p>
+<h1 id="how-ramda-helps">How Ramda Helps</h1>
+<p>Enter ramda&#39;s <code>applySpec()</code> function. The general idea of <code>applySpec()</code> is that,
+given an object whose keys are functions and some parameters, it calls each
+function in the object and returns a new object whose keys are the return
+values of each function. In code,</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> stringifyMilliseconds = {
+  milliseconds: x =&gt; <span class="hljs-string">`<span class="hljs-subst">${x}</span>ms`</span>,
+  seconds: {
+    exact: x =&gt; <span class="hljs-string">`<span class="hljs-subst">${x / 1000}</span>s`</span>,
+    rounded: x =&gt; <span class="hljs-string">`<span class="hljs-subst">${Math.round(x / 1000)}</span>s`</span>
+  }
+};
+
+<span class="hljs-comment">/**
+ * {
+ *   milliseconds: '1234ms',
+ *   seconds: { exact: '1.234s', rounded: '1s' }
+ * }
+ */</span>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>).applySpec(stringifyMilliseconds)(<span class="hljs-number">1234</span>);
+</code></pre>
+<p>In other words, <code>applySpec()</code> lets you execute a bunch of functions
+with the same arguments and organize the return values. How does this help
+with DI? Well, let&#39;s say that you have a bunch of functions like the user
+query you had before.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+  getUser: db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
+    <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id });
+  },
+  updateUser: db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id, update</span>) </span>{
+    <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).updateOne({ _id: id }, { $set: update });
+  },
+  deleteUser: db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
+    <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).deleteOne({ _id: id }).then(res =&gt; {
+      <span class="hljs-keyword">if</span> (res.n === <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'User not found'</span>);
+      }
+      <span class="hljs-keyword">return</span> res;
+    })
+  }
+};
+</code></pre>
+<p>These functions are nice and DI-friendly: they don&#39;t rely on any one mechanism
+for initializing the database handle. They also have a couple things in
+common: they all take exactly one parameter, a database handle. This makes it
+easy to initialize all of them in a single function call with <code>applySpec()</code>.</p>
+<pre><code class="lang-javascript">co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">yield</span> mongodb.MongoClient.connect(process.env.MONGO_URL);
+  <span class="hljs-keyword">const</span> User = applySpec(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./user'</span>)(db);
+  <span class="hljs-comment">// User is now a collection of functions that have access to the `db` handle.</span>
+  <span class="hljs-comment">// In other words, you can do 'yield User.getUser(id)'</span>
+  <span class="hljs-keyword">return</span> User;
+});
+</code></pre>
+<p>This way, <code>User</code> is now an organized collection of functions and the <code>db</code>
+dependency is closed over in a way that&#39;s transparent to clients using the
+<code>User</code> module. You can also now think of the functions in <code>User</code> as a
+distinct group as opposed to a collection of nebulous services.
+For example, since these functions all return promises, it&#39;s easier to
+instrument common error handling:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { applySpec, map } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>);
+
+<span class="hljs-keyword">const</span> errorHandler = fn =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>).catch(error =&gt; {
+    <span class="hljs-built_in">console</span>.error(error);
+  });
+};
+
+<span class="hljs-comment">// Apply 'errorHandler' to every function so you can '.catch()' the</span>
+<span class="hljs-comment">// promise returned from every function</span>
+<span class="hljs-keyword">const</span> User = map(errorHandler, applySpec(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./user'</span>))(db));
+</code></pre>
+<h1 id="moving-on">Moving On</h1>
+<p>This is just the tip of the iceberg with ramda. You can get an equivalent
+function to <code>applySpec()</code> with lodash using recursive <code>_.map()</code>, but, as
+is often the case with ramda, you get a more powerful and expressive
+abstraction abstraction out of the box in <code>applySpec()</code>. In particular,
+<code>applySpec()</code> is a great DI replacement because it forces you to build better
+abstractions and avoid service soup by <em>not</em> letting you rely on the tool
+to resolve your dependency graph.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20160923_ramda_di.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Using Ramda as a Dependency Injector", time: new Date() });
+  </script></body></html>

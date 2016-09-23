@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 08 Aug 2016 14:22:36 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Sep 2016 16:56:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using Ramda as a Dependency Injector]]></title>
+            <link>http://www.thecodebarbarian.com/using-ramda-as-a-dependency-injector.html</link>
+            <guid>http://www.thecodebarbarian.com/using-ramda-as-a-dependency-injector.html</guid>
+            <pubDate>Fri, 23 Sep 2016 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Mongoose 4.5 Custom Query Methods]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-custom-query-methods.html</link>
