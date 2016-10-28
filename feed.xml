@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 14 Oct 2016 22:23:04 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Oct 2016 20:34:56 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Thoughts on ES6 Proxies Performance]]></title>
+            <link>http://www.thecodebarbarian.com/thoughts-on-es6-proxies-performance.html</link>
+            <guid>http://www.thecodebarbarian.com/thoughts-on-es6-proxies-performance.html</guid>
+            <pubDate>Fri, 28 Oct 2016 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The 80/20 Guide to MongoDB Geospatial Queries]]></title>
             <link>http://www.thecodebarbarian.com/80-20-guide-to-mongodb-geospatial-queries.html</link>
