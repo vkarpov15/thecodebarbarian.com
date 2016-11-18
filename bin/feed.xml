@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 27 Oct 2016 20:34:56 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 18 Nov 2016 17:39:22 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[10 Lessons from 10 Years as a Software Engineer]]></title>
+            <link>http://www.thecodebarbarian.com/10-lessons-from-10-years-as-a-software-engineer.html</link>
+            <guid>http://www.thecodebarbarian.com/10-lessons-from-10-years-as-a-software-engineer.html</guid>
+            <pubDate>Fri, 18 Nov 2016 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Thoughts on ES6 Proxies Performance]]></title>
             <link>http://www.thecodebarbarian.com/thoughts-on-es6-proxies-performance.html</link>
