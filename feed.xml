@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 22 Nov 2016 22:37:58 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Nov 2016 16:56:24 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[This Thanksgiving I'm Thankful for Observables]]></title>
+            <link>http://www.thecodebarbarian.com/this-thanksgiving-im-thankful-for-observables.html</link>
+            <guid>http://www.thecodebarbarian.com/this-thanksgiving-im-thankful-for-observables.html</guid>
+            <pubDate>Thu, 24 Nov 2016 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[10 Lessons from 10 Years as a Software Engineer]]></title>
             <link>http://www.thecodebarbarian.com/10-lessons-from-10-years-as-a-software-engineer.html</link>
