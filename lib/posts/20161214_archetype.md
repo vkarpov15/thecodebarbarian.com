@@ -42,7 +42,7 @@ gotten bit by this at some point.
 
 Is this an obscure edge case? I'd argue not. Static typing was designed for
 the good old days when network interaction was an afterthought in programming.
-If this where 1975 and you were a junior engineer working on Unix at Bell Labs,
+If this where 1975 and you were working on Unix at Bell Labs,
 your colleagues' work would usually be in the same program as yours. In other
 words, you'd usually interface with your colleagues' code by calling a function,
 and your compiler could check your types were correct.
