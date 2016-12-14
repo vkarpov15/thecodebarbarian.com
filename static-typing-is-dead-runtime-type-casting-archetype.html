@@ -1,0 +1,179 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Static Typing is Dead: Runtime Type Casting with Archetype | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Static Typing is Dead: Runtime Type Casting with Archetype"/><meta property="og:url" content="http://www.thecodebarbarian.com/static-typing-is-dead-runtime-type-casting-archetype"/><meta property="og:image" content="http://i.imgur.com/o5E9kir.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/20/better-angularjs-form-validation-with-mongoose">Better AngularJS Form Validation with Mongoose</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/02/06/static_site_generators">Static Site Generators are Overkill</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">An 80/20 Guide to Mongoose Plugins</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fstatic-typing-is-dead-runtime-type-casting-archetype&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstatic-typing-is-dead-runtime-type-casting-archetype" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstatic-typing-is-dead-runtime-type-casting-archetype" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fstatic-typing-is-dead-runtime-type-casting-archetype&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstatic-typing-is-dead-runtime-type-casting-archetype" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstatic-typing-is-dead-runtime-type-casting-archetype" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Static Typing is Dead: Runtime Type Casting with Archetype </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">December 14, 2016</span></div></div></div><div class="post-body-text-container"><p>Static typing is becoming very popular in the JavaScript community. While I&#39;m
+sure <a href="http://www.typescriptlang.org/">TypeScript</a> is a brilliant feat of
+engineering, I believe it&#39;s a product that gives you a 20% advantage for 80%
+extra work. In my mind, TypeScript is a supplement
+for mature JS dev teams with a lot of unavoidable complexity in their business
+logic. For most JavaScript apps, runtime type casting is all you need.</p>
+<h2 id="what-s-wrong-with-typescript-">What&#39;s Wrong With TypeScript?</h2>
+<p>Here&#39;s a simple server in TypeScript:</p>
+<pre><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> { json } <span class="hljs-keyword">from</span> <span class="hljs-string">'body-parser'</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(json());
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>{
+  public a: string;
+}
+
+app.post(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
+  res.send((<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Test</span>&gt;</span> req.body).a.substr(0, 1)); // <span class="hljs-tag">&lt;<span class="hljs-name">--</span> <span class="hljs-attr">Danger</span>!
+});
+
+<span class="hljs-attr">app.listen</span>(<span class="hljs-attr">3000</span>);</span></span>
+</code></pre><p>Look carefully at the POST route. Let&#39;s say you hit the POST route with an
+HTTP request where the body has a string property &#39;a&#39;:</p>
+<p><img src="http://i.imgur.com/UHRx9FJ.png"></p>
+<p>Everything works as expected. But what if &#39;a&#39; is a number?</p>
+<p><img src="http://i.imgur.com/7DSCBEr.png"></p>
+<p>Everything goes boom. Experienced <a href="https://basarat.gitbooks.io/typescript/content/docs/types/type-assertion.html#type-assertion-vs-casting">TypeScript developers shouldn&#39;t find this surprising</a>, but I&#39;m sure most TypeScript developers have
+gotten bit by this at some point.</p>
+<p>Is this an obscure edge case? I&#39;d argue not. Static typing was designed for
+the good old days when network interaction was an afterthought in programming.
+If this where 1975 and you were a junior engineer working on Unix at Bell Labs,
+your colleagues&#39; work would usually be in the same program as yours. In other
+words, you&#39;d usually interface with your colleagues&#39; code by calling a function,
+and your compiler could check your types were correct.</p>
+<p>Fast forward to 2016. Today, most organizations divide their code into smaller
+programs that talk over networks (microservices, etc.). If you were working on
+Photoshop in the 90&#39;s, you had one giant monolith and your compiler could check
+your UI code&#39;s types matched with lower level function signatures. Today, most developers work on code
+that&#39;s that talks to countless services written in
+completely different languages on many different machines. No compiler will help
+you ensure that the data coming into your program from the network is correct.</p>
+<h2 id="runtime-type-casting-with-archetype">Runtime Type Casting with Archetype</h2>
+<p>At <a href="https://boosterfuels.com/">Booster</a>, we decided to rewrite our <a href="https://loopback.io/">LoopBack-based</a> API earlier this year. LoopBack
+helped us get a product out the door fast, but was riddled with too many
+embarrassing bugs for us to continue using beyond the MVP phase.</p>
+<p>The primary problem we
+wanted to solve was data validation. The HTTP layer was not a
+problem because <a href="http://expressjs.com/">Express&#39;</a> rich feature set is already
+borderline overkill for us. Concurrency (AKA <a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">callback hell</a>, promise hell, etc.) was not a problem either because of <a href="http://thecodebarbarian.com/introducing-80-20-guide-to-es2015-generators">co</a>. What we lacked was a good way to make sure the data coming in to the API was
+correct. We evaluated a bunch of options:</p>
+<ul>
+<li>TypeScript didn&#39;t solve our problem</li>
+<li><a href="http://npmjs.org/package/joi">Joi</a> had a hopelessly ugly API and made it difficult to add custom types</li>
+<li>The various JSON schema modules didn&#39;t do a good job of supporting nested types and custom types</li>
+<li><a href="https://www.npmjs.com/package/mongoose">Mongoose</a> makes introspection difficult and is too closely coupled to MongoDB to use effectively in the browser.</li>
+</ul>
+<p>Naturally, the solution was to write our own, and <a href="https://www.npmjs.com/package/archetype-js">archetype</a> was born. Archetype
+is an extensible and nestable library for runtime type casting. Let&#39;s say you
+want to define what makes a valid <code>Person</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ObjectId } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+
+<span class="hljs-comment">// `Person` is now a constructor</span>
+<span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+  name: <span class="hljs-string">'string'</span>,
+  bandId: {
+    $type: ObjectId,
+    $required: <span class="hljs-literal">true</span>
+  },
+  createdAt: {
+    $type: moment,
+    $<span class="hljs-keyword">default</span>: () =&gt; moment()
+  }
+}).compile(<span class="hljs-string">'Person'</span>);
+</code></pre>
+<p><code>Person</code> is now a constructor that throws an error if and only if the given
+data is invalid.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">new</span> Person({
+    name: <span class="hljs-string">'test'</span>,
+    bandId: <span class="hljs-string">'ImNotAValidObjectId'</span>
+  });
+} <span class="hljs-keyword">catch</span>(error) {
+  error.errors[<span class="hljs-string">'bandId'</span>].message; <span class="hljs-comment">// Mongodb ObjectId error</span>
+}
+</code></pre>
+<p>If the data is valid, archetype will cast all the object&#39;s properties into
+the given types: &#39;name&#39; will be a string, &#39;bandId&#39; will be a fully fledged
+MongoDB ObjectId, and &#39;createdAt&#39; will be a <a href="https://www.npmjs.com/package/moment">moment.js</a> object.</p>
+<p>There&#39;s nothing special about the moment or MongoDB ObjectId types. Writing your
+own custom type is as simple as writing a class. For example, suppose you wanted
+to work around the issue where <a href="https://github.com/mongodb/js-bson/issues/112">technically any string of length 12 is a valid parameter to the MongoDB ObjectId constructor</a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyObjectId</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">mongodb</span>.<span class="hljs-title">ObjectId</span> </span>{
+  <span class="hljs-keyword">constructor</span>(v) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> v !== <span class="hljs-string">'string'</span> || !<span class="hljs-regexp">/^[0-9a-f]{24}$/</span>.test(v)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Invalid value <span class="hljs-subst">${v}</span>`</span>);
+    }
+    <span class="hljs-keyword">super</span>(v);
+  }
+}
+
+<span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+  name: <span class="hljs-string">'string'</span>,
+  bandId: {
+    $type: MyObjectId,
+    $required: <span class="hljs-literal">true</span>
+  }
+}).compile(<span class="hljs-string">'Person'</span>);
+</code></pre>
+<p>If the <code>MyObjectId</code> constructor throws an error, <code>new Person()</code> will throw an
+error as well. Because of this, archetypes are nestable too.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+  name: <span class="hljs-string">'string'</span>
+}).compile(<span class="hljs-string">'Person'</span>);
+
+<span class="hljs-keyword">const</span> Band = <span class="hljs-keyword">new</span> Archetype({
+  name: <span class="hljs-string">'string'</span>,
+  people: [Person]
+}).compile(<span class="hljs-string">'Band'</span>);
+
+<span class="hljs-keyword">new</span> Band({
+  name: <span class="hljs-string">"Guns N' Roses"</span>,
+  people: [{ name: <span class="hljs-string">'Axl Rose'</span> }]
+});
+</code></pre>
+<p>Archetype works particularly well with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">destructuring assignments</a>. Instead of writing this:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { name, bandId } = req.body;
+<span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span>) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Name is required'</span>);
+}
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> name !== <span class="hljs-string">'string'</span>) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Name must be a string'</span>);
+}
+<span class="hljs-keyword">if</span> (bandId == <span class="hljs-literal">null</span>) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'BandId is required'</span>);
+}
+<span class="hljs-keyword">try</span> {
+  bandId = <span class="hljs-keyword">new</span> ObjectId(bandId);
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Invalid ObjectId'</span>);
+}
+</code></pre>
+<p>You can just write:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+  name: { $type: <span class="hljs-string">'string'</span>, $required: <span class="hljs-literal">true</span> },
+  band: { $type: ObjectId, $required: <span class="hljs-literal">true</span> }
+}).compile(<span class="hljs-string">'Person'</span>);
+
+<span class="hljs-keyword">const</span> { name, bandId } = <span class="hljs-keyword">new</span> Person(req.body);
+</code></pre>
+<p>Archetype makes handling incoming data from HTTP or from user-provided options
+a breeze. There&#39;s no more excuse to bury yourself in <a href="https://github.com/crocodilejs/custom-fonts-in-emails/blob/5715ea731b5977f472148efe6e3a327ea0641b56/src/index.js#L59-L114">walls of if statements</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you&#39;re worried about type safety in JavaScript, you need a runtime casting
+library, even if you&#39;re using Flow or TypeScript. When your data comes in over
+the network, you have no way to checking your data at compile time. In this case, static type checks are at best unnecessary and at worst lull you into a false sense of security. If you&#39;re looking to get serious about data integrity, check
+out archetype and let us know what you think on
+<a href="https://github.com/vkarpov15/archetype-js">GitHub</a> or
+in comments!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20161214_archetype.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Static Typing is Dead: Runtime Type Casting with Archetype", time: new Date() });
+  </script></body></html>
