@@ -71,7 +71,7 @@ because it&#39;ll serve as an entry point for all error handling.</p>
   app.put(<span class="hljs-string">'/user'</span>, (req, res) =&gt; {
     observer.next({ req, res, promise: save(user) });
   })
-});
+}).share();
 
 result$.subscribe(obj =&gt; {
   obj.promise.catch(error =&gt; {
