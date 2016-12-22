@@ -85,7 +85,7 @@ const result$ = new Observable(observer => {
   app.put('/user', (req, res) => {
     observer.next({ req, res, promise: save(user) });
   })
-});
+}).share();
 
 result$.subscribe(obj => {
   obj.promise.catch(error => {
