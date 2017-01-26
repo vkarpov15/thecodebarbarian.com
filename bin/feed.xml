@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 19 Jan 2017 19:24:55 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 26 Jan 2017 19:02:29 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Node.js Perspective on MongoDB 3.4: Decimal Type]]></title>
+            <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html</link>
+            <guid>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html</guid>
+            <pubDate>Thu, 26 Jan 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.4: $facet]]></title>
             <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-facet.html</link>
