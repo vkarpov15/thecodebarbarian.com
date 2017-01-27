@@ -65,8 +65,7 @@ Nor are seemingly innocuous numbers like 1.126 and 1.789.
 
 <img src="http://i.imgur.com/lzcuVPE.png" />
 
-These accuracy problems make using floating points for monetary values cumbersome at best. Small errors add up fast, especially when you have floating point numbers that
-accumulate values over time like [keeping track of the amount of fuel that should be in an tanker](https://www.boosterfuels.com/join-the-team). In MongoDB 3.2 your only options were to either round values in the client or use a [scale factor](https://docs.mongodb.com/manual/tutorial/model-monetary-data/#numeric-model) (converting to an integer for the purposes of arithmetic and then dividing again).
+These accuracy problems make using floating points for monetary values cumbersome at best. Small errors add up fast, especially when you use floats to accumulate values over time like [keeping track of the amount of fuel that should be in a tanker](https://www.boosterfuels.com/join-the-team). In MongoDB 3.2 your only options were to either round values in the client or use a [scale factor](https://docs.mongodb.com/manual/tutorial/model-monetary-data/#numeric-model) (converting to an integer for the purposes of arithmetic and then dividing again).
 
 Using the decimal type, these accuracy issues are no longer a problem. The
 fundamental idea of the decimal type is that it represents numbers in base 10,
