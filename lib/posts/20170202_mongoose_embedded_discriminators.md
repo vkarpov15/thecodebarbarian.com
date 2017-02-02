@@ -41,7 +41,7 @@ Calling `ClickedEvent.find()` is also equivalent to calling
 
 One major limitation of discriminators in mongoose `~4.7` is you can only have
 discriminators in top-level documents. For example, say instead of storing each
-individual event in the database you store events in batches:
+individual event in the database you store events in batches as shown below:
 
 ```javascript
 const eventSchema = new Schema({ message: String },

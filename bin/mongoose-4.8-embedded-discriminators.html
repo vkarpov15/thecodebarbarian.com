@@ -35,7 +35,7 @@ Calling <code>ClickedEvent.find()</code> is also equivalent to calling
 <code>Event.find({ kind: &#39;Clicked&#39; })</code>. You can read more about <a href="http://thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators">discriminators in this article</a>.</p>
 <p>One major limitation of discriminators in mongoose <code>~4.7</code> is you can only have
 discriminators in top-level documents. For example, say instead of storing each
-individual event in the database you store events in batches:</p>
+individual event in the database you store events in batches as shown below:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
 
