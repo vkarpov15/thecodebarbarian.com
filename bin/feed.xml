@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 27 Jan 2017 18:48:54 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 02 Feb 2017 19:01:04 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Embedded Discriminators in Mongoose 4.8]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-4.8-embedded-discriminators.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-4.8-embedded-discriminators.html</guid>
+            <pubDate>Thu, 02 Feb 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.4: Decimal Type]]></title>
             <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html</link>
