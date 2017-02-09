@@ -1,0 +1,178 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>The saveErrorIfNotFound Option in Mongoose 4.8 | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="The saveErrorIfNotFound Option in Mongoose 4.8"/><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-4.8-save-errors"/><meta property="og:image" content="http://i.imgur.com/fFnUqLo.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.8-save-errors&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.8-save-errors" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.8-save-errors" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.8-save-errors&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.8-save-errors" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.8-save-errors" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">The saveErrorIfNotFound Option in Mongoose 4.8 </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 09, 2017</span></div></div></div><div class="post-body-text-container"><p>The <code>saveErrorIfNotFound</code> option and <code>$where</code> property in <a href="https://github.com/Automattic/mongoose/blob/master/History.md#480--2017-01-28">mongoose 4.8</a> gives <a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">plugins</a> a powerful new way to modify the behavior of <code>save()</code>. This feature may not seem as exciting as <code>eachAsync()</code> or the major perf improvements in 4.8, but I think it will help the community develop some handy abstractions on top of <code>save()</code>. How do these
+features work? Let&#39;s say you try to save a document that was deleted after you
+loaded it:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+  name: <span class="hljs-built_in">String</span>
+}));
+
+M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc</span>) </span>{
+  M.remove({ _id: doc._id }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    doc.name = <span class="hljs-string">'test'</span>;
+    doc.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc, numModified</span>) </span>{
+      <span class="hljs-comment">// What happens here? The doc was deleted before `save()` was called...</span>
+      <span class="hljs-built_in">console</span>.log(error, doc, numModified);
+    });
+  });
+});
+
+<span class="hljs-comment">// Output</span>
+<span class="hljs-literal">null</span> { name: <span class="hljs-string">'test'</span>, __v: <span class="hljs-number">0</span>, _id: <span class="hljs-number">589</span>cd5f176f15f362784d93a } <span class="hljs-number">0</span>
+</code></pre>
+<p>Mongoose doesn&#39;t report an error when it can&#39;t find the document to modify. The
+only indication is the third parameter to the callback, <code>numModified</code>, is 0.
+There&#39;s a couple problems with this setup, including, what happens if you&#39;re
+using promises? ES6 Promises can only resolve to a <strong>single</strong> value, so
+<code>numModified</code> is undefined and there is no way for you to tell if the underlying
+doc was saved or not.</p>
+<pre><code class="lang-javascript">mongoose.Promise = global.Promise;
+
+M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc</span>) </span>{
+  M.remove({ _id: doc._id }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    doc.name = <span class="hljs-string">'test'</span>;
+    doc.save().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc, numModified</span>) </span>{
+      <span class="hljs-comment">// numModified is undefined if you're using ES6 promises!</span>
+      <span class="hljs-built_in">console</span>.log(doc, numModified);
+    });
+  });
+});
+</code></pre>
+<h2 id="the-saveerrorifnotfound-option">The <code>saveErrorIfNotFound</code> Option</h2>
+<p>If you set mongoose 4.8&#39;s <code>saveErrorIfNotFound</code> flag to true, you&#39;ll find that mongoose reports a <code>DocumentNotFoundError</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+  name: <span class="hljs-built_in">String</span>
+}, { saveErrorIfNotFound: <span class="hljs-literal">true</span> }));
+
+M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc</span>) </span>{
+  M.remove({ _id: doc._id }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    doc.name = <span class="hljs-string">'test'</span>;
+    <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cd7d98e9237368e1d7097 }"</span>
+    doc.save().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+  });
+});
+</code></pre>
+<p>This behavior works better with promises than the default <code>numModified</code> behavior,
+which was designed to work with a callback-based API. We&#39;re leaning toward setting
+<code>saveErrorIfNotFound</code> to true by default in 5.0 but haven&#39;t committed to it. If
+you have strong feelings one way or the other, please <a href="https://github.com/Automattic/mongoose/issues/4973">put your thoughts in this GitHub issue</a>.</p>
+<p>You&#39;ll notice that the <code>DocumentNotFoundError</code> message includes the query that was used to identify the document to save. Why is that? Because the <code>$where</code> property
+actually lets you change the underlying query that <code>save()</code> uses.</p>
+<pre><code class="lang-javascript">M.create({}).then(doc =&gt; {
+  doc.name = <span class="hljs-string">'test'</span>;
+  doc.$where = { prop: <span class="hljs-string">'test'</span> };
+  <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cda0cc9cbea37c23f4d4d, prop: 'test' }"</span>
+  doc.save().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+});
+</code></pre>
+<p>Modifying the <code>$where</code> object in conjunction with <code>saveErrorIfNotFound</code> lets you define a new class of abstractions around <code>save()</code>. Let&#39;s take a look at a few examples.</p>
+<h2 id="example-uses-for-where-">Example Uses for <code>$where</code></h2>
+<ol>
+<li><p>Optimistic concurrency / timestamp checking</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+ name: <span class="hljs-built_in">String</span>
+<span class="hljs-comment">// set `createdAt` and `updatedAt` with the `timestamps` option</span>
+}, { saveErrorIfNotFound: <span class="hljs-literal">true</span>, timestamps: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// Before every save, add the doc's updated time to `$where`</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+ <span class="hljs-keyword">this</span>.$where = { updatedAt: <span class="hljs-keyword">this</span>.updatedAt };
+ next();
+});
+
+<span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
+
+M.create({}).
+ <span class="hljs-comment">// Update the created doc and change the `updatedAt`</span>
+ then(doc =&gt; M.updateOne({ _id: doc._id }, { $set: { name: <span class="hljs-string">'test2'</span> } }).then(() =&gt; doc)).
+ <span class="hljs-comment">// Try to save the original doc</span>
+ then(doc =&gt; {
+   doc.name = <span class="hljs-string">'test3'</span>;
+   <span class="hljs-keyword">return</span> doc.save();
+ }).
+ <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdbc260f49038414cef3b, updatedAt: 2017-02-09T21:14:42.211Z }"</span>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+</code></pre>
+</li>
+<li><p>Enforcing soft deletes</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+ name: <span class="hljs-built_in">String</span>,
+ isDeleted: <span class="hljs-built_in">Boolean</span>
+}, { saveErrorIfNotFound: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// Enforce that you can't save a doc that was "soft deleted"</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+ <span class="hljs-keyword">this</span>.$where = { isDeleted: { $ne: <span class="hljs-literal">true</span> } };
+ next();
+});
+
+<span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
+
+M.create({}).
+ <span class="hljs-comment">// Update the doc to be soft deleted in the database</span>
+ then(doc =&gt; M.updateOne({ _id: doc._id }, { $set: { isDeleted: <span class="hljs-literal">true</span> } }).then(() =&gt; doc)).
+ then(doc =&gt; { doc.name = <span class="hljs-string">'test3'</span>; <span class="hljs-keyword">return</span> doc.save(); }).
+ <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdc62fb7963387bd79075, isDeleted: { '$ne': true } }"</span>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+</code></pre>
+</li>
+<li><p>Versioning (alternative to timestamp checking)</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+ name: <span class="hljs-built_in">String</span>,
+ <span class="hljs-comment">// Start at 0 and increment every time we save</span>
+ _version: { type: <span class="hljs-built_in">Number</span>, <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span> }
+}, { saveErrorIfNotFound: <span class="hljs-literal">true</span> });
+
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+ <span class="hljs-comment">// Set $where and increment</span>
+ <span class="hljs-keyword">this</span>.$where = { _version: <span class="hljs-keyword">this</span>._version };
+ ++<span class="hljs-keyword">this</span>._version;
+ next();
+});
+
+<span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
+
+M.create({}).
+ <span class="hljs-comment">// Load 2 copies of the same doc</span>
+ then(doc =&gt; <span class="hljs-built_in">Promise</span>.all([
+   M.findById(doc._id),
+   M.findById(doc._id)
+ ])).
+ <span class="hljs-comment">// Update one of them and increment their version</span>
+ then(docs =&gt; {
+   docs[<span class="hljs-number">0</span>].name = <span class="hljs-string">'test'</span>;
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
+     docs[<span class="hljs-number">0</span>].save(),
+     docs[<span class="hljs-number">1</span>]
+   ]);
+ }).
+ <span class="hljs-comment">// Try to update the other doc...</span>
+ then(docs =&gt; {
+   docs[<span class="hljs-number">1</span>].name = <span class="hljs-string">'test2'</span>;
+   <span class="hljs-keyword">return</span> docs[<span class="hljs-number">1</span>].save();
+ }).
+ <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdd6ca39d3538bd3218de, _version: 1 }"</span>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+</code></pre>
+</li>
+</ol>
+<p>There&#39;s numerous other use cases for <code>$where</code>, like setting <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/">shard keys</a>, enforcing
+uniqueness with <code>.push()</code>, and checking user permissions. I&#39;m looking forward
+to seeing what other plugins you can come up with!</p>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>saveErrorIfNotFound</code> option and <code>$where</code> property are meant for use with
+mongoose plugins. If you&#39;ve never written a plugin before, check out <a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">this article</a>, writing plugins is simple and can save you a lot of copy/paste. There&#39;s also a <a href="http://plugins.mongoosejs.io/">mongoose plugins search</a> app you can use to find plugins. This is just one of <a href="https://github.com/Automattic/mongoose/blob/master/History.md#480--2017-01-28">14 new features in mongoose 4.8</a> so make sure you upgrade!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170209_mongoose_save_error.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "The saveErrorIfNotFound Option in Mongoose 4.8", time: new Date() });
+  </script></body></html>
