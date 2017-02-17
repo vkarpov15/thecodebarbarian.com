@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 09 Feb 2017 20:59:32 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 17 Feb 2017 00:26:48 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building REST APIs with Observables]]></title>
+            <link>http://www.thecodebarbarian.com/rest-apis-with-observables.html</link>
+            <guid>http://www.thecodebarbarian.com/rest-apis-with-observables.html</guid>
+            <pubDate>Thu, 16 Feb 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The saveErrorIfNotFound Option in Mongoose 4.8]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-4.8-save-errors.html</link>
