@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 23 Feb 2017 21:12:57 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 28 Feb 2017 20:54:15 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Getting Started With WebAssembly in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html</link>
+            <guid>http://www.thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html</guid>
+            <pubDate>Tue, 28 Feb 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.4: Collations]]></title>
             <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-collations.html</link>
