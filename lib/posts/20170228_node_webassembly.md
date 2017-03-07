@@ -189,3 +189,5 @@ Moving On
 ---------
 
 In these rudimentary examples, WebAssembly shows promise in terms of allowing you to really optimize JS code. My benchmarks are quite rudimentary and WebAssembly is still unstable and not well adopted, so don't rush to try to write your next web app in wast. However, now's the time to play with WebAssembly, especially since it is available in Node.js.
+
+*I wrote this article (and many others) after a dose of [Ciltep](https://www.amazon.com/gp/product/B00GXPS4Q8/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00GXPS4Q8&linkCode=as2&tag=codebarbarian-20&linkId=e3467c80c382d0385811038575986e25) ([non-affiliate link here](https://www.amazon.com/Ciltep-Nootropic-Stack-Performance-Motivation/dp/B00GXPS4Q8/ref=sr_1_1_a_it?ie=UTF8&qid=1488867312&sr=8-1&keywords=ciltep)). Ciltep helps you stay focused and learn fast, without jitters or crashes. Give it a shot before you take a deep dive into WebAssembly.*
