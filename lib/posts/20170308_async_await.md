@@ -227,7 +227,7 @@ One cute JavaScript interview question I used to ask was what would the below co
 ```javascript
 for (var i = 0; i < 5; ++i) {
   // Actually prints out "5" 5 times.
-  // But if you use `let` or `const` above, it'll print out 0-4
+  // But if you use `let` above, it'll print out 0-4
   setTimeout(() => console.log(i), 0);
 }
 
