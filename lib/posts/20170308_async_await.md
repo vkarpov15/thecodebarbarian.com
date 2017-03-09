@@ -69,7 +69,7 @@ function test() {
 test();
 ```
 
-Furthermore, `await` must **not** be in a closure embedded in an async function. The below code also results in a `SyntaxError`:
+Furthermore, `await` must **not** be in a closure embedded in an async function, unless the closure is also an async function. The below code also results in a `SyntaxError`:
 
 ```javascript
 const assert = require('assert');
