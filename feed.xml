@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 07 Mar 2017 06:06:33 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 09 Mar 2017 00:33:49 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[The 80/20 Guide to Async/Await in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html</link>
+            <guid>http://www.thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html</guid>
+            <pubDate>Wed, 08 Mar 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Getting Started With WebAssembly in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html</link>
