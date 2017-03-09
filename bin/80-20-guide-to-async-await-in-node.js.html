@@ -51,7 +51,7 @@ test();
 
 test();
 </code></pre>
-<p>Furthermore, <code>await</code> must <strong>not</strong> be in a closure embedded in an async function. The below code also results in a <code>SyntaxError</code>:</p>
+<p>Furthermore, <code>await</code> must <strong>not</strong> be in a closure embedded in an async function, unless the closure is also an async function. The below code also results in a <code>SyntaxError</code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
@@ -177,7 +177,7 @@ test();
 <p>One cute JavaScript interview question I used to ask was what would the below code print out?</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) {
   <span class="hljs-comment">// Actually prints out "5" 5 times.</span>
-  <span class="hljs-comment">// But if you use `let` or `const` above, it'll print out 0-4</span>
+  <span class="hljs-comment">// But if you use `let` above, it'll print out 0-4</span>
   setTimeout(() =&gt; <span class="hljs-built_in">console</span>.log(i), <span class="hljs-number">0</span>);
 }
 
