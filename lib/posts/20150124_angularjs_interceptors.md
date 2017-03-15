@@ -70,7 +70,7 @@ contain any of the following 4 keys:
 
 As you saw in the previous example, the `response` property should be a
 function that takes a single parameter, the `res` object, and returns a
-response object. The above example modifies the `res` object and returns 
+response object. The above example modifies the `res` object and returns
 it, but you can return a completely new object if you need to. Here's what
 the `JSON.stringify()` output looks like for a sample HTTP request:
 
@@ -103,8 +103,8 @@ However, the response interceptor abstracts out the API change so your
 code can continue to use `response.data.meta.status` indefinitely.
 
 This `status` example is useful for educational purposes, but you're unlikely
-to see it in the real world. The primary use case for interceptors in practice 
-involves request interceptors and authentication. You'll investigate this use 
+to see it in the real world. The primary use case for interceptors in practice
+involves request interceptors and authentication. You'll investigate this use
 case in the next two sections.
 
 Request Interceptors: Setting the `Authorization` Header
@@ -172,7 +172,7 @@ the `JSON.stringify()` output from a sample `req` object.
 }
 ```
 
-The ability to set the `Authorization` header on every request is useful. But, 
+The ability to set the `Authorization` header on every request is useful. But,
 what happens if a user's session times out while they're on your page?
 Your server will start returning HTTP 401's, and your user's requests will
 start failing. You could just redirect the user to a login page, but then
@@ -245,14 +245,14 @@ m.config(function($httpProvider) {
 });
 ```
 
-The above code assumes the `userService.authenticate()` 
+The above code assumes the `userService.authenticate()`
 function returns a `then()`-able promise around the
 user entering their password. If that condition is met,
 the above interceptor is sufficient to gracefully handle
 session timeouts. If the server returns an HTTP 401, this
 interceptor will prompt the user to log in and return a
 new promise. This new promise wraps the user logging in
-*and* the `$injector.get('$http')(rejection.config)` call, 
+*and* the `$injector.get('$http')(rejection.config)` call,
 which is responsible for retrying the HTTP request. Thanks
 to the magic of promises, the returned promise resolves
 if and only if the user authenticates and the retried
@@ -294,7 +294,7 @@ var authenticate = function() {
     }
   });
 
-  /* `modal.result` is a promise that gets resolved when 
+  /* `modal.result` is a promise that gets resolved when
    * $modalInstance.close() is called */
   return modal.result.then(function(pwd) {
     password = pwd;
@@ -302,7 +302,7 @@ var authenticate = function() {
 };
 ```
 
-That's it! Now that you have a promise wrapper around the 
+That's it! Now that you have a promise wrapper around the
 user logging in, your error interceptor can handle HTTP
 401's gracefully. In practice, your `authenticate()`
 function will likely make an HTTP request to the server
@@ -311,8 +311,8 @@ to demonstrate how you would make the HTTP interceptor
 portion work. Happy intercepting!
 
 *If you liked this article, check out my upcoming book,
-[Professional AngularJS](http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&qid=1421864096&sr=8-1&keywords=professional+angularjs).
+[Professional AngularJS](https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1118832078&linkCode=as2&tag=codebarbarian-20&linkId=6961294e8d5bcaf24a7b3319599fae92).
 The book contains a thorough overview of HTTP in AngularJS, as well as guides
 for integrating with web sockets and [Firebase](https://www.firebase.com/).*
 
-[<img src="//i.imgur.com/0UWUUOd.jpg">](http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&qid=1421864096&sr=8-1&keywords=professional+angularjs)
+[<img src="//i.imgur.com/0UWUUOd.jpg">](https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1118832078&linkCode=as2&tag=codebarbarian-20&linkId=6961294e8d5bcaf24a7b3319599fae92)
