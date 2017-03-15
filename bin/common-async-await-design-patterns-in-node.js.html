@@ -1,0 +1,167 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Common Async/Await Design Patterns in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Common Async/Await Design Patterns in Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/common-async-await-design-patterns-in-node.js"/><meta property="og:image" content="http://i.imgur.com/plEwB6L.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fcommon-async-await-design-patterns-in-node.js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcommon-async-await-design-patterns-in-node.js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcommon-async-await-design-patterns-in-node.js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fcommon-async-await-design-patterns-in-node.js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcommon-async-await-design-patterns-in-node.js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcommon-async-await-design-patterns-in-node.js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Common Async/Await Design Patterns in Node.js </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 15, 2017</span></div></div></div><div class="post-body-text-container"><p><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">Async/await in Node.js</a> opens up a host of powerful design patterns. Tasks that used to take <a href="https://www.npmjs.com/package/async">complex libraries</a> or intricate promise chaining can now be done with rudimentary <code>if</code> statements and <code>for</code> loops. <a href="http://thecodebarbarian.com/3-common-co-design-patterns">I already wrote about these kind of design patterns with co</a>, but async/await makes these patterns accessible in vanilla Node.js, no outside libraries required.</p>
+<h2 id="retrying-failed-requests">Retrying Failed Requests</h2>
+<p>The power of <code>await</code> is that it lets you write asynchronous code using synchronous
+language constructs. For example, here&#39;s how you might retry a failed HTTP request using the <a href="http://npmjs.org/package/superagent">superagent HTTP library</a> using callbacks.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+
+<span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
+
+request(<span class="hljs-string">'http://google.com/this-throws-an-error'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(error.message); <span class="hljs-comment">// "Not Found"</span>
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">url, callback</span>) </span>{
+  _request(url, <span class="hljs-number">0</span>, callback);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_request</span>(<span class="hljs-params">url, retriedCount, callback</span>) </span>{
+  superagent.get(url).end(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) {
+      <span class="hljs-keyword">if</span> (retriedCount &gt;= NUM_RETRIES) {
+        <span class="hljs-keyword">return</span> callback &amp;&amp; callback(error);
+      }
+      <span class="hljs-keyword">return</span> _request(url, retriedCount + <span class="hljs-number">1</span>, callback);
+    }
+    callback(res);
+  });
+}
+</code></pre>
+<p>Not too difficult, but it involves recursion and can be tricky to grok for beginners. Plus, there&#39;s another more subtle issue. What happens if <code>superagent.get().end()</code> throws a <em>synchronous</em> exception? We&#39;d need to wrap the <code>_request()</code> call in a try/catch in order to handle all exceptions. Having to do this everywhere is
+cumbersome and error prone. With async/await, you can write an equivalent function with just <code>for</code> and <code>try/catch</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+
+<span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
+
+test();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> i;
+  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; NUM_RETRIES; ++i) {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-keyword">await</span> superagent.get(<span class="hljs-string">'http://google.com/this-throws-an-error'</span>);
+      <span class="hljs-keyword">break</span>;
+    } <span class="hljs-keyword">catch</span>(err) {}
+  }
+  <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 3</span>
+}
+</code></pre>
+<p>Trust me, this works. I remember the first time I tried this pattern with <a href="https://www.npmjs.com/package/co">co</a>, I was baffled that it actually worked. However, the below does <strong>not</strong> work. Remember that <code>await</code> must always be in an <code>async</code> function, and the closure passed to <code>forEach()</code> below is not <code>async</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+
+<span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
+
+test();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(NUM_RETRIES).map(() =&gt; <span class="hljs-literal">null</span>);
+  arr.forEach(() =&gt; {
+    <span class="hljs-keyword">try</span> {
+      <span class="hljs-comment">// SyntaxError: Unexpected identifier. This `await` is not in an async function!</span>
+      <span class="hljs-keyword">await</span> superagent.get(<span class="hljs-string">'http://google.com/this-throws-an-error'</span>);
+      <span class="hljs-keyword">break</span>;
+    } <span class="hljs-keyword">catch</span>(err) {}
+  });
+}
+</code></pre>
+<h2 id="processing-a-mongodb-cursor">Processing a MongoDB Cursor</h2>
+<p><a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find">MongoDB&#39;s <code>find()</code> function returns a <em>cursor</em></a>. A cursor is fundamentally an object with an asynchronous <code>next()</code> function that gets the next document in the query result. If there are no more results, <code>next()</code> resolves to null. MongoDB cursors have several helper functions like <code>each()</code>, <code>map()</code>, and <code>toArray()</code>, and the <a href="https://www.npmjs.com/package/mongoose">mongoose ODM</a> adds an <a href="http://thecodebarbarian.com/cursors-in-mongoose-45">additional <code>eachAsync()</code> function</a>, but these are all just syntactic sugar on top of <code>next()</code>.</p>
+<p>Without async/await, calling <code>next()</code> manually involves the same kind of recursion as the retry example. With async/await, you&#39;ll find yourself not using the helper functions anymore (other than maybe <code>toArray()</code>) because iterating through the cursor with a <code>for</code> loop is much easier:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+test();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Movies'</span>).drop();
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Movies'</span>).insertMany([
+    { name: <span class="hljs-string">'Enter the Dragon'</span> },
+    { name: <span class="hljs-string">'Ip Man'</span> },
+    { name: <span class="hljs-string">'Kickboxer'</span> }
+  ]);
+
+  <span class="hljs-comment">// Don't `await`, instead get a cursor</span>
+  <span class="hljs-keyword">const</span> cursor = db.collection(<span class="hljs-string">'Movies'</span>).find();
+  <span class="hljs-comment">// Use `next()` and `await` to exhaust the cursor</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> cursor.next(); doc != <span class="hljs-literal">null</span>; doc = <span class="hljs-keyword">await</span> cursor.next()) {
+    <span class="hljs-built_in">console</span>.log(doc.name);
+  }
+}
+</code></pre>
+<p>If that&#39;s not convenient enough for you, there&#39;s a <a href="https://github.com/tc39/proposal-async-iteration">TC39 proposal for async iterators</a> that would let you do something like this. Note that the below code does <strong>not</strong> work in any currently released version of Node.js, it&#39;s just an example of what may be possible in the future.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = db.collection(<span class="hljs-string">'Movies'</span>).find().map(value =&gt; ({
+  value,
+  done: !value
+}));
+
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
+  <span class="hljs-built_in">console</span>.log(doc.name);
+}
+</code></pre>
+<h2 id="multiple-requests-in-parallel">Multiple Requests in Parallel</h2>
+<p>Both of the above patterns execute requests in sequence, there&#39;s only one <code>next()</code> function call executing at any given time. What about multiple asynchronous tasks in parallel? Let&#39;s pretend you&#39;re a malicious hacker and want to hash multiple plaintext passwords in parallel with <a href="https://www.npmjs.com/package/bcrypt">bcrypt</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcrypt'</span>);
+
+<span class="hljs-keyword">const</span> NUM_SALT_ROUNDS = <span class="hljs-number">8</span>;
+
+test();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> pws = [<span class="hljs-string">'password'</span>, <span class="hljs-string">'password1'</span>, <span class="hljs-string">'passw0rd'</span>];
+
+  <span class="hljs-comment">// `promises` is an array of promises, because `bcrypt.hash()` returns a</span>
+  <span class="hljs-comment">// promise if no callback is supplied.</span>
+  <span class="hljs-keyword">const</span> promises = pws.map(pw =&gt; bcrypt.hash(pw, NUM_SALT_ROUNDS));
+
+  <span class="hljs-comment">/**
+   * Prints hashed passwords, for example:
+   * [ '$2a$08$nUmCaLsQ9rUaGHIiQgFpAOkE2QPrn1Pyx02s4s8HC2zlh7E.o9wxC',
+   *   '$2a$08$wdktZmCtsGrorU1mFWvJIOx3A0fbT7yJktRsRfNXa9HLGHOZ8GRjS',
+   *   '$2a$08$VCdMy8NSwC8r9ip8eKI1QuBd9wSxPnZoZBw8b1QskK77tL2gxrUk.' ]
+   */</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all(promises));
+}
+</code></pre>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"><code>Promise.all()</code> function</a> takes an array of promises, and returns a promise that waits for every promise in the array to resolve and then resolves to an array that contains the value each promise in the original array resolved to. Each <code>bcrypt.hash()</code> call returns a promise, so <code>promises</code> in the above array contains an array of promises, and the value of <code>await Promise.all(promises)</code> is the result of each of the <code>bcrypt.hash()</code> calls.</p>
+<p><code>Promise.all()</code> is not the only way you can handle multiple async functions in parallel, there&#39;s also the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race"><code>Promise.race()</code> function</a> that executes multiple promises in parallel, waits for the first promise to resolve, and returns the value that promise resolved to. Here&#39;s an example of using <code>Promise.race()</code> with async/await:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">/**
+ * Prints below:
+ * waited 250
+ * resolved to 250
+ * waited 500
+ * waited 1000
+ */</span>
+test();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> promises = [<span class="hljs-number">250</span>, <span class="hljs-number">500</span>, <span class="hljs-number">1000</span>].map(ms =&gt; wait(ms));
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'resolved to'</span>, <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.race(promises));
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'waited'</span>, ms);
+  <span class="hljs-keyword">return</span> ms;
+}
+</code></pre>
+<p>Note that, although <code>Promise.race()</code> resolves after the first promise resolves, the remaining <code>async</code> functions still continue executing. <a href="https://github.com/tc39/proposal-cancelable-promises">Remember that promises are not cancellable</a>.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Async/await is a huge win for JavaScript. With these two simple keywords you can remove numerous external dependencies and hundreds of lines of code from your codebase. You can add robust error handling, retries, and parallelization with just a handful of simple built-in language constructs. I hope you&#39;re as excited as I am for this feature to hit <a href="https://github.com/nodejs/LTS#lts-plan">Node.js 8 LTS (hopefully) in April 2017</a>.</p>
+<p><em>Async/await is powerful, but if you&#39;re stuck using Node.js 4.x or 6.x because of LTS, you can still use these same design patterns using ES6 generators and <a href="http://npmjs.org/package/co">co</a>. I wrote an article about similar design patterns <a href="http://thecodebarbarian.com/3-common-co-design-patterns">using co</a>. If you&#39;re looking for a much deeper dive into co, including how to write your own co replacement from scratch, check out my ebook, <a href="http://es2015generators.com/">The 80/20 Guide to ES2015 Generators</a></em></p>
+<p><a href="http://es2015generators.com"><img width="200" src="http://i.imgur.com/iBT2ZEw.png"/></a></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170315_async_await_patterns.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Common Async/Await Design Patterns in Node.js", time: new Date() });
+  </script></body></html>
