@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 09 Mar 2017 23:18:10 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 15 Mar 2017 19:02:58 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Common Async/Await Design Patterns in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html</link>
+            <guid>http://www.thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html</guid>
+            <pubDate>Wed, 15 Mar 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The 80/20 Guide to Async/Await in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html</link>
