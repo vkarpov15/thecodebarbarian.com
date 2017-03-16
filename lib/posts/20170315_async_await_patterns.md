@@ -69,7 +69,6 @@ async function test() {
     try {
       // SyntaxError: Unexpected identifier. This `await` is not in an async function!
       await superagent.get('http://google.com/this-throws-an-error');
-      break;
     } catch(err) {}
   });
 }
