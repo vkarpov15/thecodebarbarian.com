@@ -59,7 +59,6 @@ test();
     <span class="hljs-keyword">try</span> {
       <span class="hljs-comment">// SyntaxError: Unexpected identifier. This `await` is not in an async function!</span>
       <span class="hljs-keyword">await</span> superagent.get(<span class="hljs-string">'http://google.com/this-throws-an-error'</span>);
-      <span class="hljs-keyword">break</span>;
     } <span class="hljs-keyword">catch</span>(err) {}
   });
 }
