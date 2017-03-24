@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 16 Mar 2017 21:33:49 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 24 Mar 2017 23:11:02 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Managing Node.js Versions Without External Tools]]></title>
+            <link>http://www.thecodebarbarian.com/managing-node.js-versions-without-external-tools.html</link>
+            <guid>http://www.thecodebarbarian.com/managing-node.js-versions-without-external-tools.html</guid>
+            <pubDate>Fri, 24 Mar 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Common Async/Await Design Patterns in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html</link>
