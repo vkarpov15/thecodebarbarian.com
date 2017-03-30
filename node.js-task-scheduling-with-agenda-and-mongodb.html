@@ -1,0 +1,296 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Node.js Task Scheduling With Agenda and MongoDB | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Node.js Task Scheduling With Agenda and MongoDB"/><meta property="og:url" content="http://www.thecodebarbarian.com/node.js-task-scheduling-with-agenda-and-mongodb"/><meta property="og:image" content="http://i.imgur.com/ZyuD8do.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fnode.js-task-scheduling-with-agenda-and-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fnode.js-task-scheduling-with-agenda-and-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fnode.js-task-scheduling-with-agenda-and-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fnode.js-task-scheduling-with-agenda-and-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fnode.js-task-scheduling-with-agenda-and-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fnode.js-task-scheduling-with-agenda-and-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Node.js Task Scheduling With Agenda and MongoDB </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 30, 2017</span></div></div></div><div class="post-body-text-container"><p>By virtue of the event loop, <a href="http://thecodebarbarian.com/2013/12/02/price-internationalization-with-the-mean-stack">scheduling tasks in Node.js</a> is relatively straightforward. Plain old <code>setTimeout()</code> and <code>setInterval()</code> are sufficient for many basic use cases where you would normally use cron. However, things get more interesting when you need durable transactional scheduling, for use cases like:</p>
+<ul>
+<li>Send the customer an email reminder 3 days before an event is scheduled to take place</li>
+<li>Cancel a request 30 minutes after an issue was reported if the customer doesn&#39;t take any action</li>
+<li>Send a push notification an hour before a task is due</li>
+</ul>
+<p>The problem with transactional scheduling is durability: if you just schedule with <code>setTimeout()</code>, you lose the job if your process restarts. Furthermore, with <code>setTimeout()</code> you can&#39;t assign a separate process to do the job. When you need persistence and IPC without having to set up a messaging solution (RabbitMQ, Kafka, etc.) the natural solution is to use your database. When your database is MongoDB, <a href="https://www.npmjs.com/package/agenda">agenda</a> gives you a quick and easy solution for durable inter-process task scheduling.</p>
+<h2 id="hello-world-with-agenda">Hello World With Agenda</h2>
+<p>Here&#39;s how you&#39;d schedule a job with agenda in Node.js (<a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">using async/await, so node &gt;= 7.6.0</a>).</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+
+  <span class="hljs-comment">// Agenda will use the given mongodb connection to persist data, so jobs</span>
+  <span class="hljs-comment">// will go in the "agendatest" database's "jobs" collection.</span>
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  <span class="hljs-comment">// Define a "job", an arbitrary function that agenda can execute</span>
+  agenda.define(<span class="hljs-string">'hello'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+    process.exit(<span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
+  <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  <span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
+  <span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
+  agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">1000</span>), <span class="hljs-string">'hello'</span>);
+  agenda.start();
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+</code></pre>
+<p>Take a look at the <code>agendatest.jobs</code> collection in MongoDB after the above script has finished running, you should see a document that looks like what you see below.</p>
+<pre><code>$ mongo agendatest
+dMongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
+connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/agendatest</span>
+MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-number">.1</span>
+&gt; db.jobs.findOne()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58dd6f70b8d1c221b9d16c12"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"hello"</span>,
+    <span class="hljs-string">"data"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"type"</span> : <span class="hljs-string">"normal"</span>,
+    <span class="hljs-string">"priority"</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-string">"nextRunAt"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"lastModifiedBy"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:52.919Z"</span>),
+    <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:53.825Z"</span>)
+}
+&gt;
+</code></pre><p>Agenda created a new document that represents the job. Because the job lives in MongoDB, agenda can pick up where it left off even if you kill the script before the job runs. For example, let&#39;s change the job to run in 10 seconds and kill the process before the job runs.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
+<span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
+agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">10000</span>), <span class="hljs-string">'hello'</span>);
+agenda.start();
+</code></pre>
+<pre><code>$ time node agenda.js
+^C
+
+real    <span class="hljs-number">0</span>m1<span class="hljs-number">.036</span>s
+user    <span class="hljs-number">0</span>m0<span class="hljs-number">.311</span>s
+sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.031</span>s
+$ sleep <span class="hljs-number">10</span>
+$ time node agenda.js
+Hello, World!
+
+real    <span class="hljs-number">0</span>m0<span class="hljs-number">.325</span>s
+user    <span class="hljs-number">0</span>m0<span class="hljs-number">.317</span>s
+sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.024</span>s
+$
+</code></pre><h2 id="separate-processes-and-pub-sub">Separate Processes And Pub/Sub</h2>
+<p>You can have a single process that handles both scheduling and running your jobs, but agenda also makes it easy to have a producer process that schedules jobs, and a consumer process that runs jobs. You just need to ensure that both processes have an agenda instance that look at the same collection in MongoDB. Here&#39;s an example <code>producer.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
+  <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  <span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
+  <span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
+  agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">1000</span>), <span class="hljs-string">'hello'</span>);
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+</code></pre>
+<p>Here&#39;s <code>consumer.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  <span class="hljs-comment">// Define a "job", an arbitrary function that agenda can execute</span>
+  agenda.define(<span class="hljs-string">'hello'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+    process.exit(<span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
+  <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  <span class="hljs-comment">// `start()` is how you tell agenda to start processing jobs. If you just</span>
+  <span class="hljs-comment">// want to produce (AKA schedule) jobs then don't call `start()`</span>
+  agenda.start();
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+</code></pre>
+<p>In <code>producer.js</code> you <code>schedule()</code> jobs to run. In <code>consumer.js</code>, you <code>define()</code> the function to run for a given job and <code>start()</code> the job processor.</p>
+<p>You can also pass arbitrary parameters to your jobs. Here&#39;s a modified <code>producer.js</code> that schedules a job called &#39;print&#39; which takes a parameter <code>message</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  <span class="hljs-comment">// The third parameter to `schedule()` is an object that can contain</span>
+  <span class="hljs-comment">// arbitrary data. This data will be stored in the `data` property</span>
+  <span class="hljs-comment">// in the document in mongodb</span>
+  agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">1000</span>), <span class="hljs-string">'print'</span>, {
+    message: <span class="hljs-string">'Hello!'</span>
+  });
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+</code></pre>
+<p>When you schedule this job, here&#39;s how it will look in MongoDB:</p>
+<pre><code>&gt; db.jobs.findOne()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58dd7464187100248acfc231"</span>),
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"print"</span>,
+    <span class="hljs-string">"data"</span> : {
+        <span class="hljs-string">"message"</span> : <span class="hljs-string">"Hello!"</span>
+    },
+    <span class="hljs-string">"type"</span> : <span class="hljs-string">"normal"</span>,
+    <span class="hljs-string">"priority"</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-string">"nextRunAt"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"lastModifiedBy"</span> : <span class="hljs-literal">null</span>,
+    <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.172Z"</span>),
+    <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.180Z"</span>)
+}
+&gt;
+</code></pre><p>And here&#39;s the <code>consumer.js</code> whose &#39;print&#39; job pulls the <code>message</code> parameter passed in to <code>schedule()</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  <span class="hljs-comment">// `job` is an object representing the job that `producer.js` scheduled.</span>
+  <span class="hljs-comment">// `job.attrs` contains the raw document that's stored in MongoDB, so</span>
+  <span class="hljs-comment">// `job.attrs.data` is how you get the `data` that `producer.js` passes</span>
+  <span class="hljs-comment">// to `schedule()`</span>
+  agenda.define(<span class="hljs-string">'print'</span>, job =&gt; {
+    <span class="hljs-built_in">console</span>.log(job.attrs.data.message);
+    process.exit(<span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  agenda.start();
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+</code></pre>
+<h2 id="cancelling-and-rescheduling">Cancelling and Rescheduling</h2>
+<p>Where agenda starts to break down is cancelling and rescheduling jobs. The issue is that, internally, agenda &quot;locks&quot; a job when it&#39;s close to running and that prevents cancellation and modification. I opened up <a href="https://github.com/rschmukler/agenda/issues/401">an issue on GitHub to track the inability to properly cancel jobs</a>. An agenda instance does have a <code>cancel()</code> function which is essentially equivalent to a <code>deleteMany()</code> on the &#39;jobs&#39; collection, but that does not work as advertised. For example, the below example still prints &quot;Hello, World!&quot; despite the fact that the script calls <code>cancel()</code> and the job is no longer in the database.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  agenda.define(<span class="hljs-string">'hello'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+    process.exit(<span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  agenda.start();
+
+  <span class="hljs-comment">// Schedule a job for 5 seconds from now and `await` until it has been</span>
+  <span class="hljs-comment">// persisted to MongoDB</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">5000</span>), <span class="hljs-string">'hello'</span>, {}, promiseCallback(resolve, reject));
+  });
+
+  <span class="hljs-comment">// Cancel the job, which deletes the document from the 'jobs' collection</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    agenda.cancel({ name: <span class="hljs-string">'hello'</span> }, promiseCallback(resolve, reject));
+  });
+}
+
+run().catch(error =&gt; {
+  <span class="hljs-built_in">console</span>.error(error);
+  process.exit(<span class="hljs-number">-1</span>);
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promiseCallback</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res</span>) </span>{
+    <span class="hljs-keyword">if</span> (error) {
+      <span class="hljs-keyword">return</span> reject(error);
+    }
+    resolve(res);
+  };
+}
+</code></pre>
+<p>In order to actually cancel the job, your job needs to explicitly check MongoDB to make sure the job was not cancelled as shown below.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
+  <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
+
+  agenda.define(<span class="hljs-string">'hello'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">job</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">await</span> checkCancelled(job)) {
+      <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+    process.exit(<span class="hljs-number">0</span>);
+  });
+
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+
+  agenda.start();
+
+  <span class="hljs-comment">// Schedule a job for 5 seconds from now and `await` until it has been</span>
+  <span class="hljs-comment">// persisted to MongoDB</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">5000</span>), <span class="hljs-string">'hello'</span>, {}, promiseCallback(resolve, reject));
+  });
+
+  <span class="hljs-comment">// Cancel the job, which deletes the document from the 'jobs' collection</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    agenda.cancel({ name: <span class="hljs-string">'hello'</span> }, promiseCallback(resolve, reject));
+  });
+
+  <span class="hljs-comment">// This function queries mongodb to make sure the job is was not deleted</span>
+  <span class="hljs-comment">// after it was locked</span>
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkCancelled</span>(<span class="hljs-params">job</span>) </span>{
+    <span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'jobs'</span>).count({ _id: job.attrs._id });
+    <span class="hljs-keyword">return</span> !(count &gt; <span class="hljs-number">0</span>);
+  }
+}
+</code></pre>
+<p>For the same reason, rescheduling a job that&#39;s already been locked is a lost cause currently. If you want to reschedule a job, the best way to do so is to cancel the job using the above paradigm and then schedule a new one.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Agenda is a neat tool for transactional scheduling with MongoDB and Node.js. It even has <a href="https://github.com/joeframbach/agendash">two</a> <a href="https://github.com/moudy/agenda-ui">GUIs</a>! While agenda does have some problems with cancellation, it works for most basic cases and has some cool plugins. Check it out next time you&#39;re tempted to reach for RabbitMQ or Redis for transactional scheduling!</p>
+<p><em>One thing agenda does well is schema design: the format that agenda uses to store jobs in MongoDB is conducive to building effective indexes and scaling horizontally. Mastering MongoDB schema design is the key to getting the most out of MongoDB, so check out <a href="https://www.amazon.com/gp/product/1517394023/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1517394023&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=9f984525eec28ec1008c344c1788f567">Christian Kvalheim&#39;s Little MongoDB Schema Design Book</a> (<a href="https://www.amazon.com/Little-Mongo-Schema-Design-Book/dp/1517394023">non-affiliate link</a>) to get up to speed. Christian wrote the MongoDB Node.js driver and leads the Node.js driver team at MongoDB, so he knows a thing or two about using MongoDB effectively.</em></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170330_mongodb_agenda.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Node.js Task Scheduling With Agenda and MongoDB", time: new Date() });
+  </script></body></html>
