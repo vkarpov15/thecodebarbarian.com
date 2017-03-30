@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 24 Mar 2017 23:11:02 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 30 Mar 2017 20:48:59 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Node.js Task Scheduling With Agenda and MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/node.js-task-scheduling-with-agenda-and-mongodb.html</link>
+            <guid>http://www.thecodebarbarian.com/node.js-task-scheduling-with-agenda-and-mongodb.html</guid>
+            <pubDate>Thu, 30 Mar 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Managing Node.js Versions Without External Tools]]></title>
             <link>http://www.thecodebarbarian.com/managing-node.js-versions-without-external-tools.html</link>
