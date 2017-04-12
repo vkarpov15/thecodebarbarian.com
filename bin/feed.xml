@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 04 Apr 2017 17:15:14 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 12 Apr 2017 19:25:56 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Server-side Rendering With Preact and Firebase]]></title>
+            <link>http://www.thecodebarbarian.com/server-side-rendering-with-preact-and-firebase.html</link>
+            <guid>http://www.thecodebarbarian.com/server-side-rendering-with-preact-and-firebase.html</guid>
+            <pubDate>Wed, 12 Apr 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Unhandled Promise Rejections in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html</link>
