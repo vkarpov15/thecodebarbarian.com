@@ -14,7 +14,7 @@ $ node test.js
 What is an Unhandled Rejection?
 -------------------------------
 
-"Rejection" is the canonical term for a promise reporting an error. As defined in ES6, a promise is a state machine representation of an asynchronous operation and [can be in one of 3 states](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise): "pending", "fulfilled", or "rejected". A pending promise represents an asynchronous operation that's in progress and a fulfilled promise represents an asynchronous operation that's completed successfully. A rejected promise represents an asynchronous operation that failed for some reason. For example, trying to connect to a notexistent MongoDB instance using the MongoDB driver will give you a promise rejection:
+"Rejection" is the canonical term for a promise reporting an error. As defined in ES6, a promise is a state machine representation of an asynchronous operation and [can be in one of 3 states](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise): "pending", "fulfilled", or "rejected". A pending promise represents an asynchronous operation that's in progress and a fulfilled promise represents an asynchronous operation that's completed successfully. A rejected promise represents an asynchronous operation that failed for some reason. For example, trying to connect to a nonexistent MongoDB instance using the MongoDB driver will give you a promise rejection:
 
 ```javascript
 const { MongoClient } = require('mongodb');
