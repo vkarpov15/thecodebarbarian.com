@@ -72,10 +72,10 @@ function isSymmetric(root) {
 }
 
 function isSymmetricHelper(t1, t2) {
-  if (t1 == null && t2 == null) {
+  if (t1 === null && t2 === null) {
     return true;
   }
-  if (t1 == null || t2 == null) {
+  if (t1 === null || t2 === null) {
     return false;
   }
   return isSymmetricHelper(t1.left, t2.right) &&
@@ -94,6 +94,7 @@ function isSymmetric(root) {
 }
 
 function reverse(t) {
+  if(t === null) return;
   var tmp = t.left;
   t.left = reverse(t.right);
   t.right = reverse(tmp);
@@ -101,10 +102,10 @@ function reverse(t) {
 }
 
 function isEqual(t1, t2) {
-  if (t1 == null && t2 == null) {
+  if (t1 === null && t2 === null) {
     return true;
   }
-  if (t1 == null || t2 == null) {
+  if (t1 === null || t2 === null) {
     return false;
   }
   return isEqual(t1.left, t2.left) && isEqual(t1.right, t2.right);
