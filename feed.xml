@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 26 Apr 2017 18:13:55 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 03 May 2017 21:19:35 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Standalone Express API Binaries with pkg]]></title>
+            <link>http://www.thecodebarbarian.com/standalone-express-apis-binaries-with-pkg.html</link>
+            <guid>http://www.thecodebarbarian.com/standalone-express-apis-binaries-with-pkg.html</guid>
+            <pubDate>Wed, 03 May 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a Next.js App With MongoDB]]></title>
             <link>http://www.thecodebarbarian.com/building-a-nextjs-app-with-mongodb.html</link>
