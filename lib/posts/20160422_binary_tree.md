@@ -95,11 +95,11 @@ function isSymmetric(root) {
 
 function reverse(t) {
   if(t === null) return;
-		return {
-			left: reverse(t.right),
-			right: reverse(t.left)
-  	};
-	}
+    return {
+      left: reverse(t.right),
+      right: reverse(t.left)
+    };
+  }
 }
 
 function isEqual(t1, t2) {
