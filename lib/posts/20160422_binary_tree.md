@@ -68,19 +68,17 @@ The first definition leads to the most concise solution:
 
 ```javascript
 function isSymmetric(root) {
-
-	function isSymmetricHelper(t1, t2) {
-		if(t1 === null && t2 === null) {
-			return true;
-		} else if (t1 === null || t2 === null) {
-			return false;
-		} else {
-			return isSymmetricHelper(t1.left, t2.right) &&
-				isSymmetricHelper(t1.right, t2.left);
-		}
-	}
-
-	return isSymmetricHelper(root.left, root.right);
+  function isSymmetricHelper(t1, t2) {
+    if(t1 === null && t2 === null) {
+      return true;
+    } else if (t1 === null || t2 === null) {
+      return false;
+    } else {
+      return isSymmetricHelper(t1.left, t2.right) &&
+        isSymmetricHelper(t1.right, t2.left);
+    }
+  }
+  return isSymmetricHelper(root.left, root.right);
 }
 ```
 
@@ -90,26 +88,24 @@ a binary tree on the whiteboard, and the one that most intern candidates end
 up using to solve the problem in 20 minutes.
 
 ```javascript
-function isSymmetric(root) {
-	function reverse(t) {
-		if(t === null) return; // end recursion.
-		return {
-			left: reverse(t.right),
-			right: reverse(t.left)
-		};
-	}
-
-	function isEqual(t1, t2) {
-		if (t1 == null && t2 == null) {
-			return true;
-		}
-		if (t1 == null || t2 == null) {
-			return false;
-		}
-		return isEqual(t1.left, t2.left) && isEqual(t1.right, t2.right);
-	}	
-
-	return isEqual(reverse(root.left), root.right);
+function isSymmetric2(root) {
+  function reverse(t) {
+    if(t === null) return;
+    return {
+      left: reverse(t.right),
+      right: reverse(t.left)
+    };
+  }
+  function isEqual(t1, t2) {
+    if (t1 == null && t2 == null) {
+      return true;
+    }
+    if (t1 == null || t2 == null) {
+      return false;
+    }
+    return isEqual(t1.left, t2.left) && isEqual(t1.right, t2.right);
+  }	
+  return isEqual(reverse(root.left), root.right);
 }
 ```
 
