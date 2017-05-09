@@ -1,0 +1,174 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a Realtime Chat With Next.js and PubNub | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a Realtime Chat With Next.js and PubNub"/><meta property="og:url" content="http://www.thecodebarbarian.com/realtime-chat-with-next-js-and-pubnub"/><meta property="og:image" content="http://i.imgur.com/VUu1pGn.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Frealtime-chat-with-next-js-and-pubnub&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Frealtime-chat-with-next-js-and-pubnub" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Frealtime-chat-with-next-js-and-pubnub" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Frealtime-chat-with-next-js-and-pubnub&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Frealtime-chat-with-next-js-and-pubnub" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Frealtime-chat-with-next-js-and-pubnub" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a Realtime Chat With Next.js and PubNub </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 09, 2017</span></div></div></div><div class="post-body-text-container"><p>I&#39;ve been looking at <a href="https://www.pubnub.com/docs/web-javascript/pubnub-javascript-sdk">PubNub</a> as a potential alternative to <a href="https://github.com/firebase/quickstart-nodejs">Firebase</a> for push notifications. At a high level, PubNub is pubsub-as-a-service: once you plug in PubNub&#39;s JavaScript library, you can start publishing messages and subscribing to channels without having to deploy <a href="https://kafka.apache.org/">Kafka</a>, <a href="http://zeromq.org/">ZeroMQ</a>, etc.</p>
+<p>Like Firebase, PubNub handles client-side socket connections for you, so your client apps don&#39;t have to worry about retrying failed HTTP requests and maintaining connection state. Unlike Firebase&#39;s realtime database, PubNub does not maintain state for you. If you subscribe to a channel after a message is sent, you will not get that message (modulo <a href="https://www.pubnub.com/docs/nodejs-javascript/storage-and-history">PubNub&#39;s replay</a>), whereas in Firebase you can always get the last state.</p>
+<p>In this article, I&#39;ll walk you through a small realtime chat app I built with PubNub and <a href="http://npmjs.org/package/next">Next.js</a>. You can find the chat app on <a href="https://github.com/vkarpov15/pubnub-next-chat">GitHub</a>, below is a demo video:</p>
+<iframe width="630" height="355" src="https://www.useloom.com/embed/6764b8af3f774b6bb82fa8f80244bb8c" frameborder="0" allowfullscreen></iframe>
+
+<h2 id="setting-up-pubnub">Setting Up PubNub</h2>
+<p>Creating a PubNub instance is simple. There are 2 keys: a <code>publishKey</code> and a <code>subscribeKey</code>. The <code>publishKey</code> gives you permission to publish to channels,
+and the <code>subscribeKey</code> gives you permission to subscribe to channels. PubNub has
+<a href="https://www.pubnub.com/docs/web-javascript/pam-security">more sophisticated security settings</a>, but these two keys are sufficient for this example.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
+
+<span class="hljs-keyword">const</span> { publishKey, subscribeKey } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./config'</span>);
+<span class="hljs-keyword">const</span> pubnub = <span class="hljs-keyword">new</span> PubNub({ publishKey, subscribeKey });
+</code></pre>
+<p>The above code works well on both the client and the server. Note that I used <code>require()</code> above. If you&#39;re using ES6 imports, you need to do <code>import pubnub from &#39;pubnub&#39;;</code>, <code>import * as PubNub from &#39;pubnub&#39;;</code> will <strong>not</strong> work.</p>
+<p>The <code>pubnub</code> object above has 2 methods you&#39;ll be concerned with in this article, <code>publish()</code> and <code>subscribe()</code>. The <code>publish()</code> method lets you send a message to a channel:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> message = {
+  client: <span class="hljs-string">'Brian K.'</span>,
+  content: <span class="hljs-string">'Hello, World!'</span>
+};
+<span class="hljs-comment">// Send a JSON object to the 'messages' channel</span>
+pubnub.publish({
+  channel: <span class="hljs-string">'messages'</span>,
+  message
+});
+</code></pre>
+<p>The <code>subscribe()</code> method lets you register a callback that will be called every time a message is received on a given channel:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Now subscribed to the 'messages' channel</span>
+pubnub.subscribe({
+  channels: [<span class="hljs-string">'messages'</span>]
+});
+
+pubnub.addListener({
+  <span class="hljs-comment">// PubNub calls this function every time a message comes in on _any_ channel</span>
+  <span class="hljs-comment">// you have subscribed to.</span>
+  message: ({ message }) =&gt; {
+    <span class="hljs-comment">// Prints "Brian K.: Hello, World!"</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${message.client}</span>: <span class="hljs-subst">${message.content}</span>`</span>);
+  }
+});
+</code></pre>
+<p>The above code is fully isomorphic, so your server can <code>publish()</code> a message and any client that called <code>subscribe()</code> on that channel will receive it. Communicating between client and server becomes very easy when you don&#39;t have to worry about failed HTTP requests and potentially disconnected sockets!</p>
+<h2 id="integrating-with-next-js">Integrating With Next.js</h2>
+<p>Here&#39;s how I set up the server-side code that handles serving up the client-side Next.js app:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> next = <span class="hljs-built_in">require</span>(<span class="hljs-string">'next'</span>);
+
+<span class="hljs-keyword">const</span> app = next({ dev: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> handle = app.getRequestHandler();
+
+<span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
+
+<span class="hljs-keyword">const</span> { port, publishKey, subscribeKey } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./config'</span>);
+<span class="hljs-keyword">const</span> pubnub = <span class="hljs-keyword">new</span> PubNub({ publishKey, subscribeKey });
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">start</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> app.prepare();
+
+  <span class="hljs-keyword">const</span> server = express();
+  <span class="hljs-keyword">const</span> messages = [];
+
+  server.use(body.json());
+  server.use((req, res, next) =&gt; {
+    req.state = { messages };
+    next();
+  });
+
+  server.get(<span class="hljs-string">'/message'</span>, <span class="hljs-comment">/* get a list of messages */</span>);
+
+  server.post(<span class="hljs-string">'/message/:client'</span>, <span class="hljs-comment">/* publish a new message from a client */</span>);
+
+  server.get(<span class="hljs-string">'*'</span>, (req, res) =&gt; {
+    <span class="hljs-keyword">return</span> handle(req, res);
+  });
+
+  server.listen(port);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Listening on <span class="hljs-subst">${port}</span>`</span>);
+}
+
+start().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+</code></pre>
+<p>There&#39;s separate REST-ish endpoints for getting a list of messages and publishing a new message. In this example, the client does <strong>not</strong> have permission to push to the &#39;messages&#39; channel. The API sits as a layer in front of PubNub to make sure every message published is properly formatted. In this case, the validation is simple and not terribly robust:</p>
+<pre><code class="lang-javascript">server.post(<span class="hljs-string">'/message/:client'</span>, (req, res) =&gt; {
+  <span class="hljs-keyword">const</span> message = {
+    client: req.params.client,
+    content: req.body.message
+  };
+  messages.push(message);
+  pubnub.publish({
+    channel: <span class="hljs-string">'messages'</span>,
+    message
+  });
+  res.json({ message });
+});
+</code></pre>
+<p>You can imagine a more sophisticated validation layer, but I&#39;m skipping that in the interest of keeping this example lean. The Next.js app lives in a single component, <a href="https://github.com/vkarpov15/pubnub-next-chat/blob/master/pages/index.js"><code>pages/index.js</code></a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
+<span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-comment">// `config` is the client config, which *only* contains the `subscribeKey`.</span>
+<span class="hljs-comment">// To publish a new message, need to go through the POST /message API endpoint</span>
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config.client.json'</span>);
+<span class="hljs-comment">// HTTP client</span>
+<span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+
+<span class="hljs-comment">// Random colors to represent different users</span>
+<span class="hljs-keyword">const</span> clientColors = [<span class="hljs-string">'FF0B69'</span>, <span class="hljs-string">'1DACCC'</span>, <span class="hljs-string">'1195B2'</span>, <span class="hljs-string">'FFEB25'</span>, <span class="hljs-string">'ccbc1d'</span>];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  static <span class="hljs-keyword">async</span> getInitialProps({ req }) {
+    <span class="hljs-comment">/* get current messages for server-side rendering */</span>
+  }
+
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-comment">/* initialize state */</span>
+  }
+
+  componentDidMount() {
+    <span class="hljs-comment">// When the component initializes, subscribe to the 'messages' channel</span>
+    <span class="hljs-comment">// to get new messages.</span>
+    <span class="hljs-keyword">this</span>.pubnub = <span class="hljs-keyword">new</span> PubNub({
+      subscribeKey: config.subscribeKey
+    });
+
+    <span class="hljs-keyword">this</span>.pubnub.subscribe({
+      channels: [<span class="hljs-string">'messages'</span>]
+    });
+
+    <span class="hljs-keyword">this</span>.pubnub.addListener({
+      message: ({ message }) =&gt; {
+        <span class="hljs-keyword">this</span>.setState(<span class="hljs-built_in">Object</span>.assign({}, <span class="hljs-keyword">this</span>.state, {
+          messages: (<span class="hljs-keyword">this</span>.state.messages || <span class="hljs-keyword">this</span>.props.messages).concat([message])
+        }));
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    <span class="hljs-keyword">this</span>.pubnub.unsubscribe();
+  }
+
+  <span class="hljs-comment">/* ... */</span>
+
+  submitMessage() {
+    <span class="hljs-comment">// Note that we do **not** update the state here. Any messages added</span>
+    <span class="hljs-comment">// to the state must go through the PubNub handler in `componentDidMount()`</span>
+    <span class="hljs-keyword">return</span> ev =&gt; {
+      superagent.post(<span class="hljs-string">`/message/<span class="hljs-subst">${this.client}</span>`</span>, { message: <span class="hljs-keyword">this</span>.state.input }).
+        then(() =&gt; {
+          <span class="hljs-keyword">this</span>.setState(<span class="hljs-built_in">Object</span>.assign({}, <span class="hljs-keyword">this</span>.state, { input: <span class="hljs-string">''</span> }));
+        })
+    }
+  }
+}
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>PubNub looks like a great tool for pushing state changes from the server to the client. Unlike <a href="https://www.npmjs.com/package/socket.io">socket.io</a>, it&#39;s a hosted solution, so you don&#39;t have to worry about the nuances of scaling websocket connections. Unlike Firebase, PubNub is message based, so you don&#39;t have to worry about managing persistent state. Give it a shot next time you&#39;re looking to build push notifications into an app and let me know what you think!</p>
+<p><em>Got JavaScript fatigue? There&#39;s better ways to fight it than reaching for yet another crappy opinionated app starter. I&#39;ve been experimenting with <a href="https://www.amazon.com/gp/product/B06XJPN6JH/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B06XJPN6JH&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=2d45c96fc830a32958564d09ef8c76f2">Bulletproof&#39;s new Neuromaster supplement</a> (<a href="https://www.amazon.com/Bulletproof-NeuroMaster-Capsules-Brain-Derived-Neurotrophic/dp/B06XJPN6JH/ref=sr_1_1_a_it?ie=UTF8&amp;qid=1494367527&amp;sr=8-1&amp;keywords=neuromaster+bulletproof">non-affiliate link</a>) during my work-from-home days. It&#39;s helped me stay motivated and focused even as distractions and interruptions pile up.</em></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170509_nextjs_pubnub.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Building a Realtime Chat With Next.js and PubNub", time: new Date() });
+  </script></body></html>
