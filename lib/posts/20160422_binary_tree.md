@@ -94,6 +94,9 @@ function isSymmetric(root) {
 }
 
 function reverse(t) {
+  if (t == null) {
+    return;
+  }
   var tmp = t.left;
   t.left = reverse(t.right);
   t.right = reverse(tmp);
