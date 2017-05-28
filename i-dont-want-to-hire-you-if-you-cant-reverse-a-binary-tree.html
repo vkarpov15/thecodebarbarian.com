@@ -77,6 +77,9 @@ up using to solve the problem in 20 minutes.</p>
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">t</span>) </span>{
+  <span class="hljs-keyword">if</span> (t == <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span>;
+  }
   <span class="hljs-keyword">var</span> tmp = t.left;
   t.left = reverse(t.right);
   t.right = reverse(tmp);
