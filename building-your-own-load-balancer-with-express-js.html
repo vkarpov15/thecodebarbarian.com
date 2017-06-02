@@ -1,0 +1,156 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building Your Own Load Balancer with ExpressJS | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building Your Own Load Balancer with ExpressJS"/><meta property="og:url" content="http://www.thecodebarbarian.com/building-your-own-load-balancer-with-express-js"/><meta property="og:image" content="http://i.imgur.com/jxJ08U2.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="http://i.imgur.com/iBT2ZEw.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-your-own-load-balancer-with-express-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-your-own-load-balancer-with-express-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-your-own-load-balancer-with-express-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-your-own-load-balancer-with-express-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-your-own-load-balancer-with-express-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-your-own-load-balancer-with-express-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building Your Own Load Balancer with ExpressJS </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">June 02, 2017</span></div></div></div><div class="post-body-text-container"><p><em>This article originally appeared on <a href="https://www.lunchbadger.com/build-load-balancer-express/">LunchBadger</a>. LunchBadger <a href="https://www.lunchbadger.com/development/">helps you build APIs in a continuous lifecycle using serverless open source</a>.</em></p>
+<p>There are plenty of powerful load balancing tools out there, like <a href="https://nginx.org/en/">nginx</a> or <a href="http://www.haproxy.org/">HAProxy</a>. Nginx and HAProxy are fast and battle-tested, but can be hard to extend if you&#39;re not familiar with C. Nginx has support for a <a href="https://www.nginx.com/blog/launching-nginscript-and-looking-ahead/">limited subset of JavaScript</a>, but nginScript is not nearly as sophisticated as Node.js. If you&#39;re looking for a load balancer that you can extend with Node.js, look no further than <a href="http://npmjs.org/package/express">Express</a>, the most popular Node.js web framework. In this article, I&#39;ll show you how to build your own load balancer with 10 lines of Express code, and show you how you can extend this load balancer to handle profiling and <a href="https://en.wikipedia.org/wiki/TLS_termination_proxy">SSL termination</a>.</p>
+<h2 id="building-a-load-balancer">Building a Load Balancer</h2>
+<p>A load balancer is a process that takes in HTTP requests and forwards these HTTP requests to one of a collection of servers. Load balancers are usually used for performance purposes: if a server needs to do a lot of work for each request, one server might not be enough, but 2 servers alternating handling incoming requests might.</p>
+<p>First off, let&#39;s install <a href="https://www.npmjs.com/package/express">express</a> and <a href="https://www.npmjs.com/package/request">request</a>. The request package is an HTTP client with good support for streams, using it will make writing the load balancer very easy.</p>
+<pre><code>npm install express@<span class="hljs-number">4.15</span><span class="hljs-number">.2</span> body-parser@<span class="hljs-number">1.17</span><span class="hljs-number">.1</span> request@<span class="hljs-number">2.81</span><span class="hljs-number">.0</span>
+</code></pre><p>To make things easy, let&#39;s write a single process that starts 2 Express apps, one on port 3000 and one on port 3001. The separate load balancer process should alternate between these two, sending one request to port 3000, the next request to port 3001, and the next one back to port 3000.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+
+<span class="hljs-keyword">const</span> app1 = express();
+<span class="hljs-keyword">const</span> app2 = express();
+
+<span class="hljs-comment">// Parse the request body as JSON</span>
+app1.use(body.json());
+app2.use(body.json());
+
+<span class="hljs-keyword">const</span> handler = serverNum =&gt; (req, res) =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`server <span class="hljs-subst">${serverNum}</span>`</span>, req.method, req.url, req.body);
+  res.send(<span class="hljs-string">`Hello from server <span class="hljs-subst">${serverNum}</span>!`</span>);
+};
+
+<span class="hljs-comment">// Only handle GET and POST requests</span>
+app1.get(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">1</span>)).post(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">1</span>));
+app2.get(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">2</span>)).post(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">2</span>));
+
+app1.listen(<span class="hljs-number">3000</span>);
+app2.listen(<span class="hljs-number">3001</span>);
+</code></pre>
+<p>If load balancing works properly, the console output should look like this:</p>
+<pre><code>$ node server.js
+server <span class="hljs-number">1</span> GET /test3 {}
+server <span class="hljs-number">2</span> GET /favicon.ico {}
+server <span class="hljs-number">1</span> POST /test3 { hello: <span class="hljs-string">'world'</span> }
+</code></pre><p>The key idea for load balancing is that Node&#39;s core HTTP <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> and <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> classes, as well as <a href="https://www.npmjs.com/package/request#streaming">the request package&#39;s representation of HTTP requests</a>, implement <a href="https://github.com/substack/stream-handbook">Node&#39;s streams interface</a>. Proxying an HTTP request is as easy as calling <code>pipe()</code> twice:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+
+<span class="hljs-keyword">const</span> servers = [<span class="hljs-string">'http://localhost:3000'</span>, <span class="hljs-string">'http://localhost:3001'</span> ];
+<span class="hljs-keyword">let</span> cur = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+  <span class="hljs-comment">// Pipe the vanilla node HTTP request (a readable stream) into `request`</span>
+  <span class="hljs-comment">// to the next server URL. Then, since `res` implements the writable stream</span>
+  <span class="hljs-comment">// interface, you can just `pipe()` into `res`.</span>
+  req.pipe(request({ url: servers[cur] + req.url })).pipe(res);
+  cur = (cur + <span class="hljs-number">1</span>) % servers.length;
+};
+<span class="hljs-keyword">const</span> server = express().get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
+
+server.listen(<span class="hljs-number">8080</span>);
+</code></pre>
+<p>This is a quick proof of concept that doesn&#39;t support health checks or any other sophisticated load balancing features. But, if you&#39;re comfortable with Node.js, it&#39;s quite possible to build this out into a more full-fledged load balancer. For example, you might notice that the load balancer above doesn&#39;t handle errors. Let&#39;s say the underlying server takes a long time to respond:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> handler = serverNum =&gt; (req, res) =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`server <span class="hljs-subst">${serverNum}</span>`</span>, req.method, req.url, req.body);
+  <span class="hljs-comment">// Wait for 10 seconds before responding</span>
+  setTimeout(() =&gt; { res.send(<span class="hljs-string">`Hello from server <span class="hljs-subst">${serverNum}</span>!`</span>); }, <span class="hljs-number">10000</span>);
+};
+</code></pre>
+<p>If the underlying server shuts down in the middle of a request, the load balancer server will also crash:</p>
+<pre><code>$ node lb.js
+internal/streams/legacy.js:<span class="hljs-number">59</span>
+      <span class="hljs-keyword">throw</span> er; <span class="hljs-comment">// Unhandled stream error in pipe.</span>
+      ^
+
+<span class="hljs-built_in">Error</span>: socket hang up
+    at createHangUpError (_http_client.js:<span class="hljs-number">302</span>:<span class="hljs-number">15</span>)
+    at Socket.socketOnEnd (_http_client.js:<span class="hljs-number">394</span>:<span class="hljs-number">23</span>)
+    at emitNone (events.js:<span class="hljs-number">91</span>:<span class="hljs-number">20</span>)
+    at Socket.emit (events.js:<span class="hljs-number">186</span>:<span class="hljs-number">7</span>)
+    at endReadableNT (_stream_readable.js:<span class="hljs-number">974</span>:<span class="hljs-number">12</span>)
+    at _combinedTickCallback (internal/process/next_tick.js:<span class="hljs-number">74</span>:<span class="hljs-number">11</span>)
+    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">98</span>:<span class="hljs-number">9</span>)
+$
+</code></pre><p>Adding an error handler to the <code>request</code> object lets you handle this error gracefully:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+  <span class="hljs-comment">// Add an error handler for the proxied request</span>
+  <span class="hljs-keyword">const</span> _req = request({ url: servers[cur] + req.url }).on(<span class="hljs-string">'error'</span>, error =&gt; {
+    res.status(<span class="hljs-number">500</span>).send(error.message);
+  });
+  req.pipe(_req).pipe(res);
+  cur = (cur + <span class="hljs-number">1</span>) % servers.length;
+};
+<span class="hljs-keyword">const</span> server = express().get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
+
+server.listen(<span class="hljs-number">8080</span>);
+</code></pre>
+<h2 id="logging-profiling-and-ssl-termination">Logging, Profiling, and SSL Termination</h2>
+<p>The major advantage of a Node.js load balancer is easy extensibility and access to the whole npm ecosystem. No need to write C or Lua or learn nginScript.</p>
+<p>Since your load balancer is just an Express app, you can plug in <a href="http://expressjs.com/en/guide/writing-middleware.html">Express middleware</a> to extend your load balancer. For example, you can write middleware that records how long each request takes using <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">Node.js&#39; &#39;finish&#39; event</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> profilerMiddleware = (req, res, next) =&gt; {
+  <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
+  <span class="hljs-comment">// The 'finish' event comes from core Node.js, it means Node is done handing</span>
+  <span class="hljs-comment">// off the response headers and body to the underlying OS.</span>
+  res.on(<span class="hljs-string">'finish'</span>, () =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Completed'</span>, req.method, req.url, <span class="hljs-built_in">Date</span>.now() - start);
+  });
+  next();
+};
+
+<span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+  <span class="hljs-comment">/* ... */</span>
+};
+<span class="hljs-keyword">const</span> server = express().use(profilerMiddleware).get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
+</code></pre>
+<p>SSL termination is also as easy as plugging in some middleware. In this case, you can plug in <a href="https://www.npmjs.com/package/express-sslify">express-sslify</a> to enforce HTTPS for all incoming requests, and use <a href="https://nodejs.org/api/https.html">Node.js&#39; built-in <code>https</code> library</a> to start an HTTPS server. Node.js&#39; <a href="https://strongloop.com/strongblog/improve-the-performance-of-the-node-js-https-server/">HTTPS has some performance limitations</a>, so if your app is very performance sensitive you would need to do some tuning. For the purposes of this article, you can generate self-signed SSL certificates for <code>localhost</code> from <a href="http://www.selfsignedcertificate.com/">this site</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+<span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+
+<span class="hljs-keyword">const</span> servers = [<span class="hljs-string">'http://localhost:3000'</span>, <span class="hljs-string">'http://localhost:3001'</span> ];
+<span class="hljs-keyword">let</span> cur = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> profilerMiddleware = (req, res, next) =&gt; {
+  <span class="hljs-comment">/* ... */</span>
+};
+
+<span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+  <span class="hljs-comment">/* ... */</span>
+};
+<span class="hljs-keyword">const</span> app = express().
+  <span class="hljs-comment">// Use `express-sslify` to make sure _all_ requests use HTTPS</span>
+  use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'express-sslify'</span>).HTTPS()).
+  use(profilerMiddleware).
+  get(<span class="hljs-string">'*'</span>, handler).
+  post(<span class="hljs-string">'*'</span>, handler);
+
+app.listen(<span class="hljs-number">80</span>);
+
+<span class="hljs-comment">// Start an HTTPS server with some self-signed keys</span>
+<span class="hljs-keyword">const</span> sslOptions = {
+  key: fs.readFileSync(<span class="hljs-string">'./localhost.key'</span>),
+  cert: fs.readFileSync(<span class="hljs-string">'./localhost.cert'</span>)
+};
+https.createServer(sslOptions, app).listen(<span class="hljs-number">443</span>);
+</code></pre>
+<p>Now this rudimentary load balancer also enforces SSL for all connections and supports HTTPS, even though the underlying servers do not. Chrome still gives a loud warning that &quot;Your connection to this site might not be private&quot;, but that&#39;s just because the SSL key and certificate are self-signed.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>There are a lot of advantages to an Express-based load balancer. If your team is already familiar with Express, you can set up your own load balancer without learning how to configure a completely separate tool. Adding new functionality is easy with Express middleware and the wide variety of packages on npm. Debugging issues is easy if you&#39;re already comfortable with Express, because you&#39;re just dealing with an Express app. You can even cross-compile your load balancer into standalone executables using <a href="http://npmjs.org/package/pkg">pkg</a>. Next time when you&#39;re tempted to reach for nginx for load balancing, try using Express instead.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170602_express_load_balancer.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Building Your Own Load Balancer with ExpressJS", time: new Date() });
+  </script></body></html>
