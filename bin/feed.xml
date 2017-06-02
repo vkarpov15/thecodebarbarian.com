@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 26 May 2017 17:26:55 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 02 Jun 2017 20:05:47 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building Your Own Load Balancer with ExpressJS]]></title>
+            <link>http://www.thecodebarbarian.com/building-your-own-load-balancer-with-express-js.html</link>
+            <guid>http://www.thecodebarbarian.com/building-your-own-load-balancer-with-express-js.html</guid>
+            <pubDate>Fri, 02 Jun 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Using Async/Await with Mocha, Express, and Mongoose]]></title>
             <link>http://www.thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose.html</link>
