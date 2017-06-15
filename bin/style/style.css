@@ -28,7 +28,7 @@ code {
 }
 
 .books div {
-	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .books img {
@@ -438,6 +438,20 @@ a.social {
 .right-bar-li {
 	margin-bottom:15px;
 	font-weight:300;
+}
+
+/* Ads */
+.carbon-text {
+	color: #428bca;
+	display: block;
+	width: 130px;
+	font-size: 0.8em;
+}
+
+.carbon-poweredby {
+	font-size: 0.66em;
+	display: block;
+	color: rgb(102, 102, 102);
 }
 
 /* Small devices (tablets, 768px and up) */
