@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 08 Jun 2017 18:54:24 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 14 Jun 2017 19:37:58 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Distributed Locking with Node.js and MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/distributed-locking-with-node.js-and-mongodb.html</link>
+            <guid>http://www.thecodebarbarian.com/distributed-locking-with-node.js-and-mongodb.html</guid>
+            <pubDate>Thu, 15 Jun 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 4.10: The runSettersOnQuery Option]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-4.10-runSettersOnQuery-option.html</link>
