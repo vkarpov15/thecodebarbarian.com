@@ -164,7 +164,8 @@ function fac(n) {
   if (n <= 0) {
     return 1;
   }
-  return n * fac(n - 1);
+  // `x | 0` rounds down, so `2.0001 | 0 === 2`. This helps deal with floating point precision issues like `0.1 + 0.2 !== 0.3`
+  return (n * fac(n - 1)) | 0;
 }
 
 function toArrayBuffer(buf) {
