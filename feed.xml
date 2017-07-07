@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 15 Jun 2017 19:51:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Jul 2017 21:22:07 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 4.11: Virtuals with Lean Queries]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-4.11-lean-virtuals.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-4.11-lean-virtuals.html</guid>
+            <pubDate>Fri, 07 Jul 2017 06:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Enforcing Uniqueness With MongoDB Partial Indexes in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/enforcing-uniqueness-with-mongodb-partial-unique-indexes.html</link>
