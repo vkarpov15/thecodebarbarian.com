@@ -127,7 +127,8 @@ suite.
   <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">0</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   }
-  <span class="hljs-keyword">return</span> n * fac(n - <span class="hljs-number">1</span>);
+  <span class="hljs-comment">// `x | 0` rounds down, so `2.0001 | 0 === 2`. This helps deal with floating point precision issues like `0.1 + 0.2 !== 0.3`</span>
+  <span class="hljs-keyword">return</span> (n * fac(n - <span class="hljs-number">1</span>)) | <span class="hljs-number">0</span>;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toArrayBuffer</span>(<span class="hljs-params">buf</span>) </span>{
