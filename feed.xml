@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 14 Jul 2017 18:36:10 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 21 Jul 2017 15:21:14 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing Monogram, the Anti-ODM for Node.js and MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs.html</link>
+            <guid>http://www.thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs.html</guid>
+            <pubDate>Fri, 21 Jul 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 4.11: useMongoClient]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-4.11-use-mongo-client.html</link>
