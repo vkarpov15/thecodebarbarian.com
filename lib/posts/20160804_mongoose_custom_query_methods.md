@@ -107,7 +107,7 @@ const ACLPlugin = schema => {
 };
 
 // Apply plugin to ProjectSchema
-ProjectSchema.use(ACLPlugin);
+ProjectSchema.plugin(ACLPlugin);
 
 Project.
   find({ name: 'mongoose' }).
