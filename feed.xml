@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 28 Jul 2017 19:10:53 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Aug 2017 13:17:22 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[The 80/20 Guide to Express Error Handling]]></title>
+            <link>http://www.thecodebarbarian.com/80-20-guide-to-express-error-handling.html</link>
+            <guid>http://www.thecodebarbarian.com/80-20-guide-to-express-error-handling.html</guid>
+            <pubDate>Fri, 04 Aug 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The Importance of APIs in a Full Stack World]]></title>
             <link>http://www.thecodebarbarian.com/importance-of-apis-in-a-full-stack-world.html</link>
