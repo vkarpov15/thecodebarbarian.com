@@ -87,7 +87,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 async function run() {
-  // `open()` and `openSet()` are deprecated and will go await in mongoose 5.x
+  // `open()` and `openSet()` are deprecated and will go away in mongoose 5.x
   // use `openUri()` instead
   const conn = await mongoose.createConnection().openUri('mongodb://localhost:27017/test');
 
