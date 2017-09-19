@@ -177,7 +177,7 @@ const { MongoError } = require('mongodb');
 
 app.use(function handleAssertionError(error, req, res, next) {
   if (error instanceof AssertionError) {
-    res.status(400).json({
+    return res.status(400).json({
       type: 'AssertionError',
       message: error.message
     });
@@ -187,7 +187,7 @@ app.use(function handleAssertionError(error, req, res, next) {
 
 app.use(function handleDatabaseError(error, req, res, next) {
   if (error instanceof MongoError) {
-    res.status(503).json({
+    return res.status(503).json({
       type: 'MongoError',
       message: error.message
     });

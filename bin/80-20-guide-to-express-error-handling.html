@@ -146,7 +146,7 @@ app.listen(<span class="hljs-number">3000</span>);
 
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleAssertionError</span>(<span class="hljs-params">error, req, res, next</span>) </span>{
   <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> AssertionError) {
-    res.status(<span class="hljs-number">400</span>).json({
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">400</span>).json({
       type: <span class="hljs-string">'AssertionError'</span>,
       message: error.message
     });
@@ -156,7 +156,7 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <
 
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleDatabaseError</span>(<span class="hljs-params">error, req, res, next</span>) </span>{
   <span class="hljs-keyword">if</span> (error <span class="hljs-keyword">instanceof</span> MongoError) {
-    res.status(<span class="hljs-number">503</span>).json({
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">503</span>).json({
       type: <span class="hljs-string">'MongoError'</span>,
       message: error.message
     });
