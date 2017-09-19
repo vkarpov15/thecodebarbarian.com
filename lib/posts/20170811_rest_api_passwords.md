@@ -83,7 +83,7 @@ const user = yield User.create({
 // No `password` property by default
 console.log(yield User.findById(user._id));
 // But you can explicitly populate it
-console.log(yield User.findById(user._id).populate('password'));
+console.log(yield User.findById(user._id).populate('passwordId'));
 ```
 
 Storing the password hash in a separate collection has a couple neat properties. First, it's more secure, because if you have apps that don't use mongoose or you access MongoDB through a GUI, you'll need to remember to hide the password hash there too. If password hashes are in a separate collection, you can use [custom roles to ensure that only certain users can access the `Password` collection ](https://docs.mongodb.com/manual/core/collection-level-access-control/). Secondly, this ensures a cleaner separation of concerns. Devs working with the customer document structure don't have to always worry about keeping password hashes secure.
