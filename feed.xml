@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 19 Sep 2017 05:09:06 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 27 Sep 2017 14:58:33 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -13,10 +13,10 @@
         </image>
         <generator>Feed for Node.js</generator>
         <item>
-            <title><![CDATA[The node-static Debacle: A Semver Parable]]></title>
-            <link>http://www.thecodebarbarian.com/node-static-a-semver-parable.html</link>
-            <guid>http://www.thecodebarbarian.com/node-static-a-semver-parable.html</guid>
-            <pubDate>Fri, 15 Sep 2017 07:00:00 GMT</pubDate>
+            <title><![CDATA[Managing Connections with the MongoDB Node.js Driver]]></title>
+            <link>http://www.thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html</link>
+            <guid>http://www.thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html</guid>
+            <pubDate>Wed, 27 Sep 2017 07:00:00 GMT</pubDate>
             
         </item>
         <item>
