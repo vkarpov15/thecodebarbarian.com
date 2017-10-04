@@ -1,0 +1,226 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Casting and Validating GeoJSON With Archetype | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Casting and Validating GeoJSON With Archetype"/><meta property="og:url" content="http://www.thecodebarbarian.com/casting-and-validating-geojson-with-archetype"/><meta property="og:image" content="https://i.imgur.com/uboKEWQ.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fcasting-and-validating-geojson-with-archetype&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcasting-and-validating-geojson-with-archetype" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcasting-and-validating-geojson-with-archetype" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fcasting-and-validating-geojson-with-archetype&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcasting-and-validating-geojson-with-archetype" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fcasting-and-validating-geojson-with-archetype" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Casting and Validating GeoJSON With Archetype </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 04, 2017</span></div></div></div><div class="post-body-text-container"><p><a href="https://en.wikipedia.org/wiki/GeoJSON">GeoJSON</a> is a powerful standard for
+expressing points, lines, polygons, and other shapes on a map. Node.js has
+particularly good support for geospatial analysis with GeoJSON because of
+the <a href="https://www.npmjs.com/package/@turf/turf">turf library</a>. GeoJSON
+objects are deeply nested objects. For example, below is a polygon that
+roughly approximates the state of Colorado.</p>
+<pre><code>{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
+  <span class="hljs-string">"coordinates"</span>: [[
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+  ]]
+}
+</code></pre><p>Here&#39;s what this polygon looks like on a map. Click on the map for an
+interactive view.</p>
+<p><a href="http://bl.ocks.org/d/da577b1847d8764999d2d5950246a8b4"><img src="https://i.imgur.com/5aMFI8k.jpg"></a></p>
+<p>However, to plug this GeoJSON polygon into the map builder at
+<a href="https://geojson.io">GeoJSON.io</a> you&#39;ll want to use a
+<a href="https://macwright.org/2015/03/23/geojson-second-bite.html#featurecollection">GeoJSON FeatureCollection</a>,
+which is an even more complex JSON object.</p>
+<pre><code>{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"FeatureCollection"</span>,
+  <span class="hljs-string">"features"</span>: [
+    {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"Feature"</span>,
+      <span class="hljs-string">"properties"</span>: {},
+      <span class="hljs-string">"geometry"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
+        <span class="hljs-string">"coordinates"</span>: [[
+          [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+          [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+          [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+          [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+          [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+        ]]
+      }
+    }
+  ]
+}
+</code></pre><p>The hard part of GeoJSON is wrestling with how deeply nested the types are.
+Some tools, like <a href="https://www.npmjs.com/package/@turf/turf">turf</a>, mostly
+accept GeoJSON Features and FeatureCollections as input. Other tools, like
+<a href="http://thecodebarbarian.com/80-20-guide-to-mongodb-geospatial-queries">MongoDB&#39;s built-in geospatial queries</a>,
+don&#39;t support Features or FeatureCollections at all.</p>
+<p>Validating GeoJSON coming in over an HTTP API was one of the major reasons why
+we wrote <a href="https://www.npmjs.com/package/archetype">Archetype</a>.
+Building GeoJSON types for <a href="https://www.npmjs.com/package/ajv">JSON schema</a> or
+<a href="https://www.npmjs.com/package/joi">joi</a> seemed like trying to paint the Mona Lisa
+with a rotting fish. Here&#39;s how GeoJSON casting and validation works in Archetype.</p>
+<h2 id="coordinates-and-polygons">Coordinates and Polygons</h2>
+<p>Here&#39;s how a GeoJSON polygon would look in Archetype:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+
+<span class="hljs-keyword">const</span> PolygonType = <span class="hljs-keyword">new</span> Archetype({
+  type: {
+    $type: <span class="hljs-string">'string'</span>,
+    $required: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// `type` must always be polygon, and will be set by default if not set</span>
+    $<span class="hljs-keyword">default</span>: <span class="hljs-string">'Polygon'</span>,
+    $enum: [<span class="hljs-string">'Polygon'</span>]
+  },
+  coordinates: {
+    $type: [[[<span class="hljs-string">'number'</span>]]],
+    $required: <span class="hljs-literal">true</span>,
+    $validate: polygon =&gt; {
+      <span class="hljs-comment">// Throw an error if a coordinate pair doesn't have length 2</span>
+      polygon.forEach(ring =&gt; {
+        ring.forEach(coordinatePair =&gt; {
+          assert.equal(coordinatePair.length, <span class="hljs-number">2</span>,
+            <span class="hljs-string">`<span class="hljs-subst">${coordinatePair}</span> must have length 2`</span>)
+        });
+      });
+    }
+  }
+}).compile(<span class="hljs-string">'Polygon'</span>);
+</code></pre>
+<p>Archetype will attach a default type of &#39;Polygon&#39; and automatically convert
+strings into numbers for you if you accidentally pass a number in the
+coordinates array. Note that Archetype will <strong>not</strong> accept <code>NaN</code> as a number,
+so if one of the coordinates is something that can&#39;t resolve to a number,
+Archetype will throw an error.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> PolygonType({
+  <span class="hljs-comment">// Will automatically add a `type` property with value `Polygon`</span>
+  coordinates: [[
+    [<span class="hljs-string">'-109'</span>, <span class="hljs-number">41</span>], <span class="hljs-comment">// Archetype will also coerce strings into numbers</span>
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-string">'41'</span>]
+  ]]
+}));
+</code></pre>
+<p>Incorrectly formatted coordinates or an incorrect type will throw an error:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Error: coordinates.0.0.1: Could not cast "not a number" to number,</span>
+<span class="hljs-comment">// type: Value "MultiPolygon" invalid, allowed values are "[ 'Polygon' ]"</span>
+<span class="hljs-keyword">new</span> PolygonType({
+  type: <span class="hljs-string">'MultiPolygon'</span>,
+  coordinates: [[
+    [<span class="hljs-number">-109</span>, <span class="hljs-string">'not a number'</span>], <span class="hljs-comment">// &lt;- Error, not a number</span>
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+  ]]
+});
+</code></pre>
+<p>Archetype throws errors rather than returning errors, so <code>new PolygonType({})</code>
+will throw an error because <code>coordinates</code> must be set and has no <code>$default</code>.
+This is for easier integration with <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js">async/await</a> so you don&#39;t have to put <code>if (err) { return err; }</code> lines everywhere. Leave <a href="https://blog.golang.org/error-handling-and-go">Go programmers</a> to struggle with that sadistic anti-pattern. In server-side JavaScript, we consolidate error handling and shun rote boilerplate like that.</p>
+<h2 id="features-and-type-composition">Features and Type Composition</h2>
+<p>Archetype has 3 key design tenants: it is designed to be composable, inspectable, and extendable. The &quot;composable&quot; principle is reflected in Archetype&#39;s
+custom types API, in that you can build up archetypes from smaller archetypes.
+For example, let&#39;s say you wanted to build a <code>PolygonFeatureType</code> that represents a
+GeoJSON Feature that contains a polygon. You can reuse the existing <code>PolygonType</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PolygonFeatureType = <span class="hljs-keyword">new</span> Archetype({
+  type: {
+    $type: <span class="hljs-string">'string'</span>,
+    $required: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// Must always be 'Feature'</span>
+    $<span class="hljs-keyword">default</span>: <span class="hljs-string">'Feature'</span>,
+    $enum: [<span class="hljs-string">'Feature'</span>]
+  },
+  properties: {
+    <span class="hljs-comment">// `$type: Object` means `properties` is an arbitrary object. No casting</span>
+    <span class="hljs-comment">// or validation is done on its properties.</span>
+    $type: <span class="hljs-built_in">Object</span>,
+    <span class="hljs-comment">// `$default` can also be a function</span>
+    $<span class="hljs-keyword">default</span>: () =&gt; ({}),
+    $required: <span class="hljs-literal">true</span>
+  },
+  geometry: {
+    <span class="hljs-comment">// Perfectly valid. This is what we mean by "composable": an archetype</span>
+    <span class="hljs-comment">// can contain properties whose values must conform to a different archetype.</span>
+    $type: PolygonType,
+    $required: <span class="hljs-literal">true</span>
+  }
+}).compile(<span class="hljs-string">'PolygonFeatureType'</span>);
+</code></pre>
+<p>Better yet, you can use a helper function to generate Feature types for the various GeoJSON types:</p>
+<ul>
+<li>Point</li>
+<li>LineString</li>
+<li>Polygon</li>
+<li>MultiPolygon</li>
+<li>MultiLineString</li>
+</ul>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Feature = GeoJSONType =&gt; <span class="hljs-keyword">new</span> Archetype({
+  type: {
+    $type: <span class="hljs-string">'string'</span>,
+    $required: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">// Must always be 'Feature'</span>
+    $<span class="hljs-keyword">default</span>: <span class="hljs-string">'Feature'</span>,
+    $enum: [<span class="hljs-string">'Feature'</span>]
+  },
+  properties: {
+    <span class="hljs-comment">// `$type: Object` means `properties` is an arbitrary object. No casting</span>
+    <span class="hljs-comment">// or validation is done on its properties.</span>
+    $type: <span class="hljs-built_in">Object</span>,
+    <span class="hljs-comment">// `$default` can also be a function</span>
+    $<span class="hljs-keyword">default</span>: () =&gt; ({}),
+    $required: <span class="hljs-literal">true</span>
+  },
+  geometry: {
+    <span class="hljs-comment">// Perfectly valid. This is what we mean by "composable": an archetype</span>
+    <span class="hljs-comment">// can contain properties whose values must conform to a different archetype.</span>
+    $type: GeoJSONType,
+    $required: <span class="hljs-literal">true</span>
+  }
+}).compile(<span class="hljs-string">`Feature&lt;<span class="hljs-subst">${GeoJSONType.name}</span>`</span>);
+</code></pre>
+<p>Here&#39;s how you use the above <code>Feature()</code> function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> FeaturePolygonType = Feature(PolygonType);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>).inspect(<span class="hljs-keyword">new</span> FeaturePolygonType({
+  geometry: {
+    coordinates: [[
+      [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+      [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+      [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+      [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+      [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+    ]]
+  }
+}), { depth: <span class="hljs-number">10</span> }));
+</code></pre>
+<p>The output looks like this:</p>
+<pre><code>Feature&lt;Polygon&gt; {
+  geometry:
+   Polygon {
+     coordinates:
+      [ [ [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ],
+          [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ],
+          [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ],
+          [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ],
+          [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ],
+     type: <span class="hljs-string">'Polygon'</span> },
+  type: <span class="hljs-string">'Feature'</span>,
+  properties: {} }
+</code></pre><p>You can think of this <code>Feature()</code> function as <a href="https://en.wikipedia.org/wiki/Generics_in_Java">generics</a>
+for runtime type casting. The difference is, of course, generics are only
+for static type checking, whereas archetype is about runtime casting of
+potentially unsafe data.</p>
+<h2 id="moving-on">Moving On</h2>
+<p><a href="https://www.npmjs.com/package/archetype">Archetype</a> has been casting every API call for us for the last year. Time and
+again, its proven to be head and shoulders above every other Node.js validation
+library because of its principled expressiveness. Follow <a href="https://twitter.com/archetype_js">Archetype on Twitter</a> for updates!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171004_geojson_archetype.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Casting and Validating GeoJSON With Archetype", time: new Date() });
+  </script></body></html>
