@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 04 Oct 2017 23:21:43 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Oct 2017 18:12:28 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 4.12: Single Embedded Discriminators]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-4.12-single-embedded-discriminators.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-4.12-single-embedded-discriminators.html</guid>
+            <pubDate>Thu, 12 Oct 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Casting and Validating GeoJSON With Archetype]]></title>
             <link>http://www.thecodebarbarian.com/casting-and-validating-geojson-with-archetype.html</link>

@@ -1,0 +1,194 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 4.12: Single Embedded Discriminators | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 4.12: Single Embedded Discriminators"/><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-4.12-single-embedded-discriminators"/><meta property="og:image" content="https://i.imgur.com/1mS7e2f.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.12-single-embedded-discriminators&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-single-embedded-discriminators" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-single-embedded-discriminators" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.12-single-embedded-discriminators&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-single-embedded-discriminators" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-single-embedded-discriminators" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 4.12: Single Embedded Discriminators </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 12, 2017</span></div></div></div><div class="post-body-text-container"><p>In Mongoose 4.8 we added support for
+<a href="http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators">embedded discriminators in document arrays</a>.
+Embedded discriminators gave you the ability to embed documents with
+different schemas in a single array. For example, let&#39;s say you have a
+<code>batchSchema</code> that contains a property <code>events</code> that represents a list
+of events in the batch. Suppose you have 2 different types of events,
+&#39;Clicked&#39; and &#39;Purchased&#39;. The below code is how you create a document
+array that can embed both &#39;Clicked&#39; and &#39;Purchased&#39; events:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+  { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
+
+<span class="hljs-keyword">const</span> batchSchema = <span class="hljs-keyword">new</span> Schema({ events: [eventSchema] });
+
+<span class="hljs-comment">// `batchSchema.path('events')` gets the mongoose `DocumentArray`</span>
+batchSchema.path(<span class="hljs-string">'events'</span>).discriminator(<span class="hljs-string">'Clicked'</span>, <span class="hljs-keyword">new</span> Schema({
+  element: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  }
+}, { _id: <span class="hljs-literal">false</span> }));
+batchSchema.path(<span class="hljs-string">'events'</span>).discriminator(<span class="hljs-string">'Purchased'</span>, <span class="hljs-keyword">new</span> Schema({
+  product: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  }
+}, { _id: <span class="hljs-literal">false</span> }));
+
+<span class="hljs-keyword">const</span> Batch = mongoose.model(<span class="hljs-string">'Batch'</span>, batchSchema);
+
+<span class="hljs-comment">// This is a valid batch, will store both `element` and `product`</span>
+<span class="hljs-comment">// properties based on the value of `kind`</span>
+<span class="hljs-keyword">const</span> batch = {
+  events: [
+    { kind: <span class="hljs-string">'Clicked'</span>, element: <span class="hljs-string">'Test'</span> },
+    { kind: <span class="hljs-string">'Purchased'</span>, product: <span class="hljs-number">22</span> }
+  ]
+};
+</code></pre>
+<p>This left an obvious gap in our functionality: what about <a href="http://mongoosejs.com/docs/discriminators.html">discriminators</a> for <a href="http://mongoosejs.com/docs/subdocs.html">single nested subdocs</a> as
+opposed to document arrays?</p>
+<h2 id="hello-single-nested-discriminators">Hello, Single Nested Discriminators</h2>
+<p>Let&#39;s adapt the <code>eventSchema</code> from above to use single nested subdocs.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventDetailsSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+  { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
+
+<span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({
+  message: <span class="hljs-built_in">String</span>,
+  createdAt: <span class="hljs-built_in">Date</span>,
+  props: eventDetailsSchema
+});
+
+<span class="hljs-comment">// `batchSchema.path('props')` gets the schema path</span>
+eventSchema.path(<span class="hljs-string">'props'</span>).discriminator(<span class="hljs-string">'Clicked'</span>, <span class="hljs-keyword">new</span> Schema({
+  element: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  }
+}, { _id: <span class="hljs-literal">false</span> }));
+eventSchema.path(<span class="hljs-string">'props'</span>).discriminator(<span class="hljs-string">'Purchased'</span>, <span class="hljs-keyword">new</span> Schema({
+  product: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  }
+}, { _id: <span class="hljs-literal">false</span> }));
+</code></pre>
+<p>The <code>eventSchema.path(&#39;props&#39;)</code> call gets the <a href="http://mongoosejs.com/docs/schematypes.html">mongoose SchemaType</a> associated with
+the path <code>props</code>. The <code>DocumentArray</code> and <code>Embedded</code> (single nested subdocs) SchemaTypes have a <code>discriminator()</code> function for embedded discriminators.</p>
+<p>Here&#39;s how you can use <code>eventSchema</code> to create an event with a
+<code>props</code> property that contains a &#39;Clicked&#39; event:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
+
+<span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> Event({
+  message: <span class="hljs-string">'test'</span>,
+  createdAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),
+  props: {
+    kind: <span class="hljs-string">'Clicked'</span>,
+    element: <span class="hljs-string">'#hero-image'</span>
+  }
+});
+
+<span class="hljs-comment">// Prints:</span>
+<span class="hljs-comment">// { message: 'test',</span>
+<span class="hljs-comment">//   createdAt: 2017-10-12T17:14:54.003Z,</span>
+<span class="hljs-comment">//   props: { element: '#hero-image', kind: 'Clicked' },</span>
+<span class="hljs-comment">//   _id: 59dfa30e3205ff0b689eb081 } undefined</span>
+<span class="hljs-built_in">console</span>.log(e, e.validateSync());
+</code></pre>
+<h2 id="a-more-realistic-example">A More Realistic Example</h2>
+<p>Mongoose has had <a href="http://mongoosejs.com/docs/discriminators.html">discriminators for top-level documents</a> for years,
+so why are we adding discriminators for embedded docs? Because
+<a href="https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3">denormalization</a> is a necessary part of building any
+modern application. <a href="https://en.wikipedia.org/wiki/Third_normal_form">3rd normal form</a> is a major obstacle to sane historical data analysis.</p>
+<p>For example, lets say
+you have a many-to-many relationship between orders and products.
+Orders, once created, don&#39;t change. But if you&#39;re running an online
+store, products change all the time. Products get added, deleted,
+people go in and change the name or image, etc. If you obey 3NF, you
+need soft deletes for products to prevent deleting a product that
+is associated with an order. But if you want to analyze daily sales
+of a product before/after you changed its name (or, if you&#39;re A/B testing different images for the product),
+you&#39;re gonna have a bad time.</p>
+<p>For this example, let&#39;s say you have a &#39;Product&#39; model with 2
+distinct types, &#39;Book&#39; and &#39;Computer&#39;, that have slightly
+different properties. This model will express &#39;Book&#39; and &#39;Computer&#39;
+as top-level discriminators, so you will have a &#39;products&#39; collection
+that contains both books and computers.</p>
+<pre><code><span class="hljs-keyword">const</span> productSchema = <span class="hljs-keyword">new</span> Schema({
+  imageURL: <span class="hljs-built_in">String</span>,
+  name: <span class="hljs-built_in">String</span>
+}, { discriminatorKey: <span class="hljs-string">'kind'</span> });
+
+<span class="hljs-keyword">const</span> bookSchema = <span class="hljs-keyword">new</span> Schema({
+  author: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-keyword">const</span> computerSchema = <span class="hljs-keyword">new</span> Schema({
+  ramGB: <span class="hljs-built_in">Number</span>
+});
+
+<span class="hljs-comment">// This is a top-level discriminator. Products will be saved</span>
+<span class="hljs-comment">// in the 'products' collection, but have variable schema based</span>
+<span class="hljs-comment">// on the value of the discriminator key (the `kind` property)</span>
+<span class="hljs-keyword">const</span> Product = mongoose.model(<span class="hljs-string">'Product'</span>, productSchema);
+<span class="hljs-keyword">const</span> Book = Product.discriminator(<span class="hljs-string">'Book'</span>, bookSchema);
+<span class="hljs-keyword">const</span> Computer = Product.discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);
+</code></pre><p>Now, let&#39;s say you have an &#39;Order&#39; model that has a one-to-one
+relationship with products. In other words, for the sake of this
+example, assume that an order always has exactly one product.
+You can do 3NF and have order only track
+the id of the product, but, once again, that makes historical analysis
+hard when products change over time. With single nested discriminators,
+you can embed the same discriminator logic from the top-level
+discriminator in the &#39;Order&#39; model. Mongoose will even apply all
+your <a href="http://mongoosejs.com/docs/middleware.html">middleware</a> and <a href="http://mongoosejs.com/docs/guide.html#methods">methods</a> from your discriminator schemas to the embedded subdoc.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> orderSchema = <span class="hljs-keyword">new</span> Schema({
+  createdAt: <span class="hljs-built_in">Date</span>,
+  product: productSchema
+});
+
+orderSchema.path(<span class="hljs-string">'product'</span>).discriminator(<span class="hljs-string">'Book'</span>, bookSchema);
+orderSchema.path(<span class="hljs-string">'product'</span>).discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);
+
+<span class="hljs-keyword">const</span> Order = mongoose.model(<span class="hljs-string">'Order'</span>, orderSchema);
+</code></pre>
+<p>Here&#39;s an example of using these two models. Note that, even if
+the product changes, the product that the order embeds does not.</p>
+<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> laptop = <span class="hljs-keyword">await</span> Computer.create({
+    name: <span class="hljs-string">'Asus Vivobook'</span>,
+    ramGB: <span class="hljs-number">32</span>
+  });
+
+  <span class="hljs-keyword">const</span> order = <span class="hljs-keyword">await</span> Order.create({
+    createdAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),
+    product: laptop
+  });
+
+  <span class="hljs-comment">// Created order { __v: 0,</span>
+<span class="hljs-comment">//   createdAt: 2017-10-12T17:58:04.691Z,</span>
+<span class="hljs-comment">//   product:</span>
+<span class="hljs-comment">//     { __v: 0,</span>
+<span class="hljs-comment">//       name: 'Asus Vivobook',</span>
+<span class="hljs-comment">//       ramGB: 32,</span>
+<span class="hljs-comment">//       _id: 59dfad2c5be8450b8a8403ee,</span>
+<span class="hljs-comment">//       kind: 'Computer' },</span>
+<span class="hljs-comment">//  _id: 59dfad2c5be8450b8a8403ef }</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Created order'</span>, order);
+
+<span class="hljs-keyword">await</span> Computer.updateOne({ _id: laptop._id }, { $set: { ramGB: <span class="hljs-number">24</span> } });
+
+<span class="hljs-comment">// Even though the product changed, the order doesn't</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Order after update'</span>, <span class="hljs-keyword">await</span> Order.findById(order._id));
+}
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Single embedded discriminators mean that mongoose&#39;s discriminators API is finally fully fleshed out. This makes denormalizing sophisticated schemas easy. Single embedded discriminators are just one of <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4120--2017-10-02">8 new features in mongoose 4.12</a>, so make sure you upgrade and take advantage of these powerful new features.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171012_mongoose_single_discriminator.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "What's New in Mongoose 4.12: Single Embedded Discriminators", time: new Date() });
+  </script></body></html>
