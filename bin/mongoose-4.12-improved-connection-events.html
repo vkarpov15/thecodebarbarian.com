@@ -1,0 +1,196 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 4.12: Improved Connection Events | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 4.12: Improved Connection Events"/><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-4.12-improved-connection-events"/><meta property="og:image" content="https://i.imgur.com/yMoUYaQ.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="/" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian  </span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><a href="https://www.amazon.com/gp/product/1118832078/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1118832078&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=6961294e8d5bcaf24a7b3319599fae92"><img src="http://i.imgur.com/NjE7AN9.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular </p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.12-improved-connection-events&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-improved-connection-events" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-improved-connection-events" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-4.12-improved-connection-events&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-improved-connection-events" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-4.12-improved-connection-events" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 4.12: Improved Connection Events </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 17, 2017</span></div></div></div><div class="post-body-text-container"><p>I previously wrote about <a href="http://thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html">handling the database server going down with the MongoDB Node.js driver</a>.
+However, I didn&#39;t cover <a href="https://www.npmjs.com/package/mongoose">mongoose</a> because there
+were a couple outstanding pull requests for mongoose that would require changes to the
+article. In particular, connections in mongoose 4.12 <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4120--2017-10-02">emit the <code>reconnectFailed</code> event</a>.
+With that in mind, let&#39;s dig in to how mongoose reacts when your backend MongoDB
+topology goes down.</p>
+<h2 id="handling-single-server-outages">Handling Single Server Outages</h2>
+<p>For this article, I&#39;ll use the <a href="https://www.npmjs.com/package/mongodb-topology-manager">mongodb-topology-manager</a> package to
+stop and start MongoDB. I&#39;ll also use the <a href="http://mongoosejs.com/docs/connections.html#use-mongo-client"><code>useMongoClient</code> option</a> to make connection
+options cleaner and more consistent with the MongoDB Node.js driver.</p>
+<p>Let&#39;s see what happens when the MongoDB server that mongoose is connected to
+shuts down. The <a href="http://mongoosejs.com/docs/connections.html">mongoose connection</a>
+will emit a &#39;disconnected&#39; event when it loses connection, and &#39;reconnect&#39; and &#39;connected&#39;
+events when connection is reestablished. Mongoose uses the <a href="http://thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html">MongoDB driver to manage connections</a>, so it will automatically try to reconnect in the same way the MongoDB driver does.
+Note that these events only get fired for a single server or mongos, <strong>not</strong> when you&#39;re connected to a replica set (more on that later). Here&#39;s a script that uses the topology manager to stop/start a MongoDB instance so you can see these events actually fire:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { Server } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+mongoose.Promise = global.Promise;
+
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Start a single server on port 27000 whose `dbpath` is in the</span>
+  <span class="hljs-comment">// data directory in the current directory</span>
+  <span class="hljs-comment">// Note that this requires a `mongod` executable in your PATH variable</span>
+  <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> Server(<span class="hljs-string">'mongod'</span>, {
+    dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/27000`</span>,
+    port: <span class="hljs-number">27000</span>
+  });
+  <span class="hljs-keyword">await</span> server.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server started...'</span>);
+
+  <span class="hljs-comment">// Connect to the server</span>
+  <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
+
+  <span class="hljs-comment">// When the mongodb server goes down, mongoose emits a 'disconnected' event</span>
+  mongoose.connection.on(<span class="hljs-string">'disconnected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; lost connection'</span>); });
+  <span class="hljs-comment">// The driver tries to automatically reconnect by default, so when the</span>
+  <span class="hljs-comment">// server starts the driver will reconnect and emit a 'reconnect' event.</span>
+  mongoose.connection.on(<span class="hljs-string">'reconnect'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; reconnected'</span>); });
+
+  <span class="hljs-comment">// Mongoose will also emit a 'connected' event along with 'reconnect'. These</span>
+  <span class="hljs-comment">// events are interchangeable.</span>
+  mongoose.connection.on(<span class="hljs-string">'connected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; connected'</span>); });
+
+  <span class="hljs-comment">// Stopping the server will emit a 'disconnected' event</span>
+  <span class="hljs-keyword">await</span> server.stop();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stopped server'</span>);
+
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">2000</span>));
+
+  <span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
+  <span class="hljs-keyword">await</span> server.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
+}
+</code></pre>
+<p>Mongoose and the MongoDB driver both do connection buffering, so you need to shut
+both buffering mechanisms off to make your database operations fail fast when
+mongoose is not connected. By default, mongoose will wait until you reconnect
+before actually executing an operation. For example, the below <code>findOne()</code> callback
+will execute <strong>after</strong> the &#39;reconnect&#39; event is emitted.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// When the mongodb server goes down, mongoose emits a 'disconnected' event</span>
+mongoose.connection.on(<span class="hljs-string">'disconnected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; lost connection'</span>); });
+<span class="hljs-comment">// The driver tries to automatically reconnect by default, so when the</span>
+<span class="hljs-comment">// server starts the driver will reconnect and emit a 'reconnect' event.</span>
+mongoose.connection.on(<span class="hljs-string">'reconnect'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; reconnected'</span>); });
+
+<span class="hljs-comment">// Mongoose will also emit a 'connected' event along with 'reconnect'. These</span>
+<span class="hljs-comment">// events are interchangeable.</span>
+mongoose.connection.on(<span class="hljs-string">'connected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; connected'</span>); });
+
+<span class="hljs-keyword">const</span> MyModel = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({}));
+
+<span class="hljs-comment">// Stopping the server will emit a 'disconnected' event</span>
+<span class="hljs-keyword">await</span> server.stop();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stopped server'</span>);
+
+<span class="hljs-comment">// Using callback by design, because when the driver is disconnected</span>
+<span class="hljs-comment">// it "buffers" operations. If the 'disconnected' event was emitted, the driver</span>
+<span class="hljs-comment">// will hold all operations until it reconnects, so "Finished query"</span>
+<span class="hljs-comment">// won't print until **after** "restarted server" **and** "connected"</span>
+MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished query'</span>, error);
+});
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">2000</span>));
+
+<span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
+<span class="hljs-keyword">await</span> server.start();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
+</code></pre>
+<p>In order to shut off buffering, you need to shut off both <a href="http://mongoosejs.com/docs/connections.html#buffering">mongoose buffering</a> and <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect">MongoDB Node.js driver buffering</a>.
+We have an issue open on <a href="https://github.com/Automattic/mongoose/issues/5720">GitHub regarding consolidating buffering options</a>, so please feel free to comment on this issue on the GitHub comment thread. Below is an example of how you
+can shut off both buffering mechanisms and make your database operations fail
+fast when mongoose is not connected.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
+  useMongoClient: <span class="hljs-literal">true</span>,
+  bufferMaxEntries: <span class="hljs-number">0</span> <span class="hljs-comment">// Shut off the MongoDB driver's buffering mechanism</span>
+});
+
+mongoose.connection.on(<span class="hljs-string">'disconnected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; lost connection'</span>); });
+mongoose.connection.on(<span class="hljs-string">'reconnect'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; reconnected'</span>); });
+mongoose.connection.on(<span class="hljs-string">'connected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; connected'</span>); });
+
+<span class="hljs-comment">// Shut off mongoose's buffering mechanism</span>
+<span class="hljs-keyword">const</span> schemaOptions = { bufferCommands: <span class="hljs-literal">false</span> };
+<span class="hljs-keyword">const</span> MyModel = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({}, schemaOptions));
+
+<span class="hljs-comment">// Stopping the server will emit a 'disconnected' event</span>
+<span class="hljs-keyword">await</span> server.stop();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stopped server'</span>);
+
+<span class="hljs-comment">// Because both mongoose and mongodb driver have buffering disabled, this</span>
+<span class="hljs-comment">// will fail with an error "MongoError: no connection available for operation"</span>
+MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished query'</span>, error);
+});
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">2000</span>));
+
+<span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
+<span class="hljs-keyword">await</span> server.start();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
+</code></pre>
+<h2 id="the-reconnectfailed-event">The <code>reconnectFailed</code> event</h2>
+<p>There are two important options for tuning how long the MongoDB driver tries to
+reconnect to a single server before giving up: <a href="http://mongoosejs.com/docs/connections.html#options"><code>reconnectTries</code> and <code>reconnectInterval</code></a>.
+When connected to a single server and the single server goes down, the
+MongoDB Node.js driver will try to reconnect every <code>reconnectInterval</code> milliseconds <code>reconnectTries</code> times, and give up after it runs out of retry attempts. When the driver gives up reconnecting, it <a href="https://github.com/mongodb/node-mongodb-native/pull/1545">emits a &#39;reconnectFailed&#39; event</a>.
+Mongoose 4.12 now <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4120--2017-10-02">properly surfaces the &#39;reconnectFailed&#39; from the mongoose connection</a>. You can access this event in mongoose 4.11, but you need to reach into the underlying MongoDB driver to get it. Mongoose 4.12 makes it just another connection event.</p>
+<p>Keep in mind that when &#39;reconnectFailed&#39; is emitted, this means that mongoose will
+<strong>never</strong> reconnect to your server, even if the server restarts. The &#39;reconnectFailed&#39;
+emit is likely a fatal error for your application, it means your database connection
+will not be re-established without your intervention.</p>
+<p>Here&#39;s an example of setting <code>reconnectTries</code> and <code>reconnectInterval</code>. The below example executes 2 queries, one while the driver is trying to reconnect and one after the driver gave up trying to reconnect. The query that runs while the driver is trying to reconnect will hang until the driver has emitted &#39;reconnectFailed&#39;, and then give back a &#39;MongoError: failed to reconnect after 2 attempts with interval 100 ms&#39; error.
+The query that runs after the driver gave up trying to reconnect will immediately give back a &#39;MongoError: Topology was destroyed&#39; error.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
+  useMongoClient: <span class="hljs-literal">true</span>,
+  <span class="hljs-comment">// Below means driver will make 2 attempts to reconnect at 100ms intervals,</span>
+  <span class="hljs-comment">// and emit 'reconnectFailed' if it ran out of retries</span>
+  reconnectTries: <span class="hljs-number">2</span>,
+  reconnectInterval: <span class="hljs-number">100</span>
+});
+
+mongoose.connection.on(<span class="hljs-string">'disconnected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; lost connection'</span>); });
+mongoose.connection.on(<span class="hljs-string">'reconnect'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; reconnected'</span>); });
+mongoose.connection.on(<span class="hljs-string">'connected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; connected'</span>); });
+mongoose.connection.on(<span class="hljs-string">'reconnectFailed'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; gave up reconnecting'</span>); });
+
+<span class="hljs-keyword">const</span> MyModel = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({}));
+
+<span class="hljs-comment">// Stopping the server will emit a 'disconnected' event</span>
+<span class="hljs-keyword">await</span> server.stop();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stopped server'</span>);
+
+<span class="hljs-comment">// This query will start while the driver is trying to reconnect. The operation will</span>
+<span class="hljs-comment">// buffer until the server gives up trying to reconnect, and will then get an error</span>
+<span class="hljs-comment">// "MongoError: failed to reconnect after 2 attempts with interval 100 ms"</span>
+MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished query'</span>, error);
+});
+
+<span class="hljs-comment">// Should get the 'reconnectFailed' event somewhere in this interval</span>
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">2000</span>));
+
+<span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
+<span class="hljs-keyword">await</span> server.start();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
+
+<span class="hljs-comment">// Because driver gave up trying to reconnect, will get a "MongoError: Topology was destroyed"</span>
+MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished second query'</span>, error);
+});
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Mongoose 4.12 has 8 new features, including the &#39;reconnectFailed&#39; event and <a href="http://thecodebarbarian.com/mongoose-4.12-single-embedded-discriminators.html">single embedded discriminators</a>. Make sure you upgrade to take advantage of the completed discriminator API and
+improved connection monitoring!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171017_mongoose_reconnect_failed.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "What's New in Mongoose 4.12: Improved Connection Events", time: new Date() });
+  </script></body></html>
