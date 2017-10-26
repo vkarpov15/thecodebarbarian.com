@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 17 Oct 2017 15:35:54 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 26 Oct 2017 04:54:26 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 4.12: Errors for Custom Query Functions]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-4.12-custom-query-function-errors.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-4.12-custom-query-function-errors.html</guid>
+            <pubDate>Wed, 25 Oct 2017 07:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 4.12: Improved Connection Events]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-4.12-improved-connection-events.html</link>
