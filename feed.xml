@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 09 Nov 2017 18:25:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 17 Nov 2017 18:56:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New In Mongoose 4.13: Aggregation Middleware]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-4.13-aggregation-middleware.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-4.13-aggregation-middleware.html</guid>
+            <pubDate>Fri, 17 Nov 2017 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New In Mongoose 4.13: Dynamic Refs and Fields for Virtual Populate]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html</link>
