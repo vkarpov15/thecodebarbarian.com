@@ -30,7 +30,7 @@ async function run() {
 
   // Wait for agenda to connect. Should never fail since connection failures
   // should happen in the `await MongoClient.connect()` call.
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   // Schedule a job for 1 second from now and persist it to mongodb.
   // Jobs are uniquely defined by their name, in this case "hello"
@@ -107,7 +107,7 @@ async function run() {
 
   // Wait for agenda to connect. Should never fail since connection failures
   // should happen in the `await MongoClient.connect()` call.
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   // Schedule a job for 1 second from now and persist it to mongodb.
   // Jobs are uniquely defined by their name, in this case "hello"
@@ -138,7 +138,7 @@ async function run() {
 
   // Wait for agenda to connect. Should never fail since connection failures
   // should happen in the `await MongoClient.connect()` call.
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   // `start()` is how you tell agenda to start processing jobs. If you just
   // want to produce (AKA schedule) jobs then don't call `start()`
@@ -163,7 +163,7 @@ async function run() {
   const db = await MongoClient.connect('mongodb://localhost:27017/agendatest');
   const agenda = new Agenda().mongo(db, 'jobs');
 
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   // The third parameter to `schedule()` is an object that can contain
   // arbitrary data. This data will be stored in the `data` property
@@ -218,7 +218,7 @@ async function run() {
     process.exit(0);
   });
 
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   agenda.start();
 }
@@ -247,7 +247,7 @@ async function run() {
     process.exit(0);
   });
 
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   agenda.start();
 
@@ -293,7 +293,7 @@ async function run() {
     process.exit(0);
   });
 
-  await new Promise(resolve => agenda.once('ready', resolve()));
+  await new Promise(resolve => agenda.once('ready', resolve));
 
   agenda.start();
 
