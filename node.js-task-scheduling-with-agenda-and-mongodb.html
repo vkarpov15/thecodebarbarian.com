@@ -26,7 +26,7 @@
 
   <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
   <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   <span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
   <span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
@@ -88,7 +88,7 @@ $
 
   <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
   <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   <span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
   <span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
@@ -116,7 +116,7 @@ run().catch(error =&gt; {
 
   <span class="hljs-comment">// Wait for agenda to connect. Should never fail since connection failures</span>
   <span class="hljs-comment">// should happen in the `await MongoClient.connect()` call.</span>
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   <span class="hljs-comment">// `start()` is how you tell agenda to start processing jobs. If you just</span>
   <span class="hljs-comment">// want to produce (AKA schedule) jobs then don't call `start()`</span>
@@ -137,7 +137,7 @@ run().catch(error =&gt; {
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
   <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
 
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   <span class="hljs-comment">// The third parameter to `schedule()` is an object that can contain</span>
   <span class="hljs-comment">// arbitrary data. This data will be stored in the `data` property</span>
@@ -185,7 +185,7 @@ run().catch(error =&gt; {
     process.exit(<span class="hljs-number">0</span>);
   });
 
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   agenda.start();
 }
@@ -209,7 +209,7 @@ run().catch(error =&gt; {
     process.exit(<span class="hljs-number">0</span>);
   });
 
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   agenda.start();
 
@@ -252,7 +252,7 @@ run().catch(error =&gt; {
     process.exit(<span class="hljs-number">0</span>);
   });
 
-  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve()));
+  <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; agenda.once(<span class="hljs-string">'ready'</span>, resolve));
 
   agenda.start();
 
