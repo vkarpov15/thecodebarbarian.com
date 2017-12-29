@@ -24,7 +24,7 @@ MongoDB server version: 3.4.1
 >
 ```
 
-The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the server side you need to hit an API. So to start a Next.js app, you need a [`index.js` file](https://github.com/vkarpov15/reading-list/blob/master/index.js) that creates an express app configured to handle Next.js.
+The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the client side you need to hit an API. So to start a Next.js app, you need a [`index.js` file](https://github.com/vkarpov15/reading-list/blob/master/index.js) that creates an express app configured to handle Next.js.
 
 ```javascript
 const { MongoClient } = require('mongodb')
