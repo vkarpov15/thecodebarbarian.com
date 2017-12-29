@@ -17,7 +17,7 @@ MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-nu
     <span class="hljs-string">"createdAt"</span> : ISODate(<span class="hljs-string">"2017-04-26T18:14:17.276Z"</span>)
 }
 &gt;
-</code></pre><p>The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the server side you need to hit an API. So to start a Next.js app, you need a <a href="https://github.com/vkarpov15/reading-list/blob/master/index.js"><code>index.js</code> file</a> that creates an express app configured to handle Next.js.</p>
+</code></pre><p>The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the client side you need to hit an API. So to start a Next.js app, you need a <a href="https://github.com/vkarpov15/reading-list/blob/master/index.js"><code>index.js</code> file</a> that creates an express app configured to handle Next.js.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 <span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/api'</span>)
 <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>)
