@@ -1,0 +1,156 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Preview: Write Your Own Express.js From Scratch | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Preview: Write Your Own Express.js From Scratch"/><meta property="og:url" content="http://www.thecodebarbarian.com/write-your-own-express-from-scratch"/><meta property="og:image" content="https://i.imgur.com/siEy12i.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="http://thecodebarbarian.com/tag/mongodb.html">MongoDB</a></li><li><a href="http://thecodebarbarian.com/tag/angularjs.html">AngularJS</a></li><li><a href="http://thecodebarbarian.com/tag/nodejs.html">NodeJS</a></li><li><a href="http://thecodebarbarian.com/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="https://www.patreon.com/codebarbarian"><img src="https://i.imgur.com/48Z01Md.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">All Time Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/17/angularjs-loopback.html">Creating REST APIs and Clients with LoopBack and AngularJS</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Cursors in Mongoose 4.5</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback Hell is a Myth</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">Testing AngularJS Directives</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fwrite-your-own-express-from-scratch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwrite-your-own-express-from-scratch" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwrite-your-own-express-from-scratch" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fwrite-your-own-express-from-scratch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwrite-your-own-express-from-scratch" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwrite-your-own-express-from-scratch" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Preview: Write Your Own Express.js From Scratch </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">January 05, 2017</span></div></div></div><div class="post-body-text-container"><p><em>This is the beginning of my first subscriber-only article on <a href="https://www.patreon.com/codebarbarian">The Code Barbarian&#39;s Patreon</a>. The article goes into much more depth than normal tech articles and has enough content to fill an ebook, so the whole article is only available to Patreon subscribers. If you like this article, please consider <a href="https://www.patreon.com/codebarbarian">subscribing on Patreon</a> to support future in-depth guides. The next article, &quot;Building Distributed Locking with Node.js and MongoDB&quot;, ships on January 15, 2018!</em></p>
+<p>Over the last 5 years, <a href="https://www.npmjs.com/package/express">Express</a> has become the de facto web server framework
+for Node.js. I wouldn&#39;t be surprised if <a href="https://www.mongodb.com/blog/post/the-mean-stack-mongodb-expressjs-angularjs-and">the MEAN stack</a>
+had something to do with it, because when I first evaluated Express in mid 2012, I compared it against its then biggest competitors like <a href="http://geddyjs.org/">Geddy</a> and <a href="https://news.ycombinator.com/item?id=3639828">Tower</a>. Geddy
+and Tower have since faded into dim memory, but Express has exploded in popularity.
+I immediately loved Express&#39; simplicity and elegance: middleware is the one fundamental concept for adding logic to Express.
+Plugins are just middleware, so dropping in a plugin is always as simple as <code>app.use(plugin)</code>. Once I understood middleware and the APIs available for requests and responses, apps mostly wrote themselves.</p>
+<p>I find the best way to really master a framework is to write your own. Really diving into the internals of a framework gives you a deeper intuition for how to use the framework than years of reading the documentation. I love open source because documentation often stretches the truth or omits important details, but the source code never lies.</p>
+<p>In this article, I&#39;ll walk you through building
+a simplified Express clone called Espresso in 4 steps.
+First, you&#39;ll see how to implement a rudimentary middleware pipeline. Then you&#39;ll see how Express implements <a href="http://expressjs.com/en/4x/api.html#router">routing</a>. Next, you&#39;ll see how Express&#39; recursive routing structure is implemented with a separate router class. Finally, you&#39;ll see some limitations of using Express with async/await and how Express might improve its support for async/await.</p>
+<h2 id="step-1-getting-started-with-middleware">Step 1: Getting Started With Middleware</h2>
+<p>First, let&#39;s implement rudimentary support for Express middleware, without any routing. Modulo <a href="http://expressjs.com/en/guide/error-handling.html">error handling middleware</a>, all Express middleware is a function
+that takes 3 parameters: the request <code>req</code>, the response <code>res</code>, and the <code>next()</code> function. Middleware is executed
+sequentially on each request, and <code>next()</code> is how you tell Express to kick off the next middleware. If a middleware doesn&#39;t call <code>next()</code>, it should make sure to call <code>res.end()</code> to send the HTTP response to the client.</p>
+<pre><code class="lang-javascript">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myMiddleware</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  res.end(<span class="hljs-string">'Hello, world'</span>);
+  next();
+});
+</code></pre>
+<p>Everything is middleware, even <a href="http://expressjs.com/en/guide/routing.html">routes</a> are <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L491-L504">just sugar</a> for pushing middleware onto the stack. In the Express internals, <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L428">the <code>use()</code> function</a> converts
+the middleware function <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L464-L468">into a &#39;Layer&#39;</a>, which is just an object wrapper around the middleware function. The <code>use()</code> function then <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L472">pushes the layer onto the &#39;stack&#39;</a>, which is just an array of layers. With that in mind, let&#39;s create the Espresso class and create a <code>use()</code> function:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Espresso</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>._stack = [];
+  }
+
+  use(middleware) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> middleware !== <span class="hljs-string">'function'</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Middleware must be a function!'</span>);
+    }
+    <span class="hljs-keyword">this</span>._stack.push(middleware);
+  }
+}
+</code></pre>
+<p>Espresso also needs to be able to create an HTTP server that executes all middleware on every request. Express has
+the <a href="http://expressjs.com/en/starter/hello-world.html"><code>listen()</code> function</a> for this, which just <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/application.js#L616-L619">wraps Node.js&#39; built-in <code>http.createServer()</code> function</a>. Here&#39;s
+how Espresso implements this <code>listen()</code> function:</p>
+<pre><code class="lang-javascript">listen(port, callback) {
+  <span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+    <span class="hljs-comment">// `this.handle()` executes all middleware defined on this Espresso</span>
+    <span class="hljs-comment">// app instance, will implement this method next!</span>
+    <span class="hljs-keyword">this</span>.handle(req, res, err =&gt; {
+      <span class="hljs-keyword">if</span> (err) {
+        res.writeHead(<span class="hljs-number">500</span>);
+        res.end(<span class="hljs-string">'Internal Server Error'</span>);
+      }
+    });
+  };
+  <span class="hljs-keyword">return</span> http.createServer(handler).listen({ port }, callback);
+}
+</code></pre>
+<p>The <code>handle()</code> method used above is responsible for executing every middleware. Internally, Express routers have a
+<a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L136">similar <code>handle()</code> method that executes middleware that matches a request</a>.
+For this first step, Espresso won&#39;t implement routing, it will just execute all middleware that was passed in to <code>app.use()</code>. Here&#39;s how you can implement the <code>handle()</code> method by calling <code>next()</code> recursively.</p>
+<pre><code class="lang-javascript">handle(req, res, callback) {
+  <span class="hljs-keyword">let</span> idx = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">const</span> next = (err) =&gt; {
+    <span class="hljs-comment">// If an error occurred, bypass the rest of the pipeline. In Express,</span>
+    <span class="hljs-comment">// you would still need to look for error handling middleware, but</span>
+    <span class="hljs-comment">// this example does not support that.</span>
+    <span class="hljs-keyword">if</span> (err != <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">return</span> setImmediate(() =&gt; callback(err));
+    }
+    <span class="hljs-keyword">if</span> (idx &gt;= <span class="hljs-keyword">this</span>._stack.length) {
+      <span class="hljs-keyword">return</span> setImmediate(() =&gt; callback());
+    }
+
+    <span class="hljs-comment">// Not the same as an internal Express layer, which is an object</span>
+    <span class="hljs-comment">// wrapper around a middleware function. Using the same nomenclature</span>
+    <span class="hljs-comment">// for consistency.</span>
+    <span class="hljs-keyword">const</span> layer = <span class="hljs-keyword">this</span>._stack[idx++];
+    setImmediate(() =&gt; {
+      <span class="hljs-keyword">try</span> {
+        <span class="hljs-comment">// Execute the layer and rely on it to call `next()`</span>
+        layer(req, res, next);
+      } <span class="hljs-keyword">catch</span>(error) {
+        next(error);
+      }
+    });
+  };
+
+  next();
+}
+</code></pre>
+<p>You can find the whole Espresso class on GitHub. You can also find associated mocha tests here. Let&#39;s see the Espresso class in action with a simple &quot;Hello, World&quot; example in a <a href="http://npmjs.com/package/mocha">mocha</a> test using <a href="https://www.npmjs.com/package/axios">axios</a> as an HTTP client.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Espresso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/step1'</span>);
+<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>);
+
+describe(<span class="hljs-string">'Espresso'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> server;
+
+  afterEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// Make sure the server doesn't stay running after the tests are done</span>
+    server &amp;&amp; server.close();
+  });
+
+  it(<span class="hljs-string">'works in the basic Hello, World case'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Espresso();
+    <span class="hljs-comment">// Add some very simple middleware</span>
+    app.use((req, res, next) =&gt; {
+      res.end(<span class="hljs-string">'Hello, world!'</span>);
+      next();
+    });
+    server = app.listen(<span class="hljs-number">3000</span>);
+
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3000'</span>);
+    assert.equal(res.data, <span class="hljs-string">'Hello, world!'</span>);
+  });
+});
+</code></pre>
+<p>To show that this is actually sufficient to reproduce the basics of Express middleware, let&#39;s plug in an
+actual Express plugin into Espresso and see it in action. The <a href="https://www.npmjs.com/package/cors">CORS module</a>
+is an Express plugin that sets the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">AccessControlAllowOrigin header for enabling cross-origin resource sharing</a>, otherwise known as making an HTTP request from Chrome to
+a server that has a different hostname or port than the one currently in your URL bar. Here&#39;s a test that shows
+using <code>cors()</code> with Espresso works as intended with no additional changes.</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">'works with real Express middleware (CORS)'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Espresso();
+  app.use(cors());
+  app.use((req, res, next) =&gt; {
+    res.end(<span class="hljs-string">'Hello with CORS'</span>);
+    next();
+  });
+  server = app.listen(<span class="hljs-number">3000</span>);
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3000'</span>);
+
+  <span class="hljs-comment">// This is the header that `cors()` should set</span>
+  assert.equal(res.headers[<span class="hljs-string">'access-control-allow-origin'</span>], <span class="hljs-string">'*'</span>);
+  assert.equal(res.data, <span class="hljs-string">'Hello with CORS'</span>);
+});
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>That&#39;s the first of 4 steps to building your own Express from scratch. The Express code base may seem baffling at first. I&#39;ve been using Express for years and even then the difference between <code>req.url</code> and <code>req.originalUrl</code> never clicked for me until I wrote this article. But, once you grok the core principles, you&#39;ll be able to easily debug baffling issues and perhaps even contribute to Express itself.</p>
+<p><em>If you liked this article, you can help support my efforts to synthesize the Node.js ecosystem into easily digestible chunks, and get access to this and future articles, by <a href="https://www.patreon.com/codebarbarian">subscribing on Patreon</a>. January 2018&#39;s article is titled &quot;Building Distributed Locking with Node.js and MongoDB&quot;.</em></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180105_express_patreon.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Preview: Write Your Own Express.js From Scratch", time: new Date() });
+  </script></body></html>
