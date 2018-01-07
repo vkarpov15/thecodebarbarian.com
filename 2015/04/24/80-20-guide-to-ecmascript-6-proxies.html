@@ -126,8 +126,8 @@ right.</p>
     <span class="hljs-title">at</span> <span class="hljs-title">Function</span>.<span class="hljs-title">keys</span> (<span class="hljs-params">native</span>)
     <span class="hljs-title">at</span> <span class="hljs-title">formatValue</span> (<span class="hljs-params">util.js:236:21</span>)
     <span class="hljs-title">at</span> <span class="hljs-title">Object</span>.<span class="hljs-title">inspect</span> (<span class="hljs-params">util.js:147:10</span>)</span>
-</code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is
-definitely not undefined. This is a problem with how the proxy was implemented.
+</code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is</p>
+<p>definitely not undefined. This is a problem with how the proxy was implemented.
 Because a proxy has full control over property accesses, there&#39;s no way for
 node to figure out what properties the proxy has other than trying every
 possible string. To be able to inspect the proxy properly, you need to define
