@@ -68,8 +68,8 @@ assert.strictEqual(response, <span class="hljs-literal">null</span>);
 httpBackend.flush();
 assert.deepEqual(response.body, { hello: <span class="hljs-string">'world'</span> });
 </code></pre>
-<p>Like AngularJS&#39; <code>$httpBackend</code> service, <code>superagent-httpbackend</code> lets you
-define a stubbed out backend using <code>.expect()</code>. When you want to trigger
+<p>Like AngularJS&#39; <code>$httpBackend</code> service, <code>superagent-httpbackend</code> lets you</p>
+<p>define a stubbed out backend using <code>.expect()</code>. When you want to trigger
 all the responses, you call <code>httpBackend.flush()</code>. Note that
 <code>httpBackend.flush()</code> is <strong>synchronous</strong>, like <code>$httpBackend</code> and unlike
 the <code>superagent-mocker</code> equivalent.</p>
