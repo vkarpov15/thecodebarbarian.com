@@ -28,17 +28,7 @@
 <p>Next, how do you use a <code>.wasm</code> file in Node.js? In order to use the <code>.wasm</code>, you need to load the file and convert the <a href="https://nodejs.org/api/buffer.html">Node.js buffer</a> that node&#39;s <code>fs</code> library returns into an ArrayBuffer.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> buf = fs.readFileSync(<span class="hljs-string">'./addTwo.wasm'</span>);
-<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(toUint8Array(buf)).exports;
-
-<span class="hljs-comment">// `Wasm` does **not** understand node buffers, but thankfully a node buffer</span>
-<span class="hljs-comment">// is easy to convert to a native Uint8Array.</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toUint8Array</span>(<span class="hljs-params">buf</span>) </span>{
-  <span class="hljs-keyword">var</span> u = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buf.length);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; buf.length; ++i) {
-    u[i] = buf[i];
-  }
-  <span class="hljs-keyword">return</span> u;
-}
+<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buf)).exports;
 
 <span class="hljs-built_in">console</span>.log(lib.addTwo(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// Prints '4'</span>
 <span class="hljs-built_in">console</span>.log(lib.addTwo.toString()); <span class="hljs-comment">// Prints 'function addTwo() { [native code] }'</span>
@@ -46,7 +36,7 @@
 <p>How fast is <code>addTwo</code> in WebAssembly versus a plain old JavaScript implementation? Here&#39;s a trivial benchmark:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> buf = fs.readFileSync(<span class="hljs-string">'./addTwo.wasm'</span>);
-<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(toUint8Array(buf)).exports;
+<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buf)).exports;
 
 <span class="hljs-keyword">const</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 
@@ -69,14 +59,6 @@ suite.
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTwo</span>(<span class="hljs-params">a, b</span>) </span>{
   <span class="hljs-keyword">return</span> a + b;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toUint8Array</span>(<span class="hljs-params">buf</span>) </span>{
-  <span class="hljs-keyword">var</span> u = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buf.length);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; buf.length; ++i) {
-    u[i] = buf[i];
-  }
-  <span class="hljs-keyword">return</span> u;
 }
 </code></pre>
 <pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>node-v7<span class="hljs-number">.2</span><span class="hljs-number">.1</span>-linux-x64/bin/node --expose-wasm ./addTwo.js
@@ -102,7 +84,7 @@ Fastest is js
 <p>Below is another trivial benchmark comparing computing <code>100!</code> with WebAssembly versus with JavaScript:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> buf = fs.readFileSync(<span class="hljs-string">'./factorial.wasm'</span>);
-<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(toArrayBuffer(buf)).exports;
+<span class="hljs-keyword">const</span> lib = Wasm.instantiateModule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(buf).buffer).exports;
 
 <span class="hljs-keyword">const</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 
@@ -129,15 +111,6 @@ suite.
   }
   <span class="hljs-comment">// `x | 0` rounds down, so `2.0001 | 0 === 2`. This helps deal with floating point precision issues like `0.1 + 0.2 !== 0.3`</span>
   <span class="hljs-keyword">return</span> (n * fac(n - <span class="hljs-number">1</span>)) | <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toArrayBuffer</span>(<span class="hljs-params">buf</span>) </span>{
-  <span class="hljs-keyword">var</span> ab = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(buf.length);
-  <span class="hljs-keyword">var</span> view = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(ab);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; buf.length; ++i) {
-    view[i] = buf[i];
-  }
-  <span class="hljs-keyword">return</span> ab;
 }
 </code></pre>
 <pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>node-v7<span class="hljs-number">.2</span><span class="hljs-number">.1</span>-linux-x64/bin/node --expose-wasm ./factorial.js

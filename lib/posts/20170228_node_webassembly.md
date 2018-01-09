@@ -49,17 +49,7 @@ Next, how do you use a `.wasm` file in Node.js? In order to use the `.wasm`, you
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./addTwo.wasm');
-const lib = Wasm.instantiateModule(toUint8Array(buf)).exports;
-
-// `Wasm` does **not** understand node buffers, but thankfully a node buffer
-// is easy to convert to a native Uint8Array.
-function toUint8Array(buf) {
-  var u = new Uint8Array(buf.length);
-  for (var i = 0; i < buf.length; ++i) {
-    u[i] = buf[i];
-  }
-  return u;
-}
+const lib = Wasm.instantiateModule(new Uint8Array(buf)).exports;
 
 console.log(lib.addTwo(2, 2)); // Prints '4'
 console.log(lib.addTwo.toString()); // Prints 'function addTwo() { [native code] }'
@@ -70,7 +60,7 @@ How fast is `addTwo` in WebAssembly versus a plain old JavaScript implementation
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./addTwo.wasm');
-const lib = Wasm.instantiateModule(toUint8Array(buf)).exports;
+const lib = Wasm.instantiateModule(new Uint8Array(buf)).exports;
 
 const Benchmark = require('benchmark');
 
@@ -93,14 +83,6 @@ suite.
 
 function addTwo(a, b) {
   return a + b;
-}
-
-function toUint8Array(buf) {
-  var u = new Uint8Array(buf.length);
-  for (var i = 0; i < buf.length; ++i) {
-    u[i] = buf[i];
-  }
-  return u;
 }
 ```
 
@@ -139,7 +121,7 @@ Below is another trivial benchmark comparing computing `100!` with WebAssembly v
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./factorial.wasm');
-const lib = Wasm.instantiateModule(toArrayBuffer(buf)).exports;
+const lib = Wasm.instantiateModule(new Uint8Array(buf).buffer).exports;
 
 const Benchmark = require('benchmark');
 
@@ -166,15 +148,6 @@ function fac(n) {
   }
   // `x | 0` rounds down, so `2.0001 | 0 === 2`. This helps deal with floating point precision issues like `0.1 + 0.2 !== 0.3`
   return (n * fac(n - 1)) | 0;
-}
-
-function toArrayBuffer(buf) {
-  var ab = new ArrayBuffer(buf.length);
-  var view = new Uint8Array(ab);
-  for (var i = 0; i < buf.length; ++i) {
-    view[i] = buf[i];
-  }
-  return ab;
 }
 ```
 
