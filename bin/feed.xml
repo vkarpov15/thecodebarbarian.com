@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 12 Jan 2018 23:55:33 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 20 Jan 2018 01:13:40 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5: Improved Connections]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-improved-connections.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-improved-connections.html</guid>
+            <pubDate>Fri, 19 Jan 2018 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5: Improved Post Hooks]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-improved-post-hooks.html</link>
