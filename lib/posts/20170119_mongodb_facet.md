@@ -11,7 +11,7 @@ Here's the view you see when searching for products on Amazon:
 
 <a href="http://i.imgur.com/JXjcuZn.png"><img src="http://i.imgur.com/JXjcuZn.png" width="300"></a>
 
-The "Refine By" menu on the left is a classic example of faceted search. When
+The "Refine By" menu on the left is a classic example of faceted search. When you
 only want to see products that are eligible for Amazon prime, the counts in
 the "Refine By" menu update to only reflect products that are eligible for Prime.
 For example, there are 26 products in the $10-$25 range, but only 7 of those
