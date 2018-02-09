@@ -1,0 +1,284 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>A Node.js Perspective on MongoDB 3.6: Change Streams | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="A Node.js Perspective on MongoDB 3.6: Change Streams"/><meta property="og:url" content="http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-change-streams"/><meta property="og:image" content="https://i.imgur.com/J2NBMg5.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="http://thecodebarbarian.com/tag/mongodb.html">MongoDB</a></li><li><a href="http://thecodebarbarian.com/tag/angularjs.html">AngularJS</a></li><li><a href="http://thecodebarbarian.com/tag/nodejs.html">NodeJS</a></li><li><a href="http://thecodebarbarian.com/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="https://www.patreon.com/codebarbarian"><img src="https://i.imgur.com/48Z01Md.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">The 80/20 Guide to Async/Await in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html">Getting Started With WebAssembly in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-36-change-streams&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-36-change-streams" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-36-change-streams" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-36-change-streams&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-36-change-streams" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-36-change-streams" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A Node.js Perspective on MongoDB 3.6: Change Streams </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 09, 2018</span></div></div></div><div class="post-body-text-container"><p>Before MongoDB 3.6, <a href="https://www.mongodb.com/blog/post/tailing-mongodb-oplog-sharded-clusters">tailing the MongoDB oplog</a> was the only way to listen for changes to your MongoDB database. The <a href="https://docs.mongodb.com/manual/core/replica-set-oplog/">oplog</a> is a special collection that logs all inserts and updates that come in to your MongoDB server so other members of the <a href="https://docs.mongodb.com/manual/replication/">replica set</a> can copy them. Tools like <a href="https://themeteorchef.com/tutorials/setting-up-mongodb-oplog-tailing">Meteor</a> and <a href="https://stripe.com/blog/announcing-mosql">MoSQL</a> were built on tailing the oplog. Unfortunately, the oplog was built primarily to support replication internally as opposed to being a user-facing feature. <a href="https://docs.mongodb.com/manual/changeStreams/">Change streams</a> are a usability layer on top of the MongoDB oplog that make change detection in MongoDB much easier than tailing the oplog directly.</p>
+<h2 id="your-first-change-stream">Your First Change Stream</h2>
+<p>Change streams <a href="https://docs.mongodb.com/manual/changeStreams/">require a MongoDB replica set</a>. You&#39;ll get an error if you try to open one against a standalone MongoDB instance. For this article, I&#39;ll use the <a href="https://www.npmjs.com/package/mongodb-topology-manager">mongodb-topology-manager Node.js package</a> to start up a MongoDB replica set so you don&#39;t have to do it yourself. Once you set up a replica set, you will be able to create a change stream using the the <code>watch()</code> method on <a href="http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch">MongoDB driver collections</a> or <a href="http://mongoosejs.com/docs/api.html#watch_watch">Mongoose models</a>.</p>
+<p>Below is a standalone script <code>changestream.js</code> that starts up a MongoDB replica set, creates a change stream, and inserts a document to trigger the change stream. The only requirements to run this script are a <code>mongod</code> in your PATH, Node.js, and running <code>npm install mongodb mongodb-topology manager</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'start'</span>);
+  <span class="hljs-keyword">const</span> bind_ip = <span class="hljs-string">'localhost'</span>;
+  <span class="hljs-comment">// Starts a 3-node replica set on ports 31000, 31001, 31002, replica set</span>
+  <span class="hljs-comment">// name is "rs0".</span>
+  <span class="hljs-keyword">const</span> replSet = <span class="hljs-keyword">new</span> ReplSet(<span class="hljs-string">'mongod'</span>, [
+    { options: { port: <span class="hljs-number">31000</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31000`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31001</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31001`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31002</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31002`</span>, bind_ip } }
+  ], { replSet: <span class="hljs-string">'rs0'</span> });
+
+  <span class="hljs-comment">// Initialize the replica set</span>
+  <span class="hljs-keyword">await</span> replSet.purge();
+  <span class="hljs-keyword">await</span> replSet.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Replica set started...'</span>);
+
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/'</span> +
+    <span class="hljs-string">'test?replicaSet=rs0'</span>;
+  <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> mongodb.MongoClient.connect(uri);
+  <span class="hljs-keyword">const</span> db = client.db(<span class="hljs-string">'test'</span>);
+
+  <span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a</span>
+  <span class="hljs-comment">// change in the database</span>
+  db.collection(<span class="hljs-string">'Person'</span>).watch().
+    on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+
+  <span class="hljs-comment">// Insert a doc, will trigger the change stream handler above</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).insertOne({ name: <span class="hljs-string">'Axl Rose'</span> });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
+}
+</code></pre>
+<p>The output of running the above script looks like this:</p>
+<pre><code>$ node changestream.js
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">03.986</span>Z <span class="hljs-string">'start'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">18.704</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">18.751</span>Z <span class="hljs-string">'Inserting doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">18.780</span>Z <span class="hljs-string">'Inserted doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">18.815</span>Z { _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">de</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">02</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">de</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">48</span> <span class="hljs-attr">09</span> <span class="hljs-attr">65</span> <span class="hljs-attr">15</span> <span class="hljs-attr">af</span> <span class="hljs-attr">26</span> <span class="hljs-attr">a4</span> <span class="hljs-attr">6b</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">c3</span> <span class="hljs-attr">c3</span> <span class="hljs-attr">fa</span> <span class="hljs-attr">c9</span> <span class="hljs-attr">27</span> <span class="hljs-attr">e6</span> <span class="hljs-attr">49</span> <span class="hljs-attr">1a</span> <span class="hljs-attr">9a</span> <span class="hljs-attr">7b</span> <span class="hljs-attr">5b</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">f4</span> <span class="hljs-attr">e7</span> <span class="hljs-attr">5b</span> <span class="hljs-attr">12</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5a7ddee248096515af26a46b, name: 'Axl Rose' },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7ddee248096515af26a46b } }
+^C
+$</span>
+</code></pre><p>Change stream data has several important properties:</p>
+<ul>
+<li><code>operationType</code>: must be one of &#39;insert&#39;, &#39;update&#39;, &#39;replace&#39;, &#39;delete&#39;, or &#39;invalidate&#39;. See <a href="https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format">this spec</a>. Other than &#39;invalidate&#39;, these correspond to MongoDB CRUD operations in the obvious way, <code>insertOne()</code> becomes &#39;insert&#39;, <code>updateOne()</code> becomes &#39;update&#39;, <code>replaceOne()</code> becomes &#39;replace&#39;, and <code>deleteOne()</code> becomes &#39;delete&#39;. Likewise, <code>insertMany()</code> gets translated to multiple &#39;insert&#39; events in a change stream.</li>
+<li><code>ns</code>: the database name and collection this change happened on.</li>
+<li><code>fullDocument</code>: the current state of the document at the time that this operation occurred. More on this later.</li>
+</ul>
+<p>Operations that affect multiple documents, like <code>insertMany()</code>, generate one &#39;change&#39; event per affected document. For example, if you call <code>insertMany()</code> with 2 documents, you&#39;ll get two &#39;change&#39; events. In general, each &#39;change&#39; event describes changes to a <strong>single</strong> document.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a change in the database</span>
+db.collection(<span class="hljs-string">'Person'</span>).watch().on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+
+<span class="hljs-comment">// Insert a doc, will trigger the change stream handler above</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
+<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).insertMany([{ name: <span class="hljs-string">'Axl Rose'</span> }, { name: <span class="hljs-string">'Slash'</span> }]);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).find().toArray());
+</code></pre>
+<p>Below is the output with the above changes to <code>changestream.js</code>:</p>
+<pre><code>$ node changestream.js
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">01</span>:<span class="hljs-number">50.366</span>Z <span class="hljs-string">'start'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">02</span>:<span class="hljs-number">03.555</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">02</span>:<span class="hljs-number">03.609</span>Z <span class="hljs-string">'Inserting doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">02</span>:<span class="hljs-number">03.632</span>Z <span class="hljs-string">'Inserted doc'</span>
+[ { _id: <span class="hljs-number">5</span>a7de21ba1a72d1c38d7d659, name: <span class="hljs-string">'Axl Rose'</span> },
+  { _id: <span class="hljs-number">5</span>a7de21ba1a72d1c38d7d65a, name: <span class="hljs-string">'Slash'</span> } ]
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">02</span>:<span class="hljs-number">03.675</span>Z { _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">1b</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">07</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">1b</span> <span class="hljs-attr">a1</span> <span class="hljs-attr">a7</span> <span class="hljs-attr">2d</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">38</span> <span class="hljs-attr">d7</span> <span class="hljs-attr">d6</span> <span class="hljs-attr">59</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">a0</span> <span class="hljs-attr">fc</span> <span class="hljs-attr">79</span> <span class="hljs-attr">4e</span> <span class="hljs-attr">61</span> <span class="hljs-attr">da</span> <span class="hljs-attr">40</span> <span class="hljs-attr">d4</span> <span class="hljs-attr">89</span> <span class="hljs-attr">4f</span> <span class="hljs-attr">f7</span> <span class="hljs-attr">8a</span> <span class="hljs-attr">62</span> <span class="hljs-attr">ae</span> <span class="hljs-attr">41</span> <span class="hljs-attr">15</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5a7de21ba1a72d1c38d7d659, name: 'Axl Rose' },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7de21ba1a72d1c38d7d659 } }
+2018-02-09T18:02:03.679Z { _id:
+   { _data:
+      Binary {
+        _bsontype: 'Binary',
+        sub_type: 0,
+        position: 49,
+        buffer: <span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">1b</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">08</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7d</span> <span class="hljs-attr">e2</span> <span class="hljs-attr">1b</span> <span class="hljs-attr">a1</span> <span class="hljs-attr">a7</span> <span class="hljs-attr">2d</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">38</span> <span class="hljs-attr">d7</span> <span class="hljs-attr">d6</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">a0</span> <span class="hljs-attr">fc</span> <span class="hljs-attr">79</span> <span class="hljs-attr">4e</span> <span class="hljs-attr">61</span> <span class="hljs-attr">da</span> <span class="hljs-attr">40</span> <span class="hljs-attr">d4</span> <span class="hljs-attr">89</span> <span class="hljs-attr">4f</span> <span class="hljs-attr">f7</span> <span class="hljs-attr">8a</span> <span class="hljs-attr">62</span> <span class="hljs-attr">ae</span> <span class="hljs-attr">41</span> <span class="hljs-attr">15</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5a7de21ba1a72d1c38d7d65a, name: 'Slash' },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7de21ba1a72d1c38d7d65a } }
+^C
+$</span>
+</code></pre><h2 id="updates-and-the-fulldocument-option">Updates and the <code>fullDocument</code> Option</h2>
+<p>The change document for inserts and replaces is straightforward because <code>fullDocument</code>, the document that you&#39;re inserting, will always be present. Updates are slightly trickier, by default <code>operationType = &#39;update&#39;</code> means <code>fullDocument</code> will <strong>not</strong> be present. Instead, there will be an <code>updateDescription</code> property that describes the changes to the document. For example, below is a modified <code>changestream.js</code> that inserts a document and then does an <code>updateOne()</code> on the document.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'start'</span>);
+  <span class="hljs-keyword">const</span> bind_ip = <span class="hljs-string">'localhost'</span>;
+  <span class="hljs-comment">// Starts a 3-node replica set on ports 31000, 31001, 31002, replica set</span>
+  <span class="hljs-comment">// name is "rs0".</span>
+  <span class="hljs-keyword">const</span> replSet = <span class="hljs-keyword">new</span> ReplSet(<span class="hljs-string">'mongod'</span>, [
+    { options: { port: <span class="hljs-number">31000</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31000`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31001</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31001`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31002</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31002`</span>, bind_ip } }
+  ], { replSet: <span class="hljs-string">'rs0'</span> });
+
+  <span class="hljs-comment">// Initialize the replica set</span>
+  <span class="hljs-keyword">await</span> replSet.purge();
+  <span class="hljs-keyword">await</span> replSet.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Replica set started...'</span>);
+
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/test?replicaSet=rs0'</span>);
+  <span class="hljs-keyword">const</span> db = client.db(<span class="hljs-string">'test'</span>);
+
+  <span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a change in the database</span>
+  db.collection(<span class="hljs-string">'Person'</span>).watch().on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).insertOne({ name: <span class="hljs-string">'Axl Rose'</span> });
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Updating doc'</span>);
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).updateOne({ name: <span class="hljs-string">'Axl Rose'</span> }, { $set: { name: <span class="hljs-string">'Slash'</span> } });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Updated doc'</span>);
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).findOne());
+}
+</code></pre>
+<p>The output looks like what you see below:</p>
+<pre><code>$ node changestream.js
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">22.379</span>Z <span class="hljs-string">'start'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">35.806</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">35.878</span>Z <span class="hljs-string">'Inserting doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">35.909</span>Z <span class="hljs-string">'Updating doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">35.919</span>Z <span class="hljs-string">'Updated doc'</span>
+{ _id: <span class="hljs-number">5</span>a7e1cd3b819da11d05cd0d5, name: <span class="hljs-string">'Slash'</span> }
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">35.949</span>Z { _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">d3</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">07</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">d3</span> <span class="hljs-attr">b8</span> <span class="hljs-attr">19</span> <span class="hljs-attr">da</span> <span class="hljs-attr">11</span> <span class="hljs-attr">d0</span> <span class="hljs-attr">5c</span> <span class="hljs-attr">d0</span> <span class="hljs-attr">d5</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">13</span> <span class="hljs-attr">f7</span> <span class="hljs-attr">37</span> <span class="hljs-attr">b8</span> <span class="hljs-attr">c7</span> <span class="hljs-attr">50</span> <span class="hljs-attr">4d</span> <span class="hljs-attr">3a</span> <span class="hljs-attr">b3</span> <span class="hljs-attr">a4</span> <span class="hljs-attr">7c</span> <span class="hljs-attr">be</span> <span class="hljs-attr">70</span> <span class="hljs-attr">56</span> <span class="hljs-attr">0e</span> <span class="hljs-attr">16</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5a7e1cd3b819da11d05cd0d5, name: 'Axl Rose' },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7e1cd3b819da11d05cd0d5 } }
+2018-02-09T22:12:35.953Z { _id:
+   { _data:
+      Binary {
+        _bsontype: 'Binary',
+        sub_type: 0,
+        position: 49,
+        buffer: <span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">d3</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">08</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">d3</span> <span class="hljs-attr">b8</span> <span class="hljs-attr">19</span> <span class="hljs-attr">da</span> <span class="hljs-attr">11</span> <span class="hljs-attr">d0</span> <span class="hljs-attr">5c</span> <span class="hljs-attr">d0</span> <span class="hljs-attr">d5</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">13</span> <span class="hljs-attr">f7</span> <span class="hljs-attr">37</span> <span class="hljs-attr">b8</span> <span class="hljs-attr">c7</span> <span class="hljs-attr">50</span> <span class="hljs-attr">4d</span> <span class="hljs-attr">3a</span> <span class="hljs-attr">b3</span> <span class="hljs-attr">a4</span> <span class="hljs-attr">7c</span> <span class="hljs-attr">be</span> <span class="hljs-attr">70</span> <span class="hljs-attr">56</span> <span class="hljs-attr">0e</span> <span class="hljs-attr">16</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'update',
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7e1cd3b819da11d05cd0d5 },
+  updateDescription: { updatedFields: { name: 'Slash' }, removedFields: [] } }
+^C
+$</span>
+</code></pre><p>The <code>updateDescription</code> is useful, but usually you will want the current state of the document as well. In order to get the <code>fullDocument</code> property for updates, you need to <a href="https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format">set the <code>fullDocument</code> option on the <code>watch()</code> function to the string &#39;updateLookup&#39;</a>:</p>
+<pre><code class="lang-javascript">db.collection(<span class="hljs-string">'Person'</span>).
+  watch({ fullDocument: <span class="hljs-string">'updateLookup'</span> }).
+  on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+</code></pre>
+<p>The output document is shown below. Note that <code>fullDocument</code> contains the document <strong>after</strong> the update was applied.</p>
+<pre><code class="lang-javascript">{ _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1f</span> <span class="hljs-attr">16</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">03</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">1f</span> <span class="hljs-attr">16</span> <span class="hljs-attr">35</span> <span class="hljs-attr">c9</span> <span class="hljs-attr">cb</span> <span class="hljs-attr">1b</span> <span class="hljs-attr">22</span> <span class="hljs-attr">1c</span> <span class="hljs-attr">a7</span> <span class="hljs-attr">52</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">b0</span> <span class="hljs-attr">e6</span> <span class="hljs-attr">d0</span> <span class="hljs-attr">4d</span> <span class="hljs-attr">49</span> <span class="hljs-attr">ba</span> <span class="hljs-attr">45</span> <span class="hljs-attr">ed</span> <span class="hljs-attr">ac</span> <span class="hljs-attr">05</span> <span class="hljs-attr">a6</span> <span class="hljs-attr">72</span> <span class="hljs-attr">94</span> <span class="hljs-attr">bf</span> <span class="hljs-attr">21</span> <span class="hljs-attr">16</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'update',
+  fullDocument: { _id: 5a7e1f1635c9cb1b221ca752, name: 'Slash' },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5a7e1f1635c9cb1b221ca752 },
+  updateDescription: { updatedFields: { name: 'Slash' }, removedFields: [] } }</span>
+</code></pre>
+<h2 id="change-streams-in-mongoose">Change Streams in Mongoose</h2>
+<p><a href="http://thecodebarbarian.com/introducing-mongoose-5.html#change-streams">Mongoose 5.x has rudimentary support for change streams</a>. Currently, mongoose doesn&#39;t provide any special features on top of change streams beyond <a href="http://mongoosejs.com/docs/api.html#watch_watch"><code>Model.watch()</code> function</a>.
+Below is the initial <code>changestream.js</code> file using Mongoose instead of the MongoDB driver.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'start'</span>);
+  <span class="hljs-keyword">const</span> bind_ip = <span class="hljs-string">'localhost'</span>;
+  <span class="hljs-comment">// Starts a 3-node replica set on ports 31000, 31001, 31002, replica set</span>
+  <span class="hljs-comment">// name is "rs0".</span>
+  <span class="hljs-keyword">const</span> replSet = <span class="hljs-keyword">new</span> ReplSet(<span class="hljs-string">'mongod'</span>, [
+    { options: { port: <span class="hljs-number">31000</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31000`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31001</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31001`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31002</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31002`</span>, bind_ip } }
+  ], { replSet: <span class="hljs-string">'rs0'</span> });
+
+  <span class="hljs-comment">// Initialize the replica set</span>
+  <span class="hljs-keyword">await</span> replSet.purge();
+  <span class="hljs-keyword">await</span> replSet.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Replica set started...'</span>);
+
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/'</span> +
+    <span class="hljs-string">'test?replicaSet=rs0'</span>;
+  <span class="hljs-keyword">await</span> mongoose.connect(uri);
+
+  <span class="hljs-comment">// To work around "MongoError: cannot open $changeStream for non-existent</span>
+  <span class="hljs-comment">// database: test" for this example</span>
+  <span class="hljs-keyword">await</span> mongoose.connection.createCollection(<span class="hljs-string">'people'</span>);
+
+  <span class="hljs-keyword">const</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span> }));
+
+  <span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a</span>
+  <span class="hljs-comment">// change in the database</span>
+  Person.watch().
+    on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+
+  <span class="hljs-comment">// Insert a doc, will trigger the change stream handler above</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
+  <span class="hljs-keyword">await</span> Person.create({ name: <span class="hljs-string">'Axl Rose'</span> });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
+}
+</code></pre>
+<p>The output, shown below, is the same as the MongoDB driver example. Mongoose currently does <strong>not</strong> do any special casting with &#39;change&#39; events.</p>
+<pre><code>$ node changestream.js
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">07.468</span>Z <span class="hljs-string">'start'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">20.826</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">20.946</span>Z <span class="hljs-string">'Inserting doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">21.007</span>Z <span class="hljs-string">'Inserted doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">21.010</span>Z { _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">21</span> <span class="hljs-attr">b1</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">01</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">21</span> <span class="hljs-attr">b0</span> <span class="hljs-attr">e5</span> <span class="hljs-attr">0e</span> <span class="hljs-attr">0d</span> <span class="hljs-attr">20</span> <span class="hljs-attr">65</span> <span class="hljs-attr">ea</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">2b</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">e3</span> <span class="hljs-attr">7e</span> <span class="hljs-attr">36</span> <span class="hljs-attr">84</span> <span class="hljs-attr">9e</span> <span class="hljs-attr">10</span> <span class="hljs-attr">47</span> <span class="hljs-attr">50</span> <span class="hljs-attr">a7</span> <span class="hljs-attr">3d</span> <span class="hljs-attr">a9</span> <span class="hljs-attr">92</span> <span class="hljs-attr">f0</span> <span class="hljs-attr">52</span> <span class="hljs-attr">aa</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5a7e21b0e50e0d2065ea5a2b, name: 'Axl Rose', __v: 0 },
+  ns: { db: 'test', coll: 'people' },
+  documentKey: { _id: 5a7e21b0e50e0d2065ea5a2b } }
+^C
+$</span>
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p>Change streams are the most prominent new feature in MongoDB 3.6, but they&#39;re far from the only one. <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-array-filters.html">Array filters</a> give you sophisticated tools for updating arrays. The aggregation framework has <a href="https://docs.mongodb.com/manual/release-notes/3.6/#aggregation">numerous new operators and stages</a>. Make sure you upgrade and try out all these new features, just remember that you first upgrade <a href="http://npmjs.com/package/mongodb">the MongoDB driver</a> to <code>&gt;= 3.0.0</code> or <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> to <code>&gt;= 5.0.0</code>.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180209_mongodb_change_streams.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "A Node.js Perspective on MongoDB 3.6: Change Streams", time: new Date() });
+  </script></body></html>
