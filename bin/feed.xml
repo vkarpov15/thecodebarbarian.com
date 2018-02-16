@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 09 Feb 2018 21:59:46 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 16 Feb 2018 21:53:09 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Node.js Perspective on MongoDB 3.6: $lookup and $expr]]></title>
+            <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-lookup-expr.html</link>
+            <guid>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-lookup-expr.html</guid>
+            <pubDate>Fri, 16 Feb 2018 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.6: Change Streams]]></title>
             <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-change-streams.html</link>
