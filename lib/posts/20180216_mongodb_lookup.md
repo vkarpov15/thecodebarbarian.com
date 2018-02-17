@@ -168,7 +168,7 @@ const docs = await db.collection('StockHolding').aggregate([
               // use `$and`, otherwise you get an error 'MongoError: An
               // object representing an expression must have exactly one field'
               $and: [
-                // Fields prefixed with one '$' are in the 'Stock collection,
+                // Fields prefixed with one '$' are in the 'Stock' collection,
                 // that is, the `from` collection. Fields prefixed with '$$'
                 // are from the `let` above
                 {
