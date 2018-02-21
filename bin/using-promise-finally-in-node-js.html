@@ -1,0 +1,184 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Using Promise.prototype.finally in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Using Promise.prototype.finally in Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/using-promise-finally-in-node-js"/><meta property="og:image" content="https://i.imgur.com/oLw5tRE.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="http://thecodebarbarian.com/tag/mongodb.html">MongoDB</a></li><li><a href="http://thecodebarbarian.com/tag/angularjs.html">AngularJS</a></li><li><a href="http://thecodebarbarian.com/tag/nodejs.html">NodeJS</a></li><li><a href="http://thecodebarbarian.com/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="https://www.patreon.com/codebarbarian"><img src="https://i.imgur.com/48Z01Md.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">The 80/20 Guide to Async/Await in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html">Getting Started With WebAssembly in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-promise-finally-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-promise-finally-in-node-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-promise-finally-in-node-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-promise-finally-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-promise-finally-in-node-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-promise-finally-in-node-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Using Promise.prototype.finally in Node.js </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 21, 2018</span></div></div></div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally"><code>Promise.prototype.finally()</code></a> recently reached <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">stage 4</a> of the TC39 proposal process. This means the <code>Promise.prototype.finally()</code> proposal was accepted and is now part of the <a href="https://tc39.github.io/ecma262/#sec-promise.prototype.finally">latest draft of the ECMAScript spec</a>, and it is only a matter of time before it lands in Node.js. This article will show you how to use <code>Promise.prototype.finally()</code> and how to write your own simplified polyfill.</p>
+<p><img src="https://i.imgur.com/Xxlnt5M.png"></p>
+<h2 id="what-is-promise-prototype-finally-">What is <code>Promise.prototype.finally()</code>?</h2>
+<p>Suppose you&#39;ve created a new promise:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseThatResolves = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve) =&gt; {
+  setTimeout(() =&gt; resolve(<span class="hljs-string">'Hello, World'</span>), <span class="hljs-number">1000</span>);
+});
+
+<span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops!'</span>)), <span class="hljs-number">1000</span>);
+});
+</code></pre>
+<p>You can chain promises together using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code> function</a>.</p>
+<pre><code class="lang-javascript">promiseThatResolves.then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+</code></pre>
+<p>Note that <code>.then()</code> takes two function parameters. The first is <code>onResolved()</code>, which gets called if the promise resolves. The second is <code>onRejected()</code>, which gets called if the promise rejects. A promise is a state machine that can be in one of 3 states:</p>
+<ul>
+<li>Pending: the underlying operation is in progress and the promise has neither resolved nor rejected yet</li>
+<li>Resolved: the underlying operation has completed successfully and the promise now has an associated value</li>
+<li>Rejected: the underlying operation failed for some reason and the promise now has an associated error</li>
+</ul>
+<p>Furthermore, a promise that is resolved or rejected is called &quot;settled.&quot;</p>
+<p><img src="https://i.imgur.com/iB1wjrw.png"></p>
+<p>While <code>.then()</code> is the core mechanism for promise chaining, it isn&#39;t the only one. Promises also have a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code> function</a> that is handy for error handling.</p>
+<pre><code class="lang-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+</code></pre>
+<p>The <code>.catch()</code> function is just a convenient shorthand for <code>.then()</code> with an <code>onRejected</code> handler and no <code>onResolved</code> handler:</p>
+<pre><code class="lang-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+<span class="hljs-comment">// Equivalent</span>
+promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+</code></pre>
+<p>Like <code>.catch()</code>, the <code>.finally()</code> function is a convenient shorthand for <code>.then()</code>. The difference is that <code>.finally()</code> executes a function <code>onFinally</code> when the promise is settled, that is, when it is either resolved or rejected. The <code>.finally()</code> function is not part of any Node.js release at the time of this writing, but the <a href="https://www.npmjs.com/package/promise.prototype.finally"><code>promise.prototype.finally</code> module on npm</a> has a polyfill.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-keyword">const</span> promiseThatResolves = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve) =&gt; {
+  setTimeout(() =&gt; resolve(<span class="hljs-string">'Hello, World'</span>), <span class="hljs-number">1000</span>);
+});
+
+<span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops!'</span>)), <span class="hljs-number">1000</span>);
+});
+
+promiseThatResolves.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'resolved'</span>));
+promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));
+</code></pre>
+<p>The above script will print both &#39;resolved&#39; and &#39;rejected&#39;, because the <code>onFinally</code> handler gets called when the promise is settled, regardless of whether it is resolved or rejected. However, the <code>onFinally</code> handler does <strong>not</strong> receive any parameters, so you can&#39;t tell whether the promise was resolved or rejected.</p>
+<p>The <code>finally()</code> function returns a promise, so you can chain more <code>.then()</code>, <code>.catch()</code>, and <code>.finally()</code> calls onto the return value. The promise that <code>finally()</code> returns will resolve to whatever the promise it was chained onto would resolve to. For example, the below script will still print &#39;foo&#39;, even though the <code>onFinally</code> handler returns &#39;bar&#39;.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
+  <span class="hljs-comment">// Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough</span>
+  <span class="hljs-comment">// for resolved values and rejected errors</span>
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
+</code></pre>
+<p>Similarly, the below script will still print &#39;Woops!&#39;, even though the <code>onFinally</code> function didn&#39;t trigger any errors.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>)).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
+  <span class="hljs-comment">// Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough</span>
+  <span class="hljs-comment">// for resolved values and rejected errors</span>
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
+</code></pre>
+<p>The above script demonstrates an important detail of working with <code>finally()</code>: <code>finally()</code> does <strong>not</strong> handle promise rejections for you. How <code>finally()</code> handles promise rejections merits more careful study.</p>
+<h2 id="error-handling">Error Handling</h2>
+<p>The <code>finally()</code> function is <strong>not</strong> meant to handle promise rejections. As a matter of fact, it <a href="https://github.com/tc39/proposal-promise-finally/blob/fd934c0b42d59bf8d9446e737ba14d50a9067216/polyfill.js#L40">explicitly rethrows errors</a> after your <code>onFinally()</code> function executes. The below script will print an unhandled promise rejection warning.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops!'</span>)), <span class="hljs-number">1000</span>);
+});
+
+promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));
+</code></pre>
+<pre><code>$ node <span class="hljs-keyword">finally</span>.js
+rejected
+(node:<span class="hljs-number">5342</span>) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: <span class="hljs-number">2</span>): <span class="hljs-built_in">Error</span>: woops!
+(node:<span class="hljs-number">5342</span>) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.
+$
+</code></pre><p>Like with <a href="https://www.w3schools.com/jsref/jsref_try_catch.asp"><code>try/catch/finally</code></a>, you typically want to chain <code>.finally()</code> after a <code>.catch()</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops!'</span>)), <span class="hljs-number">1000</span>);
+});
+
+promiseThatRejects.
+  <span class="hljs-keyword">catch</span>(() =&gt; { <span class="hljs-comment">/* ignore the error */</span> }).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>));
+</code></pre>
+<p>However, the <code>finally()</code> function returns a promise, so there&#39;s nothing stopping you from chaining <code>.catch()</code> after <code>.finally()</code>. In particular, if your <code>onFinally</code> handler can error out, for example if it makes an HTTP request, you should add a <code>.catch()</code> at the end to handle any errors that may occur.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+
+<span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+promiseFinally.shim();
+
+<span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops!'</span>)), <span class="hljs-number">1000</span>);
+});
+
+promiseThatRejects.
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>)).
+  <span class="hljs-comment">// No unhandled promise rejection because there's a `.catch()`</span>
+  <span class="hljs-keyword">catch</span>(() =&gt; { <span class="hljs-comment">/* ignore the error */</span> });
+</code></pre>
+<h2 id="simplified-polyfill">Simplified Polyfill</h2>
+<p>I think that the easiest way to really grok something is to <a href="http://es2015generators.com/">write your own implementation</a>. The <code>.finally()</code> function is a good candidate for this because the <a href="https://github.com/tc39/proposal-promise-finally/blob/fd934c0b42d59bf8d9446e737ba14d50a9067216/polyfill.js">official polyfill</a> is only 45 lines, and most of it isn&#39;t necessary for a simple proof of concept.</p>
+<p>Here are the test cases this simple <code>finally()</code> polyfill will work to address. The below script should print &#39;foo&#39; 5 times.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Return value is ignored, promise resolves normally</span>
+<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
+
+<span class="hljs-comment">// Return value is ignored, promise rejects normally</span>
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>)).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
+
+<span class="hljs-comment">// Error in the `onFinally` handler, should reject with the new error</span>
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'bar'</span>)).
+  <span class="hljs-keyword">finally</span>(() =&gt; { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>); }).
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
+
+<span class="hljs-comment">// The `onFinally` handler returns a rejected promise,</span>
+<span class="hljs-comment">// should reject with the new error</span>
+<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'bar'</span>)).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'foo'</span>))).
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
+
+<span class="hljs-comment">// The `onFinally` handler returns a promise, should wait until the promise</span>
+<span class="hljs-comment">// settles before continuing.</span>
+<span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
+<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>).
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>))).
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res, <span class="hljs-built_in">Date</span>.now() - start));
+</code></pre>
+<p>Below is the simplified polyfill.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+<span class="hljs-built_in">Promise</span>.prototype.finally = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFinally</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(
+    <span class="hljs-comment">/* onResolved */</span>
+    res =&gt; <span class="hljs-built_in">Promise</span>.resolve(onFinally()).then(() =&gt; res),
+    <span class="hljs-comment">/* onRejected */</span>
+    err =&gt; <span class="hljs-built_in">Promise</span>.resolve(onFinally()).then(() =&gt; { <span class="hljs-keyword">throw</span> err; })
+  );
+};
+</code></pre>
+<p>The key idea behind this implementation is that the <code>onFinally</code> handler may return a promise. If it does, you need to <code>.then()</code> on that promise and resolve or reject with what the initial promise settled to. You can explicitly check if the return value from the <code>onFinally</code> handler is a promise, but <code>Promise.resolve()</code> already does that for you and saves you several <code>if</code> statements. You also need to make sure you track the value or error the initial promise settled to, and make sure the returned promise from <code>finally()</code> either resolves to the initial resolved value <code>res</code>, or rethrow the initial rejected error <code>err</code>.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>Promise.prototype.finally()</code> function is one of <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">8 stage 4 TC39 proposals</a> at the time of this writing, which means <code>finally()</code> and 7 other new core language features are coming to Node.js. The <code>finally()</code> function is one of the most exciting of the 8 new features, because it promises to make cleaning up after async operations much cleaner. For example, below is code that I have running in production right now that desperately needs <code>finally()</code> for releasing a lock after a function is done executing.</p>
+<p><img src="https://i.imgur.com/ZbW81Xa.png"></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180221_promise_finally.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Using Promise.prototype.finally in Node.js", time: new Date() });
+  </script></body></html>
