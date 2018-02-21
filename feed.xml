@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Sat, 17 Feb 2018 17:23:10 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 21 Feb 2018 18:44:59 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using Promise.prototype.finally in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/using-promise-finally-in-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/using-promise-finally-in-node-js.html</guid>
+            <pubDate>Wed, 21 Feb 2018 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 3.6: $lookup and $expr]]></title>
             <link>http://www.thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-lookup-expr.html</link>
