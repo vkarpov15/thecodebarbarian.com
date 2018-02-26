@@ -85,7 +85,7 @@ Promise.resolve('foo').
   then(res => console.log(res));
 ```
 
-Similarly, the below script will still print 'Whoops!', even though the `onFinally` function didn't trigger any errors.
+Similarly, the below script will still print 'foo', even though the `onFinally` function didn't trigger any errors.
 
 ```javascript
 const promiseFinally = require('promise.prototype.finally');
@@ -93,7 +93,7 @@ const promiseFinally = require('promise.prototype.finally');
 // Add `finally()` to `Promise.prototype`
 promiseFinally.shim();
 
-Promise.reject(new Error('Whoops!')).
+Promise.reject(new Error('foo')).
   finally(() => 'bar').
   // Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough
   // for resolved values and rejected errors
