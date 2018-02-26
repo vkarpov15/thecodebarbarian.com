@@ -13,7 +13,7 @@ const promiseThatResolves = new Promise((resolve) => {
 });
 
 const promiseThatRejects = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('woops!')), 1000);
+  setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 ```
 
@@ -61,7 +61,7 @@ const promiseThatResolves = new Promise((resolve) => {
 });
 
 const promiseThatRejects = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('woops!')), 1000);
+  setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 
 promiseThatResolves.finally(() => console.log('resolved'));
@@ -85,7 +85,7 @@ Promise.resolve('foo').
   then(res => console.log(res));
 ```
 
-Similarly, the below script will still print 'Woops!', even though the `onFinally` function didn't trigger any errors.
+Similarly, the below script will still print 'Whoops!', even though the `onFinally` function didn't trigger any errors.
 
 ```javascript
 const promiseFinally = require('promise.prototype.finally');
@@ -93,7 +93,7 @@ const promiseFinally = require('promise.prototype.finally');
 // Add `finally()` to `Promise.prototype`
 promiseFinally.shim();
 
-Promise.reject(new Error('foo')).
+Promise.reject(new Error('Whoops!')).
   finally(() => 'bar').
   // Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough
   // for resolved values and rejected errors
@@ -114,7 +114,7 @@ const promiseFinally = require('promise.prototype.finally');
 promiseFinally.shim();
 
 const promiseThatRejects = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('woops!')), 1000);
+  setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 
 promiseThatRejects.finally(() => console.log('rejected'));
@@ -123,7 +123,7 @@ promiseThatRejects.finally(() => console.log('rejected'));
 ```
 $ node finally.js
 rejected
-(node:5342) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): Error: woops!
+(node:5342) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): Error: whoops!
 (node:5342) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 $
 ```
@@ -137,7 +137,7 @@ const promiseFinally = require('promise.prototype.finally');
 promiseFinally.shim();
 
 const promiseThatRejects = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('woops!')), 1000);
+  setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 
 promiseThatRejects.
@@ -154,7 +154,7 @@ const promiseFinally = require('promise.prototype.finally');
 promiseFinally.shim();
 
 const promiseThatRejects = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('woops!')), 1000);
+  setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 
 promiseThatRejects.
