@@ -1,4 +1,4 @@
-MongoDB 3.2 introduced the [`$lookup` aggregation framework pipeline stage](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/), which let you pull documents from a separate collection into your aggregation framework pipeline. Before MongoDB 3.6, `$lookup` could only do [left outer joins with equality matching](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#equality-match). In other words, if you had a collection of users, a collection of stocks and a collection that mapped users to the stocks they hold, `$lookup` could give you an array of stocks a user holds. But in MongoDB 3.2 and 3.4, `$lookup` could not give you just the stocks that had gone up in price since the customer bought them.
+MongoDB 3.2 introduced the [`$lookup` aggregation framework pipeline stage](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/), which let you pull documents from a separate collection into your aggregation framework pipeline. Before MongoDB 3.6, `$lookup` could only do [left outer joins with equality matching](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#equality-match). In other words, suppose you had a collection of users, a collection of stocks, and a collection that mapped users to the stocks they hold. The `$lookup` stage can give you an array of stocks a user holds. But in MongoDB 3.2 and 3.4, `$lookup` could not give you just the stocks that had gone up in price since the customer bought them.
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -82,7 +82,7 @@ Here's how you structure this query using `$expr`. The `$expr` operator gives yo
 
 ```javascript
 const docs = await db.collection('StockHolding').find({
-  // Equivalent to `$where: 'this.shares * this.basePrice >= 1000'`
+  // Equivalent to `$where: 'this.shares * this.basePrice > 1000'`
   $expr: {
     $gt: [
       { $multiply: ['$shares', '$basePrice'] },
