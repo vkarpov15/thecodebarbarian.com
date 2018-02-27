@@ -8,7 +8,11 @@ What is `Promise.prototype.finally()`?
 Suppose you've created a new promise:
 
 ```javascript
-const promiseThatResolves = new Promise((resolve) => {
+const promiseThatFulfills = new Promise((resolve) => {
+  // Calling `resolve()` is how you fulfill a promise. "Fulfilled" and "resolved" are different
+  // concepts: if you call `resolve()` with a value that is not a promise, the promise will
+  // become fulfilled. However, if you call `resolve()` with a promise, the outer promise will
+  // still be pending until the inner promise fulfills or rejects.
   setTimeout(() => resolve('Hello, World'), 1000);
 });
 
@@ -20,17 +24,17 @@ const promiseThatRejects = new Promise((resolve, reject) => {
 You can chain promises together using the [`.then()` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then).
 
 ```javascript
-promiseThatResolves.then(() => console.log('Will print after about 1 second'));
+promiseThatFulfills.then(() => console.log('Will print after about 1 second'));
 promiseThatRejects.then(null, () => console.log('Will print after about 1 second'));
 ```
 
-Note that `.then()` takes two function parameters. The first is `onResolved()`, which gets called if the promise resolves. The second is `onRejected()`, which gets called if the promise rejects. A promise is a state machine that can be in one of 3 states:
+Note that `.then()` takes two function parameters. The first is `onFulfilled()`, which gets called if the promise is fulfilled. The second is `onRejected()`, which gets called if the promise rejects. A promise is a state machine that can be in one of 3 states:
 
-* Pending: the underlying operation is in progress and the promise has neither resolved nor rejected yet
-* Resolved: the underlying operation has completed successfully and the promise now has an associated value
+* Pending: the underlying operation is in progress and the promise has neither fulfilled nor rejected yet
+* Fulfilled: the underlying operation has completed successfully and the promise now has an associated value
 * Rejected: the underlying operation failed for some reason and the promise now has an associated error
 
-Furthermore, a promise that is resolved or rejected is called "settled."
+Furthermore, a promise that is fulfilled or rejected is called "settled."
 
 <img src="https://i.imgur.com/iB1wjrw.png">
 
@@ -40,7 +44,7 @@ While `.then()` is the core mechanism for promise chaining, it isn't the only on
 promiseThatRejects.catch(() => console.log('Will print after about 1 second'));
 ```
 
-The `.catch()` function is just a convenient shorthand for `.then()` with an `onRejected` handler and no `onResolved` handler:
+The `.catch()` function is just a convenient shorthand for `.then()` with an `onRejected` handler and no `onFulfilled` handler:
 
 ```javascript
 promiseThatRejects.catch(() => console.log('Will print after about 1 second'));
@@ -48,7 +52,7 @@ promiseThatRejects.catch(() => console.log('Will print after about 1 second'));
 promiseThatRejects.then(null, () => console.log('Will print after about 1 second'));
 ```
 
-Like `.catch()`, the `.finally()` function is a convenient shorthand for `.then()`. The difference is that `.finally()` executes a function `onFinally` when the promise is settled, that is, when it is either resolved or rejected. The `.finally()` function is not part of any Node.js release at the time of this writing, but the [`promise.prototype.finally` module on npm](https://www.npmjs.com/package/promise.prototype.finally) has a polyfill.
+Like `.catch()`, the `.finally()` function is a convenient shorthand for `.then()`. The difference is that `.finally()` executes a function `onFinally` when the promise is settled, that is, when it is either fulfilled or rejected. The `.finally()` function is not part of any Node.js release at the time of this writing, but the [`promise.prototype.finally` module on npm](https://www.npmjs.com/package/promise.prototype.finally) has a polyfill.
 
 ```javascript
 const promiseFinally = require('promise.prototype.finally');
@@ -56,7 +60,7 @@ const promiseFinally = require('promise.prototype.finally');
 // Add `finally()` to `Promise.prototype`
 promiseFinally.shim();
 
-const promiseThatResolves = new Promise((resolve) => {
+const promiseThatFulfills = new Promise((resolve) => {
   setTimeout(() => resolve('Hello, World'), 1000);
 });
 
@@ -64,13 +68,13 @@ const promiseThatRejects = new Promise((resolve, reject) => {
   setTimeout(() => reject(new Error('whoops!')), 1000);
 });
 
-promiseThatResolves.finally(() => console.log('resolved'));
+promiseThatFulfills.finally(() => console.log('fulfilled'));
 promiseThatRejects.finally(() => console.log('rejected'));
 ```
 
-The above script will print both 'resolved' and 'rejected', because the `onFinally` handler gets called when the promise is settled, regardless of whether it is resolved or rejected. However, the `onFinally` handler does **not** receive any parameters, so you can't tell whether the promise was resolved or rejected.
+The above script will print both 'fulfilled' and 'rejected', because the `onFinally` handler gets called when the promise is settled, regardless of whether it is fulfilled or rejected. However, the `onFinally` handler does **not** receive any parameters, so you can't tell whether the promise was fulfilled or rejected.
 
-The `finally()` function returns a promise, so you can chain more `.then()`, `.catch()`, and `.finally()` calls onto the return value. The promise that `finally()` returns will resolve to whatever the promise it was chained onto would resolve to. For example, the below script will still print 'foo', even though the `onFinally` handler returns 'bar'.
+The `finally()` function returns a promise, so you can chain more `.then()`, `.catch()`, and `.finally()` calls onto the return value. The promise that `finally()` returns will fulfill to whatever the promise it was chained onto would fulfill to. For example, the below script will still print 'foo', even though the `onFinally` handler returns 'bar'.
 
 ```javascript
 const promiseFinally = require('promise.prototype.finally');
@@ -81,7 +85,7 @@ promiseFinally.shim();
 Promise.resolve('foo').
   finally(() => 'bar').
   // Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough
-  // for resolved values and rejected errors
+  // for fulfilled values and rejected errors
   then(res => console.log(res));
 ```
 
@@ -96,7 +100,7 @@ promiseFinally.shim();
 Promise.reject(new Error('foo')).
   finally(() => 'bar').
   // Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough
-  // for resolved values and rejected errors
+  // for fulfilled values and rejected errors
   catch(err => console.log(err.message));
 ```
 
@@ -171,7 +175,7 @@ I think that the easiest way to really grok something is to [write your own impl
 Here are the test cases this simple `finally()` polyfill will work to address. The below script should print 'foo' 5 times.
 
 ```javascript
-// Return value is ignored, promise resolves normally
+// Return value is ignored, promise fulfills normally
 Promise.resolve('foo').
   finally(() => 'bar').
   then(res => console.log(res));
@@ -206,7 +210,7 @@ Below is the simplified polyfill.
 // Add `finally()` to `Promise.prototype`
 Promise.prototype.finally = function(onFinally) {
   return this.then(
-    /* onResolved */
+    /* onFulfilled */
     res => Promise.resolve(onFinally()).then(() => res),
     /* onRejected */
     err => Promise.resolve(onFinally()).then(() => { throw err; })
@@ -214,7 +218,7 @@ Promise.prototype.finally = function(onFinally) {
 };
 ```
 
-The key idea behind this implementation is that the `onFinally` handler may return a promise. If it does, you need to `.then()` on that promise and resolve or reject with what the initial promise settled to. You can explicitly check if the return value from the `onFinally` handler is a promise, but `Promise.resolve()` already does that for you and saves you several `if` statements. You also need to make sure you track the value or error the initial promise settled to, and make sure the returned promise from `finally()` either resolves to the initial resolved value `res`, or rethrow the initial rejected error `err`.
+The key idea behind this implementation is that the `onFinally` handler may return a promise. If it does, you need to `.then()` on that promise and resolve or reject with what the initial promise settled to. You can explicitly check if the return value from the `onFinally` handler is a promise, but `Promise.resolve()` already does that for you and saves you several `if` statements. You also need to make sure you track the value or error the initial promise settled to, and make sure the returned promise from `finally()` either fulfills to the initial resolved value `res`, or rethrow the initial rejected error `err`.
 
 Moving On
 ---------
