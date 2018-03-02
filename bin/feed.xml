@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 27 Feb 2018 18:56:54 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 02 Mar 2018 01:37:45 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Algorithm Interview Questions in JavaScript: Glob Matching]]></title>
+            <link>http://www.thecodebarbarian.com/algorithm-interview-questions-in-js-glob-matching.html</link>
+            <guid>http://www.thecodebarbarian.com/algorithm-interview-questions-in-js-glob-matching.html</guid>
+            <pubDate>Fri, 02 Mar 2018 08:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Using Promise.prototype.finally in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/using-promise-finally-in-node-js.html</link>
