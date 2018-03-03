@@ -38,7 +38,7 @@ Here&#39;s the idea of the recursive algorithm:</p>
 
   <span class="hljs-keyword">if</span> (rightPattern.length === <span class="hljs-number">0</span>) {
     <span class="hljs-comment">// Nothing left in pattern</span>
-    <span class="hljs-keyword">return</span> pattern.startsWith(str);
+    <span class="hljs-keyword">return</span> str.startsWith(leftPattern);
   }
 
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> numChars = <span class="hljs-number">0</span>; numChars &lt; str.length - starIndex; ++numChars) {
