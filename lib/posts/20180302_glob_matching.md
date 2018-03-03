@@ -45,7 +45,7 @@ function patternMatches(pattern, str) {
 
   if (rightPattern.length === 0) {
     // Nothing left in pattern
-    return pattern.startsWith(str);
+    return str.startsWith(leftPattern);
   }
 
   for (let numChars = 0; numChars < str.length - starIndex; ++numChars) {
