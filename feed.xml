@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 16 Mar 2018 20:06:52 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Mar 2018 15:54:03 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Getting Started With Azure Functions and MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/getting-started-with-azure-functions-and-mongodb.html</link>
+            <guid>http://www.thecodebarbarian.com/getting-started-with-azure-functions-and-mongodb.html</guid>
+            <pubDate>Fri, 23 Mar 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Single Link Clustering with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/single-link-clustering-with-node-js.html</link>
