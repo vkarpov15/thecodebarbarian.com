@@ -222,6 +222,8 @@ async function run() {
 }
 ```
 
+Note the `.catch()` call above. The [`catch()` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch) is a core part of the ES6 promise spec. This article won't cover it in much detail because `.catch(f)` is equivalent to `.then(null, f)`, so there isn't much to it.
+
 Below is the output. Notice that await calls `.then()` implicitly with `onFulfilled()` and `onRejected()` functions that dive into the C++ internals of V8. Also, `await` always waits until the next tick before calling `.then()`.
 
 ```

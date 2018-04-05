@@ -190,6 +190,7 @@ p.
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Elapsed time'</span>, <span class="hljs-built_in">Date</span>.now() - start);
 }
 </code></pre>
+<p>Note the <code>.catch()</code> call above. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>catch()</code> function</a> is a core part of the ES6 promise spec. This article won&#39;t cover it in much detail because <code>.catch(f)</code> is equivalent to <code>.then(null, f)</code>, so there isn&#39;t much to it.</p>
 <p>Below is the output. Notice that await calls <code>.then()</code> implicitly with <code>onFulfilled()</code> and <code>onRejected()</code> functions that dive into the C++ internals of V8. Also, <code>await</code> always waits until the next tick before calling <code>.then()</code>.</p>
 <pre><code>Then <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-built_in">Error</span>
     at MyPromise.then (<span class="hljs-regexp">/home/</span>val/test/promise.js:<span class="hljs-number">63</span>:<span class="hljs-number">50</span>)
