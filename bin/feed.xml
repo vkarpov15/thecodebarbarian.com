@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 30 Mar 2018 15:43:28 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 05 Apr 2018 14:25:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Write Your Own Node.js Promise Library from Scratch]]></title>
+            <link>http://www.thecodebarbarian.com/write-your-own-node-js-promise-library-from-scratch.html</link>
+            <guid>http://www.thecodebarbarian.com/write-your-own-node-js-promise-library-from-scratch.html</guid>
+            <pubDate>Thu, 05 Apr 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Getting Started With IBM Cloud Functions and MongoDB]]></title>
             <link>http://www.thecodebarbarian.com/getting-started-with-ibm-cloud-functions-and-mongodb.html</link>
