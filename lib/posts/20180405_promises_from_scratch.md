@@ -169,12 +169,13 @@ const resolve = res => {
 
   // If `res` is a "thenable", lock in this promise to match the
   // resolved or rejected state of the thenable.
-  if (res != null && typeof res.then === 'function') {
+  const then = res != null ? res.then : null;
+  if (typeof then === 'function') {
     // In this case, the promise is "resolved", but still in the 'PENDING'
     // state. This is what the ES6 spec means when it says "A resolved promise
     // may be pending, fulfilled or rejected" in
     // http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects
-    return res.then(resolve, reject);
+    return then(resolve, reject);
   }
 
   this.$state = 'FULFILLED';
