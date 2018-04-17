@@ -147,12 +147,13 @@ p.
 
   <span class="hljs-comment">// If `res` is a "thenable", lock in this promise to match the</span>
   <span class="hljs-comment">// resolved or rejected state of the thenable.</span>
-  <span class="hljs-keyword">if</span> (res != <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> res.then === <span class="hljs-string">'function'</span>) {
+  <span class="hljs-keyword">const</span> then = res != <span class="hljs-literal">null</span> ? res.then : <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> then === <span class="hljs-string">'function'</span>) {
     <span class="hljs-comment">// In this case, the promise is "resolved", but still in the 'PENDING'</span>
     <span class="hljs-comment">// state. This is what the ES6 spec means when it says "A resolved promise</span>
     <span class="hljs-comment">// may be pending, fulfilled or rejected" in</span>
     <span class="hljs-comment">// http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects</span>
-    <span class="hljs-keyword">return</span> res.then(resolve, reject);
+    <span class="hljs-keyword">return</span> then(resolve, reject);
   }
 
   <span class="hljs-keyword">this</span>.$state = <span class="hljs-string">'FULFILLED'</span>;
