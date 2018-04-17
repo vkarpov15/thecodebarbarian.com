@@ -3,7 +3,12 @@ Before MongoDB 3.6, [tailing the MongoDB oplog](https://www.mongodb.com/blog/pos
 Your First Change Stream
 ------------------------
 
-Change streams [require a MongoDB replica set](https://docs.mongodb.com/manual/changeStreams/). You'll get an error if you try to open one against a standalone MongoDB instance. For this article, I'll use the [mongodb-topology-manager Node.js package](https://www.npmjs.com/package/mongodb-topology-manager) to start up a MongoDB replica set so you don't have to do it yourself. Once you set up a replica set, you will be able to create a change stream using the the `watch()` method on [MongoDB driver collections](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch) or [Mongoose models](http://mongoosejs.com/docs/api.html#watch_watch).
+Change streams [require a MongoDB replica set](https://docs.mongodb.com/manual/changeStreams/). You'll get an error if you try to open one against a standalone MongoDB instance. For this article, I'll use the [mongodb-topology-manager Node.js package](https://www.npmjs.com/package/mongodb-topology-manager) to start up a MongoDB replica set so you don't have to
+set one up on your own. The mongodb-topology-manager package is great for testing
+and example scripts, but do **not** use it for your production application. If you want a production-ready MongoDB replica
+set and don't want to manage it yourself, I recommend using [MongoDB Atlas](http://mbsy.co/mongodb/28365503). 
+
+Once you set up a replica set, you will be able to create a change stream using the the `watch()` method on [MongoDB driver collections](http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch) or [Mongoose models](http://mongoosejs.com/docs/api.html#watch_watch).
 
 Below is a standalone script `changestream.js` that starts up a MongoDB replica set, creates a change stream, and inserts a document to trigger the change stream. The only requirements to run this script are a `mongod` in your PATH, Node.js, and running `npm install mongodb mongodb-topology manager`.
 
