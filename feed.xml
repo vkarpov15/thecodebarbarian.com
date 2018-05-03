@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 25 Apr 2018 17:21:56 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 03 May 2018 15:48:55 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,20 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[The Difference Between Async/Await and Generators]]></title>
+            <link>http://www.thecodebarbarian.com/the-difference-between-async-await-and-generators.html</link>
+            <guid>http://www.thecodebarbarian.com/the-difference-between-async-await-and-generators.html</guid>
+            <pubDate>Thu, 03 May 2018 04:00:00 GMT</pubDate>
+            
+        </item>
+        <item>
+            <title><![CDATA[Getting Started With Google Cloud Functions and MongoDB]]></title>
+            <link>http://www.thecodebarbarian.com/getting-started-with-google-cloud-functions-and-mongodb.html</link>
+            <guid>http://www.thecodebarbarian.com/getting-started-with-google-cloud-functions-and-mongodb.html</guid>
+            <pubDate>Wed, 25 Apr 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Getting Started With Google Cloud Functions and MongoDB]]></title>
             <link>http://www.thecodebarbarian.com/getting-started-with-google-cloud-functions-and-mongodb.html</link>
