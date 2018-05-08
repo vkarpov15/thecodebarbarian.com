@@ -1,0 +1,172 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Sending Web Push Notifications from Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Sending Web Push Notifications from Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/sending-web-push-notifications-from-node-js"/><meta property="og:image" content="https://i.imgur.com/YuhERzK.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="http://thecodebarbarian.com/tag/mongodb.html">MongoDB</a></li><li><a href="http://thecodebarbarian.com/tag/angularjs.html">AngularJS</a></li><li><a href="http://thecodebarbarian.com/tag/nodejs.html">NodeJS</a></li><li><a href="http://thecodebarbarian.com/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">The 80/20 Guide to Async/Await in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html">Getting Started With WebAssembly in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fsending-web-push-notifications-from-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fsending-web-push-notifications-from-node-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fsending-web-push-notifications-from-node-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fsending-web-push-notifications-from-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fsending-web-push-notifications-from-node-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fsending-web-push-notifications-from-node-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Sending Web Push Notifications from Node.js </h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 08, 2018</span></div></div></div><div class="post-body-text-container"><p>Using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">service workers</a>, you can send push notifications to Chrome straight from your Node.js app. The excellent
+<a href="https://www.npmjs.com/package/web-push"><code>web-push</code> npm module</a> lets you send
+push notifications without going through an intermediary service like <a href="https://www.pubnub.com/">PubNub</a>. This article will walk you through setting
+up a &quot;Hello, World&quot; example of web push notifications using a vanilla JavaScript
+frontend and <a href="https://www.npmjs.com/package/express">Express</a> on the backend. The final result will look like what you
+see below. The full source for this project is available on GitHub.</p>
+<p><img src="https://i.imgur.com/bGyKuaW.png"></p>
+<h2 id="credentials-and-server-setup">Credentials and Server Setup</h2>
+<p>In order to set up web push, you need to create a set of <a href="https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/">VAPID keys</a> that are necessary to identify who is sending the push notification. The <code>web-push</code> npm
+module can <a href="https://www.npmjs.com/package/web-push#command-line">generate VAPID keys for you</a>, so let&#39;s install <code>web-push</code> along with some other dependencies and use <code>web-push generate-vapid-keys</code>
+to create the keys.</p>
+<pre><code>$ npm install express@<span class="hljs-number">4.16</span><span class="hljs-number">.3</span> web-push@<span class="hljs-number">3.3</span><span class="hljs-number">.0</span> body-parser@<span class="hljs-number">1.18</span><span class="hljs-number">.2</span> express-static@<span class="hljs-number">1.2</span><span class="hljs-number">.5</span>
+
++ express@<span class="hljs-number">4.16</span><span class="hljs-number">.3</span>
++ web-push@<span class="hljs-number">3.3</span><span class="hljs-number">.0</span>
++ body-parser@<span class="hljs-number">1.18</span><span class="hljs-number">.2</span>
++ express-static@<span class="hljs-number">1.2</span><span class="hljs-number">.5</span>
+added <span class="hljs-number">62</span> packages <span class="hljs-keyword">in</span> <span class="hljs-number">1.42</span>s
+$
+$ ./node_modules/.bin/web-push generate-vapid-keys
+
+=======================================
+
+Public Key:
+BOynOrGhgkj8Bfk4hsFENAQYbnqqLSigUUkCNaBsAmNuH6U9EWywR1JIdxBVQOPDbIuTaj0tVAQbczNLkC5zftw
+
+Private Key:
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">OMITTED</span>&gt;</span>
+
+=======================================
+
+$</span>
+</code></pre><p>In order to support older browsers you may need to also get a <a href="https://medium.com/@jasminejacquelin/integrating-push-notifications-in-your-node-react-web-app-4e8d8190a52c#9a53">GCM API key</a>, but you don&#39;t need this in desktop Chrome 63 or higher.</p>
+<p>Next, create a file called <code>index.js</code> that will contain your server. You&#39;ll
+need to <code>require()</code> and configure the web-push module with your VAPID keys.
+In the interest of simplicity, put the VAPID keys in the <code>PUBLIC_VAPID_KEY</code>
+and <code>PRIVATE_VAPID_KEY</code> environment variables.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> webpush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
+
+<span class="hljs-keyword">const</span> publicVapidKey = process.env.PUBLIC_VAPID_KEY;
+<span class="hljs-keyword">const</span> privateVapidKey = process.env.PRIVATE_VAPID_KEY;
+
+<span class="hljs-comment">// Replace with your email</span>
+webpush.setVapidDetails(<span class="hljs-string">'mailto:val@karpov.io'</span>, publicVapidKey, privateVapidKey);
+</code></pre>
+<p>Next, add a <code>/subscribe</code> <a href="http://expressjs.com/en/guide/routing.html">endpoint</a> to your Express app. Your browser JavaScript will send an HTTP request to this
+endpoint with a <a href="https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription"><code>PushSubscription</code> object</a> in the request body. You need the <code>PushSubscription</code> object in order to send a push
+notification via <code>webpush.sendNotification()</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = express();
+
+app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>).json());
+
+app.post(<span class="hljs-string">'/subscribe'</span>, (req, res) =&gt; {
+  <span class="hljs-keyword">const</span> subscription = req.body;
+  res.status(<span class="hljs-number">201</span>).json({});
+  <span class="hljs-keyword">const</span> payload = <span class="hljs-built_in">JSON</span>.stringify({ title: <span class="hljs-string">'test'</span> });
+
+  <span class="hljs-built_in">console</span>.log(subscription);
+
+  webpush.sendNotification(subscription, payload).catch(error =&gt; {
+    <span class="hljs-built_in">console</span>.error(error.stack);
+  });
+});
+</code></pre>
+<p>That&#39;s all you need on the server side. You can <a href="https://github.com/vkarpov15/web-push-demo/blob/master/index.js">find the complete source on GitHub</a>. Now,
+you need to create a client <code>client.js</code> and a service worker <code>worker.js</code>.</p>
+<h2 id="client-and-service-worker">Client and Service Worker</h2>
+<p>First, in order to serve up your static assets to the client, use the
+<a href="http://npmjs.com/package/express-static"><code>express-static</code> npm module</a> to <a href="https://github.com/vkarpov15/web-push-demo/blob/b356e53c1468c5611b9c4722411af3839bafc360/index.js#L26">configure your Express app</a> to serve static files from the top-level directory.
+Just make sure you put this <code>app.use()</code> call <strong>after</strong> your <code>/subscribe</code> route
+handler, otherwise Express will look for a <code>subscribe.html</code> file instead of
+using your route handler.</p>
+<pre><code class="lang-javascript">app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'express-static'</span>)(<span class="hljs-string">'./'</span>));
+</code></pre>
+<p>Next, create an <code>index.html</code> file that will serve as an entry point for your
+application. The only part of this file that really matters is the <code>&lt;script&gt;</code> tag
+that pulls in the client-side JavaScript, the rest is a placeholder.</p>
+<pre><code class="lang-html">&lt;html&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Push Demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/client.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    Service Worker Demo
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+</code></pre>
+<p>Now that you have an entry point, create a JavaScript file called <code>client.js</code>.
+<a href="https://github.com/vkarpov15/web-push-demo/blob/b356e53c1468c5611b9c4722411af3839bafc360/client.js">This file</a> will be responsible for telling the browser to initialize
+your service worker and making the HTTP request to <code>/subscribe</code>. The below
+example uses <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>, because if your browser supports service workers it should support async/await as well.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Hard-coded, replace with your public key</span>
+<span class="hljs-keyword">const</span> publicVapidKey = <span class="hljs-string">'BOynOrGhgkj8Bfk4hsFENAQYbnqqLSigUUkCNaBsAmNuH6U9EWywR1JIdxBVQOPDbIuTaj0tVAQbczNLkC5zftw'</span>;
+
+<span class="hljs-keyword">if</span> (<span class="hljs-string">'serviceWorker'</span> <span class="hljs-keyword">in</span> navigator) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Registering service worker'</span>);
+
+  run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Registering service worker'</span>);
+  <span class="hljs-keyword">const</span> registration = <span class="hljs-keyword">await</span> navigator.serviceWorker.
+    register(<span class="hljs-string">'/worker.js'</span>, {scope: <span class="hljs-string">'/'</span>});
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Registered service worker'</span>);
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Registering push'</span>);
+  <span class="hljs-keyword">const</span> subscription = <span class="hljs-keyword">await</span> registration.pushManager.
+    subscribe({
+      userVisibleOnly: <span class="hljs-literal">true</span>,
+      <span class="hljs-comment">// The `urlBase64ToUint8Array()` function is the same as in</span>
+      <span class="hljs-comment">// https://www.npmjs.com/package/web-push#using-vapid-key-for-applicationserverkey</span>
+      applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+    });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Registered push'</span>);
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Sending push'</span>);
+  <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/subscribe'</span>, {
+    method: <span class="hljs-string">'POST'</span>,
+    body: <span class="hljs-built_in">JSON</span>.stringify(subscription),
+    headers: {
+      <span class="hljs-string">'content-type'</span>: <span class="hljs-string">'application/json'</span>
+    }
+  });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Sent push'</span>);
+}
+</code></pre>
+<p>Finally, you need to implement the <code>worker.js</code> file that <code>client.js</code> loads.
+This is where your service worker logic lives. In a service worker, you get
+a <a href="https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications#handling_the_push_event_in_the_service_worker">&#39;push&#39; event</a> when your subscription receives
+a push notification.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Loaded service worker!'</span>);
+
+self.addEventListener(<span class="hljs-string">'push'</span>, ev =&gt; {
+  <span class="hljs-keyword">const</span> data = ev.data.json();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Got push'</span>, data);
+  self.registration.showNotification(data.title, {
+    body: <span class="hljs-string">'Hello, World!'</span>,
+    icon: <span class="hljs-string">'http://mongoosejs.com/docs/images/mongoose5_62x30_transparent.png'</span>
+  });
+});
+</code></pre>
+<p>And that&#39;s it! Start your server with the correct environment variables:</p>
+<pre><code>$ env PUBLIC_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> env PRIVATE_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> node .
+</code></pre><p>Navigate to <code>http://localhost:3000</code> in Chrome, and you should see the below
+push notification!</p>
+<p><img src="https://i.imgur.com/bGyKuaW.png"></p>
+<p>These notifications aren&#39;t just limited to Chrome, this same code works with
+<a href="https://support.mozilla.org/en-US/kb/push-notifications-firefox">Firefox</a> as well.</p>
+<p><img src="https://i.imgur.com/uufjZPH.png"></p>
+<h2 id="moving-on">Moving On</h2>
+<p>Web push is just one of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">numerous advantages service workers provide</a>.
+With a single <a href="https://www.npmjs.com/package/web-push">npm module</a>, you can
+send push notifications to most modern browsers. Give service workers a shot
+next time you want to add push notifications to your web app!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180508_web_notifications.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Sending Web Push Notifications from Node.js", time: new Date() });
+  </script></body></html>
