@@ -10,7 +10,7 @@ see below. The full source for this project is available on [GitHub](https://git
 Credentials and Server Setup
 ----------------------------
 
-In order to set up web push, you need to create a set of [VAPID keys](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/) that are necessary to identify who is sending the push notification. The `web-push` npm
+In order to set up web push, you need to create a set of [VAPID keys](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/). VAPID keys identify who is sending the push notification. The `web-push` npm
 module can [generate VAPID keys for you](https://www.npmjs.com/package/web-push#command-line), so let's install `web-push` along with some other dependencies and use `web-push generate-vapid-keys`
 to create the keys.
 
