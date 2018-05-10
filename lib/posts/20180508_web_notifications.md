@@ -3,7 +3,7 @@ Using [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service
 push notifications without going through an intermediary service like [PubNub](https://www.pubnub.com/). This article will walk you through setting
 up a "Hello, World" example of web push notifications using a vanilla JavaScript
 frontend and [Express](https://www.npmjs.com/package/express) on the backend. The final result will look like what you
-see below. The full source for this project is available on GitHub.
+see below. The full source for this project is available on [GitHub](https://github.com/vkarpov15/web-push-demo).
 
 <img src="https://i.imgur.com/bGyKuaW.png">
 
