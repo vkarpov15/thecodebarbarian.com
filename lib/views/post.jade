@@ -49,8 +49,8 @@ block content
   div.container
     div.col-lg-9.post-text
       .row
-        .title-byline-container 
-          h1.post-title #{post.title} 
+        .title-byline-container
+          h1.post-title #{post.title}
           .credits
             span.byline by Valeri Karpov
             span.byhandle
@@ -65,6 +65,84 @@ block content
                 span.hidden-xs View the Code for this Post on Github
 
       div.post-body-text-container !{content}
+
+      div.
+        <div class="native-js">
+          <script type="text/javascript" src="/js/native.js"></script>
+          <script type="text/javascript">
+            _native.init('CK7DT53N', {
+              targetClass: 'native-js',
+              fallback: `
+                <a href="#" class="native-flex">
+                  <style>
+                    .native-js {
+                      background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+                    }
+
+                    .native-details {
+                      color: #FFFFFF !important;
+                    }
+
+                    .native-details:hover {
+                      color: #FFFFFF !important;
+                    }
+
+                    .native-cta {
+                      color: #FFFFFF;
+                      background-color: #626469;
+                    }
+
+                    .native-cta:hover {
+                      color: #native_cta_color_hover;
+                      background-color: #626469;
+                    }
+                  </style>
+                  <div class="native-main">
+                    <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+                    <div class="native-details">
+                      <span class="native-company">Fallback Company</span>
+                      <span class="native-desc">This is a sample of using fallback ads.</span>
+                    </div>
+                  </div>
+                  <span class="native-cta">Fallback CTA</span>
+                </a>
+              `
+            });
+          </script>
+          <a href="#native_link#" class="native-flex">
+            <style>
+              .native-js {
+                background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+              }
+
+              .native-details {
+                color: #native_color# !important;
+              }
+
+              .native-details:hover {
+                color: #native_color_hover# !important;
+              }
+
+              .native-cta {
+                color: #native_cta_color#;
+                background-color: #native_cta_bg_color#;
+              }
+
+              .native-cta:hover {
+                color: #native_cta_color_hover;
+                background-color: #native_cta_bg_color_hover#;
+              }
+            </style>
+            <div class="native-main">
+              <img class="native-img" src="#native_logo#">
+              <div class="native-details">
+                <span class="native-company">#native_company#</span>
+                <span class="native-desc">#native_desc#</span>
+              </div>
+            </div>
+            <span class="native-cta">#native_cta#</span>
+          </a>
+        </div>
 
       div(style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px")
         em
@@ -86,4 +164,3 @@ block content
         })();
       noscript Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
       a(href="http://disqus.com" class="dsq-brlink") comments powered by <span class="logo-disqus">Disqus</span>
-      

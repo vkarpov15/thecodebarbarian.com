@@ -194,17 +194,3 @@ Web push is just one of [numerous advantages service workers provide](https://de
 With a single [npm module](https://www.npmjs.com/package/web-push), you can
 send push notifications to most modern browsers. Give service workers a shot
 next time you want to add push notifications to your web app!
-
-<script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
-<div id="default_demo"></div>
-<script>
-(function(){
-  if(typeof _bsa !== 'undefined' && _bsa) {
-    // format, zoneKey, segment:value, options
-    _bsa.init('default', 'CK7DT53N', 'placement:demo', {
-		target: '#default_demo',
-		align: 'horizontal'
-	});
-  }
-})();
-</script>
