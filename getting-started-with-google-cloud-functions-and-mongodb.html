@@ -50,7 +50,7 @@ Edit <code>package.json</code> to match the below code.</p>
 </code></pre><p><img src="https://i.imgur.com/E4uBqOf.png"></p>
 <p>Once you redeploy, Google Cloud will automatically install your npm dependencies
 for you. Now, change your <code>index.js</code> to match the below code, replacing the <code>uri</code>
-with your MongoDB Atlas URI.</p>
+with your <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> URI.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
@@ -69,7 +69,7 @@ exports.helloWorld = (req, res) =&gt; {
 </code></pre>
 <p><img src="https://i.imgur.com/8udyX2v.png"></p>
 <p>Click &quot;Save&quot; to deploy your function. Once it is deployed, you should be able
-to curl your cloud function and get a document from MongoDB Atlas back.</p>
+to curl your cloud function and get a document from <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> back.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
 Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}]
 $
