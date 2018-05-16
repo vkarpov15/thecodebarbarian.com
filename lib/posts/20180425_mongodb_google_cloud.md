@@ -77,7 +77,7 @@ Edit `package.json` to match the below code.
 
 Once you redeploy, Google Cloud will automatically install your npm dependencies
 for you. Now, change your `index.js` to match the below code, replacing the `uri`
-with your MongoDB Atlas URI.
+with your [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) URI.
 
 ```javascript
 const co = require('co');
@@ -100,7 +100,7 @@ exports.helloWorld = (req, res) => {
 <img src="https://i.imgur.com/8udyX2v.png">
 
 Click "Save" to deploy your function. Once it is deployed, you should be able
-to curl your cloud function and get a document from MongoDB Atlas back.
+to curl your cloud function and get a document from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) back.
 
 ```
 $ curl https://us-central1-test21-201718.cloudfunctions.net/hello-world
