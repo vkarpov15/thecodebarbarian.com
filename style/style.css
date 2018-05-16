@@ -440,7 +440,7 @@ a.social {
 	font-weight:300;
 }
 
-/* Ads */
+/* CPM Ads */
 .carbon-text {
 	color: #428bca;
 	display: block;
@@ -473,6 +473,83 @@ a.social {
 	.post-paragraph {
 		font-weight:300;
 	}
+}
+
+/* CPC ads */
+
+.native-js {
+  visibility: hidden;
+  transition: all .25s ease-in-out;
+  max-width: 800px;
+  opacity: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.native-show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.native-img {
+  margin-right: 20px;
+  max-height: 50px;
+  border-radius: 3px;
+}
+
+.native-flex {
+  display: flex;
+  padding: 20px 20px;
+  text-decoration: none;
+
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.native-main {
+  display: flex;
+
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.native-details {
+  display: flex;
+  margin-right: 10px;
+
+  flex-flow: column nowrap;
+}
+
+.native-company {
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+.native-desc {
+  letter-spacing: 1px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.native-cta {
+  padding: 10px 14px;
+  border-radius: 3px;
+  box-shadow: 0 6px 13px 0 hsla(0, 0%, 0%, .15);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 12px;
+  transition: all .3s ease-in-out;
+  transform: translateY(-1px);
+}
+
+.native-cta:hover {
+  box-shadow: none;
+  transform: translateY(1px);
 }
 
 /* Hide right sidebar on mobile */
