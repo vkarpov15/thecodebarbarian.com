@@ -17,7 +17,7 @@ This pattern works well if you have one or two endpoints, but if you're maintain
 Defining Error Handling Middleware
 ----------------------------------
 
-Express middleware is broken up into different types based on the number of arguments your middleware function takes. A middleware function that takes 4 arguments is classified as "error handling middleware", and will only get called in an error occurs.
+Express middleware is broken up into different types based on the number of arguments your middleware function takes. A middleware function that takes 4 arguments is classified as "error handling middleware", and will only get called if an error occurs.
 
 ```javascript
 const app = require('express')();
