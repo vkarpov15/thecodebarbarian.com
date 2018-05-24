@@ -12,7 +12,7 @@
 </code></pre>
 <p>This pattern works well if you have one or two endpoints, but if you&#39;re maintaining dozens you&#39;re going to quickly lose your mind. Let&#39;s say you&#39;ve decided HTTP response code 503 is more appropriate than HTTP 500, you&#39;re going to have to change that for every single endpoint. How about adding stack traces to the error response in your dev environment? And do you really want to add a <code>try/catch</code> around every single HTTP and database call in your codebase? Sure that&#39;s the &quot;responsible&quot; and &quot;disciplined&quot; thing to do, but in programming discipline doesn&#39;t scale very well. With error handling middleware, you can do better.</p>
 <h2 id="defining-error-handling-middleware">Defining Error Handling Middleware</h2>
-<p>Express middleware is broken up into different types based on the number of arguments your middleware function takes. A middleware function that takes 4 arguments is classified as &quot;error handling middleware&quot;, and will only get called in an error occurs.</p>
+<p>Express middleware is broken up into different types based on the number of arguments your middleware function takes. A middleware function that takes 4 arguments is classified as &quot;error handling middleware&quot;, and will only get called if an error occurs.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
