@@ -47,7 +47,7 @@ Done { sequence: <span class="hljs-number">1</span>,
   previousAffectingTransactionLedgerVersion: <span class="hljs-number">9411702</span> }
 $
 </code></pre><p>Creating a Ripple payment in JavaScript is easy, payment objects look
-like the below. Here are <a href="https://developers.ripple.com/rippleapi-reference.html#payment">the full docs on what properties Ripple payments have</a>.</p>
+like the below JavaScript object. Here are <a href="https://developers.ripple.com/rippleapi-reference.html#payment">the full docs on what properties a Ripple payment object has</a>.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Ripple payments are represented as JavaScript objects</span>
 <span class="hljs-keyword">const</span> payment = {
   source: {
@@ -145,8 +145,7 @@ Done { sequence: <span class="hljs-number">2</span>,
   previousAffectingTransactionLedgerVersion: <span class="hljs-number">9412148</span> }
 $
 </code></pre><p>Why does the from account have less than 9990 XRP? The Ripple protocol
-has a variable <a href="https://developers.ripple.com/transaction-cost.html">transaction fee</a> built in to</p>
-<p>defend against denial-of-service attacks and spam. The sender of a
+has a variable <a href="https://developers.ripple.com/transaction-cost.html">transaction fee</a> built in to defend against denial-of-service attacks and spam. The sender of a
 payment is <a href="https://developers.ripple.com/transaction-cost.html#transaction-costs-and-failed-transactions">responsible for paying the transaction cost</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Node.js is a great tool for building services that talk to other services

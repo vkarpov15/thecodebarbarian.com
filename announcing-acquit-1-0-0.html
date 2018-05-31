@@ -1,0 +1,206 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Announcing Acquit 1.0.0: Generate Docs from Mocha Tests | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Announcing Acquit 1.0.0: Generate Docs from Mocha Tests"/><meta property="og:url" content="http://www.thecodebarbarian.com/announcing-acquit-1-0-0"/><meta property="og:image" content="https://i.imgur.com/b1PMm1t.png"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="http://thecodebarbarian.com/tag/mongodb.html">MongoDB</a></li><li><a href="http://thecodebarbarian.com/tag/angularjs.html">AngularJS</a></li><li><a href="http://thecodebarbarian.com/tag/nodejs.html">NodeJS</a></li><li><a href="http://thecodebarbarian.com/tag/paleo.html">Paleo</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">The 80/20 Guide to Async/Await in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html">Getting Started With WebAssembly in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fannouncing-acquit-1-0-0&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fannouncing-acquit-1-0-0" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fannouncing-acquit-1-0-0" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fannouncing-acquit-1-0-0&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fannouncing-acquit-1-0-0" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fannouncing-acquit-1-0-0" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Announcing Acquit 1.0.0: Generate Docs from Mocha Tests</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 31, 2018</span></div></div></div><div class="post-body-text-container"><p>After <a href="https://github.com/vkarpov15/acquit/graphs/contributors">nearly 4 years</a>, <a href="https://www.npmjs.com/package/acquit">Acquit</a>, the best tool for compiling <a href="http://npmjs.com/package/mocha">Mocha</a> tests into documentation on npm, is now at v1.0.0.
+I&#39;ve found acquit to be indispensable over the last few years for
+keeping the <a href="http://mongoosejs.com/">Mongoose docs</a> current, deploying
+internal API docs, as well as for <a href="http://es2015generators.com/">writing ebooks</a>. If you want to get started,
+check out <a href="http://acquit.mongoosejs.io/">the new Acquit website</a>, or
+download <a href="https://www.npmjs.com/package/acquit">Acquit on npm</a>.</p>
+<h2 id="getting-started-with-acquit">Getting Started With Acquit</h2>
+<p>Let&#39;s face it, maintaining documentation examples is a huge pain. When
+your API changes, you usually update your tests, but what about updating
+your docs? If you don&#39;t have automated checks in place to make sure
+your docs are correct, you get
+<a href="https://github.com/Automattic/mongoose/issues/3640">bug reports saying your examples are out of date</a>. And if you&#39;re
+writing new content, you&#39;re stuck copy/pasting examples that
+you&#39;re not going to be able to find again. Acquit gives you a better way.</p>
+<p>Acquit itself is just a parser that transforms raw Mocha test code
+parsed by <a href="http://npmjs.com/package/esprima">esprima</a> into a more
+productive format, including handling <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown</a> in comments. In addition to the parser, Acquit has <a href="http://acquit.mongoosejs.io/docs/plugins.html">numerous plugins</a> that let you
+combine your docs and test code in different ways.</p>
+<p>The simplest plugin to get started with is <a href="https://www.npmjs.com/package/acquit-markdown"><code>acquit-markdown</code></a>.
+This plugin takes in a Mocha test file and converts it into a Markdown
+file. Test descriptions become headers, leading comments above test
+descriptions become paragraphs, and test bodies become code samples.
+Suppose you have the below <code>example.js</code> file:</p>
+<pre><code class="lang-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">/* This is how you print "Hello, World!" in JavaScript */</span>
+  it(<span class="hljs-string">'bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+  });
+
+  <span class="hljs-comment">// You can print any string</span>
+  it(<span class="hljs-string">'baz'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Bye!'</span>);
+  });
+});
+</code></pre>
+<p>Running <code>acquit-markdown</code> from the command line will generate markdown
+from this file:</p>
+<pre><code>$ ./node_modules/.bin/acquit-markdown -p example.js
+# foo
+
+## It bar
+
+This is how you print &quot;Hello, World!&quot; in JavaScript
+
+```javascript
+console.log(&#39;Hello, World!&#39;);
+```
+
+## It baz
+
+You can print any string
+
+```javascript
+console.log(&#39;Bye!&#39;);
+```
+</code></pre><p>Mocha tests often come with boilerplate that you don&#39;t want to end
+up in your examples, like <a href="https://mochajs.org/#detects-multiple-calls-to-done">the <code>done()</code> function</a>.
+Thankfully, there&#39;s an <a href="https://www.npmjs.com/package/acquit-ignore"><code>acquit-ignore</code> plugin</a> that tells Acquit to ignore code that&#39;s delimited by <code>// acquit:ignore:start</code> and <code>// acquit:ignore:end</code>.</p>
+<pre><code class="lang-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// `setTimeout()` runs a function asynchronously</span>
+  it(<span class="hljs-string">'async'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>) </span>{
+    setTimeout(() =&gt; {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'This is async'</span>);
+      <span class="hljs-comment">// acquit:ignore:start</span>
+      done();
+      <span class="hljs-comment">// acquit:ignore:end</span>
+    }, <span class="hljs-number">50</span>);
+  });
+});
+</code></pre>
+<p>You can tell the <code>acquit-markdown</code> executable to pull in the <code>acquit-ignore</code> plugin using the <code>-r</code> flag:</p>
+<pre><code>$ ./node_modules/.bin/acquit-markdown -r acquit-ignore -p ./example.js
+# test
+
+## It async
+
+`setTimeout()` runs a function asynchronously
+
+```javascript
+setTimeout(() =&gt; {
+console.log('This is async');
+}, 50);
+```
+</code></pre><h2 id="using-acquit-for-existing-content">Using Acquit For Existing Content</h2>
+<p>Another way to run Acquit is to use the <a href="https://www.npmjs.com/package/acquit-require"><code>acquit-require</code></a> plugin.
+This plugin operates on a string and replaces instances of <code>[require:foo]</code> with the first test that matches the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> &#39;foo&#39;.</p>
+<p>For example, suppose you have the below <code>sample.md</code> file:</p>
+<pre><code>Printing <span class="hljs-string">"Hello, World"</span> <span class="hljs-keyword">in</span> JavaScript is easy:
+
+<span class="hljs-string">``</span><span class="hljs-string">`
+[require:bar]
+`</span><span class="hljs-string">``</span>
+</code></pre><p>And a test file <code>example.js</code>:</p>
+<pre><code class="lang-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  it(<span class="hljs-string">'bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+  });
+});
+</code></pre>
+<p>You can use <code>acquit-require</code> to pull in the first test whose
+description matches &#39;bar&#39;.</p>
+<pre><code>$ ./node_modules/.bin/acquit-<span class="hljs-built_in">require</span> -p sample.md -t example.js
+Printing <span class="hljs-string">"Hello, World"</span> <span class="hljs-keyword">in</span> JavaScript is easy:
+
+<span class="hljs-string">``</span><span class="hljs-string">`
+console.log('Hello, World!');
+`</span><span class="hljs-string">``</span>
+</code></pre><p>You can also use <code>acquit-require</code> <a href="http://acquit.mongoosejs.io/docs/examples.html">programmatically from Node.js</a>.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Acquit has become a key part of my workflow as a module maintainer,
+API developer, and writer. Acquit saves you time by letting you
+leverage existing test cases in your examples and ensures your
+examples stay up to date. Plus, <a href="https://docs.racket-lang.org/doc-coverage/index.html">documentation coverage</a> becomes
+as easy as plugging in a test coverage library like <a href="https://www.npmjs.com/package/nyc">nyc</a>. Check out <a href="http://acquit.mongoosejs.io/">Acquit&#39;s new website</a> and get serious about your docs!</p>
+</div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180531_acquit.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Announcing Acquit 1.0.0: Generate Docs from Mocha Tests", time: new Date() });
+  </script></body></html>
