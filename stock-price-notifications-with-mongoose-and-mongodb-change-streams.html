@@ -1,0 +1,344 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Stock Price Notifications with Mongoose and MongoDB Change Streams | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Stock Price Notifications with Mongoose and MongoDB Change Streams"/><meta property="og:url" content="http://www.thecodebarbarian.com/stock-price-notifications-with-mongoose-and-mongodb-change-streams"/><meta property="og:image" content="https://i.imgur.com/BvLogsw.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row search-container"><div class="col-lg-12"><div class="form-group"></div><label>Search</label><form onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;"><div class="input-group"><input id="searchQ" type="text" class="form-control"/><div class="input-group-addon search-button"><i class="fa fa-search"></i></div></div></form></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12"><p class="right-bar-label">Most Popular</p><ul class="list-unstyled"><li class="right-bar-li"><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">The 80/20 Guide to Async/Await in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html">Getting Started With WebAssembly in Node.js</a></li><li class="right-bar-li"><a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html">An 80/20 Guide to AngularJS HTTP Interceptors</a></li></ul></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fstock-price-notifications-with-mongoose-and-mongodb-change-streams" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Stock Price Notifications with Mongoose and MongoDB Change Streams</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">June 06, 2018</span></div></div></div><div class="post-body-text-container"><p><a href="https://docs.mongodb.com/manual/changeStreams/">MongoDB change streams</a> are a
+powerful mechanism for splitting work between different processes. In other
+words, change streams are a compelling alternative to pubsub tools like
+<a href="https://kafka.apache.org/">Apache Kafka</a>, especially when you&#39;re already using
+MongoDB. Ingesting and reacting to stock price data is a <a href="https://www.youtube.com/watch?v=0tSZo8I2924">classic use case for Kafka</a>. Stock prices
+can change hundreds of times a second and doing work in the same logic that
+ingests stock prices is like trying to solve a sudoku puzzle while drinking from
+a firehose. In this article, I&#39;ll build out a service using <a href="https://nodejs.org/en/">Node.js</a> and <a href="http://mongoosejs.com/">mongoose</a> that watches stock prices via
+a change stream and
+notifies users when a stock crosses a user-specified threshold.</p>
+<h2 id="getting-started-with-mongoose-and-change-streams">Getting Started with Mongoose and Change Streams</h2>
+<p><a href="https://thecodebarbarian.com/introducing-mongoose-5#change-streams">Mongoose added support for change streams in v5.0.0</a> via
+the <a href="http://mongoosejs.com/docs/api.html#watch_watch"><code>Model.watch()</code> function</a>.
+The <code>Model.watch()</code> function gives you a <a href="https://nodejs.org/api/events.html#events_class_eventemitter">Node.js event emitter</a> that fires a &#39;change&#39; event every time someone inserts or updates a document in the database.</p>
+<p>Currently, MongoDB replica sets do not work with a standalone <code>mongod</code> server,
+you <a href="https://docs.mongodb.com/manual/changeStreams/#open-a-change-stream">need to start a replica set</a>. To
+save you the effort of setting up a replica set on your own, the below example
+creates a 3 node replica set running on ports 31000-31002 using the <a href="http://npmjs.com/package/mongodb-topology-manager"><code>mongodb-topology-manager</code> npm module</a>. The <code>mongodb-topology-manager</code> npm module is great for tests and examples, but do
+<strong>not</strong> use it in production. If you want to use replica sets in production
+without managing them yourself, check out <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-comment">// If you're not familiar with async/await, check out this article:</span>
+<span class="hljs-comment">// http://bit.ly/node-async-await</span>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Make sure you're using mongoose &gt;= 5.0.0</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">`mongoose version: <span class="hljs-subst">${mongoose.version}</span>`</span>);
+
+  <span class="hljs-keyword">await</span> setupReplicaSet();
+
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/'</span> +
+    <span class="hljs-string">'test?replicaSet=rs0'</span>;
+  <span class="hljs-keyword">await</span> mongoose.connect(uri);
+  <span class="hljs-comment">// For this example, need to explicitly create a collection, otherwise</span>
+  <span class="hljs-comment">// you get "MongoError: cannot open $changeStream for non-existent database: test"</span>
+  <span class="hljs-keyword">await</span> mongoose.connection.createCollection(<span class="hljs-string">'Person'</span>);
+
+  <span class="hljs-comment">// Create a new mongoose model</span>
+  <span class="hljs-keyword">const</span> personSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    name: <span class="hljs-built_in">String</span>
+  });
+  <span class="hljs-keyword">const</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, personSchema, <span class="hljs-string">'Person'</span>);
+
+  <span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a</span>
+  <span class="hljs-comment">// change in the database</span>
+  Person.watch().
+    on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
+
+  <span class="hljs-comment">// Insert a doc, will trigger the change stream handler above</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
+  <span class="hljs-keyword">await</span> Person.create({ name: <span class="hljs-string">'Axl Rose'</span> });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
+}
+
+<span class="hljs-comment">// Boilerplate to start a new replica set. You can skip this if you already</span>
+<span class="hljs-comment">// have a replica set running locally or in MongoDB Atlas.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setupReplicaSet</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> bind_ip = <span class="hljs-string">'localhost'</span>;
+  <span class="hljs-comment">// Starts a 3-node replica set on ports 31000, 31001, 31002, replica set</span>
+  <span class="hljs-comment">// name is "rs0".</span>
+  <span class="hljs-keyword">const</span> replSet = <span class="hljs-keyword">new</span> ReplSet(<span class="hljs-string">'mongod'</span>, [
+    { options: { port: <span class="hljs-number">31000</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31000`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31001</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31001`</span>, bind_ip } },
+    { options: { port: <span class="hljs-number">31002</span>, dbpath: <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/data/db/31002`</span>, bind_ip } }
+  ], { replSet: <span class="hljs-string">'rs0'</span> });
+
+  <span class="hljs-comment">// Initialize the replica set</span>
+  <span class="hljs-keyword">await</span> replSet.purge();
+  <span class="hljs-keyword">await</span> replSet.start();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Replica set started...'</span>);
+}
+</code></pre>
+<p>The output from running the above script looks like this:</p>
+<pre><code>$ node change.js
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">22.355</span>Z <span class="hljs-string">'mongoose version: 5.1.0'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.367</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.467</span>Z <span class="hljs-string">'Inserting doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.487</span>Z <span class="hljs-string">'Inserted doc'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.491</span>Z { _id:
+   { _data:
+      Binary {
+        _bsontype: <span class="hljs-string">'Binary'</span>,
+        sub_type: <span class="hljs-number">0</span>,
+        position: <span class="hljs-number">49</span>,
+        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">f5</span> <span class="hljs-attr">b1</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">07</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">f5</span> <span class="hljs-attr">b1</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">e5</span> <span class="hljs-attr">26</span> <span class="hljs-attr">02</span> <span class="hljs-attr">76</span> <span class="hljs-attr">66</span> <span class="hljs-attr">c6</span> <span class="hljs-attr">bf</span> <span class="hljs-attr">83</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">f6</span> <span class="hljs-attr">71</span> <span class="hljs-attr">b9</span> <span class="hljs-attr">00</span> <span class="hljs-attr">09</span> <span class="hljs-attr">b2</span> <span class="hljs-attr">48</span> <span class="hljs-attr">4e</span> <span class="hljs-attr">af</span> <span class="hljs-attr">dc</span> <span class="hljs-attr">41</span> <span class="hljs-attr">42</span> <span class="hljs-attr">b9</span> <span class="hljs-attr">94</span> <span class="hljs-attr">a0</span> <span class="hljs-attr">77</span> <span class="hljs-attr">04</span>&gt;</span> } },
+  operationType: 'insert',
+  fullDocument: { _id: 5af5b13fe526027666c6bf83, name: 'Axl Rose', __v: 0 },
+  ns: { db: 'test', coll: 'Person' },
+  documentKey: { _id: 5af5b13fe526027666c6bf83 } }
+^C
+$</span>
+</code></pre><p>In particular, notice the <code>operationType</code>, <code>fullDocument</code>, and <code>ns</code> properties.
+The <code>operationType</code> property tells you the type of change that occurred,
+it will be either &#39;insert&#39;, &#39;update&#39;, &#39;replace&#39;, &#39;delete&#39;, or &#39;invalidate&#39;.
+Each <code>operationType</code> has slightly different properties. The <code>fullDocument</code>
+property contains the entire document after any updates have been applied.
+The <code>ns</code> property tells you the name of the database and collection that the
+changed document is in.</p>
+<h2 id="pub-sub-with-fake-market-data">Pub/Sub with Fake Market Data</h2>
+<p>Suppose you were building an app that let users specify a stock ticker and a
+price threshold, and notified them when the stock&#39;s price went above or below
+a certain threshold. For instance, let&#39;s say you wanted to be notified when <a href="https://www.nasdaq.com/symbol/mdb">MongoDB stock</a> went above 45.
+Now that you&#39;ve seen a change stream in action, let&#39;s create two separate
+processes that communicate via change stream: one process that writes stock
+prices to the database, and one that looks for stock price changes that cross the
+user-specified threshold.</p>
+<p>First, let&#39;s create a process that writes fake price data for MDB stock once
+per second. The price data will cross the threshold value of 45 every 10
+seconds.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-comment">// If you're not familiar with async/await, check out this article:</span>
+<span class="hljs-comment">// http://bit.ly/node-async-await</span>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Make sure you're using mongoose &gt;= 5.0.0</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">`mongoose version: <span class="hljs-subst">${mongoose.version}</span>`</span>);
+
+  <span class="hljs-keyword">await</span> startReplicaSet();
+
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/'</span> +
+    <span class="hljs-string">'test?replicaSet=rs0'</span>;
+  <span class="hljs-keyword">await</span> mongoose.connect(uri);
+  <span class="hljs-comment">// For this example, need to explicitly create a collection, otherwise</span>
+  <span class="hljs-comment">// you get "MongoError: cannot open $changeStream for non-existent database: test"</span>
+  <span class="hljs-keyword">await</span> mongoose.connection.createCollection(<span class="hljs-string">'Price'</span>);
+
+  <span class="hljs-comment">// Create a new mongoose model</span>
+  <span class="hljs-keyword">const</span> priceSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    ticker: <span class="hljs-built_in">String</span>,
+    price: <span class="hljs-built_in">Number</span>
+  });
+  <span class="hljs-keyword">const</span> Price = mongoose.model(<span class="hljs-string">'Price'</span>, priceSchema, <span class="hljs-string">'Price'</span>);
+
+  <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">const</span> prices = [
+    <span class="hljs-comment">// First 10 seconds, prices are below 45</span>
+    <span class="hljs-number">44.5</span>, <span class="hljs-number">44.51</span>, <span class="hljs-number">44.67</span>, <span class="hljs-number">44.79</span>, <span class="hljs-number">44.52</span>, <span class="hljs-number">43.97</span>, <span class="hljs-number">44.55</span>, <span class="hljs-number">44.22</span>, <span class="hljs-number">44.11</span>, <span class="hljs-number">44.86</span>,
+    <span class="hljs-comment">// Next 10 seconds, prices are above 45</span>
+    <span class="hljs-number">45.1</span>, <span class="hljs-number">45.22</span>, <span class="hljs-number">45.37</span>, <span class="hljs-number">45.26</span>, <span class="hljs-number">45.29</span>, <span class="hljs-number">45.99</span>, <span class="hljs-number">46.01</span>, <span class="hljs-number">45.65</span>, <span class="hljs-number">45.62</span>, <span class="hljs-number">45.02</span>
+  ];
+
+  <span class="hljs-comment">// To simulate real market data, insert a new stock price every second.</span>
+  <span class="hljs-comment">// Every 10 seconds the price will cross between above 45 and below 45</span>
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">`Insert MDB price <span class="hljs-subst">${prices[index]}</span>`</span>);
+    <span class="hljs-keyword">await</span> Price.create({ ticker: <span class="hljs-string">'MDB'</span>, price: prices[index] });
+    index = (index + <span class="hljs-number">1</span>) % prices.length;
+    <span class="hljs-comment">// Pause execution for 1 second.</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
+  }
+}
+</code></pre>
+<p>The other process, <code>watchData.js</code>, will watch for new documents inserted into
+the &#39;Price&#39; collection. It will track the last price it saw, and every time
+it sees a new price it will query the &#39;Threshold&#39; collection to see if the new
+price crossed a threshold. You can imagine there&#39;s a separate API service that
+would let the app&#39;s users manage their thresholds.</p>
+<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Connect to the replica set</span>
+  <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/'</span> +
+    <span class="hljs-string">'test?replicaSet=rs0'</span>;
+  <span class="hljs-keyword">await</span> mongoose.connect(uri);
+
+  <span class="hljs-comment">// Create mongoose models for prices and thresholds</span>
+  <span class="hljs-keyword">const</span> thresholdSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    ticker: <span class="hljs-built_in">String</span>,
+    price: <span class="hljs-built_in">String</span>
+  });
+  <span class="hljs-keyword">const</span> Threshold = mongoose.model(<span class="hljs-string">'Threshold'</span>, thresholdSchema, <span class="hljs-string">'Threshold'</span>);
+
+  <span class="hljs-keyword">const</span> priceSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    ticker: <span class="hljs-built_in">String</span>,
+    price: <span class="hljs-built_in">Number</span>
+  });
+  <span class="hljs-keyword">const</span> Price = mongoose.model(<span class="hljs-string">'Price'</span>, priceSchema, <span class="hljs-string">'Price'</span>);
+
+  <span class="hljs-comment">// Store the threshold in the database</span>
+  <span class="hljs-keyword">await</span> Threshold.create({ ticker: <span class="hljs-string">'MDB'</span>, price: <span class="hljs-number">45</span> });
+
+  <span class="hljs-keyword">let</span> lastPrice = <span class="hljs-number">-1</span>;
+  <span class="hljs-comment">// The first argument to `watch()` is an aggregation pipeline. This</span>
+  <span class="hljs-comment">// pipeline makes sure we only get notified of changes on the 'Price'</span>
+  <span class="hljs-comment">// collection.</span>
+  <span class="hljs-keyword">const</span> pipeline = [{ $match: { <span class="hljs-string">'ns.db'</span>: <span class="hljs-string">'test'</span>, <span class="hljs-string">'ns.coll'</span>: <span class="hljs-string">'Price'</span> } }];
+  Price.watch(pipeline).
+    on(<span class="hljs-string">'change'</span>, <span class="hljs-keyword">async</span> (data) =&gt; {
+      <span class="hljs-keyword">const</span> newPrice = data.fullDocument.price;
+      <span class="hljs-keyword">if</span> (lastPrice === <span class="hljs-number">-1</span>) {
+        lastPrice = newPrice;
+        <span class="hljs-keyword">return</span>;
+      }
+      <span class="hljs-keyword">const</span> ticker = data.fullDocument.ticker;
+      <span class="hljs-keyword">const</span> $gte = <span class="hljs-built_in">Math</span>.min(lastPrice, newPrice);
+      <span class="hljs-keyword">const</span> $lte = <span class="hljs-built_in">Math</span>.max(lastPrice, newPrice);
+      <span class="hljs-comment">// Make sure to set `lastPrice` **before** any async logic, in case</span>
+      <span class="hljs-comment">// another `change` event comes in before the query is done</span>
+      lastPrice = newPrice;
+
+      <span class="hljs-keyword">const</span> threshold = <span class="hljs-keyword">await</span> Threshold.findOne({
+        ticker,
+        price: { $gte, $lte }
+      });
+      <span class="hljs-keyword">if</span> (threshold != <span class="hljs-literal">null</span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">`Threshold for <span class="hljs-subst">${threshold.ticker}</span> `</span> +
+          <span class="hljs-string">`<span class="hljs-subst">${threshold.price}</span> crossed: <span class="hljs-subst">${$gte}</span>, <span class="hljs-subst">${$lte}</span>`</span>);
+      }
+    });
+}
+</code></pre>
+<p>Run these two scripts in two separate terminal windows, The <code>ingestData.js</code>
+script will print out the stock prices it inserted:</p>
+<pre><code>$ node ingestData.js
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">04.596</span>Z <span class="hljs-string">'mongoose version: 5.1.1-pre'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">18.658</span>Z <span class="hljs-string">'Replica set started...'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">18.733</span>Z <span class="hljs-string">'Insert MDB price 44.5'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">19.747</span>Z <span class="hljs-string">'Insert MDB price 44.51'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">20.756</span>Z <span class="hljs-string">'Insert MDB price 44.67'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">21.763</span>Z <span class="hljs-string">'Insert MDB price 44.79'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">22.769</span>Z <span class="hljs-string">'Insert MDB price 44.52'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">23.775</span>Z <span class="hljs-string">'Insert MDB price 43.97'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">24.786</span>Z <span class="hljs-string">'Insert MDB price 44.55'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">25.794</span>Z <span class="hljs-string">'Insert MDB price 44.22'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">26.802</span>Z <span class="hljs-string">'Insert MDB price 44.11'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">27.809</span>Z <span class="hljs-string">'Insert MDB price 44.86'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.817</span>Z <span class="hljs-string">'Insert MDB price 45.1'</span>
+...
+^C
+$
+</code></pre><p>The <code>watchData.js</code> script will print out the times the stock price crossed 45:</p>
+<pre><code>$ node watchData.js
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.841</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">38.905</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.5, 45.02'</span>
+<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">48.979</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
+^C
+$
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p>MongoDB change streams enable you to use MongoDB for pubsub, which is great
+for people that already use MongoDB and don&#39;t want to manage a Kafka or RabbitMQ
+deployment. The asynchronous nature of Node.js and mongoose is a natural fit,
+because your watcher process can handle multiple &#39;change&#39; events in parallel.
+Plus, <a href="https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html">web push is easy in Node.js</a>, so you can expand your watcher process to send push notifications to
+Google Chrome.</p>
+</div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180606_stock_notifications.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Stock Price Notifications with Mongoose and MongoDB Change Streams", time: new Date() });
+  </script></body></html>
