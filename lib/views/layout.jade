@@ -67,43 +67,43 @@ html
       - if (!!post)
         div.col-lg-3.col-lg-offset-9.right-bar#desktop-right-bar
           .right-bar-content-slider.pull-right
-            .row.search-container
-                .col-lg-12
-                  .form-group
-                  label Search
-                  form(onsubmit="window.location.href = 'https://www.google.im/search?q=' + encodeURIComponent(document.getElementById('searchQ').value) + '+site:thecodebarbarian.com'; return false;",)
-                    .input-group
-                      input.form-control#searchQ(type="text")
-                      .input-group-addon.search-button
-                        i.fa.fa-search
             .row.recent-posts.right-bar-group
-              .col-lg-12.books
-                div
-                  a(href="http://es2015generators.com")
-                    img(src="https://i.imgur.com/xvGNKlr.png")
-                div
-                  script( type="text/javascript"
-                          src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=thecodebarbariancom"
-                          id="_carbonads_js")
-            .row.recent-posts.right-bar-group
-              .col-lg-12
-                p.right-bar-label Most Popular
+              .col-lg-12.articles
+                p.right-bar-label Most Popular Articles
                 ul.list-unstyled
                   li.right-bar-li
-                    a(href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html")
+                    a(href="/common-async-await-design-patterns-in-node.js.html")
                       | Common Async/Await Design Patterns in Node.js
                   li.right-bar-li
-                    a(href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html")
+                    a(href="/unhandled-promise-rejections-in-node.js.html")
                       | Unhandled Promise Rejections in Node.js
                   li.right-bar-li
-                    a(href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html")
-                      | The 80/20 Guide to Async/Await in Node.js
+                    a(href="/using-async-await-with-mocha-express-and-mongoose")
+                      | Using Async/Await with Mocha, Express, and Mongoose
                   li.right-bar-li
-                    a(href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html")
-                      | Getting Started With WebAssembly in Node.js
+                    a(href="/write-your-own-node-js-promise-library-from-scratch.html")
+                      | Write Your Own Node.js Promise Library from Scratch
                   li.right-bar-li
-                    a(href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html")
-                      | An 80/20 Guide to AngularJS HTTP Interceptors
+                    a(href="/80-20-guide-to-express-error-handling")
+                      | The 80/20 Guide to Express Error Handling
+            .row.recent-posts.right-bar-group
+              .col-lg-12.books
+                p.right-bar-label Ebooks
+                  div
+                    a(href="http://asyncawait.net")
+                      img(src="http://asyncawait.net/images/cover_400.png")
+                      p
+                        i Mastering Async/Await
+                  div
+                    a(href="http://es2015generators.com")
+                      img(src="https://i.imgur.com/xvGNKlr.png")
+                      p
+                        i The 80/20 Guide to ES2015 Generators
+                  div
+                    script( type="text/javascript"
+                            src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=thecodebarbariancom"
+                            id="_carbonads_js")
+
     div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
       .row
         .col-lg-12
