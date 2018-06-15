@@ -180,6 +180,7 @@ Moving On
 
 Async/await is a huge win for JavaScript. With these two simple keywords you can remove numerous external dependencies and hundreds of lines of code from your codebase. You can add robust error handling, retries, and parallelization with just a handful of simple built-in language constructs. I hope you're as excited as I am for this feature to hit [Node.js 8 LTS (hopefully) in April 2017](https://github.com/nodejs/LTS#lts-plan).
 
-_Async/await is powerful, but if you're stuck using Node.js 4.x or 6.x because of LTS, you can still use these same design patterns using ES6 generators and [co](http://npmjs.org/package/co). I wrote an article about similar design patterns [using co](http://thecodebarbarian.com/3-common-co-design-patterns). If you're looking for a much deeper dive into co, including how to write your own co replacement from scratch, check out my ebook, [The 80/20 Guide to ES2015 Generators](http://es2015generators.com/)_
+_Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
 
-<a href="http://es2015generators.com"><img width="200" src="http://i.imgur.com/iBT2ZEw.png"/></a>
+<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
