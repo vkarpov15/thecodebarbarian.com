@@ -445,3 +445,8 @@ Error: Hang!
 ```
 
 So async/await has better stack traces and lets you construct promises using the built-in loops and conditionals that you already know, so download Node.js 7.6 and give it a shot!
+
+_Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
