@@ -243,4 +243,8 @@ async function test() {
 console.log(test().catch(() => {}) instanceof require('bluebird'));
 ```
 
-_You might not be able to plug custom promise libraries into async/await, but you can into the ES6 equivalent, [co](https://www.npmjs.com/package/co). Check out [my ebook on ES6 generators](http://es2015generators.com/) to learn how to write your own co from scratch and master the fundamental underpinnings of async/await._
+_Confused by promise chains? [Async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) is the best way to compose promises in Node.js.
+Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>

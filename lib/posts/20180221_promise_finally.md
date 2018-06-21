@@ -226,3 +226,9 @@ Moving On
 The `Promise.prototype.finally()` function is one of [8 stage 4 TC39 proposals](https://github.com/tc39/proposals/blob/master/finished-proposals.md) at the time of this writing, which means `finally()` and 7 other new core language features are coming to Node.js. The `finally()` function is one of the most exciting of the 8 new features, because it promises to make cleaning up after async operations much cleaner. For example, below is code that I have running in production right now that desperately needs `finally()` for releasing a lock after a function is done executing.
 
 <img src="https://i.imgur.com/ZbW81Xa.png">
+
+_Confused by promise chains? [Async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) is the best way to compose promises in Node.js.
+Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>

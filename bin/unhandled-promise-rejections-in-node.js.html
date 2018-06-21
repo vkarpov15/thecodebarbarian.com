@@ -185,7 +185,10 @@ $ node test.js
 <span class="hljs-comment">// Prints "false"</span>
 <span class="hljs-built_in">console</span>.log(test().catch(() =&gt; {}) <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>));
 </code></pre>
-<p><em>You might not be able to plug custom promise libraries into async/await, but you can into the ES6 equivalent, <a href="https://www.npmjs.com/package/co">co</a>. Check out <a href="http://es2015generators.com/">my ebook on ES6 generators</a> to learn how to write your own co from scratch and master the fundamental underpinnings of async/await.</em></p>
+<p>_Confused by promise chains? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> is the best way to compose promises in Node.js.
+Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_</p>
+<p><a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a></p>
 </div><div><div class="native-js">
   <script type="text/javascript" src="/js/native.js"></script>
   <script type="text/javascript">

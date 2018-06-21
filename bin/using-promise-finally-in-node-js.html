@@ -175,6 +175,10 @@ promiseThatRejects.
 <h2 id="moving-on">Moving On</h2>
 <p>The <code>Promise.prototype.finally()</code> function is one of <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">8 stage 4 TC39 proposals</a> at the time of this writing, which means <code>finally()</code> and 7 other new core language features are coming to Node.js. The <code>finally()</code> function is one of the most exciting of the 8 new features, because it promises to make cleaning up after async operations much cleaner. For example, below is code that I have running in production right now that desperately needs <code>finally()</code> for releasing a lock after a function is done executing.</p>
 <p><img src="https://i.imgur.com/ZbW81Xa.png"></p>
+<p>_Confused by promise chains? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> is the best way to compose promises in Node.js.
+Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_</p>
+<p><a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a></p>
 </div><div><div class="native-js">
   <script type="text/javascript" src="/js/native.js"></script>
   <script type="text/javascript">

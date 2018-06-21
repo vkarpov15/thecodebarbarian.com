@@ -254,4 +254,9 @@ Moving On
 
 Async/await is a powerful tool that integrates seamlessly with some, but not all, popular npm modules. As usual, [caveat npmtor](https://en.wikipedia.org/wiki/Caveat_emptor). I've written [3](http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js) [separate](http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js) [articles](http://thecodebarbarian.com/basic-functional-programming-with-async-await.html) on related async/await topics that you should check out if you're still getting your feet wet.
 
-*Node.js 8 is still not out yet, so no current LTS version of Node.js supports async/await. If you're stuck because of LTS, check out my ebook on [co](http://npmjs.org/package/co), [The 80/20 Guide to ES2015 Generators](http://es2015generators.com/). Co/yield is essentially a drop-in replacement for async/await that works in Node.js >= 4.0.0 with no flags. The two paradigms, async/await and co/yield, are interchangeable except for some advanced use cases, so check out the ebook even if you're more interested in async/await.*
+_Want to learn how to identify whether your favorite npm modules work with
+async/await without resorting to Google or Stack Overflow? Chapter 4 of
+my new ebook, Mastering Async/Await, explains the basic principles you can
+use to determine whether [React](https://reactjs.org/) and [Socket.IO](https://www.npmjs.com/package/socket.io) support async/await. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
