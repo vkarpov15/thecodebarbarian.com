@@ -1,9 +1,13 @@
 var _ = require('underscore');
+var acquit = require('acquit');
 var fs = require('fs');
 var markdown = require('marked');
 var jade = require('jade');
 var file = require('file');
 var feed = require('feed');
+var transform = require('acquit-require');
+
+require('acquit-ignore')();
 
 var highlight = require('highlight.js');
 markdown.setOptions({
@@ -43,11 +47,16 @@ wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
 wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
 wagner.task('posts', function(callback) {
+  var tests = acquit.parse(fs.readFileSync('./test/20180621.test.js').toString());
+
   wagner.parallel(
     posts,
     function(post, key, callback) {
       fs.readFile(post.src, function(error, md) {
         post.md = md.toString();
+
+        post.md = transform(post.md, tests);
+
         callback(error, post);
       });
     },
