@@ -47,7 +47,10 @@ wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
 wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
 wagner.task('posts', function(callback) {
-  var tests = acquit.parse(fs.readFileSync('./test/20180621.test.js').toString());
+  const tests = [
+    ...acquit.parse(fs.readFileSync('./test/20180621.test.js').toString()),
+    ...acquit.parse(fs.readFileSync('./test/20180702.test.js').toString())
+  ];
 
   wagner.parallel(
     posts,
