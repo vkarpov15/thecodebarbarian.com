@@ -183,4 +183,7 @@ Async/await is a huge win for JavaScript. With these two simple keywords you can
 _Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
 
-<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
+_Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>

@@ -72,6 +72,13 @@ block content
 
       div.post-body-text-container !{content}
 
+      div(style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px")
+        em
+          | Found a typo or error? Open up a pull request! This post is
+          | available as markdown on&nbsp;
+          a(href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}")
+            | Github
+
       div.
         <div class="native-js">
           <script type="text/javascript" src="/js/native.js"></script>
@@ -149,13 +156,6 @@ block content
             <span class="native-cta">#native_cta#</span>
           </a>
         </div>
-
-      div(style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px")
-        em
-          | Found a typo or error? Open up a pull request! This post is
-          | available as markdown on&nbsp;
-          a(href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}")
-            | Github
 
       div#disqus_thread
       script(type="text/javascript").

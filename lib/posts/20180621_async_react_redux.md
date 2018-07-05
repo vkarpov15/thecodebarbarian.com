@@ -187,4 +187,4 @@ _Want to learn how to identify whether your favorite npm modules work with
 async/await without resorting to Google or Stack Overflow? Chapter 4 of
 my new ebook, Mastering Async/Await, explains the basic principles for determining whether frameworks like [React](https://reactjs.org/) and [Socket.IO](https://www.npmjs.com/package/socket.io) support async/await. <a href="http://asyncawait.net/">Get your copy!</a>_
 
-<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>

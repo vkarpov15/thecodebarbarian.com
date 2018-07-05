@@ -196,3 +196,8 @@ between async/await and generators is the classic trade-off between simplicity
 and flexibility. As an advanced power user you can get meaningful value out
 of developers in certain situations, but most of the time async/await is a better
 choice.
+
+_Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>

@@ -80,4 +80,4 @@ _Transactions are much better with [async/await in Node.js](http://thecodebarbar
 If you're looking to get up to speed with async/await fast, check out
 my new ebook, [Mastering Async/Await](http://asyncawait.net/)._
 
-<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>

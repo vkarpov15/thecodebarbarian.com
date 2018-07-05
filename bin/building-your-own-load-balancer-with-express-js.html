@@ -143,7 +143,8 @@ https.createServer(sslOptions, app).listen(<span class="hljs-number">443</span>)
 <p>Now this rudimentary load balancer also enforces SSL for all connections and supports HTTPS, even though the underlying servers do not. Chrome still gives a loud warning that &quot;Your connection to this site might not be private&quot;, but that&#39;s just because the SSL key and certificate are self-signed.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>There are a lot of advantages to an Express-based load balancer. If your team is already familiar with Express, you can set up your own load balancer without learning how to configure a completely separate tool. Adding new functionality is easy with Express middleware and the wide variety of packages on npm. Debugging issues is easy if you&#39;re already comfortable with Express, because you&#39;re just dealing with an Express app. You can even cross-compile your load balancer into standalone executables using <a href="http://npmjs.org/package/pkg">pkg</a>. Next time when you&#39;re tempted to reach for nginx for load balancing, try using Express instead.</p>
-</div><div><div class="native-js">
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170602_express_load_balancer.md">Github</a></em></div><div><div class="native-js">
   <script type="text/javascript" src="/js/native.js"></script>
   <script type="text/javascript">
     _native.init('CK7DT53N', {
@@ -219,8 +220,7 @@ https.createServer(sslOptions, app).listen(<span class="hljs-number">443</span>)
     <span class="native-cta">#native_cta#</span>
   </a>
 </div>
-</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170602_express_load_balancer.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
