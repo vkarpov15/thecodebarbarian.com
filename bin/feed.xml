@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 03 Jul 2018 16:15:52 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 05 Jul 2018 15:12:36 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.2.0: syncIndexes()]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-2-syncindexes.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-2-syncindexes.html</guid>
+            <pubDate>Thu, 05 Jul 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Node.js Perspective on MongoDB 4.0: Transactions]]></title>
             <link>http://www.thecodebarbarian.com/a-node-js-perspective-on-mongodb-4-transactions.html</link>
