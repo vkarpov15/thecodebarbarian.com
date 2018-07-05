@@ -244,7 +244,8 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
 <p>A final note: the MongoDB driver has an <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect"><code>autoReconnect</code> option</a> that is on by default. You can turn it off to make it so that the MongoDB driver never tries to reconnect. However, turning this option off is almost always wrong and should only be done if you&#39;re an advanced user with a very good reason to do so. If you&#39;re looking to make your MongoDB queries fail fast when connection is lost, <code>bufferMaxEntries: 0</code> is the right way to do it, <strong>not</strong> <code>autoReconnect: false</code>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>The MongoDB Node.js driver is very good about handling connection issues automatically. If you lose a node in your replica set or you restart your single server, the driver will usually recover on its own with no external help needed. You do need to be aware of the &#39;reconnectFailed&#39; event and the &#39;reconnectTries&#39; and &#39;reconnectInterval&#39; options when you&#39;re connected to a single server. In particular, the &#39;reconnectFailed&#39; event means the driver has given up trying to reconnect and you should surface this as a fatal error unless you have a good reason not to. You may also want to disable buffering (<code>bufferMaxEntries: 0</code>) if you want your database requests to fail fast rather than waiting for the driver to reconnect for use cases like <a href="https://mesosphere.github.io/marathon/docs/health-checks.html">HTTP-based health checks</a>.</p>
-</div><div><div class="native-js">
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170927_node_mongodb_connections.md">Github</a></em></div><div><div class="native-js">
   <script type="text/javascript" src="/js/native.js"></script>
   <script type="text/javascript">
     _native.init('CK7DT53N', {
@@ -320,8 +321,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
     <span class="native-cta">#native_cta#</span>
   </a>
 </div>
-</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170927_node_mongodb_connections.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */

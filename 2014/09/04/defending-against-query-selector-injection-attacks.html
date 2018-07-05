@@ -50,7 +50,8 @@ Users.findOne({ name: clean }, <span class="hljs-function"><span class="hljs-key
 </code></pre><p>Assuming that your usernames were all strings, this query would return no results, as expected.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Query selector injection attacks are pretty insidious and its easy to be vulnerable, especially if you&#39;ve been happily implementing JSON REST APIs. Thankfully, using one of the above principles, either by using mongo-sanitize or by explicitly specifying a query selector for untrusted data, you can avoid the query selector injection pitfall without having to give up the ease-of-use of JSON APIs. If you want more details on securing your MongoDB application, check out the <a href="http://docs.mongodb.org/manual/administration/security-checklist/">security checklist</a> and MongoDB&#39;s blog post on <a href="http://blog.mongodb.org/post/86408399868/mongodb-security-part-1-design-and-configuration">security design and configuration</a>.</p>
-</div><div><div class="native-js">
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140904_query_selector_injection.md">Github</a></em></div><div><div class="native-js">
   <script type="text/javascript" src="/js/native.js"></script>
   <script type="text/javascript">
     _native.init('CK7DT53N', {
@@ -126,8 +127,7 @@ Users.findOne({ name: clean }, <span class="hljs-function"><span class="hljs-key
     <span class="native-cta">#native_cta#</span>
   </a>
 </div>
-</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140904_query_selector_injection.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
