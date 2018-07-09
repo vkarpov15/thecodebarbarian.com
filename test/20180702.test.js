@@ -100,7 +100,7 @@ describe('Transactions', function() {
 
     // The actual transfer logic
     async function transfer(from, to, amount) {
-      const session = await Account.startSession();
+      const session = await mongoose.startSession();
       session.startTransaction();
       try {
         const opts = { session, new: true };
@@ -135,7 +135,7 @@ describe('Transactions', function() {
     await mongoose.connect(uri, { replicaSet: 'rs' });
 
     await mongoose.connection.dropDatabase();
-    const Account = mongoose.model('Account', new mongoose.Schema({
+    const Account = mongoose.model('_Account', new mongoose.Schema({
       name: String, balance: Number
     }));
 
@@ -158,7 +158,7 @@ describe('Transactions', function() {
     await mongoose.disconnect();
     // The actual transfer logic
     async function transfer(from, to, amount) {
-      const session = await Account.startSession();
+      const session = await mongoose.startSession();
       session.startTransaction();
       try {
         const opts = { session, new: true };
