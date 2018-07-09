@@ -108,7 +108,7 @@ There are a lot of nasty gotchas with unhandled rejections. That's why Node.js g
 The `unhandledRejection` Event
 ------------------------------
 
-The node `process` global has [an `unhandledRejection` event](https://nodejs.org/api/process.html#process_event_unhandledrejection) for unhandled promise rejection. Note that this **only** works for native promises, so if you do something like `global.Promise = require('bluebird')` the below code won't work. Your event handler will receive the promise rejection error as its first parameter:
+The node `process` global has [an `unhandledRejection` event](https://nodejs.org/api/process.html#process_event_unhandledrejection) for unhandled promise rejection. [Bluebird also emits this event](http://bluebirdjs.com/docs/api/error-management-configuration.html), so if you do `global.Promise = require('bluebird')` the below code will still work. Your event handler will receive the promise rejection error as its first parameter:
 
 ```javascript
 process.on('unhandledRejection', error => {
