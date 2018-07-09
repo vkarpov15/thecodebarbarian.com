@@ -109,7 +109,7 @@ so you need to use <code>await</code>.</p>
 
 <span class="hljs-comment">// The actual transfer logic</span>
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transfer</span>(<span class="hljs-params">from, to, amount</span>) </span>{
-  <span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> Account.startSession();
+  <span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> mongoose.startSession();
   session.startTransaction();
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">const</span> opts = { session, <span class="hljs-keyword">new</span>: <span class="hljs-literal">true</span> };
