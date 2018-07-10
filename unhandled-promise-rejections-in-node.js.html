@@ -81,7 +81,7 @@ $ node test.js
 </code></pre>
 <p>There are a lot of nasty gotchas with unhandled rejections. That&#39;s why Node.js gives you a mechanism for globally handling unhandled rejections.</p>
 <h2 id="the-unhandledrejection-event">The <code>unhandledRejection</code> Event</h2>
-<p>The node <code>process</code> global has <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection">an <code>unhandledRejection</code> event</a> for unhandled promise rejection. Note that this <strong>only</strong> works for native promises, so if you do something like <code>global.Promise = require(&#39;bluebird&#39;)</code> the below code won&#39;t work. Your event handler will receive the promise rejection error as its first parameter:</p>
+<p>The node <code>process</code> global has <a href="https://nodejs.org/api/process.html#process_event_unhandledrejection">an <code>unhandledRejection</code> event</a> for unhandled promise rejection. <a href="http://bluebirdjs.com/docs/api/error-management-configuration.html">Bluebird also emits this event</a>, so if you do <code>global.Promise = require(&#39;bluebird&#39;)</code> the below code will still work. Your event handler will receive the promise rejection error as its first parameter:</p>
 <pre><code class="lang-javascript">process.on(<span class="hljs-string">'unhandledRejection'</span>, error =&gt; {
   <span class="hljs-comment">// Will print "unhandledRejection err is not defined"</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unhandledRejection'</span>, error.message);
