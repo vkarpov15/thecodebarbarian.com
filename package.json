@@ -37,13 +37,15 @@
     "wagner-core": "0.2.0"
   },
   "devDependencies": {
+    "fastify": "1.8.0",
     "mocha": "5.2.0",
     "mongodb": "3.1.0",
     "mongoose": "5.2.2",
     "react": "16.4.1",
     "react-dom": "16.4.1",
     "redux": "4.0.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "superagent": "3.8.3"
   },
   "homepage": "https://github.com/vkarpov15/thecodebarbarian.com"
 }
