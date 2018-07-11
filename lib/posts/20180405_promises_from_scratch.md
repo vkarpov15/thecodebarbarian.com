@@ -244,4 +244,4 @@ Moving On
 
 _Looking for a more detailed guide that walks you through building a [standards compliant](https://promisesaplus.com/) promise library from scratch? My new ebook, Mastering Async/Await, shows you how to build a Promises/A+ compliant promise implementation and demonstrates how it works with async/await. <a href="http://asyncawait.net/">Get your copy!</a>_
 
-<a href="http://asyncawait.net"><img width="200" src="http://asyncawait.net/images/cover_400.png"/></a>
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>
