@@ -1,0 +1,235 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Testing a Vanilla JS App with Cypress | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Testing a Vanilla JS App with Cypress"/><meta property="og:url" content="http://www.thecodebarbarian.com/testing-a-vanilla-js-app-with-cypress"/><meta property="og:image" content="https://i.imgur.com/7qgczuu.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Ftesting-a-vanilla-js-app-with-cypress&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Ftesting-a-vanilla-js-app-with-cypress" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Ftesting-a-vanilla-js-app-with-cypress" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Ftesting-a-vanilla-js-app-with-cypress&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Ftesting-a-vanilla-js-app-with-cypress" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Ftesting-a-vanilla-js-app-with-cypress" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Testing a Vanilla JS App with Cypress</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 12, 2018</span></div></div></div><div class="post-body-text-container"><p><a href="https://www.cypress.io/">Cypress</a> is a powerful integration testing framework
+for the browser that promises to aleviate a lot of the
+<a href="https://medium.com/tech-quizlet/cypress-the-future-of-end-to-end-testing-for-web-applications-8ee108c5b255">common paint points of testing with Selenium</a>. Projects have been trying to unseat
+Selenium for years, but Cypress differentiates itself with its exceptional
+UI and developer experience, something that Selenium has always struggled with.
+Cypress has powerful features like <a href="https://docs.cypress.io/guides/guides/screenshots-and-videos.html">automated screenshots of test failures</a>,
+<a href="https://docs.cypress.io/guides/getting-started/writing-your-first-test.html#Time-Travel">time travel</a>, and <a href="https://docs.cypress.io/guides/guides/stubs-spies-and-clocks.html">stubbing</a> built-in. Right now the big limitation of Cypress is that they only support testing in <a href="https://docs.cypress.io/guides/guides/launching-browsers.html#Browsers">Chrome and Electron</a>. In this article, I&#39;ll
+demonstrate how to test a simple autocomplete app with Cypress.</p>
+<h2 id="a-vanilla-js-autocomplete">A Vanilla JS Autocomplete</h2>
+<p>In order to demo writing a test with Cypress, I put together a simple
+dependency-free autocomplete that hits <a href="https://blog.npmjs.org/post/157615772423/deprecating-the-all-registry-endpoint">npm&#39;s public search API</a> to search for npm packages. Below is a video showing the autocomplete
+in action. This app won&#39;t be on <a href="https://dribbble.com/">Dribbble</a> anytime soon
+but it is enough for a meaningful demo of Cypress&#39; features.</p>
+<iframe width="630" height="394" src="https://www.useloom.com/embed/be840401e6684001b188a3d0bb92350d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p>Below is the HTML for the autocomplete page, the <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.html"><code>index.html</code> file</a>:</p>
+<pre><code class="lang-html">&lt;html&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search-wrapper"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Press enter to search npm"</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content-wrapper"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"results"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+</code></pre>
+<p>The HTML isn&#39;t particularly interesting. The real functionality is in the
+<a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.js"><code>index.js</code> file</a>. This file is responsible for instrumenting the HTML to send out
+an HTTP request to npm using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch()</code></a> and
+rendering the results as an unordered list. To avoid promise chaining, the
+below example uses <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await</a>.</p>
+<pre><code class="lang-javascript">init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#search'</span>), <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#results'</span>));
+
+<span class="hljs-keyword">const</span> endpoint = <span class="hljs-string">'https://registry.npmjs.org/-/v1/search'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params">input, results</span>) </span>{
+  <span class="hljs-keyword">let</span> inProgress = <span class="hljs-literal">false</span>;
+  input.addEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">async</span> (ev) =&gt; {
+    <span class="hljs-keyword">if</span> (ev.key !== <span class="hljs-string">'Enter'</span> || inProgress) {
+      <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-keyword">const</span> text = input.value;
+    <span class="hljs-keyword">let</span> result = <span class="hljs-literal">null</span>;
+    inProgress = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">try</span> {
+      result = <span class="hljs-keyword">await</span> <span class="hljs-built_in">window</span>.fetch(<span class="hljs-string">`<span class="hljs-subst">${endpoint}</span>?text=<span class="hljs-subst">${text}</span>&amp;size=25`</span>).
+        then(res =&gt; res.json());
+    } <span class="hljs-keyword">catch</span> (error) {
+      inProgress = <span class="hljs-literal">false</span>;
+      <span class="hljs-keyword">throw</span> error;
+    }
+    inProgress = <span class="hljs-literal">false</span>;
+
+    render(result.objects.map(v =&gt; v.package));
+  });
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params">packages</span>) </span>{
+    results.innerHTML = packages.
+      map(pkg =&gt; <span class="hljs-string">`
+        &lt;li&gt;
+          &lt;a href="http://www.npmjs.com/package/<span class="hljs-subst">${pkg.name}</span>"&gt;
+            <span class="hljs-subst">${pkg.name}</span>
+          &lt;/a&gt;
+        &lt;/li&gt;
+      `</span>).
+      join(<span class="hljs-string">'\n'</span>);
+  }
+}
+</code></pre>
+<p>One neat feature of this example is that it doesn&#39;t require any bundlers like
+<a href="http://npmjs.com/package/webpack">webpack</a>. Most real apps will use webpack
+to compile the apps they test with Cypress, but this example just uses a
+<code>&lt;script&gt;</code> tag in the interest of staying focused and concise.</p>
+<h2 id="testing-the-autocomplete-with-cypress">Testing the Autocomplete with Cypress</h2>
+<p>Installing <a href="http://npmjs.com/package/cypress">Cypress</a> is easy via npm:</p>
+<pre><code>npm install cypress
+</code></pre><p>In order to easily run Cypress, <a href="https://docs.cypress.io/guides/getting-started/installing-cypress.html#Opening-Cypress">add <code>cypress:open</code> script to your <code>package.json</code> file</a>.</p>
+<pre><code>{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"cypress-autocomplete"</span>,
+  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"cypress"</span>: <span class="hljs-string">"3.0.2"</span>,
+    <span class="hljs-string">"serve"</span>: <span class="hljs-string">"9.2.0"</span>
+  },
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>,
+    <span class="hljs-string">"serve"</span>: <span class="hljs-string">"serve ./"</span>
+  }
+}
+</code></pre><p>In one terminal tab, run <code>npm run serve</code> to start an <a href="http://npmjs.com/package/serve">HTTP server that serves files from your file system</a>. In another tab,
+run <code>npm run cypress:open</code> to start Cypress. When you run Cypress, you should
+see a window like what you see below.</p>
+<p><a href="https://i.imgur.com/oLu2DbN.png"><img src="https://i.imgur.com/oLu2DbN.png"></a></p>
+<p>Next, add a <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/cypress/integration/simple.js">test file <code>sample.js</code></a> to the <code>cypress/integration</code> folder. Below
+is a simple test for the autocomplete that stubs out the npm API and asserts
+that the autocomplete renders some fake data.</p>
+<pre><code class="lang-javascript">describe(<span class="hljs-string">'Autocomplete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  it(<span class="hljs-string">'renders results'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    cy.visit(<span class="hljs-string">'http://localhost:5000'</span>, {
+      onBeforeLoad: win =&gt; {
+        <span class="hljs-comment">// Stub out `window.fetch()` so `index.js` doesn't actually hit</span>
+        <span class="hljs-comment">// the npm API</span>
+        cy.stub(win, <span class="hljs-string">'fetch'</span>, () =&gt; {
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({
+            json: () =&gt; ({
+              objects: [
+                { package: { name: <span class="hljs-string">'mongoose'</span> } },
+                { package: { name: <span class="hljs-string">'mongoose-autopopulate'</span> } }
+              ]
+            })
+          });
+        });
+      }
+    });
+
+    <span class="hljs-comment">// `{enter}` is how you simulate hitting the 'enter' key in Cypress</span>
+    <span class="hljs-comment">// See: https://docs.cypress.io/api/commands/type.html#Arguments</span>
+    cy.get(<span class="hljs-string">'#search'</span>).type(<span class="hljs-string">'mongoose{enter}'</span>);
+
+    <span class="hljs-comment">// Don't use `expect()` directly here, chaining calls onto `cy`</span>
+    <span class="hljs-comment">// is potentially async</span>
+    cy.get(<span class="hljs-string">'#results'</span>).
+      should(<span class="hljs-string">'contain'</span>, <span class="hljs-string">'mongoose'</span>).
+      and(<span class="hljs-string">'contain'</span>, <span class="hljs-string">'mongoose-autopopulate'</span>);
+  });
+});
+</code></pre>
+<p>Find this test file in the Cypress test runner and click it. Cypress will
+then run the test for you. Below is a video of the process end-to-end.</p>
+<iframe width="630" height="355" src="https://www.useloom.com/embed/8285f4774f9c4dfc8c380c4226d4ed3d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<h2 id="moving-on">Moving On</h2>
+<p>Cypress has a lot of excellent features that this article didn&#39;t cover, like
+time travel and screenshots. Although the <a href="https://docs.cypress.io/guides/guides/launching-browsers.html#Browsers">limited set of browsers</a> is a problem, Cypress&#39; features make it a <a href="https://medium.com/tech-quizlet/cypress-the-future-of-end-to-end-testing-for-web-applications-8ee108c5b255">compelling option for integration tests</a>. Next time you&#39;re thinking about testing
+tools for your frontend, make sure you check out <a href="https://www.cypress.io/">Cypress</a>.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180712_cypress.md">Github</a></em></div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Testing a Vanilla JS App with Cypress", time: new Date() });
+  </script></body></html>
