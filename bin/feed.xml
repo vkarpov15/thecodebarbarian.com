@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 10 Jul 2018 17:25:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Jul 2018 21:16:36 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Testing a Vanilla JS App with Cypress]]></title>
+            <link>http://www.thecodebarbarian.com/testing-a-vanilla-js-app-with-cypress.html</link>
+            <guid>http://www.thecodebarbarian.com/testing-a-vanilla-js-app-with-cypress.html</guid>
+            <pubDate>Thu, 12 Jul 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building REST APIs with Async/Await and Fastify]]></title>
             <link>http://www.thecodebarbarian.com/building-rest-apis-with-async-await-and-fastify.html</link>
