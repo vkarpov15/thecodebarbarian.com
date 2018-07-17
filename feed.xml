@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 12 Jul 2018 21:16:36 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 17 Jul 2018 15:09:11 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Getting Started with Async Iterators in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/getting-started-with-async-iterators-in-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/getting-started-with-async-iterators-in-node-js.html</guid>
+            <pubDate>Tue, 17 Jul 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Testing a Vanilla JS App with Cypress]]></title>
             <link>http://www.thecodebarbarian.com/testing-a-vanilla-js-app-with-cypress.html</link>

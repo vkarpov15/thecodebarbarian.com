@@ -1,0 +1,317 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Getting Started with Async Iterators in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Getting Started with Async Iterators in Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/getting-started-with-async-iterators-in-node-js"/><meta property="og:image" content="https://i.imgur.com/OdQsoAx.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fgetting-started-with-async-iterators-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fgetting-started-with-async-iterators-in-node-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fgetting-started-with-async-iterators-in-node-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fgetting-started-with-async-iterators-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fgetting-started-with-async-iterators-in-node-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fgetting-started-with-async-iterators-in-node-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Getting Started with Async Iterators in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 17, 2018</span></div></div></div><div class="post-body-text-container"><p><a href="https://medium.com/front-end-hacking/javascript-whats-new-in-ecmascript-2018-es2018-17ede97f36d5">ES2018</a> introduces several new JavaScript
+language features that are great for Node.js developers. <a href="/using-promise-finally-in-node-js.html"><code>Promise.prototype.finally()</code> is the most important new feature</a>, but I
+think <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">async iterators</a> are a close second. In this article, I&#39;ll describe what you need
+to start using async iterators in Node.js.
+I&#39;ll also provide an example of how to use async iterators with
+<a href="/cursors-in-mongoose-45.html">Mongoose cursors</a>.</p>
+<h2 id="your-first-async-iterator">Your First Async Iterator</h2>
+<p>Async iterators are natively supported in Node.js 10.x. If you&#39;re
+using Node.js 8.x or 9.x, you need to use Node.js&#39; <a href="https://github.com/tc39/proposal-async-iteration/issues/117#issuecomment-346695187"><code>--harmony_async_iteration</code> flag</a>. Async iterators are not supported in Node.js
+6.x or 7.x, so if you&#39;re on an older version you need to <a href="/managing-node.js-versions-without-external-tools.html">upgrade Node.js</a> to use async iterators.</p>
+<pre><code>$ node --version
+v9<span class="hljs-number">.9</span><span class="hljs-number">.0</span>
+$ node test.js
+/home/node/test.js:<span class="hljs-number">7</span>
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> gen()) {
+      ^^^^^
+
+<span class="hljs-built_in">SyntaxError</span>: Unexpected reserved word
+    at <span class="hljs-keyword">new</span> Script (vm.js:<span class="hljs-number">51</span>:<span class="hljs-number">7</span>)
+    at createScript (vm.js:<span class="hljs-number">136</span>:<span class="hljs-number">10</span>)
+    at <span class="hljs-built_in">Object</span>.runInThisContext (vm.js:<span class="hljs-number">197</span>:<span class="hljs-number">10</span>)
+    at Module._compile (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">613</span>:<span class="hljs-number">28</span>)
+    at <span class="hljs-built_in">Object</span>.Module._extensions..js (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">660</span>:<span class="hljs-number">10</span>)
+    at Module.load (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">561</span>:<span class="hljs-number">32</span>)
+    at tryModuleLoad (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">501</span>:<span class="hljs-number">12</span>)
+    at <span class="hljs-built_in">Function</span>.Module._load (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">493</span>:<span class="hljs-number">3</span>)
+    at <span class="hljs-built_in">Function</span>.Module.runMain (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">690</span>:<span class="hljs-number">10</span>)
+    at startup (bootstrap_node.js:<span class="hljs-number">194</span>:<span class="hljs-number">16</span>)
+$
+$ node --harmony_async_iteration test.js
+works!
+$
+</code></pre><p>Now that flags and versions are out of the way, let&#39;s review what
+an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">iterator</a> is in JavaScript. An iterator is an
+object that exposes a <code>next()</code> function which returns an object
+<code>{ value, done }</code>. The <code>value</code> property is the next value in the
+sequence, and the <code>done</code> property is a boolean that is true if there
+are no more values in the sequence. For example, below is an iterator
+that loops over the values in an array.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+
+<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">const</span> iterator = {
+  next: () =&gt; {
+    <span class="hljs-keyword">if</span> (index &gt;= nums.length) {
+      <span class="hljs-keyword">return</span> { done: <span class="hljs-literal">true</span> };
+    }
+    <span class="hljs-keyword">const</span> value = iterator[index++];
+    <span class="hljs-keyword">return</span> { value, done: <span class="hljs-literal">false</span> };
+  }
+};
+</code></pre>
+<p>By itself, an iterator isn&#39;t very useful. In order to use an
+iterator with a <code>for/of</code> loop, you need an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">iterable</a>. An iterable is an object
+with a <code>Symbol.iterator</code> function that returns an iterator. Below
+is a simple iterable that just returns the above iterator.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> iterable = {
+  [<span class="hljs-built_in">Symbol</span>.iterator]: () =&gt; iterator
+};
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> iterable) {
+  <span class="hljs-built_in">console</span>.log(v); <span class="hljs-comment">// Prints "1", "2", "3"</span>
+}
+</code></pre>
+<p>ES2018 introduces 2 related concepts: async iterators and async
+iterables. The difference between an <a href="https://github.com/tc39/proposal-async-iteration">async iterator</a>
+and a conventional iterator is that, instead of returning a plain object <code>{ value, done }</code>, an async iterator returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a> that fulfills to <code>{ value, done }</code>.
+Similarly, an async iterable is an object with <code>Symbol.asyncIterator</code> function that returns an async iterator. Below is an example of
+creating an async iterator and an async iterable.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+
+<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">const</span> asyncIterator = {
+  next: () =&gt; {
+    <span class="hljs-keyword">if</span> (index &gt;= nums.length) {
+      <span class="hljs-comment">// A conventional iterator would return a `{ done: true }`</span>
+      <span class="hljs-comment">// object. An async iterator returns a promise that resolves</span>
+      <span class="hljs-comment">// to `{ done: true }`</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({ done: <span class="hljs-literal">true</span> });
+    }
+    <span class="hljs-keyword">const</span> value = nums[index++];
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({ value, done: <span class="hljs-literal">false</span> });
+  }
+};
+
+<span class="hljs-keyword">const</span> asyncIterable = {
+  <span class="hljs-comment">// Note that async iterables use `Symbol.asyncIterator`, **not**</span>
+  <span class="hljs-comment">// `Symbol.iterator`.</span>
+  [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
+};
+</code></pre>
+<h2 id="asynchronous-iteration">Asynchronous Iteration</h2>
+<p>You can use a <code>for/of</code> loop to loop through an iterable. However,
+<code>for/of</code> won&#39;t work with async iterables because <code>value</code> and <code>done</code>
+aren&#39;t computed synchronously. If you&#39;re a regular reader of this blog,
+you might have seen <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html#processing-a-mongodb-cursor">some async/await design patterns for this</a>. With async/await,
+iterating through an async iterator is doable:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
+  [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
+};
+
+main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// To be concise, just get the `next()` function</span>
+  <span class="hljs-keyword">const</span> { next } = asyncIterable[<span class="hljs-built_in">Symbol</span>.asyncIterator]();
+
+  <span class="hljs-comment">// Use a `for` loop with `await` to exhaust the iterable. Once</span>
+  <span class="hljs-comment">// `next()` resolves to a promise with `done: true`, exit the</span>
+  <span class="hljs-comment">// loop.</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> { value, done } = <span class="hljs-keyword">await</span> next(); !done; { value, done } = <span class="hljs-keyword">await</span> next()) {
+    <span class="hljs-built_in">console</span>.log(value); <span class="hljs-comment">// Prints "1", "2", "3"</span>
+  }
+}
+</code></pre>
+<p>The above approach works in Node.js 8.x and 9.x without a flag,
+but also isn&#39;t as clean as it could be. The main crux of the
+async iterator spec is the <code>for/await/of</code> loop, which lets you
+loop over an async iterator using <a href="https://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>. Like regular <code>await</code>, you can only <a href="/80-20-guide-to-async-await-in-node.js.html#hello-world">use <code>for/await/of</code> in an async function</a>.
+Below is an example of using <code>for/await/of</code> to loop through
+<code>asyncIterable</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
+  [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
+};
+
+main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> value <span class="hljs-keyword">of</span> asyncIterable) {
+    <span class="hljs-built_in">console</span>.log(value);
+  }
+}
+</code></pre>
+<p>The <code>for await</code> syntax is much more concise than a conventional
+async/await <code>for</code> loop. Because it behaves like a <code>for/of</code> loop,
+<code>for/await/of</code> is easier to understand because it automatically
+checks for the end of the iterator on its own.</p>
+<p>What happens if your async iterator returns a rejected promise?
+Much like how <a href="https://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html#return-values-and-exceptions"><code>await</code> on a rejected promise throws an error that you can <code>try/catch</code></a>, <code>for/await/of</code> throws a catchable error if the async iterator returns a promise that rejects.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterator = {
+  next: () =&gt; <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>))
+};
+
+<span class="hljs-keyword">const</span> asyncIterable = {
+  [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
+};
+
+main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> value <span class="hljs-keyword">of</span> asyncIterable) {}
+  } <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-comment">// Prints "Caught: Oops!"</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Caught:'</span>, error.message);
+  }
+}
+</code></pre>
+<p>Now that you&#39;ve seen async iterators in action on a toy example,
+let&#39;s take a look at async iterators in a more real world example:
+<a href="http://mongoosejs.com/docs/api.html#query_Query-cursor">Mongoose cursors</a>.</p>
+<h2 id="using-for-await-of-with-mongoose-cursors">Using <code>for/await/of</code> with Mongoose Cursors</h2>
+<p>A <a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Mongoose query cursor</a> is an object with a <code>next()</code> function that retrieves the next document in a query result. Cursors are useful for iterating through huge data sets because they load data from MongoDB in batches, so you never have all the data in your server&#39;s memory at once. Below is an example of iterating through a Mongoose cursor using a conventional async/await <code>for</code> loop.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+
+  <span class="hljs-keyword">const</span> Movie = mongoose.model(<span class="hljs-string">'Movie'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({
+    name: <span class="hljs-built_in">String</span>
+  }));
+
+  <span class="hljs-keyword">await</span> Movie.deleteMany({});
+  <span class="hljs-keyword">await</span> Movie.insertMany([
+    { name: <span class="hljs-string">'Enter the Dragon'</span> },
+    { name: <span class="hljs-string">'Ip Man'</span> },
+    { name: <span class="hljs-string">'Kickboxer'</span> }
+  ]);
+
+  <span class="hljs-keyword">const</span> cursor = Movie.find().cursor();
+  <span class="hljs-comment">// Use `next()` and `await` to exhaust the cursor</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> cursor.next(); doc != <span class="hljs-literal">null</span>; doc = <span class="hljs-keyword">await</span> cursor.next()) {
+    <span class="hljs-comment">// Prints "Enter the Dragon', "Ip Man", "Kickboxer"</span>
+    <span class="hljs-built_in">console</span>.log(doc.name);
+  }
+}
+</code></pre>
+<p>While Mongoose cursors have a <code>next()</code> function, they are <strong>not</strong> currently async iterators or async iterables. Unlike an async
+iterator, a Mongoose cursor returns <code>null</code> to signify the end of
+the cursor, not <code>{ done: true }</code>. In order to use
+<code>for/await/of</code> with Mongoose cursors, you need to do a little work
+to transform a Mongoose cursor into an iterator and wrap it in an
+async iterable.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = Movie.find().cursor();
+
+<span class="hljs-comment">// Wrap the cursor in an async iterable using `then()` to</span>
+<span class="hljs-comment">// transform the result of `cursor.next()` into properly</span>
+<span class="hljs-comment">// formatted async iterator output</span>
+<span class="hljs-keyword">const</span> asyncIterable = {
+  [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; ({
+    next: () =&gt; cursor.next().then(value =&gt; ({
+      value,
+      done: value == <span class="hljs-literal">null</span>
+    }))
+  })
+};
+
+<span class="hljs-comment">// Use for/await/of to loop through the async iterable</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> asyncIterable) {
+  <span class="hljs-comment">// Prints "Enter the Dragon', "Ip Man", "Kickboxer"</span>
+  <span class="hljs-built_in">console</span>.log(doc.name);
+}
+</code></pre>
+<p>Having to wrap a cursor to work with <code>for/await/of</code> is clunky,
+which is why <a href="https://github.com/Automattic/mongoose/issues/6737">Mongoose has an issue open to support async iteration with query cursors</a>. Follow
+<a href="https://github.com/Automattic/mongoose/issues/6737">this GitHub issue</a> or <a href="https://twitter.com/mongoosejs">Mongoose on Twitter</a> for updates.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Async iterators and <code>for/await/of</code> loops are one of the most exciting new features in ES2018. Async iteration lets you use <code>for/of</code> with async/await to make async loops syntactically pristine.
+Make sure you upgrade to Node.js 10.x to start using <code>for/await/of</code>,
+and look out for Mongoose and the MongoDB driver to support async iteration in the near future.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180717_async_iterator.md">Github</a></em></div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Getting Started with Async Iterators in Node.js", time: new Date() });
+  </script></body></html>
