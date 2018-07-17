@@ -8,7 +8,175 @@
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/basic-functional-programming-with-async-await">Basic Functional Programming With Async/Await</a></h2><div class="title-byline-container"><div class="credits">April 20, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="http://i.imgur.com/pNQZG9E.jpg" style="width: 100%"/></div><div class="col-lg-9"><em><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> makes it easy to <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">integrate asynchronous behavior with imperative constructs like for loops, if statements, and try/catch blocks</a>. Unfortunately, it doesn&#39;t do the same for functional constructs like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"><code>forEach</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>reduce</code></a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter</code></a>. Using these constructs with async functions leads to behavior that can seem downright baffling. In this article, I&#39;ll show you some common gotchas for async functions with JavaScript&#39;s built-in functional array methods and how to work around them.</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/common-async-await-design-patterns-in-node.js">Common Async/Await Design Patterns in Node.js</a></h2><div class="title-byline-container"><div class="credits">March 15, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="http://i.imgur.com/plEwB6L.png" style="width: 100%"/></div><div class="col-lg-9"><em><p><a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">Async/await in Node.js</a> opens up a host of powerful design patterns. Tasks that used to take <a href="https://www.npmjs.com/package/async">complex libraries</a> or intricate promise chaining can now be done with rudimentary <code>if</code> statements and <code>for</code> loops. <a href="http://thecodebarbarian.com/3-common-co-design-patterns">I already wrote about these kind of design patterns with co</a>, but async/await makes these patterns accessible in vanilla Node.js, no outside libraries required.</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/80-20-guide-to-async-await-in-node.js">The 80/20 Guide to Async/Await in Node.js</a></h2><div class="title-byline-container"><div class="credits">March 08, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="http://i.imgur.com/9D2tvfU.png" style="width: 100%"/></div><div class="col-lg-9"><em><p>Arguably the biggest new feature in <a href="https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V7.md#7.6.0">Node.js 7.6.0</a> is that the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">much awaited async function keyword is now available without a flag</a>. <a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callback hell</a> and promise hell are now in the past. But, like <a href="https://en.wikipedia.org/wiki/Uncle_Ben#.22With_great_power_comes_great_responsibility.22">Uncle Ben always reminded us</a>, with great power comes great responsibility, and async/await gives you a lot of new and exciting ways to shoot yourself in the foot. You still need to handle errors and be aware of the async nature of your code, otherwise you&#39;ll inevitably be complaining about &quot;async/await hell&quot; in 6 months.</p>
-</em></div></div></div></div></div><div class="row"></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+</em></div></div></div></div></div><div class="row"></div></div><style>.native-js {
+  visibility: hidden;
+  transition: all .25s ease-in-out;
+  opacity: 0;
+  flex-flow: column nowrap;
+  transform: translateY(calc(100% - 35px));
+  max-width: 100%;
+  }
+  
+  .native-show {
+  visibility: visible;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -1px 4px 1px hsla(0, 0%, 0%, .15);
+  opacity: 1;
+  z-index: 10;
+  }
+  
+  .native-show:hover {
+  transform: translateY(0);
+  }
+  
+  .native-img {
+  margin-right: 20px;
+  max-height: 50px;
+  border-radius: 3px;
+  width: auto;
+  }
+  
+  .native-sponsor {
+  margin: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transform-origin: left;
+  letter-spacing: .5px;
+  transition: all .3s ease-in-out;
+  font-size: 12px;
+  }
+  
+  .native-show:hover .native-sponsor {
+  transform: scaleY(0);
+  margin: 0 20px;
+  opacity: 0;
+  }
+  
+  .native-flex {
+  display: flex;
+  padding: 20px 20px 40px;
+  text-decoration: none;
+  
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  }
+  
+  .native-main {
+  display: flex;
+  
+  flex-flow: row nowrap;
+  align-items: center;
+  }
+  
+  .native-details {
+  display: flex;
+  margin-right: 30px;
+  
+  flex-flow: column nowrap;
+  }
+  
+  .native-company {
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+  }
+  
+  .native-desc {
+  letter-spacing: 1px;
+  font-weight: 300;
+  line-height: 1.4;
+  }
+  
+  .native-cta {
+  padding: 10px 14px;
+  border-radius: 3px;
+  box-shadow: 0 6px 13px 0 hsla(0, 0%, 0%, .15);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 12px;
+  transition: all .3s ease-in-out;
+  transform: translateY(-1px);
+  }
+  
+  .native-cta:hover {
+  box-shadow: none;
+  transform: translateY(1px);
+  }
+  
+  @media only screen and (min-width: 320px) and (max-width: 759px) {
+  .native-flex {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  
+  .native-img {
+    margin: 0;
+  }
+  
+  .native-details {
+    margin: 0;
+  }
+  
+  .native-main {
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    align-content: center;
+  }
+  }
+  </style><div class="native-js"><script type="text/javascript" src="/js/native.js"></script>
+
+<script type="text/javascript">
+  _native.init("CK7DT53N", {
+    targetClass: 'native-js',
+    display: 'flex',
+    visibleClass: 'native-show'
+  });
+</script>
+
+<div class="native-sponsor">Sponsored by #native_company# - Learn More</div>
+<a href="#native_link#" class="native-flex">
+  <style>
+  .native-js {
+    background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+  }
+  
+  .native-details,
+  .native-sponsor,
+  .native-bsa {
+    color: #native_color# !important;
+  }
+  
+  .native-details:hover {
+    color: #native_color_hover# !important;
+  }
+  
+  .native-cta {
+    color: #native_cta_color#;
+    background-color: #native_cta_bg_color#;
+  }
+  
+  .native-cta:hover {
+    color: #native_cta_color_hover;
+    background-color: #native_cta_bg_color_hover#;
+  }
+  </style>
+  <div class="native-main">
+    <img class="native-img" src="#native_logo#">
+    <div class="native-details">
+      <span class="native-company">#native_title#</span>
+      <span class="native-desc">#native_desc#</span>
+    </div>
+  </div>
+  <span class="native-cta">#native_cta#</span>
+</a></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
   analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
   analytics.page()
 }}();</script></body></html>
