@@ -7,7 +7,175 @@
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/2014/06/03/the-future-of-mongoosejs">The Future of MongooseJS</a></h2><div class="title-byline-container"><div class="credits">June 03, 2014</div></div></div><div class="row"><div class="col-lg-3"><img src="//html5hub.com/wp-content/uploads/2013/11/es6-hiway-sign.png" style="width: 100%"/></div><div class="col-lg-9"><em><p>Two weeks ago marked a big milestone: <a href="https://github.com/LearnBoost/mongoose/blob/master/History.md#390-unstable--2014-05-22">mongoose 3.9.0</a> was released. Be warned, mongoose&#39;s versioning practice is that even numbered branches are stable and odd are unstable. While all our tests check out on 3.9.0, I would recommend sticking to 3.8.x releases in production for now. 3.9.0 was mongoose&#39;s first unstable release since October 2013. While the changes in 3.9.0 were relatively minor, they open the door to getting some interesting features into 4.0. Here are some of the high-level features I think should make it in to 4.0:</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/2014/05/09/whats-new-in-mongoose-3-8-9">What's New in Mongoose 3.8.9</a></h2><div class="title-byline-container"><div class="credits">May 09, 2014</div></div></div><div class="row"><div class="col-lg-3"><img src="//houstonbeerweek.com/cal/uploads/mvsc.jpg" style="width: 100%"/></div><div class="col-lg-9"><em><p>I have an important announcement to make: over the last couple weeks I&#39;ve been taking over maintaining <a href="http://mongoosejs.com/">mongoose</a>, the popular MongoDB/NodeJS ODM. I have some very big shoes to fill, <a href="https://twitter.com/aaronheckmann">Aaron Heckmann</a> has done an extraordinary job building mongoose into an indispensable part of the NodeJS ecosystem. As an avid user of mongoose over the last two years, I look forward to continuing mongoose&#39;s storied tradition of making dealing with data elegant and fun. However, mongoose isn&#39;t perfect, and I&#39;m already looking forward to the next major stable release, 4.0.0. Suggestions are most welcome, but please be patient, I&#39;m still trying to catch up on the backlog of issues and pull requests.</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/2014/04/25/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-ii-aggregation-out">A NodeJS Perspective on What's New in MongoDB 2.6, Part II: Aggregation $out</a></h2><div class="title-byline-container"><div class="credits">April 25, 2014</div></div></div><div class="row"><div class="col-lg-3"><img src="//samuellam.files.wordpress.com/2012/09/nodemongo.png" style="width: 100%"/></div><div class="col-lg-9"><em><p>From a performance perspective as well as a developer productivity perspective, MongoDB really shines when you only need to load one document to display a particular page. A traditional hard drive only needs one sequential read to load a single MongoDB document, which limits your performance overhead. In addition, much like how <a href="http://rapgenius.com/Nas-one-mic-lyrics#note-948605">Nas says life is simple because all he needs is one mic</a>, grouping all the data for a single page into one document makes understanding and debugging the page much simpler.</p>
-</em></div></div></div></div></div><div class="row"><div class="pull-left"><a href="/page/13"><< Newer Articles</a></div><div class="pull-right"><a href="/page/15">Older Articles >></a></div></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+</em></div></div></div></div></div><div class="row"><div class="pull-left"><a href="/page/13"><< Newer Articles</a></div><div class="pull-right"><a href="/page/15">Older Articles >></a></div></div></div><style>.native-js {
+  visibility: hidden;
+  transition: all .25s ease-in-out;
+  opacity: 0;
+  flex-flow: column nowrap;
+  transform: translateY(calc(100% - 35px));
+  max-width: 100%;
+  }
+  
+  .native-show {
+  visibility: visible;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -1px 4px 1px hsla(0, 0%, 0%, .15);
+  opacity: 1;
+  z-index: 10;
+  }
+  
+  .native-show:hover {
+  transform: translateY(0);
+  }
+  
+  .native-img {
+  margin-right: 20px;
+  max-height: 50px;
+  border-radius: 3px;
+  width: auto;
+  }
+  
+  .native-sponsor {
+  margin: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transform-origin: left;
+  letter-spacing: .5px;
+  transition: all .3s ease-in-out;
+  font-size: 12px;
+  }
+  
+  .native-show:hover .native-sponsor {
+  transform: scaleY(0);
+  margin: 0 20px;
+  opacity: 0;
+  }
+  
+  .native-flex {
+  display: flex;
+  padding: 20px 20px 40px;
+  text-decoration: none;
+  
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  }
+  
+  .native-main {
+  display: flex;
+  
+  flex-flow: row nowrap;
+  align-items: center;
+  }
+  
+  .native-details {
+  display: flex;
+  margin-right: 30px;
+  
+  flex-flow: column nowrap;
+  }
+  
+  .native-company {
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+  }
+  
+  .native-desc {
+  letter-spacing: 1px;
+  font-weight: 300;
+  line-height: 1.4;
+  }
+  
+  .native-cta {
+  padding: 10px 14px;
+  border-radius: 3px;
+  box-shadow: 0 6px 13px 0 hsla(0, 0%, 0%, .15);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 12px;
+  transition: all .3s ease-in-out;
+  transform: translateY(-1px);
+  }
+  
+  .native-cta:hover {
+  box-shadow: none;
+  transform: translateY(1px);
+  }
+  
+  @media only screen and (min-width: 320px) and (max-width: 759px) {
+  .native-flex {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  
+  .native-img {
+    margin: 0;
+  }
+  
+  .native-details {
+    margin: 0;
+  }
+  
+  .native-main {
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    align-content: center;
+  }
+  }
+  </style><div class="native-js"><script type="text/javascript" src="/js/native.js"></script>
+
+<script type="text/javascript">
+  _native.init("CK7DT53N", {
+    targetClass: 'native-js',
+    display: 'flex',
+    visibleClass: 'native-show'
+  });
+</script>
+
+<div class="native-sponsor">Sponsored by #native_company# - Learn More</div>
+<a href="#native_link#" class="native-flex">
+  <style>
+  .native-js {
+    background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+  }
+  
+  .native-details,
+  .native-sponsor,
+  .native-bsa {
+    color: #native_color# !important;
+  }
+  
+  .native-details:hover {
+    color: #native_color_hover# !important;
+  }
+  
+  .native-cta {
+    color: #native_cta_color#;
+    background-color: #native_cta_bg_color#;
+  }
+  
+  .native-cta:hover {
+    color: #native_cta_color_hover;
+    background-color: #native_cta_bg_color_hover#;
+  }
+  </style>
+  <div class="native-main">
+    <img class="native-img" src="#native_logo#">
+    <div class="native-details">
+      <span class="native-company">#native_title#</span>
+      <span class="native-desc">#native_desc#</span>
+    </div>
+  </div>
+  <span class="native-cta">#native_cta#</span>
+</a></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
   analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
   analytics.page()
 }}();</script></body></html>

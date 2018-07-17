@@ -260,3 +260,8 @@ Moving On
 Async iterators and `for/await/of` loops are one of the most exciting new features in ES2018. Async iteration lets you use `for/of` with async/await to make async loops syntactically pristine.
 Make sure you upgrade to Node.js 10.x to start using `for/await/of`,
 and look out for Mongoose and the MongoDB driver to support async iteration in the near future.
+
+_Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
+
+<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>

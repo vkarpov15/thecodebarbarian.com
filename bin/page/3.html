@@ -7,7 +7,175 @@
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/wrangling-geojson-with-turf">Wrangling GeoJSON with Turf.js</a></h2><div class="title-byline-container"><div class="credits">December 01, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="https://i.imgur.com/6kP4Bcm.jpg" style="width: 100%"/></div><div class="col-lg-9"><em><p><a href="http://turfjs.org/">Turf.js</a> has become an indispensible part of my Node.js</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/managing-embedded-documents-with-monogram">Managing Embedded Documents with Monogram</a></h2><div class="title-byline-container"><div class="credits">November 24, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="https://i.imgur.com/sC2ozYo.png" style="width: 100%"/></div><div class="col-lg-9"><em><p><a href="http://thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs">Monogram</a> has a powerful middleware system that makes <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concerns</a> easy. One use case is <a href="https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3">denormalization</a>, the practice of storing all or part of one document in another document. Denormalization is a powerful paradigm for both performance and data integrity. When done well, denormalization means you only need one query to fetch all necessary data, rather than using joins or <code>$lookup</code> stages that may require their own indexes.</p>
 </em></div></div></div><div class="container-fluid"><div class="row"><h2><a href="/mongoose-4.13-aggregation-middleware">What's New In Mongoose 4.13: Aggregation Middleware</a></h2><div class="title-byline-container"><div class="credits">November 17, 2017</div></div></div><div class="row"><div class="col-lg-3"><img src="https://i.imgur.com/4qSvIRF.png" style="width: 100%"/></div><div class="col-lg-9"><em><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">Mongoose 4.13</a> was released a couple weeks ago, with support for a powerful new feature: <a href="http://mongoosejs.com/docs/middleware.html">middleware</a> for aggregation. The primary motivation for this feature was to enable plugins like <a href="https://www.npmjs.com/package/mongoose-explain">mongoose-explain</a> to work with <code>aggregate()</code>, as well as enabling us to refactor <a href="http://mongoosejs.com/docs/discriminators.html">discriminators</a> to be a plugin. Aggregation middleware is a natural complement to query middleware, it lets you apply a lot of the use cases for hooks like <code>pre(&#39;find&#39;)</code> and <code>post(&#39;updateOne&#39;)</code> to aggregation. In this article, I&#39;ll demonstrate using aggregation middleware to enforce soft deletes, and explain how aggregation middleware works with <a href="http://mongoosejs.com/docs/api.html#aggregate_Aggregate-cursor">aggregation cursors</a>.</p>
-</em></div></div></div></div></div><div class="row"><div class="pull-left"><a href="/page/2"><< Newer Articles</a></div><div class="pull-right"><a href="/page/4">Older Articles >></a></div></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+</em></div></div></div></div></div><div class="row"><div class="pull-left"><a href="/page/2"><< Newer Articles</a></div><div class="pull-right"><a href="/page/4">Older Articles >></a></div></div></div><style>.native-js {
+  visibility: hidden;
+  transition: all .25s ease-in-out;
+  opacity: 0;
+  flex-flow: column nowrap;
+  transform: translateY(calc(100% - 35px));
+  max-width: 100%;
+  }
+  
+  .native-show {
+  visibility: visible;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -1px 4px 1px hsla(0, 0%, 0%, .15);
+  opacity: 1;
+  z-index: 10;
+  }
+  
+  .native-show:hover {
+  transform: translateY(0);
+  }
+  
+  .native-img {
+  margin-right: 20px;
+  max-height: 50px;
+  border-radius: 3px;
+  width: auto;
+  }
+  
+  .native-sponsor {
+  margin: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transform-origin: left;
+  letter-spacing: .5px;
+  transition: all .3s ease-in-out;
+  font-size: 12px;
+  }
+  
+  .native-show:hover .native-sponsor {
+  transform: scaleY(0);
+  margin: 0 20px;
+  opacity: 0;
+  }
+  
+  .native-flex {
+  display: flex;
+  padding: 20px 20px 40px;
+  text-decoration: none;
+  
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  }
+  
+  .native-main {
+  display: flex;
+  
+  flex-flow: row nowrap;
+  align-items: center;
+  }
+  
+  .native-details {
+  display: flex;
+  margin-right: 30px;
+  
+  flex-flow: column nowrap;
+  }
+  
+  .native-company {
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+  }
+  
+  .native-desc {
+  letter-spacing: 1px;
+  font-weight: 300;
+  line-height: 1.4;
+  }
+  
+  .native-cta {
+  padding: 10px 14px;
+  border-radius: 3px;
+  box-shadow: 0 6px 13px 0 hsla(0, 0%, 0%, .15);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 12px;
+  transition: all .3s ease-in-out;
+  transform: translateY(-1px);
+  }
+  
+  .native-cta:hover {
+  box-shadow: none;
+  transform: translateY(1px);
+  }
+  
+  @media only screen and (min-width: 320px) and (max-width: 759px) {
+  .native-flex {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  
+  .native-img {
+    margin: 0;
+  }
+  
+  .native-details {
+    margin: 0;
+  }
+  
+  .native-main {
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    align-content: center;
+  }
+  }
+  </style><div class="native-js"><script type="text/javascript" src="/js/native.js"></script>
+
+<script type="text/javascript">
+  _native.init("CK7DT53N", {
+    targetClass: 'native-js',
+    display: 'flex',
+    visibleClass: 'native-show'
+  });
+</script>
+
+<div class="native-sponsor">Sponsored by #native_company# - Learn More</div>
+<a href="#native_link#" class="native-flex">
+  <style>
+  .native-js {
+    background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+  }
+  
+  .native-details,
+  .native-sponsor,
+  .native-bsa {
+    color: #native_color# !important;
+  }
+  
+  .native-details:hover {
+    color: #native_color_hover# !important;
+  }
+  
+  .native-cta {
+    color: #native_cta_color#;
+    background-color: #native_cta_bg_color#;
+  }
+  
+  .native-cta:hover {
+    color: #native_cta_color_hover;
+    background-color: #native_cta_bg_color_hover#;
+  }
+  </style>
+  <div class="native-main">
+    <img class="native-img" src="#native_logo#">
+    <div class="native-details">
+      <span class="native-company">#native_title#</span>
+      <span class="native-desc">#native_desc#</span>
+    </div>
+  </div>
+  <span class="native-cta">#native_cta#</span>
+</a></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
   analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
   analytics.page()
 }}();</script></body></html>
