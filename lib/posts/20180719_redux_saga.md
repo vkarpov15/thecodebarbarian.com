@@ -263,9 +263,8 @@ Moving On
 
 Redux-saga is a very interesting library and it does a good job of
 highlighting where you might want to use generators instead of async/await. In general, I don't see much benefit to using redux-saga
-over plain old async/await, especially since redux-saga makes you
-import `put()` and this makes it more difficult to stub out
-`dispatch()` like you would when testing [redux-thunk](http://thecodebarbarian.com/async-await-with-react-and-redux-thunk.html).
+over plain old async/await, but the ability to cancel in-flight
+sagas automatically is pretty cool.
 
 _Want to learn how to identify whether your favorite npm modules work with
 async/await without cobbling together contradictory answers from Google and Stack Overflow? Chapter 4 of
