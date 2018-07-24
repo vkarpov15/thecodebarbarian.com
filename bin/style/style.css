@@ -598,3 +598,8 @@ a.social {
 		display: none;
 	}
 }
+
+.inline-image {
+	border: 1px solid #d0d0d0;
+	padding: 10px;
+}

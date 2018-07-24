@@ -1,0 +1,299 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Web Analytics with MongoDB Stitch | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Web Analytics with MongoDB Stitch"/><meta property="og:url" content="http://www.thecodebarbarian.com/web-analytics-with-mongodb-stitch"/><meta property="og:image" content="https://i.imgur.com/zbSgrdq.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fweb-analytics-with-mongodb-stitch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fweb-analytics-with-mongodb-stitch" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fweb-analytics-with-mongodb-stitch" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fweb-analytics-with-mongodb-stitch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fweb-analytics-with-mongodb-stitch" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fweb-analytics-with-mongodb-stitch" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Web Analytics with MongoDB Stitch</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 24, 2018</span></div></div></div><div class="post-body-text-container"><p>One of the most exciting features of <a href="https://www.mongodb.com/cloud/stitch">MongoDB Stitch</a> is the ability to read and write
+directly to your <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> cluster from the browser. In other words, your static site or React app can write
+event data directly to MongoDB without having to go through an intermediary
+like <a href="https://segment.com/">Segment</a>. This lets you retain ownership of your
+event data, as well as help cut costs. In this article, I&#39;ll show you how
+to configure a MongoDB Stitch app for tracking events from the browser.</p>
+<p><em>Note that this article&#39;s code is just an example and not meant for production use.</em></p>
+<h2 id="setting-up-a-stitch-app">Setting Up a Stitch App</h2>
+<p>This article assumes you already have a MongoDB Atlas cluster running. If you
+don&#39;t, here&#39;s a <a href="https://docs.atlas.mongodb.com/getting-started/">guide to getting started with Atlas</a>.</p>
+<p>Go to MongoDB Atlas and open the &quot;Clusters&quot; view. Under &quot;Linked Stitch App&quot;, click
+&quot;Link Application&quot; to get started creating a Stitch app.</p>
+<p><img class="inline-image" src="https://i.imgur.com/v14lsQs.png"></p>
+<p>Name your Stitch app &quot;analytics&quot; and link it to your cluster. In this case,
+the cluster is named &quot;Cluster0&quot;.</p>
+<p><img class="inline-image" src="https://i.imgur.com/VvHfQwS.png"></p>
+<p>Next, the Stitch UI will ask you to configure your app. Turn on &quot;Anonymous Authentication&quot; and create a collection <code>analytics.events</code>.</p>
+<p><img class="inline-image" src="https://i.imgur.com/Gw0UDcn.png"></p>
+<p>In order to enable writing to your analytics collection, you need to modify
+Stitch&#39;s default &quot;Rules&quot;. Click on &quot;Rules&quot; in the left menu and edit the
+&quot;Owner&quot; permission under the <code>analytics.events</code> collection. Empty out the
+&quot;Apply When&quot; section to make the &quot;Owner&quot; permission never apply.</p>
+<p><img class="inline-image" src="https://i.imgur.com/cYmriyV.png"></p>
+<p>Most events tracking tools separate out permissions for reading and writing,
+so anyone can write to the database but reads are admin-only. In order to
+disallow reads, you need to convert your rules to &quot;Advanced Mode&quot;. Click on
+&quot;Convert to Advanced Mode&quot; and ignore the scary warning that pops up.</p>
+<p><img class="inline-image" src="https://i.imgur.com/spM36Qm.png"></p>
+<p>Modify your roles to look like what you see below. Now, your Stitch client can
+write to the database but not read.</p>
+<pre><code>{
+  <span class="hljs-string">"roles"</span>: [
+    {
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"owner"</span>,
+      <span class="hljs-string">"apply_when"</span>: {},
+      <span class="hljs-string">"insert"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"delete"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">"read"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">"write"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"fields"</span>: {},
+      <span class="hljs-string">"additional_fields"</span>: {}
+    }
+  ],
+  <span class="hljs-string">"filters"</span>: [],
+  <span class="hljs-string">"schema"</span>: {
+    <span class="hljs-string">"properties"</span>: {
+      <span class="hljs-string">"_id"</span>: {
+        <span class="hljs-string">"bsonType"</span>: <span class="hljs-string">"objectId"</span>
+      },
+      <span class="hljs-string">"owner_id"</span>: {
+        <span class="hljs-string">"bsonType"</span>: <span class="hljs-string">"string"</span>
+      }
+    }
+  }
+}
+</code></pre><h2 id="tracking-your-first-event">Tracking Your First Event</h2>
+<p>Install the <a href="https://www.npmjs.com/package/mongodb-stitch-browser-sdk">mongodb-stitch-browser-sdk npm package</a>. MongoDB Stitch
+recommends building the browser SDK with <a href="https://www.npmjs.com/package/webpack">webpack</a>, so make sure to install webpack
+and webpack-cli. Also,
+install <a href="https://www.npmjs.com/package/serve">serve</a> for serving static HTML.</p>
+<pre><code>npm install mongodb-stitch-browser-sdk@<span class="hljs-number">4.</span>x serve@<span class="hljs-number">9.</span>x webpack@<span class="hljs-number">4.16</span><span class="hljs-number">.2</span> webpack-cli@<span class="hljs-number">3.1</span><span class="hljs-number">.0</span> --save
+</code></pre><p>Next, create a trivial static site <code>index.html</code>. This page will load the
+<code>main.js</code> file, which will be responsible for writing to MongoDB Atlas using
+the Stitch SDK.</p>
+<pre><code>&lt;html&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My Site<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My site<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+</code></pre><p>Below is the content of <code>index.js</code>, the entry point for the compiled bundle
+that webpack will produce. The below file just writes the current <code>pathname</code>
+and the current time to the <code>analytics.events</code> collection.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Stitch, AnonymousCredential, RemoteMongoClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'mongodb-stitch-browser-sdk'</span>;
+
+<span class="hljs-built_in">window</span>.onload = main;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> client = Stitch.initializeDefaultAppClient(<span class="hljs-string">'&lt;your app id here&gt;'</span>);
+  client.auth.loginWithCredential(<span class="hljs-keyword">new</span> AnonymousCredential()).
+    then(() =&gt; {
+      <span class="hljs-keyword">const</span> db = client.getServiceClient(RemoteMongoClient.factory, <span class="hljs-string">'mongodb-atlas'</span>).db(<span class="hljs-string">'analytics'</span>);
+      <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'events'</span>).insertOne({
+        path: <span class="hljs-built_in">window</span>.location.pathname,
+        time: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+      });
+    });
+}
+</code></pre>
+<p>You also need a basic webpack config file. For the purposes of this example
+you don&#39;t need any tools like <a href="https://www.npmjs.com/package/babel-loader">Babel</a>, but you&#39;ll need those if
+you want your code to work with older browsers.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+  entry: [<span class="hljs-string">'./index.js'</span>],
+  <span class="hljs-built_in">module</span>: {
+    rules: [{
+      test: <span class="hljs-regexp">/\.js$/</span>,
+      exclude: <span class="hljs-regexp">/node_modules/i</span>
+    }]
+  },
+  target: <span class="hljs-string">'web'</span>,
+  mode: <span class="hljs-string">'production'</span>
+};
+</code></pre>
+<p>Run <code>./node_modules/.bin/webpack</code> to compile the bundle and then run
+<code>./node_modules/.bin/serve</code> to start a web server.</p>
+<pre><code>$ ./node_modules/.bin/webpack
+Hash: <span class="hljs-number">7905753</span>ffa4597e049ea
+Version: webpack <span class="hljs-number">4.16</span><span class="hljs-number">.2</span>
+Time: <span class="hljs-number">3080</span>ms
+Built at: <span class="hljs-number">2018</span><span class="hljs-number">-07</span><span class="hljs-number">-24</span> <span class="hljs-number">15</span>:<span class="hljs-number">36</span>:<span class="hljs-number">53</span>
+  Asset     Size  Chunks             Chunk Names
+main.js  <span class="hljs-number">223</span> KiB       <span class="hljs-number">0</span>  [emitted]  main
+Entrypoint main = main.js
+ [<span class="hljs-number">3</span>] (webpack)/buildin/global.js <span class="hljs-number">489</span> bytes {<span class="hljs-number">0</span>} [built]
+ [<span class="hljs-number">8</span>] multi ./index.js <span class="hljs-number">28</span> bytes {<span class="hljs-number">0</span>} [built]
+[<span class="hljs-number">12</span>] ./index.js + <span class="hljs-number">103</span> modules <span class="hljs-number">169</span> KiB {<span class="hljs-number">0</span>} [built]
+     | ./index.js <span class="hljs-number">521</span> bytes [built]
+     |     + <span class="hljs-number">103</span> hidden modules
+    + <span class="hljs-number">10</span> hidden modules
+$
+$ ./node_modules/.bin/serve
+
+ Serving!
+
+ - Local:            http:<span class="hljs-comment">//localhost:5000</span>
+ - On Your Network:  http:<span class="hljs-comment">//127.0.1.1:5000</span>
+</code></pre><p>Now, if you visit <code>http://localhost:5000/</code>, you should see a <code>call</code> to
+<code>stitch.mongodb.com</code> in your Chrome Network console that contains the id
+of an inserted document. Congratulations, you just wrote a document into
+your MongoDB Atlas cluster from your browser!</p>
+<p><img class="inline-image" src="https://i.imgur.com/GWSYg8q.png"></p>
+<h2 id="crunching-some-numbers">Crunching Some Numbers</h2>
+<p>Now that you can write events data to MongoDB from the browser using
+Stitch, let&#39;s write a common analytics query using the
+<a href="https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/">MongoDB aggregation framework</a>.
+Go back to your Atlas clusters page and click &quot;Connect&quot; to open up
+instructions for how to connect to your Atlas cluster.</p>
+<p><img class="inline-image" src="https://i.imgur.com/LYScQtP.png"></p>
+<p>Connect to your MongoDB Atlas cluster using the MongoDB shell, switch to the
+&#39;analytics&#39; database using <code>use analytics;</code> and print out
+a document.</p>
+<pre><code>mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
+MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>
+Enter password:
+connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
+PRIMARY&gt;
+PRIMARY&gt; use analytics
+switched to db analytics
+PRIMARY&gt; db.events.findOne()
+{
+    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b5780681c9d4400000d6643"</span>),
+    <span class="hljs-string">"path"</span> : <span class="hljs-string">"/"</span>,
+    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-07-24T19:39:20.253Z"</span>)
+}
+PRIMARY&gt;
+</code></pre><p>In order to make this example more realistic, insert several more documents
+into the collection using the below command:</p>
+<pre><code class="lang-javascript">db.events.insertMany([
+  { path: <span class="hljs-string">'/'</span>, time: ISODate(<span class="hljs-string">'2018-07-24'</span>) },
+  { path: <span class="hljs-string">'/'</span>, time: ISODate(<span class="hljs-string">'2018-07-23'</span>) },
+  { path: <span class="hljs-string">'/'</span>, time: ISODate(<span class="hljs-string">'2017-07-24'</span>) }
+]);
+</code></pre>
+<p>Let&#39;s use the aggregation framework to count up the number of hits per day. The
+key is to group events by the day, month, and year they occurred using
+<a href="https://docs.mongodb.com/v3.4/reference/operator/aggregation-date/">date aggregation operators</a></p>
+<pre><code class="lang-javascript">db.events.aggregate([
+  {
+    $group: {
+      _id: {
+        <span class="hljs-comment">// Pull day, month, year from the 'time' property of each doc</span>
+        day: { $dayOfMonth: <span class="hljs-string">'$time'</span> },
+        month: { $month: <span class="hljs-string">'$time'</span> },
+        year: { $year: <span class="hljs-string">'$time'</span> }
+      },
+      num: {
+        $sum: <span class="hljs-number">1</span>
+      }
+    }
+  },
+  {
+    <span class="hljs-comment">// Sort by date, descending</span>
+    $sort: { <span class="hljs-string">'_id.year'</span>: <span class="hljs-number">-1</span>, <span class="hljs-string">'_id.month'</span>: <span class="hljs-number">-1</span>, <span class="hljs-string">'_id.day'</span>: <span class="hljs-number">-1</span> }
+  }
+]);
+</code></pre>
+<p>Running this aggregation query gets you how many events occurred on a given
+day.</p>
+<pre><code>{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">24</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2018</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">2</span> }
+{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">23</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2018</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">1</span> }
+{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">24</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2017</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">1</span> }
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p>MongoDB Stitch allows you to access your MongoDB Atlas cluster directly from
+the browser, without needing to go through your own API. One potential use case
+for this is analytics: instead of going through <a href="https://mixpanel.com/">Mixpanel</a> or <a href="https://marketingplatform.google.com/about/">Google Analytics</a> UI, you can
+store your data in MongoDB and use the MongoDB aggregation framework or <a href="https://www.mongodb.com/products/charts">MongoDB Charts</a> to analyze it. While it may
+be a little early to close your Mixpanel account, MongoDB Stitch is worth
+looking into if you&#39;re already a MongoDB power user.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180724_stitch_analytics.md">Github</a></em></div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Web Analytics with MongoDB Stitch", time: new Date() });
+  </script></body></html>
