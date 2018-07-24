@@ -1,10 +1,4 @@
-[Express](https://www.npmjs.com/package/express) is the most popular HTTP server framework for Node.js, but
-unfortunately it [doesn't have good support for async/await](https://github.com/expressjs/express/issues/2259).
-[Express doesn't handle errors in async functions](http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose#express). [Fastify](https://www.npmjs.com/package/fastify) is an
-alternative Node.js server framework that enjoys much better support for
-async/await in addition to [better performance](https://github.com/fastify/fastify#benchmarks). In this article,
-I'll show you how Fastify works with async/await and what the corner cases
-you need to be aware of are.
+[Express](https://www.npmjs.com/package/express) is the most popular HTTP server framework for Node.js, but unfortunately it [doesn't have good support for async/await](https://github.com/expressjs/express/issues/2259). [Express doesn't handle errors in async functions](http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose#express). [Fastify](https://www.npmjs.com/package/fastify) is an alternative Node.js server framework that enjoys much better support for async/await in addition to [better performance](https://github.com/fastify/fastify#benchmarks). In this article, I'll show you how Fastify works with async/await and show you the corner cases you need to be aware of.
 
 Hello, World with Async/Await and Fastify
 -----------------------------------------

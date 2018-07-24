@@ -1,9 +1,4 @@
-[ES2018](https://medium.com/front-end-hacking/javascript-whats-new-in-ecmascript-2018-es2018-17ede97f36d5) introduces several new JavaScript
-language features that are great for Node.js developers. [`Promise.prototype.finally()` is the most important new feature](/using-promise-finally-in-node-js.html), but I
-think [async iterators](https://jakearchibald.com/2017/async-iterators-and-generators/) are a close second. In this article, I'll describe what you need
-to start using async iterators in Node.js.
-I'll also provide an example of how to use async iterators with
-[Mongoose cursors](/cursors-in-mongoose-45.html).
+[ES2018](https://medium.com/front-end-hacking/javascript-whats-new-in-ecmascript-2018-es2018-17ede97f36d5) introduces several new JavaScript language features that are great for Node.js developers. [`Promise.prototype.finally()` is the most important new feature](/using-promise-finally-in-node-js.html), but I think [async iterators](https://jakearchibald.com/2017/async-iterators-and-generators/) are a close second. In this article, I'll describe what you need to start using async iterators in Node.js. I'll also provide an example of how to use async iterators with [Mongoose cursors](/cursors-in-mongoose-45.html).
 
 Your First Async Iterator
 -------------------------

@@ -1,6 +1,4 @@
-[Async/await](http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html) is the big new feature in the 2017 edition of the JavaScript language spec.
-However, async/await has a lot in common with [generators](http://thecodebarbarian.com/3-common-co-design-patterns), a new feature from the 2015 JavaScript language spec. There's [plenty of questions on StackOverflow about what makes async/await different](https://stackoverflow.com/questions/36196608/difference-between-async-await-and-es6-yield-with-generators), and with good reason. If you use [co](https://www.npmjs.com/package/co), your generator-based code looks a lot like
-async/await.
+[Async/await](http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html) is the big new feature in the 2017 edition of the JavaScript language spec. However, async/await has a lot in common with [generators](http://thecodebarbarian.com/3-common-co-design-patterns), a new feature from the 2015 JavaScript language spec. There's [plenty of questions on StackOverflow about what makes async/await different](https://stackoverflow.com/questions/36196608/difference-between-async-await-and-es6-yield-with-generators), and with good reason. If you use [co](https://www.npmjs.com/package/co), your generator-based code looks a lot like async/await.
 
 Below is some async/await that makes an HTTP request that fails, and then
 tries again 3 times.

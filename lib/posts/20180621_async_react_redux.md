@@ -1,7 +1,4 @@
-There's a lot of [misinformation on how to use async/await with React](https://stackoverflow.com/questions/38357234/is-it-possible-to-use-async-await-in-react-js) and Redux. In general, React does **not**
-support async/await, but you can make it work with some caveats.
-In particular, `render()` cannot be async, but [React suspense](https://www.youtube.com/watch?v=v6iR3Zk4oDY) may change this.
-For example, the below minimal example with Node.js 8.9.4, React 16.4.1, and React-DOM 16.4.1 will throw an error.
+There's a lot of [misinformation on how to use async/await with React](https://stackoverflow.com/questions/38357234/is-it-possible-to-use-async-await-in-react-js) and Redux. In general, React does **not** support async/await, but you can make it work with some caveats. In particular, `render()` cannot be async, but [React suspense](https://www.youtube.com/watch?v=v6iR3Zk4oDY) may change this. For example, the below minimal example with Node.js 8.9.4, React 16.4.1, and React-DOM 16.4.1 will throw an error.
 
 ```javascript
 [require:20180621.*example 1$]

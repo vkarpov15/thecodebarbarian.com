@@ -1,9 +1,4 @@
-The [redux-saga](https://www.npmjs.com/package/redux-saga) module is a plugin for [redux](https://www.npmjs.com/package/redux) that runs
-[generator-based](http://thecodebarbarian.com/3-common-co-design-patterns) functions in response to redux actions. Redux-saga generator
-functions are nice because they behave like [co](http://npmjs.com/package/co): if you `yield` a promise, redux-saga
-will unwrap the promise for you and throw a catchable error if the promise rejects. If you read [The 80/20 Guide to ES2015 Generators](http://es2015generators.com/), a [simple saga](https://www.npmjs.com/package/redux-saga#sagasjs) should look familiar. However, [redux-saga intends to keep using generators](https://github.com/redux-saga/redux-saga/issues/1373) rather than async/await. In this article, I'll provide a basic example
-of using redux-saga, explain why redux-saga can't move to async/await,
-and consider whether you even need redux-saga in the first place.
+The [redux-saga](https://www.npmjs.com/package/redux-saga) module is a plugin for [redux](https://www.npmjs.com/package/redux) that runs [generator-based](http://thecodebarbarian.com/3-common-co-design-patterns) functions in response to redux actions. Redux-saga generator functions are nice because they behave like [co](http://npmjs.com/package/co): if you `yield` a promise, redux-saga will unwrap the promise for you and throw a catchable error if the promise rejects. If you read [The 80/20 Guide to ES2015 Generators](http://es2015generators.com/), a [simple saga](https://www.npmjs.com/package/redux-saga#sagasjs) should look familiar. However, [redux-saga intends to keep using generators](https://github.com/redux-saga/redux-saga/issues/1373) rather than async/await. In this article, I'll provide a basic example of using redux-saga, explain why redux-saga can't move to async/await, and consider whether you even need redux-saga in the first place.
 
 Introducing Redux-Saga
 ----------------------

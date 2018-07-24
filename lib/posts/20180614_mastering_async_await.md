@@ -1,7 +1,4 @@
-[Async/await](http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js) is the most important new feature in JavaScript in recent memory.
-[Generators](http://thecodebarbarian.com/3-common-co-design-patterns) provided an alternative in ES6, but generators required [outside libraries](http://npmjs.com/package/co) and provided more flexibility
-than most developers needed. When I was a [guest on the JavaScript Air podcast](http://audio.javascriptair.com/e/044-jsair-async-patterns-in-javascript-with-valeri-karpov-and-peter-lyons/), the host [Kent C. Dodds](https://twitter.com/kentcdodds) asked me what generators could
-do that async/await couldn't, and my answer was essentially "nothing that the vast majority of developers would care about."
+[Async/await](http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js) is the most important new feature in JavaScript in recent memory. [Generators](http://thecodebarbarian.com/3-common-co-design-patterns) provided an alternative in ES6, but generators required [outside libraries](http://npmjs.com/package/co) and provided more flexibility than most developers needed. When I was a [guest on the JavaScript Air podcast](http://audio.javascriptair.com/e/044-jsair-async-patterns-in-javascript-with-valeri-karpov-and-peter-lyons/), the host [Kent C. Dodds](https://twitter.com/kentcdodds) asked me what generators could do that async/await couldn't, and my answer was essentially "nothing that the vast majority of developers would care about."
 
 [Generators](http://es2015generators.com/) are more powerful and flexible than async/await, but
 async/await cuts away the inconsequential details of generators and leaves you with the most valuable functionality: flat asynchronous code
