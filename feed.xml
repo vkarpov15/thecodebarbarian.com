@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 19 Jul 2018 15:28:32 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Jul 2018 18:40:12 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Web Analytics with MongoDB Stitch]]></title>
+            <link>http://www.thecodebarbarian.com/web-analytics-with-mongodb-stitch.html</link>
+            <guid>http://www.thecodebarbarian.com/web-analytics-with-mongodb-stitch.html</guid>
+            <pubDate>Tue, 24 Jul 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Redux Saga vs Async/Await]]></title>
             <link>http://www.thecodebarbarian.com/redux-saga-vs-async-await.html</link>

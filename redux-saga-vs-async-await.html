@@ -244,9 +244,8 @@ setImmediate(() =&gt; store.dispatch({ type: <span class="hljs-string">'FETCH_US
 <h2 id="moving-on">Moving On</h2>
 <p>Redux-saga is a very interesting library and it does a good job of
 highlighting where you might want to use generators instead of async/await. In general, I don&#39;t see much benefit to using redux-saga
-over plain old async/await, especially since redux-saga makes you
-import <code>put()</code> and this makes it more difficult to stub out
-<code>dispatch()</code> like you would when testing <a href="http://thecodebarbarian.com/async-await-with-react-and-redux-thunk.html">redux-thunk</a>.</p>
+over plain old async/await, but the ability to cancel in-flight
+sagas automatically is pretty cool.</p>
 <p><em>Want to learn how to identify whether your favorite npm modules work with
 async/await without cobbling together contradictory answers from Google and Stack Overflow? Chapter 4 of
 my new ebook, Mastering Async/Await, explains the basic principles for determining whether frameworks like <a href="https://reactjs.org/">React</a> and <a href="https://www.npmjs.com/package/socket.io">Socket.IO</a> support async/await. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
