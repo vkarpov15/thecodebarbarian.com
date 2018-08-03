@@ -1,0 +1,228 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>An Overview of Destructuring Assignments in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="An Overview of Destructuring Assignments in Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/an-overview-of-destructuring-assignments-in-node-js"/><meta property="og:image" content="https://i.imgur.com/Bejggnu.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-destructuring-assignments-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-destructuring-assignments-in-node-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-destructuring-assignments-in-node-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-destructuring-assignments-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-destructuring-assignments-in-node-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-destructuring-assignments-in-node-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">An Overview of Destructuring Assignments in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 03, 2018</span></div></div></div><div class="post-body-text-container"><p>JavaScript introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">destructuring assignments</a> as part of the <a href="https://www.ecma-international.org/ecma-262/6.0/">2015 edition of the JavaScript language spec</a>. Destructuring assignments let you assign multiple variables in a single statement, making it much easier to pull values out of arrays and objects.
+Below are examples of the two types of destructuring assignment: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring">array destructuring</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring">object destructuring</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Below is equivalent to `const a = [1, 2][0]; const b = [1, 2][1];`</span>
+<span class="hljs-keyword">const</span> [a, b] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+<span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// "1 2"</span>
+
+<span class="hljs-comment">// Below is equivalent to `const x = ({x:1,y:2}).x; const y = ({x:1,y:2}).y;`</span>
+<span class="hljs-keyword">const</span> { x, y } = { x: <span class="hljs-number">1</span>, y: <span class="hljs-number">2</span> };
+<span class="hljs-built_in">console</span>.log(x, y); <span class="hljs-comment">// "1 2"</span>
+</code></pre>
+<p>Destructuring assignments are powerful, but they also come with several
+syntactic quirks. Plus, you can get some truly baffling error
+messages if you do destructuring assignments incorrectly. In this article,
+I&#39;ll provide an overview of what you need to know to successfully use
+destructuring assignments in Node.js.</p>
+<h2 id="array-destructuring-and-iterators">Array Destructuring and Iterators</h2>
+<p>The right hand side of an array destructuring assignment must be an
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">iterable</a>. JavaScript arrays are iterables, and you will
+almost always see an array on the right hand side, but there&#39;s nothing stopping you from
+using array destructuring with a <a href="http://es2015generators.com/">generator</a>,
+a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">set</a>, or any other iterable.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [x, y] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-built_in">console</span>.log(x, y); <span class="hljs-comment">// "1 2"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generatorFunction</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> arr) {
+    <span class="hljs-keyword">yield</span> el;
+  }
+}
+
+<span class="hljs-keyword">const</span> [a, b] = generatorFunction();
+<span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// "1 2"</span>
+</code></pre>
+<h2 id="array-destructuring-error-cases">Array Destructuring Error Cases</h2>
+<p>Here&#39;s a fun exercise: what happens if you try to use array destructuring where
+the right hand side isn&#39;t an array or iterable?</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [a, b] = {};
+</code></pre>
+<p>In Node.js 10.x you get a nice sane error: <code>TypeError: {} is not iterable</code>. But in Node.js 6.x and 8.x you get a baffling &quot;undefined is not a function&quot; error.</p>
+<pre><code>$ ./node-v6.9.5-linux-x64/bin/node
+&gt; const [a, b] = {};
+TypeError: undefined is not a function
+    at repl:1:1
+    at sigintHandlersWrap (vm.js:22:35)
+    at sigintHandlersWrap (vm.js:96:12)
+    at ContextifyScript.Script.runInThisContext (vm.js:21:12)
+    at REPLServer.defaultEval (repl.js:346:29)
+    at bound (domain.js:280:14)
+    at REPLServer.runBound [as eval] (domain.js:293:12)
+    at REPLServer.&lt;anonymous&gt; (repl.js:545:10)
+    at emitOne (events.js:101:20)
+    at REPLServer.emit (events.js:188:7)
+&gt;
+</code></pre><p>If you see this error, don&#39;t panic, <a href="https://bugs.chromium.org/p/v8/issues/detail?id=5532">it is a bug in V8</a>. The issue is that
+the right hand side of an array destructuring assignment must be an <a href="http://thecodebarbarian.com/getting-started-with-async-iterators-in-node-js.html#your-first-async-iterator">iterable</a>, which means it must have a <code>Symbol.iterator</code> function. V8 throws this error because it tries to call the
+non-existent <code>Symbol.iterator</code> function on an empty object.</p>
+<p>Another edge case with destructuring assignments might make you throw out
+<a href="http://npmjs.com/package/standard">standard</a> and run for the safety of semi-colons. What does the below script print?</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
+</code></pre>
+<p>It will not print &#39;1, 2, 3&#39;, you&#39;ll instead get an error <code>Cannot read property &#39;forEach&#39; of undefined</code>. That&#39;s because the above code is equivalent to:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
+</code></pre>
+<p>You need a semicolon <code>;</code> before destructuring assignment <em>unless</em> you use <code>let</code>
+or <code>const</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}
+;[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
+</code></pre>
+<p>If you use semicolons, it isn&#39;t a problem. If you use a linter like standard
+that doesn&#39;t require semicolons,
+your linter will give you a [&quot;Unexpected newline between object and <a href="https://eslint.org/docs/2.0.0/rules/no-unexpected-multiline"> of property access&quot; error</a>.</p>
+<h2 id="object-destructuring">Object Destructuring</h2>
+<p>Object destructuring is different from array destructuring. It doesn&#39;t use
+iterables, object destructuring is just a shorthand for multiple property
+accesses.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
+
+<span class="hljs-comment">// Same as `const name = obj.name; const age = obj.age;`</span>
+<span class="hljs-keyword">const</span> { name, age } = obj;
+</code></pre>
+<p>By default, the variable name must match the property name, but you can
+change that. This is handy if you&#39;re working with an API that prefers
+<a href="https://en.wikipedia.org/wiki/Snake_case">snake case property names</a> and
+your linter only accepts <a href="https://en.wikipedia.org/wiki/Camel_case">camel case variable names</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, <span class="hljs-string">'date_of_birth'</span>: <span class="hljs-string">'19881031'</span> };
+
+<span class="hljs-comment">// Same as `const name = obj.name; const birthday = obj['date_of_birth'];`</span>
+<span class="hljs-keyword">const</span> { name, date_of_birth: birthday } = obj;
+</code></pre>
+<p>Things get messy when you use object destructuring without <code>let</code> or <code>const</code>.
+That&#39;s because if you do <code>{ name } = obj;</code>, the JavaScript interpretter
+interprets <code>{ name }</code> as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block">block</a>. If you use object destructuring without <code>let</code>, <code>const</code>, or <code>var</code> , you <strong>must</strong> wrap your assignment in parenthesis <code>()</code> as shown below.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
+
+<span class="hljs-keyword">let</span> name;
+<span class="hljs-keyword">let</span> age;
+<span class="hljs-comment">// Same as `name = obj.name; age = obj.age;`</span>
+({ name, age } = obj);
+</code></pre>
+<p>This becomes cumbersome when you&#39;re not using semi-colons, because JavaScript
+interprets <code>()</code> as a function call unless it is preceded by a semicolon <code>;</code>.
+The below is perfectly valid.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
+<span class="hljs-comment">// Prints "Hello, undefined!" because the below is a multi-line function call</span>
+hello
+({ name } = obj)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params">{ name }</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>);
+}
+</code></pre>
+<p>If you&#39;re not using semicolons, you need to be careful to use both a semicolon <code>;</code> <em>and</em> parenthesis <code>()</code> when using object destructuring.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
+hello <span class="hljs-comment">// Not called because of the semicolon on the next line</span>
+;({ name } = obj)
+<span class="hljs-built_in">console</span>.log(name); <span class="hljs-comment">// Prints "Val"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params">{ name }</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>);
+}
+</code></pre>
+<p>If you choose to write JavaScript without semicolons, make sure you use a
+linter. The alternative is to be well versed in <a href="https://eslint.org/docs/2.0.0/rules/no-unexpected-multiline">all the exceptions to automatic semicolon insertion (ASI)</a> and
+be committed to keeping up with all <a href="https://github.com/tc39/ecma262/pull/1062#issuecomment-357039873">future changes in the JavaScript language that may change the list of ASI exceptions</a>.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Destructuring assignments are one of the slickest new features from ES2015,
+they can make your code a lot more concise and make working with CSVs much easier. But destructuring assignments come with several quirks that you
+need to be aware of, particularly when you aren&#39;t using semicolons. Make
+sure you use semicolons or a linter, and take advantage of destructuring
+assignments to save yourself from repetitive code.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180803_destructuring.md">Github</a></em></div><div><div class="native-js">
+  <script type="text/javascript" src="/js/native.js"></script>
+  <script type="text/javascript">
+    _native.init('CK7DT53N', {
+      targetClass: 'native-js',
+      fallback: `
+        <a href="#" class="native-flex">
+          <style>
+            .native-js {
+              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
+            }
+            
+            .native-details {
+              color: #FFFFFF !important;
+            }
+            
+            .native-details:hover {
+              color: #FFFFFF !important;
+            }
+            
+            .native-cta {
+              color: #FFFFFF;
+              background-color: #626469;
+            }
+            
+            .native-cta:hover {
+              color: #native_cta_color_hover;
+              background-color: #626469;
+            }
+          </style>
+          <div class="native-main">
+            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
+            <div class="native-details">
+              <span class="native-company">Fallback Company</span>
+              <span class="native-desc">This is a sample of using fallback ads.</span>
+            </div>
+          </div>
+          <span class="native-cta">Fallback CTA</span>
+        </a>
+      `
+    });
+  </script>
+  <a href="#native_link#" class="native-flex">
+    <style>
+      .native-js {
+        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+      }
+      
+      .native-details {
+        color: #native_color# !important;
+      }
+      
+      .native-details:hover {
+        color: #native_color_hover# !important;
+      }
+      
+      .native-cta {
+        color: #native_cta_color#;
+        background-color: #native_cta_bg_color#;
+      }
+      
+      .native-cta:hover {
+        color: #native_cta_color_hover;
+        background-color: #native_cta_bg_color_hover#;
+      }
+    </style>
+    <div class="native-main">
+      <img class="native-img" src="#native_logo#">
+      <div class="native-details">
+        <span class="native-company">#native_company#</span>
+        <span class="native-desc">#native_desc#</span>
+      </div>
+    </div>
+    <span class="native-cta">#native_cta#</span>
+  </a>
+</div>
+</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "An Overview of Destructuring Assignments in Node.js", time: new Date() });
+  </script></body></html>
