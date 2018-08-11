@@ -123,7 +123,7 @@ MessageSchema.virtual('to', {
 
 var Person = mongoose.model('Person', PersonSchema);
 var Organization = mongoose.model('Organization', OrganizationSchema);
-var Message = mongoose.model('Message', BandSchema);
+var Message = mongoose.model('Message', MessageSchema);
 ```
 
 Here's how using these models looks. Mongoose abstracts out the interaction with `fromModel` and `toModel`. So all you need to do is `.populate('from to')` and you get the correct organization or person, depending on the value of `fromModel` and `toModel`.
