@@ -18,8 +18,6 @@ append analytics
     analytics.track('opened post',
       { title: "#{post.title}", time: new Date() });
 
-  script(type="text/javascript", src="/js/native.js")
-
   link(rel="stylesheet", href="/style/inlinecpc.css")
 
 block mobile_sharing
@@ -74,6 +72,7 @@ block content
                 span.hidden-lg.hidden-md.hidden-sm View the Code on Github
                 span.hidden-xs View the Code for this Post on Github
 
+      script(type="text/javascript", src="/js/native.js")
       div.
         <script>
           _native.init("CK7DT53N",{
@@ -82,7 +81,7 @@ block content
         </script>
 
         <div class="native-inline">
-          <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+          <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
         </div>
 
       div.post-body-text-container !{content}
