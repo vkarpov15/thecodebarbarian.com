@@ -3,7 +3,16 @@
   float: left !important;
   margin-left: 215px !important;
 }
-</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmutual-exclusion-patterns-with-node-promises&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmutual-exclusion-patterns-with-node-promises&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mutual Exclusion Patterns with Node.js Promises</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 02, 2017</span></div></div></div><div class="post-body-text-container"><p>One of the most compelling reasons for <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await</a> is the fact that async functions generally feel like simplified threads, or threads with predictable interrupts. There are numerous
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmutual-exclusion-patterns-with-node-promises&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmutual-exclusion-patterns-with-node-promises&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmutual-exclusion-patterns-with-node-promises" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mutual Exclusion Patterns with Node.js Promises</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 02, 2017</span></div></div></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>One of the most compelling reasons for <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await</a> is the fact that async functions generally feel like simplified threads, or threads with predictable interrupts. There are numerous
 technical differences, of course. But the concept of async/await should seem familiar to anyone that&#39;s ever, say, written a background thread for fetching images while scrolling in an iPhone or Android app. Going the other way, you can use
 async/await to write code that feels very imperative, rather than JavaScript&#39;s usual reactive style:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
@@ -243,83 +252,7 @@ to hard-to-debug errors in other tests because the successful <code>register()</
 <h2 id="moving-on">Moving On</h2>
 <p><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js">Async/await</a> allows you to write blocks of imperative code that look like threads in JavaScript. But, just because JavaScript is single threaded doesn&#39;t mean you don&#39;t need mutexes. With async/await and distributed computing, mutexes, particularly distributed locks, are more important than ever. Look forward to more content about locking in JavaScript in the near future!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171103_promise_mutex.md">Github</a></em></div><div><div class="native-js">
-  <script type="text/javascript" src="/js/native.js"></script>
-  <script type="text/javascript">
-    _native.init('CK7DT53N', {
-      targetClass: 'native-js',
-      fallback: `
-        <a href="#" class="native-flex">
-          <style>
-            .native-js {
-              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
-            }
-            
-            .native-details {
-              color: #FFFFFF !important;
-            }
-            
-            .native-details:hover {
-              color: #FFFFFF !important;
-            }
-            
-            .native-cta {
-              color: #FFFFFF;
-              background-color: #626469;
-            }
-            
-            .native-cta:hover {
-              color: #native_cta_color_hover;
-              background-color: #626469;
-            }
-          </style>
-          <div class="native-main">
-            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
-            <div class="native-details">
-              <span class="native-company">Fallback Company</span>
-              <span class="native-desc">This is a sample of using fallback ads.</span>
-            </div>
-          </div>
-          <span class="native-cta">Fallback CTA</span>
-        </a>
-      `
-    });
-  </script>
-  <a href="#native_link#" class="native-flex">
-    <style>
-      .native-js {
-        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
-      }
-      
-      .native-details {
-        color: #native_color# !important;
-      }
-      
-      .native-details:hover {
-        color: #native_color_hover# !important;
-      }
-      
-      .native-cta {
-        color: #native_cta_color#;
-        background-color: #native_cta_bg_color#;
-      }
-      
-      .native-cta:hover {
-        color: #native_cta_color_hover;
-        background-color: #native_cta_bg_color_hover#;
-      }
-    </style>
-    <div class="native-main">
-      <img class="native-img" src="#native_logo#">
-      <div class="native-details">
-        <span class="native-company">#native_company#</span>
-        <span class="native-desc">#native_desc#</span>
-      </div>
-    </div>
-    <span class="native-cta">#native_cta#</span>
-  </a>
-</div>
-</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171103_promise_mutex.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -332,4 +265,4 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
   analytics.page()
 }}();</script><script type="text/javascript">analytics.track('opened post',
   { title: "Mutual Exclusion Patterns with Node.js Promises", time: new Date() });
-  </script></body></html>
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

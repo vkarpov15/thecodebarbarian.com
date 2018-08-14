@@ -1,0 +1,176 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>An Overview of Buffers in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="An Overview of Buffers in Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/an-overview-of-buffers-in-node-js"/><meta property="og:image" content="https://i.imgur.com/Lo6aVkP.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-buffers-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-buffers-in-node-js" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-buffers-in-node-js" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-buffers-in-node-js&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-buffers-in-node-js" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-buffers-in-node-js" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">An Overview of Buffers in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 14, 2018</span></div></div></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://nodejs.org/api/buffer.html">Buffers</a> are Node.js&#39; built-in type for storing arbitrary binary data. Because most Node.js developers don&#39;t use buffers much beyond occasionally <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">reading data from a file</a>,
+buffers are a common source of confusion. In this article, I&#39;ll demonstrate
+how buffers work in Node.js, and describe a neat use case for buffers with
+MongoDB and <a href="https://mongoosejs.com/">Mongoose</a>.</p>
+<h2 id="working-with-buffers">Working With Buffers</h2>
+<p>The <code>Buffer</code> class is a global variable in Node.js. Here&#39;s how you create a
+Buffer with 1 byte using the Node.js shell.</p>
+<pre><code>$ node -v
+v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
+$ node
+&gt; Buffer.alloc(<span class="hljs-number">1</span>)
+&lt;Buffer <span class="hljs-number">00</span>&gt;
+&gt;
+</code></pre><p>Node.js introduced the <a href="https://nodejs.org/api/buffer.html#buffer_class_method_buffer_alloc_size_fill_encoding"><code>Buffer.alloc()</code> function</a> in v5.10.0, so the above code won&#39;t work in older versions
+of Node.js. The above buffer isn&#39;t very useful, it just contains a single &#39;0&#39;
+byte. Let&#39;s create a more interesting buffer using the <a href="https://nodejs.org/api/buffer.html#buffer_class_method_buffer_from_array"><code>Buffer.from()</code> function</a>. Note that <code>0x</code> is how you <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-literals-numeric-literals">write a hexadecimal number in JavaScript</a>, so <code>console.log(0xf)</code> prints &quot;15&quot;.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> buf = Buffer.from([
+  <span class="hljs-number">0x48</span>,
+  <span class="hljs-number">0x65</span>,
+  <span class="hljs-number">0x6c</span>,
+  <span class="hljs-number">0x6c</span>,
+  <span class="hljs-number">0x6f</span>,
+  <span class="hljs-number">0x2c</span>,
+  <span class="hljs-number">0x20</span>,
+  <span class="hljs-number">0x57</span>,
+  <span class="hljs-number">0x6f</span>,
+  <span class="hljs-number">0x72</span>,
+  <span class="hljs-number">0x6c</span>,
+  <span class="hljs-number">0x64</span>
+]);
+</code></pre>
+<p>Generally, the first thing to do with a buffer is to see what it contains
+using the <a href="https://nodejs.org/api/buffer.html#buffer_buf_tostring_encoding_start_end"><code>toString()</code> function</a>. The <code>toString()</code> function takes an encoding parameter that tells Node.js how you want to interpret your buffer. For example, below is how you print
+the above buffer in hexadecimal:</p>
+<pre><code class="lang-javascript">buf.toString(<span class="hljs-string">'hex'</span>); <span class="hljs-comment">// "48656c6c6f2c20576f726c64"</span>
+</code></pre>
+<p>Node.js supports <a href="https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings">several encodings for buffers</a>. For example, you can encode a buffer in base 64 for <a href="https://sendgrid.com/blog/embedding-images-emails-facts/">sending an email attachment</a> or <a href="https://en.wikipedia.org/wiki/Basic_access_authentication#Security">basic auth</a>.</p>
+<pre><code class="lang-javascript">buf.toString(<span class="hljs-string">'base64'</span>); <span class="hljs-comment">// "SGVsbG8sIFdvcmxk"</span>
+</code></pre>
+<p>&#39;utf8&#39; and &#39;ascii&#39; are two other useful encodings. Usually you want to use &#39;utf8&#39; unless you notice the performance difference between the two.</p>
+<pre><code class="lang-javascript">buf.toString(<span class="hljs-string">'utf8'</span>); <span class="hljs-comment">// "Hello, World"</span>
+buf.toString(<span class="hljs-string">'ascii'</span>); <span class="hljs-comment">// "Hello, World"</span>
+</code></pre>
+<p>Unless you specify an encoding, <a href="https://nodejs.org/api/fs.html#fs_fs_readfilesync_path_options">Node.js&#39; <code>fs.readFileSync()</code> function</a> returns a buffer.</p>
+<pre><code class="lang-javascript">fs.readFileSync(<span class="hljs-string">'./test.txt'</span>); <span class="hljs-comment">// "&lt;Buffer 48 65 6c 6c 6f 2c 20 57 6f 72 6c 64&gt;"</span>
+fs.readFileSync(<span class="hljs-string">'./test.txt'</span>).toString(<span class="hljs-string">'hex'</span>); <span class="hljs-comment">// "48656c6c6f2c20576f726c64"</span>
+fs.readFileSync(<span class="hljs-string">'./test.txt'</span>).toString(<span class="hljs-string">'ascii'</span>); <span class="hljs-comment">// "Hello, World"</span>
+</code></pre>
+<p>Buffers are similar to arrays. For example, you can take the byte at position 0
+or iterate over a buffer using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of">for/of loop</a>.</p>
+<pre><code class="lang-javascript">buf[<span class="hljs-number">0</span>] === <span class="hljs-number">0x48</span>; <span class="hljs-comment">// true</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> buf) { <span class="hljs-built_in">console</span>.log(v); } <span class="hljs-comment">// "72", "101", ...</span>
+</code></pre>
+<p>Passing a <a href="https://nodejs.org/api/buffer.html#buffer_buf_tojson">buffer to <code>JSON.stringify()</code></a> converts the buffer into an object:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// { type: 'Buffer',</span>
+<span class="hljs-comment">//   data: [ 72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100 ] }</span>
+<span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(buf));
+</code></pre>
+<p>If you want to send a buffer to the client side, it is often more convenient to
+convert it to a hex string instead:</p>
+<pre><code class="lang-javascript">Buffer.prototype.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.toString(<span class="hljs-string">'hex'</span>) };
+<span class="hljs-built_in">JSON</span>.stringify({ buf: buf }); <span class="hljs-comment">// '{"buf":"48656c6c6f2c20576f726c64"}'</span>
+</code></pre>
+<p>You can then reconstruct the buffer using another form of the <a href="https://nodejs.org/api/buffer.html#buffer_class_method_buffer_from_string_encoding"><code>Buffer.from()</code> function</a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// "Hello, World"</span>
+Buffer.from(<span class="hljs-string">'48656c6c6f2c20576f726c64'</span>, <span class="hljs-string">'hex'</span>).toString(<span class="hljs-string">'utf8'</span>);
+</code></pre>
+<h2 id="storing-buffers-in-mongodb">Storing Buffers in MongoDB</h2>
+<p>The <a href="https://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html">MongoDB Node.js driver</a> and <a href="http://mongoosejs.com/docs/schematypes.html">Mongoose</a> have good support for buffers. Here&#39;s how you save a buffer using the MongoDB driver.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+
+run();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+  <span class="hljs-keyword">const</span> db = client.db();
+
+  <span class="hljs-keyword">const</span> doc = {
+    buf: Buffer.from(<span class="hljs-string">'Hello, World'</span>)
+  };
+
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).insertOne(doc);
+
+  <span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne({ _id: doc._id });
+  <span class="hljs-comment">// Binary {</span>
+  <span class="hljs-comment">//  _bsontype: 'Binary',</span>
+  <span class="hljs-comment">//  sub_type: 0,</span>
+  <span class="hljs-comment">//  position: 12,</span>
+  <span class="hljs-comment">//  buffer: &lt;Buffer 48 65 6c 6c 6f 2c 20 57 6f 72 6c 64&gt; }</span>
+  <span class="hljs-built_in">console</span>.log(fromDb.buf);
+  <span class="hljs-built_in">console</span>.log(fromDb.buf.buffer.toString()); <span class="hljs-comment">// "Hello, World"</span>
+}
+</code></pre>
+<p>MongoDB actually stores buffers in a special <a href="https://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html"><code>Binary</code> class</a>. A MongoDB binary is just a wrapper around a buffer with an additional
+<code>sub_type</code> property that is useful for <a href="https://studio3t.com/knowledge-base/articles/mongodb-best-practices-uuid-data/#binary-subtypes-0x03-and-0x04">UUIDs</a>. For the purposes of this article though,
+you can ignore the <code>sub_type</code> property and just use the <code>buffer</code> property to get a Node.js buffer.</p>
+<p>You can also declare a Mongoose schema type as a buffer, so Mongoose can cast the buffer for you.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+run();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+
+  <span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Foo'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({
+    buf: Buffer
+  }));
+
+  <span class="hljs-comment">// Mongoose will automatically call `Buffer.from()` for you</span>
+  <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> Model.create({ buf: <span class="hljs-string">'Hello, World'</span> });
+
+  <span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> Model.findOne({ _id: doc._id });
+
+  <span class="hljs-comment">// Unlike the MongoDB driver, Mongoose gives you a buffer back.</span>
+  <span class="hljs-built_in">console</span>.log(fromDb.buf.toString(<span class="hljs-string">'hex'</span>)); <span class="hljs-comment">// 48656c6c6f2c20576f726c64</span>
+}
+</code></pre>
+<p>If you specify a path must have type <code>Buffer</code>, Mongoose will handle casting
+and give you a buffer back when you load the document from the database. The document will be stored as a Binary in MongoDB, but Mongoose will convert it to a buffer for you, and add a couple extra properties like <code>_subtype</code>.</p>
+<p>Buffers are especially powerful in MongoDB when combined with <a href="http://thecodebarbarian.com/node-perspective-on-mongodb-3.2-bitwise-query-operators">bitwise query operators</a>. Since a byte contains 8 bits, you can store whether you&#39;re available or not during each hour of a 24 hour interval using 24 bits (3 bytes), one for each hour. For 24 hours this doesn&#39;t offer much savings, but
+if you&#39;re looking to store half-hour availability for the next year, MongoDB
+bitwise query operators and buffers can save you a lot of network overhead.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+run();
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
+
+  <span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Schedule'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({
+    buf: Buffer
+  }));
+
+  <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> Model.create({
+    <span class="hljs-comment">// The 8th bit in the buffer (counted from the right) is set, rest are 0</span>
+    buf: [<span class="hljs-number">0b00000000</span>, <span class="hljs-number">0b00000001</span>, <span class="hljs-number">0b00000000</span>]
+  });
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> Model.countDocuments({ buf: { $bitsAllSet: [<span class="hljs-number">8</span>] } })); <span class="hljs-comment">// 1</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> Model.countDocuments({ buf: { $bitsAllSet: [<span class="hljs-number">0</span>] } })); <span class="hljs-comment">// 0</span>
+}
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Buffers are a fundamental part of Node.js, particularly when it comes to
+<a href="https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback">files</a> and <a href="https://nodejs.org/api/net.html">sockets</a>. In addition to
+tasks like file uploads, buffers are useful for <a href="https://en.wikipedia.org/wiki/Bitmap">bitmapping</a>, particularly when combined with <a href="http://thecodebarbarian.com/node-perspective-on-mongodb-3.2-bitwise-query-operators">MongoDB bitwise query operators</a>. Next time you run into a buffer in Node.js, take a moment to
+think deeper about how buffers work.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180814_buffers.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "An Overview of Buffers in Node.js", time: new Date() });
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

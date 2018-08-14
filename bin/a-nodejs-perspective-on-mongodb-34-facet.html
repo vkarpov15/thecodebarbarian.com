@@ -3,7 +3,16 @@
   float: left !important;
   margin-left: 215px !important;
 }
-</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-34-facet&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-34-facet&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A Node.js Perspective on MongoDB 3.4: $facet</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">January 19, 2017</span></div></div></div><div class="post-body-text-container"><p><a href="https://docs.mongodb.com/manual/release-notes/3.4/">MongoDB 3.4</a>
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-34-facet&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fa-nodejs-perspective-on-mongodb-34-facet&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fa-nodejs-perspective-on-mongodb-34-facet" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A Node.js Perspective on MongoDB 3.4: $facet</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">January 19, 2017</span></div></div></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://docs.mongodb.com/manual/release-notes/3.4/">MongoDB 3.4</a>
 has <a href="https://docs.mongodb.com/manual/release-notes/3.4/#aggregation">27 new aggregation concepts</a>.
 Last week I covered the new <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-graphlookup.html"><code>$graphLookup</code> stage</a>, which recursively searches collections. This week I&#39;ll cover the new <a href="https://docs.mongodb.com/v3.4/reference/operator/aggregation/facet/"><code>$facet</code> stage</a> and
 the related <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/bucket/"><code>$bucket</code></a> and <a href="https://docs.mongodb.com/v3.4/reference/operator/aggregation/bucketAuto/"><code>$bucketAuto</code></a> operators. These new features are tailor-made for building powerful product search pages, and will quickly become your favorite aggregation features if you&#39;re working on
@@ -397,83 +406,7 @@ sure to upgrade to take advantage of these new features so you can delete
 hundreds of lines of unnecessary code. Next week, I&#39;ll cover the new <a href="https://docs.mongodb.com/manual/tutorial/model-monetary-data/">decimal type</a>. The decimal type enables accurate base 10 arithmetic and avoids the <a href="https://en.wikipedia.org/wiki/Floating_point#Accuracy_problems">myriad fundamental flaws of floating point arithmetic</a>,
 so you can finally stop copy/pasting <code>_.round(price, 2)</code>. </p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170119_mongodb_facet.md">Github</a></em></div><div><div class="native-js">
-  <script type="text/javascript" src="/js/native.js"></script>
-  <script type="text/javascript">
-    _native.init('CK7DT53N', {
-      targetClass: 'native-js',
-      fallback: `
-        <a href="#" class="native-flex">
-          <style>
-            .native-js {
-              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
-            }
-            
-            .native-details {
-              color: #FFFFFF !important;
-            }
-            
-            .native-details:hover {
-              color: #FFFFFF !important;
-            }
-            
-            .native-cta {
-              color: #FFFFFF;
-              background-color: #626469;
-            }
-            
-            .native-cta:hover {
-              color: #native_cta_color_hover;
-              background-color: #626469;
-            }
-          </style>
-          <div class="native-main">
-            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
-            <div class="native-details">
-              <span class="native-company">Fallback Company</span>
-              <span class="native-desc">This is a sample of using fallback ads.</span>
-            </div>
-          </div>
-          <span class="native-cta">Fallback CTA</span>
-        </a>
-      `
-    });
-  </script>
-  <a href="#native_link#" class="native-flex">
-    <style>
-      .native-js {
-        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
-      }
-      
-      .native-details {
-        color: #native_color# !important;
-      }
-      
-      .native-details:hover {
-        color: #native_color_hover# !important;
-      }
-      
-      .native-cta {
-        color: #native_cta_color#;
-        background-color: #native_cta_bg_color#;
-      }
-      
-      .native-cta:hover {
-        color: #native_cta_color_hover;
-        background-color: #native_cta_bg_color_hover#;
-      }
-    </style>
-    <div class="native-main">
-      <img class="native-img" src="#native_logo#">
-      <div class="native-details">
-        <span class="native-company">#native_company#</span>
-        <span class="native-desc">#native_desc#</span>
-      </div>
-    </div>
-    <span class="native-cta">#native_cta#</span>
-  </a>
-</div>
-</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170119_mongodb_facet.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -486,4 +419,4 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
   analytics.page()
 }}();</script><script type="text/javascript">analytics.track('opened post',
   { title: "A Node.js Perspective on MongoDB 3.4: $facet", time: new Date() });
-  </script></body></html>
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

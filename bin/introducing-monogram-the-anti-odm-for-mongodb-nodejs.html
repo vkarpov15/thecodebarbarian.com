@@ -3,7 +3,16 @@
   float: left !important;
   margin-left: 215px !important;
 }
-</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Introducing Monogram, the Anti-ODM for Node.js and MongoDB</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 21, 2017</span></div></div></div><div class="post-body-text-container"><p>In 2015, I <a href="https://github.com/vkarpov15/monogram-old/graphs/contributors">started working on a new ODM</a> for MongoDB and Node.js. It was based on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">the now-obsolete <code>Object.observe()</code> function</a>, and I unfortunately had to scrap the whole project when the <code>Object.observe()</code> proposal was unexpectedly withdrawn. A lot of the core logic from the original ODM lives on in <a href="https://www.npmjs.com/package/archetype-js">Archetype</a>. But my brief time in <a href="https://thinkster.io/tutorials/build-a-real-world-react-redux-application">Redux land</a> and studying <a href="https://www.npmjs.com/package/falcor">falcor</a> taught me a crucial lesson: the Model-View-Controller paradigm is not the only way to do things. MVC and ODMs still make sense, but we can build a stronger, more functional abstraction as the basis for a more concise architecture. The <a href="https://www.npmjs.com/package/monogram">new monogram</a> has now been powering 100% of <a href="https://www.trybooster.com/careers">Booster&#39;s</a> API queries for weeks and it&#39;s officially production ready. Here&#39;s what monogram is all about.</p>
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fintroducing-monogram-the-anti-odm-for-mongodb-nodejs" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Introducing Monogram, the Anti-ODM for Node.js and MongoDB</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 21, 2017</span></div></div></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>In 2015, I <a href="https://github.com/vkarpov15/monogram-old/graphs/contributors">started working on a new ODM</a> for MongoDB and Node.js. It was based on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">the now-obsolete <code>Object.observe()</code> function</a>, and I unfortunately had to scrap the whole project when the <code>Object.observe()</code> proposal was unexpectedly withdrawn. A lot of the core logic from the original ODM lives on in <a href="https://www.npmjs.com/package/archetype-js">Archetype</a>. But my brief time in <a href="https://thinkster.io/tutorials/build-a-real-world-react-redux-application">Redux land</a> and studying <a href="https://www.npmjs.com/package/falcor">falcor</a> taught me a crucial lesson: the Model-View-Controller paradigm is not the only way to do things. MVC and ODMs still make sense, but we can build a stronger, more functional abstraction as the basis for a more concise architecture. The <a href="https://www.npmjs.com/package/monogram">new monogram</a> has now been powering 100% of <a href="https://www.trybooster.com/careers">Booster&#39;s</a> API queries for weeks and it&#39;s officially production ready. Here&#39;s what monogram is all about.</p>
 <h2 id="function-calls-are-objects">Function Calls are Objects</h2>
 <p>The mind-bending idea that <a href="https://maetl.net/talks/rise-and-fall-of-orm">made ORMs so popular in the late 90&#39;s and early 2000&#39;s</a> was that you could merge object-oriented programming with RDBMS by mapping objects in your programming language of choice (typically Java for early ORMs) to rows in your database. In other words, an ORM let you think of database rows as objects, and the MongoDB equivalent ODM lets you think of MongoDB documents as objects. Unfortunately, even with <code>Object.observe()</code> it&#39;s tricky to <a href="http://mongoosejs.com/docs/faq.html">get this mapping right in the general case</a> because of in-place updates, not to mention <a href="http://aaronheckmann.blogspot.com/2012/06/mongoose-v3-part-1-versioning.html">the difficulties of distributed programming</a>.</p>
 <p>What if, instead of mapping documents to objects, we mapped database operations to objects? What if, instead of scratching our heads about how to make arrays and dates a nail for the OOP hammer, we took a page out of <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">aspect-oriented programming&#39;s</a> book and thought about how to better instrument our database operations? The key idea of monogram is that every function call on a <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html">MongoDB collection</a> can be represented as an object that we call an <em>action</em>.</p>
@@ -178,83 +187,7 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
 <h2 id="moving-on">Moving On</h2>
 <p>Monogram is a potent abstraction for both advanced and novice users of MongoDB and Node.js. From logging to soft deletes to <a href="https://github.com/vkarpov15/monogram#enforcing-internal-best-practices">enforcing best practices</a> to distributed locking, monogram makes instrumenting logic and handling <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concerns</a> easy. Give it a shot and open up any issues you find on <a href="https://github.com/vkarpov15/monogram/issues">GitHub</a>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170721_monogram.md">Github</a></em></div><div><div class="native-js">
-  <script type="text/javascript" src="/js/native.js"></script>
-  <script type="text/javascript">
-    _native.init('CK7DT53N', {
-      targetClass: 'native-js',
-      fallback: `
-        <a href="#" class="native-flex">
-          <style>
-            .native-js {
-              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
-            }
-            
-            .native-details {
-              color: #FFFFFF !important;
-            }
-            
-            .native-details:hover {
-              color: #FFFFFF !important;
-            }
-            
-            .native-cta {
-              color: #FFFFFF;
-              background-color: #626469;
-            }
-            
-            .native-cta:hover {
-              color: #native_cta_color_hover;
-              background-color: #626469;
-            }
-          </style>
-          <div class="native-main">
-            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
-            <div class="native-details">
-              <span class="native-company">Fallback Company</span>
-              <span class="native-desc">This is a sample of using fallback ads.</span>
-            </div>
-          </div>
-          <span class="native-cta">Fallback CTA</span>
-        </a>
-      `
-    });
-  </script>
-  <a href="#native_link#" class="native-flex">
-    <style>
-      .native-js {
-        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
-      }
-      
-      .native-details {
-        color: #native_color# !important;
-      }
-      
-      .native-details:hover {
-        color: #native_color_hover# !important;
-      }
-      
-      .native-cta {
-        color: #native_cta_color#;
-        background-color: #native_cta_bg_color#;
-      }
-      
-      .native-cta:hover {
-        color: #native_cta_color_hover;
-        background-color: #native_cta_bg_color_hover#;
-      }
-    </style>
-    <div class="native-main">
-      <img class="native-img" src="#native_logo#">
-      <div class="native-details">
-        <span class="native-company">#native_company#</span>
-        <span class="native-desc">#native_desc#</span>
-      </div>
-    </div>
-    <span class="native-cta">#native_cta#</span>
-  </a>
-</div>
-</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20170721_monogram.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -267,4 +200,4 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
   analytics.page()
 }}();</script><script type="text/javascript">analytics.track('opened post',
   { title: "Introducing Monogram, the Anti-ODM for Node.js and MongoDB", time: new Date() });
-  </script></body></html>
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
