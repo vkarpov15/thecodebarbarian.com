@@ -3,7 +3,16 @@
   float: left !important;
   margin-left: 215px !important;
 }
-</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Plugging USDA Nutrition Data into MongoDB</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 28, 2014</span></div></div><a href="https://github.com/vkarpov15/usda-sr25-mongodb"><div class="source-code-button"><div class="btn btn-orange btn-block"><i class="fa fa-github-alt"></i><span class="hidden-lg hidden-md hidden-sm">View the Code on Github</span><span class="hidden-xs">View the Code for this Post on Github</span></div></div></a></div><div class="post-body-text-container"><p>As much as I love geeking out about <a href="http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation">basketball stats</a>, I want to put a MongoDB data set out there that&#39;s a bit more app-friendly: the <a href="http://www.ars.usda.gov/Services/docs.htm?docid=22771">USDA SR25 nutrient database</a>. You can download this data set from my S3 bucket <a href="https://s3.amazonaws.com/valeri.karpov.mongodb/usda.nutrition.tgz">here</a>, and plug it into your MongoDB instance using <a href="http://docs.mongodb.org/manual/reference/program/mongorestore/">mongorestore</a>. I&#39;m very meticulous about nutrition and have, at times, kept a food journal, but sites like FitDay and DailyBurn have far too much spam and are far too poorly designed to be a viable option. With this data set, I plan on putting together an open source web-based food journal in the near future. However, I encourage you to use this data set to build your own apps.</p>
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F03%2F28%2Fplugging-usda-nutrition-data-into-mongodb" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Plugging USDA Nutrition Data into MongoDB</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 28, 2014</span></div></div><a href="https://github.com/vkarpov15/usda-sr25-mongodb"><div class="source-code-button"><div class="btn btn-orange btn-block"><i class="fa fa-github-alt"></i><span class="hidden-lg hidden-md hidden-sm">View the Code on Github</span><span class="hidden-xs">View the Code for this Post on Github</span></div></div></a></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>As much as I love geeking out about <a href="http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation">basketball stats</a>, I want to put a MongoDB data set out there that&#39;s a bit more app-friendly: the <a href="http://www.ars.usda.gov/Services/docs.htm?docid=22771">USDA SR25 nutrient database</a>. You can download this data set from my S3 bucket <a href="https://s3.amazonaws.com/valeri.karpov.mongodb/usda.nutrition.tgz">here</a>, and plug it into your MongoDB instance using <a href="http://docs.mongodb.org/manual/reference/program/mongorestore/">mongorestore</a>. I&#39;m very meticulous about nutrition and have, at times, kept a food journal, but sites like FitDay and DailyBurn have far too much spam and are far too poorly designed to be a viable option. With this data set, I plan on putting together an open source web-based food journal in the near future. However, I encourage you to use this data set to build your own apps.</p>
 <h2 id="data-set-structure">Data Set Structure</h2>
 <p>The data set contains one collection, &#39;nutrition&#39;. The documents in this collection contain merged data from the SR25 database&#39;s very relational <code>FOOD_DES</code>, <code>NUTR_DEF</code>, <code>NUT_DATA</code>, and <code>WEIGHT</code> files. In more comprehensible terms, the documents contain a description of a food item, a list of nutrients with measurements per 100g, and a list of common serving sizes for that food. Here&#39;s what the top level document for grass-fed ground bison looks like in <a href="http://robomongo.org/">RoboMongo</a>, a simple MongoDB GUI:</p>
 <p><a href="https://lh4.googleusercontent.com/tNPP4aIiKIchCQr4fFZXaW8sY33pKtdjAc1-tnRHNeRAlyjwEBItOUHOZw1kCH72FTFdiyBmqVQbFFVcOGtmj7GyH5NEvgOzvuCSQ5IQ8zTlGoPCLcvi39J8WbxMBQ"><img src="//lh4.googleusercontent.com/tNPP4aIiKIchCQr4fFZXaW8sY33pKtdjAc1-tnRHNeRAlyjwEBItOUHOZw1kCH72FTFdiyBmqVQbFFVcOGtmj7GyH5NEvgOzvuCSQ5IQ8zTlGoPCLcvi39J8WbxMBQ" style="width: 100%"></a></p>
@@ -36,83 +45,7 @@
 <h2 id="conclusion">Conclusion</h2>
 <p>Phew, that was a lot of information to cram into one post. The data set, as provided by the USDA, is a bit complex and could really benefit from some simplification. Thankfully, MongoDB 2.6 is coming out soon, and, with it, the <a href="http://docs.mongodb.org/master/reference/operator/aggregation/out/"><code>$out</code> aggregation operator</a>. The <code>$out</code> operator will enable you to pipe output from the aggregation framework to a separate collection, so I&#39;ll hopefully be able to add total omega-3 fatty acids as a nutrient, among other things. Once again, feel free to download the data set <a href="https://s3.amazonaws.com/valeri.karpov.mongodb/usda.nutrition.tgz">here</a> (or check out the converter repo on <a href="https://github.com/vkarpov15/usda-sr25-mongodb">Github</a>) and use it to build some awesome nutritional apps.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140328_nutrition.md">Github</a></em></div><div><div class="native-js">
-  <script type="text/javascript" src="/js/native.js"></script>
-  <script type="text/javascript">
-    _native.init('CK7DT53N', {
-      targetClass: 'native-js',
-      fallback: `
-        <a href="#" class="native-flex">
-          <style>
-            .native-js {
-              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
-            }
-            
-            .native-details {
-              color: #FFFFFF !important;
-            }
-            
-            .native-details:hover {
-              color: #FFFFFF !important;
-            }
-            
-            .native-cta {
-              color: #FFFFFF;
-              background-color: #626469;
-            }
-            
-            .native-cta:hover {
-              color: #native_cta_color_hover;
-              background-color: #626469;
-            }
-          </style>
-          <div class="native-main">
-            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
-            <div class="native-details">
-              <span class="native-company">Fallback Company</span>
-              <span class="native-desc">This is a sample of using fallback ads.</span>
-            </div>
-          </div>
-          <span class="native-cta">Fallback CTA</span>
-        </a>
-      `
-    });
-  </script>
-  <a href="#native_link#" class="native-flex">
-    <style>
-      .native-js {
-        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
-      }
-      
-      .native-details {
-        color: #native_color# !important;
-      }
-      
-      .native-details:hover {
-        color: #native_color_hover# !important;
-      }
-      
-      .native-cta {
-        color: #native_cta_color#;
-        background-color: #native_cta_bg_color#;
-      }
-      
-      .native-cta:hover {
-        color: #native_cta_color_hover;
-        background-color: #native_cta_bg_color_hover#;
-      }
-    </style>
-    <div class="native-main">
-      <img class="native-img" src="#native_logo#">
-      <div class="native-details">
-        <span class="native-company">#native_company#</span>
-        <span class="native-desc">#native_desc#</span>
-      </div>
-    </div>
-    <span class="native-cta">#native_cta#</span>
-  </a>
-</div>
-</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140328_nutrition.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -125,4 +58,4 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
   analytics.page()
 }}();</script><script type="text/javascript">analytics.track('opened post',
   { title: "Plugging USDA Nutrition Data into MongoDB", time: new Date() });
-  </script></body></html>
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

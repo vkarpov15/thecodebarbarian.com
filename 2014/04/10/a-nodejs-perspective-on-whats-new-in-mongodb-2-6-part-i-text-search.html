@@ -3,7 +3,16 @@
   float: left !important;
   margin-left: 215px !important;
 }
-</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A NodeJS Perspective on What's New in MongoDB 2.6, Part I: Text Search</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">April 10, 2014</span></div></div></div><div class="post-body-text-container"><p>MongoDB shipped the newest stable version of its server, 2.6.0, this week. This new release is massive: there were about <a href="https://github.com/mongodb/mongo/branches">4000 commits</a> between 2.4 and 2.6. Unsurprisingly, the <a href="http://docs.mongodb.org/manual/release-notes/2.6/">release notes</a> are a pretty dense read and don&#39;t quite convey how cool some of these new features are. To remedy that, I&#39;ll dedicate a couple posts to putting on my NodeJS web developer hat and exploring interesting use cases for new features in 2.6. The first feature I&#39;ll dig in to is text search, or, in layman&#39;s terms, Google for your MongoDB documents.</p>
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2F2014%2F04%2F10%2Fa-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A NodeJS Perspective on What's New in MongoDB 2.6, Part I: Text Search</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">April 10, 2014</span></div></div></div><div><script>
+  _native.init("CK7DT53U",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# — #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>MongoDB shipped the newest stable version of its server, 2.6.0, this week. This new release is massive: there were about <a href="https://github.com/mongodb/mongo/branches">4000 commits</a> between 2.4 and 2.6. Unsurprisingly, the <a href="http://docs.mongodb.org/manual/release-notes/2.6/">release notes</a> are a pretty dense read and don&#39;t quite convey how cool some of these new features are. To remedy that, I&#39;ll dedicate a couple posts to putting on my NodeJS web developer hat and exploring interesting use cases for new features in 2.6. The first feature I&#39;ll dig in to is text search, or, in layman&#39;s terms, Google for your MongoDB documents.</p>
 <p>Text search was technically in 2.4, but it was an experimental feature and not part of the query framework. Now, in 2.6, text is a full-fledged query operator, enabling you search for documents by text in <a href="http://docs.mongodb.org/manual/reference/text-search-languages/#text-search-languages">15 different languages</a>.</p>
 <h2 id="getting-started-with-text-search">Getting Started With Text Search</h2>
 <p>Let&#39;s dive right in and use text search on the USDA SR-25 data set described in <a href="http://thecodebarbarian.com/2014/03/28/plugging-usda-nutrition-data-into-mongodb/">this post</a>. You can download a mongorestore-friendly version of the data set here. The data set contains 8194 food items with associated nutrition data, and each food item has a human-readable description, e.g. &quot;Kale, raw&quot; or &quot;Bison, ground, grass-fed, cooked&quot;. Ideally, as a client of this data set, we shouldn&#39;t have to remember whether we need to enter &quot;Bison, grass-fed, ground, cooked&quot; or &quot;Bison, ground, grass-fed, cooked&quot; to get the data we&#39;re looking for. We should just be able to put in &quot;grass-fed bison&quot; and get reasonable results.</p>
@@ -61,83 +70,7 @@ exports.searchFood = <span class="hljs-function"><span class="hljs-keyword">func
 <h2 id="looking-forward">Looking Forward</h2>
 <p>And that&#39;s all on text search for now. In the next post (scheduled for 4/25), we&#39;ll tackle some of the awesome new features in the aggregation framework, including text search in aggregation.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
-available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140410_text_search.md">Github</a></em></div><div><div class="native-js">
-  <script type="text/javascript" src="/js/native.js"></script>
-  <script type="text/javascript">
-    _native.init('CK7DT53N', {
-      targetClass: 'native-js',
-      fallback: `
-        <a href="#" class="native-flex">
-          <style>
-            .native-js {
-              background: linear-gradient(-30deg, #DA3925E5, #DA3925E5 45%, #DA3925 45%) #fff;
-            }
-            
-            .native-details {
-              color: #FFFFFF !important;
-            }
-            
-            .native-details:hover {
-              color: #FFFFFF !important;
-            }
-            
-            .native-cta {
-              color: #FFFFFF;
-              background-color: #626469;
-            }
-            
-            .native-cta:hover {
-              color: #native_cta_color_hover;
-              background-color: #626469;
-            }
-          </style>
-          <div class="native-main">
-            <img class="native-img" src="https://cdn4.buysellads.net/uu/1/2144/1520557245-ShutterstockIcon_250x100__1_.jpg">
-            <div class="native-details">
-              <span class="native-company">Fallback Company</span>
-              <span class="native-desc">This is a sample of using fallback ads.</span>
-            </div>
-          </div>
-          <span class="native-cta">Fallback CTA</span>
-        </a>
-      `
-    });
-  </script>
-  <a href="#native_link#" class="native-flex">
-    <style>
-      .native-js {
-        background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
-      }
-      
-      .native-details {
-        color: #native_color# !important;
-      }
-      
-      .native-details:hover {
-        color: #native_color_hover# !important;
-      }
-      
-      .native-cta {
-        color: #native_cta_color#;
-        background-color: #native_cta_bg_color#;
-      }
-      
-      .native-cta:hover {
-        color: #native_cta_color_hover;
-        background-color: #native_cta_bg_color_hover#;
-      }
-    </style>
-    <div class="native-main">
-      <img class="native-img" src="#native_logo#">
-      <div class="native-details">
-        <span class="native-company">#native_company#</span>
-        <span class="native-desc">#native_desc#</span>
-      </div>
-    </div>
-    <span class="native-cta">#native_cta#</span>
-  </a>
-</div>
-</div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20140410_text_search.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -150,4 +83,4 @@ var disqus_shortname = 'codebarbarian'; // required: replace example with your f
   analytics.page()
 }}();</script><script type="text/javascript">analytics.track('opened post',
   { title: "A NodeJS Perspective on What's New in MongoDB 2.6, Part I: Text Search", time: new Date() });
-  </script></body></html>
+  </script><script type="text/javascript" src="/js/native.js"></script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
