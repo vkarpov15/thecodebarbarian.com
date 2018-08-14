@@ -125,7 +125,7 @@ MessageSchema.virtual(<span class="hljs-string">'to'</span>, {
 
 <span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, PersonSchema);
 <span class="hljs-keyword">var</span> Organization = mongoose.model(<span class="hljs-string">'Organization'</span>, OrganizationSchema);
-<span class="hljs-keyword">var</span> Message = mongoose.model(<span class="hljs-string">'Message'</span>, BandSchema);
+<span class="hljs-keyword">var</span> Message = mongoose.model(<span class="hljs-string">'Message'</span>, MessageSchema);
 </code></pre>
 <p>Here&#39;s how using these models looks. Mongoose abstracts out the interaction with <code>fromModel</code> and <code>toModel</code>. So all you need to do is <code>.populate(&#39;from to&#39;)</code> and you get the correct organization or person, depending on the value of <code>fromModel</code> and <code>toModel</code>.</p>
 <pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
