@@ -522,7 +522,13 @@ a.social {
 	}
 }
 
+/* New stuff */
+
 .inline-image {
 	border: 1px solid #d0d0d0;
 	padding: 10px;
+}
+
+.async-await-banner {
+	margin-left: 87px;
 }

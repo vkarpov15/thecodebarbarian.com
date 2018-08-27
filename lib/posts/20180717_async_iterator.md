@@ -259,4 +259,4 @@ and look out for Mongoose and the MongoDB driver to support async iteration in t
 _Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_
 
-<a href="http://asyncawait.net"><img src="/images/asyncawait.png"/></a>
+<a href="http://asyncawait.net" class="async-await-banner"><img src="/images/asyncawait.png"/></a>
