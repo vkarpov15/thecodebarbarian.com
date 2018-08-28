@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 27 Aug 2018 15:09:56 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 28 Aug 2018 14:19:55 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building a Serverless App with MongoDB Stitch]]></title>
+            <link>http://www.thecodebarbarian.com/building-a-serverless-app-with-mongodb-stitch.html</link>
+            <guid>http://www.thecodebarbarian.com/building-a-serverless-app-with-mongodb-stitch.html</guid>
+            <pubDate>Tue, 28 Aug 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[An Overview of Buffers in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/an-overview-of-buffers-in-node-js.html</link>
