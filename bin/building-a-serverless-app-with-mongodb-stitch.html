@@ -1,0 +1,168 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a Serverless App with MongoDB Stitch | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a Serverless App with MongoDB Stitch"/><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-serverless-app-with-mongodb-stitch"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/matterhorn.jpeg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-a-serverless-app-with-mongodb-stitch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-serverless-app-with-mongodb-stitch" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-serverless-app-with-mongodb-stitch" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-a-serverless-app-with-mongodb-stitch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-serverless-app-with-mongodb-stitch" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-serverless-app-with-mongodb-stitch" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a Serverless App with MongoDB Stitch</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 28, 2018</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://stitch.mongodb.com/">MongoDB Stitch</a> is MongoDB&#39;s backend-as-a-service solution. Stitch supports a <a href="https://www.mongodb.com/cloud/stitch#features">wide variety of high-level features</a>, like Twilio integration and field-level access control, but it also supports <a href="https://docs.mongodb.com/stitch/functions/">custom functions</a> similar to <a href="https://aws.amazon.com/lambda/">Amazon Web Services&#39; Lambda</a>. In this article, I&#39;ll walk you through setting up backend application in MongoDB Stitch on top of <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a>. This backend application regularly ingests stock price data from the <a href="https://iextrading.com/developer/">IEX API</a> and exposes an REST API endpoint for loading a stock&#39;s latest price.</p>
+<h2 id="ingesting-stock-data">Ingesting Stock Data</h2>
+<p>This article assumes that you already have a <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas cluster running</a> and
+have <a href="https://nodejs.org/en/">Node.js</a> installed.
+<a href="https://docs.atlas.mongodb.com/getting-started/">See this guide if you don&#39;t have a MongoDB Atlas account yet</a>.</p>
+<p>Log in to <a href="https://cloud.mongodb.com">MongoDB Cloud</a>. Look for &quot;Linked Stitch App&quot;. If you don&#39;t have one yet, click
+&quot;Link Application&quot; to create a new Stitch app.</p>
+<p><img class="inline-image" src="https://i.imgur.com/inx1U7A.png"></p>
+<p>Name your app &quot;stocks&quot; and click &quot;Create&quot;.</p>
+<p><img class="inline-image" src="https://i.imgur.com/M6Hi0uu.png"></p>
+<p>Once Stitch has created your app, leave authentication off for now, and add a collection with database name &#39;test&#39; and
+collection name &#39;prices&#39; to your Stitch app.</p>
+<p><img class="inline-image" src="https://i.imgur.com/u0sFNO6.png"></p>
+<p>Next, click on &quot;Functions&quot; on the navbar to create your first Stitch function.</p>
+<p><img class="inline-image" src="https://i.imgur.com/BWSepP7.png"></p>
+<p>Click &quot;Create Function&quot; to open up the function editor. Name the function &quot;ingest&quot;, leave it public, and leave
+&quot;Can Evaluate&quot; blank, then click &quot;Save&quot;.</p>
+<p>In order to actually run a Stitch function, you need to create a Stitch user. Click &quot;Users&quot; on the navbar, then
+click &quot;Providers&quot; to see a list of all user providers. Edit the &quot;API Keys&quot; provider.</p>
+<p><img class="inline-image" src="https://i.imgur.com/Gkm2D2C.png"></p>
+<p>Enable the API Keys provider and click &quot;Create API Key&quot; to create a new API Key. Click &quot;Save&quot; and copy the newly
+generated API Key somewhere safe.</p>
+<p><img class="inline-image" src="https://i.imgur.com/xNjvYF3.png"></p>
+<p>Next, click &quot;Services&quot; and add an HTTP service. Call this service &quot;http&quot;.</p>
+<p><img class="inline-image" src="https://i.imgur.com/LuhHLVj.png"></p>
+<p>Next, go to your cluster under &quot;Atlas Clusters&quot;, click the &quot;test.prices&quot; collection, and convert all field rules and
+filters to empty objects. This will remove all access controls so your functions can read from and write to the
+&quot;test.prices&quot; collection without restriction.</p>
+<p><img class="inline-image" src="https://i.imgur.com/28AuOYS.png"></p>
+<p><img class="inline-image" src="https://i.imgur.com/cJcIPNX.png"></p>
+<p>Now that your Stitch functions have unrestricted read/write access, go back to the <code>ingest()</code> function and enter in
+the below source code. <a href="https://docs.mongodb.com/stitch/functions/">Stitch&#39;s JavaScript runtime</a> is <strong>not</strong> Node.js,
+so you can&#39;t <code>require()</code> npm modules, but you can access <em>services</em>, like the HTTP service you defined, from the global
+<code>context</code> object.</p>
+<p>The below function gets a connection to your Atlas cluster and an HTTP client from the <code>context</code>
+object. It then uses the <code>http</code> client to get the current price of MongoDB stock and stores it in the <code>prices</code>
+collection.</p>
+<pre><code class="lang-javascript">exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">symbol</span>) </span>{
+  <span class="hljs-keyword">const</span> atlas = context.services.get(<span class="hljs-string">'mongodb-atlas'</span>);
+  <span class="hljs-keyword">const</span> http = context.services.get(<span class="hljs-string">'http'</span>);
+
+  symbol = symbol || <span class="hljs-string">'MDB'</span>;
+
+  <span class="hljs-keyword">return</span> http.get({ url: <span class="hljs-string">`https://api.iextrading.com/1.0/stock/<span class="hljs-subst">${symbol}</span>/price`</span> }).
+    then(res =&gt; <span class="hljs-built_in">parseFloat</span>(res.body.text())).
+    then(price =&gt; atlas.db(<span class="hljs-string">'test'</span>).collection(<span class="hljs-string">'prices'</span>).insertOne({
+      symbol,
+      price,
+      time: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+    }));
+};
+</code></pre>
+<p>In order to run your function, you need to click on the &quot;Console&quot; tab in the bottom, change the parameter from &#39;Hello World&#39;
+to &#39;MDB&#39;, and select a user. Stitch functions always run in the context of a user, so select the <code>testkey</code> user. Then,
+click &quot;Run Function As&quot; to execute your function. You should get the below output.</p>
+<p><img class="inline-image" src="https://i.imgur.com/j3y2aZT.png"></p>
+<p>Now, connect to your MongoDB Atlas application with the MongoDB shell and query the <code>prices</code> collection, you should
+see an entry that contains the current price of MongoDB stock.</p>
+<pre><code>$ /mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
+MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-rc2
+Enter password:
+connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
+shard<span class="hljs-number">-0</span>:PRIMARY&gt; db.prices.find()
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">49.12</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T17:58:54.155Z"</span>) }
+shard<span class="hljs-number">-0</span>:PRIMARY&gt;
+</code></pre><p>MongoDB Stitch <a href="https://mongodb.canny.io/mongodb-stitch/p/cronjob-support-for-functions">currently does not support running functions on a timer</a>, so you&#39;ll have to expose the function via HTTP and trigger the function by sending an HTTP request
+every minute. But first, let&#39;s write the function that gets the latest stock price and then create webhooks for both
+functions.</p>
+<h2 id="stock-price-rest-api">Stock Price REST API</h2>
+<p>In order to create an API endpoint that returns the latest stock price, you&#39;ll need a separate Stitch function
+<code>read()</code>. Click on the &quot;Functions&quot; tab and create a new function named &quot;read&quot;, and leave it public.</p>
+<p><img class="inline-image" src="https://i.imgur.com/QUuHoVE.png"></p>
+<p>Click on &quot;Function Editor&quot; and enter in the below source code. Stitch currently doesn&#39;t support <code>findOne()</code> with
+<code>sort</code>, so the below function uses the <a href="https://docs.mongodb.com/stitch/mongodb/actions/collection.find/#sort-and-limit-results">Atlas service&#39;s <code>find()</code> function</a> to get the most recent
+stock price for the given symbol.</p>
+<pre><code class="lang-javascript">exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">symbol</span>) </span>{
+  <span class="hljs-keyword">const</span> atlas = context.services.get(<span class="hljs-string">'mongodb-atlas'</span>);
+
+  <span class="hljs-keyword">return</span> atlas.db(<span class="hljs-string">'test'</span>).collection(<span class="hljs-string">'prices'</span>).
+    find({ symbol }).
+    sort({ time: <span class="hljs-number">-1</span> }).
+    limit(<span class="hljs-number">1</span>).
+    toArray().
+    then(res =&gt; <span class="hljs-built_in">Array</span>.isArray(res) ? res[<span class="hljs-number">0</span>] : <span class="hljs-literal">null</span>);
+};
+</code></pre>
+<p>Click &quot;Run Function As&quot; and you should see the document your <code>ingest()</code> function inserted in <a href="https://docs.mongodb.com/manual/reference/mongodb-extended-json/">MongoDB Extended JSON format</a>.</p>
+<p><img class="inline-image" src="https://i.imgur.com/O0q5Gee.png"></p>
+<p>Now that you have a <code>read()</code> function, let&#39;s create a webhook that runs the <code>read()</code> function when an HTTP request
+comes in. Click on &quot;Services&quot; in the navbar, then click the &quot;http&quot; service, and click &quot;Create New Webhook&quot;. Name the
+webhook &quot;read&quot;, turn on &quot;Respond with Result&quot;, and configure it to respond to <code>GET</code> requests. Enable the &quot;Require Secret as Query Param&quot; option and enter in a secret string. Then, click &quot;Save&quot;.</p>
+<p><img class="inline-image" src="https://i.imgur.com/VU2iEcK.png"></p>
+<p>Now, go to the &quot;Function Editor&quot; tab and enter in the below source code for your webhook. Webhooks have their own
+custom function logic, but you can <a href="https://docs.mongodb.com/stitch/functions/">call Stitch functions from other Stitch functions</a> using <code>context.functions.execute()</code> with the function name.</p>
+<pre><code class="lang-javascript">exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">payload</span>) </span>{
+  <span class="hljs-keyword">const</span> symbol = payload.query.symbol || <span class="hljs-string">'MDB'</span>;
+  <span class="hljs-keyword">return</span> context.functions.execute(<span class="hljs-string">'read'</span>, symbol);
+};
+</code></pre>
+<p>Now, click on the &quot;Settings&quot; tab to find the URL for your Stitch webhook. Copy the webhook URL.</p>
+<p><img class="inline-image" src="https://i.imgur.com/jUXpUIl.png"></p>
+<p>You should now be able to use access your webhook using an HTTP client like <a href="https://en.wikipedia.org/wiki/CURL">curl</a>.
+Make sure you add <code>secret</code> as a query parameter as shown below, otherwise you&#39;ll get an authentication error. Unlike Lambda,
+Stitch functions require authentication.</p>
+<pre><code>$ curl https:<span class="hljs-comment">//webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/read?secret=OMITTED</span>
+{<span class="hljs-string">"_id"</span>:{<span class="hljs-string">"$oid"</span>:<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>},<span class="hljs-string">"symbol"</span>:<span class="hljs-string">"MDB"</span>,<span class="hljs-string">"price"</span>:{<span class="hljs-string">"$numberDouble"</span>:<span class="hljs-string">"49.12"</span>},<span class="hljs-string">"time"</span>:{<span class="hljs-string">"$date"</span>:{<span class="hljs-string">"$numberLong"</span>:<span class="hljs-string">"1528394334155"</span>}}}
+$
+</code></pre><p>You still need one more webhook for the <code>ingest()</code> function, so go back to the &quot;Services&quot; view, click on &quot;HTTP&quot;, and
+click &quot;Add Incoming Webhook&quot; to create another webhook.</p>
+<p><img class="inline-image" src="https://i.imgur.com/ovvE4VK.png"></p>
+<p>Name this webhook &quot;ingest&quot;, have it respond to <code>POST</code> requests, and give it a different secret. Then, click &quot;Save&quot;.</p>
+<p><img class="inline-image" src="https://i.imgur.com/thsTgxW.png"></p>
+<p>Next, in the function editor, enter in the below code. Like the <code>read()</code> webhook, the <code>ingest()</code> webhook just calls the
+<code>ingest()</code> function.</p>
+<pre><code class="lang-javascript">exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">payload</span>) </span>{
+  <span class="hljs-keyword">const</span> symbol = payload.query.symbol || <span class="hljs-string">'MDB'</span>;
+  <span class="hljs-keyword">return</span> context.functions.execute(<span class="hljs-string">'ingest'</span>, symbol);
+};
+</code></pre>
+<p>Once you click &quot;Save&quot;, you should be able to access the <code>ingest()</code> function using an HTTP client like curl.</p>
+<pre><code>$ curl -X POST https:<span class="hljs-comment">//webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/ingest?secret=OMITTED</span>
+{<span class="hljs-string">"insertedId"</span>:{<span class="hljs-string">"$oid"</span>:<span class="hljs-string">"5b1983cdb8b9985731e9623e"</span>}}
+$
+</code></pre><p>Connect to your MongoDB Atlas cluster and you should see a new document in the <code>prices</code> collection. You would have to
+use a service like Lambda or <a href="https://github.com/dcos/metronome">Metronome</a> to call your Stitch webhook on a timer.</p>
+<pre><code>$ /mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
+MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-rc2
+Enter password:
+connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
+shard<span class="hljs-number">-0</span>:PRIMARY&gt; db.prices.find()
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">49.12</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T17:58:54.155Z"</span>) }
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b1983cdb8b9985731e9623e"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">50.225</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T19:13:17.198Z"</span>) }
+shard<span class="hljs-number">-0</span>:PRIMARY&gt;
+</code></pre><p>That&#39;s all you need to set up a backend application with MongoDB Stitch. Stitch has a few limitations, like no support
+for automatically running a function every minute, but the JavaScript code is concise and you don&#39;t have to worry about
+managing a database connection. Once you get familiar with the Stitch UI, writing custom JavaScript functions is easy.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>MongoDB Stitch provides an interesting alternative to AWS Lambda and <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a> if you&#39;re already using MongoDB Atlas. The downside is that Stitch uses its own JavaScript
+runtime, so you can&#39;t use Node.js modules like <a href="http://npmjs.com/package/moment">moment</a>. But, Stitch gives you a lot more features out of the box, like built-in access control and database connection management. Next time you think about working with cloud functions, give MongoDB Stitch a shot.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180828_stitch.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Building a Serverless App with MongoDB Stitch", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
