@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 28 Aug 2018 14:19:55 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 31 Aug 2018 13:24:19 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing Awaitjs-Express: Async Function Support for Express]]></title>
+            <link>http://www.thecodebarbarian.com/introducing-await-js-express-async-support-for-express-apps.html</link>
+            <guid>http://www.thecodebarbarian.com/introducing-await-js-express-async-support-for-express-apps.html</guid>
+            <pubDate>Fri, 31 Aug 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a Serverless App with MongoDB Stitch]]></title>
             <link>http://www.thecodebarbarian.com/building-a-serverless-app-with-mongodb-stitch.html</link>
