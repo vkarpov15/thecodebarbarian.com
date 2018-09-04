@@ -45,7 +45,7 @@ Much like how the pain of your hands burning means you mistakenly picked up a
 hot pot in the kitchen, or a headache in the morning means you drank too much
 last night, the pain of dealing with 10 layers of nested callbacks in a single
 function means you desperately need to refactor. The small friction introduced
-by writing a callback is just enough to make you twice about "is this extra I/O
+by writing a callback is just enough to make you think twice about "is this extra I/O
 really necessary, or can I design this in a better way?"" I still prefer to use
 a framework like async or promises to make code more readable. But, if you're
 counting on promises or `async.waterfall()` to save you from banana code, the
