@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 31 Aug 2018 13:24:19 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Sep 2018 14:57:24 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[An Overview of BigInt in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/an-overview-of-bigint-in-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/an-overview-of-bigint-in-node-js.html</guid>
+            <pubDate>Tue, 11 Sep 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing Awaitjs-Express: Async Function Support for Express]]></title>
             <link>http://www.thecodebarbarian.com/introducing-await-js-express-async-support-for-express-apps.html</link>
