@@ -1,0 +1,124 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Using Monogram to Upgrade From MongoDB Node Driver 2.x to 3.x | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Using Monogram to Upgrade From MongoDB Node Driver 2.x to 3.x"/><meta property="og:url" content="http://www.thecodebarbarian.com/using-monogram-to-upgrade-from-mongodb-node-driver-2-to-3"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/sewing20180913.jpeg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net"><img src="http://asyncawait.net/images/cover_400.png"/><p><i>Mastering Async/Await</i></p></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fusing-monogram-to-upgrade-from-mongodb-node-driver-2-to-3" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Using Monogram to Upgrade From MongoDB Node Driver 2.x to 3.x</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 13, 2018</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>Let&#39;s be frank: backwards-breaking API changes are painful. Especially when
+there&#39;s no good way for the library to tell you when you&#39;re using the API
+incorrectly. This was my dilemma in upgrading a codebase from <a href="http://npmjs.com/package/mongodb">MongoDB Node driver</a> 2.1.x to 3.x. In particular,
+dropping support for the <a href="https://github.com/mongodb/node-mongodb-native/blob/master/HISTORY.md#breaking-changes-1"><code>fields</code> parameter</a> was brutal because this syntax was used everywhere in the code.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// In MongoDB Driver 2.x, `{ key: 1 }` would mean key2 was excluded from the</span>
+<span class="hljs-comment">// results. Not in MongoDB Driver 3.x.</span>
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne({}, { key1: <span class="hljs-number">1</span> });
+<span class="hljs-built_in">console</span>.log(doc);
+
+<span class="hljs-comment">// Same for `find()`. MongoDB driver 3.x prints:</span>
+<span class="hljs-comment">// `[ { _id: 5b9ae07d9b6dcf3725f3d74d, key1: 'foo', key2: 'bar' } ]`</span>
+<span class="hljs-comment">// But 2.x prints:</span>
+<span class="hljs-comment">// `[ { _id: 5b9ae07d9b6dcf3725f3d74d, key1: 'foo' } ]`</span>
+<span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).find({}, { key1: <span class="hljs-number">1</span> }).toArray();
+<span class="hljs-built_in">console</span>.log(docs);
+</code></pre>
+<p>I&#39;m sure there are a lot of ways to migrate this code, but since we already had
+a robust test suite and used <a href="https://www.npmjs.com/package/monogram">monogram</a>,
+I used <a href="https://github.com/boosterfuels/monogram#enforcing-internal-best-practices">Monogram&#39;s middleware</a> to throw an error every time <code>find()</code> and <code>findOne()</code> were used incorrectly.</p>
+<h2 id="an-overview-of-middleware-in-monogram">An Overview of Middleware in Monogram</h2>
+<p>The key idea behind everything in Monogram is to <a href="https://github.com/boosterfuels/monogram#actions">create an object representation of a function call</a>. Whenever
+you call any collection function in Monogram, like <code>find()</code> or <code>findOne()</code>, Monogram creates an object called an <em>action</em> that contains the most pertinent information about that function call:</p>
+<ul>
+<li>The function&#39;s name</li>
+<li>The name of the collection it is operating on</li>
+<li>What parameters were passed in</li>
+<li>The original stack trace</li>
+</ul>
+<p>Monogram actions are a similar concept to <a href="https://redux.js.org/basics/actions">Redux actions</a>. Monogram then passes the action through a list of user-defined middleware functions. For example, below is a
+middleware function that prints out the function your code is calling and its parameters.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<span class="hljs-keyword">const</span> { inspect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
+    useNewUrlParser: <span class="hljs-literal">true</span>
+  });
+
+  <span class="hljs-keyword">await</span> db.dropDatabase();
+
+  <span class="hljs-comment">// Monogram middleware takes in a single parameter, the action, an</span>
+  <span class="hljs-comment">// object representation of the function being called.</span>
+  db.collection(<span class="hljs-string">'Test'</span>).pre(action =&gt; {
+    <span class="hljs-keyword">const</span> paramsAsString = action.params.map(inspect).join(<span class="hljs-string">', '</span>);
+    <span class="hljs-comment">// Prints:</span>
+    <span class="hljs-comment">// "insertOne({ key1: 'foo', key2: 'bar' })"</span>
+    <span class="hljs-comment">// "findOne({}, { key1: 1 })"</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${action.name}</span>(<span class="hljs-subst">${paramsAsString}</span>)`</span>);
+  });
+
+  <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).insertOne({ key1: <span class="hljs-string">'foo'</span>, key2: <span class="hljs-string">'bar'</span> });
+
+  <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne({}, { key1: <span class="hljs-number">1</span> });
+  <span class="hljs-built_in">console</span>.log(doc);
+}
+</code></pre>
+<p>Now that you can define middleware that can see all function calls on a given
+collection, let&#39;s take a look at how to actually solve the original problem of
+catching code that&#39;s using the obsolete <code>find()</code> syntax.</p>
+<h2 id="middleware-to-detect-bad-function-calls">Middleware to Detect Bad Function Calls</h2>
+<p>Among other things, Monogram middleware lets you throw errors when your function
+call is using an outdated API. The general idea is to check if the 2nd argument
+to <code>find()</code> and <code>findOne()</code> contains a property that isn&#39;t a <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne">valid option for <code>findOne()</code></a>. In MongoDB Node driver 3.x, the 2nd parameter to <code>findOne()</code> is always
+treated as an <code>options</code> object. Below is the middleware I used to throw an error
+if the outdated API is used.</p>
+<pre><code class="lang-javascript">db.collection(<span class="hljs-string">'Test'</span>).pre(<span class="hljs-regexp">/^(find|findOne)$/</span>, action =&gt; {
+  <span class="hljs-keyword">const</span> opts = action.params[<span class="hljs-number">1</span>];
+  <span class="hljs-keyword">const</span> allowedOptions = [<span class="hljs-string">'projection'</span>, <span class="hljs-string">'sort'</span>, <span class="hljs-string">'skip'</span>, <span class="hljs-string">'limit'</span>, <span class="hljs-string">'hint'</span>];
+  <span class="hljs-keyword">if</span> (opts != <span class="hljs-literal">null</span> &amp;&amp;
+      <span class="hljs-built_in">Object</span>.keys(opts).find(option =&gt; !allowedOptions.includes(option))) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'MongoDB driver 3.x does not allow passing projection '</span> +
+      <span class="hljs-string">'as 2nd arg to find(). Use `projection` instead. Got '</span> +
+      <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>).inspect(opts));
+  }
+});
+</code></pre>
+<p>Monogram bubbles this error up with a neat stack trace. Even if this middleware
+was async, Monogram would still retain the original stack trace from the initial
+function call.</p>
+<pre><code>$ node test.js
+<span class="hljs-built_in">Error</span>: MongoDB driver <span class="hljs-number">3.</span>x does not allow passing projection <span class="hljs-keyword">as</span> <span class="hljs-number">2</span>nd arg to find(). Use <span class="hljs-string">`projection`</span> instead. Got { key1: <span class="hljs-number">1</span> }
+    at <span class="hljs-built_in">Object</span>.db.collection.pre.action [<span class="hljs-keyword">as</span> fn] (<span class="hljs-regexp">/home/</span>project/test.js:<span class="hljs-number">16</span>:<span class="hljs-number">13</span>)
+    at /home/project/node_modules/monogram/lib/collection.js:<span class="hljs-number">109</span>:<span class="hljs-number">24</span>
+    at Generator.next (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">anonymous</span>&gt;</span>)</span>
+    at onFulfilled (<span class="hljs-regexp">/home/</span>project/node_modules/co/index.js:<span class="hljs-number">65</span>:<span class="hljs-number">19</span>)
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">188</span>:<span class="hljs-number">7</span>)
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p><a href="https://www.npmjs.com/package/monogram">Monogram</a> provides a neat lightweight
+middleware API on top of the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js Driver</a> for teams that find <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> too heavyweight. If you&#39;re
+using the MongoDB Node.js Driver directly and are stuck on 2.x, give Monogram
+a shot and save yourself the pain of tracking down every single place where
+you use the 2.x-style projection syntax.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180913_driver_upgrade.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Using Monogram to Upgrade From MongoDB Node Driver 2.x to 3.x", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

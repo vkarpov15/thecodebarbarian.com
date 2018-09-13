@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 11 Sep 2018 14:57:24 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 13 Sep 2018 22:06:38 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using Monogram to Upgrade From MongoDB Node Driver 2.x to 3.x]]></title>
+            <link>http://www.thecodebarbarian.com/using-monogram-to-upgrade-from-mongodb-node-driver-2-to-3.html</link>
+            <guid>http://www.thecodebarbarian.com/using-monogram-to-upgrade-from-mongodb-node-driver-2-to-3.html</guid>
+            <pubDate>Thu, 13 Sep 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[An Overview of BigInt in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/an-overview-of-bigint-in-node-js.html</link>
