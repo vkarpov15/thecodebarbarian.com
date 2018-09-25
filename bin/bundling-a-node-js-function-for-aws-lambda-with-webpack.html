@@ -1,0 +1,117 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Bunding a Node.js Function for AWS Lambda with Webpack | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Bunding a Node.js Function for AWS Lambda with Webpack"/><meta property="og:url" content="http://www.thecodebarbarian.com/bundling-a-node-js-function-for-aws-lambda-with-webpack"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20180925_motorcycle.jpeg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbundling-a-node-js-function-for-aws-lambda-with-webpack" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Bunding a Node.js Function for AWS Lambda with Webpack</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 25, 2018</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>One of the major challenges when working with <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> is bundling all your <code>node_modules</code> into <a href="https://mongoosejs.com/docs/lambda.html">one zip file</a>. Most simple examples rely on zipping up the entirety of <code>./node_modules</code>, but that doesn&#39;t scale well if you&#39;re looking to built a suite of Lambda functions as opposed to a single &quot;Hello, World&quot; example. In this article, I&#39;ll demonstrate the problem with zipping up Lambda functions yourself and show you how to use Webpack to bundle a Lambda function that connects to MongoDB.</p>
+<h2 id="motivation">Motivation</h2>
+<p>For example, say you&#39;re building a couple simple API endpoints in Lambda using <a href="https://mongoosejs.com/docs/lambda.html">Mongoose</a>. You have a common file that handles connecting to the database called <code>db.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./.config'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">let</span> conn = <span class="hljs-literal">null</span>;
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">connect</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (conn == <span class="hljs-literal">null</span>) {
+    conn = <span class="hljs-keyword">await</span> mongoose.connect(config.mongodb, {
+      bufferCommands: <span class="hljs-literal">false</span>, <span class="hljs-comment">// Disable mongoose buffering</span>
+      bufferMaxEntries: <span class="hljs-number">0</span> <span class="hljs-comment">// and MongoDB driver buffering</span>
+    });
+
+    conn.model(<span class="hljs-string">'State'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({ uptime: <span class="hljs-built_in">Number</span> }));
+  }
+
+  <span class="hljs-keyword">return</span> conn;
+};
+</code></pre>
+<p>Now, to create a Lambda bundle <code>lambda.zip</code> with a function that uses <code>db.js</code>, you need to <code>zip -r ./lambda.zip ./db.js ./fn.js ./node_modules</code>. Not bad. But presumably you also want to create some extra <a href="https://mongoosejs.com/docs/models.html">Mongoose models</a>, which involves adding another file to your <code>zip</code> command. In other words, you need to manually figure out the entire tree of <code>require()</code>-ed files and make sure they&#39;re all in your zip file, otherwise your Lambda function will crash.</p>
+<p>Furthermore, zipping up all of <code>node_modules</code> is a bad idea. Once your project grows beyond the proof-of-concept phase and you want to add a testing framework like <a href="http://npmjs.com/package/mocha">Mocha</a> or a linter like <a href="https://www.npmjs.com/package/eslint">eslint</a>, your <code>node_modules</code> will be filled with modules that your Lambda function doesn&#39;t need in production. <code>devDependencies</code> can help, but then you need to remember to <code>npm install --production</code> if you&#39;re building the bundle locally.</p>
+<p>In other words, creating a zip bundle manually means you need to follow <code>require()</code> statements to make sure you get all the modules you need and none of the modules you don&#39;t. Sounds like a textbook use case for <a href="https://webpack.js.org/">Webpack</a>.</p>
+<h2 id="bundling-a-lambda-function-with-webpack">Bundling a Lambda Function with Webpack</h2>
+<p>Suppose you have a function that gets a document from the &#39;State&#39; collection in MongoDB. If you&#39;re looking to try this code out, make sure you <code>npm install mongoose webpack webpack-cli</code> first.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./db'</span>);
+<span class="hljs-keyword">const</span> handler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./handler'</span>);
+
+exports.handler = handler(getState);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getState</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> conn = <span class="hljs-keyword">await</span> db();
+
+  <span class="hljs-keyword">return</span> conn.model(<span class="hljs-string">'State'</span>).findOne();
+}
+</code></pre>
+<p>The <code>handler.js</code> file contains a small wrapper function that wraps the <code>getState()</code> function in AWS&#39; preferred function signature.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = fn =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, context, callback</span>) </span>{
+  <span class="hljs-comment">// See https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas</span>
+  context.callbackWaitsForEmptyEventLoop = <span class="hljs-literal">false</span>;
+
+  fn().
+    then(res =&gt; {
+      callback(<span class="hljs-literal">null</span>, {
+        statusCode: <span class="hljs-number">200</span>,
+        headers: {
+          <span class="hljs-string">'Access-Control-Allow-Origin'</span>: <span class="hljs-string">'*'</span>,
+          <span class="hljs-string">'Access-Control-Allow-Credentials'</span>: <span class="hljs-literal">true</span>
+        },
+        body: <span class="hljs-built_in">JSON</span>.stringify(res)
+      });
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
+    }).
+    <span class="hljs-keyword">catch</span>(error =&gt; callback(error));
+};
+</code></pre>
+<p>There are 4 files to bundle, in addition to Mongoose and whatever <code>node_modules</code> Mongoose pulls in:</p>
+<ul>
+<li><code>getState.js</code>: this is the entry point</li>
+<li><code>handler.js</code></li>
+<li><code>db.js</code></li>
+<li><code>.config.js</code>: exports an object that contains sensitive credentials. You can also use <a href="https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html">Lambda environment variables</a>.</li>
+</ul>
+<p>The Webpack config file is shown below. This config is simpler than most Webpack configs because you don&#39;t need Babel or JSX or any other plugins for Lambda. Lambda now <a href="https://aws.amazon.com/blogs/compute/node-js-8-10-runtime-now-available-in-aws-lambda/">supports Node.js 8</a>, so you don&#39;t even need Lambda for <a href="http://asyncawait.net/">async/await</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+  entry: [<span class="hljs-string">'./getState.js'</span>],
+  target: <span class="hljs-string">'node'</span>,
+  output: {
+    path: <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/bin`</span>,
+    filename: <span class="hljs-string">'getState.js'</span>,
+    libraryTarget: <span class="hljs-string">'umd'</span>
+  }
+};
+</code></pre>
+<p>Lambda only accepts zip files as function uploads, so you still need to zip up <code>./bin/getState.js</code> after you run <code>./node_modules/.bin/webpack</code>.</p>
+<pre><code>zip -r ./bin/getState.zip ./bin/getState.js
+</code></pre><p>Now, you&#39;re ready to upload the <code>getState()</code> function to Lambda. Go to the <a href="https://console.aws.amazon.com/lambda/home">AWS Lambda console</a> and click &quot;Create Function&quot;. Name the function <code>getState()</code> and make sure you select &quot;Node.js 8.10&quot; as the runtime for <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await support</a>.</p>
+<p><img src="https://i.imgur.com/sf2H9hM.png" class="inline-image" /></p>
+<p>Make sure you tweak the &#39;handler&#39; input to point to the correct file path. If you zipped up <code>./bin/getState.js</code>, Lambda will create a <code>./bin</code> directory when it unzips.</p>
+<p><img src="https://i.imgur.com/8m3szk0.png" class="inline-image" /></p>
+<p>After setting the &#39;handler&#39;, click &#39;Test&#39; and you should see your function successfully execute.</p>
+<p><img src="https://i.imgur.com/zEqMLLB.png" class="inline-image" /></p>
+<h2 id="moving-on">Moving On</h2>
+<p>Serverless frameworks like AWS Lambda are becoming increasingly popular for API development. Lambda has numerous advantages over hosting an Express API on Amazon EC2.
+Lambda&#39;s <a href="https://aws.amazon.com/lambda/pricing/">free tier</a> gives you 1 million free requests per month, and doesn&#39;t expire after 12 months like EC2&#39;s. Lambda functions also are behind HTTPS by default, so you don&#39;t have to worry about <a href="https://letsencrypt.org/">renewing your LetsEncrypt certificates</a>. So next time you find yourself deploying a REST API, try tinkering with putting it on Lambda instead.</p>
+<p><em>Lambda recently added support for Node.js 8 and async/await. But, Lambda still doesn&#39;t support async functions as handlers. Want to know where Lambda&#39;s support for async functions breaks? Chapter 4 of <a href="http://asyncawait.net/">Mastering Async/Await</a> explains the core principles for determining whether a given library or framework supports async/await, so get the ebook today!</em></p>
+<p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20180925_lambda_webpack.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Bunding a Node.js Function for AWS Lambda with Webpack", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
