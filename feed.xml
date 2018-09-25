@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 18 Sep 2018 15:12:13 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 25 Sep 2018 16:42:56 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Bunding a Node.js Function for AWS Lambda with Webpack]]></title>
+            <link>http://www.thecodebarbarian.com/bundling-a-node-js-function-for-aws-lambda-with-webpack.html</link>
+            <guid>http://www.thecodebarbarian.com/bundling-a-node-js-function-for-aws-lambda-with-webpack.html</guid>
+            <pubDate>Tue, 25 Sep 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Keeping a Changelog in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/keeping-a-changelog-in-nodejs.html</link>
