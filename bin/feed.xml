@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 25 Sep 2018 21:41:11 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 27 Sep 2018 18:07:02 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Beginner's Guide to Redux-Observable]]></title>
+            <link>http://www.thecodebarbarian.com/a-beginners-guide-to-redux-observable.html</link>
+            <guid>http://www.thecodebarbarian.com/a-beginners-guide-to-redux-observable.html</guid>
+            <pubDate>Thu, 27 Sep 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Bundling a Node.js Function for AWS Lambda with Webpack]]></title>
             <link>http://www.thecodebarbarian.com/bundling-a-node-js-function-for-aws-lambda-with-webpack.html</link>
