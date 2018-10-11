@@ -1,0 +1,62 @@
+extends layout
+
+block title
+  title Recommendations | www.thecodebarbarian.com
+
+block opengraphTags
+  meta( property="og:title",
+        content="Recommendations")
+  meta( property="og:image",
+        content="/images/Barbarian_Head.png")
+  meta( property="og:site_name",
+        content="The Code Barbarian")
+
+append analytics
+  link(rel="stylesheet", href="/style/inlinecpc.css")
+
+  style.
+    h1 { margin-bottom: 5px; margin-top: 45px; }
+
+block content
+  div.container
+    :markdown
+      # Blogs
+
+      ### [2ality](http://2ality.com/)
+
+      No blog does a better job of keeping up with the cutting edge of JavaScript.
+      Dr. Rauschmayer is always the first one to summarize new ECMAScript spec
+      features in a developer-friendly way.
+
+      ### [Better World By Better Software](https://glebbahmutov.com/blog/)
+
+      Dr. Gleb Bahmutov is the VP of Engineering at
+      [Cypress.io](https://www.cypress.io/) and arguably the world's foremost
+      expert on JavaScript testing. This blog is like
+      [Top Gun](https://www.mcsweeneys.net/articles/tom-skerritts-speech-to-the-cadets-in-top-gun-is-probably-long-enough-as-it-is)
+      for testing: even if you're the best of the best, Gleb will make you better.
+
+      ### [Kent C. Dodds on Medium](https://blog.kentcdodds.com/)
+
+      Kent's blog is my preferred source for everything React-related.
+
+      # Books
+
+      ### [_Mongoose for Application Development_ by Simon Holmes](https://www.amazon.com/gp/product/1782168192/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1782168192&linkCode=as2&tag=codebarbarian-20&linkId=c001bbe52f46aa47d2a79d318ed79b93)
+
+      This is the book on Mongoose. Even though it is from 2013,
+      _Mongoose for Application Development_ has stood the test of time. This
+      book does an excellent job summarizing the core ideas that make Mongoose so
+      powerful. Just sub out callbacks for promises.
+
+      ### [_The Little MongoDB Schema Design Book_ by Christian Kvalheim](https://www.amazon.com/gp/product/1517394023/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1517394023&linkCode=as2&tag=codebarbarian-20&linkId=c019ac677e17150c6825404726780e1a)
+
+      Christian Kvalheim originally wrote the MongoDB Node.js driver in early 2010,
+      and maintained the driver almost singlehandedly until 2017. As maintainer
+      of the Node.js driver, Christian saw more Node.js on MongoDB codebases than
+      anyone, and his experience with what works and what doesn't is unmatched.
+      This book distills 6 years of hard-learned lessons into concrete examples
+      of how to design MongoDB schemas for massive scale. If you want to learn
+      how to structure MongoDB schemas for an ecommerce store, a category tree, or a
+      blog that can support hundreds of millions of requests per day, this is
+      the book for you.

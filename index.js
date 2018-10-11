@@ -166,6 +166,18 @@ wagner.task('compiledIndex', function(compiledPosts, index, callback) {
   });
 });
 
+wagner.task('recommendationsTemplate',
+  loadTemplate('./lib/views/recommendations.jade', 'recommendations'));
+wagner.task('recommendations', function(recommendationsTemplate, callback) {
+  fs.writeFile('./bin/recommendations.html', recommendationsTemplate(), function(err) {
+    if (err) {
+      console.log('Error writing index: ' + err);
+      return callback(err);
+    }
+    callback();
+  });
+});
+
 wagner.task('pages', function(compiledPosts, listTemplate, callback) {
   var posts = _.map(compiledPosts, function(p) {
     return p;
@@ -217,7 +229,7 @@ wagner.task('feed', function(compiledPosts, callback) {
   fs.writeFile('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''), callback);
 });
 
-wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed) {
+wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed, recommendations) {
   if (error) {
     return console.log('Errors occurred: ' + error + '\n' + error.stack);
   }
@@ -225,7 +237,7 @@ wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, fe
 });
 
 module.exports = function(cb) {
-  wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags) {
+  wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags, feed, recommendations) {
     if (error) {
       cb(error);
       return console.log('Errors occurred: ' + error + '\n' + error.stack);

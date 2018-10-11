@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 03 Oct 2018 22:59:19 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 11 Oct 2018 16:19:10 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.3: Async Iterators]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-53-async-iterators.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-53-async-iterators.html</guid>
+            <pubDate>Thu, 11 Oct 2018 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.3: `orFail()` and Global `toObject` Options]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-53-orfail-and-global-toobject.html</link>
