@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 02 Nov 2018 19:14:27 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Nov 2018 15:29:59 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Static Properties in JavaScript Classes with Inheritance]]></title>
+            <link>http://www.thecodebarbarian.com/static-properties-in-javascript-with-inheritance.html</link>
+            <guid>http://www.thecodebarbarian.com/static-properties-in-javascript-with-inheritance.html</guid>
+            <pubDate>Wed, 07 Nov 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a Form with Preact]]></title>
             <link>http://www.thecodebarbarian.com/building-a-form-with-preact.html</link>
