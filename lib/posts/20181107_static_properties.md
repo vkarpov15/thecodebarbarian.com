@@ -7,7 +7,7 @@ Suppose you have a simple ES6 class with a static method.
 
 ```javascript
 class Base {
-  foo() {
+  static foo() {
     return 42;
   }
 }
@@ -18,7 +18,7 @@ You can use `extends` to create a subclass and still have access to the `foo()` 
 ```javascript
 class Sub extends Base {}
 
-new Sub().foo(); // 42
+Sub.foo(); // 42
 ```
 
 You can also use [static getters and setters](https://stackoverflow.com/questions/41426658/es6-how-to-access-a-static-getter-from-an-instance) to set a static property on the `Base` class.
