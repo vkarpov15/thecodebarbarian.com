@@ -1,0 +1,165 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Accepting Credit Cards with Stripe Elements and Preact | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Accepting Credit Cards with Stripe Elements and Preact"/><meta property="og:url" content="http://www.thecodebarbarian.com/accepting-credit-cards-with-stripe-elements-and-preact"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/cc.jpeg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Faccepting-credit-cards-with-stripe-elements-and-preact&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Faccepting-credit-cards-with-stripe-elements-and-preact" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Faccepting-credit-cards-with-stripe-elements-and-preact" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Faccepting-credit-cards-with-stripe-elements-and-preact&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Faccepting-credit-cards-with-stripe-elements-and-preact" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Faccepting-credit-cards-with-stripe-elements-and-preact" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Accepting Credit Cards with Stripe Elements and Preact</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 14, 2018</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>Stripe&#39;s v3 API introduced a controversial change: you can no longer use Stripe with custom payment forms, you <a href="https://github.com/stripe/react-stripe-elements/issues/19">must use the new Stripe Elements interface</a>. This change is brutal from a developer experience perspective, because you need to figure out how to rewrite your app to use the new API, and the <a href="https://stripe.com/docs">existing docs</a> are written for vanilla JavaScript. There is a <a href="https://www.npmjs.com/package/react-stripe-elements">React library</a>, but it is <a href="https://github.com/stripe/react-stripe-elements/issues/19#issue-233402236">heavy</a> and there&#39;s no information as to whether it actually works with <a href="http://npmjs.com/package/preact">Preact</a>. In this article, I&#39;ll present a basic proof of concept of using the vanilla Stripe Elements library and Preact.</p>
+<h2 id="setting-up-preact-and-stripe-elements">Setting Up Preact and Stripe Elements</h2>
+<p>Preact bundles might be lightweight, but the dev setup certainly isn&#39;t. To get started, you&#39;ll need to install Preact itself, Webpack as a compiler, Babel to transform JSX, and <a href="https://www.npmjs.com/package/serve">serve</a> to start an HTTP server.</p>
+<pre><code>npm install preact babel-loader@<span class="hljs-number">8.</span>x @babel/core@<span class="hljs-number">7.</span>x @babel/plugin-transform-react-jsx@<span class="hljs-number">7.</span>x webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x
+</code></pre><p>Next, let&#39;s set up a basic <code>index.html</code> that loads the Stripe.js file. <a href="https://stripe.com/docs/stripe-js/elements/quickstart#setup">Stripe suggests that you load the client-side <code>stripe.js</code> library via <code>script</code> tag</a> rather than via <code>require()</code>.</p>
+<pre><code>&lt;html&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Preact/Stripe Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://js.stripe.com/v3/"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+      <span class="hljs-selector-id">#content</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#e3e3e3</span>;
+      }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"cc-form"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bin/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+</code></pre><p>Now, let&#39;s create a basic <code>index.js</code> file that will set up Stripe Elements. For now, this file won&#39;t use Preact at all, it&#39;ll be a proof of concept for getting a payment token from a Stripe Element.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { h, Component } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'preact'</span>);
+
+<span class="hljs-keyword">const</span> stripe = Stripe(<span class="hljs-string">'pk_test_CY6HxyQkOolO1B3h43MvkJE5'</span>);
+<span class="hljs-keyword">const</span> elements = stripe.elements();
+
+<span class="hljs-keyword">const</span> card = elements.create(<span class="hljs-string">'card'</span>);
+card.mount(<span class="hljs-string">'#cc-form'</span>); <span class="hljs-comment">// The `cc-form` div from `index.html`</span>
+
+<span class="hljs-comment">// Stripe Elements only collects the credit card info, you still need to support</span>
+<span class="hljs-comment">// a "submit" button</span>
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'input[type="submit"]'</span>).addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+  stripe.createToken(card).
+    then(res =&gt; {
+      <span class="hljs-keyword">const</span> el = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+      el.innerHTML = res.error ? <span class="hljs-string">`Error: <span class="hljs-subst">${res.error.message}</span>`</span> : <span class="hljs-string">`Token: <span class="hljs-subst">${res.token.id}</span>`</span>;
+      <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'body'</span>).append(el);
+    }).
+    <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Unexpected error'</span>, err.message));
+});
+</code></pre>
+<p>Next, let&#39;s add a <code>webpack.config.js</code> to bundle <code>index.jsx</code> into <code>bin/index.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+  entry: {
+    index: <span class="hljs-string">'./index.jsx'</span>
+  },
+  target: <span class="hljs-string">'web'</span>,
+  output: {
+    path: <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/bin`</span>,
+    filename: <span class="hljs-string">'[name].js'</span>
+  },
+  <span class="hljs-built_in">module</span>: {
+    rules: [{
+      test: <span class="hljs-regexp">/\.jsx$/</span>,
+      use: {
+        loader: <span class="hljs-string">'babel-loader'</span>
+      }
+    }]
+  }
+};
+</code></pre>
+<p>Let&#39;s also add a <code>.babelrc</code> file to tell Babel to use the JSX loader:</p>
+<pre><code>{
+  <span class="hljs-string">"plugins"</span>: [<span class="hljs-string">"@babel/plugin-transform-react-jsx"</span>]
+}
+</code></pre><p>Run <code>./node_modules/.bin/webpack</code> to compile, and then visit <code>http://localhost:5000</code> and you should be able to enter in payment info. Just use one of the fake credit cards from <a href="https://stripe.com/docs/testing#cards">Stripe&#39;s list of test cards</a>.</p>
+<div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.useloom.com/embed/4c5b634b9139483db4dece654765685b" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+<h2 id="integrating-preact-with-stripe-elements">Integrating Preact with Stripe Elements</h2>
+<p>The key to making a Preact component that works with Stripe Elements is to create a component that mounts the Stripe element when the component mounts, and then <a href="https://github.com/developit/preact#components">never updates</a>. The <code>shouldComponentUpdate</code> lifecycle hook lets you make sure the component never updates, so you can mount the Stripe element in <code>componentDidMount()</code> without any problems.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StripeElement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"cc-form"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>;</span>
+  }
+
+  shouldComponentUpdate() {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  componentDidMount() {
+    card.mount(<span class="hljs-string">'#cc-form'</span>);
+  }
+}
+</code></pre>
+<p>The downside of this approach is that the ID is hard coded, so you can&#39;t do multiple <code>StripeElement</code> components on one page. You can easily work around this with a counter, but that&#39;s outside the scope of this article.</p>
+<p>Now that you have a <code>StripeElement</code> component that sets up a Stripe Element to accept credit cards, here&#39;s the main <code>App</code> component that actually uses the <code>StripeElement</code> component and displays the results:</p>
+<pre><code class="lang-javascript">const React = require('preact');
+
+const stripe = Stripe('pk_test_CY6HxyQkOolO1B3h43MvkJE5');
+const elements = stripe.elements();
+const card = elements.create('card');
+
+class App extends React.Component {
+  componentWillMount() {
+    this.responses = [];
+    this.setState({ responses: [] });
+  }
+
+  onSubmit() {
+    stripe.createToken(card).
+      then(res =&gt; {
+        this.responses.push(res.error ? `Error: ${res.error.message}` : `Token: ${res.token.id}`);
+        this.setState({ responses: this.responses.slice() });
+      }).
+      catch(err =&gt; {
+        this.responses.push(err.message);
+        this.setState({ responses: this.responses.slice() });
+      });
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;StripeElement /&gt;
+        &lt;input type="submit" onClick={() =&gt; this.onSubmit()} /&gt;
+        {
+          this.state.responses.map(res =&gt; &lt;div&gt;{res}&lt;/div&gt;)
+        }
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<p>Here&#39;s the video of entering in a fake card number with the new Preact component:</p>
+<div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.useloom.com/embed/497ee069b35f402c9a0b6676a3406266" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+<h2 id="moving-on">Moving On</h2>
+<p>You often don&#39;t need <a href="https://github.com/stripe/react-stripe-elements">heavy binding libraries</a> if you&#39;re building an app that needs to integrate with a library whose API assumes vanilla JS. A component that never re-renders and instantiates the library in <code>componentDidMount()</code> is often enough to get a vanilla JS library to work with <a href="http://npmjs.com/package/preact">Preact</a> or even <a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate">React</a>. Next time you want to Google for an officially supported React component for library X, consider writing a simple one yourself.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20181114_stripe_preact.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Accepting Credit Cards with Stripe Elements and Preact", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
