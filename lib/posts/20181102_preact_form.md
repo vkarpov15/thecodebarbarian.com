@@ -292,4 +292,4 @@ All in all, the total page weight is 12KB without any gzipping. Not bad!
 
 ## Moving On
 
-Preact is a great library for when you want to build a simple form without adding 100KB+ to your total [page weigt](https://deviceatlas.com/blog/understanding-web-page-weight). Vanilla JS is great for display-only pages, but starts getting cumbersome once you need to handle some non-trivial user input. Next time you want to use React but feel like it is too heavy, give Preact a shot.
+Preact is a great library for when you want to build a simple form without adding 100KB+ to your total [page weight](https://deviceatlas.com/blog/understanding-web-page-weight). Vanilla JS is great for display-only pages, but starts getting cumbersome once you need to handle some non-trivial user input. Next time you want to use React but feel like it is too heavy, give Preact a shot.
