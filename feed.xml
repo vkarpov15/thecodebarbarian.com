@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 15 Nov 2018 01:05:47 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 29 Nov 2018 18:32:44 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[10 Lessons from My 20's]]></title>
+            <link>http://www.thecodebarbarian.com/10-lessons-from-my-20s.html</link>
+            <guid>http://www.thecodebarbarian.com/10-lessons-from-my-20s.html</guid>
+            <pubDate>Thu, 29 Nov 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Accepting Credit Cards with Stripe Elements and Preact]]></title>
             <link>http://www.thecodebarbarian.com/accepting-credit-cards-with-stripe-elements-and-preact.html</link>
