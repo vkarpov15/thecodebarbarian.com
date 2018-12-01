@@ -156,7 +156,7 @@ the Arnold number for _movies_ using `$graphLookup` using the
 [`depthField` option for `$graphLookup`](https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup).
 
 ```javascript
-db.data.aggregate([
+db.actors.aggregate([
   { $match: { _id: 1 } }, // Only look at Arnold Schwarzenegger
   {
     $graphLookup: {
@@ -165,7 +165,7 @@ db.data.aggregate([
       connectFromField: 'actors', // Match actors in one movie...
       connectToField: 'actors', // to actors in another movie
       as: 'connections',
-      // Add a 'steps' property to each connections subdoc that contains
+      // Add a 'steps' property to each connections' subdoc that contains
       // the number of steps needed to get to this movie
       depthField: 'steps'
     }
