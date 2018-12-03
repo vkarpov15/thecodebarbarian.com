@@ -165,7 +165,7 @@ db.actors.aggregate([
       connectFromField: 'actors', // Match actors in one movie...
       connectToField: 'actors', // to actors in another movie
       as: 'connections',
-      // Add a 'steps' property to each connections' subdoc that contains
+      // Add a 'steps' property to each connection subdoc that contains
       // the number of steps needed to get to this movie
       depthField: 'steps'
     }
