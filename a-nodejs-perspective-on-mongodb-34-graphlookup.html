@@ -148,7 +148,7 @@ db.movies.insertMany([
 <p>Getting the Arnold number for actors is somewhat tricky, but you can compute
 the Arnold number for <em>movies</em> using <code>$graphLookup</code> using the
 <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/#pipe._S_graphLookup"><code>depthField</code> option for <code>$graphLookup</code></a>.</p>
-<pre><code class="lang-javascript">db.data.aggregate([
+<pre><code class="lang-javascript">db.actors.aggregate([
   { $match: { _id: <span class="hljs-number">1</span> } }, <span class="hljs-comment">// Only look at Arnold Schwarzenegger</span>
   {
     $graphLookup: {
@@ -157,7 +157,7 @@ the Arnold number for <em>movies</em> using <code>$graphLookup</code> using the
       connectFromField: <span class="hljs-string">'actors'</span>, <span class="hljs-comment">// Match actors in one movie...</span>
       connectToField: <span class="hljs-string">'actors'</span>, <span class="hljs-comment">// to actors in another movie</span>
       <span class="hljs-keyword">as</span>: <span class="hljs-string">'connections'</span>,
-      <span class="hljs-comment">// Add a 'steps' property to each connections subdoc that contains</span>
+      <span class="hljs-comment">// Add a 'steps' property to each connection subdoc that contains</span>
       <span class="hljs-comment">// the number of steps needed to get to this movie</span>
       depthField: <span class="hljs-string">'steps'</span>
     }
