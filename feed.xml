@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 04 Dec 2018 20:38:03 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 03 Jan 2019 16:32:35 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.4: Global SchemaType Configuration]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-54-global-schematype-configuration.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-54-global-schematype-configuration.html</guid>
+            <pubDate>Thu, 03 Jan 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Mongoose Prototype Pollution Vulnerability Disclosure]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-prototype-pollution-vulnerability-disclosure.html</link>
