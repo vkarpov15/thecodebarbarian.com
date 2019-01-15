@@ -22,7 +22,7 @@ async function run() {
 
 async function bar() {
   await Promise.resolve();
-  // Stack trace will just include `bar()`, no reference to `foo()`
+  // Stack trace will just include `bar()`, no reference to `run()`
   throw new Error('Oops');
 }
 ```
