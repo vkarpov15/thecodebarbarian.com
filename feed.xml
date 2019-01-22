@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 15 Jan 2019 02:31:18 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 22 Jan 2019 19:14:23 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Convert a String to a Number in JavaScript]]></title>
+            <link>http://www.thecodebarbarian.com/convert-a-string-to-a-number-in-javascript.html</link>
+            <guid>http://www.thecodebarbarian.com/convert-a-string-to-a-number-in-javascript.html</guid>
+            <pubDate>Tue, 22 Jan 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.4: Model Events and Populate Count]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-54-model-events-and-populate-count.html</link>
