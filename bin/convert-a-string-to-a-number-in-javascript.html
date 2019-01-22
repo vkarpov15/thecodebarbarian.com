@@ -1,0 +1,125 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Convert a String to a Number in JavaScript | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Convert a String to a Number in JavaScript"/><meta property="og:url" content="http://www.thecodebarbarian.com/convert-a-string-to-a-number-in-javascript"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20190122.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fconvert-a-string-to-a-number-in-javascript&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fconvert-a-string-to-a-number-in-javascript" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fconvert-a-string-to-a-number-in-javascript" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fconvert-a-string-to-a-number-in-javascript&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fconvert-a-string-to-a-number-in-javascript" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fconvert-a-string-to-a-number-in-javascript" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Convert a String to a Number in JavaScript</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">January 22, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>Converting a string to a number in JavaScript is <a href="https://gomakethings.com/converting-strings-to-numbers-with-vanilla-javascript/">surprisingly subtle</a>. With <code>NaN</code>, <a href="https://www.w3schools.com/jsref/jsref_parseint.asp">implicit radixes</a>, and numbers vs <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Numbers</a>, there are a lot of ways to shoot yourself in the foot. In this article, I&#39;ll cover the tradeoffs of <code>parseFloat()</code> vs <code>Number()</code> and <code>Number.isNaN()</code> vs <code>isNaN()</code>. I&#39;ll also describe how to enforce these rules with <a href="https://eslint.org/">eslint</a>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/tl;dr">TLDR</a> is you should use [<code>Number(x)</code>] to convert generic JavaScript values to numbers if you want to be permissive, or <a href="https://www.w3schools.com/jsref/jsref_parsefloat.asp"><code>parseFloat(x)</code></a> if you want to be more strict. You should always use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN"><code>Number.isNaN()</code></a> to check if the conversion failed. You should <em>not</em> use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN">global <code>isNaN()</code> function</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'42'</span>); <span class="hljs-comment">// 'number'</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-built_in">Number</span>(<span class="hljs-string">'42'</span>)); <span class="hljs-comment">// false</span>
+
+<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// 'number'</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>)); <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Using <code>Number(x)</code> has several edge cases that may be correct depending on your perspective. You can also use a tool like <a href="https://www.npmjs.com/package/archetype">archetype</a> that handles some of these edge cases for you:</p>
+<pre><code class="lang-javascript">archetype.to(<span class="hljs-string">'42'</span>, <span class="hljs-string">'number'</span>); <span class="hljs-comment">// 42</span>
+
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">''</span>); <span class="hljs-comment">// 0</span>
+archetype.to(<span class="hljs-string">''</span>, <span class="hljs-string">'number'</span>); <span class="hljs-comment">// throws</span>
+</code></pre>
+<h2 id="what-s-wrong-with-number-x-">What&#39;s Wrong With <code>Number(x)</code>?</h2>
+<p><code>Number(x)</code> and <code>parseFloat(x)</code> handle edge cases very differently. <code>parseFloat()</code> is more permissive when it comes to accepting different strings:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// 42</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// 42</span>
+
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// 10</span>
+<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// 10</span>
+</code></pre>
+<p>You might mistakenly assume this means <code>Number(x)</code> is safer and more strict. Unfortunately, <code>Number(x)</code> is more lax when it comes to whitespace, <code>null</code>, and other edge cases. It converts a lot of surprising values to 0. For example:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>(<span class="hljs-literal">null</span>); <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">''</span>); <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">'    '</span>); <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-literal">false</span>); <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Number</span>({ toString: () =&gt; <span class="hljs-string">''</span> }); <span class="hljs-comment">// 0</span>
+<span class="hljs-built_in">Number</span>({ valueOf: () =&gt; <span class="hljs-string">'  '</span> }); <span class="hljs-comment">// 0</span>
+</code></pre>
+<p>This is because the JavaScript language spec has a <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tonumber">fairly complex set of rules</a> for converting values to numbers.</p>
+<p>The rules for how <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-parsefloat-string"><code>parseFloat()</code> converts values</a> are simpler. The interpretter <em>must</em> convert the value to a string, trim whitespace, and then check for the longest prefix that matches <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-tonumber-applied-to-the-string-type">JavaScript&#39;s regular expression definition of a numeric literal</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// `parseInt()` behaves like `parseFloat()` on these values</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-literal">null</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">''</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'    '</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>(<span class="hljs-literal">false</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>({ toString: () =&gt; <span class="hljs-string">''</span> }); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">parseFloat</span>({ valueOf: () =&gt; <span class="hljs-string">'  '</span> }); <span class="hljs-comment">// NaN</span>
+</code></pre>
+<h2 id="-number-isnan-vs-isnan-"><code>Number.isNaN()</code> vs <code>isNaN()</code></h2>
+<p>Another nuance of converting values to numbers is that JavaScript doesn&#39;t throw an error if it fails to convert a value <code>x</code> to a number. It instead returns a special value <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN"><code>NaN</code></a>. To make things more confusing, the <code>typeof</code> operator reports that <code>NaN</code> is a <code>&#39;number&#39;</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// number</span>
+</code></pre>
+<p>The reason why <code>Number.isNaN()</code> and <code>isNaN()</code> exist is because <code>==</code> and <code>===</code> do <strong>not</strong> work as expected with <code>NaN</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>) == <span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>) === <span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>) == <span class="hljs-literal">NaN</span>; <span class="hljs-comment">// false</span>
+<span class="hljs-literal">NaN</span> === <span class="hljs-literal">NaN</span>; <span class="hljs-comment">// false</span>
+</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN"><code>Number.isNaN()</code></a> was a new feature in ES6, but unfortunately didn&#39;t get much attention. <code>Number.isNaN()</code> is more robust and you should use it instead of <code>isNaN()</code> unless you explicitly mean to use <code>isNaN()</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Need to use a function because checking `=== NaN` does **not** work</span>
+<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>)); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-built_in">Number</span>(<span class="hljs-string">'fail'</span>)); <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Here&#39;s a handy analogy for understanding the difference: <code>Number.isNaN()</code> is to <code>isNaN()</code> as <code>===</code> is to <code>==</code>. The <code>isNaN()</code> function <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-isnan-number">converts the given value to a number</a> <em>before</em> checking it the given number is equal to <code>NaN</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">isNaN</span>(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">isNaN</span>({}); <span class="hljs-comment">// true</span>
+
+<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-string">'fail'</span>); <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Number</span>.isNaN({}); <span class="hljs-comment">// false</span>
+</code></pre>
+<p>On the other hand, <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan"><code>Number.isNaN(x)</code> returns <code>false</code> if <code>x</code> is not of type number</a>. You can polyfill <code>Number.isNaN()</code> using the below function:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>.isNaN = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> x === <span class="hljs-string">'number'</span> &amp;&amp; <span class="hljs-built_in">isNaN</span>(x);
+};
+</code></pre>
+<p>Conversely, <code>isNaN(x)</code> is equivalent to <code>Number.isNaN(Number(x))</code>.</p>
+<p>When you&#39;re checking whether the result of <code>Number(x)</code> or <code>parseFloat(x)</code> is equal to <code>NaN</code>, you&#39;re safe using <code>isNaN()</code> because you already tried to convert the value to a number. But in general, you should prefer <code>Number.isNaN()</code> over <code>isNaN()</code> in the same way that you (hopefully) use <code>===</code> unless you really know you mean <code>==</code>.</p>
+<h2 id="eslint-rules">ESLint Rules</h2>
+<p>You can configure <a href="https://eslint.org/">eslint</a> to force you to use <code>Number.isNaN()</code> and your choice of <code>Number()</code> or <code>parseFloat()</code> using the <a href="https://eslint.org/docs/rules/no-restricted-globals"><code>no-restricted-globals</code> rule</a>. There&#39;s more info on <a href="https://github.com/eslint/eslint/issues/10313">this GitHub issue</a>. Below is an example of a <code>.eslintrc.yml</code> that would disallow using global <code>isNaN()</code> and <code>parseFloat()</code></p>
+<pre><code class="lang-javascript">rules:
+  no-restricted-globals:
+    - error
+    - name: <span class="hljs-built_in">isNaN</span>
+      message: Use <span class="hljs-string">`Number.isNaN()`</span> instead
+    - name: <span class="hljs-built_in">parseFloat</span>
+      message: Use <span class="hljs-string">`Number()`</span> instead
+</code></pre>
+<p>Requiring <code>parseFloat()</code> instead of <code>Number()</code> is trickier, but doable with eslint&#39;s generic <a href="https://eslint.org/docs/rules/no-restricted-syntax"><code>no-restricted-syntax</code> rule</a>.</p>
+<pre><code>rules:
+  no-restricted-globals:
+    - error
+    - name: <span class="hljs-built_in">isNaN</span>
+      message: Use <span class="hljs-string">`Number.isNaN()`</span> instead
+  no-restricted-syntax:
+    - error
+    - selector: CallExpression[callee.name=<span class="hljs-string">'Number'</span>]
+      message: Do not use <span class="hljs-string">`Number()`</span>, use <span class="hljs-string">`parseFloat()`</span> instead
+</code></pre><h2 id="moving-on">Moving On</h2>
+<p>Converting a value to a number in JavaScript is filled with odd edge cases. If you don&#39;t want to think about edge cases, you&#39;re best off just using <code>parseFloat()</code> and <code>Number.isNaN()</code>. If you want to be more flexible, you can use <code>Number()</code>. Personally, I just use <a href="https://www.npmjs.com/package/archetype">archetype</a> for this because I don&#39;t want to worry about checking for <code>NaN</code>.</p>
+<p><em>Can&#39;t keep up with what&#39;s going on in your <code>node_modules</code>? Check out <a href="https://js.report/slack">JSReport&#39;s Slack integration</a>. JSReport posts to a Slack channel whenever an npm package you&#39;re watching, like <a href="http://npmjs.com/package/lodash">lodash</a> or <a href="https://www.npmjs.com/package/webpack">webpack</a>, publishes a new release.</em></p>
+<p><a href="https://js.report/slack" class="async-await-banner"><img src="https://s3.amazonaws.com/codebarbarian-images/jserport.png"></a></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20190122_string_to_number.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Convert a String to a Number in JavaScript", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
