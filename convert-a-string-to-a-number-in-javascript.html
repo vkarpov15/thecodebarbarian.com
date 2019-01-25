@@ -26,13 +26,20 @@
 <span class="hljs-built_in">Number</span>(<span class="hljs-string">''</span>); <span class="hljs-comment">// 0</span>
 archetype.to(<span class="hljs-string">''</span>, <span class="hljs-string">'number'</span>); <span class="hljs-comment">// throws</span>
 </code></pre>
+<p>Many developers use <code>+x</code> to convert a string to a number. The JavaScript language spec states that <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-unary-plus-operator"><code>+x</code> is equivalent to <code>Number(x)</code></a>.</p>
+<pre><code class="lang-javascript">+<span class="hljs-string">'42 fail'</span>; <span class="hljs-comment">// NaN</span>
++({ valueOf: () =&gt; <span class="hljs-string">'42'</span> }); <span class="hljs-comment">// 42</span>
++({ toString: () =&gt; <span class="hljs-string">'42'</span> }); <span class="hljs-comment">// 42</span>
++(<span class="hljs-literal">null</span>); <span class="hljs-comment">// 0</span>
++(<span class="hljs-string">'  '</span>); <span class="hljs-comment">// 0</span>
+</code></pre>
 <h2 id="what-s-wrong-with-number-x-">What&#39;s Wrong With <code>Number(x)</code>?</h2>
 <p><code>Number(x)</code> and <code>parseFloat(x)</code> handle edge cases very differently. <code>parseFloat()</code> is more permissive when it comes to accepting different strings:</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">Number</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// NaN</span>
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// 42</span>
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'42 fail'</span>); <span class="hljs-comment">// 42</span>
 
-<span class="hljs-built_in">Number</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// 10</span>
 <span class="hljs-built_in">parseFloat</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// 10</span>
 <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">' 10'</span>); <span class="hljs-comment">// 10</span>
 </code></pre>
