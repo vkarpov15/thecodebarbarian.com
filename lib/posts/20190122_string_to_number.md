@@ -19,6 +19,16 @@ Number(''); // 0
 archetype.to('', 'number'); // throws
 ```
 
+Many developers use `+x` to convert a string to a number. The JavaScript language spec states that [`+x` is equivalent to `Number(x)`](http://www.ecma-international.org/ecma-262/6.0/#sec-unary-plus-operator).
+
+```javascript
++'42 fail'; // NaN
++({ valueOf: () => '42' }); // 42
++({ toString: () => '42' }); // 42
++(null); // 0
++('  '); // 0
+```
+
 What's Wrong With `Number(x)`?
 ------------------------------
 
@@ -29,7 +39,7 @@ Number('42 fail'); // NaN
 parseFloat('42 fail'); // 42
 parseInt('42 fail'); // 42
 
-Number(' 10'); // NaN
+Number(' 10'); // 10
 parseFloat(' 10'); // 10
 parseInt(' 10'); // 10
 ```
