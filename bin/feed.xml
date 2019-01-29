@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 25 Jan 2019 21:46:17 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 29 Jan 2019 15:07:34 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Object.assign vs Object Spread in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/object-assign-vs-object-spread.html</link>
+            <guid>http://www.thecodebarbarian.com/object-assign-vs-object-spread.html</guid>
+            <pubDate>Mon, 29 Jan 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Convert a String to a Number in JavaScript]]></title>
             <link>http://www.thecodebarbarian.com/convert-a-string-to-a-number-in-javascript.html</link>
