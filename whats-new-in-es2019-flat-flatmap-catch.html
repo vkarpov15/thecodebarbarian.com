@@ -1,0 +1,158 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in ES2019: Array flat and flatMap, Object.fromEntries | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in ES2019: Array flat and flatMap, Object.fromEntries"/><meta property="og:url" content="http://www.thecodebarbarian.com/whats-new-in-es2019-flat-flatmap-catch"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20190205_cocoa_beach.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fwhats-new-in-es2019-flat-flatmap-catch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwhats-new-in-es2019-flat-flatmap-catch" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwhats-new-in-es2019-flat-flatmap-catch" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fwhats-new-in-es2019-flat-flatmap-catch&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwhats-new-in-es2019-flat-flatmap-catch" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fwhats-new-in-es2019-flat-flatmap-catch" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in ES2019: Array flat and flatMap, Object.fromEntries</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 05, 2018</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://tc39.github.io/ecma262/">ES2019</a> was recently finalized, which means JavaScript has several new language features to learn. These features are now available in Chrome 73:</p>
+<p><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">As of <a href="https://twitter.com/v8js?ref_src=twsrc%5Etfw">@v8js</a> v7.3 / Chrome 73, all of these ES2019 features are available by default. Enjoy! <a href="https://t.co/vtvx8VTRYw">https://t.co/vtvx8VTRYw</a></p>&mdash; V8 (@v8js) <a href="https://twitter.com/v8js/status/1090380906546683904?ref_src=twsrc%5Etfw">January 29, 2019</a></blockquote></p>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Unfortunately there&#39;s no version of Node.js at the time of this writing that uses V8 7.3, the current <a href="https://nodejs.org/download/nightly/v12.0.0-nightly20190205793c63073a/">Node.js 12 nightly build</a> still uses V8 7.1. However, V8 v7.0 has most of the ES2019 feature set, see the list below. For the purposes of this article we&#39;ll use Node.js 11.6 (V8 v7.0.276).</p>
+<table>
+<thead>
+<tr>
+<th>Node.js 11.6 ES2019 Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&check; <a href="https://github.com/tc39/proposal-flatMap"><code>Array#flatMap()</code>, <code>Array#flat()</code></a></td>
+</tr>
+<tr>
+<td>&cross; <a href="https://github.com/tc39/proposal-object-from-entries"><code>Object.fromEntries()</code></a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://github.com/tc39/proposal-string-left-right-trim"><code>String#trimStart()</code>, <code>String#trimEnd()</code></a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://github.com/tc39/proposal-Symbol-description"><code>Symbol#description</code></a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://github.com/tc39/proposal-optional-catch-binding">Optional <code>catch</code> binding</a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://github.com/tc39/proposal-json-superset">JSON superset</a></td>
+</tr>
+<tr>
+<td>&cross; <a href="https://github.com/tc39/proposal-well-formed-stringify">Well-formed <code>JSON.stringify()</code></a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://github.com/tc39/ecma262/pull/1340">Stable <code>Array#sort()</code></a></td>
+</tr>
+<tr>
+<td>&check; <a href="https://tc39.github.io/Function-prototype-toString-revision/"><code>Function#toString()</code> Revision</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="-array-flat-and-array-flatmap-"><code>Array#flat()</code> and <code>Array#flatMap()</code></h2>
+<p>The functions responsible for the <a href="https://dev.to/kayis/smooshing-javascript--5dpc">infamous smoosh-gate controversy</a> have finally landed in ES2019. Thankfully, we don&#39;t have to write <code>smooshMap()</code> or <code>componentDidSmoosh()</code>. The <code>flat()</code> and <code>flatMap()</code> functions are <a href="https://github.com/tc39/proposal-flatMap/issues/71">available in Chrome 69 / V8 6.9</a>, so you need Node.js 11.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat"><code>Array#flat()</code></a> is analogous to <a href="https://lodash.com/docs/4.17.11#flattenDepth">Lodash&#39;s <code>_.flattenDepth()</code></a> function. The <code>flat()</code> function takes an array of arrays and &quot;flattens&quot; the nested arrays into the top-level array.</p>
+<pre><code class="lang-javascript">[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]].flat(); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6]</span>
+</code></pre>
+<p>By default, <code>flat()</code> only flattens one level deep:</p>
+<pre><code class="lang-javascript">[[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]], [[<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]]].flat(); <span class="hljs-comment">// [ [ 1, 2 ], [ 3, 4 ], [ 5, 6 ] ]</span>
+</code></pre>
+<p>However, <code>flat()</code> takes a <code>depth</code> argument that specifies how many levels down you want to flatten.</p>
+<pre><code class="lang-javascript">[[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]], [[<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], [[<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]]].flat(<span class="hljs-number">2</span>); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6]</span>
+</code></pre>
+<p>The new <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap"><code>flatMap()</code></a> function is equivalent to calling <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map()</code></a> followed by <code>flat()</code>. This is handy if your <code>map()</code> returns an array.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> oddNumbers = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>];
+
+<span class="hljs-comment">// [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]</span>
+<span class="hljs-keyword">const</span> allNumbers = oddNumbers.flatMap(num =&gt; ([num, num + <span class="hljs-number">1</span>]));
+</code></pre>
+<p>Since the <code>callback</code> parameter to <code>flatMap()</code> above returns an array, <code>flatMap()</code> flattens out the array. The above is equivalent to:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> allNumbers = oddNumbers.map(num =&gt; ([num, num + <span class="hljs-number">1</span>])).flat();
+</code></pre>
+<p>One neat trick with <code>flatMap()</code> is that you can do both <code>filter()</code> and <code>map()</code> in one step. You can filter out an element by returning an empty array <code>[]</code> from your <code>flatMap()</code> callback.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// [ 1, 3, 5, 7, 9 ]</span>
+<span class="hljs-keyword">const</span> oddNumbers = allNumbers.flatMap(num =&gt; num % <span class="hljs-number">2</span> === <span class="hljs-number">0</span> ? [] : num);
+</code></pre>
+<h2 id="-object-fromentries-"><code>Object.fromEntries()</code></h2>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries">Object.fromEntries() function</a> is currently not available in any version of Node.js. You need to <code>npm install</code> the <a href="https://www.npmjs.com/package/object.fromentries"><code>object.fromentries</code> polyfill</a>.</p>
+<p>The <code>Object.fromEntries()</code> function is intended to make it easy to convert a JavaScript Map into a JavaScript object:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// // { hello: 'world', foo: 'bar' }</span>
+<span class="hljs-built_in">Object</span>.fromEntries(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([[<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>], [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>]]));
+</code></pre>
+<p>A neat side effect is you can convert an array of key/value pairs into a JavaScript object:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// { hello: 'world', foo: 'bar' }</span>
+<span class="hljs-built_in">Object</span>.fromEntries([[<span class="hljs-string">'hello'</span>, <span class="hljs-string">'world'</span>], [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>]]);
+</code></pre>
+<p>The <a href="https://github.com/tc39/proposal-object-from-entries#rationale">primary rationale</a> for this function is converting a map into an object, but the key/value pairs conversion is also useful.</p>
+<p>For example, <a href="https://docs.mongodb.com/manual/core/document/#field-names">MongoDB doesn&#39;t allow storing keys with <code>.</code></a>. The way to store potentially dotted key names in MongoDB is with a key/value array. The <code>Object.fromEntries()</code> function along with its inverse <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"><code>Object.entries()</code></a> make it easy to switch between objects and key/value arrays.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> packages = { <span class="hljs-string">'lodash.get'</span>: <span class="hljs-string">'4.x'</span>, <span class="hljs-string">'object.fromentries'</span>: <span class="hljs-string">'2.x'</span> };
+
+<span class="hljs-comment">// Stores `[ [ 'lodash.get', '4.x' ], [ 'object.fromentries', '2.x' ] ]`</span>
+<span class="hljs-keyword">await</span> mongoose.model(<span class="hljs-string">'Project'</span>).create({ packages: <span class="hljs-built_in">Object</span>.entries(packages) });
+
+<span class="hljs-keyword">await</span> mongoose.model(<span class="hljs-string">'Project'</span>).findOne().then(doc =&gt; {
+  <span class="hljs-comment">// Convert `[ [ 'lodash.get', '4.x' ], [ 'object.fromentries', '2.x' ] ]`</span>
+  <span class="hljs-comment">// back into a native JavaScript object.</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(doc, { packages: <span class="hljs-built_in">Object</span>.fromEntries(doc.packages) });
+});
+</code></pre>
+<h2 id="-symbol-description-"><code>Symbol#description</code></h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbols</a> were introduced in ES2015 as a way of avoiding naming conflicts between properties. A symbol is a guaranteed unique property name:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym1 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
+<span class="hljs-keyword">const</span> sym2 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
+
+<span class="hljs-keyword">const</span> obj = { sym1: <span class="hljs-string">'bar'</span>, sym2: <span class="hljs-string">'baz'</span> };
+<span class="hljs-built_in">console</span>.log(obj[sym1]); <span class="hljs-comment">// 'bar'</span>
+<span class="hljs-built_in">console</span>.log(obj[sym2]); <span class="hljs-comment">// 'baz'</span>
+</code></pre>
+<p>The first parameter to <code>Symbol.for()</code> is called the symbol&#39;s <em>description</em>. The description isn&#39;t an id, any number of symbols can have the same description without conflicts. A symbol&#39;s description is purely for debugging.</p>
+<p>Before ES2019, the only way you could access a symbol&#39;s description was using <code>.toString()</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
+
+sym.toString(); <span class="hljs-comment">// Symbol('foo')</span>
+</code></pre>
+<p>In Node.js 11 you can also access <code>sym.description</code>:</p>
+<pre><code class="lang-javascript">sym.description; <span class="hljs-comment">// foo</span>
+</code></pre>
+<p>The <code>description</code> property is <em>not</em> writable. Setting <code>sym.description</code> is a no-op.</p>
+<pre><code class="lang-javascript">sym.description; <span class="hljs-comment">// foo</span>
+
+sym.description = <span class="hljs-string">'bar'</span>;
+sym.description; <span class="hljs-comment">// still "foo"</span>
+</code></pre>
+<h2 id="optional-catch-binding">Optional <code>catch</code> Binding</h2>
+<p>In Node.js 8 you always need to specify a variable in the <code>catch</code> clause of a <code>try/catch</code>, even if you never use the variable:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">try</span> {
+  <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> (err) {
+  <span class="hljs-comment">// Need to specify `err`, even if it isn't used.</span>
+}
+</code></pre>
+<p>ES2019&#39;s optional <code>catch</code> binding lets you skip defining a variable in <code>catch</code>. Optional <code>catch</code> binding is available in Node.js 10 and <a href="https://bugs.chromium.org/p/v8/issues/detail?id=6889">Chrome 66</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">try</span> {
+  <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-comment">// No `err` variable</span>
+}
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>ES2019&#39;s feature set isn&#39;t nearly as exciting as ES2015 or <a href="http://asyncawait.net/">async/await in ES2017</a>, but these new features help round out the language&#39;s API. <code>Array#flat()</code> and <code>Array#flatMap()</code> extend JavaScript&#39;s existing support for chainable array manipulation. <code>Object.fromEntries()</code> is a neat complement to <code>Object.entries()</code>. <code>Symbol#description</code> addresses a minor but cumbersome gap in ES6 symbols. Overall, ES2019 is a small but useful step in the right direction for JavaScript.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20190205_es2019.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "What's New in ES2019: Array flat and flatMap, Object.fromEntries", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

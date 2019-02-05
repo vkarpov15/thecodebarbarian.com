@@ -532,3 +532,19 @@ a.social {
 .async-await-banner {
 	margin-left: 87px;
 }
+
+table {
+	margin-bottom: 1em;
+}
+
+tr {
+	display: flex;
+}
+
+th {
+	flex: 1;
+}
+
+td {
+	flex: 1;
+}
