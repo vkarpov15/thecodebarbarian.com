@@ -6,7 +6,7 @@ v8.9.4
 $ node
 > const obj = { foo: 1, bar: 1 };
 undefined
-> ({ ...obj, baz: 1 });
+> { ...obj, baz: 1 };
 { foo: 1, bar: 1, baz: 1 }
 ```
 
