@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 05 Feb 2019 18:06:38 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 12 Feb 2019 15:04:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Convert Values to Strings in JavaScript with Archetype]]></title>
+            <link>http://www.thecodebarbarian.com/convert-values-to-strings-in-javascript-with-archetype.html</link>
+            <guid>http://www.thecodebarbarian.com/convert-values-to-strings-in-javascript-with-archetype.html</guid>
+            <pubDate>Mon, 12 Feb 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in ES2019: Array flat and flatMap, Object.fromEntries]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-es2019-flat-flatmap-catch.html</link>

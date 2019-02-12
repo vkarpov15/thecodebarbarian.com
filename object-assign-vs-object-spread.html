@@ -18,7 +18,7 @@ v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
 $ node
 &gt; <span class="hljs-keyword">const</span> obj = { foo: <span class="hljs-number">1</span>, bar: <span class="hljs-number">1</span> };
 <span class="hljs-literal">undefined</span>
-&gt; ({ ...obj, baz: <span class="hljs-number">1</span> });
+&gt; { ...obj, baz: <span class="hljs-number">1</span> };
 { foo: <span class="hljs-number">1</span>, bar: <span class="hljs-number">1</span>, baz: <span class="hljs-number">1</span> }
 </code></pre><p>The Object spread operator <code>{...obj}</code> is similar to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"><code>Object.assign()</code></a>, so which one should you use? Turns out the answer is a bit more nuanced than you might expect.</p>
 <h2 id="quick-overview-of-object-spread">Quick Overview of Object Spread</h2>
