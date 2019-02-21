@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 12 Feb 2019 15:04:25 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 21 Feb 2019 00:52:23 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[For vs forEach() vs for/in vs for/of in JavaScript]]></title>
+            <link>http://www.thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html</link>
+            <guid>http://www.thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html</guid>
+            <pubDate>Tue, 20 Feb 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Convert Values to Strings in JavaScript with Archetype]]></title>
             <link>http://www.thecodebarbarian.com/convert-values-to-strings-in-javascript-with-archetype.html</link>
