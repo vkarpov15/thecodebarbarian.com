@@ -55,7 +55,7 @@ userSchema.pre(<span class="hljs-string">'aggregate'</span>, softDeleteAggregate
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">softDeleteAggregateMiddleware</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-comment">// Get the current aggregation pipeline and prepend a `$match` that excludes</span>
   <span class="hljs-comment">// all soft-deleted docs</span>
-  <span class="hljs-keyword">this</span>.pipeline().unshift([{ $match: { isDeleted: <span class="hljs-literal">false</span> } }]);
+  <span class="hljs-keyword">this</span>.pipeline().unshift({ $match: { isDeleted: <span class="hljs-literal">false</span> } });
   next();
 }
 
@@ -71,7 +71,7 @@ userSchema.pre(<span class="hljs-string">'aggregate'</span>, softDeleteAggregate
   }
   <span class="hljs-comment">// Get the current aggregation pipeline and prepend a `$match` that excludes</span>
   <span class="hljs-comment">// all soft-deleted docs</span>
-  <span class="hljs-keyword">this</span>.pipeline().unshift([{ $match: { isDeleted: <span class="hljs-literal">false</span> } }]);
+  <span class="hljs-keyword">this</span>.pipeline().unshift({ $match: { isDeleted: <span class="hljs-literal">false</span> } });
   next();
 }
 
@@ -149,7 +149,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
 }
 </code></pre>
 <h2 id="moving-on">Moving On</h2>
-<p>Aggregation middleware and <a href="http://thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html">dynamic fields for virtual populate</a> are just two of the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">10 new features in mongoose 4.13</a>. Aggregation middleware fills in a big gap in mongoose&#39;s middleware functionality, and helps you leverage your favorite query middleware patterns in conjunction with <a href="http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation">MongoDB&#39;s powerful aggregation framework</a>. Make sure you upgrade and start writing aggregation middleware and plugins! </p>
+<p>Aggregation middleware and <a href="http://thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html">dynamic fields for virtual populate</a> are just two of the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">10 new features in mongoose 4.13</a>. Aggregation middleware fills in a big gap in mongoose&#39;s middleware functionality, and helps you leverage your favorite query middleware patterns in conjunction with <a href="http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation">MongoDB&#39;s powerful aggregation framework</a>. Make sure you upgrade and start writing aggregation middleware and plugins!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20171117_mongoose_aggregate_middleware.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname

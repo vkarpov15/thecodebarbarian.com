@@ -50,7 +50,7 @@ userSchema.pre('aggregate', softDeleteAggregateMiddleware);
 function softDeleteAggregateMiddleware(next) {
   // Get the current aggregation pipeline and prepend a `$match` that excludes
   // all soft-deleted docs
-  this.pipeline().unshift([{ $match: { isDeleted: false } }]);
+  this.pipeline().unshift({ $match: { isDeleted: false } });
   next();
 }
 
@@ -69,7 +69,7 @@ function softDeleteAggregateMiddleware(next) {
   }
   // Get the current aggregation pipeline and prepend a `$match` that excludes
   // all soft-deleted docs
-  this.pipeline().unshift([{ $match: { isDeleted: false } }]);
+  this.pipeline().unshift({ $match: { isDeleted: false } });
   next();
 }
 
@@ -158,4 +158,4 @@ async function run() {
 Moving On
 ---------
 
-Aggregation middleware and [dynamic fields for virtual populate](http://thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html) are just two of the [10 new features in mongoose 4.13](https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02). Aggregation middleware fills in a big gap in mongoose's middleware functionality, and helps you leverage your favorite query middleware patterns in conjunction with [MongoDB's powerful aggregation framework](http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation). Make sure you upgrade and start writing aggregation middleware and plugins! 
+Aggregation middleware and [dynamic fields for virtual populate](http://thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html) are just two of the [10 new features in mongoose 4.13](https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02). Aggregation middleware fills in a big gap in mongoose's middleware functionality, and helps you leverage your favorite query middleware patterns in conjunction with [MongoDB's powerful aggregation framework](http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation). Make sure you upgrade and start writing aggregation middleware and plugins!
