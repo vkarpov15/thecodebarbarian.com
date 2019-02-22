@@ -201,7 +201,19 @@ test();
 </code></pre>
 <p><strong>Takeaway:</strong> If you&#39;re using <a href="http://asyncawait.net/">async/await</a> or <a href="http://es2015generators.com/">generators</a>, remember that <code>forEach()</code> is syntactic sugar. Like sugar, it should be used sparingly and shouldn&#39;t be used for everything.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>Generally, <code>for/of</code> is the most robust way to iterate over an array in JavaScript. It is more concise than a conventional <code>for</code> loop and doesn&#39;t have as many edge cases as <code>for/in</code> and <code>forEach()</code>. The major downsides of <code>for/of</code> is that you can&#39;t access the current array index like you can with <code>for</code>, and you can&#39;t chain like you can with <code>forEach()</code>. <code>forEach()</code> comes with several caveats and should be used sparingly, but there are numerous cases where it makes code more concise.</p>
+<p>Generally, <code>for/of</code> is the most robust way to iterate over an array in JavaScript.
+It is more concise than a conventional <code>for</code> loop and doesn&#39;t have as many edge
+cases as <code>for/in</code> and <code>forEach()</code>. The major downsides of <code>for/of</code> is that you
+need to do extra work to access the index (1), and you can&#39;t
+chain like you can with <code>forEach()</code>. <code>forEach()</code> comes with several caveats and
+should be used sparingly, but there are numerous cases where it makes code more
+concise.</p>
+<p>(1) To access the current array index in a <code>for/of</code> loop, you can use
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries">the <code>Array#entries()</code> function</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [i, v] <span class="hljs-keyword">of</span> arr.entries()) {
+  <span class="hljs-built_in">console</span>.log(i, v); <span class="hljs-comment">// Prints "0 a", "1 b", "2 c"</span>
+}
+</code></pre>
 <p><em>Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>
