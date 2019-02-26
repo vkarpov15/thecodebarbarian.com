@@ -102,16 +102,20 @@
 </code></pre>
 <h2 id="-symbol-description-"><code>Symbol#description</code></h2>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbols</a> were introduced in ES2015 as a way of avoiding naming conflicts between properties. A symbol is a guaranteed unique property name:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym1 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
-<span class="hljs-keyword">const</span> sym2 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym1 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'foo'</span>);
+<span class="hljs-keyword">const</span> sym2 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'foo'</span>);
 
-<span class="hljs-keyword">const</span> obj = { sym1: <span class="hljs-string">'bar'</span>, sym2: <span class="hljs-string">'baz'</span> };
+<span class="hljs-keyword">const</span> obj = { [sym1]: <span class="hljs-string">'bar'</span>, [sym2]: <span class="hljs-string">'baz'</span> };
 <span class="hljs-built_in">console</span>.log(obj[sym1]); <span class="hljs-comment">// 'bar'</span>
 <span class="hljs-built_in">console</span>.log(obj[sym2]); <span class="hljs-comment">// 'baz'</span>
 </code></pre>
-<p>The first parameter to <code>Symbol.for()</code> is called the symbol&#39;s <em>description</em>. The description isn&#39;t an id, any number of symbols can have the same description without conflicts. A symbol&#39;s description is purely for debugging.</p>
+<p>The first parameter to <code>Symbol()</code> is called the symbol&#39;s <em>description</em>. The
+description isn&#39;t an id, any number of symbols can have the same description
+without conflicts. A symbol&#39;s description is purely for debugging. The only
+exception is if you register the symbol in the global symbol registry using
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for"><code>Symbol.for()</code></a>.</p>
 <p>Before ES2019, the only way you could access a symbol&#39;s description was using <code>.toString()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'foo'</span>);
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sym = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'foo'</span>);
 
 sym.toString(); <span class="hljs-comment">// Symbol('foo')</span>
 </code></pre>

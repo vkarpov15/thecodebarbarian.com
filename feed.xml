@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 22 Feb 2019 20:48:49 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 26 Feb 2019 18:25:27 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[How find() Works in Mongoose]]></title>
+            <link>http://www.thecodebarbarian.com/how-find-works-in-mongoose.html</link>
+            <guid>http://www.thecodebarbarian.com/how-find-works-in-mongoose.html</guid>
+            <pubDate>Mon, 26 Feb 2018 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[For vs forEach() vs for/in vs for/of in JavaScript]]></title>
             <link>http://www.thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html</link>
