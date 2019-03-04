@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 
 *.mp3
+
+package-lock.json
