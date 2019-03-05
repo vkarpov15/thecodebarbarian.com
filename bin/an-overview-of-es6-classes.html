@@ -1,0 +1,266 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>An Overview of ES6 Classes | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="An Overview of ES6 Classes"/><meta property="og:url" content="http://www.thecodebarbarian.com/an-overview-of-es6-classes"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20190305_napa.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-es6-classes&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-es6-classes" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-es6-classes" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-overview-of-es6-classes&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-es6-classes" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-overview-of-es6-classes" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">An Overview of ES6 Classes</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 05, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>JavaScript introduced the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"><code>class</code> keyword</a> in 2015 with the release of ES6. React made classes an indispensable language feature when they introduced support for <a href="https://github.com/facebook/react/blob/master/CHANGELOG.md#0130-march-10-2015">using <code>extends React.Component</code> instead of <code>React.createClass()</code> in 2015</a>, and removed support for <a href="https://github.com/facebook/react/blob/master/CHANGELOG.md#1600-september-26-2017"><code>React.createClass()</code> entirely in 2017</a> in favor of classes. Today, classes are a fundamental part of JavaScript, and many new JavaScript devs don&#39;t remember a time before classes. In this article, I&#39;ll provide an overview of how classes work in JavaScript: how to declare classes, what features JavaScript provides with classes, and how inheritance works.</p>
+<h2 id="working-with-classes">Working With Classes</h2>
+<p>Here&#39;s how you define a basic class <code>MyClass</code>, and create an instance of <code>MyClass</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
+  }
+}
+
+<span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.answer; <span class="hljs-comment">// 42</span>
+</code></pre>
+<p>You <em>must</em> instantiate a class with <code>new</code>. Calling <code>MyClass()</code> without <code>new</code>
+throws an error:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// TypeError: Class constructor MyClass cannot be invoked without 'new'</span>
+MyClass();
+</code></pre>
+<p>A class is <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-function-objects">technically a function</a>, although the <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-function-objects-call-thisargument-argumentslist">ECMAScript spec explicitly disallows calling a class without <code>new</code></a>. In fact, <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-typeof-operator-runtime-semantics-evaluation">the <code>typeof</code> operator</a> identifies <code>MyClass</code> as a function.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">typeof</span> MyClass; <span class="hljs-comment">// 'function'</span>
+MyClass <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>; <span class="hljs-comment">//  true</span>
+</code></pre>
+<p>To check whether an object is an instance of a class, you should use the <code>instanceof</code>
+operator. You can also check whether the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor"><code>constructor</code> property</a> is equal to <code>MyClass</code>.</p>
+<pre><code class="lang-javascript">obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// true</span>
+<span class="hljs-comment">// Works, but `instanceof` is better...</span>
+obj.constructor === MyClass;
+
+<span class="hljs-comment">// Because `instanceof` is immune to overwriting the `constructor` property</span>
+<span class="hljs-keyword">const</span> obj = {};
+obj.constructor = MyClass;
+obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// false</span>
+obj.constructor === MyClass; <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Like functions, classes in JavaScript are variables like any other. You can
+assign a class to a variable, overwrite that class, and pass a class as a
+parameter to a function. Like functions, you can also declare classes with or
+without explicit names.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Foo = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
+  }
+}
+
+Foo = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">43</span>;
+  }
+}
+
+<span class="hljs-built_in">console</span>.log(Foo); <span class="hljs-comment">// '[Function: Foo]'</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> Foo()); <span class="hljs-comment">// 'Foo { answer: 43 }'</span>
+</code></pre>
+<p>Unlike functions, classes are never <a href="http://adripofjavascript.com/blog/drips/variable-and-function-hoisting.html"><em>hoisted</em></a>.
+In the below example the function <code>Foo()</code> prints successfully, because JavaScript
+looks ahead and &#39;hoists&#39; <code>Foo()</code> to the top of the function. But trying to print the
+class <code>Bar</code> throws a reference error, because JavaScript does <strong>not</strong> hoist class definitions.</p>
+<h2 id="statics-methods-getters-setters">Statics, Methods, Getters, Setters</h2>
+<p>ES6 classes support numerous object-oriented programming constructs, like <a href="https://docs.mql4.com/basis/oop/staticmembers">static functions</a>, <a href="https://en.wikipedia.org/wiki/Method_%28computer_programming%29">instance methods</a>, and <a href="https://www.w3schools.com/java/java_encapsulation.asp">getters and setters</a>.</p>
+<p>Static functions are functions defined on the class itself. You call <code>ClassName.staticName()</code>, and, within the static function, <code>this</code> refers to
+the class.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+  static myStatic() {
+    <span class="hljs-keyword">this</span>; <span class="hljs-comment">// [Function: MyClass]</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;
+  }
+}
+
+MyClass.myStatic(); <span class="hljs-comment">// '42'</span>
+</code></pre>
+<p>Instance methods are functions on instances of the class. When you create a new
+object using <code>new MyClass()</code>, you can call <code>obj.myMethod()</code>. Within <code>myMethod()</code>,
+<code>this</code> refers to <code>obj</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
+  }
+
+  myMethod() {
+    <span class="hljs-keyword">this</span> === obj; <span class="hljs-comment">// true</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.answer;
+  }
+}
+
+<span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.myMethod(); <span class="hljs-comment">// 42</span>
+</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">Getters</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">setters</a> let you define functions that run when you access or assign a property on
+an instance of the class. For example, getters and setters can let you <a href="http://thecodebarbarian.com/convert-a-string-to-a-number-in-javascript.html">convert values to numbers</a> when you set the property.</p>
+<p>In the below example, instances of <code>MyClass</code> have a
+special property <code>num</code> that the class tries to convert to a number. The <code>num</code>
+property has a getter function that JavaScript executes when you access <code>obj.num</code>,
+and a setter function that JavaScript executes when you assign to <code>obj.num</code> using
+<code>=</code> or <code>Object.assign()</code>. The setter function converts <code>num</code> to a number, and
+throws an error if it could not convert the given value to a number.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+  get num() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._num;
+  }
+
+  set num(v) {
+    <span class="hljs-keyword">const</span> parsed = <span class="hljs-built_in">parseFloat</span>(v);
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Number</span>.isNaN(parsed)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`"<span class="hljs-subst">${v}</span>" is not a number`</span>);
+    }
+    <span class="hljs-keyword">this</span>._num = parsed;
+  }
+}
+
+<span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
+obj.num; <span class="hljs-comment">// undefined;</span>
+
+obj.num = <span class="hljs-string">'42'</span>;
+obj.num; <span class="hljs-comment">// 42</span>
+
+<span class="hljs-comment">// Error: "not a number" is not a number</span>
+obj.num = <span class="hljs-string">'not a number'</span>;
+<span class="hljs-comment">// Error: "not a number" is not a number</span>
+<span class="hljs-built_in">Object</span>.assign(obj, { num: <span class="hljs-string">'not a number'</span> });
+</code></pre>
+<h2 id="inheritance">Inheritance</h2>
+<p>Inheritance is one of the <a href="https://beginnersbook.com/2013/03/oops-in-java-encapsulation-inheritance-polymorphism-abstraction/">four core concepts of object-oriented programming</a>. Besides syntactic sugar, the big advantage of using
+ES6 classes over <a href="https://www.phpied.com/3-ways-to-define-a-javascript-class/">pre-ES6 functions as class definitions</a>
+is cleaner inheritance.</p>
+<p>JavaScript class inheritance is still <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">prototype-based</a> under the hood, but <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends"><code>extends</code></a> abstracts away prototypes. Without having to write <code>prototype</code>, class
+inheritance in JavaScript looks a lot like inheritance in more &quot;proper&quot;
+object-oriented languages like Java. Here&#39;s a basic example of inheritance using
+ES6 classes:</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{  
+  static foo() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
+  static bar() { <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>; }
+
+  a() { <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>; }
+  b() { <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>; }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChildClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{
+  static bar() {
+    <span class="hljs-comment">// `super` is how you reference the parent class's statics and methods,</span>
+    <span class="hljs-comment">// just like in Java</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.bar() * <span class="hljs-number">2</span>;
+  }
+
+  b() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.b() * <span class="hljs-number">2</span>;
+  }
+}
+
+ChildClass.foo(); <span class="hljs-comment">// 1</span>
+ChildClass.bar(); <span class="hljs-comment">// 2 * 2 = 4</span>
+
+<span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> ChildClass();
+obj.a(); <span class="hljs-comment">// 3</span>
+obj.b(); <span class="hljs-comment">// 2 * 4 = 8</span>
+
+obj <span class="hljs-keyword">instanceof</span> ChildClass; <span class="hljs-comment">// true</span>
+obj <span class="hljs-keyword">instanceof</span> BaseClass; <span class="hljs-comment">// true</span>
+</code></pre>
+<p>The <code>class A extends B</code> syntax means the child class <code>A</code> has the same <em>members</em>
+(including statics, methods, getters, and setters) as the
+base class <code>B</code>, but can also override <code>B</code>&#39;s members. Here&#39;s how you would do
+the same thing using pre-ES6 prototype-based inheritance.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BaseClass</span>(<span class="hljs-params"></span>) </span>{}  
+
+BaseClass.foo = () =&gt; <span class="hljs-number">1</span>;
+BaseClass.bar = () =&gt; <span class="hljs-number">2</span>;
+
+BaseClass.prototype = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Object</span>.prototype);
+BaseClass.prototype.a = () =&gt; <span class="hljs-number">3</span>;
+BaseClass.prototype.b = () =&gt; <span class="hljs-number">4</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ChildClass</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-built_in">Object</span>.assign(ChildClass, BaseClass);
+ChildClass.prototype = <span class="hljs-built_in">Object</span>.create(BaseClass.prototype);
+
+ChildClass.bar = () =&gt; BaseClass.bar() * <span class="hljs-number">2</span>;
+ChildClass.prototype.b = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> BaseClass.prototype.b.call(<span class="hljs-keyword">this</span>) * <span class="hljs-number">2</span>;
+};
+</code></pre>
+<p>Like in Java, you call the parent class&#39;s constructor using <code>super</code>, and you
+need to call <code>super()</code> in the constructor before accessing <code>this</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{
+  <span class="hljs-keyword">constructor</span>() { <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>; }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+    ++<span class="hljs-keyword">this</span>.answer;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">43</span>;
+    <span class="hljs-keyword">super</span>();
+  }
+}
+
+
+<span class="hljs-keyword">new</span> Child1(); <span class="hljs-comment">// works</span>
+
+<span class="hljs-comment">// ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor</span>
+<span class="hljs-keyword">new</span> Child2();
+</code></pre>
+<h2 id="differences-vs-node-js-util-inherits-">Differences vs Node.js <code>util.inherits()</code></h2>
+<p>Node.js has a <a href="https://nodejs.org/api/util.html#util_util_inherits_constructor_superconstructor">native <code>inherits()</code> function</a> that many developers used for inheritance before ES6. The key difference
+between <code>inherits()</code> and <code>extends</code> is that Node.js <code>inherits()</code> does <strong>not</strong>
+inherit statics.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{
+  static foo() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
+  bar() { <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>; }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child2</span>(<span class="hljs-params"></span>) </span>{}
+util.inherits(Child2, BaseClass);
+
+<span class="hljs-keyword">new</span> Child1().bar(); <span class="hljs-comment">// 2</span>
+<span class="hljs-keyword">new</span> Child2().bar(); <span class="hljs-comment">// 2</span>
+
+Child1.foo(); <span class="hljs-comment">// 1</span>
+<span class="hljs-comment">// The `Child2` pseudo-class does **not** inherit the `foo()` static function</span>
+<span class="hljs-comment">//  from `BaseClass`</span>
+Child2.foo(); <span class="hljs-comment">// TypeError: Child2.foo is not a function</span>
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Classes are a fundamental part of JavaScript, and ES6 classes give you syntax
+and inheritance that closely mimic those of OOP languages like Java. JavaScript
+still uses prototype-based inheritance under the hood, which <a href="http://thecodebarbarian.com/static-properties-in-javascript-with-inheritance.html">comes with several corner cases</a>, but <code>extends</code> behaves as you would expect with the exception of
+static properties. On the bright side, JavaScript classes are just variables,
+which means you can assign classes to variables and pass classes as parameters
+to functions without any special syntax.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20190305_es6_class.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "An Overview of ES6 Classes", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>

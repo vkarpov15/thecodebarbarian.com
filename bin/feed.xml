@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 28 Feb 2019 17:21:11 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 05 Mar 2019 20:18:52 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[An Overview of ES6 Classes]]></title>
+            <link>http://www.thecodebarbarian.com/an-overview-of-es6-classes.html</link>
+            <guid>http://www.thecodebarbarian.com/an-overview-of-es6-classes.html</guid>
+            <pubDate>Tue, 05 Mar 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[How find() Works in Mongoose]]></title>
             <link>http://www.thecodebarbarian.com/how-find-works-in-mongoose.html</link>
@@ -23,28 +30,28 @@
             <title><![CDATA[For vs forEach() vs for/in vs for/of in JavaScript]]></title>
             <link>http://www.thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html</link>
             <guid>http://www.thecodebarbarian.com/for-vs-for-each-vs-for-in-vs-for-of-in-javascript.html</guid>
-            <pubDate>Tue, 20 Feb 2018 05:00:00 GMT</pubDate>
+            <pubDate>Wed, 20 Feb 2019 05:00:00 GMT</pubDate>
             
         </item>
         <item>
             <title><![CDATA[Convert Values to Strings in JavaScript with Archetype]]></title>
             <link>http://www.thecodebarbarian.com/convert-values-to-strings-in-javascript-with-archetype.html</link>
             <guid>http://www.thecodebarbarian.com/convert-values-to-strings-in-javascript-with-archetype.html</guid>
-            <pubDate>Mon, 12 Feb 2018 05:00:00 GMT</pubDate>
+            <pubDate>Tue, 12 Feb 2019 05:00:00 GMT</pubDate>
             
         </item>
         <item>
             <title><![CDATA[What's New in ES2019: Array flat and flatMap, Object.fromEntries]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-es2019-flat-flatmap-catch.html</link>
             <guid>http://www.thecodebarbarian.com/whats-new-in-es2019-flat-flatmap-catch.html</guid>
-            <pubDate>Mon, 05 Feb 2018 05:00:00 GMT</pubDate>
+            <pubDate>Tue, 05 Feb 2019 05:00:00 GMT</pubDate>
             
         </item>
         <item>
             <title><![CDATA[Object.assign vs Object Spread in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/object-assign-vs-object-spread.html</link>
             <guid>http://www.thecodebarbarian.com/object-assign-vs-object-spread.html</guid>
-            <pubDate>Mon, 29 Jan 2018 05:00:00 GMT</pubDate>
+            <pubDate>Tue, 29 Jan 2019 05:00:00 GMT</pubDate>
             
         </item>
         <item>
