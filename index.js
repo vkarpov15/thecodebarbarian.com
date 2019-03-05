@@ -1,71 +1,82 @@
-var _ = require('underscore');
-var acquit = require('acquit');
-var fs = require('fs');
-var markdown = require('marked');
-var jade = require('jade');
-var file = require('file');
-var feed = require('feed');
-var transform = require('acquit-require');
+const _ = require('underscore');
+const acquit = require('acquit');
+const fs = require('fs');
+const markdown = require('marked');
+const jade = require('jade');
+const file = require('file');
+const feed = require('feed');
+const transform = require('acquit-require');
 
 require('acquit-ignore')();
 
-var highlight = require('highlight.js');
+const highlight = require('highlight.js');
 markdown.setOptions({
   highlight: function(code) {
     return highlight.highlight('JavaScript', code).value;
   }
 });
 
-var wagner = require('wagner-core');
+const wagner = require('wagner-core');
 
-var posts = require('./lib/posts');
-var postsConfig = _.sortBy(posts, function(post) { return -post.date.unix(); });
+const posts = require('./lib/posts');
+const postsConfig = _.sortBy(posts, function(post) { return -post.date.unix(); });
 
-var templates = {
+const templates = {
   index: null,
   post: null,
   list: null
 };
-var postsContent = {};
-var postBySource = {};
+const postsContent = {};
+const postBySource = {};
 
-var loadTemplate = function(path, key) {
-  return function(callback) {
-    fs.readFile(path, function(err, view) {
-      if (err) {
-        console.log('Error loading index template: ' + err);
-        return callback(err);
-      }
-      var result = jade.compile(view, { filename: path });
-      callback(null, result);
+const loadTemplate = function(path, key) {
+  return asyncFunctionToThunk(async function() {
+    const view = await new Promise((resolve, reject) => {
+      fs.readFile(path, (err, res) => {
+        if (err != null) {
+          return reject(err);
+        }
+        resolve(res);
+      })
     });
-  };
+    const result = jade.compile(view, { filename: path });
+    return result;
+  });
 };
 
 wagner.task('index', loadTemplate('./lib/views/index.jade', 'index'));
 wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
 wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
-wagner.task('posts', function(callback) {
+wagner.task('posts', asyncFunctionToThunk(async function() {
   const tests = [
     ...acquit.parse(fs.readFileSync('./test/20180621.test.js').toString()),
     ...acquit.parse(fs.readFileSync('./test/20180702.test.js').toString()),
     ...acquit.parse(fs.readFileSync('./test/20180710.test.js').toString())
   ];
 
-  wagner.parallel(
-    posts,
-    function(post, key, callback) {
-      fs.readFile(post.src, function(error, md) {
-        post.md = md.toString();
-
-        post.md = transform(post.md, tests);
-
-        callback(error, post);
+  await Promise.all(posts.map(async (post) => {
+    const md = await new Promise((resolve, reject) => {
+      fs.readFile(post.src, (err, res) => {
+        if (err != null) {
+          return reject(err);
+        }
+        resolve(res);
       });
-    },
-    callback);
-});
+    });
+
+    post.md = md.toString();
+    post.md = transform(post.md, tests);
+  }));
+
+  return posts;
+}));
+
+function asyncFunctionToThunk(fn) {
+  return function(callback) {
+    fn().then(res => callback(null, res), err => callback(err));
+  };
+}
 
 var tasks = ['loadIndex'];
 var tags = {};

@@ -8,6 +8,9 @@
     "test": "mocha test/*.test.js",
     "start": "node index.js && node server.js"
   },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/vkarpov15/thecodebarbarian.com.git"
