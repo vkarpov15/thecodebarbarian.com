@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 05 Mar 2019 23:04:39 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 10 Mar 2019 20:33:43 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building a Form with Vue.js]]></title>
+            <link>http://www.thecodebarbarian.com/building-a-form-with-vue.html</link>
+            <guid>http://www.thecodebarbarian.com/building-a-form-with-vue.html</guid>
+            <pubDate>Tue, 12 Mar 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[An Overview of ES6 Classes]]></title>
             <link>http://www.thecodebarbarian.com/an-overview-of-es6-classes.html</link>
