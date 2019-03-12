@@ -1,0 +1,220 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a Form with Vue.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a Form with Vue.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-form-with-vue"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20190309_switzerland.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-a-form-with-vue&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-form-with-vue" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-form-with-vue" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fbuilding-a-form-with-vue&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-form-with-vue" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fbuilding-a-form-with-vue" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a Form with Vue.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 12, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://vuejs.org/">Vue</a> has grown by leaps and bounds over the last couple years, and <a href="https://2018.stateofjs.com/front-end-frameworks/overview/">overtook Angular as the #2 frontend framework in 2018</a>. According to the <a href="https://2018.stateofjs.com/">State of JS survey</a>, Vue is the #1 frontend framework that isn&#39;t associated with <a href="https://en.wikipedia.org/wiki/Facebook">a serial bad actor</a>, which makes it worth learning if you&#39;re serious about going <a href="https://m.signalvnoise.com/become-a-facebook-free-business/">Facebook-free</a>. In this article, I&#39;ll walk through building a simple form with Vue.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>One of the major benefits of Vue is that you can get started in vanilla
+JavaScript, with no outside npm modules or <a href="https://reactjs.org/docs/introducing-jsx.html">new languages</a>.</p>
+<p>The easiest way to get started with Vue is including it <a href="https://vuejs.org/v2/guide/installation.html#Direct-lt-script-gt-Include">via <code>script</code> tag</a>.
+However, for educational purposes, this article will <code>npm install</code> the <a href="https://www.npmjs.com/package/vue">vue npm package</a> and create a bundle with <a href="https://www.npmjs.com/package/webpack">webpack</a>.</p>
+<p>The first step is to <code>npm install</code> a couple packages. In addition to vue and
+webpack, install <a href="https://www.npmjs.com/package/serve">serve</a> to spin up a
+lightweight web server.</p>
+<pre><code>npm install vue@<span class="hljs-number">2.6</span> webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x
+</code></pre><p>Create an <code>index.html</code> file that loads a <code>main.js</code> bundle. The <code>#content</code> div
+is the element Vue will render into, and <code>name-form</code> is a <a href="https://vuejs.org/v2/guide/components.html">custom component</a> that
+we&#39;ll add to Vue.</p>
+<pre><code>&lt;html&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Vue Form Example<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">name-form</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">name-form</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
+</code></pre><p>Here&#39;s a minimal <a href="https://webpack.js.org/configuration/">Webpack config file</a> <code>webpack.config.js</code> that will take a
+<code>main.js</code> file, which contains the definition of the <code>name-form</code> component,
+and create a standalone bundle <code>dist/main.js</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+  mode: process.env.NODE_ENV || <span class="hljs-string">'production'</span>,
+  entry: {
+    main: <span class="hljs-string">'./main.js'</span>
+  },
+  target: <span class="hljs-string">'web'</span>,
+  output: {
+    path: <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/dist`</span>,
+    filename: <span class="hljs-string">'[name].js'</span>
+  }
+};
+</code></pre>
+<p><a href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Importing Vue via <code>require()</code></a> is easy, but not quite trivial. Here&#39;s how you import Vue with <code>require()</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;
+</code></pre>
+<p>Here&#39;s the full <code>main.js</code> file. The <code>main.js</code> file imports Vue, defines the
+<code>name-form</code> component to show &#39;Hello, World&#39;, and creates a <a href="https://vuejs.org/v2/guide/instance.html">new Vue instance</a> bound to the <code>#content</code> div.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;
+
+Vue.component(<span class="hljs-string">'name-form'</span>, {
+  template: <span class="hljs-string">`
+    &lt;h1&gt;Hello, World&lt;/h1&gt;
+  `</span>,
+});
+
+<span class="hljs-keyword">new</span> Vue({ el: <span class="hljs-string">'#content'</span> });
+</code></pre>
+<p>Run <code>./node_modules/.bin/webpack</code> to compile <code>main.js</code>, and <code>./node_modules/.bin/serve</code> to start an HTTP server on port 5000.</p>
+<pre><code>$ ./node_modules/.bin/webpack
+Hash: d3f433b3f83a66e3b75c
+Version: webpack <span class="hljs-number">4.29</span><span class="hljs-number">.6</span>
+Time: <span class="hljs-number">2217</span>ms
+Built at: <span class="hljs-number">2019</span><span class="hljs-number">-03</span><span class="hljs-number">-10</span> <span class="hljs-number">12</span>:<span class="hljs-number">56</span>:<span class="hljs-number">40</span>
+  Asset      Size  Chunks             Chunk Names
+main.js  <span class="hljs-number">96.7</span> KiB       <span class="hljs-number">0</span>  [emitted]  main
+Entrypoint main = main.js
+[<span class="hljs-number">0</span>] (webpack)/buildin/global.js <span class="hljs-number">472</span> bytes {<span class="hljs-number">0</span>} [built]
+[<span class="hljs-number">1</span>] ./main.js <span class="hljs-number">158</span> bytes {<span class="hljs-number">0</span>} [built]
+    + <span class="hljs-number">4</span> hidden modules
+$ ./node_modules/.bin/serve
+</code></pre><p>Visit <code>http://localhost:5000</code>, and you should see &#39;Hello, World&#39; show up.</p>
+<p><img src="https://i.imgur.com/sAX0ZUh.png"></p>
+<p>For this simple &#39;Hello, World&#39; example, Vue&#39;s total bundle size is larger than
+<a href="http://thecodebarbarian.com/building-a-form-with-preact">Preact&#39;s</a>, but smaller
+than React&#39;s. Here&#39;s the bundle sizes that Webpack outputs, assuming unminified code:</p>
+<ul>
+<li>Preact: 9.6kb</li>
+<li>Vue: 96.7kb</li>
+<li>React: 109kb</li>
+</ul>
+<h2 id="user-input-with-data-and-v-model-">User Input With <code>data</code> and <code>v-model</code></h2>
+<p>Forms are much easier with <a href="https://vuejs.org/v2/guide/forms.html">two way data binding</a> as opposed to React-style <a href="https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow">one way data flow</a>.
+To add a two-way binding to the <code>name-form</code> component, you need to add two
+things to your component:</p>
+<ul>
+<li>An <code>input</code> with a <a href="https://vuejs.org/v2/guide/forms.html"><code>v-model</code> property</a> in your <code>template</code></li>
+<li>A [<code>data()</code> function(<a href="https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function">https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function</a>) that returns the initial state of the component&#39;s data. Vue needs this to know what properties it needs to watch on <code>data</code>.</li>
+</ul>
+<p>Here&#39;s the full <code>name-form</code> component. It has two inputs, one for <code>firstName</code> and
+one for <code>lastName</code>. When you click the submit button, the <code>submit()</code> function
+prints out the current values for <code>firstName</code> and <code>lastName</code>, and then empties
+both inputs.</p>
+<pre><code class="lang-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
+  template: <span class="hljs-string">`
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;h2&gt;First Name&lt;/h2&gt;
+        &lt;input type="text" v-model="firstName" /&gt;
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;h2&gt;Last Name&lt;/h2&gt;
+        &lt;input type="text" v-model="lastName" /&gt;
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;h2&gt;Submit&lt;/h2&gt;
+        &lt;input type="submit" value="Submit" v-on:click="submit" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>,
+  data: () =&gt; ({
+    firstName: <span class="hljs-string">''</span>,
+    lastName: <span class="hljs-string">'foo'</span>
+  }),
+  methods: {
+    submit: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.firstName, <span class="hljs-keyword">this</span>.lastName);
+
+      <span class="hljs-keyword">this</span>.firstName = <span class="hljs-string">''</span>;
+      <span class="hljs-keyword">this</span>.lastName = <span class="hljs-string">''</span>;
+    }
+  }
+});
+</code></pre>
+<p>Here&#39;s the form in action:</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.useloom.com/embed/9e3797c79ee14e1eafa94d69c4f6d0de" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+<p>Vue&#39;s two way data binding tracks changes on the <code>input</code> fields and propagates them to the <code>firstName</code> and <code>lastName</code> data properties. When <code>submit()</code> changes <code>firstName</code> and <code>lastName</code>, Vue propagates those changes to the <code>input</code> fields.</p>
+<p>Under the hood, <a href="https://vuejs.org/v2/guide/reactivity.html#How-Changes-Are-Tracked">Vue uses JavaScript getters and setters</a> to track
+changes, as opposed to <a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">Angular 1&#39;s approach of diffing whenever <code>$apply()</code> is called</a>. Conceptually, Vue loops through every property in the object your <code>data()</code> function returns, and uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">JavaScript&#39;s <code>Object.defineProperty()</code> function</a> to attach a getter and setter for that property.</p>
+<h2 id="submitting-the-form-with-async-await">Submitting the Form with Async/Await</h2>
+<p><a href="https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components">Vue has good support for promises and async/await</a>. In particular, <a href="https://v1.vuejs.org/guide/events.html">Vue methods</a> support promises, including throwing an error when the returned promise rejects. For
+example, suppose the <code>submit()</code> method from the previous example were async,
+and it threw an async error as shown below:</p>
+<pre><code class="lang-javascript">  methods: {
+    submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
+      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-string">'Sample Error'</span>));
+    }
+  }
+</code></pre>
+<p>Vue would bubble up the error as an uncaught exception. This is noteworthy
+because many other frameworks silently ignore errors in async functions.
+Ending up as an uncaught exception is much better because then an error handling
+tool like <a href="http://getsentry.com/">Sentry</a> can at least track the error, rather
+than losing it forever.</p>
+<p><img src="https://i.imgur.com/BFNibFa.png"></p>
+<p>Below is an example of using an async method to submit an HTTP request to the <a href="https://httpbin.org/#/HTTP_Methods/post_post">httpbin API</a>.</p>
+<pre><code class="lang-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
+  template: <span class="hljs-string">`
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;h2&gt;First Name&lt;/h2&gt;
+        &lt;input type="text" v-model="firstName" /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2&gt;Last Name&lt;/h2&gt;
+        &lt;input type="text" v-model="lastName" /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h2&gt;Submit&lt;/h2&gt;
+        &lt;input type="submit" value="Submit" v-on:click="submit" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>,
+  data: () =&gt; ({
+    firstName: <span class="hljs-string">''</span>,
+    lastName: <span class="hljs-string">'foo'</span>
+  }),
+  methods: {
+    submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">const</span> { firstName, lastName } = <span class="hljs-keyword">this</span>;
+      <span class="hljs-keyword">const</span> opts = {
+        method: <span class="hljs-string">'POST'</span>,
+        headers: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+        body: <span class="hljs-built_in">JSON</span>.stringify({ firstName, lastName })
+      };
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'https://httpbin.org/post'</span>, opts).
+        then(res =&gt; res.json()).
+        then(res =&gt; <span class="hljs-built_in">JSON</span>.parse(res.data));
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>, res.firstName, res.lastName);
+      <span class="hljs-keyword">this</span>.firstName = <span class="hljs-string">''</span>;
+      <span class="hljs-keyword">this</span>.lastName = <span class="hljs-string">''</span>;
+    }
+  }
+});
+</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Overall, I&#39;m very impressed with how much Vue. Vue takes the best parts of Angular 1 and React, and avoids the worst parts of both. In particular, Vue
+makes forms much easier than <a href="http://thecodebarbarian.com/building-a-form-with-preact.html">React-style apps</a>. Give Vue a shot
+with your next weekend project.</p>
+<p><em>Surprised that Vue supports async/await, but React doesn&#39;t in general? Want to know how to determine whether your favorite npm modules support async/await without reconciling contradictory answers on StackOverflow? Chapter 4 of <a href="http://asyncawait.net/">Mastering Async/Await</a> explains the core principles for determining whether a given library or framework supports async/await, so get the ebook today!</em></p>
+<p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20190312_vue_form.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "Building a Form with Vue.js", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
