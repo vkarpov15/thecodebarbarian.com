@@ -1,0 +1,194 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>An Introduction to npm | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="An Introduction to npm"/><meta property="og:url" content="http://www.thecodebarbarian.com/an-introduction-to-npm"/><meta property="og:image" content="https://s3.amazonaws.com/codebarbarian-images/20190326_cdm.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/angularjs.html">AngularJS</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-introduction-to-npm&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-introduction-to-npm" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-introduction-to-npm" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fan-introduction-to-npm&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-introduction-to-npm" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fan-introduction-to-npm" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">An Introduction to npm</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 26, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/">npm</a> is the de facto package manager for Node.js, roughly analagous to <a href="https://www.w3schools.com/python/python_pip.asp">pip for Python</a> or <a href="https://maven.apache.org/index.html">Maven for Java</a>. There are several alternatives, like <a href="https://yarnpkg.com/en/">Yarn</a> and <a href="https://medium.com/@ericsimons/introducing-turbo-5x-faster-than-yarn-npm-and-runs-natively-in-browser-cc2c39715403">Turbo</a>, but npm is automatically installed when you install Node.js. The <a href="https://docs.npmjs.com/misc/registry">npm registry</a> is huge, with over 800k packages at the time of this writing, so there&#39;s a package for almost everything. In this article, I&#39;ll provide a brief overview of what npm can do for you. </p>
+<p><strong>Side Note:</strong> npm has historically been very insistent that <a href="https://www.quora.com/I-keep-hearing-NPM-doesnt-stand-for-Node-Package-Manager-what-does-it-stand-for">npm does <em>not</em> stand for &quot;node package manager.&quot;</a></p>
+<h2 id="installing-dependencies">Installing Dependencies</h2>
+<p>Usually, the first thing you should do when you clone a Node.js repo is run
+<code>npm install</code>. When you run <code>npm install</code>, npm loads the <code>package.json</code> file
+from your current directory, and installs all <code>dependencies</code> listed in 
+<code>package.json</code>. For example, if your <code>package.json</code> looks like the below,
+<code>npm install</code> will install version 5.2.10 of <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> and version 4.16.4 of <a href="https://www.npmjs.com/package/express">Express</a>.</p>
+<pre><code>{
+  <span class="hljs-string">"dependencies"</span>: {
+    <span class="hljs-string">"mongoose"</span>: <span class="hljs-string">"5.2.10"</span>,
+    <span class="hljs-string">"express"</span>: <span class="hljs-string">"4.16.4"</span>
+  }
+}
+</code></pre><p>One key difference between npm and its Python analog pip is that npm installs every dependency into the <code>./node_modules</code> directory, as opposed to one central directory. This means:</p>
+<ul>
+<li><code>rm -rf ./node_modules</code> is sufficient to uninstall every package a given repo
+depends on. When a Node.js developer says to &quot;clear your node modules&quot;, they mean run <code>rm -rf ./node_modules &amp;&amp; npm install</code>.</li>
+<li>Every repo has a separate copy of every dependency. If you clone two repos that depend on <code>express@4.16.4</code>, you will have two copies of the same version of Express.</li>
+<li>Node.js doesn&#39;t have an equivalent to Python&#39;s <a href="https://packaging.python.org/guides/installing-using-pip-and-virtualenv/">virtualenv</a> because having a separate <code>./node_modules</code> for every repo effectively solves the same problem that virtualenv solves.</li>
+</ul>
+<p>You can install <a href="https://docs.npmjs.com/downloading-and-installing-packages-globally">npm packages globally using the <code>-g</code> flag</a>. For example, you can run <code>npm install mongoose -g</code>. However, <a href="https://thecodebarbarian.com/2015/02/27/npm-install--g">installing with <code>-g</code> is a bad idea for most packages</a>.</p>
+<p>In addition to <code>dependencies</code>, there are 3 other properties that you can use to define dependencies:</p>
+<ul>
+<li><code>devDependencies</code>: These dependencies are not necessary to run this project in production. For example, testing frameworks like <a href="http://npmjs.com/package/mocha">Mocha</a> are typically in <code>devDependencies</code>. Running <code>npm install</code> will install these dependencies, but running <code>npm install --production</code> will skip them.</li>
+<li><a href="https://docs.npmjs.com/files/package.json#peerdependencies"><code>peerDependencies</code></a>: Only useful if you are building a library that other Node.js projects will <code>npm install</code>. Projects that install this library should explicitly list these <code>peerDependencies</code> in their <code>dependencies</code> or <code>devDependencies</code>. <code>npm install</code> will warn if someone attempts to install this package without the corresponding <code>peerDependencies</code>.</li>
+<li><a href="https://docs.npmjs.com/files/package.json#optionaldependencies"><code>optionalDependencies</code></a>: Normally, <code>npm install</code> will fail if it can&#39;t find the package you&#39;re trying to install. However, <code>npm install</code> will still succeed if it can&#39;t find a dependency that&#39;s listed in <code>optionalDependencies</code>.</li>
+</ul>
+<p>Here&#39;s some key takeaways from this section:</p>
+<ul>
+<li>npm installs packages into <code>./node_modules</code>. To re-install, run <code>rm -rf ./node_modules &amp;&amp; npm install</code>.</li>
+<li>You should list the libraries and frameworks that your production code uses in <code>dependencies</code>. You should list testing frameworks, build systems, documentation generators, and other ancillary tools in <code>devDependencies</code>.</li>
+<li>When building your app for production, like in a <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a>, you should run <code>npm install --production</code> to skip <code>devDependencies</code>.</li>
+</ul>
+<h2 id="should-you-commit-package-lock-json-">Should You Commit <code>package-lock.json</code>?</h2>
+<p>When you run <code>npm install</code> for the first time in an empty repo, you may see the
+below warning from npm:</p>
+<pre><code>npm notice created a lockfile <span class="hljs-keyword">as</span> package-lock.json. You should commit <span class="hljs-keyword">this</span> file.
+</code></pre><p>The <code>package-lock.json</code> file, otherwise known as the &quot;lockfile&quot;, pins exact dependencies of your nested dependencies. For example, suppose you depend on version 1.1.0 of a package called &#39;foo&#39;:</p>
+<pre><code>{
+  <span class="hljs-string">"foo"</span>: <span class="hljs-string">"1.1.0"</span>
+}
+</code></pre><p>Suppose &#39;foo&#39; depends on another package &#39;bar&#39;, but specifies that <a href="https://devhints.io/semver">any version of &#39;bar&#39; is ok</a>.</p>
+<pre><code>{
+  <span class="hljs-string">"bar"</span>: <span class="hljs-string">"*"</span>
+}
+</code></pre><p>Without a lockfile, you would get the latest version of &#39;bar&#39; every time you <code>npm install</code>. That means if the maintainer of &#39;bar&#39; published a release that broke 
+&#39;foo&#39;, they would break your code as well.
+<a href="http://thecodebarbarian.com/node-static-a-semver-parable.html">Breaking upstream releases have happened</a>.</p>
+<p>The lockfile specifies the exact version of &#39;bar&#39;. If you got <code>bar@1.2.3</code>
+when you ran <code>npm install</code> for the first time and committed the lockfile, you&#39;ll
+get <code>bar@1.2.3</code> every time you <code>npm install</code>.</p>
+<p>Lockfiles sound pretty useful, so why do people want to <a href="https://www.codementor.io/johnkennedy/get-rid-of-that-npm-package-lock-json-e0bj7ai42">disable it</a>?
+The most common reason is that <a href="https://blog.adriaan.io/merge-conflict-in-package-lock-json.html">merge conflicts in <code>package-lock.json</code></a> are a massive pain point. Most developers simply delete their lockfile whenever git reports a merge conflict.</p>
+<p>Another issue is that <a href="https://docs.npmjs.com/files/package-lock.json#description"><code>package-lock.json</code> cannot be published</a>. In other words,
+if you&#39;re building a library that other projects will <code>npm install</code>, your
+<code>package-lock.json</code> will be ignored. The top-level application&#39;s 
+<code>package-lock.json</code> is the source of truth.</p>
+<p>So should you commit your <code>package-lock.json</code>? Most projects should commit their lockfile. If you&#39;re <a href="https://github.com/strongloop/loopback-next/issues/1579#issuecomment-409100211">developing a library that other projects will install</a>, you should not commit <code>package-lock.json</code>. Also, if you find yourself deleting your lockfile regularly to clear merge conflicts, you should consider adding <code>package-lock.json</code> to your <code>.gitignore</code>.</p>
+<h2 id="running-scripts">Running Scripts</h2>
+<p>In addition to installing dependencies, npm is also used for <a href="https://docs.npmjs.com/misc/scripts">running scripts</a>. The <code>scripts</code> property in <code>package.json</code>
+lets you define custom scripts that you can then run using <code>npm run</code>.</p>
+<p>For example, suppose you define a script called &quot;greet&quot; that echos &quot;Hello&quot; in
+your <code>package.json</code>.</p>
+<pre><code>{
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"greet"</span>: <span class="hljs-string">"echo 'Hello'"</span>
+  }
+}
+</code></pre><p>You can run this script with <code>npm run greet</code>:</p>
+<pre><code>$ npm run greet
+
+&gt; @ greet /home/test
+&gt; echo <span class="hljs-string">'Hello'</span>
+
+Hello
+$
+</code></pre><p>The <a href="https://docs.npmjs.com/cli/test.html">&quot;test&quot; script is special</a>. If you</p>
+<p>define a script named &quot;test&quot;, you can run it using <code>npm test</code> in addition to
+<code>npm run test</code>. Making <code>npm test</code> run your entire test suite is a best practice.
+For example, running <code>npm test</code> with the below <code>package.json</code> will print 
+&quot;Testing...&quot;</p>
+<pre><code>{
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo 'Testing...'"</span>
+  }
+}
+</code></pre><p>The biggest reason to use <code>npm run</code> is the ability to access npm package
+executables. For example, the <a href="http://npmjs.com/package/mocha">Mocha testing framework</a> exports a test runner executable. Suppose you
+have the below <code>package.json</code>:</p>
+<pre><code>{ 
+  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"5.x"</span>
+  }
+}
+</code></pre><p>Suppose you also have the below <code>test.js</code> file that contains a single Mocha test:</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, world'</span>);
+});
+</code></pre>
+<p>To run this test file, you would need to run <code>./node_modules/.bin/mocha test.js</code>:</p>
+<pre><code>$ ./node_modules/.bin/mocha test.js 
+
+
+Hello, world
+  ✓ test
+
+  <span class="hljs-number">1</span> passing (<span class="hljs-number">4</span>ms)
+
+$
+</code></pre><p>However, in your <code>package.json</code> scripts, you can skip the <code>./node_modules/.bin</code>
+because npm adds that to your <a href="https://opensource.com/article/17/6/set-path-linux">PATH variable</a> before running the script.
+In other words, with the below <code>package.json</code>, the <code>npm test</code> command will
+successfully run Mocha.</p>
+<pre><code>{
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test"</span>: <span class="hljs-string">"mocha test.js"</span>
+  },
+  <span class="hljs-string">"devDependencies"</span>: {
+    <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"5.x"</span>
+  }
+}
+</code></pre><h2 id="passing-arguments-to-npm-run-">Passing Arguments to <code>npm run</code></h2>
+<p>You can pass command line arguments to your <code>npm run</code> scripts by adding <code>--</code>
+after <code>npm run script-name-here</code>. For example, the below command sends an
+HTTP request to <a href="https://httpbin.org/#/HTTP_Methods">httpbin.org</a> using <a href="https://curl.haxx.se/">curl</a>.</p>
+<pre><code>curl -X PUT http:<span class="hljs-comment">//httpbin.org/put -d '{"hello":"world"}'</span>
+</code></pre><p>Below is the output of this script:</p>
+<pre><code>{
+  <span class="hljs-string">"args"</span>: {}, 
+  <span class="hljs-string">"data"</span>: <span class="hljs-string">""</span>, 
+  <span class="hljs-string">"files"</span>: {}, 
+  <span class="hljs-string">"form"</span>: {
+    <span class="hljs-string">"{\"hello\":\"world\"}"</span>: <span class="hljs-string">""</span>
+  }, 
+  <span class="hljs-string">"headers"</span>: {
+    <span class="hljs-string">"Accept"</span>: <span class="hljs-string">"*/*"</span>, 
+    <span class="hljs-string">"Content-Length"</span>: <span class="hljs-string">"17"</span>, 
+    <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/x-www-form-urlencoded"</span>, 
+    <span class="hljs-string">"Host"</span>: <span class="hljs-string">"httpbin.org"</span>, 
+    <span class="hljs-string">"User-Agent"</span>: <span class="hljs-string">"curl/7.47.0"</span>
+  }, 
+  <span class="hljs-string">"json"</span>: <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">"origin"</span>: <span class="hljs-string">"138.207.148.170, 138.207.148.170"</span>, 
+  <span class="hljs-string">"url"</span>: <span class="hljs-string">"https://httpbin.org/put"</span>
+}
+</code></pre><p>Suppose you have an npm script that executes a <code>PUT</code> request, but doesn&#39;t
+specify the <code>-d</code> flag.</p>
+<pre><code>{
+  <span class="hljs-string">"scripts"</span>: {
+    <span class="hljs-string">"test-request"</span>: <span class="hljs-string">"curl -X PUT http://httpbin.org/put"</span>
+  }
+}
+</code></pre><p>To add the <code>-d</code> flag, run the below script:</p>
+<pre><code>npm run test-request -- -d <span class="hljs-string">'{"hello":"world"}'</span>
+</code></pre><p>This is just the tip of the iceberg with <code>npm run</code>. There&#39;s a lot of other <a href="http://thecodebarbarian.com/3-neat-tricks-with-npm-run">neat <code>npm run</code> tricks</a> that you can use to save yourself some typing.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Whenever you start working on a Node.js project, the first step is running
+<code>npm install</code>, and the second step is running <code>npm test</code>. npm is different
+from other languages&#39; package managers because it automatically scopes
+dependencies to a single project, rather than installing globally to a common
+&#39;Library&#39; directory. This decision leads to more hard drive space usage, but
+less developer headache. Finally, <code>npm run</code> is the canonical way to run npm
+package executables. Make sure you take advantage of npm&#39;s features, npm does
+much more than just install every module in <code>dependencies</code>.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20190326_npm.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+  analytics.load("5DErrxzVhprg8sNh8xaiKDR6dNa7yGTI");
+  analytics.page()
+}}();</script><script type="text/javascript">analytics.track('opened post',
+  { title: "An Introduction to npm", time: new Date() });
+  </script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
