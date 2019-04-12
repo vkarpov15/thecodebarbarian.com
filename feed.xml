@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 02 Apr 2019 15:51:36 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 12 Apr 2019 15:17:43 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.5: Static Hooks, Populate Match Functions]]></title>
+            <link>http://www.thecodebarbarian.com/mongoose-5-5-static-hooks-and-populate-match-functions.html</link>
+            <guid>http://www.thecodebarbarian.com/mongoose-5-5-static-hooks-and-populate-match-functions.html</guid>
+            <pubDate>Fri, 12 Apr 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The 80/20 Guide to npx]]></title>
             <link>http://www.thecodebarbarian.com/80-20-guide-to-the-npx-package-runner.html</link>
