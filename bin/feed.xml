@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 12 Apr 2019 15:17:43 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 26 Apr 2019 15:34:27 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Node.js 12: ESM Imports]]></title>
+            <link>http://www.thecodebarbarian.com/nodejs-12-imports.html</link>
+            <guid>http://www.thecodebarbarian.com/nodejs-12-imports.html</guid>
+            <pubDate>Thu, 25 Apr 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.5: Static Hooks, Populate Match Functions]]></title>
             <link>http://www.thecodebarbarian.com/mongoose-5-5-static-hooks-and-populate-match-functions.html</link>
