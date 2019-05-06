@@ -33,7 +33,7 @@ async function run() {
 
 You can visualize this by imagining `db` as a set of `poolSize` train tracks. If there's only 1 track and a slow, overburdened cargo train takes 1 second to clear the track, the bullet train behind it needs to wait.
 
-In general, there are 4 methods I've used to minimize the impact of slow trains:
+In general, there are 5 methods I've used to minimize the impact of slow trains:
 
 1) Increase `poolSize`
 
