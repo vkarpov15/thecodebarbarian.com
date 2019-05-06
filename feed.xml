@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 26 Apr 2019 15:34:27 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 06 May 2019 15:24:22 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Slow Trains in MongoDB and Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/slow-trains-in-mongodb-and-nodejs.html</link>
+            <guid>http://www.thecodebarbarian.com/slow-trains-in-mongodb-and-nodejs.html</guid>
+            <pubDate>Mon, 06 May 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Node.js 12: ESM Imports]]></title>
             <link>http://www.thecodebarbarian.com/nodejs-12-imports.html</link>
