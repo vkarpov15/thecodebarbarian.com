@@ -42,7 +42,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 }
 </code></pre>
 <p>You can visualize this by imagining <code>db</code> as a set of <code>poolSize</code> train tracks. If there&#39;s only 1 track and a slow, overburdened cargo train takes 1 second to clear the track, the bullet train behind it needs to wait.</p>
-<p>In general, there are 4 methods I&#39;ve used to minimize the impact of slow trains:</p>
+<p>In general, there are 5 methods I&#39;ve used to minimize the impact of slow trains:</p>
 <p>1) Increase <code>poolSize</code></p>
 <p>2) Separate connection pools for potentially slow operations</p>
 <p>3) Break up one slow operation into many fast operations</p>
