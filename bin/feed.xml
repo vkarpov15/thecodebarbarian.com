@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 14 May 2019 15:04:29 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 22 May 2019 20:10:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[The 80/20 Guide to Promises in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/the-80-20-guide-to-promises-in-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/the-80-20-guide-to-promises-in-node-js.html</guid>
+            <pubDate>Wed, 22 May 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Node.js 12: Private Class Fields]]></title>
             <link>http://www.thecodebarbarian.com/nodejs-12-private-class-fields.html</link>
