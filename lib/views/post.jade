@@ -14,10 +14,6 @@ block opengraphTags
         content="The Code Barbarian")
 
 append analytics
-  script(type="text/javascript").
-    analytics.track('opened post',
-      { title: "#{post.title}", time: new Date() });
-
   link(rel="stylesheet", href="/style/inlinecpc.css")
 
 block mobile_sharing
