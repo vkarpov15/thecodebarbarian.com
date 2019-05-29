@@ -1,4 +1,4 @@
-[Private class fields](https://github.com/tc39/proposal-class-fields#private-fields) are a [Stage 2 TC39 proposal](https://tc39.github.io/process-document/). Even though they're still experimental, you can use private class fields in Node.js 12 without flags or transpilers. In this article, I'll explain the basics of private class fields and how they interact with existing paradigms, like `Object.keys()` and [`assert.deepStrictEqual()`](https://nodejs.org/api/assert.html#assert_assert_deepstrictequal_actual_expected_message).
+[Private class fields](https://github.com/tc39/proposal-class-fields#private-fields) are a [Stage 3 TC39 proposal](https://tc39.github.io/process-document/). Even though they're still experimental, you can use private class fields in Node.js 12 without flags or transpilers. In this article, I'll explain the basics of private class fields and how they interact with existing paradigms, like `Object.keys()` and [`assert.deepStrictEqual()`](https://nodejs.org/api/assert.html#assert_assert_deepstrictequal_actual_expected_message).
 
 Your First Private Class Field
 ------------------------------
@@ -81,4 +81,4 @@ assert.deepStrictEqual(obj1, obj2);
 Moving On
 ---------
 
-Private class fields are still a Stage 2 proposal, which means the spec may change and/or the spec might never be formally adopted. Don't build your entire production application on private class fields. But, now that they're included in Node.js 12 without any flags, try them out and see what you think!
+Private class fields are still a Stage 3 proposal, which means the spec may change and/or the spec might never be formally adopted. Don't build your entire production application on private class fields. But, now that they're included in Node.js 12 without any flags, try them out and see what you think!
