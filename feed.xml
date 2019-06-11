@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 05 Jun 2019 15:07:46 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 11 Jun 2019 16:09:17 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[The 80/20 Guide to JavaScript Arrays]]></title>
+            <link>http://www.thecodebarbarian.com/the-80-20-guide-to-javascript-arrays.html</link>
+            <guid>http://www.thecodebarbarian.com/the-80-20-guide-to-javascript-arrays.html</guid>
+            <pubDate>Tue, 11 Jun 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Testing Vue Apps with Puppeteer and Mocha]]></title>
             <link>http://www.thecodebarbarian.com/testing-vue-apps-with-puppeteer-and-mocha.html</link>
