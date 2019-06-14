@@ -60,7 +60,7 @@ that a tree is symmetric if its left and right subtrees are symmetric.
 There's two definitions that most successful solutions end up with for what
 it means for two trees to be symmetric:
 
-* The purely recursive definition: two binary trees `t1` and `t2` are symmetric  iff `t1.left` and `t2.right`are symmetric, and `t1.right` and `t2.left` are symmetric.
+* The purely recursive definition: two binary trees `t1` and `t2` are symmetric  if and only if `t1.left` and `t2.right`are symmetric, and `t1.right` and `t2.left` are symmetric.
 * The two-step definition: two binary trees `t1` and `t2` are symmetric if
 the reverse of `t2` is equal to `t1`.
 
