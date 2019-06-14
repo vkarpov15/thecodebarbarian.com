@@ -466,6 +466,13 @@ a.social {
   line-height: 1.5;
 }
 
+#carbonads-fixed {
+	position: fixed;
+	right: 0px;
+	top: 35px;
+	width: 240px !important;
+}
+
 #carbonads a:hover {
   color: inherit;
 }
