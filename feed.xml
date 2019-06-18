@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 14 Jun 2019 16:24:42 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Jun 2019 17:38:58 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.6.0: Immutable Properties]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-6-immutable-properties.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-6-immutable-properties.html</guid>
+            <pubDate>Tue, 18 Jun 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[The 80/20 Guide to JavaScript Arrays]]></title>
             <link>http://www.thecodebarbarian.com/the-80-20-guide-to-javascript-arrays.html</link>
