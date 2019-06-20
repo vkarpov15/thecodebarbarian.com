@@ -60,7 +60,7 @@ const userSchema = new Schema({
 Introducing `Model.syncIndexes()`
 ---------------------------------
 
-The [`Model.syncIndexes()` function](http://mongoosejs.com/docs/api.html#syncindexes_syncIndexes) ensures
+The [`Model.syncIndexes()` function](https://mongoosejs.com/docs/api.html#model_Model.syncIndexes) ensures
 that the indexes defined in your model's schema line up with the indexes
 in your MongoDB collection. Here's what `syncIndexes()` does:
 
