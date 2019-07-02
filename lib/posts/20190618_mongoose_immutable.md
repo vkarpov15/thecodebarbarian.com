@@ -82,7 +82,7 @@ const schema = new Schema({
 }, { timestamps: true });
 
 // An alternative way to make `createdAt` immutable
-schema.path('createdAt').immutable();
+schema.path('createdAt').immutable(true);
 
 const Model = mongoose.model('Test', schema);
 let doc = await Model.create({ name: 'test1' });
