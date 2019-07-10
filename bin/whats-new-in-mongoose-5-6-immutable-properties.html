@@ -76,7 +76,7 @@ doc.createdAt; <span class="hljs-comment">// 2019-06-01T00:00:00.000Z</span>
 }, { timestamps: <span class="hljs-literal">true</span> });
 
 <span class="hljs-comment">// An alternative way to make `createdAt` immutable</span>
-schema.path(<span class="hljs-string">'createdAt'</span>).immutable();
+schema.path(<span class="hljs-string">'createdAt'</span>).immutable(<span class="hljs-literal">true</span>);
 
 <span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
 <span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> Model.create({ name: <span class="hljs-string">'test1'</span> });
