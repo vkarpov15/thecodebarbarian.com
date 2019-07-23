@@ -232,7 +232,7 @@ arr.forEach(v =&gt; {
 <p>For example, suppose you want a custom array class that supports filtering by property name and value. For example:</p>
 <pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
   filterByProperty(name, value) {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(obj =&gt; obj.name === <span class="hljs-string">'value'</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(obj =&gt; obj[name] === value);
   }
 }
 

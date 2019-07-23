@@ -54,7 +54,7 @@ the most common use case for locking is ensuring <a href="http://thecodebarbaria
 <p>Here&#39;s how using a lock for an HTTP server that needs to execute a separate query to make sure there&#39;s no user with a given email address might look. Keep in mind
 this code uses an in-memory lock, so it will work for a single process, but you
 need distributed locking if you want to scale this horizontally.</p>
-<pre><code class="lang-javascript">onst Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
