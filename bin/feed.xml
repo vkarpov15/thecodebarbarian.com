@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 10 Jul 2019 15:03:20 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 23 Jul 2019 16:26:48 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Control Chrome from Node.js with Puppeteer]]></title>
+            <link>http://www.thecodebarbarian.com/control-chrome-from-node-js-with-puppeteer.html</link>
+            <guid>http://www.thecodebarbarian.com/control-chrome-from-node-js-with-puppeteer.html</guid>
+            <pubDate>Tue, 23 Jul 2019 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Async Await Error Handling in JavaScript]]></title>
             <link>http://www.thecodebarbarian.com/async-await-error-handling-in-javascript.html</link>
