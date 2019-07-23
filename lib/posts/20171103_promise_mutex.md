@@ -49,7 +49,7 @@ this code uses an in-memory lock, so it will work for a single process, but you
 need distributed locking if you want to scale this horizontally.
 
 ```javascript
-onst Archetype = require('archetype');
+const Archetype = require('archetype');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongodb = require('mongodb');
