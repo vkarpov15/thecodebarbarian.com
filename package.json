@@ -44,8 +44,8 @@
     "mocha": "5.2.0",
     "mongodb": "3.1.0",
     "mongoose": "5.x",
-    "react": "16.4.1",
-    "react-dom": "16.4.1",
+    "react": "16.x",
+    "react-dom": "16.x",
     "redux": "4.0.0",
     "redux-thunk": "2.3.0",
     "superagent": "3.8.3"
