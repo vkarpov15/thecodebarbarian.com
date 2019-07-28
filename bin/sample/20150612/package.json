@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "express": "4.12.4",
-    "morgan": "1.5.3"
+    "morgan": "1.x"
   },
   "devDependencies": {
     "karma": "0.12.16",
