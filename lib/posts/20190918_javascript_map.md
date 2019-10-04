@@ -162,7 +162,7 @@ a map is as simple as converting `map.entries()` into an array:
 ```javascript
 // `clone` is now a separate map that contains the same keys/values
 // as `map`.
-const clone = new Map(Array.from(map.entries));
+const clone = new Map(Array.from(map.entries()));
 ```
 
 Moving On

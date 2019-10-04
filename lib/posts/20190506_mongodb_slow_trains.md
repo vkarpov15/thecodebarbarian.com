@@ -1,4 +1,4 @@
-When running MongoDB in production, you've may see queries that should be fast, but instead are exceedingly slow. For example, my Node.js apps have seen a [`findOne()`](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne) on a collection with only 1 document take over 1 _second_.
+When running MongoDB in production, you may see queries that should be fast, but instead are exceedingly slow. For example, my Node.js apps have seen a [`findOne()`](http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne) on a collection with only 1 document take over 1 _second_.
 
 There's a simple explanation for this phenomenon: a MongoDB server can [only execute a single operation on a given socket at a time](http://mongodb.github.io/node-mongodb-native/2.0/reference/faq/#how-can-i-avoid-a-very-slow-operation-delaying-other-operations). In other words, the number of concurrent operations your Node.js connection can handle is limited by the `poolSize` option. For example, the 2nd query below will take approximately 1 second, because `poolSize = 1` and it is blocked by a slow query.
 
