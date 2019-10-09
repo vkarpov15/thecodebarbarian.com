@@ -98,7 +98,7 @@ even if you don't dereference the `author` property, you can use the aggregation
 framework and `$lookup` to sort books by their author name.
 
 ```javascript
-await Author.create([
+const [author1, author2] = await Author.create([
   { name: 'Michael Crichton' },
   { name: 'Ian Fleming' }
 ]);
