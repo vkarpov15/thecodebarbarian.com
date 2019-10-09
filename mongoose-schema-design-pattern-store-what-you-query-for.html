@@ -1,0 +1,182 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Mongoose Design Pattern: Store What You Query For | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Mongoose Design Pattern: Store What You Query For"/><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-schema-design-pattern-store-what-you-query-for"/><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/sba.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div id="nav" class="navbar"><div class="container"><div class="navbar-header"><a href="http://thecodebarbarian.com" class="navbar-brand big-brand"><img src="/images/Barbarian_Head.png" class="logo"/><span class="site-name">The Code Barbarian</span></a></div><div id="home-nav-mobile" class="navbar-right collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div id="desktop-right-bar" class="col-lg-3 col-lg-offset-9 right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div id="mobile-sharing-options" class="container-fluid hidden-sm hidden-md hidden-lg"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-schema-design-pattern-store-what-you-query-for&amp;via=code_barbarian" class="social"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-schema-design-pattern-store-what-you-query-for" class="social"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-schema-design-pattern-store-what-you-query-for" class="social"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a href="#disqus_thread" class="social"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div id="desktop-sharing-options" class="post-sharing-options hidden-xs pull-left"><ul class="list-unstyled"><li class="twitter-share"><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-schema-design-pattern-store-what-you-query-for&amp;via=code_barbarian" class="social"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-schema-design-pattern-store-what-you-query-for" class="social"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2F%2Fmongoose-schema-design-pattern-store-what-you-query-for" class="social"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mongoose Design Pattern: Store What You Query For</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 09, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>A common gotcha with <a href="https://mongoosejs.com/docs/populate.html">Mongoose populate</a>
+is that you can&#39;t filter by fields in the foreign collection. For example, suppose
+you have 2 models: <code>Book</code> and <code>Author</code>, and you want to filter books by the author&#39;s
+name.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
+<span class="hljs-keyword">const</span> Book = mongoose.model(<span class="hljs-string">'Book'</span>, Schema({
+  title: <span class="hljs-built_in">String</span>,
+  author: {
+    type: mongoose.ObjectId,
+    ref: <span class="hljs-string">'Author'</span>
+  }
+}));
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, Schema({
+  name: <span class="hljs-built_in">String</span>
+}));
+
+<span class="hljs-comment">// Create books and authors</span>
+<span class="hljs-keyword">const</span> [author1, author2] = <span class="hljs-keyword">await</span> Author.create([
+  { name: <span class="hljs-string">'Michael Crichton'</span> },
+  { name: <span class="hljs-string">'Ian Fleming'</span> }
+]);
+<span class="hljs-keyword">const</span> books = <span class="hljs-keyword">await</span> Book.create([
+  { title: <span class="hljs-string">'Jurassic Park'</span>, author: author1._id },
+  { title: <span class="hljs-string">'Casino Royale'</span>, author: author2._id }
+]);
+
+<span class="hljs-comment">// Populate books and filter by author name.</span>
+<span class="hljs-keyword">const</span> books = Book.find().populate({
+  path: <span class="hljs-string">'author'</span>,
+  match: { name: <span class="hljs-string">'Ian Fleming'</span> }
+});
+
+books.length; <span class="hljs-comment">// 2</span>
+books[<span class="hljs-number">0</span>].author; <span class="hljs-comment">// null</span>
+books[<span class="hljs-number">1</span>].author; <span class="hljs-comment">// { name: 'Ian Fleming' }</span>
+</code></pre>
+<p>In the above example, even though the <a href="http://thecodebarbarian.com/mongoose-5-5-static-hooks-and-populate-match-functions#populate-match-function">populate <code>match</code></a>
+filters based on the author&#39;s name, Mongoose still returns all the books, including
+those whose <code>author.name</code> doesn&#39;t match. If <code>author.name</code> isn&#39;t <code>&#39;Ian Fleming&#39;</code>, the
+book&#39;s <code>author</code> property will be <code>null</code>.</p>
+<p>That&#39;s because, under the hood, Mongoose translates <code>Book.find().populate(&#39;author&#39;)</code>
+into 2 queries:</p>
+<ol>
+<li><code>const books = await Book.find({})</code></li>
+<li><code>Author.find({ _id: { $in: books.map(b =&gt; b.author) }, name: &#39;Ian Fleming&#39; })</code></li>
+</ol>
+<p>So <code>populate()</code> finds all books first, and then finds the corresponding authors.</p>
+<h2 id="store-what-you-query-for">Store What You Query For</h2>
+<p>If you need to filter books by the author&#39;s name in a performant way, the right way
+is to store the author&#39;s name in the book document:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
+<span class="hljs-keyword">const</span> Book = mongoose.model(<span class="hljs-string">'Book'</span>, Schema({
+  title: <span class="hljs-built_in">String</span>,
+  author: {
+    type: mongoose.ObjectId,
+    ref: <span class="hljs-string">'Author'</span>
+  },
+  authorName: <span class="hljs-built_in">String</span>
+}));
+
+<span class="hljs-keyword">const</span> authorSchema = Schema({ name: <span class="hljs-built_in">String</span> });
+<span class="hljs-comment">// Add middleware to update the dereferenced `authorName`</span>
+authorSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isModified(<span class="hljs-string">'name'</span>)) {
+    <span class="hljs-keyword">await</span> Book.updateMany({ authorId: <span class="hljs-keyword">this</span>.author }, { authorName: <span class="hljs-keyword">this</span>.name });
+  }
+});
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, authorSchema);
+</code></pre>
+<p>This way, you can filter and sort by the author&#39;s name without an extra <code>populate()</code>.
+The pattern of storing the author&#39;s name in the <code>bookSchema</code> and updating the book
+collection every time an author&#39;s name changes is called <em>dereferencing</em>.
+Dereferencing, or embedding data from one collection in another collection, is how
+you can run MongoDB at massive scale without caching solutions like
+<a href="https://memcached.org">memcached</a>.</p>
+<p>If you&#39;re building a reading app, odds are you will update author names infrequently, 
+but filter and sort books by author name frequently. A handy mnemomic for this
+rule of thumb is to &quot;store what you query for.&quot; Make the queries you execute most
+frequently fast, at the cost of making infrequent updates slightly slower.</p>
+<h2 id="versus-using-lookup-">Versus Using <code>$lookup</code></h2>
+<p><a href="/a-nodejs-perspective-on-mongodb-36-lookup-expr">MongoDB 3.6 introduced a <code>$lookup</code> aggregation operator</a> that behaves similarly to a
+<a href="https://www.dofactory.com/sql/left-outer-join">left outer join</a>. In other words,
+even if you don&#39;t dereference the <code>author</code> property, you can use the aggregation
+framework and <code>$lookup</code> to sort books by their author name.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">await</span> Author.create([
+  { name: <span class="hljs-string">'Michael Crichton'</span> },
+  { name: <span class="hljs-string">'Ian Fleming'</span> }
+]);
+<span class="hljs-keyword">await</span> Book.create([
+  { title: <span class="hljs-string">'Jurassic Park'</span>, author: author1._id },
+  { title: <span class="hljs-string">'Casino Royale'</span>, author: author2._id }
+]);
+
+<span class="hljs-keyword">const</span> books = <span class="hljs-keyword">await</span> Book.aggregate([
+  {
+    $lookup: {
+      <span class="hljs-keyword">from</span>: <span class="hljs-string">'Author'</span>,
+      localField: <span class="hljs-string">'author'</span>,
+      foreignField: <span class="hljs-string">'_id'</span>,
+      <span class="hljs-keyword">as</span>: <span class="hljs-string">'authorDoc'</span>
+    }
+  },
+  {
+    $sort: {
+      <span class="hljs-string">'authorDoc.name'</span>: <span class="hljs-number">1</span>
+    }
+  }
+]);
+
+books[<span class="hljs-number">0</span>].title; <span class="hljs-comment">// 'Casino Royale'</span>
+books[<span class="hljs-number">1</span>].title; <span class="hljs-comment">// 'Jurassic Park'</span>
+</code></pre>
+<p>Why doesn&#39;t Mongoose populate use <code>$lookup</code>? The issue comes down to consistent
+performance. Because <code>$lookup</code> executes a separate lookup for every document
+coming into the <code>$lookup</code> stage, <a href="/slow-trains-in-mongodb-and-nodejs#break-up-one-slow-operation-into-many-fast-operations"><code>$lookup</code>&#39;s performance degrades as <code>O(n^2)</code> in case of index misses</a>,
+which in turn can then cause a <a href="/slow-trains-in-mongodb-and-nodejs">slow train</a>.</p>
+<p>On the other hand, Mongoose executes 1 query for each <code>populate()</code> call, which leads
+to better throughput, and only one collection scan in the event of an index miss.</p>
+<h2 id="but-update-anomalies-https-www-essentialsql-com-get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english-">But <a href="https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/">Update Anomalies!</a></h2>
+<p>If you manually update the database or you have a separate app that doesn&#39;t correctly
+update <code>authorName</code>, you might have a case where the author&#39;s name in the <code>Book</code>
+model doesn&#39;t line up with the <code>Author</code> model. While update anomalies like this
+are certainly possible, they are rare in production: the most likely causes are
+either a manual update to the database that bypasses the app, or a developer
+using a pattern that bypasses Mongoose middleware.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> authorSchema = Schema({ name: <span class="hljs-built_in">String</span> });
+<span class="hljs-comment">// Add middleware to update the dereferenced `authorName`</span>
+authorSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isModified(<span class="hljs-string">'name'</span>)) {
+    <span class="hljs-keyword">await</span> Book.updateMany({ authorId: <span class="hljs-keyword">this</span>.author }, { authorName: <span class="hljs-keyword">this</span>.name });
+  }
+});
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, authorSchema);
+
+<span class="hljs-comment">// Won't trigger the 'save' middleware. You would need a separate `pre('updateOne')`</span>
+<span class="hljs-comment">// hook to capture this case.</span>
+<span class="hljs-keyword">await</span> Author.updateOne({}, { name: <span class="hljs-string">'test'</span> });
+</code></pre>
+<p>If update anomalies occur, they&#39;re easy to fix with a migration. It&#39;s
+much easier to identify and fix update anomalies than widespread performance
+degradation.</p>
+<p>Also, <a href="/managing-embedded-documents-with-monogram#updating-an-existing-document">sometimes data being &quot;out of date&quot; is a feature, not a bug</a>. My preferred example is this: say you&#39;re building a <a href="https://trybooster.com/">gas delivery app</a>.
+Each request is associated with a vehicle. If a customer updates their vehicle from
+a 2015 Toyota Camry to a 2018 BMW X1, should that affect requests they made 2 years ago?</p>
+<h2 id="moving-on">Moving On</h2>
+<p>&quot;Store what you query for&quot; is how you ensure consistent performance from MongoDB
+when using Mongoose. In my experience, most MongoDB performance issues end up
+being due to missing indexes and/or an overly complex aggregation that could be
+replaced with a single query with a couple schema tweaks. Next time you&#39;re
+scratching your head wondering why your aggregation is slow, think about what
+properties you can dereference to streamline your query needs.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20191009_mongoose_schema.md">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
