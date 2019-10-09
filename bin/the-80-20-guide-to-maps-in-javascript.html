@@ -139,7 +139,7 @@ equivalent to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 a map is as simple as converting <code>map.entries()</code> into an array:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// `clone` is now a separate map that contains the same keys/values</span>
 <span class="hljs-comment">// as `map`.</span>
-<span class="hljs-keyword">const</span> clone = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">Array</span>.from(map.entries));
+<span class="hljs-keyword">const</span> clone = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">Array</span>.from(map.entries()));
 </code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Although JavaScript developers typically use objects to store user
