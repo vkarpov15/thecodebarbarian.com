@@ -214,9 +214,7 @@ wagner.task('pages', function(compiledPosts, listTemplate, callback) {
 });
 
 wagner.task('feed', function(compiledPosts, callback) {
-  var posts = _.map(compiledPosts, function(p) {
-    return p;
-  });
+  var posts = Array.from(compiledPosts);
 
   var f = new feed({
     title: 'TheCodeBarbarian.com',
@@ -230,6 +228,7 @@ wagner.task('feed', function(compiledPosts, callback) {
 
   var reversed = posts.reverse();
   for (var i = 0; i < reversed.length; ++i) {
+    console.log('XX', i, posts)
     f.addItem({
       title: posts[i].title,
       link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
