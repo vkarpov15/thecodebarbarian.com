@@ -12,7 +12,7 @@
 <div class="native-inline">
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
-</div><div class="post-body-text-container"><p>When running MongoDB in production, you&#39;ve may see queries that should be fast, but instead are exceedingly slow. For example, my Node.js apps have seen a <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne"><code>findOne()</code></a> on a collection with only 1 document take over 1 <em>second</em>.</p>
+</div><div class="post-body-text-container"><p>When running MongoDB in production, you may see queries that should be fast, but instead are exceedingly slow. For example, my Node.js apps have seen a <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne"><code>findOne()</code></a> on a collection with only 1 document take over 1 <em>second</em>.</p>
 <p>There&#39;s a simple explanation for this phenomenon: a MongoDB server can <a href="http://mongodb.github.io/node-mongodb-native/2.0/reference/faq/#how-can-i-avoid-a-very-slow-operation-delaying-other-operations">only execute a single operation on a given socket at a time</a>. In other words, the number of concurrent operations your Node.js connection can handle is limited by the <code>poolSize</code> option. For example, the 2nd query below will take approximately 1 second, because <code>poolSize = 1</code> and it is blocked by a slow query.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 
