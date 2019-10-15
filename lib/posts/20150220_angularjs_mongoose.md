@@ -156,7 +156,7 @@ mongooseExample.controller('TestController', function($scope) {
 });
 ```
 
-Utilizing this controller in HTML is easy. You create `input` and `select` elements that AngularJS binds to your `newStock` Mongoose document. When the user clicks "Add Stock", you use Mongoose to validate `newStock`. If its invalid, you make the validation errors visible to the `$scope`, so AngularJS can show the correct `div` elements with class 'error'. If `newStock` is valid, you push the document onto the stock list and clear the input for the user.
+Utilizing this controller in HTML is easy. You create `input` and `select` elements that AngularJS binds to your `newStock` Mongoose document. When the user clicks "Add Stock", you use Mongoose to validate `newStock`. If its invalid, you make the validation errors visible to the `$scope`, so AngularJS can show the correct `div` elements with class 'error'. If `newStock` is valid, you [push](https://masteringjs.io/tutorials/fundamentals/push) the document onto the stock list and clear the input for the user.
 
 ```javascript
 <div ng-app="mongooseExample">  
