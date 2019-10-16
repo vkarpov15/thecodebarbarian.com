@@ -143,7 +143,7 @@ mongooseExample.controller(<span class="hljs-string">'TestController'</span>, <s
     };
 });
 </code></pre>
-<p>Utilizing this controller in HTML is easy. You create <code>input</code> and <code>select</code> elements that AngularJS binds to your <code>newStock</code> Mongoose document. When the user clicks &quot;Add Stock&quot;, you use Mongoose to validate <code>newStock</code>. If its invalid, you make the validation errors visible to the <code>$scope</code>, so AngularJS can show the correct <code>div</code> elements with class &#39;error&#39;. If <code>newStock</code> is valid, you push the document onto the stock list and clear the input for the user.</p>
+<p>Utilizing this controller in HTML is easy. You create <code>input</code> and <code>select</code> elements that AngularJS binds to your <code>newStock</code> Mongoose document. When the user clicks &quot;Add Stock&quot;, you use Mongoose to validate <code>newStock</code>. If its invalid, you make the validation errors visible to the <code>$scope</code>, so AngularJS can show the correct <code>div</code> elements with class &#39;error&#39;. If <code>newStock</code> is valid, you <a href="https://masteringjs.io/tutorials/fundamentals/push">push</a> the document onto the stock list and clear the input for the user.</p>
 <pre><code class="lang-javascript">&lt;div ng-app=<span class="hljs-string">"mongooseExample"</span>&gt;  
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"TestController"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Add New Stock<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>

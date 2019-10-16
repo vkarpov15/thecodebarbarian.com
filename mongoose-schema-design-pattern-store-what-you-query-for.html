@@ -96,7 +96,7 @@ frequently fast, at the cost of making infrequent updates slightly slower.</p>
 <a href="https://www.dofactory.com/sql/left-outer-join">left outer join</a>. In other words,
 even if you don&#39;t dereference the <code>author</code> property, you can use the aggregation
 framework and <code>$lookup</code> to sort books by their author name.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">await</span> Author.create([
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [author1, author2] = <span class="hljs-keyword">await</span> Author.create([
   { name: <span class="hljs-string">'Michael Crichton'</span> },
   { name: <span class="hljs-string">'Ian Fleming'</span> }
 ]);
