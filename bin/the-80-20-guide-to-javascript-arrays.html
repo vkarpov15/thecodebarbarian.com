@@ -122,7 +122,7 @@ arr2 === arr; <span class="hljs-comment">// false</span>
 }
 </code></pre>
 <p>The conventional <code>for</code> loop and <code>for/of</code> loop both support <a href="https://www.w3schools.com/jsref/jsref_break.asp">the <code>break</code> statement to terminate the loop early</a> and the <a href="https://www.w3schools.com/jsref/jsref_continue.asp"><code>continue</code> statement to skip the rest of the current iteration of the loop</a>. There&#39;s <a href="https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break">no equivalent to <code>break</code> for <code>forEach()</code></a>, but you can use <code>return</code> as an equivalent to <code>continue</code> for <code>forEach()</code>.</p>
-<p>To add an element to the end of the array, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">the <code>Array#push()</code> function</a>.</p>
+<p>To add an element to the end of the array, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">the <code>Array#push()</code> function</a>. <a href="https://masteringjs.io/tutorials/fundamentals/push">Read more about <code>Array#push()</code> here</a>.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>];
 
 arr.push(<span class="hljs-string">'c'</span>);
@@ -134,7 +134,7 @@ arr; <span class="hljs-comment">// ['a', 'b', 'c']</span>
 arr.unshift(<span class="hljs-string">'a'</span>);
 arr; [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 </code></pre>
-<p>To insert an element in-place into an array and shift the rest of the array over, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>Array#splice()</code></a> (not to be confused with <code>slice()</code>).</p>
+<p>To insert an element in-place into an array and shift the rest of the array over, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>Array#splice()</code></a> (not to be confused with <code>slice()</code>). Here&#39;s a <a href="https://masteringjs.io/tutorials/fundamentals/array-splice"><code>Array.splice()</code> tutorial</a>.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>];
 
 <span class="hljs-comment">// `2` means insert at index 2, `0` means delete 0 elements at index 2</span>
@@ -182,7 +182,7 @@ arr; <span class="hljs-comment">// ['b']</span>
   byYear[year].push(movie.title);
 }
 </code></pre>
-<p>Using <code>filter()</code>, <code>map()</code>, and <code>reduce()</code>, you can do this instead:</p>
+<p>Using <a href="/tutorials/fundamentals/filter"><code>filter()</code></a>, <code>map()</code>, and <code>reduce()</code>, you can do this instead:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> byYear = movies.
   map(m =&gt; <span class="hljs-built_in">Object</span>.assign(m, { year: m.releaseDate.getYear() })).
   filter(m =&gt; m.year &gt;= <span class="hljs-number">1980</span> &amp;&amp; m.year &lt;= <span class="hljs-number">1989</span>).

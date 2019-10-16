@@ -36,6 +36,7 @@
     "moment": "2.11.2",
     "node-static": "0.7.3",
     "puppeteer": "^1.19.0",
+    "sharp": "^0.23.1",
     "underscore": "1.5.2",
     "wagner-core": "0.2.0"
   },
