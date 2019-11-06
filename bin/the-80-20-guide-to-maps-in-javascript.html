@@ -48,6 +48,12 @@ is defined, but <code>map.get(&#39;constructor&#39;)</code> is not.</p>
 <pre><code class="lang-javascript">obj.constructor; <span class="hljs-comment">// [Function: Object]</span>
 map.get(<span class="hljs-string">'constructor'</span>); <span class="hljs-comment">// undefined</span>
 </code></pre>
+<p>With JavaScript objects, you could use
+<code>Object.create(null)</code> to create an object
+that doesn&#39;t inherit from any class, and
+so doesn&#39;t have a <code>constructor</code> property.
+That is one approach to the issue of separating
+user data from program data: maps are another.</p>
 <p>Maps don&#39;t have any notion of <a href="https://masteringjs.io/tutorials/fundamentals/prototype">inheritance</a>: a map does not have any inherited keys. This makes maps ideal for storing raw
 data without worrying about that data conflicting with existing
 methods and properties. For example, maps are immune to <a href="https://snyk.io/blog/after-three-years-of-silence-a-new-jquery-prototype-pollution-vulnerability-emerges-once-again/">prototype pollution</a>, a security vulnerability where naive copying of user data can allow a malicious user to overwrite class methods.</p>
