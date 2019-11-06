@@ -46,6 +46,13 @@ obj.constructor; // [Function: Object]
 map.get('constructor'); // undefined
 ```
 
+With JavaScript objects, you could use
+`Object.create(null)` to create an object
+that doesn't inherit from any class, and
+so doesn't have a `constructor` property.
+That is one approach to the issue of separating
+user data from program data: maps are another.
+
 Maps don't have any notion of [inheritance](https://masteringjs.io/tutorials/fundamentals/prototype): a map does not have any inherited keys. This makes maps ideal for storing raw
 data without worrying about that data conflicting with existing
 methods and properties. For example, maps are immune to [prototype pollution](https://snyk.io/blog/after-three-years-of-silence-a-new-jquery-prototype-pollution-vulnerability-emerges-once-again/), a security vulnerability where naive copying of user data can allow a malicious user to overwrite class methods.
