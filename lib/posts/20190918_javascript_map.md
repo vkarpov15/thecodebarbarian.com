@@ -6,7 +6,7 @@ Maps vs Objects
 
 Suppose you want to create a JavaScript object that stores some
 key/value paths. You could define a plain-old JavaScript object,
-or a "POJO" for short, as shown below.
+or a ["POJO"](https://masteringjs.io/tutorials/fundamentals/pojo) for short, as shown below.
 
 ```javascript
 const obj = {
@@ -47,7 +47,7 @@ map.get('constructor'); // undefined
 ```
 
 With JavaScript objects, you could use
-`Object.create(null)` to create an object
+[`Object.create(null)`](https://davidwalsh.name/object-create-null) to create an object
 that doesn't inherit from any class, and
 so doesn't have a `constructor` property.
 That is one approach to the issue of separating
