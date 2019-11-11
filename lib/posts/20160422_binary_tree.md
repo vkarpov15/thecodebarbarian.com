@@ -121,8 +121,7 @@ Trees are the single most important data structure in computer science.
 Just about everything you do in your programming career will be related
 to trees. For example, let's take a look at your average full stack
 web developer. They store their data in a database,
-[which is just a collection of B-trees](https://en.wikipedia.org/wiki/B-tree#Advantages_of_B-tree_usage_for_databases). They typically think of the data they work with as JSON objects,
-Python dicts, or Ruby hashes, which are all trees. On the frontend, they
+[which is just a collection of B-trees](https://en.wikipedia.org/wiki/B-tree#Advantages_of_B-tree_usage_for_databases). They typically think of the data they work with as JSON objects, or Ruby hashes, which are all trees. On the frontend, they
 take their JSON objects and render them to the DOM, which is also a tree.
 Maybe they even use React components, which are organized in a tree.
 
