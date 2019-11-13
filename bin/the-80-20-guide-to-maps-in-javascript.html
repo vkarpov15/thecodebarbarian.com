@@ -17,7 +17,7 @@ similar to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 <h2 id="maps-vs-objects">Maps vs Objects</h2>
 <p>Suppose you want to create a JavaScript object that stores some
 key/value paths. You could define a plain-old JavaScript object,
-or a &quot;POJO&quot; for short, as shown below.</p>
+or a <a href="https://masteringjs.io/tutorials/fundamentals/pojo">&quot;POJO&quot;</a> for short, as shown below.</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {
   name: <span class="hljs-string">'Jean-Luc Picard'</span>,
   age: <span class="hljs-number">59</span>,
@@ -49,7 +49,7 @@ is defined, but <code>map.get(&#39;constructor&#39;)</code> is not.</p>
 map.get(<span class="hljs-string">'constructor'</span>); <span class="hljs-comment">// undefined</span>
 </code></pre>
 <p>With JavaScript objects, you could use
-<code>Object.create(null)</code> to create an object
+<a href="https://davidwalsh.name/object-create-null"><code>Object.create(null)</code></a> to create an object
 that doesn&#39;t inherit from any class, and
 so doesn&#39;t have a <code>constructor</code> property.
 That is one approach to the issue of separating
