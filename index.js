@@ -120,70 +120,53 @@ wagner.task('generatePosts', asyncFunctionToThunk(async function() {
   }
 }));
 
-wagner.task('tags', function(compiledPosts, listTemplate, callback) {
-  wagner.parallel(
-    tags,
-    function(tag, key, callback) {
-      var output = listTemplate({
-        tag: key,
-        posts: tag,
-        allPosts: postsConfig,
-        pageNum: 0,
-        isLastPage: false
-      });
+wagner.task('tags', asyncFunctionToThunk(async function() {
+  const filename = './lib/views/list.jade';
+  const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
-      fs.writeFile('./bin/tag/' + key.toLowerCase() + '.html', output, function(err) {
-        if (err) {
-          console.log('Error writing file: ' + err);
-          return callback(err);
-        }
-        return callback(null);
-      });
-    }, callback);
-});
+  for (const key of Object.keys(tags)) {
+    const output = listTemplate({
+      tag: key,
+      posts: [].concat(tags[key]).reverse(),
+      allPosts: postsConfig,
+      pageNum: 0,
+      isLastPage: false
+    });
 
-wagner.task('compiledIndex', function(compiledPosts, index, callback) {
-  var posts = _.map(compiledPosts, function(p) {
-    return p;
-  });
-  var output = index({
-    posts: posts.reverse(),
+    fs.writeFileSync('./bin/tag/' + key.toLowerCase() + '.html', output);
+  }
+}));
+
+wagner.task('compiledIndex', asyncFunctionToThunk(async function() {
+  const filename = './lib/views/index.jade';
+  const index = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+
+  const compiledPosts = await getCompiledPosts();
+
+  const posts = [].concat(compiledPosts).reverse();
+  const output = index({
+    posts,
     allPosts: postsConfig
   });
-  fs.writeFile('./bin/index.html', output, function(err) {
-    if (err) {
-      console.log('Error writing index: ' + err);
-      return callback(err);
-    }
-    fs.writeFile('./bin/CNAME', 'thecodebarbarian.com', function(err) {
-      if (err) {
-        console.log('Error writing CNAME: ' + err);
-        return callback(err);
-      }
-      return callback(null);
-    });
-  });
-});
 
-wagner.task('recommendationsTemplate',
-  loadTemplate('./lib/views/recommendations.jade', 'recommendations'));
-wagner.task('recommendations', function(recommendationsTemplate, callback) {
-  fs.writeFile('./bin/recommendations.html', recommendationsTemplate(), function(err) {
-    if (err) {
-      console.log('Error writing index: ' + err);
-      return callback(err);
-    }
-    callback();
-  });
-});
+  fs.writeFileSync('./bin/index.html', output);
+  fs.writeFileSync('./bin/CNAME', 'thecodebarbarian.com');
+}));
 
-wagner.task('pages', function(compiledPosts, listTemplate, callback) {
-  var posts = _.map(compiledPosts, function(p) {
-    return p;
-  });
+wagner.task('recommendations', asyncFunctionToThunk(async function() {
+  const filename = './lib/views/recommendations.jade';
+  const recommendations = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+
+  fs.writeFileSync('./bin/recommendations.html', recommendations());
+}));
+
+wagner.task('pages', asyncFunctionToThunk(async function() {
+  const compiledPosts = await getCompiledPosts();
+  const filename = './lib/views/list.jade';
+  const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   var pages = [];
-  var reversed = posts.reverse();
+  var reversed = [].concat(compiledPosts).reverse();
   for (var i = 8; i < posts.length; i += 8) {
     pages.push(listTemplate({
       tag: 'Page ' + Math.floor(i / 8),
@@ -194,17 +177,16 @@ wagner.task('pages', function(compiledPosts, listTemplate, callback) {
     }));
   }
 
-  wagner.parallel(pages, function(page, index, callback) {
-    fs.writeFile('./bin/page/' + (index + 1) + '.html', page, function(err) {
-      callback(err);
-    });
-  }, callback);
-});
+  for (const [i, page] of Object.entries(pages)) {
+    fs.writeFileSync('./bin/page/' + (+i + 1) + '.html', page);
+  }
+}));
 
-wagner.task('feed', function(compiledPosts, callback) {
-  var posts = Array.from(compiledPosts);
+wagner.task('feed', asyncFunctionToThunk(async function() {
+  const compiledPosts = await getCompiledPosts();
+  const posts = Array.from(compiledPosts);
 
-  var f = new feed({
+  const f = new feed({
     title: 'TheCodeBarbarian.com',
     description: 'Detailed articles about the MEAN stack and related topics',
     link: 'http://thecodebarbarian.com',
@@ -214,8 +196,8 @@ wagner.task('feed', function(compiledPosts, callback) {
     }
   });
 
-  var reversed = posts.reverse();
-  for (var i = 0; i < reversed.length; ++i) {
+  const reversed = posts.reverse();
+  for (let i = 0; i < reversed.length; ++i) {
     f.addItem({
       title: posts[i].title,
       link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
@@ -223,8 +205,8 @@ wagner.task('feed', function(compiledPosts, callback) {
     });
   }
 
-  fs.writeFile('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''), callback);
-});
+  fs.writeFileSync('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''));
+}));
 
 wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed, recommendations) {
   if (error) {
