@@ -48,7 +48,7 @@ wagner.task('index', loadTemplate('./lib/views/index.jade', 'index'));
 wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
 wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
 
-wagner.task('posts', asyncFunctionToThunk(async function() {
+async function getPosts() {
   const tests = [
     ...acquit.parse(fs.readFileSync('./test/20180621.test.js').toString()),
     ...acquit.parse(fs.readFileSync('./test/20180702.test.js').toString()),
@@ -70,7 +70,7 @@ wagner.task('posts', asyncFunctionToThunk(async function() {
   }));
 
   return posts;
-}));
+}
 
 function asyncFunctionToThunk(fn) {
   return function(callback) {
@@ -87,52 +87,40 @@ _.each(posts, function(post) {
   });
 });
 
-wagner.task('compiledPosts', function(posts, postTemplate, callback) {
-  wagner.parallel(
-    posts,
-    function(post, key, callback) {
-      var output = postTemplate({
-        post: post,
-        content: markdown(post.md.toString()),
-        allPosts: postsConfig
-      });
+wagner.task('compiledPosts', asyncFunctionToThunk(getCompiledPosts));
 
-      post.compiled = output;
-      post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
-      callback(null, post);
-    },
-    callback);
-});
+async function getCompiledPosts() {
+  const posts = await getPosts();
 
-wagner.task('generatePosts', function(compiledPosts, callback) {
-  console.log('Generating posts');
-  wagner.parallel(
-    compiledPosts,
-    function(post, key, callback) {
-      console.log('Generating "' + post.title + "'");
-      file.mkdirs(post.dest.directory, 0777, function(err) {
-        if (err) {
-          console.log('Error making dir: ' + err);
-          return callback(err);
-        }
-        fs.writeFile(file.path.join(post.dest.directory, post.dest.name + '.html'),
-          post.compiled, function(err) {
-            if (err) {
-              console.log('Error writing file: ' + err);
-              return callback(err);
-            }
-            return callback(null);
-        });
-      });
-    },
-    callback);
-});
+  const filename = './lib/views/post.jade';
+  const postTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
-wagner.task('tags', function(compiledPosts, listTemplate, callback) {
-  for (var key in compiledPosts) {
-    compiledPosts[key] = compiledPosts[key].result;
+  for (const post of posts) {
+    const output = postTemplate({
+      post: post,
+      content: markdown(post.md.toString()),
+      allPosts: postsConfig
+    });
+
+    post.compiled = output;
+    post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
   }
 
+  return posts;
+}
+
+wagner.task('generatePosts', asyncFunctionToThunk(async function() {
+  console.log('Generating posts');
+  const compiledPosts = await getCompiledPosts();
+
+  for (const post of compiledPosts) {
+    console.log('Writing "' + post.title + '"');
+    const path = file.path.join(post.dest.directory, post.dest.name + '.html');
+    fs.writeFileSync(path, post.compiled);
+  }
+}));
+
+wagner.task('tags', function(compiledPosts, listTemplate, callback) {
   wagner.parallel(
     tags,
     function(tag, key, callback) {
@@ -228,7 +216,6 @@ wagner.task('feed', function(compiledPosts, callback) {
 
   var reversed = posts.reverse();
   for (var i = 0; i < reversed.length; ++i) {
-    console.log('XX', i, posts)
     f.addItem({
       title: posts[i].title,
       link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
