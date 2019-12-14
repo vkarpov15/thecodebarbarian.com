@@ -78,7 +78,6 @@ function asyncFunctionToThunk(fn) {
   };
 }
 
-var tasks = ['loadIndex'];
 var tags = {};
 _.each(posts, function(post) {
   _.each(post.tags || [], function(tag) {
@@ -86,8 +85,6 @@ _.each(posts, function(post) {
     tags[tag].unshift(post);
   });
 });
-
-wagner.task('compiledPosts', asyncFunctionToThunk(getCompiledPosts));
 
 async function getCompiledPosts() {
   const posts = await getPosts();
@@ -109,7 +106,7 @@ async function getCompiledPosts() {
   return posts;
 }
 
-wagner.task('generatePosts', asyncFunctionToThunk(async function() {
+async function generatePosts() {
   console.log('Generating posts');
   const compiledPosts = await getCompiledPosts();
 
@@ -118,9 +115,9 @@ wagner.task('generatePosts', asyncFunctionToThunk(async function() {
     const path = file.path.join(post.dest.directory, post.dest.name + '.html');
     fs.writeFileSync(path, post.compiled);
   }
-}));
+}
 
-wagner.task('tags', asyncFunctionToThunk(async function() {
+async function generateTags() {
   const filename = './lib/views/list.jade';
   const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
@@ -135,9 +132,9 @@ wagner.task('tags', asyncFunctionToThunk(async function() {
 
     fs.writeFileSync('./bin/tag/' + key.toLowerCase() + '.html', output);
   }
-}));
+}
 
-wagner.task('compiledIndex', asyncFunctionToThunk(async function() {
+async function generateIndex() {
   const filename = './lib/views/index.jade';
   const index = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
@@ -151,14 +148,14 @@ wagner.task('compiledIndex', asyncFunctionToThunk(async function() {
 
   fs.writeFileSync('./bin/index.html', output);
   fs.writeFileSync('./bin/CNAME', 'thecodebarbarian.com');
-}));
+}
 
-wagner.task('recommendations', asyncFunctionToThunk(async function() {
+async function generateRecommendations() {
   const filename = './lib/views/recommendations.jade';
   const recommendations = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   fs.writeFileSync('./bin/recommendations.html', recommendations());
-}));
+}
 
 wagner.task('pages', asyncFunctionToThunk(async function() {
   const compiledPosts = await getCompiledPosts();
@@ -208,20 +205,16 @@ wagner.task('feed', asyncFunctionToThunk(async function() {
   fs.writeFileSync('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''));
 }));
 
-wagner.invokeAsync(function(error, compiledIndex, pages, generatePosts, tags, feed, recommendations) {
+wagner.task('all', asyncFunctionToThunk(async function() {
+  await generatePosts();
+  await generateTags();
+  await generateIndex();
+  await generateRecommendations();
+}));
+
+wagner.invokeAsync(function(error, all, pages, feed) {
   if (error) {
     return console.log('Errors occurred: ' + error + '\n' + error.stack);
   }
   console.log('Done');
 });
-
-module.exports = function(cb) {
-  wagner.invokeAsync(function(error, compiledIndex, generatePosts, tags, feed, recommendations) {
-    if (error) {
-      cb(error);
-      return console.log('Errors occurred: ' + error + '\n' + error.stack);
-    }
-    cb();
-    console.log('Done');
-  });
-};
