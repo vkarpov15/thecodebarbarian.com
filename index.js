@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const acquit = require('acquit');
 const fs = require('fs');
 const markdown = require('marked');
@@ -16,37 +15,8 @@ markdown.setOptions({
   }
 });
 
-const wagner = require('wagner-core');
-
 const posts = require('./lib/posts');
-const postsConfig = _.sortBy(posts, function(post) { return -post.date.unix(); });
-
-const templates = {
-  index: null,
-  post: null,
-  list: null
-};
-const postsContent = {};
-const postBySource = {};
-
-const loadTemplate = function(path, key) {
-  return asyncFunctionToThunk(async function() {
-    const view = await new Promise((resolve, reject) => {
-      fs.readFile(path, (err, res) => {
-        if (err != null) {
-          return reject(err);
-        }
-        resolve(res);
-      })
-    });
-    const result = jade.compile(view, { filename: path });
-    return result;
-  });
-};
-
-wagner.task('index', loadTemplate('./lib/views/index.jade', 'index'));
-wagner.task('postTemplate', loadTemplate('./lib/views/post.jade', 'post'));
-wagner.task('listTemplate', loadTemplate('./lib/views/list.jade', 'list'));
+const postsConfig = [].concat(posts).reverse();
 
 async function getPosts() {
   const tests = [
@@ -72,15 +42,9 @@ async function getPosts() {
   return posts;
 }
 
-function asyncFunctionToThunk(fn) {
-  return function(callback) {
-    fn().then(res => callback(null, res), err => callback(err));
-  };
-}
-
 var tags = {};
-_.each(posts, function(post) {
-  _.each(post.tags || [], function(tag) {
+posts.forEach(function(post) {
+  (post.tags || []).forEach(function(tag) {
     tags[tag] = tags[tag] || [];
     tags[tag].unshift(post);
   });
@@ -124,7 +88,7 @@ async function generateTags() {
   for (const key of Object.keys(tags)) {
     const output = listTemplate({
       tag: key,
-      posts: [].concat(tags[key]).reverse(),
+      posts: [].concat(tags[key]),
       allPosts: postsConfig,
       pageNum: 0,
       isLastPage: false
@@ -157,7 +121,7 @@ async function generateRecommendations() {
   fs.writeFileSync('./bin/recommendations.html', recommendations());
 }
 
-wagner.task('pages', asyncFunctionToThunk(async function() {
+async function generatePages() {
   const compiledPosts = await getCompiledPosts();
   const filename = './lib/views/list.jade';
   const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
@@ -177,9 +141,9 @@ wagner.task('pages', asyncFunctionToThunk(async function() {
   for (const [i, page] of Object.entries(pages)) {
     fs.writeFileSync('./bin/page/' + (+i + 1) + '.html', page);
   }
-}));
+}
 
-wagner.task('feed', asyncFunctionToThunk(async function() {
+async function generateFeed() {
   const compiledPosts = await getCompiledPosts();
   const posts = Array.from(compiledPosts);
 
@@ -203,18 +167,21 @@ wagner.task('feed', asyncFunctionToThunk(async function() {
   }
 
   fs.writeFileSync('./bin/feed.xml', f.render('rss-2.0').replace(new RegExp('<content:encoded/>', 'g'), ''));
-}));
+}
 
-wagner.task('all', asyncFunctionToThunk(async function() {
-  await generatePosts();
-  await generateTags();
-  await generateIndex();
-  await generateRecommendations();
-}));
+module.exports = run;
 
-wagner.invokeAsync(function(error, all, pages, feed) {
-  if (error) {
-    return console.log('Errors occurred: ' + error + '\n' + error.stack);
-  }
+run().catch(err => console.log(err));
+
+async function run() {
+  await Promise.all([
+    generatePosts(),
+    generateTags(),
+    generateIndex(),
+    generateRecommendations(),
+    generatePages(),
+    generateFeed()
+  ]);
+
   console.log('Done');
-});
+}

@@ -4,9 +4,10 @@
   "description": "www.thecodebarbarian.com",
   "main": "index.js",
   "scripts": {
+    "compile": "node .",
     "deploy": "git subtree push --prefix bin . gh-pages && git push origin gh-pages",
     "test": "mocha test/*.test.js",
-    "start": "node index.js && node server.js"
+    "start": "node ./server.js"
   },
   "engines": {
     "node": ">= 8.0.0"
@@ -28,17 +29,13 @@
     "feed": "0.2.6",
     "file": "0.2.2",
     "forever": "0.13.0",
-    "gulp": "3.8.10",
-    "gulp-livereload": "3.8.0",
     "highlight.js": "9.1.0",
     "jade": "1.1.5",
     "marked": "0.3.9",
     "moment": "2.11.2",
     "node-static": "0.7.3",
-    "puppeteer": "^1.19.0",
-    "sharp": "^0.23.1",
-    "underscore": "1.5.2",
-    "wagner-core": "0.2.0"
+    "puppeteer": "1.19.0",
+    "sharp": "0.23.1"
   },
   "devDependencies": {
     "fastify": "1.8.0",
