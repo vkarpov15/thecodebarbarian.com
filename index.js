@@ -1,9 +1,11 @@
+'use strict';
+
 const acquit = require('acquit');
 const fs = require('fs');
 const markdown = require('marked');
-const jade = require('jade');
 const file = require('file');
 const feed = require('feed');
+const pug = require('pug');
 const transform = require('acquit-require');
 
 require('acquit-ignore')();
@@ -53,8 +55,8 @@ posts.forEach(function(post) {
 async function getCompiledPosts() {
   const posts = await getPosts();
 
-  const filename = './lib/views/post.jade';
-  const postTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+  const filename = './lib/views/post.pug';
+  const postTemplate = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   for (const post of posts) {
     const output = postTemplate({
@@ -82,8 +84,8 @@ async function generatePosts() {
 }
 
 async function generateTags() {
-  const filename = './lib/views/list.jade';
-  const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+  const filename = './lib/views/list.pug';
+  const listTemplate = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   for (const key of Object.keys(tags)) {
     const output = listTemplate({
@@ -99,8 +101,8 @@ async function generateTags() {
 }
 
 async function generateIndex() {
-  const filename = './lib/views/index.jade';
-  const index = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+  const filename = './lib/views/index.pug';
+  const index = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   const compiledPosts = await getCompiledPosts();
 
@@ -115,16 +117,22 @@ async function generateIndex() {
 }
 
 async function generateRecommendations() {
-  const filename = './lib/views/recommendations.jade';
-  const recommendations = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+  const filename = './lib/views/recommendations.pug';
+  const options = { filename };
+  options.filters = {
+    markdown: function(block) {
+      return markdown(block);
+    }
+  };
+  const recommendations = pug.compile(fs.readFileSync(filename, 'utf8'), options);
 
-  fs.writeFileSync('./bin/recommendations.html', recommendations());
+  fs.writeFileSync('./bin/recommendations.html', recommendations(options));
 }
 
 async function generatePages() {
   const compiledPosts = await getCompiledPosts();
-  const filename = './lib/views/list.jade';
-  const listTemplate = jade.compile(fs.readFileSync(filename, 'utf8'), { filename });
+  const filename = './lib/views/list.pug';
+  const listTemplate = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   var pages = [];
   var reversed = [].concat(compiledPosts).reverse();

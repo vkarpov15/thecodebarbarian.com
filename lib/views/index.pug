@@ -1,10 +1,7 @@
 extends layout
 
 block title
-  title #{tag} | www.thecodebarbarian.com
-
-append analytics
-  link(rel="stylesheet", href="/style/flexcpc.css")
+  title The Code Barbarian | www.thecodebarbarian.com
 
 block content
   div#carbonads-fixed
@@ -12,31 +9,56 @@ block content
             src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=thecodebarbariancom"
             id="_carbonads_js")
   div.container
-    div.row
-      div.col-lg-9
-        - each post in posts
-          div.container-fluid
+    div.col-lg-12.hero-row
+      a(href=posts[0].dest.directory.substr('./bin'.length) + '/' + posts[0].dest.name + '.html')
+        div.col-lg-8
+          div.row
+            div.col-lg-12.hero-image(style="background-image:url('" + (posts[0].image || '/images/Barbarian_Head.png') + "');")
             div.row
-              h2
-                a(href="#{post.dest.directory.substr('./bin'.length) + '/' + post.dest.name}")
-                  | #{post.title}
+              div.col-lg-12
+                h1.hero-title
+                  | #{posts[0].title}
               div.title-byline-container
-                div.credits
-                  | #{post.date.format('MMMM DD, YYYY')}
-            div.row
-              div.col-lg-3
-                img(src="#{post.image || '/images/Barbarian_Head.png'}",
-                    style="width: 100%")
-              div.col-lg-9
-                em !{post.preview}
-    div.row
-      - if (pageNum > 1)
-        div.pull-left
-          a(href="/page/#{pageNum - 1}") << Newer Articles
-      - if (pageNum && !isLastPage)
-        div.pull-right
-          a(href="/page/#{pageNum + 1}") Older Articles >>
+                div.hero-credits
+                  | #{posts[0].date.format('MMMM DD, YYYY')}
+        div.col-lg-4.home-popular
+          p.right-bar-label#home-popular-label Most Popular 
+            ul.list-unstyled
+              li.right-bar-li
+                a(href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html")
+                  | Common Async/Await Design Patterns in Node.js
+              li.right-bar-li
+                a(href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html")
+                  | Unhandled Promise Rejections in Node.js
+              li.right-bar-li
+                a(href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html")
+                  | The 80/20 Guide to Async/Await in Node.js
+              li.right-bar-li
+                a(href="http://thecodebarbarian.com/getting-started-with-webassembly-in-node.js.html")
+                  | Getting Started With WebAssembly in Node.js
+              li.right-bar-li
+                a(href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors.html")
+                  | An 80/20 Guide to AngularJS HTTP Interceptors
 
+    div.col-lg-12
+      div.row
+        p.home-grid-label Most Recent
+      for post, i in posts
+        - if ( i < 7 && i != 0 )
+          div.col-lg-4.home-post-grid-member
+            a(href=post.dest.directory.substr('./bin'.length) + '/' + post.dest.name + '.html')
+              div.home-post-image(style="background-image:url('" + (post.image || '/images/Barbarian_Head.png') + "');")
+              h3.home-post-title
+                | #{post.title}
+              div.home-date
+                | #{post.date.format('MMMM DD, YYYY')}
+              div.home-preview
+                em !{post.preview}
+
+      div.row
+        div.pull-right
+          a(href="/page/1") Older Articles >>
+  
   style.
     .native-js {
       visibility: hidden;
