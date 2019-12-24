@@ -38,15 +38,14 @@ $ node test.js
 $
 $ node --harmony_async_iteration test.js
 works!
-$
-</code></pre><p>Now that flags and versions are out of the way, let&#39;s review what
+$</code></pre><p>Now that flags and versions are out of the way, let&#39;s review what
 an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">iterator</a> is in JavaScript. An iterator is an
 object that exposes a <code>next()</code> function which returns an object
 <code>{ value, done }</code>. The <code>value</code> property is the next value in the
 sequence, and the <code>done</code> property is a boolean that is true if there
 are no more values in the sequence. For example, below is an iterator
 that loops over the values in an array.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
 <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">const</span> iterator = {
@@ -57,25 +56,23 @@ that loops over the values in an array.</p>
     <span class="hljs-keyword">const</span> value = iterator[index++];
     <span class="hljs-keyword">return</span> { value, done: <span class="hljs-literal">false</span> };
   }
-};
-</code></pre>
+};</code></pre>
 <p>By itself, an iterator isn&#39;t very useful. In order to use an
 iterator with a <code>for/of</code> loop, you need an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">iterable</a>. An iterable is an object
 with a <code>Symbol.iterator</code> function that returns an iterator. Below
 is a simple iterable that just returns the above iterator.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> iterable = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> iterable = {
   [<span class="hljs-built_in">Symbol</span>.iterator]: () =&gt; iterator
 };
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> iterable) {
   <span class="hljs-built_in">console</span>.log(v); <span class="hljs-comment">// Prints "1", "2", "3"</span>
-}
-</code></pre>
+}</code></pre>
 <p>ES2018 introduces 2 related concepts: async iterators and async
 iterables. The difference between an <a href="https://github.com/tc39/proposal-async-iteration">async iterator</a>
 and a conventional iterator is that, instead of returning a plain object <code>{ value, done }</code>, an async iterator returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a> that fulfills to <code>{ value, done }</code>.
 Similarly, an async iterable is an object with <code>Symbol.asyncIterator</code> function that returns an async iterator. Below is an example of
 creating an async iterator and an async iterable.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> nums = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
 <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">const</span> asyncIterator = {
@@ -95,15 +92,14 @@ creating an async iterator and an async iterable.</p>
   <span class="hljs-comment">// Note that async iterables use `Symbol.asyncIterator`, **not**</span>
   <span class="hljs-comment">// `Symbol.iterator`.</span>
   [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
-};
-</code></pre>
+};</code></pre>
 <h2 id="asynchronous-iteration">Asynchronous Iteration</h2>
 <p>You can use a <code>for/of</code> loop to loop through an iterable. However,
 <code>for/of</code> won&#39;t work with async iterables because <code>value</code> and <code>done</code>
 aren&#39;t computed synchronously. If you&#39;re a regular reader of this blog,
 you might have seen <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html#processing-a-mongodb-cursor">some async/await design patterns for this</a>. With async/await,
 iterating through an async iterator is doable:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
   [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
 };
 
@@ -119,15 +115,14 @@ main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> { value, done } = <span class="hljs-keyword">await</span> next(); !done; { value, done } = <span class="hljs-keyword">await</span> next()) {
     <span class="hljs-built_in">console</span>.log(value); <span class="hljs-comment">// Prints "1", "2", "3"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>The above approach works in Node.js 8.x and 9.x without a flag,
 but also isn&#39;t as clean as it could be. The main crux of the
 async iterator spec is the <code>for/await/of</code> loop, which lets you
 loop over an async iterator using <a href="https://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>. Like regular <code>await</code>, you can only <a href="/80-20-guide-to-async-await-in-node.js.html#hello-world">use <code>for/await/of</code> in an async function</a>.
 Below is an example of using <code>for/await/of</code> to loop through
 <code>asyncIterable</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> asyncIterable = {
   [<span class="hljs-built_in">Symbol</span>.asyncIterator]: () =&gt; asyncIterator
 };
 
@@ -137,15 +132,14 @@ main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
   <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> value <span class="hljs-keyword">of</span> asyncIterable) {
     <span class="hljs-built_in">console</span>.log(value);
   }
-}
-</code></pre>
+}</code></pre>
 <p>The <code>for await</code> syntax is much more concise than a conventional
 async/await <code>for</code> loop. Because it behaves like a <code>for/of</code> loop,
 <code>for/await/of</code> is easier to understand because it automatically
 checks for the end of the iterator on its own.</p>
 <p>What happens if your async iterator returns a rejected promise?
 Much like how <a href="https://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html#return-values-and-exceptions"><code>await</code> on a rejected promise throws an error that you can <code>try/catch</code></a>, <code>for/await/of</code> throws a catchable error if the async iterator returns a promise that rejects.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> asyncIterator = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> asyncIterator = {
   next: () =&gt; <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>))
 };
 
@@ -162,14 +156,13 @@ main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
     <span class="hljs-comment">// Prints "Caught: Oops!"</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Caught:'</span>, error.message);
   }
-}
-</code></pre>
+}</code></pre>
 <p>Now that you&#39;ve seen async iterators in action on a toy example,
 let&#39;s take a look at async iterators in a more real world example:
 <a href="http://mongoosejs.com/docs/api.html#query_Query-cursor">Mongoose cursors</a>.</p>
-<h2 id="using-for-await-of-with-mongoose-cursors">Using <code>for/await/of</code> with Mongoose Cursors</h2>
+<h2 id="using-forawaitof-with-mongoose-cursors">Using <code>for/await/of</code> with Mongoose Cursors</h2>
 <p>A <a href="http://thecodebarbarian.com/cursors-in-mongoose-45">Mongoose query cursor</a> is an object with a <code>next()</code> function that retrieves the next document in a query result. Cursors are useful for iterating through huge data sets because they load data from MongoDB in batches, so you never have all the data in your server&#39;s memory at once. Below is an example of iterating through a Mongoose cursor using a conventional async/await <code>for</code> loop.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -193,15 +186,14 @@ main().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
     <span class="hljs-comment">// Prints "Enter the Dragon', "Ip Man", "Kickboxer"</span>
     <span class="hljs-built_in">console</span>.log(doc.name);
   }
-}
-</code></pre>
+}</code></pre>
 <p>While Mongoose cursors have a <code>next()</code> function, they are <strong>not</strong> currently async iterators or async iterables. Unlike an async
 iterator, a Mongoose cursor returns <code>null</code> to signify the end of
 the cursor, not <code>{ done: true }</code>. In order to use
 <code>for/await/of</code> with Mongoose cursors, you need to do a little work
 to transform a Mongoose cursor into an iterator and wrap it in an
 async iterable.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = Movie.find().cursor();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cursor = Movie.find().cursor();
 
 <span class="hljs-comment">// Wrap the cursor in an async iterable using `then()` to</span>
 <span class="hljs-comment">// transform the result of `cursor.next()` into properly</span>
@@ -219,8 +211,7 @@ async iterable.</p>
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> asyncIterable) {
   <span class="hljs-comment">// Prints "Enter the Dragon', "Ip Man", "Kickboxer"</span>
   <span class="hljs-built_in">console</span>.log(doc.name);
-}
-</code></pre>
+}</code></pre>
 <p>Having to wrap a cursor to work with <code>for/await/of</code> is clunky,
 which is why <a href="https://github.com/Automattic/mongoose/issues/6737">Mongoose has an issue open to support async iteration with query cursors</a>. Follow
 <a href="https://github.com/Automattic/mongoose/issues/6737">this GitHub issue</a> or <a href="https://twitter.com/mongoosejs">Mongoose on Twitter</a> for updates.</p>

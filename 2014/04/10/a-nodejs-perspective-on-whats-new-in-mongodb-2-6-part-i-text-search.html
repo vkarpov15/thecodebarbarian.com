@@ -17,8 +17,7 @@
 <h2 id="getting-started-with-text-search">Getting Started With Text Search</h2>
 <p>Let&#39;s dive right in and use text search on the USDA SR-25 data set described in <a href="http://thecodebarbarian.com/2014/03/28/plugging-usda-nutrition-data-into-mongodb/">this post</a>. You can download a mongorestore-friendly version of the data set here. The data set contains 8194 food items with associated nutrition data, and each food item has a human-readable description, e.g. &quot;Kale, raw&quot; or &quot;Bison, ground, grass-fed, cooked&quot;. Ideally, as a client of this data set, we shouldn&#39;t have to remember whether we need to enter &quot;Bison, grass-fed, ground, cooked&quot; or &quot;Bison, ground, grass-fed, cooked&quot; to get the data we&#39;re looking for. We should just be able to put in &quot;grass-fed bison&quot; and get reasonable results.</p>
 <p>Thankfully, text search makes this simple. In order to do text search, first we need to <a href="http://docs.mongodb.org/manual/core/index-text/#create-text-index">create a text index</a> on your copy of the USDA nutrition collection. Lets create one on the food item&#39;s description:</p>
-<pre><code>db.nutrition.ensureIndex({ description : <span class="hljs-string">"text"</span> });
-</code></pre><p>Now, we can search the data set for our &quot;raw kale&quot; and &quot;grass-fed bison&quot;, and see what we get:</p>
+<pre><code>db.nutrition.ensureIndex({ description : <span class="hljs-string">"text"</span> });</code></pre><p>Now, we can search the data set for our &quot;raw kale&quot; and &quot;grass-fed bison&quot;, and see what we get:</p>
 <pre><code>db.nutrition.find(
   { $text : { $search : <span class="hljs-string">"grass-fed bison"</span> } },
   { description : <span class="hljs-number">1</span> }).
@@ -27,15 +26,13 @@
 db.nutrition.find(
   { $text : { $search : <span class="hljs-string">"raw kale"</span> } },
   { description : <span class="hljs-number">1</span> }).
-    limit(<span class="hljs-number">3</span>);
-</code></pre><p><a href="http://i.imgur.com/JSDNeam.png"><img src="//i.imgur.com/JSDNeam.png" style="width: 100%"></a></p>
+    limit(<span class="hljs-number">3</span>);</code></pre><p><a href="http://i.imgur.com/JSDNeam.png"><img src="//i.imgur.com/JSDNeam.png" style="width: 100%"></a></p>
 <p>Unfortunately, the results we got aren&#39;t that useful, because they&#39;re not in order of relevance. Unless we explicitly tell MongoDB to sort by the text score, we probably won&#39;t get the most relevant documents first. Thankfully, with the help of the new <a href="http://docs.mongodb.org/master/reference/operator/projection/meta/#proj._S_meta"><code>$meta</code> keyword</a> (which is currently only useful for getting the text score), we can tell MongoDB to sort by text score <a href="http://docs.mongodb.org/master/reference/operator/query/text/#ex-sort-text-search-score">as described here</a>:</p>
 <pre><code>db.nutrition.find(
   { $text : { $search : <span class="hljs-string">"raw kale"</span> } },
   { description : <span class="hljs-number">1</span>, textScore : { $meta : <span class="hljs-string">"textScore"</span> } }).
     sort({ textScore : { $meta : <span class="hljs-string">"textScore"</span> } }).
-    limit(<span class="hljs-number">3</span>);
-</code></pre><p><a href="http://i.imgur.com/q6Xh433.png"><img src="//i.imgur.com/q6Xh433.png" style="width: 100%"></a></p>
+    limit(<span class="hljs-number">3</span>);</code></pre><p><a href="http://i.imgur.com/q6Xh433.png"><img src="//i.imgur.com/q6Xh433.png" style="width: 100%"></a></p>
 <h2 id="using-text-search-in-nodejs">Using Text Search in NodeJS</h2>
 <p>First, an important note on the compatibility of text search with NodeJS community projects: the <a href="https://github.com/mongodb/node-mongodb-native">MongoDB NodeJS driver</a> is compatible with text search going back to at least 1.3.0. However, only the latest version of <a href="https://github.com/aheckmann/mquery">mquery</a>, 0.6.0, is compatible with text search. By extension, the popular ODM <a href="https://github.com/LearnBoost/mongoose">Mongoose</a>, which relies on mquery, unfortunately doesn&#39;t have a text search compatible release at the time of this blog post. I pushed a <a href="https://github.com/LearnBoost/mongoose/commit/22602aef2af6cc0b7eddb1ac4fbe73fcd05384e5">commit to fix this</a> and the next version of Mongoose, 3.8.9, should allow you to sort by text score. In summary, to use MongoDB text search, here are the version restrictions:</p>
 <ul>
@@ -65,8 +62,7 @@ exports.searchFood = <span class="hljs-function"><span class="hljs-keyword">func
         }
       });
   }
-};
-</code></pre><p>Unsurprisingly, this code looks pretty similar to the shell version, so it shouldn&#39;t look unfamiliar to you NodeJS pros :)</p>
+};</code></pre><p>Unsurprisingly, this code looks pretty similar to the shell version, so it shouldn&#39;t look unfamiliar to you NodeJS pros :)</p>
 <h2 id="looking-forward">Looking Forward</h2>
 <p>And that&#39;s all on text search for now. In the next post (scheduled for 4/25), we&#39;ll tackle some of the awesome new features in the aggregation framework, including text search in aggregation.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

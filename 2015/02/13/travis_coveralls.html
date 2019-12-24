@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><em>This blog originally appeared on <a href="http://strongloop.com/strongblog/npm-modules-travis-coveralls/">strongloop.com</a>. StrongLoop provides tools and services for companies developing APIs in Node. <a href="http://www.strongloop.com">Learn more...</a></em></p>
 <p>Part of what makes NodeJS so great is the wide variety of high-quality modules available on npm. But, way too many modules don&#39;t take advantage of testing tools like <a href="https://travis-ci.org">Travis</a> and <a href="https://coveralls.io/">Coveralls</a>. Travis is a lightweight continuous integration tool that runs tests on every commit to your GitHub repo, even pull requests. Coveralls is a test coverage reporter that you can integrate with Travis. These tools improve your workflow, make reviewing pull requests easier, and make users more confident in your module&#39;s quality. In this article, you&#39;ll learn how to integrate these tools with <a href="https://www.npmjs.com/package/mocha">mocha</a> and <a href="https://www.npmjs.com/package/istanbul">istanbul</a> for a simple NodeJS project.</p>
 <p>This example will use a <a href="https://github.com/vkarpov15/fizzbuzz-coverage">JavaScript implementation</a> of the well-known <a href="http://en.wikipedia.org/wiki/Fizz_buzz">&quot;fizzbuzz&quot; programming challenge</a>. Fizzbuzz is far from a <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">complex module</a>, but it&#39;s just complex enough to get real test coverage results. To walk through this example, <a href="https://github.com/vkarpov15/fizzbuzz-coverage">fork it on GitHub</a>. The actual code is below.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> n !== <span class="hljs-string">'number'</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
   }
@@ -31,24 +31,19 @@
   }
 
   <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> + n;
-};
-</code></pre>
+};</code></pre>
 <p>The module&#39;s code is not particularly interesting. Testing it is a more subtle task. Most modern testing practices are based on the notion of <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic complexity</a>. In other words, 100% test coverage means that your tests execute every possible code path. The fizzbuzz example above has 10 possible code paths (or &quot;branches&quot; in Coveralls parlance). Each <code>if</code> statement contributes 2 code paths, except the one with <code>&amp;&amp;</code>, which contributes 4. For instance, if you were to replace</p>
-<pre><code><span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> === <span class="hljs-number">0</span> &amp;&amp; n % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>)
-</code></pre><p>with</p>
-<pre><code><span class="hljs-keyword">if</span> (n % <span class="hljs-number">15</span> === <span class="hljs-number">0</span>)
-</code></pre><p>there would be only 8 branches.</p>
+<pre><code><span class="hljs-keyword">if</span> (n % <span class="hljs-number">3</span> === <span class="hljs-number">0</span> &amp;&amp; n % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>)</code></pre><p>with</p>
+<pre><code><span class="hljs-keyword">if</span> (n % <span class="hljs-number">15</span> === <span class="hljs-number">0</span>)</code></pre><p>there would be only 8 branches.</p>
 <h1 id="setting-up-mocha-tests-and-producing-coverage-output">Setting Up Mocha Tests and Producing Coverage Output</h1>
 <p>The first step is to get test coverage output locally. There are several good test frameworks and coverage tools available on npm. But, my tools of choice are the <a href="https://www.npmjs.com/package/mocha">mocha</a> test framework and <a href="https://www.npmjs.com/package/istanbul">istanbul</a>. You should be able to use any test framework you like in place of mocha in this tutorial, but I find mocha to be a sensible default. First, add mocha and istanbul to your <code>devDependencies</code> in <code>package.json</code>.</p>
 <pre><code>  <span class="hljs-string">"devDependencies"</span>: {
     <span class="hljs-string">"istanbul"</span>: <span class="hljs-string">"0.3.5"</span>,
     <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"2.0.0"</span>
-  },
-</code></pre><p>You should also add a <code>test</code> script to your <code>package.json</code>, so you can run your tests with the <code>npm test</code> command.</p>
+  },</code></pre><p>You should also add a <code>test</code> script to your <code>package.json</code>, so you can run your tests with the <code>npm test</code> command.</p>
 <pre><code>  <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"test"</span>: <span class="hljs-string">"./node_modules/mocha/bin/mocha ./test/*"</span>
-  }
-</code></pre><p>Now, here are some mocha tests for the fizzbuzz module. Mocha uses a BDD-style syntax, which means <code>describe()</code> and <code>it()</code> correspond roughly to &quot;suites&quot; and &quot;tests&quot; in more conventional testing frameworks like JUnit.</p>
+  }</code></pre><p>Now, here are some mocha tests for the fizzbuzz module. Mocha uses a BDD-style syntax, which means <code>describe()</code> and <code>it()</code> correspond roughly to &quot;suites&quot; and &quot;tests&quot; in more conventional testing frameworks like JUnit.</p>
 <pre><code><span class="hljs-keyword">var</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">var</span> fizzbuzz = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../'</span>);
 
@@ -72,8 +67,7 @@ describe(<span class="hljs-string">'fizzbuzz'</span>, <span class="hljs-function
   it(<span class="hljs-string">'returns input otherwise'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     assert.equal(fizzbuzz(<span class="hljs-number">7</span>), <span class="hljs-string">'7'</span>);
   });
-});
-</code></pre><p>Run these tests with <code>npm test</code>, and you should see a simple test report.</p>
+});</code></pre><p>Run these tests with <code>npm test</code>, and you should see a simple test report.</p>
 <pre><code>specter:fizzbuzz-coverage vkarpov$ npm test
 
 &gt; fizzbuzz-coverage@<span class="hljs-number">0.0</span><span class="hljs-number">.0</span> test /Users/vkarpov/Personal/fizzbuzz-coverage
@@ -89,13 +83,11 @@ describe(<span class="hljs-string">'fizzbuzz'</span>, <span class="hljs-function
     ✓ returns input otherwise 
 
 
-  5 passing (7ms)</span>
-</code></pre><p>Now the question is, how do you get coverage output? That&#39;s where istanbul comes in. Istanbul provides a simple executable that wraps your test command and produces <a href="http://ltp.sourceforge.net/coverage/lcov.php">lcov output</a> by default. Add a <code>test-travis</code> script to your <code>package.json</code> scripts as shown below.</p>
+  5 passing (7ms)</span></code></pre><p>Now the question is, how do you get coverage output? That&#39;s where istanbul comes in. Istanbul provides a simple executable that wraps your test command and produces <a href="http://ltp.sourceforge.net/coverage/lcov.php">lcov output</a> by default. Add a <code>test-travis</code> script to your <code>package.json</code> scripts as shown below.</p>
 <pre><code>  <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"test"</span>: <span class="hljs-string">"./node_modules/mocha/bin/mocha ./test/*"</span>,
     <span class="hljs-string">"test-travis"</span>: <span class="hljs-string">"./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"</span>
-  }
-</code></pre><p>The script may seem intimidating, but its simple once you look at it carefully. The <code>./node_modules/istanbul/lib/cli.js</code> executable is istanbul&#39;s CLI wrapper. You can also <code>require()</code> istanbul in your NodeJS scripts, but the executable is sufficient for this example. The istanbul CLI takes a <code>cover</code> option that tells it to produce coverage output.</p>
+  }</code></pre><p>The script may seem intimidating, but its simple once you look at it carefully. The <code>./node_modules/istanbul/lib/cli.js</code> executable is istanbul&#39;s CLI wrapper. You can also <code>require()</code> istanbul in your NodeJS scripts, but the executable is sufficient for this example. The istanbul CLI takes a <code>cover</code> option that tells it to produce coverage output.</p>
 <p>The rest of the <code>test-travis</code> script configures mocha. First, note that the above script uses the <code>_mocha</code> executable, whereas the <code>test</code> script used <code>./node_modules/mocha/bin/mocha</code>. This is a <a href="https://github.com/gotwarlost/istanbul/issues/44">common source of confusion when beginners try to set up istanbul and mocha</a>. The <code>mocha</code> executable forks off a separate executable, <code>_mocha</code>, to actually runs tests. If you were to run the <code>mocha</code> executable through istanbul, you would get no coverage output.</p>
 <p>The <code>--</code> means the <a href="http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash">end of options passed to the istanbul executable</a>. Everything after <code>--</code> will actually be interpretted as an option to the <code>_mocha</code> executable.</p>
 <p>Now that you have the <code>test-travis</code> script, run it to see test coverage output.</p>
@@ -126,28 +118,27 @@ Statements   : 100% ( 10/10 )
 Branches     : 100% ( 10/10 )
 Functions    : 100% ( 1/1 )
 Lines        : 100% ( 10/10 )
-================================================================================</span>
-</code></pre><p>Congratulations, you have 100% test coverage! Next up, you&#39;re going to set up Travis to run this command automatically on every commit and pull request.</p>
+================================================================================</span></code></pre><p>Congratulations, you have 100% test coverage! Next up, you&#39;re going to set up Travis to run this command automatically on every commit and pull request.</p>
 <h1 id="running-tests-and-generating-coverage-output-with-travis">Running Tests and Generating Coverage Output with Travis</h1>
 <p>Travis is a tool that enables you to run a script on every GitHub commit. You can instrument Travis to run the <code>test-travis</code> script you saw above. Also, you can configure Travis to post the coverage output to Coveralls. </p>
 <p>First, if you don&#39;t have a Travis account yet, <a href="https://travis-ci.org">sign up for one</a>. Next, add a new repository to Travis using the &quot;Add New Repository&quot; button.</p>
-<p><img src="http://i.imgur.com/VDiWlu3.png"></p>
+<img src="http://i.imgur.com/VDiWlu3.png">
+
 <p>Find the <code>fizzbuzz-coverage</code> repo and add it. Next, sign up for an <a href="https://coveralls.io">account on Coveralls</a>. Click on the &quot;Add Repos&quot; button and add <code>fizzbuzz-coverage</code>.</p>
-<p><img src="http://i.imgur.com/8EXrUvj.png"></p>
+<img src="http://i.imgur.com/8EXrUvj.png">
+
 <p>In order to use Travis, your GitHub repo should have a <code>.travis.yml</code> file. This file tells Travis how to run tests. For instance, below is the <code>.travis.yml</code> file for the <code>fizzbuzz-coverage</code> repo (minus one line that you&#39;ll learn about later).</p>
 <pre><code>language: node_js
 node_js:
   - <span class="hljs-string">"0.11"</span>
   - <span class="hljs-string">"0.10"</span>
-script: <span class="hljs-string">"npm run-script test-travis"</span>
-</code></pre><p>This file should seem simple even if you&#39;ve never worked with Travis before. This configuration tells Travis to run <code>npm run-script test-travis</code> on NodeJS 0.10 and 0.11. When you specify <code>language: node_js</code>, Travis handles installing NodeJS, cloning your repo, and running <code>npm install</code> for you.</p>
+script: <span class="hljs-string">"npm run-script test-travis"</span></code></pre><p>This file should seem simple even if you&#39;ve never worked with Travis before. This configuration tells Travis to run <code>npm run-script test-travis</code> on NodeJS 0.10 and 0.11. When you specify <code>language: node_js</code>, Travis handles installing NodeJS, cloning your repo, and running <code>npm install</code> for you.</p>
 <p>Now, how do you send istanbul&#39;s coverage output to Coveralls? Like just about everything these days, <a href="https://www.npmjs.com/package/coveralls">there&#39;s an npm module for that</a>. The coveralls npm module contains an executable file <code>coveralls.js</code> that you can use to send coverage output to Coveralls. You just need to add coveralls to your <code>package.json</code>:</p>
-<pre><code class="lang-javascript">  <span class="hljs-string">"devDependencies"</span>: {
+<pre><code class="language-javascript">  <span class="hljs-string">"devDependencies"</span>: {
     <span class="hljs-string">"coveralls"</span>: <span class="hljs-string">"2.10.0"</span>,
     <span class="hljs-string">"istanbul"</span>: <span class="hljs-string">"0.3.5"</span>,
     <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"2.0.0"</span>
-  },
-</code></pre>
+  },</code></pre>
 <p>and one line to your <code>.travis.yml</code> file.</p>
 <pre><code>language: node_js
 node_js:
@@ -155,18 +146,16 @@ node_js:
   - &quot;0.10&quot;
 script: &quot;npm run-script test-travis&quot;
 # Send coverage data to Coveralls
-after_script: &quot;cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js&quot;
-</code></pre><p>That&#39;s it! You should now have <a href="https://coveralls.io/builds/1849085">automatic code coverage for every future commit in an elegant GUI</a>.</p>
+after_script: &quot;cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js&quot;</code></pre><p>That&#39;s it! You should now have <a href="https://coveralls.io/builds/1849085">automatic code coverage for every future commit in an elegant GUI</a>.</p>
 <h1 id="adding-badges">Adding Badges</h1>
 <p>Now that you&#39;ve wired your repo to run tests on Travis and send coverage data to Coveralls, you&#39;re probably wondering how to get those sweet badges on your GitHub repo.</p>
-<p><img src="http://i.imgur.com/cUsEmPC.png"></p>
+<img src="http://i.imgur.com/cUsEmPC.png">
+
 <p>Travis and Coveralls expose API endpoints that let you get these SVG (or PNG) representations of your repo&#39;s status. To get the SVGs for <code>fizzbuzz-coverage</code>, you should wrap the following images in an <code>&lt;img&gt;</code> tag.</p>
 <pre><code>https:<span class="hljs-comment">//api.travis-ci.org/vkarpov15/fizzbuzz-coverage.svg?branch=master</span>
-https:<span class="hljs-comment">//coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg?branch=master</span>
-</code></pre><p>You can get the build status and coverage info for any branch by changing the <code>branch</code> query param. Below is the markdown code that generates the badges for the GitHub README.</p>
+https:<span class="hljs-comment">//coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg?branch=master</span></code></pre><p>You can get the build status and coverage info for any branch by changing the <code>branch</code> query param. Below is the markdown code that generates the badges for the GitHub README.</p>
 <pre><code>[![Build Status](https:<span class="hljs-comment">//travis-ci.org/vkarpov15/fizzbuzz-coverage.svg?branch=master)](https://travis-ci.org/vkarpov15/fizzbuzz-coverage)</span>
-[![Coverage Status](https:<span class="hljs-comment">//coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg)](https://coveralls.io/r/vkarpov15/fizzbuzz-coverage)</span>
-</code></pre><h1 id="conclusion">Conclusion</h1>
+[![Coverage Status](https:<span class="hljs-comment">//coveralls.io/repos/vkarpov15/fizzbuzz-coverage/badge.svg)](https://coveralls.io/r/vkarpov15/fizzbuzz-coverage)</span></code></pre><h1 id="conclusion">Conclusion</h1>
 <p>In this article, you saw how easy it can be to tie your npm modules into Travis and Coveralls. Continuous integration and code coverage used to only be feasible for the Googles of the world, but now even small npm modules can take advantage of these sophisticated dev practices. I look forward to seeing more npm authors take advantage of these excellent tools and get serious about test coverage.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

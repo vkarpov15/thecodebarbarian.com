@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="http://mongoosejs.com/docs/schematypes.html">Mongoose setters</a> have always had the limitation that they only work for <code>save()</code>, <em>not</em> for queries. For example, let&#39;s say you have a schema that enforces your emails are always lowercase:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = Schema({
   email: {
     type: <span class="hljs-built_in">String</span>,
     <span class="hljs-comment">// Custom setter that always calls `toLowerCase()`</span>
@@ -21,24 +21,21 @@
   }
 });
 
-<span class="hljs-keyword">const</span> PersonModel = mongoose.model(<span class="hljs-string">'Person'</span>, schema);
-</code></pre>
+<span class="hljs-keyword">const</span> PersonModel = mongoose.model(<span class="hljs-string">'Person'</span>, schema);</code></pre>
 <p>Creating and saving an instance of <code>PersonModel</code> will ensure that <code>email</code> is converted to lowercase before saving.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> val = <span class="hljs-keyword">new</span> PersonModel({ email: <span class="hljs-string">'Val@test.com'</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> val = <span class="hljs-keyword">new</span> PersonModel({ email: <span class="hljs-string">'Val@test.com'</span> });
 <span class="hljs-built_in">console</span>.log(val.email); <span class="hljs-comment">// "val@test.com"</span>
 val.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, val</span>) </span>{
   <span class="hljs-built_in">console</span>.log(val.email); <span class="hljs-comment">// "val@test.com"</span>
-});
-</code></pre>
+});</code></pre>
 <p>In general, any time you create a mongoose document, you&#39;ll get a lowercased email. Because <code>insertMany()</code> and <code>create()</code> use mongoose documents, they&#39;ll lowercase emails as well. However, mongoose 4.x will <em>not</em> lowercase email with <code>find()</code>, <code>findOneAndUpdate()</code>, or any other query options.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Will *not* lowercase email for query, so should return no results</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Will *not* lowercase email for query, so should return no results</span>
 PersonModel.find({ email: <span class="hljs-string">'Val@test.com'</span> });
 <span class="hljs-comment">// Will save uppercase email!</span>
-PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.com'</span> }, { upsert: <span class="hljs-literal">true</span> });
-</code></pre>
+PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.com'</span> }, { upsert: <span class="hljs-literal">true</span> });</code></pre>
 <h2 id="the-runsettersonquery-option">The <code>runSettersOnQuery</code> Option</h2>
 <p>Mongoose 4.10 has an opt-in option on the schema level that will run setters for queries.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = Schema({
   email: {
     type: <span class="hljs-built_in">String</span>,
     lowercase: <span class="hljs-literal">true</span>
@@ -48,10 +45,9 @@ PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.co
 <span class="hljs-comment">// Equivalent to `find({ email: 'val@test.com' })` with `runSettersOnQuery`</span>
 PersonModel.find({ email: <span class="hljs-string">'Val@test.com'</span> });
 <span class="hljs-comment">// Equivalent to `{ email: 'val@test.com' }` with `runSettersOnQuery`</span>
-PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.com'</span> }, { upsert: <span class="hljs-literal">true</span> });
-</code></pre>
+PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.com'</span> }, { upsert: <span class="hljs-literal">true</span> });</code></pre>
 <p>Mongoose will also run any custom setters you may have. For example, let&#39;s say you have a setter that ensures that the <code>num</code> property is an integer:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = Schema({
   num: {
     type: <span class="hljs-built_in">String</span>,
     set: v =&gt; <span class="hljs-built_in">Math</span>.floor(v)
@@ -61,11 +57,10 @@ PersonModel.findOneAndUpdate({}, { email: <span class="hljs-string">'Val@test.co
 <span class="hljs-comment">// Equivalent to `find({ num: 3 })`</span>
 NumModel.find({ num: <span class="hljs-number">3.14</span> });
 <span class="hljs-comment">// Equivalent to `{ num: 2 }`</span>
-NumModel.findOneAndUpdate({}, { num: <span class="hljs-number">2.718</span> }, { upsert: <span class="hljs-literal">true</span> });
-</code></pre>
+NumModel.findOneAndUpdate({}, { num: <span class="hljs-number">2.718</span> }, { upsert: <span class="hljs-literal">true</span> });</code></pre>
 <h2 id="setter-context">Setter Context</h2>
 <p>Like <a href="http://mongoosejs.com/docs/validation.html#update-validators">running validation on <code>update()</code></a>, the reason why mongoose does not run setters on queries by default because of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">function context</a>. If you create a new document, setters can access the document using <code>this</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> schema = Schema({
   num: {
@@ -81,8 +76,7 @@ NumModel.findOneAndUpdate({}, { num: <span class="hljs-number">2.718</span> }, {
 <span class="hljs-comment">// Prints a document, "{ _id: ... }"</span>
 <span class="hljs-keyword">new</span> NumModel({ num: <span class="hljs-number">3</span> });
 <span class="hljs-comment">// Prints "null" (unless you're not in strict mode)</span>
-NumModel.find({ num: <span class="hljs-number">3</span> });
-</code></pre>
+NumModel.find({ num: <span class="hljs-number">3</span> });</code></pre>
 <p>For built-in mongoose setters (<code>lowercase</code>, <code>uppercase</code>, <code>trim</code>) this is a non-issue. However, community plugins often rely on setter context, so we&#39;re not turning this on by default in 4.x. We&#39;re planning on <a href="https://github.com/Automattic/mongoose/issues/5340">turning it on by default in 5.0</a>, so if you have concerns, please voice them on <a href="https://github.com/Automattic/mongoose/issues/5340">this GitHub issue</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4100--2017-05-18">Mongoose 4.10</a> has 8 powerful new features and several small bug fixes, including aliasing and <a href="http://thecodebarbarian.com/whats-new-in-mongoose-4.10-unique-in-arrays.html">unique in arrays</a>. Make sure you upgrade to take advantage of these powerful new features!</p>

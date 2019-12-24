@@ -18,16 +18,15 @@ similar to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 <p>Suppose you want to create a JavaScript object that stores some
 key/value paths. You could define a plain-old JavaScript object,
 or a <a href="https://masteringjs.io/tutorials/fundamentals/pojo">&quot;POJO&quot;</a> for short, as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {
   name: <span class="hljs-string">'Jean-Luc Picard'</span>,
   age: <span class="hljs-number">59</span>,
   rank: <span class="hljs-string">'Captain'</span>
 };
 
-obj.name; <span class="hljs-comment">// 'Jean-Luc Picard'</span>
-</code></pre>
+obj.name; <span class="hljs-comment">// 'Jean-Luc Picard'</span></code></pre>
 <p>You could also define a map that contains the same keys and values as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
   <span class="hljs-comment">// You define a map via an array of 2-element arrays. The first</span>
   <span class="hljs-comment">// element of each nested array is the key, and the 2nd is the value</span>
   [<span class="hljs-string">'name'</span>, <span class="hljs-string">'Jean-Luc Picard'</span>],
@@ -37,17 +36,15 @@ obj.name; <span class="hljs-comment">// 'Jean-Luc Picard'</span>
 
 <span class="hljs-comment">// To get the value associated with a given `key` in a map, you</span>
 <span class="hljs-comment">// need to call `map.get(key)`. Using `map.key` will **not** work.</span>
-map.get(<span class="hljs-string">'name'</span>); <span class="hljs-comment">// 'Jean-Luc Picard'</span>
-</code></pre>
+map.get(<span class="hljs-string">'name'</span>); <span class="hljs-comment">// 'Jean-Luc Picard'</span></code></pre>
 <p>Suppose you wanted to get Captain Picard&#39;s <code>age</code>. With an object,
 you can use <code>obj.age</code>. With a map, you would use <code>map.get(&#39;age&#39;)</code>.
 That works fine for properties that don&#39;t conflict with built-in
 JavaScript functionality, but what about if you wanted to get the
 object&#39;s <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor"><code>constructor</code> property</a>? In this case, <code>obj.constructor</code>
 is defined, but <code>map.get(&#39;constructor&#39;)</code> is not.</p>
-<pre><code class="lang-javascript">obj.constructor; <span class="hljs-comment">// [Function: Object]</span>
-map.get(<span class="hljs-string">'constructor'</span>); <span class="hljs-comment">// undefined</span>
-</code></pre>
+<pre><code class="language-javascript">obj.constructor; <span class="hljs-comment">// [Function: Object]</span>
+map.get(<span class="hljs-string">'constructor'</span>); <span class="hljs-comment">// undefined</span></code></pre>
 <p>With JavaScript objects, you could use
 <a href="https://davidwalsh.name/object-create-null"><code>Object.create(null)</code></a> to create an object
 that doesn&#39;t inherit from any class, and
@@ -60,7 +57,7 @@ methods and properties. For example, maps are immune to <a href="https://snyk.io
 <p>Another key difference is that maps allow you to store object keys,
 not just strings. This can cause some confusion when you&#39;re storing
 objects like Dates or Numbers as keys.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([]);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([]);
 
 <span class="hljs-keyword">const</span> n1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">5</span>);
 <span class="hljs-keyword">const</span> n2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">5</span>);
@@ -80,13 +77,11 @@ obj[n1] = <span class="hljs-string">'One'</span>;
 obj[n2] = <span class="hljs-string">'Two'</span>;
 
 obj[n1]; <span class="hljs-comment">// 'Two'</span>
-obj[<span class="hljs-number">5</span>]; <span class="hljs-comment">// 'Two'</span>
-</code></pre>
+obj[<span class="hljs-number">5</span>]; <span class="hljs-comment">// 'Two'</span></code></pre>
 <p>Maps also have a <code>size</code> property that returns the number of key/value 
 pairs in the map. To get the number of keys in an object, you would
 have to do <code>Object.keys(obj).length</code>.</p>
-<pre><code class="lang-javascript">map.size; <span class="hljs-comment">// 3</span>
-</code></pre>
+<pre><code class="language-javascript">map.size; <span class="hljs-comment">// 3</span></code></pre>
 <p>Another difference you&#39;ll likely read about is the order of the keys
 in a map is guaranteed. In other words, if you call <code>map.keys()</code>, you 
 will <em>always</em> get the keys in the order in which they were added to
@@ -96,10 +91,10 @@ return <code>name</code>, <code>age</code>, and <code>rank</code> in that order.
 <code>[&#39;name&#39;, &#39;age&#39;, &#39;rank&#39;]</code> in ES6-compliant JavaScript runtimes. But,
 in older runtimes (Internet Explorer, etc.) <code>Object.keys(obj)</code> may
 return the keys in a different order.</p>
-<h2 id="-map-keys-map-values-map-entries-"><code>Map#keys()</code>, <code>Map#values()</code>, <code>Map#entries()</code></h2>
+<h2 id="mapkeys-mapvalues-mapentries"><code>Map#keys()</code>, <code>Map#values()</code>, <code>Map#entries()</code></h2>
 <p>Maps have 3 built-in methods for iterating through the map: <code>keys()</code>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values"><code>values()</code></a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/entries"><code>entries()</code></a>. Unlike <code>Object.keys()</code>, the <code>Map#keys()</code> function returns an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators">iterator</a>, not an array. That means the easiest way to
 iterate a map&#39;s keys is using a <a href="/for-vs-for-each-vs-for-in-vs-for-of-in-javascript"><code>for/of</code> loop</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>([
   [<span class="hljs-string">'name'</span>, <span class="hljs-string">'Jean-Luc Picard'</span>],
   [<span class="hljs-string">'age'</span>, <span class="hljs-number">59</span>],
   [<span class="hljs-string">'rank'</span>, <span class="hljs-string">'Captain'</span>]
@@ -115,38 +110,33 @@ iterator[<span class="hljs-number">0</span>]; <span class="hljs-comment">// unde
 <span class="hljs-comment">// The `for/of` loop can loop through iterators</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">of</span> map.keys()) {
   key; <span class="hljs-comment">// 'name', 'age', 'rank'</span>
-}
-</code></pre>
+}</code></pre>
 <p>Sometimes it is handy to convert an iterator into an array so you
 can use array methods like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map()</code></a>. The easiest way to convert an iterator into an array is using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">the built-in <code>Array.from()</code> function</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-built_in">Array</span>.from(map.keys());
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-built_in">Array</span>.from(map.keys());
 
 arr.length; <span class="hljs-comment">// 3</span>
 arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 'name'</span>
 arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'age'</span>
-arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'rank'</span>
-</code></pre>
+arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'rank'</span></code></pre>
 <p>The <code>Map#values()</code> function also returns an iterator. The iterator
 iterates through the map&#39;s values:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> map.values()) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> map.values()) {
   v; <span class="hljs-comment">// 'Jean-Luc Picard', 59, 'Captain'</span>
-}
-</code></pre>
+}</code></pre>
 <p>Finally, <code>Map#entries()</code> returns an iterator that iterates through
 the map&#39;s key/value pairs in a similar format to the <code>Map</code> 
 constructor. The <code>Map#entries()</code> function is the <code>Map</code> class&#39;s
 equivalent to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"><code>Object.entries()</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [key, value] <span class="hljs-keyword">of</span> map.entries()) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [key, value] <span class="hljs-keyword">of</span> map.entries()) {
   key; <span class="hljs-comment">// 'name', 'age', 'rank'</span>
   value; <span class="hljs-comment">// 'Jean-Luc Picard', 59, 'Captain'</span>
-}
-</code></pre>
+}</code></pre>
 <p>The <code>Map#entries()</code> function makes it easy to copy a map. Cloning
 a map is as simple as converting <code>map.entries()</code> into an array:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// `clone` is now a separate map that contains the same keys/values</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// `clone` is now a separate map that contains the same keys/values</span>
 <span class="hljs-comment">// as `map`.</span>
-<span class="hljs-keyword">const</span> clone = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">Array</span>.from(map.entries()));
-</code></pre>
+<span class="hljs-keyword">const</span> clone = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(<span class="hljs-built_in">Array</span>.from(map.entries()));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Although JavaScript developers typically use objects to store user
 data, maps have some advantages: there&#39;s no risk of prototype

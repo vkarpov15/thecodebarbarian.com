@@ -21,13 +21,12 @@
 </ul>
 <h2 id="hello-puppeteer">Hello, Puppeteer</h2>
 <p>To get started with Puppeteer, first <a href="https://www.npmjs.com/package/puppeteer">install the npm package</a>.</p>
-<pre><code>npm install puppeteer
-</code></pre><p>This will also download <a href="https://www.chromium.org/">Chromium</a>, the open source core of Chrome. If you want to save space and use your
+<pre><code>npm install puppeteer</code></pre><p>This will also download <a href="https://www.chromium.org/">Chromium</a>, the open source core of Chrome. If you want to save space and use your
 local Chrome installation instead, you can use <a href="https://www.npmjs.com/package/puppeteer-core">puppeteer-core</a>.</p>
 <p>Once you&#39;ve installed Puppeteer, you can <code>require()</code> it just like
 any other npm package. You can then <code>launch()</code> a browser and
 navigate to the Google home page as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -47,10 +46,10 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
 
   <span class="hljs-comment">// Close the browser and exit the script</span>
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s what the above script looks like when it is running.</p>
-<p><img class="inline-image" src="https://i.imgur.com/yUNM9fc.png"></p>
+<img class="inline-image" src="https://i.imgur.com/yUNM9fc.png">
+
 <h2 id="evaluating-javascript">Evaluating JavaScript</h2>
 <p>Now that you can pull up the Google home page in Puppeteer, how
 about using Puppeteer to search for &quot;JavaScript&quot; on Google and 
@@ -61,7 +60,7 @@ you execute an arbitrary JavaScript function in Chrome, so you
 can use built-in functions like <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">the <code>querySelector()</code> function</a> to manipulate the page.</p>
 <p>For example, on the Google homepage, the search input field has name &#39;q&#39;, so you can use the <code>page.evaluate()</code> function to target
 this <code>input</code> and change its value to JavaScript.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -77,14 +76,14 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
 
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">5000</span>));
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
-<p><img class="inline-image" src="https://i.imgur.com/1naZZzt.png"></p>
+}</code></pre>
+<img class="inline-image" src="https://i.imgur.com/1naZZzt.png">
+
 <p><a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#class-page">Puppeteer&#39;s page class inherits from Node.js&#39; EventEmitter class</a> and emits several useful events. For example,
 there&#39;s a &#39;load&#39; event when a new page is loaded. To make Google
 search for &#39;JavaScript&#39; and wait for the search results to load,
 you should call <code>evaluate()</code> to click on the &quot;Google Search&quot; button, and <code>await</code> until the &#39;load&#39; event is emitted.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -107,12 +106,12 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
 
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">5000</span>));
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
-<p><img class="inline-image" src="https://i.imgur.com/glUhsUX.png"></p>
+}</code></pre>
+<img class="inline-image" src="https://i.imgur.com/glUhsUX.png">
+
 <p>Now that <code>page</code> has the search results, you need to call <code>evaluate()</code> once more to scrape the search results. The function you pass to
 the <code>evaluate()</code> function, which is called the <code>pageFunction</code> parameter, can return a value. For example, the <code>getUrls()</code> function in the below script returns the contents of all the &#39;cite&#39; tags on the Google search results.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -142,9 +141,9 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
 
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">5000</span>));
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
-<p><img class="inline-image" src="https://i.imgur.com/qjEfEFh.png"></p>
+}</code></pre>
+<img class="inline-image" src="https://i.imgur.com/qjEfEFh.png">
+
 <p>Here&#39;s what the script prints:</p>
 <pre><code>[ <span class="hljs-string">'www.gun.io/'</span>,
   <span class="hljs-string">'learn.edx.org/JavaScript'</span>,
@@ -162,13 +161,12 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
   <span class="hljs-string">'https://www.geeksforgeeks.org/javascript-tutorial/'</span>,
   <span class="hljs-string">'https://javascript.info/'</span>,
   <span class="hljs-string">'https://www.pluralsight.com/paths/javascript'</span> ]
-Done
-</code></pre><h2 id="screenshots-and-devices">Screenshots and Devices</h2>
+Done</code></pre><h2 id="screenshots-and-devices">Screenshots and Devices</h2>
 <p>Puppeteer also lets you take <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagescreenshotoptions">png, jpg, </a> or <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions">pdf</a> screenshots of the current page. Puppeteer also lets you <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageemulateoptions"><code>emulate()</code> a device</a> like an iPhone by setting the viewport and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent">User-Agent header</a>. This means you can automatically generate screenshots of what a page would look like on a given device.</p>
 <p>For example, here&#39;s how you can take a png screenshot of what
 <a href="https://masteringjs.io/">the Mastering JS homepage</a> looks like on
 an iPhone X. </p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
@@ -189,10 +187,10 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
   fs.writeFileSync(<span class="hljs-string">'./screenshot.png'</span>, buf);
 
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s what the screenshot looks like:</p>
-<p><img class="inline-image" src="/images/masteringjs.png" style="width: 300px"></p>
+<img class="inline-image" src="/images/masteringjs.png" style="width: 300px">
+
 <h2 id="moving-on">Moving On</h2>
 <p>Puppeteer allows you to control Chrome from Node.js. It is a great
 tool for <a href="/testing-vue-apps-with-puppeteer-and-mocha.html">automated testing</a>, but it has uses beyond just testing that your login page works. Screenshots help with visualization and <a href="https://kentcdodds.com/blog/effective-snapshot-testing">snapshot testing</a>. Puppeteer runs an actual browser, so you can use it to scrape single page apps and other dynamic content.</p>

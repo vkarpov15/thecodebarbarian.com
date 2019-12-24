@@ -27,8 +27,7 @@ roughly approximates the state of Colorado.</p>
     [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
     [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
   ]]
-}
-</code></pre><p>Here&#39;s what this polygon looks like on a map. Click on the map for an
+}</code></pre><p>Here&#39;s what this polygon looks like on a map. Click on the map for an
 interactive view.</p>
 <p><a href="http://bl.ocks.org/d/da577b1847d8764999d2d5950246a8b4"><img src="https://i.imgur.com/5aMFI8k.jpg"></a></p>
 <p>However, to plug this GeoJSON polygon into the map builder at
@@ -53,8 +52,7 @@ which is an even more complex JSON object.</p>
       }
     }
   ]
-}
-</code></pre><p>The hard part of GeoJSON is wrestling with how deeply nested the types are.
+}</code></pre><p>The hard part of GeoJSON is wrestling with how deeply nested the types are.
 Some tools, like <a href="https://www.npmjs.com/package/@turf/turf">turf</a>, mostly
 accept GeoJSON Features and FeatureCollections as input. Other tools, like
 <a href="http://thecodebarbarian.com/80-20-guide-to-mongodb-geospatial-queries">MongoDB&#39;s built-in geospatial queries</a>,
@@ -66,7 +64,7 @@ Building GeoJSON types for <a href="https://www.npmjs.com/package/ajv">JSON sche
 with a rotting fish. Here&#39;s how GeoJSON casting and validation works in Archetype.</p>
 <h2 id="coordinates-and-polygons">Coordinates and Polygons</h2>
 <p>Here&#39;s how a GeoJSON polygon would look in Archetype:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">const</span> PolygonType = <span class="hljs-keyword">new</span> Archetype({
@@ -90,14 +88,13 @@ with a rotting fish. Here&#39;s how GeoJSON casting and validation works in Arch
       });
     }
   }
-}).compile(<span class="hljs-string">'Polygon'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'Polygon'</span>);</code></pre>
 <p>Archetype will attach a default type of &#39;Polygon&#39; and automatically convert
 strings into numbers for you if you accidentally pass a number in the
 coordinates array. Note that Archetype will <strong>not</strong> accept <code>NaN</code> as a number,
 so if one of the coordinates is something that can&#39;t resolve to a number,
 Archetype will throw an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> PolygonType({
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> PolygonType({
   <span class="hljs-comment">// Will automatically add a `type` property with value `Polygon`</span>
   coordinates: [[
     [<span class="hljs-string">'-109'</span>, <span class="hljs-number">41</span>], <span class="hljs-comment">// Archetype will also coerce strings into numbers</span>
@@ -106,10 +103,9 @@ Archetype will throw an error.</p>
     [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
     [<span class="hljs-number">-109</span>, <span class="hljs-string">'41'</span>]
   ]]
-}));
-</code></pre>
+}));</code></pre>
 <p>Incorrectly formatted coordinates or an incorrect type will throw an error:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Error: coordinates.0.0.1: Could not cast "not a number" to number,</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Error: coordinates.0.0.1: Could not cast "not a number" to number,</span>
 <span class="hljs-comment">// type: Value "MultiPolygon" invalid, allowed values are "[ 'Polygon' ]"</span>
 <span class="hljs-keyword">new</span> PolygonType({
   type: <span class="hljs-string">'MultiPolygon'</span>,
@@ -120,8 +116,7 @@ Archetype will throw an error.</p>
     [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
     [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
   ]]
-});
-</code></pre>
+});</code></pre>
 <p>Archetype throws errors rather than returning errors, so <code>new PolygonType({})</code>
 will throw an error because <code>coordinates</code> must be set and has no <code>$default</code>.
 This is for easier integration with <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js">async/await</a> so you don&#39;t have to put <code>if (err) { return err; }</code> lines everywhere. Leave <a href="https://blog.golang.org/error-handling-and-go">Go programmers</a> to struggle with that sadistic anti-pattern. In server-side JavaScript, we consolidate error handling and shun rote boilerplate like that.</p>
@@ -130,7 +125,7 @@ This is for easier integration with <a href="http://thecodebarbarian.com/common-
 custom types API, in that you can build up archetypes from smaller archetypes.
 For example, let&#39;s say you wanted to build a <code>PolygonFeatureType</code> that represents a
 GeoJSON Feature that contains a polygon. You can reuse the existing <code>PolygonType</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PolygonFeatureType = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> PolygonFeatureType = <span class="hljs-keyword">new</span> Archetype({
   type: {
     $type: <span class="hljs-string">'string'</span>,
     $required: <span class="hljs-literal">true</span>,
@@ -152,8 +147,7 @@ GeoJSON Feature that contains a polygon. You can reuse the existing <code>Polygo
     $type: PolygonType,
     $required: <span class="hljs-literal">true</span>
   }
-}).compile(<span class="hljs-string">'PolygonFeatureType'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'PolygonFeatureType'</span>);</code></pre>
 <p>Better yet, you can use a helper function to generate Feature types for the various GeoJSON types:</p>
 <ul>
 <li>Point</li>
@@ -162,7 +156,7 @@ GeoJSON Feature that contains a polygon. You can reuse the existing <code>Polygo
 <li>MultiPolygon</li>
 <li>MultiLineString</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Feature = GeoJSONType =&gt; <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Feature = GeoJSONType =&gt; <span class="hljs-keyword">new</span> Archetype({
   type: {
     $type: <span class="hljs-string">'string'</span>,
     $required: <span class="hljs-literal">true</span>,
@@ -184,10 +178,9 @@ GeoJSON Feature that contains a polygon. You can reuse the existing <code>Polygo
     $type: GeoJSONType,
     $required: <span class="hljs-literal">true</span>
   }
-}).compile(<span class="hljs-string">`Feature&lt;<span class="hljs-subst">${GeoJSONType.name}</span>`</span>);
-</code></pre>
+}).compile(<span class="hljs-string">`Feature&lt;<span class="hljs-subst">${GeoJSONType.name}</span>`</span>);</code></pre>
 <p>Here&#39;s how you use the above <code>Feature()</code> function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> FeaturePolygonType = Feature(PolygonType);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> FeaturePolygonType = Feature(PolygonType);
 
 <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>).inspect(<span class="hljs-keyword">new</span> FeaturePolygonType({
   geometry: {
@@ -199,8 +192,7 @@ GeoJSON Feature that contains a polygon. You can reuse the existing <code>Polygo
       [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
     ]]
   }
-}), { depth: <span class="hljs-number">10</span> }));
-</code></pre>
+}), { depth: <span class="hljs-number">10</span> }));</code></pre>
 <p>The output looks like this:</p>
 <pre><code>Feature&lt;Polygon&gt; {
   geometry:
@@ -213,8 +205,7 @@ GeoJSON Feature that contains a polygon. You can reuse the existing <code>Polygo
           [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ],
      type: <span class="hljs-string">'Polygon'</span> },
   type: <span class="hljs-string">'Feature'</span>,
-  properties: {} }
-</code></pre><p>You can think of this <code>Feature()</code> function as <a href="https://en.wikipedia.org/wiki/Generics_in_Java">generics</a>
+  properties: {} }</code></pre><p>You can think of this <code>Feature()</code> function as <a href="https://en.wikipedia.org/wiki/Generics_in_Java">generics</a>
 for runtime type casting. The difference is, of course, generics are only
 for static type checking, whereas archetype is about runtime casting of
 potentially unsafe data.</p>

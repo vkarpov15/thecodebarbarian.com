@@ -26,43 +26,50 @@ that provides the underlying framework for IBM Cloud Functions. In theory, you
 could run OpenWhisk yourself and use the same deployment strategy you do for
 IBM Cloud, but I haven&#39;t tried this.</p>
 <p>Once you&#39;ve logged in, click on the &quot;Actions&quot; tab on the left and then click &quot;Create.&quot;</p>
-<p><img src="https://i.imgur.com/b9qp4S7.png"></p>
+<img src="https://i.imgur.com/b9qp4S7.png">
+
 <p>For this simple example, click on &quot;Quickstart Templates&quot; to get a list of ready-made &quot;actions&quot;. OpenWhisk calls functions &quot;actions&quot;, presumably because
 actions have a very specific function signature.</p>
-<p><img src="https://i.imgur.com/a8cUKWD.png"></p>
+<img src="https://i.imgur.com/a8cUKWD.png">
+
 <p>Select the &quot;Hello World&quot; function template.</p>
-<p><img src="https://i.imgur.com/O3G0oMh.png"></p>
-<p>The next step asks you for a package name, a runtime, and the actual code. The</p>
-<p>default options are sufficient for this simple example, because IBM Cloud will
+<img src="https://i.imgur.com/O3G0oMh.png">
+
+<p>The next step asks you for a package name, a runtime, and the actual code. The
+default options are sufficient for this simple example, because IBM Cloud will
 fill in the code for a rudimentary &quot;Hello, World&quot; action for you.</p>
-<p><img src="https://i.imgur.com/B7LLZOT.png"></p>
+<img src="https://i.imgur.com/B7LLZOT.png">
+
 <p>Great, now you have your first cloud function. You can execute the function,
 but you still need to expose it via HTTP.
 Click the &quot;Endpoints&quot; tab on the left to create an endpoint for this function.</p>
-<p><img src="https://i.imgur.com/4RGJMEp.png"></p>
+<img src="https://i.imgur.com/4RGJMEp.png">
+
 <p>Now, click the &quot;Enable as Web Action&quot; checkbox to expose this action via REST API. A web action has a couple special
 properties as opposed to a regular action. First, a web action <em>must</em> return an object that is serializable into JSON, or
 a <a href="https://github.com/apache/incubator-openwhisk/blob/master/docs/actions.md#creating-asynchronous-actions">promise that resolves to such an object</a>. Second, if a web action returns an object that has
 a <code>headers</code>, <code>statusCode</code>, or <code>body</code> property, OpenWhisk will use those properties to structure the HTTP response, rather
 than just stringifying the resulting JSON object.</p>
-<p><img src="https://i.imgur.com/hxKKJiD.png"></p>
+<img src="https://i.imgur.com/hxKKJiD.png">
+
+
 <p>Once you&#39;ve made your action into a web action, you should be able to access it via REST API. Click the copy icon in
 the &quot;HTTP Method&quot; panel to copy the URL for your function.</p>
-<p><img src="https://i.imgur.com/pg2wiv4.png"></p>
+<img src="https://i.imgur.com/pg2wiv4.png">
+
 <p>Running curl on the URL will then execute your function and give you the result.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//openwhisk.ng.bluemix.net/api/v1/web/val%40karpov.io_dev/hello-world/helloworld.json</span>
 {
   <span class="hljs-string">"greeting"</span>: <span class="hljs-string">"Hello stranger!"</span>
 }
-$
-</code></pre><h2 id="connecting-to-mongodb-and-reusing-the-connection">Connecting to MongoDB and Reusing the Connection</h2>
+$</code></pre><h2 id="connecting-to-mongodb-and-reusing-the-connection">Connecting to MongoDB and Reusing the Connection</h2>
 <p>Currently, you can&#39;t install custom npm packages for IBM Cloud Functions through
 the browser GUI, you need to <a href="https://www.ibm.com/blogs/bluemix/2016/12/node-js-code-openwhisk-actions/">bundle your <code>node_modules</code> and upload your function via the CLI</a>.
 However, the <a href="https://github.com/apache/incubator-openwhisk/blob/master/docs/reference.md#javascript-runtime-environments">IBM Cloud Function runtime has the mongodb driver pre-installed</a>. This means you can start using the
 MongoDB driver without any extra steps. Below is a simple function that connects
 to <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> with the sensitive credentials omitted. IBM Cloud Functions use Node.js 8 by default, which means
 you can use <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb/package.json'</span>);
 
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb+srv://OMITTED.mongodb.net/test'</span>;
@@ -76,12 +83,12 @@ you can use <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-n
   <span class="hljs-keyword">return</span> { body: { result: docs, driverVersion } };
 }
 
-exports.main = main;
-</code></pre>
+exports.main = main;</code></pre>
 <p>You can click the &quot;Invoke&quot; button to run your function without having to switch
 to the command line and use curl. Below is the output of running the above function.
 Notice that the current MongoDB driver version is 3.0.4, which is the latest version when this article was written.</p>
-<p><img src="https://i.imgur.com/gMA70S4.png"></p>
+<img src="https://i.imgur.com/gMA70S4.png">
+
 <p>So the only problem now is that this function creates a new connection to
 MongoDB Atlas every time. The 900ms runtime is indicative of the fact that
 the MongoDB driver needs to connect to a MongoDB instance running on AWS every
@@ -89,7 +96,7 @@ time.</p>
 <p>Thankfully, the same trick for reusing connections that works for <a href="https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas">Lambda</a> and Azure Functions also works for IBM Cloud. Global-scoped
 variables may be persisted between calls, so if you keep a global reference to
 your database client you can reuse it.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb+srv://OMITTED.mongodb.net/test'</span>;
 
@@ -106,11 +113,11 @@ your database client you can reuse it.</p>
   <span class="hljs-keyword">return</span> { body: { result: docs, reused } };
 }
 
-exports.main = main;
-</code></pre>
+exports.main = main;</code></pre>
 <p>Below are two executions of this action back-to-back. Notice that the second
 execution is much faster because it reused the database connection.</p>
-<p><img src="https://i.imgur.com/x4momOu.png"></p>
+<img src="https://i.imgur.com/x4momOu.png">
+
 <h2 id="moving-on">Moving On</h2>
 <p>IBM Cloud Functions are an appealing alternative to AWS Lambda and Azure Functions.
 I haven&#39;t tried their CLI yet, but between the built-in npm modules and the

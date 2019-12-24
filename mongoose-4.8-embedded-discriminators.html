@@ -13,13 +13,12 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>The most +1&#39;ed <a href="https://github.com/Automattic/mongoose/issues/1856">feature</a> <a href="https://github.com/Automattic/mongoose/issues/2723">request</a> for mongoose in 2016 was extending <a href="http://mongoosejs.com/docs/discriminators.html">discriminators</a> to work with embedded documents. Discriminators are mongoose&#39;s built-in schema inheritance mechanism. For example, suppose you have a schema defining events:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> });
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> });</code></pre>
 <p>Naturally, an &#39;event&#39; is a nebulous concept. Suppose you want to make some more
 concrete events, like a <code>ClickedEvent</code> that contains the id of an element that
 the user clicked and a <code>PurchasedEvent</code> that contains the id of the product
 purchased. Discriminators let you do this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span> });
 
 <span class="hljs-keyword">const</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
@@ -36,8 +35,7 @@ purchased. Discriminators let you do this:</p>
     type: <span class="hljs-built_in">String</span>,
     required: <span class="hljs-literal">true</span>
   }
-}));
-</code></pre>
+}));</code></pre>
 <p>Now <code>ClickedEvent</code> and <code>PurchasedEvent</code> are discriminators of <code>Event</code>. In other
 words, <code>ClickedEvent</code> and <code>PurchasedEvent</code> are mongoose models that share the
 &#39;events&#39; collection. When you save a new <code>ClickedEvent</code> instance, mongoose
@@ -49,18 +47,17 @@ Calling <code>ClickedEvent.find()</code> is also equivalent to calling
 <p>One major limitation of discriminators in mongoose <code>~4.7</code> is you can only have
 discriminators in top-level documents. For example, say instead of storing each
 individual event in the database you store events in batches as shown below:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
 
 <span class="hljs-keyword">const</span> batchSchema = <span class="hljs-keyword">new</span> Schema({ events: [eventSchema] });
-<span class="hljs-keyword">const</span> Batch = mongoose.model(<span class="hljs-string">'Batch'</span>, batchSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> Batch = mongoose.model(<span class="hljs-string">'Batch'</span>, batchSchema);</code></pre>
 <p>In mongoose 4.7, there&#39;s no way to create a discriminator for the <code>events</code> array, because it&#39;s embedded in the top-level <code>Batch</code> model. Mongoose 4.8 adds the ability
 to create discriminators on embedded arrays.</p>
 <h2 id="discriminators-for-document-arrays">Discriminators for Document Arrays</h2>
 <p>In mongoose <code>~4.8</code> you can define a discriminator by calling a document array&#39;s
 <code>discriminator()</code> function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
 
 <span class="hljs-keyword">const</span> batchSchema = <span class="hljs-keyword">new</span> Schema({ events: [eventSchema] });
@@ -79,11 +76,10 @@ batchSchema.path(<span class="hljs-string">'events'</span>).discriminator(<span 
   }
 }, { _id: <span class="hljs-literal">false</span> }));
 
-<span class="hljs-keyword">const</span> Batch = mongoose.model(<span class="hljs-string">'Batch'</span>, batchSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> Batch = mongoose.model(<span class="hljs-string">'Batch'</span>, batchSchema);</code></pre>
 <p>Now you can now create event batches and mongoose will map <code>kind</code> properties
 to the correct types:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> batch = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> batch = {
   events: [
     { kind: <span class="hljs-string">'Clicked'</span>, element: <span class="hljs-string">'Test'</span> },
     { kind: <span class="hljs-string">'Purchased'</span>, product: <span class="hljs-number">22</span> }
@@ -99,11 +95,10 @@ Batch.create(batch).then(<span class="hljs-built_in">console</span>.log);
   events:
    [ { element: 'Test', kind: 'Clicked' },
      { product: '22', kind: 'Purchased' } ] }
-*/</span>
-</code></pre>
+*/</span></code></pre>
 <p>One neat feature of discriminators is the ability to define <a href="http://mongoosejs.com/docs/guide.html#methods">methods</a> on each discriminator. In the below example, you&#39;ll see you can create a different <code>displayName()</code> method for
 <code>ClickedEvent</code> and <code>PurchasedEvent</code> instances.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> clickedSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> clickedSchema = <span class="hljs-keyword">new</span> Schema({
   element: {
     type: <span class="hljs-built_in">String</span>,
     required: <span class="hljs-literal">true</span>
@@ -144,8 +139,7 @@ Batch.create(batch).
   then(batch =&gt; <span class="hljs-built_in">console</span>.log(batch.events.map(e =&gt; e.displayName())));
 
 <span class="hljs-comment">// Output</span>
-<span class="hljs-comment">/* [ 'Clicked:Test', 'Purchased:22' ] */</span>
-</code></pre>
+<span class="hljs-comment">/* [ 'Clicked:Test', 'Purchased:22' ] */</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#480--2017-01-28">Mongoose 4.8.0</a> includes 13 new features (like support for the <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html">MongoDB 3.4 decimal type</a>) in addition to embedded array discriminators. It also has some major performance improvements for <a href="https://github.com/Automattic/mongoose/issues/4821#issuecomment-270033556">documents with large embedded arrays</a>. Make sure you upgrade and take advantage of these new improvements!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

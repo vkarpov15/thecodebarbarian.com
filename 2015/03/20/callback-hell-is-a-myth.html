@@ -23,7 +23,7 @@ Yet, in my
 experience, true callback hell is a symptom rather than a problem, and, unless
 you address the underlying problem, using a library like async will just
 postpone the inevitable.</p>
-<h2 id="what-s-the-underlying-problem-">What&#39;s the Underlying Problem?</h2>
+<h2 id="whats-the-underlying-problem">What&#39;s the Underlying Problem?</h2>
 <p>When I first started using <a href="http://npmjs.org/package/async">the async module</a>,
 it felt like a dream come true. The
 <a href="https://www.npmjs.com/package/async#waterfall"><code>waterfall()</code> function</a>
@@ -38,7 +38,8 @@ that
 Async helped me sweep this problem under the rug for a time, but the poor code
 organization ended up coming back to bite me. Too often async and promises are
 used as a panacea to save codebases from bloated code and bad software design.</p>
-<p><img src="http://i.imgur.com/DEg3cPZ.png" style="width: 300px"></p>
+<img src="http://i.imgur.com/DEg3cPZ.png" style="width: 300px">
+
 <h2 id="why-i-love-callbacks">Why I Love Callbacks</h2>
 <p>People are always confused when I say I love NodeJS in spite of the fact that I
 agree (at least in spirit, if not the exact number) with <a href="http://en.wikiquote.org/wiki/Linus_Torvalds#1995-99">
@@ -60,7 +61,8 @@ programming framework.</p>
 <p>Let&#39;s take a look at a couple &quot;pyramid of doom&quot; examples I pulled down from
 Google images. Here&#39;s a typical
 <a href="https://medium.com/@mlfryman/to-survive-the-pyramid-of-doom-4e8ce4fb5d6b">callback hell example borrowed from a post on medium.com</a>.</p>
-<p><img src="http://i.imgur.com/MByWioX.png" style="width: 660px"></p>
+<img src="http://i.imgur.com/MByWioX.png" style="width: 660px">
+
 <p>If you ignore this code&#39;s numerous other glaring issues, you&#39;ll see that
 callbacks aren&#39;t the problem here, the lack of sane abstractions is. Look
 carefully: does chair really need to be saved after table is done saving?
@@ -71,7 +73,7 @@ you would just use
 <a href="http://mongoosejs.com/docs/api.html#model_Model.create">the <code>create()</code> function</a>.
 Even without mongoose, <code>async.parallel()</code>, or <code>promise.all()</code>, you can write a
 simple function to make this much cleaner.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params">items, callback</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params">items, callback</span>) </span>{
   <span class="hljs-keyword">var</span> numItems = items.length;
   <span class="hljs-keyword">var</span> done = <span class="hljs-literal">false</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; items.length; ++i) {
@@ -86,14 +88,13 @@ simple function to make this much cleaner.</p>
       --numItems || callback();
     });
   }
-}
-</code></pre>
+}</code></pre>
 <p>An alternative solution using simple recursion makes for a more concise solution
 (12 SLOC, 4 branches) that maintains the behavior of the original code. Just
 another case where
 <a href="https://sites.google.com/site/codetrick/superprimerib">young developers should practice algorithms more</a>
 and spend less time building iPhone apps.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params">items, callback, index</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params">items, callback, index</span>) </span>{
   index = index || <span class="hljs-number">0</span>;
   <span class="hljs-keyword">if</span> (index &gt;= items.length) {
     callback();
@@ -104,14 +105,14 @@ and spend less time building iPhone apps.</p>
     }
     create(items, callback, index + <span class="hljs-number">1</span>);
   });
-}
-</code></pre>
+}</code></pre>
 <p>Another example I pulled down that&#39;s a bit less trivial comes from this
 <a href="http://slides.com/michaelholroyd/asyncnodejs#/">presentation on wrangling callback hell with async</a>.
 Click on the image to zoom in a little more, if you dare.</p>
-<p><a href="http://i.imgur.com/EGGwaXP.png">
+<a href="http://i.imgur.com/EGGwaXP.png">
   <img src="http://i.imgur.com/EGGwaXP.png" style="width: 660px">
-</a></p>
+</a>
+
 <p>This case is a classic example where the single function is responsible for
 doing way too much, otherwise known as the
 <a href="http://en.wikipedia.org/wiki/God_object">God object anti-pattern</a>.

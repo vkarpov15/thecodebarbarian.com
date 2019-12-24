@@ -17,9 +17,8 @@
 <h2 id="building-a-load-balancer">Building a Load Balancer</h2>
 <p>A load balancer is a process that takes in HTTP requests and forwards these HTTP requests to one of a collection of servers. Load balancers are usually used for performance purposes: if a server needs to do a lot of work for each request, one server might not be enough, but 2 servers alternating handling incoming requests might.</p>
 <p>First off, let&#39;s install <a href="https://www.npmjs.com/package/express">express</a> and <a href="https://www.npmjs.com/package/request">request</a>. The request package is an HTTP client with good support for streams, using it will make writing the load balancer very easy.</p>
-<pre><code>npm install express@<span class="hljs-number">4.15</span><span class="hljs-number">.2</span> body-parser@<span class="hljs-number">1.17</span><span class="hljs-number">.1</span> request@<span class="hljs-number">2.81</span><span class="hljs-number">.0</span>
-</code></pre><p>To make things easy, let&#39;s write a single process that starts 2 Express apps, one on port 3000 and one on port 3001. The separate load balancer process should alternate between these two, sending one request to port 3000, the next request to port 3001, and the next one back to port 3000.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
+<pre><code>npm install express@<span class="hljs-number">4.15</span><span class="hljs-number">.2</span> body-parser@<span class="hljs-number">1.17</span><span class="hljs-number">.1</span> request@<span class="hljs-number">2.81</span><span class="hljs-number">.0</span></code></pre><p>To make things easy, let&#39;s write a single process that starts 2 Express apps, one on port 3000 and one on port 3001. The separate load balancer process should alternate between these two, sending one request to port 3000, the next request to port 3001, and the next one back to port 3000.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app1 = express();
@@ -39,15 +38,13 @@ app1.get(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number"
 app2.get(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">2</span>)).post(<span class="hljs-string">'*'</span>, handler(<span class="hljs-number">2</span>));
 
 app1.listen(<span class="hljs-number">3000</span>);
-app2.listen(<span class="hljs-number">3001</span>);
-</code></pre>
+app2.listen(<span class="hljs-number">3001</span>);</code></pre>
 <p>If load balancing works properly, the console output should look like this:</p>
 <pre><code>$ node server.js
 server <span class="hljs-number">1</span> GET /test3 {}
 server <span class="hljs-number">2</span> GET /favicon.ico {}
-server <span class="hljs-number">1</span> POST /test3 { hello: <span class="hljs-string">'world'</span> }
-</code></pre><p>The key idea for load balancing is that Node&#39;s core HTTP <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> and <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> classes, as well as <a href="https://www.npmjs.com/package/request#streaming">the request package&#39;s representation of HTTP requests</a>, implement <a href="https://github.com/substack/stream-handbook">Node&#39;s streams interface</a>. Proxying an HTTP request is as easy as calling <code>pipe()</code> twice:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+server <span class="hljs-number">1</span> POST /test3 { hello: <span class="hljs-string">'world'</span> }</code></pre><p>The key idea for load balancing is that Node&#39;s core HTTP <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> and <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> classes, as well as <a href="https://www.npmjs.com/package/request#streaming">the request package&#39;s representation of HTTP requests</a>, implement <a href="https://github.com/substack/stream-handbook">Node&#39;s streams interface</a>. Proxying an HTTP request is as easy as calling <code>pipe()</code> twice:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 
 <span class="hljs-keyword">const</span> servers = [<span class="hljs-string">'http://localhost:3000'</span>, <span class="hljs-string">'http://localhost:3001'</span> ];
@@ -62,15 +59,13 @@ server <span class="hljs-number">1</span> POST /test3 { hello: <span class="hljs
 };
 <span class="hljs-keyword">const</span> server = express().get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
 
-server.listen(<span class="hljs-number">8080</span>);
-</code></pre>
+server.listen(<span class="hljs-number">8080</span>);</code></pre>
 <p>This is a quick proof of concept that doesn&#39;t support health checks or any other sophisticated load balancing features. But, if you&#39;re comfortable with Node.js, it&#39;s quite possible to build this out into a more full-fledged load balancer. For example, you might notice that the load balancer above doesn&#39;t handle errors. Let&#39;s say the underlying server takes a long time to respond:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> handler = serverNum =&gt; (req, res) =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> handler = serverNum =&gt; (req, res) =&gt; {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`server <span class="hljs-subst">${serverNum}</span>`</span>, req.method, req.url, req.body);
   <span class="hljs-comment">// Wait for 10 seconds before responding</span>
   setTimeout(() =&gt; { res.send(<span class="hljs-string">`Hello from server <span class="hljs-subst">${serverNum}</span>!`</span>); }, <span class="hljs-number">10000</span>);
-};
-</code></pre>
+};</code></pre>
 <p>If the underlying server shuts down in the middle of a request, the load balancer server will also crash:</p>
 <pre><code>$ node lb.js
 internal/streams/legacy.js:<span class="hljs-number">59</span>
@@ -85,9 +80,8 @@ internal/streams/legacy.js:<span class="hljs-number">59</span>
     at endReadableNT (_stream_readable.js:<span class="hljs-number">974</span>:<span class="hljs-number">12</span>)
     at _combinedTickCallback (internal/process/next_tick.js:<span class="hljs-number">74</span>:<span class="hljs-number">11</span>)
     at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">98</span>:<span class="hljs-number">9</span>)
-$
-</code></pre><p>Adding an error handler to the <code>request</code> object lets you handle this error gracefully:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
+$</code></pre><p>Adding an error handler to the <code>request</code> object lets you handle this error gracefully:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
   <span class="hljs-comment">// Add an error handler for the proxied request</span>
   <span class="hljs-keyword">const</span> _req = request({ url: servers[cur] + req.url }).on(<span class="hljs-string">'error'</span>, error =&gt; {
     res.status(<span class="hljs-number">500</span>).send(error.message);
@@ -97,12 +91,11 @@ $
 };
 <span class="hljs-keyword">const</span> server = express().get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
 
-server.listen(<span class="hljs-number">8080</span>);
-</code></pre>
+server.listen(<span class="hljs-number">8080</span>);</code></pre>
 <h2 id="logging-profiling-and-ssl-termination">Logging, Profiling, and SSL Termination</h2>
 <p>The major advantage of a Node.js load balancer is easy extensibility and access to the whole npm ecosystem. No need to write C or Lua or learn nginScript.</p>
 <p>Since your load balancer is just an Express app, you can plug in <a href="http://expressjs.com/en/guide/writing-middleware.html">Express middleware</a> to extend your load balancer. For example, you can write middleware that records how long each request takes using <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">Node.js&#39; &#39;finish&#39; event</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> profilerMiddleware = (req, res, next) =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> profilerMiddleware = (req, res, next) =&gt; {
   <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
   <span class="hljs-comment">// The 'finish' event comes from core Node.js, it means Node is done handing</span>
   <span class="hljs-comment">// off the response headers and body to the underlying OS.</span>
@@ -115,10 +108,9 @@ server.listen(<span class="hljs-number">8080</span>);
 <span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
   <span class="hljs-comment">/* ... */</span>
 };
-<span class="hljs-keyword">const</span> server = express().use(profilerMiddleware).get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);
-</code></pre>
+<span class="hljs-keyword">const</span> server = express().use(profilerMiddleware).get(<span class="hljs-string">'*'</span>, handler).post(<span class="hljs-string">'*'</span>, handler);</code></pre>
 <p>SSL termination is also as easy as plugging in some middleware. In this case, you can plug in <a href="https://www.npmjs.com/package/express-sslify">express-sslify</a> to enforce HTTPS for all incoming requests, and use <a href="https://nodejs.org/api/https.html">Node.js&#39; built-in <code>https</code> library</a> to start an HTTPS server. Node.js&#39; <a href="https://strongloop.com/strongblog/improve-the-performance-of-the-node-js-https-server/">HTTPS has some performance limitations</a>, so if your app is very performance sensitive you would need to do some tuning. For the purposes of this article, you can generate self-signed SSL certificates for <code>localhost</code> from <a href="http://www.selfsignedcertificate.com/">this site</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
 <span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
@@ -147,8 +139,7 @@ app.listen(<span class="hljs-number">80</span>);
   key: fs.readFileSync(<span class="hljs-string">'./localhost.key'</span>),
   cert: fs.readFileSync(<span class="hljs-string">'./localhost.cert'</span>)
 };
-https.createServer(sslOptions, app).listen(<span class="hljs-number">443</span>);
-</code></pre>
+https.createServer(sslOptions, app).listen(<span class="hljs-number">443</span>);</code></pre>
 <p>Now this rudimentary load balancer also enforces SSL for all connections and supports HTTPS, even though the underlying servers do not. Chrome still gives a loud warning that &quot;Your connection to this site might not be private&quot;, but that&#39;s just because the SSL key and certificate are self-signed.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>There are a lot of advantages to an Express-based load balancer. If your team is already familiar with Express, you can set up your own load balancer without learning how to configure a completely separate tool. Adding new functionality is easy with Express middleware and the wide variety of packages on npm. Debugging issues is easy if you&#39;re already comfortable with Express, because you&#39;re just dealing with an Express app. You can even cross-compile your load balancer into standalone executables using <a href="http://npmjs.org/package/pkg">pkg</a>. Next time when you&#39;re tempted to reach for nginx for load balancing, try using Express instead.</p>

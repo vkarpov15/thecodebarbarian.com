@@ -13,41 +13,36 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>Converting an <a href="http://2ality.com/2012/03/converting-to-string.html">arbitrary value to a string in JavaScript</a> is surprisingly nuanced. There are 3 common ways to convert <code>v</code> to a string:</p>
-<pre><code class="lang-javascript">v.toString();
+<pre><code class="language-javascript">v.toString();
 <span class="hljs-string">''</span> + v;
-<span class="hljs-built_in">String</span>(v);
-</code></pre>
+<span class="hljs-built_in">String</span>(v);</code></pre>
 <p>Each of the 3 methods have tradeoffs and quirks. For example, if <code>v</code> is null or
 undefined:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> v = <span class="hljs-literal">null</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> v = <span class="hljs-literal">null</span>;
 
 <span class="hljs-string">''</span> + v; <span class="hljs-comment">// 'null'</span>
 <span class="hljs-built_in">String</span>(v); <span class="hljs-comment">// 'null'</span>
-v.toString(); <span class="hljs-comment">// Throws a TypeError</span>
-</code></pre>
+v.toString(); <span class="hljs-comment">// Throws a TypeError</span></code></pre>
 <p>For another, more complex, example, consider the following object.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> v = { valueOf: () =&gt; <span class="hljs-literal">null</span> };
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> v = { valueOf: () =&gt; <span class="hljs-literal">null</span> };</code></pre>
 <p>What do you get when you try to convert this object to a string?</p>
-<pre><code class="lang-javascript">v.toString(); <span class="hljs-comment">// '[object Object]'</span>
+<pre><code class="language-javascript">v.toString(); <span class="hljs-comment">// '[object Object]'</span>
 <span class="hljs-string">''</span> + v; <span class="hljs-comment">// 'null'</span>
-<span class="hljs-built_in">String</span>(v); <span class="hljs-comment">// '[object Object]'</span>
-</code></pre>
+<span class="hljs-built_in">String</span>(v); <span class="hljs-comment">// '[object Object]'</span></code></pre>
 <p>That&#39;s because <code>&#39;&#39; + v</code> and <code>String(v)</code> are <em>almost</em> equivalent, except for how
 they handle <code>valueOf()</code>. <code>String(v)</code> doesn&#39;t attempt to convert <code>v</code> to a
 primitive before converting the value to a string, which is generally safer.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> v = { valueOf: () =&gt; { <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>) } };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> v = { valueOf: () =&gt; { <span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>) } };
 
 v.toString(); <span class="hljs-comment">// '[object Object]'</span>
 <span class="hljs-built_in">String</span>(v); <span class="hljs-comment">// '[object Object]'</span>
-<span class="hljs-string">''</span> + v; <span class="hljs-comment">// Throws an error</span>
-</code></pre>
+<span class="hljs-string">''</span> + v; <span class="hljs-comment">// Throws an error</span></code></pre>
 <h2 id="using-archetype">Using Archetype</h2>
 <p>The nuance of what happens when you&#39;re converting one value to a string is
 confusing enough. What happens when you have an embedded object with multiple
 arrays of strings that you need to convert? After all, <a href="http://thecodebarbarian.com/algorithm-interview-questions-in-js-glob-matching">recursion is hard</a>.</p>
 <p>I wrote <a href="https://www.npmjs.com/package/archetype">Archetype</a> to specifically address the problem of validating and casting complex JSON objects. Archetype is a full schema validation library, but it also exposes a neat <code>to()</code> function for converting individual values. Archetype calls <code>to()</code> internally.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 
 <span class="hljs-comment">// Archetype refuses to cast POJOs to strings because generally this means you</span>
 <span class="hljs-comment">// got bad JSON data from a network request.</span>
@@ -57,19 +52,17 @@ Archetype.to({ valueOf: () =&gt; <span class="hljs-string">'42'</span> }, <span 
 <span class="hljs-comment">// But dates, etc. are ok:</span>
 Archetype.to(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'string'</span>); <span class="hljs-comment">// 'Tue Feb 12 2019 09:24:55 GMT-0500 (EST)'</span>
 Archetype.to(<span class="hljs-number">42</span>, <span class="hljs-string">'string'</span>); <span class="hljs-comment">// '42'</span>
-Archetype.to(<span class="hljs-built_in">Number</span>(<span class="hljs-number">42</span>), <span class="hljs-string">'42'</span>);
-</code></pre>
+Archetype.to(<span class="hljs-built_in">Number</span>(<span class="hljs-number">42</span>), <span class="hljs-string">'42'</span>);</code></pre>
 <p>Archetype doesn&#39;t convert <code>null</code> or <code>undefined</code> (&quot;nullish&quot; values) to a string.
 That&#39;s intentional because when you get a <code>null</code> value in a request body, you
 usually want to treat it as <code>null</code> rather than as a string.</p>
-<pre><code class="lang-javascript">Archetype.to(<span class="hljs-literal">null</span>, <span class="hljs-string">'string'</span>); <span class="hljs-comment">// null</span>
-Archetype.to(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'string'</span>); <span class="hljs-comment">// undefined</span>
-</code></pre>
+<pre><code class="language-javascript">Archetype.to(<span class="hljs-literal">null</span>, <span class="hljs-string">'string'</span>); <span class="hljs-comment">// null</span>
+Archetype.to(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'string'</span>); <span class="hljs-comment">// undefined</span></code></pre>
 <h2 id="complex-objects">Complex Objects</h2>
 <p>Where Archetype really shines is casting complex objects that contain string-like
 values using the same rules as <code>Archetype.to()</code>. For example, suppose you have
 this complex object:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {
   tags: [<span class="hljs-literal">false</span>, <span class="hljs-number">42</span>],
   comments: [
     {
@@ -77,10 +70,9 @@ this complex object:</p>
       body: <span class="hljs-string">'Hello'</span>
     }
   ]
-};
-</code></pre>
+};</code></pre>
 <p>Archetype can cast and validate all these deeply nested properties into strings:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Comment = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Comment = <span class="hljs-keyword">new</span> Archetype({
   time: <span class="hljs-string">'string'</span>,
   body: <span class="hljs-string">'string'</span>
 }).compile(<span class="hljs-string">'Comment'</span>);
@@ -90,8 +82,7 @@ this complex object:</p>
   comments: [Comment]
 });
 
-<span class="hljs-keyword">new</span> Type(obj); <span class="hljs-comment">// `tags`, `comments.time`, `comments.body` are now all strings</span>
-</code></pre>
+<span class="hljs-keyword">new</span> Type(obj); <span class="hljs-comment">// `tags`, `comments.time`, `comments.body` are now all strings</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>To convert a value <code>v</code> to a string, you should generally use <code>String(v)</code>, because
 <code>String(v)</code> doesn&#39;t throw if <code>v</code> is nullish and doesn&#39;t convert objects that have a

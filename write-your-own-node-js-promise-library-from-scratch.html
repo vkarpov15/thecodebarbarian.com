@@ -14,11 +14,11 @@
 </div>
 </div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a> are the preferred async primitive in JavaScript. <a href="http://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">Callbacks</a> are becoming increasingly uncommon, especially now that <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await is available in Node.js</a>. Async/await is based on promises, so you need to understand promises to master async/await. In this article, I&#39;ll walk you through writing your own promise library
 and demonstrate using it with async/await.</p>
-<h2 id="what-s-in-a-promise-github-gist-https-gist-github-com-vkarpov15-6b8e2d44e4038314b1ed0384cffaca2c-">What&#39;s In a Promise? (<a href="https://gist.github.com/vkarpov15/6b8e2d44e4038314b1ed0384cffaca2c">GitHub Gist</a>)</h2>
+<h2 id="whats-in-a-promise-github-gist">What&#39;s In a Promise? (<a href="https://gist.github.com/vkarpov15/6b8e2d44e4038314b1ed0384cffaca2c">GitHub Gist</a>)</h2>
 <p>In the ES6 spec, a <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-promise-executor">promise is a class</a> whose
 constructor takes an <code>executor</code> function. Instances of the Promise class have a
 <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-promise.prototype.then"><code>then()</code> function</a>. Promises have several other properties according to the spec, but for the purposes of this tutorial you can ignore them. Below is the scaffold of a simple <code>MyPromise</code> class.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyPromise</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyPromise</span> </span>{
   <span class="hljs-comment">// `executor` takes 2 parameters, `resolve()` and `reject()`. The executor</span>
   <span class="hljs-comment">// function is responsible for calling `resolve()` or `reject()` to say that</span>
   <span class="hljs-comment">// the async operation succeeded (resolved) or failed (rejected).</span>
@@ -28,8 +28,7 @@ constructor takes an <code>executor</code> function. Instances of the Promise cl
   <span class="hljs-comment">// if the promise is rejected. For now, you can think of 'fulfilled' and</span>
   <span class="hljs-comment">// 'resolved' as the same thing.</span>
   then(onFulfilled, onRejected) {}
-}
-</code></pre>
+}</code></pre>
 <p>The <code>executor</code> function takes 2 parameters, <code>resolve()</code> and <code>reject()</code>. A promise
 is a state machine with 3 states:</p>
 <ul>
@@ -38,7 +37,7 @@ is a state machine with 3 states:</p>
 <li>rejected: the underlying operation failed and the promise has an associated error</li>
 </ul>
 <p>With this in mind, implementing the first iteration of the <code>MyPromise</code> constructor is simple.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">constructor</span>(executor) {
+<pre><code class="language-javascript"><span class="hljs-keyword">constructor</span>(executor) {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> executor !== <span class="hljs-string">'function'</span>) {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Executor must be a function'</span>);
   }
@@ -89,11 +88,10 @@ is a state machine with 3 states:</p>
   } <span class="hljs-keyword">catch</span> (err) {
     reject(err);
   }
-}
-</code></pre>
+}</code></pre>
 <p>The <code>then()</code> function is even easier. Remember the <code>then()</code> function takes two parameters, <code>onFulfilled()</code> and <code>onRejected()</code>. The <code>then()</code> function is responsible for making sure <code>onFulfilled()</code> gets called if the promise is fulfilled, and <code>onRejected()</code> if the promise is rejected. If the promise is already resolved or rejected, <code>then()</code> should call <code>onFulfilled()</code> or <code>onRejected()</code> immediately*.
 If the promise is still pending, <code>then()</code> should push the functions onto the <code>$chained</code> array so the <code>resolve()</code> and <code>reject()</code> functions can call them.</p>
-<pre><code class="lang-javascript">then(onFulfilled, onRejected) {
+<pre><code class="language-javascript">then(onFulfilled, onRejected) {
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$state === <span class="hljs-string">'FULFILLED'</span>) {
     onFulfilled(<span class="hljs-keyword">this</span>.$internalValue);
   } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$state === <span class="hljs-string">'REJECTED'</span>) {
@@ -101,22 +99,20 @@ If the promise is still pending, <code>then()</code> should push the functions o
   } <span class="hljs-keyword">else</span> {
     <span class="hljs-keyword">this</span>.$chained.push({ onFulfilled, onRejected });
   }
-}
-</code></pre>
+}</code></pre>
 <p><small><i>* Aside: the ES6 spec says that calling <code>.then()</code> on a promise that is already resolved or rejected means <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-performpromisethen"><code>onFulfilled()</code> or <code>onRejected()</code> should be called on the next tick</a>. Since this article&#39;s code is meant to be a didactic example rather than an exact implementation of the spec, this implementation will ignore this detail.</i></small></p>
-<h2 id="promise-chaining-github-gist-https-gist-github-com-vkarpov15-3efc81fa998ff5be42f4559d2f213f1e-">Promise Chaining (<a href="https://gist.github.com/vkarpov15/3efc81fa998ff5be42f4559d2f213f1e">GitHub Gist</a>)</h2>
+<h2 id="promise-chaining-github-gist">Promise Chaining (<a href="https://gist.github.com/vkarpov15/3efc81fa998ff5be42f4559d2f213f1e">GitHub Gist</a>)</h2>
 <p>The above example specifically ignores the most complex and most useful part of promises: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#Chaining">chaining</a>. The idea of chaining is that if the <code>onFulfilled()</code> or <code>onRejected()</code> function returns a promise, <code>then()</code> should return a new promise that is <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects">&quot;locked in&quot;</a> to match the state of the returned promise. For example:</p>
-<pre><code class="lang-javascript">p = <span class="hljs-keyword">new</span> MyPromise(resolve =&gt; {
+<pre><code class="language-javascript">p = <span class="hljs-keyword">new</span> MyPromise(resolve =&gt; {
   setTimeout(() =&gt; resolve(<span class="hljs-string">'World'</span>), <span class="hljs-number">100</span>);
 });
 
 p.
   then(res =&gt; <span class="hljs-keyword">new</span> MyPromise(resolve =&gt; resolve(<span class="hljs-string">`Hello, <span class="hljs-subst">${res}</span>`</span>))).
   <span class="hljs-comment">// Will print out 'Hello, World' after approximately 100ms</span>
-  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
-</code></pre>
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
 <p>Below is the new <code>.then()</code> function that returns a promise so you can chain.</p>
-<pre><code class="lang-javascript">then(onFulfilled, onRejected) {
+<pre><code class="language-javascript">then(onFulfilled, onRejected) {
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise((resolve, reject) =&gt; {
     <span class="hljs-comment">// Ensure that errors in `onFulfilled()` and `onRejected()` reject the</span>
     <span class="hljs-comment">// returned promise, otherwise they'll crash the process. Also, ensure</span>
@@ -145,10 +141,9 @@ p.
       <span class="hljs-keyword">this</span>.$chained.push({ onFulfilled: _onFulfilled, onRejected: _onRejected });
     }
   });
-}
-</code></pre>
+}</code></pre>
 <p>Now <code>then()</code> returns a promise. However, there&#39;s still some work to be done: if <code>onFulfilled()</code> returns a promise, <code>resolve()</code> needs to be able to handle it. In order to support this, the <code>resolve()</code> function will need to use <code>then()</code> in a two-step recursive dance. Below is the expanded <code>resolve()</code> function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> resolve = res =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> resolve = res =&gt; {
   <span class="hljs-comment">// A promise is considered "settled" when it is no longer</span>
   <span class="hljs-comment">// pending, that is, when either `resolve()` or `reject()`</span>
   <span class="hljs-comment">// was called once. Calling `resolve()` or `reject()` twice</span>
@@ -178,32 +173,29 @@ p.
   }
 
   <span class="hljs-keyword">return</span> res;
-};
-</code></pre>
+};</code></pre>
 <p><small><i>In the interest of simplicity, the above example omits the key detail that once a promise is &quot;locked in&quot; to match another promise, calling <code>resolve()</code> or <code>reject()</code> is a no-op. In the above example, you can <code>resolve()</code> to a pending promise and then throw an error, and then the <code>res.then(resolve, reject)</code> would be a no-op above. This is just an example, not a fully fledged implementation of the ES6 promise spec.</i></small></p>
 <p>The above code illustrates the difference between a &quot;resolved&quot; promise and a &quot;fulfilled&quot; promise. This distinction is subtle and has to do with promise chaining. &quot;Resolved&quot; is not an actual promise state, but it is a <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects">term defined in the ES6 spec</a>. When you call <code>resolve()</code> a promise is considered resolved, and one of two things can happen:</p>
 <ul>
 <li>If you call <code>resolve(v)</code> where <code>v</code> is not a promise, then the promise immediately becomes fulfilled. In this simple case, &quot;resolved&quot; and &quot;fulfilled&quot; are the same thing.</li>
 <li>If you call <code>resolve(v)</code> where <code>v</code> is another promise, then the promise remains pending until <code>v</code> resolves or rejects. In this case, the promise is &quot;resolved&quot; but still pending.</li>
 </ul>
-<h2 id="with-async-await">With Async/Await</h2>
+<h2 id="with-asyncawait">With Async/Await</h2>
 <p>Remember that the <code>await</code> keyword pauses execution of an <code>async</code> function until the awaited promise settles. Now that you have a rudimentary home-made promise library, let&#39;s see what happens when you use it with async/await. Add a <code>console.log()</code> statement to the <code>then()</code> function:</p>
-<pre><code class="lang-javascript">then(onFulfilled, onRejected) {
+<pre><code class="language-javascript">then(onFulfilled, onRejected) {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Then'</span>, onFulfilled, onRejected, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>().stack);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyPromise((resolve, reject) =&gt; {
     <span class="hljs-comment">/* ... */</span>
   });
-}
-</code></pre>
+}</code></pre>
 <p>Now, let&#39;s <code>await</code> on an instance of <code>MyPromise</code> and see what happens.</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> MyPromise(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">100</span>));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Elapsed time'</span>, <span class="hljs-built_in">Date</span>.now() - start);
-}
-</code></pre>
+}</code></pre>
 <p>Note the <code>.catch()</code> call above. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>catch()</code> function</a> is a core part of the ES6 promise spec. This article won&#39;t cover it in much detail because <code>.catch(f)</code> is equivalent to <code>.then(null, f)</code>, so there isn&#39;t much to it.</p>
 <p>Below is the output. Notice that await calls <code>.then()</code> implicitly with <code>onFulfilled()</code> and <code>onRejected()</code> functions that dive into the C++ internals of V8. Also, <code>await</code> always waits until the next tick before calling <code>.then()</code>.</p>
 <pre><code>Then <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-built_in">Error</span>
@@ -212,8 +204,7 @@ p.
     at <span class="hljs-built_in">Function</span>.Module.runMain (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">686</span>:<span class="hljs-number">11</span>)
     at startup (bootstrap_node.js:<span class="hljs-number">187</span>:<span class="hljs-number">16</span>)
     at bootstrap_node.js:<span class="hljs-number">608</span>:<span class="hljs-number">3</span>
-Elapsed time <span class="hljs-number">102</span>
-</code></pre><h2 id="moving-on">Moving On</h2>
+Elapsed time <span class="hljs-number">102</span></code></pre><h2 id="moving-on">Moving On</h2>
 <p><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Async/await</a> is powerful, but hard to master unless you understand the fundamentals of promises. Promises have a lot of nuances, like the fact that synchronous errors in the executor function are caught and the fact that a promise can&#39;t change state once it is settled, that make async/await possible. Once you have a solid understanding of promises, async/await becomes much easier.</p>
 <p><em>Looking for a more detailed guide that walks you through building a <a href="https://promisesaplus.com/">standards compliant</a> promise library from scratch? My new ebook, Mastering Async/Await, shows you how to build a Promises/A+ compliant promise implementation and demonstrates how it works with async/await. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>

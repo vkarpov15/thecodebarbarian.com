@@ -40,14 +40,13 @@ a plugin to do anything non-trivial. In particular, you need plugins to enable
 karma to launch specific browsers. For this article, you&#39;ll use 2 karma plugins:
 one that enables karma to launch PhantomJS, and one that provides an adapter for
 the <a href="https://www.npmjs.com/package/mocha">mocha testing framework</a>.</p>
-<pre><code class="lang-javascript">devDependencies: {
+<pre><code class="language-javascript">devDependencies: {
   <span class="hljs-string">"karma"</span>: <span class="hljs-string">"0.13.15"</span>,
   <span class="hljs-string">"karma-mocha"</span>: <span class="hljs-string">"0.2.0"</span>,
   <span class="hljs-string">"karma-phantomjs-launcher"</span>: <span class="hljs-string">"0.2.1"</span>,
   <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"2.3.3"</span>,
   <span class="hljs-string">"phantomjs"</span>: <span class="hljs-string">"1.9.18"</span>
-}
-</code></pre>
+}</code></pre>
 <p>Once you&#39;ve installed karma, you&#39;ll need to do a little extra work to make your
 tests easy to run. You&#39;ll need to create a
 <a href="https://github.com/vkarpov15/stopwatch-example/commit/1b9cd0ec48e18e0782804c0446c8c74651477127#diff-5">separate AngularJS module that contains all the stopwatch-specific logic</a>
@@ -62,7 +61,7 @@ with all of your stopwatch-specific directives, it&#39;s time to set up a karma
 config file. Karma config files can be intimidating at first, but they make
 sense once you remember the 3 things that karma is responsible for: starting
 browsers, running some JavaScript, and reporting output.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
   config.set({
     <span class="hljs-comment">// Start these browsers</span>
     browsers: [<span class="hljs-string">'PhantomJS'</span>],
@@ -86,22 +85,19 @@ browsers, running some JavaScript, and reporting output.</p>
     port: <span class="hljs-number">9876</span>,
     singleRun: <span class="hljs-literal">true</span>
   });
-};
-</code></pre>
+};</code></pre>
 <p>The above config assumes that all the tests will be in the <code>test/</code> directory.
 Let&#39;s write a basic mocha test and run it.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'works'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     assert.equal(<span class="hljs-string">'A'</span>, <span class="hljs-string">'A'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>In order to make karma easier to run, you can create a script in your
 <code>package.json</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"scripts"</span>: {
+<pre><code class="language-javascript"><span class="hljs-string">"scripts"</span>: {
   <span class="hljs-string">"test"</span>: <span class="hljs-string">"karma start test/karma.phantom.conf.js"</span>
-}
-</code></pre>
+}</code></pre>
 <p>Now, once you run <code>npm test</code>, you should see output that looks like this:</p>
 <pre><code>$ npm test
 
@@ -110,8 +106,7 @@ Let&#39;s write a basic mocha test and run it.</p>
 
 <span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.691</span>:INFO [karma]: Karma v0<span class="hljs-number">.13</span><span class="hljs-number">.15</span> server started at http:<span class="hljs-comment">//localhost:9876/</span>
 <span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.699</span>:INFO [launcher]: Starting browser PhantomJS
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">31.357</span>:INFO [PhantomJS <span class="hljs-number">1.9</span><span class="hljs-number">.8</span> (Linux <span class="hljs-number">0.0</span><span class="hljs-number">.0</span>)]: Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.038</span> secs / <span class="hljs-number">0</span> secs)
-</code></pre><h2 id="testing-angularjs-directives">Testing AngularJS Directives</h2>
+<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">31.357</span>:INFO [PhantomJS <span class="hljs-number">1.9</span><span class="hljs-number">.8</span> (Linux <span class="hljs-number">0.0</span><span class="hljs-number">.0</span>)]: Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.038</span> secs / <span class="hljs-number">0</span> secs)</code></pre><h2 id="testing-angularjs-directives">Testing AngularJS Directives</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/e6c278b3d5a9cf612e112bea38fc1f4874fcac9b">See a diff for this step on GitHub</a></em></p>
 <p>No offense to Aristotle, but a test that asserts that
 <a href="http://www.importanceofphilosophy.com/Metaphysics_Identity.html">A is A</a>
@@ -125,7 +120,7 @@ If you don&#39;t understand the <code>$compile</code> docs, don&#39;t worry, I d
 At a high level, the <code>$compile</code> service takes in an HTML string and an AngularJS
 scope, and compiles the HTML into a DOM element attached to the given scope.
 In other words, the  <code>$compile</code> service lets you instantiate your directives.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> injector = angular.injector([<span class="hljs-string">'stopwatch'</span>, <span class="hljs-string">'ngMockE2E'</span>]);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> injector = angular.injector([<span class="hljs-string">'stopwatch'</span>, <span class="hljs-string">'ngMockE2E'</span>]);
 
 injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile</span>) </span>{
   parentScope = $rootScope.$<span class="hljs-keyword">new</span>();
@@ -134,8 +129,7 @@ injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function<
   element = $compile(html)(parentScope);
   <span class="hljs-comment">// Can now do things like `element.css('display')` and</span>
   <span class="hljs-comment">// `element.find('button').click();`</span>
-});
-</code></pre>
+});</code></pre>
 <p><a href="https://docs.angularjs.org/api/auto/service/$injector">The <code>angular.injector()</code> function</a>
 is what you use to generate your <code>$compile</code> service. This creates a new
 AngularJS dependency injector from the given modules. Since the injector knows
@@ -144,49 +138,44 @@ directive and give you a jQuery handle to an instantiated <code>timer</code> dir
 <p>In order to really run this test, you&#39;re going to need three more details.
 First, you&#39;re going to need to define the <code>onSaved()</code> function. This is just
 going to be a stub for testing.</p>
-<pre><code class="lang-javascript">parentScope.onSaved = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) </span>{
+<pre><code class="language-javascript">parentScope.onSaved = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) </span>{
   parentScope.onSaved.calls.push(time);
 };
-parentScope.onSaved.calls = [];
-</code></pre>
+parentScope.onSaved.calls = [];</code></pre>
 <p>Secondly, recall that the <code>timer</code> directive creates a new AngularJS scope.
 The <code>parentScope</code> variable is useful, but what if we want access to the
 directive&#39;s internals? Thankfully, a scope has a <code>$$childHead</code> member that
 points to its first child scope.</p>
-<pre><code class="lang-javascript">scope = parentScope.$$childHead;
-</code></pre>
+<pre><code class="language-javascript">scope = parentScope.$$childHead;</code></pre>
 <p>Finally, you&#39;re going to want to test that clicking on the &#39;Save&#39; button
 triggers the correct HTTP request. Thankfully, that&#39;s what AngularJS&#39;
 <code>$httpBackend</code> service (part of the <code>ngMockE2E</code> module you saw above) is for.</p>
-<pre><code class="lang-javascript">injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile, $httpBackend</span>) </span>{
+<pre><code class="language-javascript">injector.invoke(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$rootScope, $compile, $httpBackend</span>) </span>{
   parentScope = $rootScope.$<span class="hljs-keyword">new</span>();
   httpBackend = $httpBackend;
-});
-</code></pre>
+});</code></pre>
 <p>With that, you&#39;re ready to write your first test. The full code can be
 found on
 <a href="https://github.com/vkarpov15/stopwatch-example/commit/e6c278b3d5a9cf612e112bea38fc1f4874fcac9b#diff-0">GitHub</a>.
 Let&#39;s walk through the high-level concepts in this test. Now that you have the
 element, you first want to click on the &#39;Start&#39; button in the <code>timer</code> directive
 and make sure the directive reacted correctly.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Click the 'Start' button</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Click the 'Start' button</span>
 element.find(<span class="hljs-string">'button[ng-click="startTimer()"]'</span>).click();
 <span class="hljs-comment">// Make sure the internal state updated</span>
 assert.equal(scope.state, <span class="hljs-string">'RUNNING'</span>);
 assert.equal(scope.ms, <span class="hljs-number">0</span>);
 <span class="hljs-comment">// And make sure the 'Start' button no longer appears</span>
 assert.ok(element.find(<span class="hljs-string">'button[ng-click="startTimer()"]'</span>).
-  hasClass(<span class="hljs-string">'ng-hide'</span>));
-</code></pre>
+  hasClass(<span class="hljs-string">'ng-hide'</span>));</code></pre>
 <p>Now, you want to wait a while and make sure the timer updates every second
 correctly.</p>
-<pre><code class="lang-javascript">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   assert.equal(scope.ms, <span class="hljs-number">1000</span>);
-}, <span class="hljs-number">1100</span>);
-</code></pre>
+}, <span class="hljs-number">1100</span>);</code></pre>
 <p>Once the timer has updated to 1 second, your test is going to click the stop
 button and assert that the directive reacted correctly.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Click on the 'Stop' button</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Click on the 'Stop' button</span>
 element.find(<span class="hljs-string">'button[ng-click="stopTimer()"]'</span>).click();
 <span class="hljs-comment">// Make sure the internal state updated correctly</span>
 assert.equal(scope.state, <span class="hljs-string">'STOPPED'</span>);
@@ -207,8 +196,7 @@ element.find(<span class="hljs-string">'button[ng-click="save()"]'</span>).click
 httpBackend.flush();
 
 <span class="hljs-comment">// Make sure the internal state updated correctly</span>
-assert.equal(scope.state, <span class="hljs-string">'SUCCESS'</span>);
-</code></pre>
+assert.equal(scope.state, <span class="hljs-string">'SUCCESS'</span>);</code></pre>
 <p>If you&#39;re interested in learning more, there&#39;s a
 <a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">detailed guide to testing AngularJS directives on my blog</a>.</p>
 <h2 id="setting-up-travis">Setting Up Travis</h2>
@@ -222,8 +210,7 @@ file to your repo.</p>
 <pre><code>language: node_js
 node_js:
   - <span class="hljs-string">"4"</span>
-script: <span class="hljs-string">"npm test"</span>
-</code></pre><p>Easy, right? If you need extra help setting up Travis, there&#39;s a
+script: <span class="hljs-string">"npm test"</span></code></pre><p>Easy, right? If you need extra help setting up Travis, there&#39;s a
 <a href="https://strongloop.com/strongblog/npm-modules-travis-coveralls/">detailed guide to setting up Travis for Node.js on the StrongLoop blog</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>That&#39;s a wrap! You&#39;ve now built a LoopBack REST API, a desktop web client, and

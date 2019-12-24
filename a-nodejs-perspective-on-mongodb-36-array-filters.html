@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="http://tgrall.github.io/blog/2015/04/21/mongodb-playing-with-arrays/">Strong support for arrays</a> has always been one of MongoDB&#39;s killer features. For example, suppose you have a collection of blog posts where each document contains an array of comments as shown below. Before MongoDB 3.6, you could only update at most one element of the <code>comments</code> array at a time because of limitations with the <a href="https://docs.mongodb.com/manual/reference/operator/update/positional/">positional operator <code>$</code></a>. Array filters in MongoDB 3.6 remove that limitation and add several more exciting features, like updating nested arrays.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Using the MongoDB shell</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Using the MongoDB shell</span>
 db.BlogPost.insertOne({
   title: <span class="hljs-string">'A Node.js Perspective on MongoDB 3.6: Array Filters'</span>,
   comments: [
@@ -28,16 +28,14 @@ db.BlogPost.insertOne({
     { author: <span class="hljs-string">'Bar'</span>, text: <span class="hljs-string">'Thanks!'</span> },
     { author: <span class="hljs-string">'Bar'</span>, text: <span class="hljs-string">'Sorry for double post'</span> }
   ]
-});
-</code></pre>
+});</code></pre>
 <h2 id="positional-operator-limitations">Positional Operator Limitations</h2>
 <p>Let&#39;s say you wanted to update every comment whose <code>author</code> is &#39;Bar&#39;. Before MongoDB 3.6, your only option was the below <code>updateMany()</code> operation:</p>
-<pre><code class="lang-javascript">db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: <span class="hljs-string">'Bar'</span> }, {
+<pre><code class="language-javascript">db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: <span class="hljs-string">'Bar'</span> }, {
   $set: { <span class="hljs-string">'comments.$.author'</span>: <span class="hljs-string">'Baz'</span> }
-});
-</code></pre>
+});</code></pre>
 <p>This <code>updateMany()</code> operation <em>almost</em> works. The updated data will look like what you see below.</p>
-<pre><code class="lang-javascript">[{
+<pre><code class="language-javascript">[{
     <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5a7357c50e840a8922c62986"</span>),
     <span class="hljs-string">"title"</span> : <span class="hljs-string">"A Node.js Perspective on MongoDB 3.6: Array Filters"</span>,
     <span class="hljs-string">"comments"</span> : [
@@ -64,11 +62,10 @@ db.BlogPost.insertOne({
             <span class="hljs-string">"text"</span> : <span class="hljs-string">"Sorry for double post"</span>
         }
     ]
-}]
-</code></pre>
+}]</code></pre>
 <p>The big problem is that the 2nd comment in the 2nd doc was not updated. That is because <a href="https://docs.mongodb.com/manual/reference/operator/update/positional/#update-documents-in-an-array">the <code>$</code> operator acts as a placeholder for the <strong>first</strong> index in the array that matches the query</a>. In other words, with <code>$</code> you can only update at most one element in an array.</p>
 <p>Furthermore, let&#39;s say you got even more fancy and added an array of <code>replies</code> to each <code>comment</code>.</p>
-<pre><code class="lang-javascript">db.BlogPost.insertOne({
+<pre><code class="language-javascript">db.BlogPost.insertOne({
   title: <span class="hljs-string">'A Node.js Perspective on MongoDB 3.6: Array Filters'</span>,
   comments: [
     {
@@ -87,26 +84,23 @@ db.BlogPost.insertOne({
       ]
     }
   ]
-});
-</code></pre>
+});</code></pre>
 <p>Let&#39;s say you wanted to update every reply with <code>author</code> &#39;Bar&#39;. Naively you might think the below <code>updateMany()</code> works, but it gives you an error message because <code>$</code> cannot handle nested arrays.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Does **not** work. Gives you the below error:</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Does **not** work. Gives you the below error:</span>
 <span class="hljs-comment">// "Too many positional (i.e. '$') elements found in</span>
 <span class="hljs-comment">// path 'comments.$.replies.$.author'"</span>
 db.BlogPost.updateMany({ <span class="hljs-string">'comments.replies.author'</span>: <span class="hljs-string">'Bar'</span> }, {
   $set: { <span class="hljs-string">'comments.$.replies.$.author'</span>: <span class="hljs-string">'Baz'</span> }
-});
-</code></pre>
+});</code></pre>
 <h2 id="using-array-filters">Using Array Filters</h2>
 <p><a href="https://docs.mongodb.com/manual/reference/operator/update/positional-all/">Array filters</a> are a new construct in MongoDB 3.6 that fix the above limitations in the positional operator. The positional operator&#39;s behavior hasn&#39;t changed in MongoDB 3.6, but array filters let you work around the above limitations of <code>$</code>.</p>
 <p>For example, to properly update all <code>comments</code> where <code>author</code> is &#39;Bar&#39;, all you need to do is replace <code>$</code> with <code>$[]</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Using the `mongo` shell</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Using the `mongo` shell</span>
 db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: <span class="hljs-string">'Bar'</span> }, {
   $set: { <span class="hljs-string">'comments.$[].author'</span>: <span class="hljs-string">'Baz'</span> }
-});
-</code></pre>
+});</code></pre>
 <p>Here&#39;s what your documents look like after this <code>updateMany()</code>:</p>
-<pre><code class="lang-javascript">[{
+<pre><code class="language-javascript">[{
     <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5a738782f169654674b114b2"</span>),
     <span class="hljs-string">"title"</span> : <span class="hljs-string">"A Node.js Perspective on MongoDB 3.6: Array Filters"</span>,
     <span class="hljs-string">"comments"</span> : [
@@ -133,49 +127,43 @@ db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: <sp
             <span class="hljs-string">"text"</span> : <span class="hljs-string">"Sorry for double post"</span>
         }
     ]
-}]
-</code></pre>
+}]</code></pre>
 <p>This <code>$[]</code> syntax is called the <em><a href="https://docs.mongodb.com/manual/reference/operator/update/positional-all/">all positional operator</a></em>.
 The <code>$[]</code> operator is a placeholder for every element in the array, so the above query will update every single comment in any document which has at least one comment by &#39;Bar&#39;. This is close to the right answer, but not quite, because this query also updated the one comment by &#39;Foo&#39;. To make this work, you need a similar operator to <code>$[]</code>, but one that&#39;s a placeholder for a elements in the array that match a given query.</p>
-<p>The all positional operator can be thought of as a special case of the more general <a href="https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/#up._S_[&lt;identifier&gt;]">filtered positional operator</a>. This is where <a href="https://docs.mongodb.com/manual/release-notes/3.6/#arrayfilters"><code>arrayFilters</code> comes in</a>.</p>
+<p>The all positional operator can be thought of as a special case of the more general <a href="https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/#up._S_%5B%3Cidentifier%3E%5D">filtered positional operator</a>. This is where <a href="https://docs.mongodb.com/manual/release-notes/3.6/#arrayfilters"><code>arrayFilters</code> comes in</a>.</p>
 <p>At a high level, array filters match documents in an array and provide you a name to reference the matches with the filtered positional operator. Sound confusing? Here&#39;s an equivalent update operation that updates every subdoc in <code>comments</code> whose <code>author</code> is &#39;Bar&#39;, but using <code>arrayFilters</code> and the filtered positional operator.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Using the `mongo` shell</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Using the `mongo` shell</span>
 db.BlogPost.updateMany({},
   { $set: { <span class="hljs-string">'comments.$[element].author'</span>: <span class="hljs-string">'Baz'</span> } },
   <span class="hljs-comment">// `$[element]` is tied to name `element` below</span>
-  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: <span class="hljs-string">'Bar'</span> }] });
-</code></pre>
+  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: <span class="hljs-string">'Bar'</span> }] });</code></pre>
 <p>In the above <code>updateMany()</code>, the name <code>element</code> is a placeholder for every index in the array that matches the filter <code>{ &#39;element.author&#39;: &#39;Bar&#39; }</code>. There is a key difference between this example and the all positional operator example: the filtered positional operator example cannot use <a href="https://docs.mongodb.com/manual/core/index-multikey/">multi-key indexes</a>, so the above query will always result in a <a href="https://docs.mongodb.com/manual/tutorial/analyze-query-plan/#query-with-no-index">full collection scan</a>. You can also specify a top-level filter to leverage indexes as shown below, but you don&#39;t necessarily have to for array filters.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Works as well, and can leverage multi-key indexes for the `comments.author` query</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Works as well, and can leverage multi-key indexes for the `comments.author` query</span>
 db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: <span class="hljs-string">'Bar'</span> },
   { $set: { <span class="hljs-string">'comments.$[element].author'</span>: <span class="hljs-string">'Baz'</span> } },
   <span class="hljs-comment">// `$[element]` is tied to name `element` below</span>
-  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: <span class="hljs-string">'Bar'</span> }] });
-</code></pre>
+  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: <span class="hljs-string">'Bar'</span> }] });</code></pre>
 <p>So all <code>arrayFilters</code> has done in this case is make the query harder to index and harder to read. You will likely use the all positional operator more often than the filtered positional operator, but there are a couple important use cases for <code>arrayFilters</code>.</p>
 <p>The simplest use case where you would have to use <code>arrayFilters</code> is <a href="https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/#update-array-elements-using-a-negation-operator">updating array elements with a negation operator</a>. The all positional operator works great for updating all comments where the <code>author</code> is &#39;Bar&#39;, but what about updating all comments where the <code>author</code> is <strong>not</strong> &#39;Bar&#39;?</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Will **not** update any documents! `{ 'comments.author': { $ne: 'Bar' } }`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Will **not** update any documents! `{ 'comments.author': { $ne: 'Bar' } }`</span>
 <span class="hljs-comment">// will only match documents where **none** of the comments have `author = 'Bar'`</span>
 db.BlogPost.updateMany({ <span class="hljs-string">'comments.author'</span>: { $ne: <span class="hljs-string">'Bar'</span> } }, {
   $set: { <span class="hljs-string">'comments.$[].author'</span>: <span class="hljs-string">'Baz'</span> }
-});
-</code></pre>
+});</code></pre>
 <p>To update all comments with <code>author</code> is not &#39;Bar&#39;, you need to use <code>arrayFilters</code>.</p>
-<pre><code class="lang-javascript">db.BlogPost.updateMany({},
+<pre><code class="language-javascript">db.BlogPost.updateMany({},
   { $set: { <span class="hljs-string">'comments.$[element].author'</span>: <span class="hljs-string">'Baz'</span> } },
   <span class="hljs-comment">// `$[element]` is tied to name `element` below</span>
-  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: { $ne: <span class="hljs-string">'Bar'</span> } }] });
-</code></pre>
+  { arrayFilters: [{ <span class="hljs-string">'element.author'</span>: { $ne: <span class="hljs-string">'Bar'</span> } }] });</code></pre>
 <p>You also need <code>arrayFilters</code> to <a href="https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/#update-nested-arrays-in-conjunction-with">update nested arrays</a>. For example, here&#39;s how you would update every <code>reply</code> whose author is &#39;Bar&#39;.</p>
-<pre><code class="lang-javascript">db.BlogPost.updateMany({},
+<pre><code class="language-javascript">db.BlogPost.updateMany({},
   <span class="hljs-comment">// Go through every comment and then find every reply whose `author` is 'Bar'</span>
   { $set: { <span class="hljs-string">'comments.$[].replies.$[reply].author'</span>: <span class="hljs-string">'Baz'</span> } },
-  { arrayFilters: [{ <span class="hljs-string">'reply.author'</span>: <span class="hljs-string">'Bar'</span> }] });
-</code></pre>
-<h2 id="using-array-filters-in-node-js">Using Array Filters in Node.js</h2>
+  { arrayFilters: [{ <span class="hljs-string">'reply.author'</span>: <span class="hljs-string">'Bar'</span> }] });</code></pre>
+<h2 id="using-array-filters-in-nodejs">Using Array Filters in Node.js</h2>
 <p>Using array filters with Node.js requires versions <a href="https://www.npmjs.com/package/mongodb"><code>&gt;= 3.0.0</code> of the MongoDB Node.js driver</a> or <a href="https://www.npmjs.com/package/mongoose"><code>&gt;= 5.0.0</code> of mongoose</a> in addition to <a href="https://www.mongodb.com/mongodb-3.6">v3.6 of the MongoDB server</a>. Earlier versions of the MongoDB (2.x) and mongoose (4.x) do <strong>not</strong> support array filters.</p>
 <p>Below is a standalone script demonstrating using array filters with v3.0.2 of the MongoDB Node.js driver.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -214,10 +202,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-comment">//   [ { author: 'Baz', text: 'Thanks!' },</span>
   <span class="hljs-comment">//     { author: 'Baz', text: 'Sorry for double post' } ] ]</span>
   <span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.comments));
-}
-</code></pre>
+}</code></pre>
 <p>Below is an equivalent script using mongoose 5.0.3. Mongoose currently does not have any <a href="http://mongoosejs.com/docs/queries.html">special query helpers</a> for MongoDB 3.6&#39;s new positional operators, please follow <a href="https://github.com/Automattic/mongoose/issues/6082">this GitHub issue</a> for updates.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -260,8 +247,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-comment">//   [ { author: 'Baz', text: 'Thanks!' },</span>
   <span class="hljs-comment">//     { author: 'Baz', text: 'Sorry for double post' } ] ]</span>
   <span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.comments));
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>MongoDB 3.6 is <a href="https://docs.mongodb.com/manual/release-notes/3.6/">packed with exciting new features</a>, like <a href="https://docs.mongodb.com/manual/release-notes/3.6/#change-streams">change streams</a>, the <a href="https://docs.mongodb.com/manual/release-notes/3.6/#new-query-operators"><code>$expr</code> operator</a>, and <a href="https://docs.mongodb.com/manual/release-notes/3.6/#aggregation">a bunch of new aggregation framework features</a>. Array filters are one of the most exciting 3.6 features for Node.js developers, because they immediately make working with arrays in MongoDB much easier. Not only do the new positional operators lift the restriction that <code>$set</code> can only update one array element per operation, but they also make working with nested arrays much easier. <a href="https://www.mongodb.com/download-center">Download MongoDB 3.6</a> today and try it yourself, just make sure you also upgrade to v3.x of the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a> or v5.x of <a href="https://www.npmjs.com/package/mongoose">mongoose</a> first!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

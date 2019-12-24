@@ -36,7 +36,7 @@ organization.</p>
 <p>As far as development goes, this transfer ended up being cosmetic.
 I still maintain mongoose as before, Automattic has not opted to get involved,
 nor are there any Automattic employees actively contributing to mongoose.</p>
-<h2 id="march-25-4-0-0-released">March 25: 4.0.0 Released</h2>
+<h2 id="march-25-400-released">March 25: 4.0.0 Released</h2>
 <p>4.0.0 was a big step forward for mongoose. 4.0.0 introduced
 <a href="http://mongoosejs.com/docs/browser.html">the ability to use mongoose schemas in the browser</a>, which enables you to
 re-use your mongoose schemas for client-side validation.
@@ -49,14 +49,13 @@ like plugins for tracking how long queries take. Under the hood, mongoose
 4.0.0 also upgraded to version 2.0 of the
 <a href="http://npmjs.org/package/mongodb">MongoDB Node.js Driver</a> and fully supports
 MongoDB server 3.0.</p>
-<h2 id="july-24-4-1-0-released">July 24: 4.1.0 Released</h2>
+<h2 id="july-24-410-released">July 24: 4.1.0 Released</h2>
 <p>The killer feature of mongoose 4.1.0 was the
 <a href="http://mongoosejs.com/docs/promises.html#plugging-in-your-own-promises-library">ability to use any ES2015-compatible promises library</a>
 with mongoose. In other words, you can make mongoose return
 <a href="http://npmjs.org/package/bluebird">Bluebird</a> promises with the below line
 of code.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>).Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>).Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);</code></pre>
 <p>For backwards-compatibility, mongoose uses the
 <a href="http://npmjs.org/package/mpromise">mpromise</a> library by default. This
 decision was made in late 2012: bluebird didn&#39;t exist until late 2013, and
@@ -78,18 +77,17 @@ in December 2015 than December 2014. The 500k downloads milestone was
 impressive for a module that first broke 200k downloads in November 2014.
 Thanks to everyone who&#39;s been using mongoose so actively over the last
 year!</p>
-<h2 id="october-22-4-2-0-released">October 22: 4.2.0 Released</h2>
+<h2 id="october-22-420-released">October 22: 4.2.0 Released</h2>
 <p>4.2.0&#39;s killer feature was
 <a href="http://mongoosejs.com/docs/subdocs.html#single-embedded">single-embedded schemas</a>.
 Before 4.2.0, the below schema definition would throw an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> childSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
-<span class="hljs-keyword">var</span> parentSchema = <span class="hljs-keyword">new</span> Schema({ child: childSchema });
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> childSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+<span class="hljs-keyword">var</span> parentSchema = <span class="hljs-keyword">new</span> Schema({ child: childSchema });</code></pre>
 <p>In &gt;= 4.2.0, the above code is perfectly valid, and works with
 <a href="http://mongoosejs.com/docs/validation.html">validation</a> and
 <a href="http://mongoosejs.com/docs/middleware.html">document middleware</a>. For
 instance:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> childSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> childSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
 
 childSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.ownerDocument().name) {
@@ -103,8 +101,7 @@ childSchema.pre(<span class="hljs-string">'validate'</span>, <span class="hljs-f
 
 Parent.create({ child: { name: <span class="hljs-string">'test'</span> } }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-comment">// Error: Parent must have a name!</span>
-});
-</code></pre>
+});</code></pre>
 <h2 id="looking-forward-to-2016">Looking Forward To 2016</h2>
 <p>Thanks to everyone who has used mongoose over the last year: 6 million
 downloads, 1200 GitHub issues, 1000 commits, and 29 contributors on GitHub.

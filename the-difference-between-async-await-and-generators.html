@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Async/await</a> is the big new feature in the 2017 edition of the JavaScript language spec. However, async/await has a lot in common with <a href="http://thecodebarbarian.com/3-common-co-design-patterns">generators</a>, a new feature from the 2015 JavaScript language spec. There&#39;s <a href="https://stackoverflow.com/questions/36196608/difference-between-async-await-and-es6-yield-with-generators">plenty of questions on StackOverflow about what makes async/await different</a>, and with good reason. If you use <a href="https://www.npmjs.com/package/co">co</a>, your generator-based code looks a lot like async/await.</p>
 <p>Below is some async/await that makes an HTTP request that fails, and then
 tries again 3 times.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> i;
   <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; ++i) {
     <span class="hljs-keyword">try</span> {
@@ -24,10 +24,9 @@ tries again 3 times.</p>
     } <span class="hljs-keyword">catch</span>(err) {}
   }
   <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 3</span>
-}
-</code></pre>
+}</code></pre>
 <p>Below is the equivalent code using co and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function%2A">generator functions</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> test = co.wrap(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> test = co.wrap(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> i;
   <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; ++i) {
     <span class="hljs-keyword">try</span> {
@@ -36,11 +35,10 @@ tries again 3 times.</p>
     } <span class="hljs-keyword">catch</span>(err) {}
   }
   <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 3</span>
-});
-</code></pre>
+});</code></pre>
 <p>You can write a <a href="https://cmichel.io/how-is-async-await-transpiled-to-es5">passable transpiler from async/await to generators</a> by just
 replacing <code>async function() {}</code> with <code>co.wrap(function*() {})</code> and <code>await</code> with <code>yield</code>. So what actually makes the two different?</p>
-<h2 id="what-s-the-difference-">What&#39;s the Difference?</h2>
+<h2 id="whats-the-difference">What&#39;s the Difference?</h2>
 <p>The most important difference between async/await and generators is that generators
 are natively supported <a href="https://node.green/#ES2015-functions-generators">all the way back to Node.js 4.x</a>, whereas <a href="https://node.green/#ES2017-features-async-functions">async/await requires Node.js &gt;= 7.6.0</a>. However, given that <a href="https://github.com/nodejs/Release#release-schedule">Node.js 4.x has already reached end-of-life and Node.js 6.x will reach end-of-life in April 2019</a>, this difference is rapidly becoming irrelevant.</p>
 <p>Another major difference is that <a href="https://www.npmjs.com/package/co">co is a userland npm module</a>, whereas async/await is a core part
@@ -52,7 +50,7 @@ to configure a transpiler if you need to support older browsers.</p>
 language rather than a userland library like co, there will likely be more
 improvements to async/await stack traces in the future.</p>
 <p>Below is an example of the stack trace you get when throwing an error in an async function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">100</span>));
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
 }
@@ -60,11 +58,10 @@ improvements to async/await stack traces in the future.</p>
 <span class="hljs-comment">// Error: Oops!</span>
 <span class="hljs-comment">//    at runAsync (/home/val/test.js:5:9)</span>
 <span class="hljs-comment">//    at &lt;anonymous&gt;</span>
-runAsync().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+runAsync().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>Below is the equivalent using co. Note the weird <code>onFulfilled()</code> and
 <code>Generator.next()</code> lines that are artifacts of <a href="http://es2015generators.com/">how co works under the hood</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 
 <span class="hljs-keyword">const</span> runCo = co.wrap(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">yield</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">100</span>));
@@ -76,23 +73,21 @@ runAsync().catch(error =&gt; <span class="hljs-built_in">console</span>.error(er
 <span class="hljs-comment">//    at Generator.next (&lt;anonymous&gt;)</span>
 <span class="hljs-comment">//    at onFulfilled (/home/val/node_modules/co/index.js:65:19)</span>
 <span class="hljs-comment">//    at &lt;anonymous&gt;</span>
-runCo().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+runCo().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <h2 id="thunks-and-promise-conversion">Thunks and Promise Conversion</h2>
 <p>Async/await only works with promises. Using <code>await</code> on a non-promise is a no-op.
 For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// `res` will be a function, because this function is</span>
   <span class="hljs-comment">// not a promise. The parenthesis are necessary for syntax</span>
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> (cb =&gt; cb(<span class="hljs-literal">null</span>, <span class="hljs-string">'test'</span>));
   <span class="hljs-built_in">console</span>.log(res);
 }
 
-runAsync().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+runAsync().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>On the other hand, co <a href="https://github.com/tj/co/blob/249bbdc72da24ae44076afd716349d2089b31c4c/index.js#L116-L124">coerces the values you <code>yield</code> into promises</a>. When you <code>yield</code> a thunk, which is what you call a <a href="https://www.npmjs.com/package/thunkify">function that takes a single parameter, a Node.js-style callback</a>, co will coerce it into a
 promise for you.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 
 <span class="hljs-keyword">const</span> runCo = co.wrap(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// `res` will be a string, because co converts the</span>
@@ -102,10 +97,9 @@ promise for you.</p>
   <span class="hljs-built_in">console</span>.log(res);
 });
 
-runCo().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+runCo().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>Similarly, co will transform arrays using <code>Promise.all()</code> for you.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">runAsync</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// With co, you can just do</span>
   <span class="hljs-comment">// `yield [Promise.resolve('v1'), Promise.resolve('v2')]`</span>
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
@@ -114,15 +108,14 @@ runCo().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error
   ]);
   <span class="hljs-comment">// 'v1 v2'</span>
   <span class="hljs-built_in">console</span>.log(res[<span class="hljs-number">0</span>], res[<span class="hljs-number">1</span>]);
-}
-</code></pre>
+}</code></pre>
 <h2 id="the-benefits-of-userland-libraries">The Benefits of Userland Libraries</h2>
 <p>In many ways, generators are a superset of async/await. With generators, you
 can bolt on some powerful new features to your own implementation of
 async/await syntax. Co&#39;s built-in promise conversion is just the tip of the
 iceberg of what you can do. For example, I once built a <a href="https://github.com/vkarpov15/co-rx/blob/master/test/examples.test.js">co-like library that returned an observable</a>. With <a href="https://www.npmjs.com/package/rxjs">RxJS&#39;</a> filtering operators, handling
 errors would be extremely easy.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> corx = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> corx = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./'</span>);
 <span class="hljs-built_in">require</span>(<span class="hljs-string">'rxjs/add/operator/filter'</span>);
 
 corx(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
@@ -141,8 +134,7 @@ subscribe(
   },
   error =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'This will not print'</span>),
   () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)
-);
-</code></pre>
+);</code></pre>
 <p>The killer feature above is that, when you <code>subscribe()</code>, you get a callback
 for every single async operation that happens within your generator function.
 That means you can instrument each individual async operation with debugging,

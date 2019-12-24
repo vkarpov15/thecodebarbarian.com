@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p>One of the most compelling reasons for <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await</a> is the fact that async functions generally feel like simplified threads, or threads with predictable interrupts. There are numerous
 technical differences, of course. But the concept of async/await should seem familiar to anyone that&#39;s ever, say, written a background thread for fetching images while scrolling in an iPhone or Android app. Going the other way, you can use
 async/await to write code that feels very imperative, rather than JavaScript&#39;s usual reactive style:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
 
 <span class="hljs-comment">// Reactive web server</span>
 http.
@@ -44,17 +44,16 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
     res.setHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/plain'</span>);
     res.end(<span class="hljs-string">'Hello World, Imperative\n'</span>);
   }
-};
-</code></pre>
+};</code></pre>
 <p>So if async functions are analogous to background threads, how do <a href="https://en.wikipedia.org/wiki/Mutual_exclusion#Types_of_mutual_exclusion_devices">mutexes</a> look in JavaScript? In this article, I&#39;ll demonstrate analogs to locks and barriers using promises. Please note that these examples are meant
 to be didactic, they&#39;re (probably) not production-ready.</p>
 <h2 id="locks">Locks</h2>
-<p><a href="https://en.wikipedia.org/wiki/Lock_(computer_science">Locks</a>) are the simplest form of mutex. A lock is a mechanism for making sure that only one of many concurrently running functions can access a resource at a given time. In Node.js,
+<p><a href="https://en.wikipedia.org/wiki/Lock_(computer_science)">Locks</a> are the simplest form of mutex. A lock is a mechanism for making sure that only one of many concurrently running functions can access a resource at a given time. In Node.js,
 the most common use case for locking is ensuring <a href="http://thecodebarbarian.com/enforcing-uniqueness-with-mongodb-partial-unique-indexes.html">that two request handlers don&#39;t conflict in their interactions with the database</a>. You can achieve this implicitly by <a href="http://thecodebarbarian.com/queueing-function-calls-with-node.js-and-mongodb.html">queueing</a>, but queueing can be too heavy-handed and not give sufficiently fine grained control to the individual function.</p>
 <p>Here&#39;s how using a lock for an HTTP server that needs to execute a separate query to make sure there&#39;s no user with a given email address might look. Keep in mind
 this code uses an in-memory lock, so it will work for a single process, but you
 need distributed locking if you want to scale this horizontally.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
@@ -105,11 +104,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
     fn(req).then(returnVal =&gt; res.json(returnVal)).catch(err =&gt; res.status(<span class="hljs-number">500</span>).json({ message: err.message }));
   };
-}
-</code></pre>
+}</code></pre>
 <p>Assuming that <code>await lock.acquire()</code> &quot;blocks&quot; the function until it can ensure that its the only instance of <code>register()</code> running, locking will prevent the glaring race condition in the above code. Without locks or queueing, two instances of <code>register()</code> running with the same email address may both run <code>findOne()</code> at the same time and then think they&#39;re good to insert.</p>
 <p>Below is how a simple lock might work. This code isn&#39;t production-ready but is a handy example of how you might implement in-memory locking in JavaScript.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { EventEmitter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { EventEmitter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lock</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -144,12 +142,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
     <span class="hljs-keyword">this</span>._locked = <span class="hljs-literal">false</span>;
     setImmediate(() =&gt; <span class="hljs-keyword">this</span>._ee.emit(<span class="hljs-string">'release'</span>));
   }
-}
-</code></pre>
+}</code></pre>
 <h2 id="barriers">Barriers</h2>
-<p><a href="https://en.wikipedia.org/wiki/Barrier_(computer_science">Barriers</a>) are a much more fun mutex. Whereas a lock blocks multiple threads from running the same code at the same time, barriers block multiple threads from proceeding until sufficiently many have reached the barrier. In JS, a barrier can hold multiple async functions until sufficiently many have reached a certain point.</p>
+<p><a href="https://en.wikipedia.org/wiki/Barrier_(computer_science)">Barriers</a> are a much more fun mutex. Whereas a lock blocks multiple threads from running the same code at the same time, barriers block multiple threads from proceeding until sufficiently many have reached the barrier. In JS, a barrier can hold multiple async functions until sufficiently many have reached a certain point.</p>
 <p>In many ways, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"><code>Promise.all()</code></a> behaves like a barrier. It blocks an async function from continuing until every async function has resolved. Unfortunately, <code>Promise.all()</code> is not sufficient for all use cases. For example, suppose you have the <code>register()</code> function from the previous example and you want to test that it errors if you call it twice in rapid succession using <a href="http://npmjs.com/package/mocha">mocha</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 
 <span class="hljs-keyword">const</span> lock = <span class="hljs-keyword">new</span> Lock();
 
@@ -181,10 +178,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-comment">// assumed to be a no-op rather than an error.</span>
   lock.release();
   <span class="hljs-keyword">return</span> { user };
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s how a mocha test for the above function might look:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> register = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./test.js'</span>);
 
@@ -216,13 +212,12 @@ describe(<span class="hljs-string">'register'</span>, <span class="hljs-function
     }
     assert.ok(threw);
   });
-});
-</code></pre>
+});</code></pre>
 <p>There&#39;s a big problem with this test case: by design, it doesn&#39;t wait for all
 <code>register()</code> calls to finish running before finishing the test. <code>Promise.all()</code> rejects immediately when one of the promises rejects, but the other promises are still running! This can lead
 to hard-to-debug errors in other tests because the successful <code>register()</code> will continue running <strong>after</strong> the test is done!</p>
 <p>An alternative to <code>Promise.all()</code> that works well for this case is referred to as <a href="http://bluebirdjs.com/docs/api/reflect.html"><code>settleAll()</code> in the bluebird docs</a>, but I&#39;ve been calling it <code>Promise.barrier()</code> of late. Here&#39;s an idea of how you might implement it.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Promise</span>.barrier = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promises</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">Promise</span>.barrier = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">promises</span>) </span>{
   <span class="hljs-comment">// Number of outstanding promises</span>
   <span class="hljs-keyword">let</span> remaining = promises.length;
   <span class="hljs-comment">// Track the first error that occurred. If we got an error, reject</span>
@@ -247,8 +242,7 @@ to hard-to-debug errors in other tests because the successful <code>register()</
         })
     }
   });
-};
-</code></pre>
+};</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js">Async/await</a> allows you to write blocks of imperative code that look like threads in JavaScript. But, just because JavaScript is single threaded doesn&#39;t mean you don&#39;t need mutexes. With async/await and distributed computing, mutexes, particularly distributed locks, are more important than ever. Look forward to more content about locking in JavaScript in the near future!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

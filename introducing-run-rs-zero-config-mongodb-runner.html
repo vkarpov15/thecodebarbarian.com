@@ -16,30 +16,27 @@
 But unfortunately, most tools for installing and running MongoDB start
 a standalone server as opposed to a <a href="https://docs.mongodb.com/manual/tutorial/deploy-replica-set/">replica set</a>. If you
 try to start a session on a standalone server, you&#39;ll get a &quot;Transaction numbers are only allowed on a replica set member or mongos&quot; error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
   useNewUrlParser: <span class="hljs-literal">true</span>
 });
 
 <span class="hljs-comment">// MongoError: Transaction numbers are only allowed on a replica set member or mongos</span>
 <span class="hljs-keyword">const</span> session = client.startSession();
-session.startTransaction();
-</code></pre>
+session.startTransaction();</code></pre>
 <p>In order to use transactions, you need a MongoDB replica set, and starting a
 replica set locally for development is an involved process. The new <a href="https://www.npmjs.com/package/run-rs">run-rs npm module</a> module makes starting replica sets
 easy. Running <code>run-rs</code> is all you need to start a replica set, run-rs will even
 install the correct version of MongoDB for you.</p>
 <p>Run-rs has no outside dependencies except Node.js and npm. You do not need to
 have Docker, homebrew, APT, Python, or even MongoDB installed.</p>
-<h2 id="your-first-transaction-with-run-rs-and-mongodb-4-0">Your First Transaction With Run-rs and MongoDB 4.0</h2>
+<h2 id="your-first-transaction-with-run-rs-and-mongodb-40">Your First Transaction With Run-rs and MongoDB 4.0</h2>
 <p>Install run-rs globally with npm&#39;s <code>-g</code> flag. You can also list <code>run-rs</code> in
 your <code>package.json</code> file&#39;s <code>devDependencies</code>.</p>
-<pre><code class="lang-javascript">npm install run-rs -g
-</code></pre>
+<pre><code class="language-javascript">npm install run-rs -g</code></pre>
 <p>Next, run run-rs with the <code>--version</code> flag. Run-rs will download MongoDB
 v4.0.0 for you. Don&#39;t worry, it won&#39;t overwrite your existing MongoDB
 install.</p>
-<pre><code>run-rs -v <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> --shell
-</code></pre><p>You should see the below output. Please be patient since MongoDB 4.0.0 is
+<pre><code>run-rs -v <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> --shell</code></pre><p>You should see the below output. Please be patient since MongoDB 4.0.0 is
 about 70MB.</p>
 <pre><code>$ run-rs -v <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> --shell
 Downloading MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.0</span>
@@ -49,8 +46,7 @@ Running <span class="hljs-string">'/home/node/lib/node_modules/run-rs/4.0.0/mong
 Starting replica set...
 Started replica set on <span class="hljs-string">"mongodb://localhost:27017,localhost:27018,localhost:27019"</span>
 Running mongo shell: <span class="hljs-regexp">/home/</span>node/lib/node_modules/run-rs/<span class="hljs-number">4.0</span><span class="hljs-number">.0</span>/mongo
-rs:PRIMARY&gt;
-</code></pre><p>You now have a replica set running MongoDB 4.0.0 locally. Run <a href="https://docs.mongodb.com/manual/reference/method/rs.status/"><code>rs.status()</code></a> to verify the replica set is running. Then, you can <a href="https://docs.mongodb.com/master/reference/method/Session.abortTransaction/#Session.abortTransaction">execute a transaction from the MongoDB shell</a> as shown below.</p>
+rs:PRIMARY&gt;</code></pre><p>You now have a replica set running MongoDB 4.0.0 locally. Run <a href="https://docs.mongodb.com/manual/reference/method/rs.status/"><code>rs.status()</code></a> to verify the replica set is running. Then, you can <a href="https://docs.mongodb.com/master/reference/method/Session.abortTransaction/#Session.abortTransaction">execute a transaction from the MongoDB shell</a> as shown below.</p>
 <pre><code>rs:PRIMARY&gt; db.Answer.insertOne({ answer: <span class="hljs-number">42</span> })
 {
     <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>,
@@ -67,11 +63,10 @@ rs:PRIMARY&gt; sessionDb.Answer.find()
 rs:PRIMARY&gt; sessionDb.abortTransaction()
 rs:PRIMARY&gt;
 rs:PRIMARY&gt; sessionDb.Answer.find()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b365814e1610ca91ad0bdc4"</span>), <span class="hljs-string">"answer"</span> : <span class="hljs-number">42</span> }
-</code></pre><h2 id="running-a-transaction-in-node-js">Running a Transaction in Node.js</h2>
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b365814e1610ca91ad0bdc4"</span>), <span class="hljs-string">"answer"</span> : <span class="hljs-number">42</span> }</code></pre><h2 id="running-a-transaction-in-nodejs">Running a Transaction in Node.js</h2>
 <p><a href="https://github.com/mongodb/node-mongodb-native/blob/master/HISTORY.md#310-2018-06-27">v3.1.0 of the official MongoDB Node.js driver</a> has full support for transactions. Below is a simple example of
 executing a transaction in Node.js using <a href="http://asyncawait.net/">async/await</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -105,8 +100,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   assert.ok(!doc);
 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>);
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Run-rs is the easiest way to get a MongoDB replica set running for local
 development and testing. Sessions and transactions don&#39;t currently work on

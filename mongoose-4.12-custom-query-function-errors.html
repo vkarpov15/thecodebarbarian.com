@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="http://thecodebarbarian.com/mongoose-custom-query-methods">Mongoose 4.5 introduced custom query methods</a>, which
 enabled you to extend Mongoose&#39;s <a href="http://mongoosejs.com/docs/queries.html">chainable query builder</a> with your own custom helper functions. By attaching a function to your schemas <code>query</code> property, you could
 create neat helper functions to encapsulate common query logic.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
 ProjectSchema.query.byName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find({ name: name });
 };
@@ -23,23 +23,21 @@ ProjectSchema.query.byName = <span class="hljs-function"><span class="hljs-keywo
 
 <span class="hljs-comment">// Works. Any Project query, whether it be `find()`, `findOne()`,</span>
 <span class="hljs-comment">// `findOneAndUpdate()`, `delete()`, etc. now has a `byName()` helper</span>
-Project.find().where(<span class="hljs-string">'stars'</span>).gt(<span class="hljs-number">1000</span>).byName(<span class="hljs-string">'mongoose'</span>);
-</code></pre>
+Project.find().where(<span class="hljs-string">'stars'</span>).gt(<span class="hljs-number">1000</span>).byName(<span class="hljs-string">'mongoose'</span>);</code></pre>
 <p>Mongoose queries automatically cast, so you don&#39;t have to worry about a
 non-string <code>name</code> in your query:</p>
-<pre><code class="lang-javascript">Project.find().byName({ notA: <span class="hljs-built_in">String</span> }).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
+<pre><code class="language-javascript">Project.find().byName({ notA: <span class="hljs-built_in">String</span> }).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-comment">// CastError: Cast to string failed for value</span>
   <span class="hljs-comment">// "{ notA: [Function: String] }" at path "name"</span>
   <span class="hljs-built_in">console</span>.log(error);
-});
-</code></pre>
+});</code></pre>
 <p>That works for casting errors, but what about if your query method wants to
 report an error? Enter in the <code>Query.prototype.error()</code> function.</p>
-<h2 id="using-this-error-to-report-errors">Using <code>this.error()</code> to Report Errors</h2>
+<h2 id="using-thiserror-to-report-errors">Using <code>this.error()</code> to Report Errors</h2>
 <p>The above <code>byName()</code> function has a few potentially unexpected behaviors.
 For example, it is perfectly OK to pass a regular expression to the <code>byName()</code>
 function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
@@ -61,14 +59,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">const</span> projects = <span class="hljs-keyword">await</span> Project.find().byName(<span class="hljs-regexp">/.*e.*/i</span>);
   <span class="hljs-comment">// Prints out the mongoose project</span>
   <span class="hljs-built_in">console</span>.log(projects);
-}
-</code></pre>
+}</code></pre>
 <p><a href="https://docs.mongodb.com/manual/reference/operator/query/regex/">Regular expressions in MongoDB</a> are useful, but
 have some <a href="https://docs.mongodb.com/manual/reference/operator/query/regex/#index-use">performance ramifications</a>. In order to avoid a potential index miss on a huge collection, you might
 want to disallow passing regexps to the <code>byName()</code> function. To do this, you
 should call <code>this.error()</code> in your <code>byName()</code> function. The query promise will
 then reject before actually executing the query.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
 ProjectSchema.query.byName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
   <span class="hljs-keyword">if</span> (name <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RegExp</span>) {
     <span class="hljs-comment">// Record an error and return this query builder instance</span>
@@ -89,13 +86,12 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">const</span> projects = <span class="hljs-keyword">await</span> Project.find().byName(<span class="hljs-regexp">/.*e.*/i</span>);
   <span class="hljs-comment">// Never executes</span>
   <span class="hljs-built_in">console</span>.log(projects);
-}
-</code></pre>
+}</code></pre>
 <p>The error will not be reported until you actually try to execute the query.
 So you will get a promise rejection rather than an exception, and not until
 you call <code>.exec()</code> or <code>.then()</code>. For example, you can clear the error with
 <code>.error(null)</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">await</span> Project.create({ name: <span class="hljs-string">'mongoose'</span>, stars: <span class="hljs-number">13000</span> });
@@ -105,12 +101,11 @@ you call <code>.exec()</code> or <code>.then()</code>. For example, you can clea
     error(<span class="hljs-literal">null</span>);
   <span class="hljs-comment">// Prints out the mongoose project</span>
   <span class="hljs-built_in">console</span>.log(projects);
-}
-</code></pre>
+}</code></pre>
 <p><code>.error()</code> records the <strong>last</strong> error that occurred, so errors that occur
 later will overwrite previous errors. Casting happens after all custom query
 logic, so cast errors will overwrite any user-reported errors.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">await</span> Project.create({ name: <span class="hljs-string">'mongoose'</span>, stars: <span class="hljs-number">13000</span> });
@@ -128,23 +123,21 @@ logic, so cast errors will overwrite any user-reported errors.</p>
     <span class="hljs-comment">// Error: Parameter to byName() cannot be a regexp, got /b/</span>
     <span class="hljs-built_in">console</span>.log(error);
   }
-}
-</code></pre>
-<h2 id="why-not-just-throw-">Why Not Just <code>throw</code>?</h2>
+}</code></pre>
+<h2 id="why-not-just-throw">Why Not Just <code>throw</code>?</h2>
 <p>Another alternative is to <code>throw</code> an error in your custom query method.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> ProjectSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span>, stars: <span class="hljs-built_in">Number</span> });
 ProjectSchema.query.byName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
   <span class="hljs-keyword">if</span> (name <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RegExp</span>) {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Parameter to byName() cannot be a regexp, got <span class="hljs-subst">${name}</span>`</span>);
   }
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find({ name: name });
 };
-<span class="hljs-keyword">var</span> Project = mongoose.model(<span class="hljs-string">'Project'</span>, ProjectSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Project = mongoose.model(<span class="hljs-string">'Project'</span>, ProjectSchema);</code></pre>
 <p>If you&#39;re using async/await, the above code works as well the <code>.error()</code>
 logic. The <code>try/catch</code> blocks will catch the synchronous error, but the
 error thrown will be the <strong>first</strong> error, rather than the last.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">await</span> Project.create({ name: <span class="hljs-string">'mongoose'</span>, stars: <span class="hljs-number">13000</span> });
@@ -162,8 +155,7 @@ error thrown will be the <strong>first</strong> error, rather than the last.</p>
     <span class="hljs-comment">// Error: Parameter to byName() cannot be a regexp, got /a/</span>
     <span class="hljs-built_in">console</span>.log(error);
   }
-}
-</code></pre>
+}</code></pre>
 <p>Throwing an exception in the custom query method is a viable alternative if
 you&#39;re using <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>, but not if you&#39;re using promise chaining. Currently,
 exceptions in custom query methods bubble up as a synchronous exception. Also,

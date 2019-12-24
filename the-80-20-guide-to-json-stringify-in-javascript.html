@@ -15,44 +15,39 @@
 </div><div class="post-body-text-container"><p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"><code>JSON.stringify()</code> function</a> is the canonical way to convert a JavaScript object to <a href="https://www.json.org/">JSON</a>. Many JavaScript frameworks use <code>JSON.stringify()</code> under the hood: <a href="http://expressjs.com/en/4x/api.html#res.json">Express&#39; <code>res.json()</code></a>, <a href="https://github.com/axios/axios#example">Axios&#39; <code>post()</code></a>, and <a href="https://webpack.js.org/configuration/stats/">Webpack stats</a> all call <code>JSON.stringify()</code>. In this article, I&#39;ll provide a practical overview of <code>JSON.stringify()</code>, including error cases.</p>
 <h2 id="getting-started">Getting Started</h2>
 <p>All modern JavaScript runtimes support <code>JSON.stringify()</code>. Even Internet Explorer has <a href="https://blogs.msdn.microsoft.com/ie/2008/09/10/native-json-in-ie8/"><code>JSON.stringify()</code> support since IE8</a>. Here&#39;s an example of converting a simple object to JSON:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { answer: <span class="hljs-number">42</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { answer: <span class="hljs-number">42</span> };
 
 <span class="hljs-keyword">const</span> str = <span class="hljs-built_in">JSON</span>.stringify(obj);
 str; <span class="hljs-comment">// '{"answer":42}'</span>
-<span class="hljs-keyword">typeof</span> str; <span class="hljs-comment">// 'string'</span>
-</code></pre>
+<span class="hljs-keyword">typeof</span> str; <span class="hljs-comment">// 'string'</span></code></pre>
 <p>You may see <code>JSON.stringify()</code> used with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"><code>JSON.parse()</code></a> as shown below. This pattern is one way of <a href="https://flaviocopes.com/how-to-clone-javascript-object/#json-serialization">deep cloning a JavaScript object</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { answer: <span class="hljs-number">42</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { answer: <span class="hljs-number">42</span> };
 <span class="hljs-keyword">const</span> clone = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(obj));
 
 clone.answer; <span class="hljs-comment">// 42</span>
-clone === obj; <span class="hljs-comment">// false</span>
-</code></pre>
+clone === obj; <span class="hljs-comment">// false</span></code></pre>
 <h2 id="errors-and-edge-cases">Errors and Edge Cases</h2>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Exceptions"><code>JSON.stringify()</code> throws an error when it detects a cyclical object</a>. In other words, if an object <code>obj</code> has a property whose value is <code>obj</code>, <code>JSON.stringify()</code> will throw an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {};
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {};
 <span class="hljs-comment">// Cyclical object that references itself</span>
 obj.prop = obj;
 
 <span class="hljs-comment">// Throws "TypeError: TypeError: Converting circular structure to JSON"</span>
-<span class="hljs-built_in">JSON</span>.stringify(obj);
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj);</code></pre>
 <p>That is the only case where <code>JSON.stringify()</code> throws an exception, unless you&#39;re using custom <code>toJSON()</code> functions or replacer functions. However, you should still wrap <code>JSON.stringify()</code> calls in <code>try/catch</code>, because circular objects do pop up in practice.</p>
 <p>There are several edge cases where <code>JSON.stringify()</code> doesn&#39;t throw an error, but you might expect it does. For example, <code>JSON.stringify()</code> converts <code>NaN</code> and <code>Infinity</code> to <code>null</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { nan: <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'not a number'</span>), inf: <span class="hljs-built_in">Number</span>.POSITIVE_INFINITY };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { nan: <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'not a number'</span>), inf: <span class="hljs-built_in">Number</span>.POSITIVE_INFINITY };
 
-<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// '{"nan":null,"inf":null}'</span>
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// '{"nan":null,"inf":null}'</span></code></pre>
 <p><code>JSON.stringify()</code> also strips out properties whose values are functions or <code>undefined</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, undef: <span class="hljs-literal">undefined</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { fn: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{}, undef: <span class="hljs-literal">undefined</span> };
 
 <span class="hljs-comment">// Empty object. `JSON.stringify()` removes functions and `undefined`.</span>
-<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// '{}'</span>
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// '{}'</span></code></pre>
 <h2 id="pretty-printing">Pretty Printing</h2>
 <p>The first parameter to <code>JSON.stringify()</code> is the object to serialize to JSON. <code>JSON.stringify()</code> actually takes 3 parameters, and the 3rd parameter is called <code>spaces</code>. The <code>spaces</code> parameter is used for formatting JSON output in a human readable way.</p>
 <p>You can set the <code>spaces</code> parameter to either be a string or a number. If <code>spaces</code> is not undefined, <code>JSON.stringify()</code> will put each key in the JSON output on its own line, and prefix each key with <code>spaces</code>. </p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, c: <span class="hljs-number">3</span>, d: { e: <span class="hljs-number">4</span> } };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, c: <span class="hljs-number">3</span>, d: { e: <span class="hljs-number">4</span> } };
 
 <span class="hljs-comment">// '{"a":1,"b":2,"c":3,"d":{"e":4}}'</span>
 <span class="hljs-built_in">JSON</span>.stringify(obj);
@@ -68,10 +63,9 @@ obj.prop = obj;
 <span class="hljs-built_in">JSON</span>.stringify(obj, <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>);
 
 <span class="hljs-comment">// Use 2 spaces when formatting JSON output. Equivalent to the above.</span>
-<span class="hljs-built_in">JSON</span>.stringify(obj, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);</code></pre>
 <p>The <code>spaces</code> string doesn&#39;t have to be all whitespace, although in practice it usually will be. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// {</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// {</span>
 <span class="hljs-comment">// __"a": 1,</span>
 <span class="hljs-comment">// __"b": 2,</span>
 <span class="hljs-comment">// __"c": 3,</span>
@@ -79,11 +73,10 @@ obj.prop = obj;
 <span class="hljs-comment">// ____"e": 4</span>
 <span class="hljs-comment">// __}</span>
 <span class="hljs-comment">// }</span>
-<span class="hljs-built_in">JSON</span>.stringify(obj, <span class="hljs-literal">null</span>, <span class="hljs-string">'__'</span>);
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj, <span class="hljs-literal">null</span>, <span class="hljs-string">'__'</span>);</code></pre>
 <h2 id="replacers">Replacers</h2>
 <p>The 2nd parameter to <code>JSON.stringify()</code> is the <code>replacer</code> function. In the above examples, <code>replacer</code> was <code>null</code>. JavaScript calls the replacer function with every key/value pair in the object, and uses the value the replacer function returns. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, c: <span class="hljs-number">3</span>, d: { e: <span class="hljs-number">4</span> } };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, c: <span class="hljs-number">3</span>, d: { e: <span class="hljs-number">4</span> } };
 
 <span class="hljs-comment">// `replacer` increments every number value by 1. The output will be:</span>
 <span class="hljs-comment">// '{"a":2,"b":3,"c":4,"d":{"e":5}}'</span>
@@ -92,10 +85,9 @@ obj.prop = obj;
     <span class="hljs-keyword">return</span> value + <span class="hljs-number">1</span>;
   }
   <span class="hljs-keyword">return</span> value;
-});
-</code></pre>
+});</code></pre>
 <p>The replacer function is useful for omitting sensitive data. For example, suppose you wanted to omit all <a href="https://masteringjs.io/tutorials/fundamentals/contains-substring#case-insensitive-search">keys that contain the substring &#39;password&#39;</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {
   name: <span class="hljs-string">'Jean-Luc Picard'</span>,
   password: <span class="hljs-string">'stargazer'</span>,
   nested: {
@@ -111,11 +103,10 @@ obj.prop = obj;
     <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
   }
   <span class="hljs-keyword">return</span> value;
-});
-</code></pre>
+});</code></pre>
 <h2 id="the-tojson-function">The <code>toJSON()</code> Function</h2>
 <p>The <code>JSON.stringify()</code> function also traverses the object looking for properties that have a <code>toJSON()</code> function. If it finds a <code>toJSON()</code> function, <code>JSON.stringify()</code> calls the <code>toJSON()</code> function and uses the return value as a replacement. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {
   name: <span class="hljs-string">'Jean-Luc Picard'</span>,
   nested: {
     test: <span class="hljs-string">'not in output'</span>,
@@ -124,8 +115,7 @@ obj.prop = obj;
 };
 
 <span class="hljs-comment">// '{"name":"Jean-Luc Picard","nested":"test"}'</span>
-<span class="hljs-built_in">JSON</span>.stringify(obj);
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj);</code></pre>
 <p>The <code>toJSON()</code> function can return any value, including objects, primitives, or <code>undefined</code>. If <code>toJSON()</code> returns <code>undefined</code>, <code>JSON.stringify()</code> will ignore that property.</p>
 <p>Many JavaScript modules use <code>toJSON()</code> to ensure sophisticated objects get serialized correctly, like <a href="https://mongoosejs.com/docs/api.html#document_Document-toJSON">Mongoose documents</a> and <a href="https://momentjs.com/docs/#/displaying/as-json/">Moment objects</a>.</p>
 <h2 id="moving-on">Moving On</h2>

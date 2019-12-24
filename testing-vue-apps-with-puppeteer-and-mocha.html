@@ -16,7 +16,7 @@
 <p>In this article, I&#39;ll demonstrate how to use Puppeteer to test a simple <a href="https://vuejs.org/">Vue</a> app using the <a href="https://www.npmjs.com/package/mocha">Mocha test framework</a>.</p>
 <h2 id="getting-started-with-puppeteer">Getting Started With Puppeteer</h2>
 <p>First, let&#39;s take a look at how Puppeteer works in isolation by writing a Node.js script that searches for &quot;Vue&quot; on <code>google.com</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>)).catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -45,20 +45,19 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
   <span class="hljs-built_in">console</span>.log(firstLink);
 
   <span class="hljs-keyword">await</span> browser.close();
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s what the script looks like while it is in progress.</p>
-<p><img class="inline-image" src="https://i.imgur.com/fk9CXER.png"></p>
+<img class="inline-image" src="https://i.imgur.com/fk9CXER.png">
+
 <p>The <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageevaluatepagefunction-args"><code>page.evaluate()</code> function</a> is the function you&#39;ll use most often with Puppeteer. The <code>evaluate()</code> function lets you execute a function in Chrome, which means you can use standard vanilla JS operations like <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">the <code>querySelector()</code> function</a> to manipulate the page. The function parameter, known as the <code>pageFunction</code>, can also return a result, like the <code>firstLink</code> result above.</p>
 <p>Note that the <code>pageFunction</code> runs in the browser, which means it does <strong>not</strong> have access to any variables in Node.js. For example, the below <code>page.evaluate()</code> will error out because <code>foo</code> is not defined in the browser. Internally, Puppeteer converts <code>pageFunction</code> to a string using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString"><code>Function#toString()</code></a> before sending it to Chrome.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> foo = <span class="hljs-number">42</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> foo = <span class="hljs-number">42</span>;
 <span class="hljs-comment">// Throws "Error: Evaluation failed: ReferenceError: foo is not defined"</span>
-<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> page.evaluate(() =&gt; foo);
-</code></pre>
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> page.evaluate(() =&gt; foo);</code></pre>
 <h2 id="puppeteer-express-and-mocha">Puppeteer, Express, and Mocha</h2>
 <p>Node.js&#39; event loop makes testing easy, because you can start an Express server and then launch a Chrome browser with Puppeteer that connects to your Express server, all without worrying about threads. You can even <a href="https://masteringjs.io/tutorials/webpack/programmatic-watch">start Webpack to recompile your client-side code in Mocha</a>.</p>
 <p>Below is an example of a Mocha test that starts an Express app, and launches a Puppeteer instance that interacts with the Express app.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
@@ -91,15 +90,15 @@ describe(<span class="hljs-string">'my app'</span>, <span class="hljs-function">
     <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> page.evaluate(() =&gt; <span class="hljs-built_in">document</span>.body.innerHTML);
     assert.equal(content, <span class="hljs-string">'Hello, World'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Here&#39;s what the controlled Chrome browser looks like while the test is running:</p>
-<p><img class="inline-image" src="https://i.imgur.com/Vc7IGqN.png"></p>
+<img class="inline-image" src="https://i.imgur.com/Vc7IGqN.png">
+
 <h2 id="setting-up-a-basic-vue-app">Setting Up a Basic Vue App</h2>
 <p>Below is a <a href="https://masteringjs.io/tutorials/vue/router">minimal single page app using Vue Router</a>. This app has two routes, one that displays &quot;Home&quot; and one that displays &quot;About.&quot;</p>
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/0d346dcb826c4a75acf1cead82571be7" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
-<pre><code class="lang-html">&lt;html&gt;
+<pre><code class="language-html">&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/vue-router/dist/vue-router.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -131,10 +130,9 @@ describe(<span class="hljs-string">'my app'</span>, <span class="hljs-function">
       });
     </span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>Here&#39;s how you would test that clicking on &quot;Home&quot; displays &quot;Home&quot; and clicking on &quot;About&quot; displays &quot;About Us&quot; using Mocha and Puppeteer:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 
 describe(<span class="hljs-string">'my app'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -170,9 +168,7 @@ describe(<span class="hljs-string">'my app'</span>, <span class="hljs-function">
     content = <span class="hljs-keyword">await</span> page.evaluate(() =&gt; <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#route'</span>).innerHTML);
     assert.equal(content, <span class="hljs-string">'&lt;h1&gt;About Us&lt;/h1&gt;'</span>);
   });
-});
-<span class="hljs-string">`</span>
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>There&#39;s a lot of different testing tools out there. <a href="https://www.npmjs.com/package/jest">Jest</a> lets you run tests directly in Node.js, without the actual browser. <a href="https://www.cypress.io/">Cypress</a> provides you an integrated testing framework that <a href="https://docs.cypress.io/guides/core-concepts/launching-browsers.html#Browser-Environment">supports multiple browsers</a>. Mocha and Puppeteer is a good middle ground that lets you run tests in an actual browser with minimal outside dependencies. As a beginner or a large enterprise project, you&#39;re likely better off using Cypress, but advanced users with smaller teams can be more nimble with a Mocha/Puppeteer setup.</p>
 <p><em>Confused by Puppeteer&#39;s async/await API? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>

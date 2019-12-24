@@ -13,18 +13,17 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4110--2017-06-25">Mongoose 4.11</a> introduced an important new option to work around a major deprecation. The <a href="http://mongoosejs.com/docs/connections.html#use-mongo-client"><code>useMongoClient</code> option</a> is the source of the <a href="https://github.com/Automattic/mongoose/issues/5399">&#39;<code>open()</code> is deprecated in mongoose&#39; deprecation warning that has caused so much discussion</a>. This option opts you in to using Mongoose 4.11&#39;s simplified initial connection logic and allows you to avoid getting a <a href="https://github.com/Automattic/mongoose/issues/5304">deprecation warning from the underyling MongoDB driver</a>.</p>
-<h2 id="why-is-this-option-necessary-">Why is This Option Necessary?</h2>
+<h2 id="why-is-this-option-necessary">Why is This Option Necessary?</h2>
 <p>Mongoose 4.10 users who used auth (which should be <a href="https://blog.shodan.io/its-the-data-stupid/">everyone that uses Mongoose in production, right?</a>) started seeing the following deprecation warning:</p>
-<pre><code>Db.prototype.authenticate method will no longer be available <span class="hljs-keyword">in</span> the next major release <span class="hljs-number">3.</span>x <span class="hljs-keyword">as</span> MongoDB <span class="hljs-number">3.6</span> will only allow auth against users <span class="hljs-keyword">in</span> the admin db and will no longer allow multiple credentials on a socket. Please authenticate using MongoClient.connect <span class="hljs-keyword">with</span> auth credentials.
-</code></pre><p>This warning comes from the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a>. Currently, connecting and authenticating are distinct operations in MongoDB. You can connect to your database and then authenticate later, which is <a href="https://github.com/Automattic/mongoose/blob/c703010f2b42f7a124e64889111f8e767081f089/lib/connection.js#L690">what mongoose 4.x does by default</a>. You can even authenticate as multiple different users on the same connection.</p>
+<pre><code>Db.prototype.authenticate method will no longer be available <span class="hljs-keyword">in</span> the next major release <span class="hljs-number">3.</span>x <span class="hljs-keyword">as</span> MongoDB <span class="hljs-number">3.6</span> will only allow auth against users <span class="hljs-keyword">in</span> the admin db and will no longer allow multiple credentials on a socket. Please authenticate using MongoClient.connect <span class="hljs-keyword">with</span> auth credentials.</code></pre><p>This warning comes from the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a>. Currently, connecting and authenticating are distinct operations in MongoDB. You can connect to your database and then authenticate later, which is <a href="https://github.com/Automattic/mongoose/blob/c703010f2b42f7a124e64889111f8e767081f089/lib/connection.js#L690">what mongoose 4.x does by default</a>. You can even authenticate as multiple different users on the same connection.</p>
 <p>As far as I understand, MongoDB is planning on removing this functionality in 3.6 and consolidating connecting and authenticating into one single operation. Keep in mind that I am <strong>not</strong> currently a MongoDB employee and do <strong>not</strong> speak for the company as a whole, my interpretation of this may not be entirely correct.</p>
 <p>However, my understanding is that mongoose will <strong>not</strong> be able to authenticate against MongoDB 3.6 without the <code>useMongoClient</code> option. At the time of this writing, the release date for MongoDB 3.6 has not been announced yet. But I recommend you upgrade to mongoose 4.11 and start using <code>useMongoClient</code> as soon as possible, because to the best of my knowledge you will be able to use MongoDB 3.6 without it.</p>
-<h2 id="using-usemongoclient-">Using <code>useMongoClient</code></h2>
+<h2 id="using-usemongoclient">Using <code>useMongoClient</code></h2>
 <p>First, it&#39;s important to note that <code>useMongoClient</code> only affects <strong>initial</strong> connection. Once you have successfully connected to MongoDB, your code should not have to do anything differently. If this is not the case, please <a href="https://github.com/Automattic/mongoose/issues">report a bug on the mongoose GitHub page</a>.</p>
 <p>Secondly, as long as you&#39;re using mongoose 4.x and you&#39;re using MongoDB 3.4 or earlier, your existing connection code will continue to work. You will see the deprecation warning, but mongoose is committed to following <a href="http://semver.org/">semver</a>, so you can safely ignore this warning until mongoose 5.x and MongoDB 3.6 are released and you choose to upgrade.</p>
 <p>The <code>useMongoClient</code> option is for <code>mongoose.connect()</code> and <code>mongoose.createConnection()</code>.
 If you use <code>mongoose.connect()</code>, you don&#39;t have to change much:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
 
@@ -33,10 +32,9 @@ mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</spa
 
 <span class="hljs-comment">// Create a model and insert a new doc</span>
 <span class="hljs-keyword">const</span> Test = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span> }));
-Test.create({ name: <span class="hljs-string">'Val'</span> }).then(doc =&gt; <span class="hljs-built_in">console</span>.log(doc));
-</code></pre>
+Test.create({ name: <span class="hljs-string">'Val'</span> }).then(doc =&gt; <span class="hljs-built_in">console</span>.log(doc));</code></pre>
 <p>You can also use <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
 
@@ -49,10 +47,9 @@ mongoose.Promise = global.Promise;
   <span class="hljs-built_in">console</span>.log(doc);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>The <code>createConnection()</code> also works similarly. The difference is that, with mongoose &gt;= 4.11.2 (but <strong>not</strong> 4.11.0 or 4.11.1 because of a bug) you can start using the returned connection object. You can optionally <code>await</code> on the returned connection to wait for initial connection.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
 
@@ -68,10 +65,9 @@ mongoose.Promise = global.Promise;
   <span class="hljs-built_in">console</span>.log(doc);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>If you use <code>open()</code> or <code>openSet()</code> directly, you should instead use <code>openUri()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
 
@@ -85,8 +81,7 @@ mongoose.Promise = global.Promise;
   <span class="hljs-built_in">console</span>.log(doc);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The <code>useMongoClient</code> option is a big change, but a necessary one for mongoose to support MongoDB 3.6. MongoDB 3.6 has no scheduled release date yet, so switching is not pressing. However, I recommend you start using <code>useMongoClient</code> as soon as possible and report any issues that come up on <a href="https://github.com/Automattic/mongoose/issues">mongoose&#39;s GitHub issues page</a>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

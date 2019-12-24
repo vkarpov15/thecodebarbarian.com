@@ -33,7 +33,7 @@ The difference is that an
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of#Iterating_over_async_iterables">async iterator&#39;s <code>next()</code> function returns a promise</a>.</p>
 <p>Below is a &quot;Hello, World&quot; example with async generator functions. Note
 that the below script won&#39;t work on Node.js versions before 10.x.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
@@ -47,11 +47,10 @@ that the below script won&#39;t work on Node.js versions before 10.x.</p>
 <span class="hljs-comment">// The function doesn't start running until you call `next()`</span>
 asyncIterator.next().
   then(obj =&gt; <span class="hljs-built_in">console</span>.log(obj.value)). <span class="hljs-comment">// Prints "Hello"</span>
-  then(() =&gt; asyncIterator.next());  <span class="hljs-comment">// Prints "World"</span>
-</code></pre>
+  then(() =&gt; asyncIterator.next());  <span class="hljs-comment">// Prints "World"</span></code></pre>
 <p>The cleanest way to loop through an entire async generator function
 is using a <code>for/await/of</code> loop.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
@@ -66,14 +65,13 @@ is using a <code>for/await/of</code> loop.</p>
   <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> asyncIterator) {
     <span class="hljs-built_in">console</span>.log(val); <span class="hljs-comment">// Prints "Hello"</span>
   }
-})();
-</code></pre>
+})();</code></pre>
 <h2 id="a-practical-use-case">A Practical Use Case</h2>
 <p>You might be thinking &quot;why does JavaScript need async generator functions
 when it already has async functions and generator functions?&quot; One use
 case is the classic progress bar problem that <a href="https://stackoverflow.com/questions/31529013/nodejs-file-upload-with-progress-bar-using-core-nodejs-and-the-original-node-s">Ryan Dahl originally wrote Node.js to solve</a>.</p>
 <p>Suppose you want to loop through all documents in a <a href="https://thecodebarbarian.com/cursors-in-mongoose-45">Mongoose cursor</a> and report progress via <a href="https://masteringjs.io/tutorials/node/websockets">websocket</a> or to the command line.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
@@ -103,8 +101,7 @@ case is the classic progress bar problem that <a href="https://stackoverflow.com
     <span class="hljs-comment">// Prints "1 / 5", "2 / 5", "3 / 5", etc.</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>);
   }
-})();
-</code></pre>
+})();</code></pre>
 <p>Async generator functions make it easy for your async function to report
 its progress in a <a href="https://www.getrevue.co/profile/masteringjs/issues/framework-free-javascript-why-it-matters-188138">framework-free</a> way. No need to explicitly create a websocket
 or log to the console - you can handle that separately if you assume
@@ -112,7 +109,7 @@ your business logic uses <code>yield</code> for progress reporting.</p>
 <h2 id="with-observables">With Observables</h2>
 <p>Async iterators are great, but there&#39;s another concurrency primitive that
 async generator functions align well with: <a href="https://www.npmjs.com/package/rxjs">RxJS observables</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> { Observable } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rxjs'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
@@ -130,8 +127,7 @@ async generator functions align well with: <a href="https://www.npmjs.com/packag
 });
 
 <span class="hljs-comment">// Prints "1 / 5", "2 / 5", "3 / 5", etc.</span>
-observable.subscribe(val =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>));
-</code></pre>
+observable.subscribe(val =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>));</code></pre>
 <p>There are two key differences between using an RxJS observable versus
 an async iterator. First, in the above example the code that logs to
 the console in <code>subscribe()</code> is <em>reactive</em> rather than <em>imperative</em>.
@@ -139,21 +135,19 @@ In other words, the <code>subscribe()</code> handler has no way of affecting the
 code in the async function body, it merely reacts to events. When using
 a <code>for/await/of</code> loop, you can, for instance, add a 1 second pause
 before resuming the async generator function.</p>
-<pre><code class="lang-javascript">(<span class="hljs-keyword">async</span> () =&gt; {
+<pre><code class="language-javascript">(<span class="hljs-keyword">async</span> () =&gt; {
   <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> run()) {
     <span class="hljs-comment">// Prints "1 / 5", "2 / 5", "3 / 5", etc.</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>);
     <span class="hljs-comment">// This adds a 1 second delay to every `yield` statement.</span>
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
   }
-})();
-</code></pre>
+})();</code></pre>
 <p>The second is that, since <a href="https://medium.com/codingthesmartway-com-blog/getting-started-with-rxjs-part-3-hot-and-cold-observables-4713757c9a88">RxJS observables are cold by default</a>, a new <code>subscribe()</code> call re-executes the function.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Prints "1 / 5", "2 / 5", "3 / 5", etc.</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Prints "1 / 5", "2 / 5", "3 / 5", etc.</span>
 observable.subscribe(val =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>));
 <span class="hljs-comment">// Kicks off a separate instance of `run()`</span>
-observable.subscribe(val =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>));
-</code></pre>
+observable.subscribe(val =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${val.processed}</span> / <span class="hljs-subst">${val.total}</span>`</span>));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Async generator functions may seem niche and confusing at first, but
 they provide what may become JavaScript&#39;s native solution to the progress

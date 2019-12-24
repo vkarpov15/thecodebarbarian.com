@@ -20,12 +20,12 @@ I&#39;ll describe 3 different patterns
 for handling errors in <code>run()</code>: <code>try/catch</code>, <a href="https://blog.golang.org/error-handling-and-go">Golang-style</a>,
 and <code>catch()</code> on the function call. I&#39;ll also explain why you 
 rarely need anything but <code>catch()</code> with async functions.</p>
-<h2 id="-try-catch-"><code>try/catch</code></h2>
+<h2 id="trycatch"><code>try/catch</code></h2>
 <p>When you&#39;re first getting started with async/await, it is tempting
 to use <code>try/catch</code> around every async operation. That&#39;s because
 if you <code>await</code> on a promise that rejects, JavaScript throws a
 catchable error.</p>
-<pre><code class="lang-javascript">run();
+<pre><code class="language-javascript">run();
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
@@ -33,10 +33,9 @@ catchable error.</p>
   } <span class="hljs-keyword">catch</span> (error) {
     error.message; <span class="hljs-comment">// "Oops!"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p><code>try/catch</code> also handles synchronous errors.</p>
-<pre><code class="lang-javascript">run();
+<pre><code class="language-javascript">run();
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> v = <span class="hljs-literal">null</span>;
@@ -47,13 +46,12 @@ catchable error.</p>
     <span class="hljs-comment">// "TypeError: Cannot read property 'thisWillThrow' of null"</span>
     error.message;
   }
-}
-</code></pre>
+}</code></pre>
 <p>So all you need to do is wrap all your logic in a <code>try/catch</code>, 
 right? Not quite. The below code will result in an
 <a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">unhandled promise rejection</a>. The <code>await</code> keyword converts promise rejections to
 catchable errors, but <code>return</code> does not.</p>
-<pre><code class="lang-javascript">run();
+<pre><code class="language-javascript">run();
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
@@ -62,8 +60,7 @@ catchable errors, but <code>return</code> does not.</p>
   } <span class="hljs-keyword">catch</span> (error) {
     <span class="hljs-comment">// Will **not** run</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>You could work around this limitation using <code>return await</code>.
 However, it is easy to forget <code>return await</code>.</p>
 <p>Another disadvantage is that <code>try/catch</code> is hard to compose.
@@ -74,7 +71,7 @@ as shown below.</p>
 <p>Another common pattern is using <code>.then()</code> to convert a promise
 that rejects into a promise that fulfills with an error. You can
 then use an <code>if (err)</code> check like in Golang.</p>
-<pre><code class="lang-javascript">run();
+<pre><code class="language-javascript">run();
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throwAnError</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
@@ -94,11 +91,10 @@ then use an <code>if (err)</code> check like in Golang.</p>
 
   err = <span class="hljs-keyword">await</span> noError().then(() =&gt; <span class="hljs-literal">null</span>, err =&gt; err);
   err; <span class="hljs-comment">// null</span>
-}
-</code></pre>
+}</code></pre>
 <p>If you need both the error and the value, you can really pretend
 to write Golang in JavaScript.</p>
-<pre><code class="lang-javascript">run();
+<pre><code class="language-javascript">run();
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throwAnError</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
@@ -122,12 +118,11 @@ to write Golang in JavaScript.</p>
     then(v =&gt; [<span class="hljs-literal">null</span>, v], err =&gt; [err, <span class="hljs-literal">null</span>]);
   err; <span class="hljs-comment">// null</span>
   res; <span class="hljs-comment">// 42</span>
-}
-</code></pre>
+}</code></pre>
 <p>This pattern can be neater syntactically because declaring a 
 variable in a <code>try</code> block with <code>let</code> scopes the variable to the
 <code>try</code> block.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getAnswer = <span class="hljs-keyword">async</span> () =&gt; <span class="hljs-number">42</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> getAnswer = <span class="hljs-keyword">async</span> () =&gt; <span class="hljs-number">42</span>;
 
 run();
 
@@ -138,8 +133,7 @@ run();
 
   <span class="hljs-comment">// ReferenceError: val is not defined</span>
   val;
-}
-</code></pre>
+}</code></pre>
 <p>Golang-style error handling doesn&#39;t get rid of the <code>return</code> quirk.
 It just makes missing error checks harder, because you know that
 if you don&#39;t have <code>if (err != null)</code> after an async operation,
@@ -158,7 +152,7 @@ but the best way to ensure you&#39;ve handled all errors in your
 <code>run()</code> function is to use <code>run().catch()</code>. In other words, 
 handle errors when calling the function as opposed to handling
 each individual error.</p>
-<pre><code class="lang-javascript">run().
+<pre><code class="language-javascript">run().
   <span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleError</span>(<span class="hljs-params">err</span>) </span>{
     err.message; <span class="hljs-comment">// Oops!</span>
   }).
@@ -168,13 +162,12 @@ each individual error.</p>
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>));
-}
-</code></pre>
+}</code></pre>
 <p>Remember that <a href="http://thecodebarbarian.com/async-functions-in-javascript.html#an-async-function-always-returns-a-promise">async functions always return promises</a>. This promise
 rejects if any uncaught error occurs in the function.
 If your async function body returns a promise that rejects,
 the returned promise will reject too.</p>
-<pre><code class="lang-javascript">run().
+<pre><code class="language-javascript">run().
   <span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleError</span>(<span class="hljs-params">err</span>) </span>{
     err.message; <span class="hljs-comment">// Oops!</span>
   }).
@@ -185,8 +178,7 @@ the returned promise will reject too.</p>
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// Note that this is `return`, not `await`</span>
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>));
-}
-</code></pre>
+}</code></pre>
 <p>Why <code>run().catch()</code> as opposed to wrapping the entire <code>run()</code>
 function body in a <code>try/catch</code>? For handling errors in the error
 handler. What happens if the <code>catch</code> block in your <code>try/catch</code>

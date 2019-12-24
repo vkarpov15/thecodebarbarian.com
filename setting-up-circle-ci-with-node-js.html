@@ -33,16 +33,19 @@ Circle CI for a Node.js project.</p>
 <h2 id="adding-a-project-to-circle">Adding a Project to Circle</h2>
 <p>Once you register for an account and log in, you should see an &#39;Add Projects&#39;
 button on the left hand side of your Circle dashboard.</p>
-<p><img src="http://i.imgur.com/bJe9DYH.png"></p>
+<img src="http://i.imgur.com/bJe9DYH.png">
+
 <p>Next, choose the GitHub organization that your project is in:</p>
-<p><img src="http://i.imgur.com/jErey8U.png"></p>
+<img src="http://i.imgur.com/jErey8U.png">
+
 <p>Then choose the project you want to build and hit &quot;Build Project&quot; to trigger
 your first build for this project. In this example, I&#39;ll be adding my
 <a href="https://www.npmjs.com/package/dookie">MongoDB test fixture preprocessor called dookie</a>
 to Circle CI. This project&#39;s test setup is not unusual for a node project -
 <code>npm install</code> to install all the dependencies, start MongoDB, and run
 <code>npm test</code>.</p>
-<p><img src="http://i.imgur.com/qEZjtPk.png"></p>
+<img src="http://i.imgur.com/qEZjtPk.png">
+
 <p>Once you hit &quot;Build Project&quot;, Circle will kick off the first build of your
 project. Circle prides themselves on being able to infer the right configuration
 for your project, but in my experience they always get it wrong. The
@@ -55,7 +58,7 @@ If your initial build fails, don&#39;t worry, you can configure Circle from a
 You can think of a deploy key as an SSH key that only works for that repo.
 This means that, by default, Circle only gets access to one of your repos, not
 all of them.</p>
-<h2 id="the-circle-yml-file">The <code>circle.yml</code> File</h2>
+<h2 id="the-circleyml-file">The <code>circle.yml</code> File</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/dookie/commit/eb755a778152934bd2203d37d2c89cad4bc59b61">see a diff on GitHub</a></em></p>
 <p>Putting a <code>circle.yml</code> file in your repo&#39;s root directory tells Circle how
 to set up and test your project. Circle has a
@@ -67,17 +70,16 @@ which may not be the right choice for your project. You can always tell Circle
 to download node directly from <a href="http://nodejs.org">nodejs.org</a>, but Circle also
 can
 <a href="https://circleci.com/docs/configuration#node-version">pull the Node.js version you specify in the <code>machine.node.version</code> option</a></p>
-<pre><code class="lang-yaml">machine:
+<pre><code class="language-yaml">machine:
   node:
     # Circle will use node v4.0.0
-    version: 4.0.0
-</code></pre>
+    version: 4.0.0</code></pre>
 <p>The <code>circle.yml</code> file is broken up into 6 &quot;sections&quot; or &quot;phases&quot;. The &quot;machine&quot;
 phase is the first phase: it&#39;s responsible for setting up the core VM. There&#39;s
 also a &quot;database&quot; phase. Much like Travis, Circle uses 3-year-old MongoDB 2.4
 by default, which is not ideal. However, it&#39;s easy to install whichever
 version of MongoDB you want in the &quot;database&quot; phase. Let&#39;s run MongoDB 3.2.3:</p>
-<pre><code class="lang-yaml">database:
+<pre><code class="language-yaml">database:
   # Circle will execute the below commands
   pre:
     # Stop MongoDB
@@ -89,8 +91,7 @@ version of MongoDB you want in the &quot;database&quot; phase. Let&#39;s run Mon
     # Create data directory
     - mkdir -p ./data/db
     # Fork MongoDB and log to &#39;./mongod.log&#39;. Print the log file if it failed.
-    - ./mongodb-linux-x86_64-ubuntu1204-3.2.3/bin/mongod --dbpath ./data/db --logpath ./mongod.log --fork || cat ./mongod.log
-</code></pre>
+    - ./mongodb-linux-x86_64-ubuntu1204-3.2.3/bin/mongod --dbpath ./data/db --logpath ./mongod.log --fork || cat ./mongod.log</code></pre>
 <p>You can also install MongoDB in the &quot;machine&quot; phase. I&#39;m not sure which
 approach is more correct, but as far as I can tell these approaches are
 interchangeable.</p>
@@ -99,10 +100,9 @@ to run your repo&#39;s tests. Circle is smart enough to know to run <code>npm te
 for Node.js projects, but if you want to override this
 (or you just want to be explicit) you can
 <a href="https://circleci.com/docs/configuration#test">set the <code>test.override</code> option</a>.</p>
-<pre><code class="lang-yaml">test:
+<pre><code class="language-yaml">test:
   override:
-    - npm test
-</code></pre>
+    - npm test</code></pre>
 <p>You can check out the <a href="https://github.com/vkarpov15/dookie/commit/eb755a778152934bd2203d37d2c89cad4bc59b61">whole <code>circle.yml</code> for dookie on GitHub</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Circle is an excellent CI for teams. It&#39;s robust, extensible, and fits great

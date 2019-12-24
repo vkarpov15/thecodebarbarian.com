@@ -27,7 +27,7 @@ shuts down. The <a href="http://mongoosejs.com/docs/connections.html">mongoose c
 will emit a &#39;disconnected&#39; event when it loses connection, and &#39;reconnect&#39; and &#39;connected&#39;
 events when connection is reestablished. Mongoose uses the <a href="http://thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html">MongoDB driver to manage connections</a>, so it will automatically try to reconnect in the same way the MongoDB driver does.
 Note that these events only get fired for a single server or mongos, <strong>not</strong> when you&#39;re connected to a replica set (more on that later). Here&#39;s a script that uses the topology manager to stop/start a MongoDB instance so you can see these events actually fire:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { Server } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { Server } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.Promise = global.Promise;
@@ -67,14 +67,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
   <span class="hljs-keyword">await</span> server.start();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Mongoose and the MongoDB driver both do connection buffering, so you need to shut
 both buffering mechanisms off to make your database operations fail fast when
 mongoose is not connected. By default, mongoose will wait until you reconnect
 before actually executing an operation. For example, the below <code>findOne()</code> callback
 will execute <strong>after</strong> the &#39;reconnect&#39; event is emitted.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// When the mongodb server goes down, mongoose emits a 'disconnected' event</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// When the mongodb server goes down, mongoose emits a 'disconnected' event</span>
 mongoose.connection.on(<span class="hljs-string">'disconnected'</span>, () =&gt; { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-&gt; lost connection'</span>); });
 <span class="hljs-comment">// The driver tries to automatically reconnect by default, so when the</span>
 <span class="hljs-comment">// server starts the driver will reconnect and emit a 'reconnect' event.</span>
@@ -102,13 +101,12 @@ MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">funct
 
 <span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
 <span class="hljs-keyword">await</span> server.start();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);</code></pre>
 <p>In order to shut off buffering, you need to shut off both <a href="http://mongoosejs.com/docs/connections.html#buffering">mongoose buffering</a> and <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect">MongoDB Node.js driver buffering</a>.
 We have an issue open on <a href="https://github.com/Automattic/mongoose/issues/5720">GitHub regarding consolidating buffering options</a>, so please feel free to comment on this issue on the GitHub comment thread. Below is an example of how you
 can shut off both buffering mechanisms and make your database operations fail
 fast when mongoose is not connected.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Connect to the server</span>
 <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
   useMongoClient: <span class="hljs-literal">true</span>,
   bufferMaxEntries: <span class="hljs-number">0</span> <span class="hljs-comment">// Shut off the MongoDB driver's buffering mechanism</span>
@@ -136,8 +134,7 @@ MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">funct
 
 <span class="hljs-comment">// Restarting the server will emit the 'reconnect' and 'connected' events</span>
 <span class="hljs-keyword">await</span> server.start();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);</code></pre>
 <h2 id="the-reconnectfailed-event">The <code>reconnectFailed</code> event</h2>
 <p>There are two important options for tuning how long the MongoDB driver tries to
 reconnect to a single server before giving up: <a href="http://mongoosejs.com/docs/connections.html#options"><code>reconnectTries</code> and <code>reconnectInterval</code></a>.
@@ -150,7 +147,7 @@ emit is likely a fatal error for your application, it means your database connec
 will not be re-established without your intervention.</p>
 <p>Here&#39;s an example of setting <code>reconnectTries</code> and <code>reconnectInterval</code>. The below example executes 2 queries, one while the driver is trying to reconnect and one after the driver gave up trying to reconnect. The query that runs while the driver is trying to reconnect will hang until the driver has emitted &#39;reconnectFailed&#39;, and then give back a &#39;MongoError: failed to reconnect after 2 attempts with interval 100 ms&#39; error.
 The query that runs after the driver gave up trying to reconnect will immediately give back a &#39;MongoError: Topology was destroyed&#39; error.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Connect to the server</span>
 <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
   useMongoClient: <span class="hljs-literal">true</span>,
   <span class="hljs-comment">// Below means driver will make 2 attempts to reconnect at 100ms intervals,</span>
@@ -187,8 +184,7 @@ MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">funct
 <span class="hljs-comment">// Because driver gave up trying to reconnect, will get a "MongoError: Topology was destroyed"</span>
 MyModel.findOne({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished second query'</span>, error);
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Mongoose 4.12 has 8 new features, including the &#39;reconnectFailed&#39; event and <a href="http://thecodebarbarian.com/mongoose-4.12-single-embedded-discriminators.html">single embedded discriminators</a>. Make sure you upgrade to take advantage of the completed discriminator API and
 improved connection monitoring!</p>

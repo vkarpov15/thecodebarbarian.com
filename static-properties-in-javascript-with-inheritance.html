@@ -15,37 +15,33 @@
 </div><div class="post-body-text-container"><p>Since ES6, JavaScript enjoys support for classes and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static">static functions</a> akin to static functions in other object-oriented languages. Unfortunately, JavaScript lacks support for static properties, and <a href="https://esdiscuss.org/topic/define-static-properties-and-prototype-properties-with-the-class-syntax">recommended solutions on Google</a> fail to take into account inheritance. I ran into this problem when <a href="https://github.com/Automattic/mongoose/issues/6912">implementing a new Mongoose feature</a> that requires a more robust notion of static properties. Specifically, I need static properties that support inheritance via setting <code>prototype</code> or via <a href="https://medium.com/beginners-guide-to-mobile-web-development/super-and-extends-in-javascript-es6-understanding-the-tough-parts-6120372d3420"><code>extends</code></a>. In this article, I&#39;ll describe a pattern for implementing static properties in ES6.</p>
 <h2 id="static-methods-and-inheritance">Static Methods and Inheritance</h2>
 <p>Suppose you have a simple ES6 class with a static method.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
   static foo() {
     <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;
   }
-}
-</code></pre>
+}</code></pre>
 <p>You can use <code>extends</code> to create a subclass and still have access to the <code>foo()</code> function.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{}
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{}
 
-Sub.foo(); <span class="hljs-comment">// 42</span>
-</code></pre>
+Sub.foo(); <span class="hljs-comment">// 42</span></code></pre>
 <p>You can also use <a href="https://stackoverflow.com/questions/41426658/es6-how-to-access-a-static-getter-from-an-instance">static getters and setters</a> to set a static property on the <code>Base</code> class.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> foo = <span class="hljs-number">42</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> foo = <span class="hljs-number">42</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
   static get foo() { <span class="hljs-keyword">return</span> foo; }
   static set foo(v) { foo = v; }
-}
-</code></pre>
+}</code></pre>
 <p>Unfortunately, this pattern has undesirable behavior when you subclass <code>Base</code>. If you set <code>foo</code> on a subclass, it will set <code>foo</code> for the <code>Base</code> class and all other subclasses.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{}
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>{}
 
 <span class="hljs-built_in">console</span>.log(Base.foo, Sub.foo);
 
 Sub.foo = <span class="hljs-number">43</span>;
 
 <span class="hljs-comment">// Prints "43, 43". The above set `Base.foo` as well as `Sub.foo`</span>
-<span class="hljs-built_in">console</span>.log(Base.foo, Sub.foo);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(Base.foo, Sub.foo);</code></pre>
 <p>The problem gets worse if your property is an array or an object. Because of prototypical inheritance, if <code>foo</code> is an array, every subclass will have a reference to the same copy of the array as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
   static get foo() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._foo; }
   static set foo(v) { <span class="hljs-keyword">this</span>._foo = v; }
 }
@@ -60,12 +56,11 @@ Sub.foo.push(<span class="hljs-string">'foo'</span>);
 
 <span class="hljs-comment">// Both arrays now contain 'foo' because they are the same array!</span>
 <span class="hljs-built_in">console</span>.log(Base.foo, Sub.foo);
-<span class="hljs-built_in">console</span>.log(Base.foo === Sub.foo); <span class="hljs-comment">// true</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(Base.foo === Sub.foo); <span class="hljs-comment">// true</span></code></pre>
 <p>So JavaScript supports static getters and setters, but using them with objects or arrays is a footgun. Turns out you can do it with a little help from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">JavaScript&#39;s built-in <code>hasOwnProperty()</code></a> function.</p>
 <h2 id="static-properties-with-inheritance">Static Properties With Inheritance</h2>
 <p>The key idea is that a JavaScript class is just another object, so you can distinguish between <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">own properties</a> and inherited properties.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
   static get foo() {
     <span class="hljs-comment">// If `_foo` is inherited or doesn't exist yet, treat it as `undefined`</span>
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.hasOwnProperty(<span class="hljs-string">'_foo'</span>) ? <span class="hljs-keyword">this</span>._foo : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
@@ -85,10 +80,9 @@ Base.foo.push(<span class="hljs-string">'foo'</span>);
 
 <span class="hljs-comment">// Prints "['foo'] undefined"</span>
 <span class="hljs-built_in">console</span>.log(Base.foo, Sub.foo);
-<span class="hljs-built_in">console</span>.log(Base.foo === Sub.foo); <span class="hljs-comment">// false</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(Base.foo === Sub.foo); <span class="hljs-comment">// false</span></code></pre>
 <p>This pattern is neat with classes, but it also works with pre-ES6 JavaScript inheritance. This is important because Mongoose still uses pre-ES6 style inheritance. In hindsight we should have switched sooner, but this feature is the first time we&#39;ve seen a clear advantage to using ES6 classes and inheritance over just setting a function&#39;s <code>prototype</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Base</span>(<span class="hljs-params"></span>) </span>{}
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Base</span>(<span class="hljs-params"></span>) </span>{}
 
 <span class="hljs-built_in">Object</span>.defineProperty(Base, <span class="hljs-string">'foo'</span>, {
   get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.hasOwnProperty(<span class="hljs-string">'_foo'</span>) ? <span class="hljs-keyword">this</span>._foo : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>; },
@@ -116,8 +110,7 @@ Base.foo.push(<span class="hljs-string">'foo'</span>);
 <span class="hljs-comment">// Prints "['foo'] undefined"</span>
 <span class="hljs-built_in">console</span>.log(Base.foo, Sub1.foo);
 <span class="hljs-comment">// Prints "['foo'] undefined"</span>
-<span class="hljs-built_in">console</span>.log(Base.foo, Sub2.foo);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(Base.foo, Sub2.foo);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>ES6 classes have a major advantage over old school <code>Sub.prototype = Object.create(Base.prototype)</code> because <code>extends</code> copies over static properties and functions. With a little extra work using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty"><code>Object.hasOwnProperty()</code></a>, you can create static getters and setters that handle inheritance correctly. Be very careful with static properties in JavaScript: <code>extends</code> still uses prototypical inheritance under the hood. That means static objects and arrays are shared between all subclasses unless you use the <code>hasOwnProperty()</code> pattern from this article.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

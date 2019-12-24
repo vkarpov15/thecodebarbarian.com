@@ -24,8 +24,7 @@ JavaScript frameworks.</p>
   <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"-19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span>/&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span>
-</code></pre><p>Here&#39;s what it looks like in the browser. </p>
+<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span></code></pre><p>Here&#39;s what it looks like in the browser. </p>
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
   <circle r="39"/>
   <path d="M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38" fill="#fff"/>
@@ -33,7 +32,8 @@ JavaScript frameworks.</p>
   <circle cy="-19" r="5"/>
 </svg>
 
-<p><br></p>
+<br>
+
 <p>An SVG image is just a collection of shapes defined in XML, like <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle">circles</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect">rectangles</a>, or <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path">arbitrary paths</a>. You can modify an SVG using a plain old
 text editor like VS Code, or an <a href="https://www.rapidtables.com/web/tools/svg-viewer-editor.html">online viewer</a>.
 There is also an <a href="https://atom.io/packages/svg-preview">atom plugin that previews SVGs</a>. For example, if you
@@ -43,24 +43,23 @@ comment out the last <code>circle</code> tag from the above image, you remove th
   <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
   <span class="hljs-comment">&lt;!-- &lt;circle cy="-19" r="5"/&gt; --&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span>
-</code></pre><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
+<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span></code></pre><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
   <circle r="39"/>
   <path d="M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38" fill="#fff"/>
   <circle cy="19" r="5" fill="#fff"/>
   <!-- <circle cy="-19" r="5"/> -->
 </svg>
 
-<p><br></p>
+<br>
+
 <p>SVGs support comments. There is an <a href="https://www.npmjs.com/package/svgo">extremely popular npm module for optimizing SVGs called <code>svgo</code></a> that minifies SVGs by removing comments and other non-functional elements.</p>
 <p>Scaling an SVG is as easy as increasing the <code>width</code> and <code>height</code> properties of the <code>svg</code> tag. No need to modify
 any of the SVG internals. Below is how you double the height and width of the yin yang symbol to 400x400.</p>
-<pre><code>&lt;svg xmlns=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> width=<span class="hljs-string">"400"</span> height=<span class="hljs-string">"400"</span> viewBox=<span class="hljs-string">"-40 -40 80 80"</span>&gt;...&lt;<span class="hljs-regexp">/svg&gt;</span>
-</code></pre><h2 id="svg-with-vue">SVG With Vue</h2>
+<pre><code>&lt;svg xmlns=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> width=<span class="hljs-string">"400"</span> height=<span class="hljs-string">"400"</span> viewBox=<span class="hljs-string">"-40 -40 80 80"</span>&gt;...&lt;<span class="hljs-regexp">/svg&gt;</span></code></pre><h2 id="svg-with-vue">SVG With Vue</h2>
 <p>Because you can embed SVGs into the browser, you can also create and manipulate SVGs using component-based
 frameworks like <a href="https://thecodebarbarian.com/building-a-form-with-vue">Vue</a>. For example, below is a Vue
 app that renders the yin yang symbol:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
   template: <span class="hljs-string">`
     &lt;svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80"&gt;
       &lt;circle r="39"/&gt;
@@ -69,13 +68,12 @@ app that renders the yin yang symbol:</p>
       &lt;circle cy="-19" r="5"/&gt;
     &lt;/svg&gt;
   `</span>
-}).$mount(<span class="hljs-string">'#content'</span>);
-</code></pre>
+}).$mount(<span class="hljs-string">'#content'</span>);</code></pre>
 <p>You can use <a href="https://masteringjs.io/tutorials/vue/v-if">conditional rendering with <code>v-if</code></a> and other
 <a href="https://vuejs.org/v2/guide/custom-directive.html">Vue directives</a> with inline SVGs as well. For example,
 the below Vue app lets you get rid of the yin (black) or yang (white) side of the symbol and throw
 the universe out of balance.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
   data: () =&gt; ({
     yin: <span class="hljs-literal">true</span>,
     yang: <span class="hljs-literal">true</span>
@@ -99,15 +97,16 @@ the universe out of balance.</p>
       &lt;/svg&gt;
     &lt;/div&gt;
   `</span>
-}).$mount(<span class="hljs-string">'#content'</span>);
-</code></pre>
-<p><img src="https://codebarbarian-images.s3.amazonaws.com/yinyang.gif" class="inline-image"></p>
+}).$mount(<span class="hljs-string">'#content'</span>);</code></pre>
+<img src="https://codebarbarian-images.s3.amazonaws.com/yinyang.gif" class="inline-image">
+
 <h2 id="exporting-svgs">Exporting SVGs</h2>
 <p>SVGs enjoy widespread browser support, but some apps don&#39;t support SVG images. For example, Slack doesn&#39;t show
 a preview of uploaded SVG images:</p>
-<p><img src="https://i.imgur.com/JH0Ot42.png" class="inline-image"></p>
+<img src="https://i.imgur.com/JH0Ot42.png" class="inline-image">
+
 <p>The workaround is to use an npm module to convert your SVG to a PNG. In the past I&#39;ve used <a href="https://www.npmjs.com/package/sharp">sharp</a> for this.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> sharp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sharp'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> sharp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sharp'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
 <span class="hljs-keyword">const</span> buf = fs.readFileSync(<span class="hljs-string">'./yinyang.svg'</span>);
@@ -116,14 +115,14 @@ a preview of uploaded SVG images:</p>
 <span class="hljs-comment">// that `toBuffer()` returns a promise!</span>
 sharp(buf).png().toBuffer().then(out =&gt; {
   fs.writeFileSync(<span class="hljs-string">'./yinyang.png'</span>, out);
-});
-</code></pre>
+});</code></pre>
 <p>Once you have a PNG, you can upload the PNG to Slack. For example, you can use a pure SVG charting library
 like <a href="https://frappe.io/charts">Frappe</a> to create charts, then convert them to PNGs using Sharp so you can
 automatically upload them to Slack.</p>
 <h2 id="svg-for-logos">SVG For Logos</h2>
 <p>Many popular sites display their logo using SVGs. For example, Twitter&#39;s logo is an SVG:</p>
-<p><img src="https://i.imgur.com/UL2GBuU.png" class="inline-image"></p>
+<img src="https://i.imgur.com/UL2GBuU.png" class="inline-image">
+
 <p>SVG files are tiny: <a href="https://gist.github.com/mbostock/3094619">Twitter&#39;s logo is only a couple hundred bytes</a>.
 You can even inline them in your HTML, so you don&#39;t need an extra HTTP request to load your logo.
 There are substantial performance benefits to using SVGs over JPG or PNG for icons and logos, because SVGs

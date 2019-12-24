@@ -13,9 +13,9 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4110--2017-06-25">Mongoose 4.11</a> was released last week and includes several neat new features. It also has one very important deprecation, so before you upgrade please read about <a href="http://mongoosejs.com/docs/connections.html#use-mongo-client">the <code>useMongoClient</code> option in the docs</a>. I&#39;ll write more about <code>useMongoClient</code> and <a href="https://github.com/Automattic/mongoose/issues/5399#issuecomment-312523545">why it is necessary</a> another time. But first, mongoose 4.11 enables a new plugin, <a href="https://www.npmjs.com/package/mongoose-lean-virtuals">mongoose-lean-virtuals</a>, which lets you apply virtuals to query results even if you use <a href="http://mongoosejs.com/docs/api.html#query_Query-lean">the <code>lean()</code> function</a>. This plugin is a more general version of <a href="https://www.npmjs.com/package/mongoose-lean-id">mongoose-lean-id</a>.</p>
-<h2 id="what-does-the-plugin-do-">What Does the Plugin Do?</h2>
+<h2 id="what-does-the-plugin-do">What Does the Plugin Do?</h2>
 <p>The <code>lean()</code> function tells mongoose to not <a href="http://mongoosejs.com/docs/api.html#model_Model.hydrate">hydrate</a> query results. In other words, the results of your queries will be the same plain JavaScript objects that you would get from using the <a href="https://www.npmjs.com/package/mongodb">Node.js MongoDB driver</a> directly, with none of the mongoose magic. This means no <a href="http://mongoosejs.com/docs/guide.html#virtuals">virtuals</a>, getters, <a href="http://mongoosejs.com/docs/guide.html#methods">methods</a>, <a href="http://mongoosejs.com/docs/middleware.html">defaults</a>, or <a href="http://mongoosejs.com/docs/middleware.html">document middleware</a>. But what you lose in functionality you gain in performance, <code>lean()</code> removes almost all of the overhead of using mongoose. Below is an example of using <code>.lean()</code> with methods and virtuals.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
@@ -44,11 +44,10 @@
   <span class="hljs-built_in">console</span>.log(leanDoc.myVirtual); <span class="hljs-comment">// 'undefined', not 'test'</span>
 }
 
-test().catch(err =&gt; <span class="hljs-built_in">console</span>.error(err.stack));
-</code></pre>
+test().catch(err =&gt; <span class="hljs-built_in">console</span>.error(err.stack));</code></pre>
 <p>If you&#39;re just loading a document from MongoDB and don&#39;t intend to modify it, you&#39;re often better off using <code>lean()</code> because you get the performance benefit and don&#39;t need any of the functionality you lose.</p>
 <p>Virtuals are often the reason why people don&#39;t use <code>lean()</code> for read-only use cases. They&#39;re often written for the convenience of client code, so <code>lean()</code> is usually not an option for power users of virtuals. Using the mongoose-lean-virtuals plugin, you can do <code>.lean({ virtuals: true })</code> to get all virtuals in the query result as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> mongooseLeanVirtuals = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose-lean-virtuals'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
@@ -84,14 +83,12 @@ test().catch(err =&gt; <span class="hljs-built_in">console</span>.error(err.stac
   <span class="hljs-built_in">console</span>.log(leanDoc.test); <span class="hljs-comment">// 'undefined', not a function</span>
 }
 
-test().catch(err =&gt; <span class="hljs-built_in">console</span>.error(err.stack));
-</code></pre>
+test().catch(err =&gt; <span class="hljs-built_in">console</span>.error(err.stack));</code></pre>
 <h2 id="caveats">Caveats</h2>
 <p>Mongoose virtuals are defined via a getter function and an optional setter function:</p>
-<pre><code class="lang-javascript">schema.virtual(<span class="hljs-string">'myVirtual'</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">schema.virtual(<span class="hljs-string">'myVirtual'</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
-});
-</code></pre>
+});</code></pre>
 <p>As usual in JavaScript, you need to be careful about what <code>this</code> means. Without <code>lean()</code>, <code>this</code> is a full fledged mongoose document, complete with getters, setters, virtuals, etc. With <code>lean()</code> and mongoose-lean-virtuals, <code>this</code> is a plain JavaScript object in the getter function, with <strong>no</strong> getters, methods, or any other mongoose syntactic sugar. If you plan on using mongoose-lean-virtuals, do <strong>not</strong> rely on mongoose functionality in your virtuals. Accessing document properties like <code>this.name</code> is fine, but <code>this.get(&#39;name&#39;)</code> is not because <code>this</code> is a POJO with mongoose-lean-virtuals.</p>
 <p>Mongoose also has <a href="http://mongoosejs.com/docs/populate.html#populate-virtuals">virtuals for use with <code>populate()</code></a>. The mongoose-lean-virtuals plugin explicitly ignores virtuals that have a <code>ref</code> property, so your populated virtuals will <strong>not</strong> be included. Please open up an issue on the <a href="http://mongoosejs.com/docs/populate.html#populate-virtuals">mongoose-lean-virtuals GitHub page</a> if you need this feature.</p>
 <h2 id="moving-on">Moving On</h2>

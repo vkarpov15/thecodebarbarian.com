@@ -19,7 +19,7 @@ in MySQL, having <a href="https://docs.mongodb.com/manual/applications/geospatia
 a breath of fresh air. However, the MongoDB geospatial querying docs often miss
 the forest for the trees. In this article, I&#39;ll focus specifically on <a href="http://geojson.org/">GeoJSON</a> queries in the MongoDB shell and how to implement
 several common geospatial queries in MongoDB.</p>
-<h2 id="which-documents-are-in-a-given-polygon-">Which documents are in a given polygon?</h2>
+<h2 id="which-documents-are-in-a-given-polygon">Which documents are in a given polygon?</h2>
 <p>The simplest geospatial operator is <a href="https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/"><code>$geoIntersects</code></a>. Given a GeoJSON polygon, <code>$geoIntersects</code> will give you all
 documents whose GeoJSON geometries intersect with the polygon. Suppose you have
 a list of ski resorts in a <code>locations</code> collection:</p>
@@ -67,8 +67,7 @@ a list of ski resorts in a <code>locations</code> collection:</p>
             <span class="hljs-number">50.12</span>
         ]
     }
-}
-</code></pre><p>How many of these locations are in the state of Colorado? Let&#39;s approximate
+}</code></pre><p>How many of these locations are in the state of Colorado? Let&#39;s approximate
 Colorado as the below GeoJSON square.</p>
 <pre><code>{
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
@@ -79,12 +78,12 @@ Colorado as the below GeoJSON square.</p>
     [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
     [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
   ]]
-}
-</code></pre><p>Here&#39;s how these geometries look on a map. Click on the map for an interactive
+}</code></pre><p>Here&#39;s how these geometries look on a map. Click on the map for an interactive
 view.</p>
-<p><a href="http://bl.ocks.org/anonymous/raw/a297439e02cad4ae5c41ed9e1d89b344/">
+<a href="http://bl.ocks.org/anonymous/raw/a297439e02cad4ae5c41ed9e1d89b344/">
 <img src="http://i.imgur.com/59OCqJR.jpg" />
-</a></p>
+</a>
+
 <p>Here&#39;s what this query looks like in the MongoDB shell:</p>
 <pre><code>&gt; db.locations.find({
 ...   location: {
@@ -103,15 +102,14 @@ view.</p>
 ...   }
 ... })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }
-&gt;
-</code></pre><p>As expected, MongoDB managed to figure out that Aspen is in Colorado, and
+&gt;</code></pre><p>As expected, MongoDB managed to figure out that Aspen is in Colorado, and
 Squaw Valley, Mammoth Lakes, and Whistler are not. This query is not terribly
 enlightening, but if you start importing data like <a href="https://github.com/jgoodall/us-maps">US zip codes and counties</a> MongoDB can start looking like
 your own personal <a href="https://developers.google.com/maps/faq#usage-limits">non-rate-limited geocoder</a>.</p>
 <p>The <code>$geometry</code> property under <code>$geoIntersects</code> is required for the
 <code>$geoIntersects</code> operator, but not for the other geospatial operators you&#39;ll
 learn about later. For now, just think of it as boilerplate.</p>
-<h2 id="which-documents-are-within-a-certain-distance-of-a-given-point-">Which documents are within a certain distance of a given point?</h2>
+<h2 id="which-documents-are-within-a-certain-distance-of-a-given-point">Which documents are within a certain distance of a given point?</h2>
 <p>One big GeoJSON limitation is that it <a href="http://stackoverflow.com/questions/16942697/geojson-circles-supported-or-not">can&#39;t represent circles</a>. That&#39;s a problem if you want to, say, find all ski resorts within 300
 miles of San Francisco and avoid having to fly. The <code>$geoIntersects</code> operator
 won&#39;t help you here, but the <a href="https://docs.mongodb.com/manual/reference/operator/query/geoWithin/"><code>$geoWithin</code> operator</a> will.</p>
@@ -134,8 +132,7 @@ and get the same result.</p>
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }
-</code></pre><p>The <code>$geoWithin</code> operator and the <code>$geoIntersects</code> operator have 2 key
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }</code></pre><p>The <code>$geoWithin</code> operator and the <code>$geoIntersects</code> operator have 2 key
 differences:</p>
 <ul>
 <li><code>$geoWithin</code> searches for geometries that are contained entirely within a given geometry, whereas <code>$geoIntersects</code> looks for geometries that intersect. If the property you&#39;re searching for contains points, these are the same, but the results may differ if your documents contain polygons. More on this later.</li>
@@ -143,9 +140,10 @@ differences:</p>
 </ul>
 <p>It&#39;s tricky to visualize a circle of radius 300 miles with a GeoJSON visualizer,
 but here&#39;s how the ski resorts look with a square of <a href="http://mathworld.wolfram.com/Circumradius.html">circumradius</a> 300 miles centered on San Francisco (approximately latitude 37.7, longitude -122.5):</p>
-<p><a href="http://bl.ocks.org/anonymous/raw/5e33ac4eb082b1c37684319905e26566/">
+<a href="http://bl.ocks.org/anonymous/raw/5e33ac4eb082b1c37684319905e26566/">
     <img src="http://i.imgur.com/7Oanv3z.jpg" />
-</a></p>
+</a>
+
 <p>So the expected result is 2 documents, Mammoth Lakes and Squaw Valley.
 Here&#39;s how the MongoDB query with <code>$geoWithin</code> and <code>$centerSphere</code> looks:</p>
 <pre><code>&gt; db.locations.find({
@@ -157,12 +155,11 @@ Here&#39;s how the MongoDB query with <code>$geoWithin</code> and <code>$centerS
 ... })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] } }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] } }
-&gt;
-</code></pre><p>What&#39;s with the crazy 3963.2 magic number? <code>$centerSphere</code> takes the distance
+&gt;</code></pre><p>What&#39;s with the crazy 3963.2 magic number? <code>$centerSphere</code> takes the distance
 in radians, so you need to divide by the radius of the Earth, which is
 about <a href="https://en.wikipedia.org/wiki/Earth_radius#Fixed_radius">3963.2 miles at the equator</a>. This estimate
 is usually good enough because the Earth&#39;s radius <a href="https://en.wikipedia.org/wiki/Earth_radius#Notable_geocentric_radii">only has a range of about 20 miles</a>.</p>
-<h2 id="how-do-i-sort-documents-by-distance-from-a-given-point-">How do I sort documents by distance from a given point?</h2>
+<h2 id="how-do-i-sort-documents-by-distance-from-a-given-point">How do I sort documents by distance from a given point?</h2>
 <p>The <code>$geoWithin</code> query above gives you all documents within 300 miles of San
 Francisco, but those documents can be in any order. Let&#39;s say you wanted to
 find all documents within 900 miles of San Francisco and order then by distance.
@@ -176,8 +173,7 @@ is just under 900 miles away:</p>
 <span class="hljs-number">863.2551069982414</span>
 &gt; turf.distance(turf.point([<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]), turf.point([<span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span>]), <span class="hljs-string">'miles'</span>)
 <span class="hljs-number">900.1549979044975</span>
-&gt;
-</code></pre><p>The way to run this query in MongoDB is the
+&gt;</code></pre><p>The way to run this query in MongoDB is the
 <a href="https://docs.mongodb.com/manual/reference/operator/query/nearSphere/"><code>$nearSphere</code> operator</a>.
 The <code>$nearSphere</code> operator requires you to create a <a href="https://docs.mongodb.com/manual/core/2dsphere/">2dsphere index</a>. Here&#39;s how that looks
 in the MongoDB shell:</p>
@@ -187,8 +183,7 @@ in the MongoDB shell:</p>
     <span class="hljs-string">"numIndexesBefore"</span> : <span class="hljs-number">1</span>,
     <span class="hljs-string">"numIndexesAfter"</span> : <span class="hljs-number">2</span>,
     <span class="hljs-string">"ok"</span> : <span class="hljs-number">1</span>
-}
-</code></pre><p>The <code>$nearSphere</code> operator takes a <code>$geometry</code> property that&#39;s a GeoJSON point, and <code>$minDistance</code> and <code>$maxDistance</code> properties that are in <strong>meters</strong>.</p>
+}</code></pre><p>The <code>$nearSphere</code> operator takes a <code>$geometry</code> property that&#39;s a GeoJSON point, and <code>$minDistance</code> and <code>$maxDistance</code> properties that are in <strong>meters</strong>.</p>
 <pre><code>&gt; db.locations.find({
 ...   location: {
 ...     $nearSphere: {
@@ -203,8 +198,7 @@ in the MongoDB shell:</p>
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] } }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] } }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }
-&gt;
-</code></pre><p>The 1609.34 multiplier converts from <a href="http://www.metric-conversions.org/length/miles-to-meters-table.htm">miles to meters</a>.
+&gt;</code></pre><p>The 1609.34 multiplier converts from <a href="http://www.metric-conversions.org/length/miles-to-meters-table.htm">miles to meters</a>.
 You can also specify <code>$minDistance</code>.</p>
 <p>What if, in addition to sorting by distance, you want MongoDB to compute the
 actual distance for you too? The <a href="https://docs.mongodb.com/manual/aggregation/">MongoDB aggregation framework</a> has a <a href="https://docs.mongodb.com/v3.0/reference/operator/aggregation/geoNear/"><code>$geoNear</code> stage</a> which behaves pretty similarly to <code>$nearSphere</code>. The difference between <code>$nearSphere</code> and <code>$geoNear</code> is a common source of confusion. Usually, if you
@@ -234,15 +228,14 @@ computed <code>distanceFromSF</code> is in miles.</p>
 ... }])
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">190.80440056422898</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">201.0443259531628</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">863.9477714789235</span> }
-</code></pre><p><strong>Protip:</strong> Always test your queries carefully, don&#39;t just define a big polygon
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">863.9477714789235</span> }</code></pre><p><strong>Protip:</strong> Always test your queries carefully, don&#39;t just define a big polygon
 and check if your geospatial query returns all documents. I&#39;ve been using
 geospatial queries for years and I still forget which units the various
 geospatial operators use in which versions of MongoDB. This data set would make
 a good test case, because Whistler is slightly more than 900 miles away and
 Aspen is slightly less. A good test case would take in 900 and assert that
 Aspen is in the results and Whistler is not.</p>
-<h2 id="which-polygons-are-within-x-miles-of-a-given-point-">Which polygons are within X miles of a given point?</h2>
+<h2 id="which-polygons-are-within-x-miles-of-a-given-point">Which polygons are within X miles of a given point?</h2>
 <p>MongoDB geospatial operators work with 2 GeoJSON types: points and polygons.
 Note that MongoDB geospatial operators do <strong>not</strong> work with GeoJSON features
 or feature collections. To stick with our current data set, let&#39;s create a
@@ -278,8 +271,7 @@ or feature collections. To stick with our current data set, let&#39;s create a
         ]
     }
 }
-&gt;
-</code></pre><p>We know that the entirety of Colorado is not within 900 miles of San Francisco,
+&gt;</code></pre><p>We know that the entirety of Colorado is not within 900 miles of San Francisco,
 but part of it is. To find all polygons that intersect with a 900 mile circle
 centered at San Francisco, you need to use the <code>$nearSphere</code> operator
 (which, remember, requires a &#39;2dsphere&#39; index).</p>
@@ -295,8 +287,7 @@ centered at San Francisco, you need to use the <code>$nearSphere</code> operator
 ...   }
 ... })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801739adefd3a67cca15eae"</span>), <span class="hljs-string">"geometry"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Polygon"</span>, <span class="hljs-string">"coordinates"</span> : [ [ [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ], [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ], [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ], [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ], [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] } }
-&gt;
-</code></pre><p>To double check, try running the query with 500 miles and see that you get
+&gt;</code></pre><p>To double check, try running the query with 500 miles and see that you get
 no results:</p>
 <pre><code>&gt; db.states.find({
 ...   geometry: {
@@ -309,8 +300,7 @@ no results:</p>
 ...     }
 ...   }
 ... })
-&gt;
-</code></pre><h2 id="side-note-on-self-intersecting-polygons">Side Note on Self-Intersecting Polygons</h2>
+&gt;</code></pre><h2 id="side-note-on-self-intersecting-polygons">Side Note on Self-Intersecting Polygons</h2>
 <p><a href="https://jira.mongodb.org/browse/SERVER-20672">MongoDB does <strong>not</strong> support self-intersecting polygons</a>. You can store these
 in MongoDB but geospatial query operators can&#39;t search through them and your
 2dsphere index builds will fail if you have self-intersecting polygons in

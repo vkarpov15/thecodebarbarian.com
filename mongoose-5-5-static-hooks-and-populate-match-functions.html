@@ -16,7 +16,7 @@
 <h2 id="hooks-for-custom-statics">Hooks for Custom Statics</h2>
 <p><a href="https://mongoosejs.com/docs/guide.html#statics">Statics</a> are Mongoose&#39;s implementation of <a href="https://docs.mql4.com/basis/oop/staticmembers">OOP static functions</a>.
 You add a static function to your schema, and Mongoose attaches it to any model you compile with that schema.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span> });
 
@@ -26,12 +26,11 @@ schema.statics.findByName = <span class="hljs-function"><span class="hljs-keywor
 };
 
 <span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, schema);
-User.findByName(<span class="hljs-string">'test'</span>); <span class="hljs-comment">// Equivalent to `User.find({ name: 'test' })`</span>
-</code></pre>
+User.findByName(<span class="hljs-string">'test'</span>); <span class="hljs-comment">// Equivalent to `User.find({ name: 'test' })`</span></code></pre>
 <p>Mongoose 5.5 introduces the ability to add hooks for custom statics, like
 <code>schema.pre(&#39;findByName&#39;)</code>. In a custom static&#39;s middleware function, <code>this</code>
 is the model, like <a href="https://mongoosejs.com/docs/middleware.html#types-of-middleware"><code>insertMany</code> middleware</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Can define pre and post hooks for `findByName` in Mongoose 5.5</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Can define pre and post hooks for `findByName` in Mongoose 5.5</span>
 schema.pre(<span class="hljs-string">'findByName'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next, name</span>) </span>{
   <span class="hljs-comment">// Prints "User.findByName('test')"</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${this.modelName}</span>.findByName('<span class="hljs-subst">${name}</span>')`</span>);
@@ -45,8 +44,7 @@ schema.post(<span class="hljs-string">'findByName'</span>, <span class="hljs-fun
 <span class="hljs-comment">// Compile the model and run `findByName()`</span>
 <span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, schema);
 User.findByName(<span class="hljs-string">'test'</span>).
-  then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>)); <span class="hljs-comment">// Hooked `findByName` returns a promise</span>
-</code></pre>
+  then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>)); <span class="hljs-comment">// Hooked `findByName` returns a promise</span></code></pre>
 <p>Statics help you consolidate core business logic into reusable functions.
 Hooks for statics lets you handle
 <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concerns</a>
@@ -54,7 +52,7 @@ that affect all your statics. This is especially powerful when combined with
 <a href="https://mongoosejs.com/docs/plugins.html">plugins</a>. For example, here&#39;s how
 you can add <a href="https://www.npmjs.com/package/debug">debug</a> logging to all your
 statics:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'mongoose:statics'</span>);
 
 <span class="hljs-comment">// Create schema</span>
@@ -82,8 +80,7 @@ schema.statics.findByEmail = <span class="hljs-function"><span class="hljs-keywo
 
   <span class="hljs-keyword">await</span> User.findByName(<span class="hljs-string">'test'</span>); <span class="hljs-comment">// Prints "mongoose:statics User.findByName(test) +0ms"</span>
   <span class="hljs-keyword">await</span> User.findByEmail(<span class="hljs-string">'test@test.co'</span>); <span class="hljs-comment">// Prints "mongoose:statics User.findByEmail(test@test.co) +10ms"</span>
-})();
-</code></pre>
+})();</code></pre>
 <h2 id="populate-match-function">Populate Match Function</h2>
 <p>The <a href="https://mongoosejs.com/docs/populate.html#query-conditions"><code>match</code> option for populate</a>
 lets you add an additional filter to <code>populate()</code>. For example, suppose you
@@ -92,7 +89,7 @@ have two models, <code>BlogPost</code> and <code>Comment</code>, and you&#39;re 
 When you load a blog post, you want to load the corresponding comments that
 do not have the <code>deleted</code> property set. Here&#39;s how you would ensure that
 <code>populate()</code> always ignores <code>deleted</code> comments.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create schemas</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Create schemas</span>
 <span class="hljs-keyword">const</span> blogPostSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   title: <span class="hljs-built_in">String</span>,
   authorId: <span class="hljs-built_in">Number</span>
@@ -111,14 +108,13 @@ blogPostSchema.virtual(<span class="hljs-string">'comments'</span>, {
   blogPostId: mongoose.ObjectId,
   authorId: <span class="hljs-built_in">Number</span>,
   deleted: <span class="hljs-built_in">Boolean</span>
-});
-</code></pre>
+});</code></pre>
 <p>The <code>match</code> option lets you filter out <code>deleted</code> comments. But how about a
 trickier challenge: finding all self-comments. That is, comments whose
 <code>authorId</code> is equal to the corresponding blog post&#39;s <code>authorId</code>? Below is
 an example of populating <code>comments</code>, excluding soft-deleted comments and
 comments by anyone other than the author of the blog post.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, blogPostSchema);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, blogPostSchema);
 <span class="hljs-keyword">const</span> Comment = mongoose.model(<span class="hljs-string">'Comment'</span>, commentSchema);
 
 <span class="hljs-keyword">let</span> post = <span class="hljs-keyword">await</span> BlogPost.create({ title: <span class="hljs-string">'Mongoose 5.5.0'</span>, authorId: <span class="hljs-number">1</span> });
@@ -133,20 +129,18 @@ post = <span class="hljs-keyword">await</span> BlogPost.findOne().populate({
   <span class="hljs-comment">// If match is a function, it receives the blog post doc as a parameter</span>
   match: doc =&gt; ({ authorId: doc.authorId, deleted: { $ne: <span class="hljs-literal">true</span> } })
 });
-<span class="hljs-built_in">console</span>.log(post.comments.length); <span class="hljs-comment">// 1</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(post.comments.length); <span class="hljs-comment">// 1</span></code></pre>
 <p>Internally, Mongoose relies on the excellent <a href="https://www.npmjs.com/package/sift">Sift</a>
 library to power match functions.</p>
 <p>Match functions are particularly useful when it comes to roles and hiding results
 the end user doesn&#39;t have permission to see. For example, suppose you want only
 the author of the blog post to see deleted comments. Here&#39;s how you can
 do that with match functions:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> authorId = <span class="hljs-number">1</span>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> authorId = <span class="hljs-number">1</span>
 post = <span class="hljs-keyword">await</span> BlogPost.find().populate({
   path: <span class="hljs-string">'comments'</span>,
   match: doc =&gt; (doc.authorId === authorId ? {} : { deleted: { $ne: <span class="hljs-literal">true</span> } })
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Hooks for custom statics and populate match functions are just two of the 12
 new features in <a href="https://github.com/Automattic/mongoose/blob/master/History.md#550--2019-04-08">Mongoose 5.5</a>.

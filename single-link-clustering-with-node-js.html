@@ -25,8 +25,7 @@ break these locations into 4 clusters based on distance, you&#39;d cluster them 
 <p><a href="http://bl.ocks.org/d/ac30ab73ea85135ca9aa065d72c474d7"><img src="https://i.imgur.com/aTPr4Yg.png"></a></p>
 <p>First, let&#39;s set up this data in Node.js using some <a href="http://thecodebarbarian.com/wrangling-geojson-with-turf.html">Turf.js</a> helpers.
 First, install Turf. Over the last year Turf has been going overboard on micro-modules, <a href="https://docs.npmjs.com/getting-started/scoped-packages">npm scoped packages</a>, and ES6 imports, even dropping support for <code>require()</code>, but the new cumbersome Turf workflow is not quite bad enough to consider forking, so please bear with me.</p>
-<pre><code>npm install @turf/helpers @turf/distance @turf/centroid
-</code></pre><pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { point } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
+<pre><code>npm install @turf/helpers @turf/distance @turf/centroid</code></pre><pre><code class="language-javascript"><span class="hljs-keyword">const</span> { point } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
 <span class="hljs-keyword">const</span> centroid = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/centroid'</span>)[<span class="hljs-string">'default'</span>];
 <span class="hljs-keyword">const</span> distance = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/distance'</span>)[<span class="hljs-string">'default'</span>];
 
@@ -53,8 +52,7 @@ First, install Turf. Over the last year Turf has been going overboard on micro-m
   <span class="hljs-keyword">const</span> pt = point(p);
   pt.properties.name = cities[index];
   <span class="hljs-keyword">return</span> pt;
-});
-</code></pre>
+});</code></pre>
 <p>Now, the goal is to cluster these points using single link clustering. The general idea of the algorithm is this:</p>
 <ul>
 <li>Start out with 8 clusters, each with one location</li>
@@ -62,7 +60,7 @@ First, install Turf. Over the last year Turf has been going overboard on micro-m
 <li>Repeat until there are 4 clusters left.</li>
 </ul>
 <p>Below is the actual implementation of the clustering algorithm:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create 8 clusters, each with one location. Each cluster has a</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Create 8 clusters, each with one location. Each cluster has a</span>
 <span class="hljs-comment">// center so we can compute the "distance" between two clusters</span>
 <span class="hljs-comment">// by seeing how far apart their centers are.</span>
 <span class="hljs-keyword">const</span> clusters = points.map(p =&gt; ({ locs: [p], center: p }));
@@ -101,8 +99,7 @@ First, install Turf. Over the last year Turf has been going overboard on micro-m
     <span class="hljs-built_in">console</span>.log(loc.properties.name);
   }
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-----'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The <a href="https://masteringjs.io/tutorials/fundamentals/array-splice"><code>Array#splice()</code> function is how you remove an element from a JavaScript array</a>.</p>
 <p>As expected, the result shows the algorithm grouped all the North America, Europe, Middle East, and Australia locations together.</p>
 <pre><code>$ node cluster-geo.js
@@ -118,8 +115,7 @@ Tel Aviv
 -----
 Sydney
 -----
-$
-</code></pre><p>Single link clustering has the nice property that you specify ahead of time the number of clusters you want. Depending on your use case, this can be good or bad, because it is prone to creating clusters with objects that are too dissimilar if the desired number of clusters is small. But, if you know the number of clusters you want and don&#39;t really care about outliers, single link is excellent.</p>
+$</code></pre><p>Single link clustering has the nice property that you specify ahead of time the number of clusters you want. Depending on your use case, this can be good or bad, because it is prone to creating clusters with objects that are too dissimilar if the desired number of clusters is small. But, if you know the number of clusters you want and don&#39;t really care about outliers, single link is excellent.</p>
 <h2 id="clustering-user-behavior">Clustering User Behavior</h2>
 <p>The above example isn&#39;t that insightful because you can cluster more easily at a glance than by writing out an algorithm. However, clustering&#39;s usefulness isn&#39;t limited to simple two dimensional cases that you can easily visualize. Recently, I found myself putting together a single link algorithm to cluster users based on the site functionality they use. For example, below is a CSV file <code>access.csv</code> that contains data on users and what endpoints they accessed.</p>
 <pre><code>User <span class="hljs-number">1</span>,GET /v2/Driver,<span class="hljs-number">2</span>
@@ -138,9 +134,8 @@ User <span class="hljs-number">3</span>,GET /v2/Region,<span class="hljs-number"
 User <span class="hljs-number">3</span>,GET /v2/Tanker,<span class="hljs-number">10</span>
 User <span class="hljs-number">4</span>,GET /v2/Promotion, <span class="hljs-number">34</span>
 User <span class="hljs-number">4</span>,GET /v2/Customer,<span class="hljs-number">22</span>
-User <span class="hljs-number">4</span>,GET /v2/Region,<span class="hljs-number">8</span>
-</code></pre><p>This data set is small and relatively easy to wrap your head around, but if you had thousands of rows like this, you would have a hard time grouping users manually. For the purposes of this data, the distance metric for clustering will be the minimum between what endpoints are in cluster <code>i</code> but not cluster <code>j</code>, and what endpoints are in cluster <code>j</code> but not cluster <code>i</code>, weighted by the number of times the endpoint was hit. Intuitively, if one user used a subset of the endpoints another user used, they should be considered as part of the same group. This wouldn&#39;t work well if one user was a &quot;super user&quot; that accessed all the endpoints, but in this simple example this distance metric is sufficient to get a sensible result. Below is the implementation.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userDataCSV = fs.readFileSync(<span class="hljs-string">'./access.csv'</span>, <span class="hljs-string">'utf8'</span>).trim();
+User <span class="hljs-number">4</span>,GET /v2/Region,<span class="hljs-number">8</span></code></pre><p>This data set is small and relatively easy to wrap your head around, but if you had thousands of rows like this, you would have a hard time grouping users manually. For the purposes of this data, the distance metric for clustering will be the minimum between what endpoints are in cluster <code>i</code> but not cluster <code>j</code>, and what endpoints are in cluster <code>j</code> but not cluster <code>i</code>, weighted by the number of times the endpoint was hit. Intuitively, if one user used a subset of the endpoints another user used, they should be considered as part of the same group. This wouldn&#39;t work well if one user was a &quot;super user&quot; that accessed all the endpoints, but in this simple example this distance metric is sufficient to get a sensible result. Below is the implementation.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userDataCSV = fs.readFileSync(<span class="hljs-string">'./access.csv'</span>, <span class="hljs-string">'utf8'</span>).trim();
 
 <span class="hljs-keyword">const</span> data = userDataCSV.split(<span class="hljs-string">'\n'</span>).map(line =&gt; line.split(<span class="hljs-string">','</span>)).map(cols =&gt; ({
   name: cols[<span class="hljs-number">0</span>],
@@ -202,8 +197,7 @@ User <span class="hljs-number">4</span>,GET /v2/Region,<span class="hljs-number"
     <span class="hljs-built_in">console</span>.log(user);
   }
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'-----'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The output clusters users 1 and 3 together, and users 2 and 4 together, as expected.</p>
 <pre><code>$ node cluster-users.js
 User <span class="hljs-number">1</span>
@@ -212,8 +206,7 @@ User <span class="hljs-number">3</span>
 User <span class="hljs-number">2</span>
 User <span class="hljs-number">4</span>
 -----
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Clustering is a very useful tool for analyzing data that you don&#39;t understand. Finding groups can help you categorize the data, and categorized data is easier to wrap your head around. The hard part is choosing a distance metric that makes sense: the above distance metric for user data isn&#39;t very robust and is prone to being rendered useless by one outlier. However, even if a distance metric provides you with a bad categorization, it can still provide you valuable insight.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

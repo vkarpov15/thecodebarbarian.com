@@ -18,7 +18,8 @@ push notifications without going through an intermediary service like <a href="h
 up a &quot;Hello, World&quot; example of web push notifications using a vanilla JavaScript
 frontend and <a href="https://www.npmjs.com/package/express">Express</a> on the backend. The final result will look like what you
 see below. The full source for this project is available on <a href="https://github.com/vkarpov15/web-push-demo">GitHub</a>.</p>
-<p><img src="https://i.imgur.com/bGyKuaW.png"></p>
+<img src="https://i.imgur.com/bGyKuaW.png">
+
 <h2 id="credentials-and-server-setup">Credentials and Server Setup</h2>
 <p>In order to set up web push, you need to create a set of <a href="https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/">VAPID keys</a>. VAPID keys identify who is sending the push notification. The <code>web-push</code> npm
 module can <a href="https://www.npmjs.com/package/web-push#command-line">generate VAPID keys for you</a>, so let&#39;s install <code>web-push</code> along with some other dependencies and use <code>web-push generate-vapid-keys</code>
@@ -43,24 +44,22 @@ Private Key:
 
 =======================================
 
-$</span>
-</code></pre><p>In order to support older browsers you may need to also get a <a href="https://medium.com/@jasminejacquelin/integrating-push-notifications-in-your-node-react-web-app-4e8d8190a52c#9a53">GCM API key</a>, but you don&#39;t need this in desktop Chrome 63 or higher.</p>
+$</span></code></pre><p>In order to support older browsers you may need to also get a <a href="https://medium.com/@jasminejacquelin/integrating-push-notifications-in-your-node-react-web-app-4e8d8190a52c#9a53">GCM API key</a>, but you don&#39;t need this in desktop Chrome 63 or higher.</p>
 <p>Next, create a file called <code>index.js</code> that will contain your server. You&#39;ll
 need to <code>require()</code> and configure the web-push module with your VAPID keys.
 In the interest of simplicity, put the VAPID keys in the <code>PUBLIC_VAPID_KEY</code>
 and <code>PRIVATE_VAPID_KEY</code> environment variables.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> webpush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> webpush = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web-push'</span>);
 
 <span class="hljs-keyword">const</span> publicVapidKey = process.env.PUBLIC_VAPID_KEY;
 <span class="hljs-keyword">const</span> privateVapidKey = process.env.PRIVATE_VAPID_KEY;
 
 <span class="hljs-comment">// Replace with your email</span>
-webpush.setVapidDetails(<span class="hljs-string">'mailto:val@karpov.io'</span>, publicVapidKey, privateVapidKey);
-</code></pre>
+webpush.setVapidDetails(<span class="hljs-string">'mailto:val@karpov.io'</span>, publicVapidKey, privateVapidKey);</code></pre>
 <p>Next, add a <code>/subscribe</code> <a href="http://expressjs.com/en/guide/routing.html">endpoint</a> to your Express app. Your browser JavaScript will send an HTTP request to this
 endpoint with a <a href="https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription"><code>PushSubscription</code> object</a> in the request body. You need the <code>PushSubscription</code> object in order to send a push
 notification via <code>webpush.sendNotification()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = express();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = express();
 
 app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>).json());
 
@@ -74,8 +73,7 @@ app.post(<span class="hljs-string">'/subscribe'</span>, (req, res) =&gt; {
   webpush.sendNotification(subscription, payload).catch(error =&gt; {
     <span class="hljs-built_in">console</span>.error(error.stack);
   });
-});
-</code></pre>
+});</code></pre>
 <p>That&#39;s all you need on the server side. You can <a href="https://github.com/vkarpov15/web-push-demo/blob/master/index.js">find the complete source on GitHub</a>. Now,
 you need to create a client <code>client.js</code> and a service worker <code>worker.js</code>.</p>
 <h2 id="client-and-service-worker">Client and Service Worker</h2>
@@ -84,12 +82,11 @@ you need to create a client <code>client.js</code> and a service worker <code>wo
 Just make sure you put this <code>app.use()</code> call <strong>after</strong> your <code>/subscribe</code> route
 handler, otherwise Express will look for a <code>subscribe.html</code> file instead of
 using your route handler.</p>
-<pre><code class="lang-javascript">app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'express-static'</span>)(<span class="hljs-string">'./'</span>));
-</code></pre>
+<pre><code class="language-javascript">app.use(<span class="hljs-built_in">require</span>(<span class="hljs-string">'express-static'</span>)(<span class="hljs-string">'./'</span>));</code></pre>
 <p>Next, create an <code>index.html</code> file that will serve as an entry point for your
 application. The only part of this file that really matters is the <code>&lt;script&gt;</code> tag
 that pulls in the client-side JavaScript, the rest is a placeholder.</p>
-<pre><code class="lang-html">&lt;html&gt;
+<pre><code class="language-html">&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Push Demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/client.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -98,13 +95,12 @@ that pulls in the client-side JavaScript, the rest is a placeholder.</p>
   <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     Service Worker Demo
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>Now that you have an entry point, create a JavaScript file called <code>client.js</code>.
 <a href="https://github.com/vkarpov15/web-push-demo/blob/b356e53c1468c5611b9c4722411af3839bafc360/client.js">This file</a> will be responsible for telling the browser to initialize
 your service worker and making the HTTP request to <code>/subscribe</code>. The below
 example uses <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">async/await</a>, because if your browser supports service workers it should support async/await as well.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Hard-coded, replace with your public key</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Hard-coded, replace with your public key</span>
 <span class="hljs-keyword">const</span> publicVapidKey = <span class="hljs-string">'BOynOrGhgkj8Bfk4hsFENAQYbnqqLSigUUkCNaBsAmNuH6U9EWywR1JIdxBVQOPDbIuTaj0tVAQbczNLkC5zftw'</span>;
 
 <span class="hljs-keyword">if</span> (<span class="hljs-string">'serviceWorker'</span> <span class="hljs-keyword">in</span> navigator) {
@@ -138,13 +134,12 @@ example uses <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-
     }
   });
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Sent push'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Finally, you need to implement the <code>worker.js</code> file that <code>client.js</code> loads.
 This is where your service worker logic lives. In a service worker, you get
 a <a href="https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications#handling_the_push_event_in_the_service_worker">&#39;push&#39; event</a> when your subscription receives
 a push notification.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Loaded service worker!'</span>);
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Loaded service worker!'</span>);
 
 self.addEventListener(<span class="hljs-string">'push'</span>, ev =&gt; {
   <span class="hljs-keyword">const</span> data = ev.data.json();
@@ -153,16 +148,16 @@ self.addEventListener(<span class="hljs-string">'push'</span>, ev =&gt; {
     body: <span class="hljs-string">'Hello, World!'</span>,
     icon: <span class="hljs-string">'http://mongoosejs.com/docs/images/mongoose5_62x30_transparent.png'</span>
   });
-});
-</code></pre>
+});</code></pre>
 <p>And that&#39;s it! Start your server with the correct environment variables:</p>
-<pre><code>$ env PUBLIC_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> env PRIVATE_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> node .
-</code></pre><p>Navigate to <code>http://localhost:3000</code> in Chrome, and you should see the below
+<pre><code>$ env PUBLIC_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> env PRIVATE_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> node .</code></pre><p>Navigate to <code>http://localhost:3000</code> in Chrome, and you should see the below
 push notification!</p>
-<p><img src="https://i.imgur.com/bGyKuaW.png"></p>
+<img src="https://i.imgur.com/bGyKuaW.png">
+
 <p>These notifications aren&#39;t just limited to Chrome, this same code works with
 <a href="https://support.mozilla.org/en-US/kb/push-notifications-firefox">Firefox</a> as well.</p>
-<p><img src="https://i.imgur.com/uufjZPH.png"></p>
+<img src="https://i.imgur.com/uufjZPH.png">
+
 <h2 id="moving-on">Moving On</h2>
 <p>Web push is just one of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">numerous advantages service workers provide</a>.
 With a single <a href="https://www.npmjs.com/package/web-push">npm module</a>, you can

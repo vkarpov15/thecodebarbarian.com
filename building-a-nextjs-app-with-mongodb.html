@@ -29,9 +29,8 @@ MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-nu
     <span class="hljs-string">"title"</span> : <span class="hljs-string">"Professional AngularJS"</span>,
     <span class="hljs-string">"createdAt"</span> : ISODate(<span class="hljs-string">"2017-04-26T18:14:17.276Z"</span>)
 }
-&gt;
-</code></pre><p>The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the client side you need to hit an API. So to start a Next.js app, you need a <a href="https://github.com/vkarpov15/reading-list/blob/master/index.js"><code>index.js</code> file</a> that creates an express app configured to handle Next.js.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
+&gt;</code></pre><p>The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the client side you need to hit an API. So to start a Next.js app, you need a <a href="https://github.com/vkarpov15/reading-list/blob/master/index.js"><code>index.js</code> file</a> that creates an express app configured to handle Next.js.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 <span class="hljs-keyword">const</span> api = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lib/api'</span>)
 <span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>)
 <span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>)
@@ -68,10 +67,9 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<sp
 
   server.listen(PORT)
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Listening on <span class="hljs-subst">${PORT}</span>`</span>)
-}).catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack))
-</code></pre>
+}).catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack))</code></pre>
 <p>The Express REST API exposes 3 endpoints: an endpoint to get all books, an endpoint to insert a new book, and an endpoint do delete an existing book. I use <a href="https://www.npmjs.com/package/archetype-js">Archetype</a> to handle type conversion to MongoDB ObjectIds.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype-js'</span>)
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype-js'</span>)
 <span class="hljs-keyword">const</span> BookType = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./book'</span>)
 <span class="hljs-keyword">const</span> { ObjectId } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)
@@ -105,19 +103,18 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<sp
   }))
 
   <span class="hljs-keyword">return</span> router
-}
-</code></pre>
-<h2 id="integrating-with-next-js">Integrating with Next.js</h2>
+}</code></pre>
+<h2 id="integrating-with-nextjs">Integrating with Next.js</h2>
 <p>The express app defines an entry point for your Next.js app:</p>
-<pre><code class="lang-javascript">server.get(<span class="hljs-string">'*'</span>, (req, res) =&gt; {
+<pre><code class="language-javascript">server.get(<span class="hljs-string">'*'</span>, (req, res) =&gt; {
   <span class="hljs-keyword">return</span> handle(req, res)
-})
-</code></pre>
+})</code></pre>
 <p>Next.js integrates server-side routing and client-side routing for you. All you need to do for routing is to put a JS file in the right place. If you put a React component in <a href="https://github.com/vkarpov15/reading-list/blob/master/pages/index.js">the <code>pages/index.js</code> file</a>, Next.js will render that component for you when you visit <code>http://localhost:3000</code>. To keep things simple, this reading list app has only 1 component, here&#39;s a high level view of this component.</p>
-<p><img src="http://i.imgur.com/qsjqMLc.png" /></p>
+<img src="http://i.imgur.com/qsjqMLc.png" />
+
 <p>The component&#39;s state has 2 properties, the current <code>list</code> of books and the current state of the author and title input fields in <code>formData</code>. When this component is initially rendered, the <code>list</code> will come in from the component&#39;s <code>props</code>. But, once the <code>list</code> of books gets mutated, the <code>list</code> needs to be tracked by the component&#39;s state.</p>
 <p>Where do <code>props</code> come from? Next.js adds support for a <code>getInitialProps()</code> function on components that gets the initial props for the component. The <code>getInitialProps()</code> function needs to be isomorphic, because it will be called for both server-side rendering and client-side rendering.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   static <span class="hljs-keyword">async</span> getInitialProps ({ req }) {
     <span class="hljs-keyword">if</span> (req) {
       <span class="hljs-comment">// If `req` is defined, we're rendering on the server and should use</span>
@@ -137,8 +134,7 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<sp
   }
 
   <span class="hljs-comment">/* ... */</span>
-}
-</code></pre>
+}</code></pre>
 <p>Once you&#39;ve written <code>getInitialProps()</code>, you&#39;re <a href="https://github.com/gothinkster/react-redux-realworld-example-app">just writing React</a>. You can plug in <a href="http://npmjs.org/package/redux">redux</a> if you&#39;re feeling the 2015-style React or you can plug in some fancy RxJS-based solution. You can use <a href="https://www.npmjs.com/package/aphrodite">aphrodite</a> or whatever other CSS toolkit for React you like. However, Next.js has its own built-in way of doing CSS using the <code>&lt;style jsx&gt;</code> tag <a href="https://github.com/vkarpov15/reading-list/blob/5f5d2d034789c56205376713ed1a2a96d17bdcb7/pages/index.js#L118-L156">as demonstrated here</a>, which works for most basic use cases. Next.js also <a href="https://www.npmjs.com/package/next#css">scopes your CSS to each individual component</a>, which is so powerful.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>It&#39;s been a long time since I&#39;ve really been excited about a frontend framework. React itself introduced a lot of groundbreaking ideas, including making components the core unit of organization for frontend, but the actual execution on those ideas was buried by bloated build systems, the routing mess, the cumbersome server-side rendering API, and the ES5-ES6 transition. Next does a great job of building over the bad parts of React and letting you get straight to actually building the app.</p>

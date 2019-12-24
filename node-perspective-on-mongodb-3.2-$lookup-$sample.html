@@ -22,7 +22,7 @@ and <a href="https://docs.mongodb.org/v3.2/reference/operator/aggregation/sample
 operators.
 You&#39;ve probably heard a great deal about the <code>$lookup</code> operator, but, as
 you&#39;ll see in this article, <code>$sample</code> is also an important addition.</p>
-<h1 id="-lookup-"><code>$lookup</code></h1>
+<h1 id="lookup"><code>$lookup</code></h1>
 <p>The <code>$lookup</code> operator is a way for your MongoDB aggregation pipeline to
 pull in documents from another collection. Note that the <code>$lookup</code> operator
 is only in the aggregation framework, you <strong>can&#39;t</strong> use <code>$lookup</code> with CRUD
@@ -36,8 +36,7 @@ Suppose you have a collection of users like you see below.</p>
     <span class="hljs-string">"likes"</span> : [
         <span class="hljs-string">"bacon"</span>
     ]
-}
-</code></pre><p>Suppose you also have a collection of related events. Note that each event
+}</code></pre><p>Suppose you also have a collection of related events. Note that each event
 has a <code>user</code> field, which contains the ObjectId of the associated user.</p>
 <pre><code>&gt; db.events.find().pretty()
 {
@@ -51,8 +50,7 @@ has a <code>user</code> field, which contains the ObjectId of the associated use
     <span class="hljs-string">"user"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
     <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
     <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
-}
-</code></pre><p>You can use the <code>$lookup</code> operator to get the user associated with each
+}</code></pre><p>You can use the <code>$lookup</code> operator to get the user associated with each
 event. The <code>$lookup</code> operator takes an object with 4 properties:</p>
 <ul>
 <li><code>from</code>: the collection to get documents from</li>
@@ -92,8 +90,7 @@ in the shell.</p>
     ],
     <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
     <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
-}
-</code></pre><p>One case where <code>$lookup</code> is particularly useful is for data migrations.
+}</code></pre><p>One case where <code>$lookup</code> is particularly useful is for data migrations.
 Suppose you realized that only storing the user&#39;s id is not terribly helpful.
 You can use the
 <a href="https://docs.mongodb.org/v3.2/reference/operator/aggregation/out/#pipe._S_out"><code>$out</code> operator</a>
@@ -105,7 +102,7 @@ To do this, you need a 3-stage aggregation pipeline:</p>
 <li><code>$out</code> to the new collection.</li>
 </ul>
 <p>Below is the corresponding aggregation pipeline in the shell.</p>
-<pre><code class="lang-javascript">db.events.aggregate([
+<pre><code class="language-javascript">db.events.aggregate([
   {
     $lookup: {
       <span class="hljs-keyword">from</span>: <span class="hljs-string">'users'</span>,
@@ -116,8 +113,7 @@ To do this, you need a 3-stage aggregation pipeline:</p>
   },
   { $unwind: <span class="hljs-string">'$user'</span> },
   { $out: <span class="hljs-string">'new_events'</span> }
-]);
-</code></pre>
+]);</code></pre>
 <p>After you run this aggregation pipeline, the &#39;new_events&#39; collection will
 contain all the events with embedded user data.</p>
 <pre><code>&gt; db.new_events.find().pretty()
@@ -144,8 +140,7 @@ contain all the events with embedded user data.</p>
     },
     <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
     <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
-}
-</code></pre><p>Using the <code>$lookup</code> operator in Node.js is easy. If you&#39;re going to
+}</code></pre><p>Using the <code>$lookup</code> operator in Node.js is easy. If you&#39;re going to
 use the <code>$lookup</code> operator, you should use version &gt;= 2.1.0 of the
 <a href="https://www.npmjs.com/package/mongodb">MongoDB driver</a> or version &gt;= 4.3.0
 of <a href="https://www.npmjs.com/package/mongoose">mongoose</a>. Mongoose 4.3.x also
@@ -153,7 +148,7 @@ has a handy <code>.lookup()</code> helper as part of its
 <a href="http://mongoosejs.com/docs/api.html#model_Model.aggregate">chainable aggregation pipeline builder</a>. In
 mongoose, you could run the &#39;new_events&#39; migration aggregation as shown
 below.</p>
-<pre><code class="lang-javascript">Events.aggregate().
+<pre><code class="language-javascript">Events.aggregate().
   lookup({
     <span class="hljs-keyword">from</span>: <span class="hljs-string">'users'</span>,
     localField: <span class="hljs-string">'user'</span>,
@@ -162,9 +157,8 @@ below.</p>
   }).
   unwind(<span class="hljs-string">'user'</span>).
   out(<span class="hljs-string">'new_events'</span>).
-  exec();
-</code></pre>
-<h1 id="-sample-"><code>$sample</code></h1>
+  exec();</code></pre>
+<h1 id="sample"><code>$sample</code></h1>
 <p>While <code>$lookup</code> is extremely popular, I&#39;m more excited about the <code>$sample</code>
 operator. The <code>$sample</code> operator is the answer to the age-old question of
 <a href="http://stackoverflow.com/questions/2824157/random-record-from-mongodb">how to get a random document or documents from a MongoDB collection</a>.
@@ -209,18 +203,16 @@ the shell.</p>
     },
     <span class="hljs-string">"action"</span> : <span class="hljs-string">"registered"</span>,
     <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:07.487Z"</span>)
-}
-</code></pre><p>If the <code>size</code> you specified is larger than the number of documents in
+}</code></pre><p>If the <code>size</code> you specified is larger than the number of documents in
 the collection, you get all the documents back.</p>
 <p>Like <code>$lookup</code>, you should use version &gt;= 2.1.0 of the
 <a href="https://www.npmjs.com/package/mongodb">MongoDB driver</a> or version &gt;= 4.3.0
 of <a href="https://www.npmjs.com/package/mongoose">mongoose</a> for <code>$sample</code>.
 Mongoose &gt;= 4.3.1 has a <code>.sample()</code> aggregation helper. Below is how
 you&#39;d run the &#39;new_events&#39; sample aggregation pipeline in Mongoose.</p>
-<pre><code class="lang-javascript">NewEvents.aggregate().
+<pre><code class="language-javascript">NewEvents.aggregate().
   sample(<span class="hljs-number">1</span>).
-  exec();
-</code></pre>
+  exec();</code></pre>
 <h1 id="moving-on">Moving On</h1>
 <p>The <code>$lookup</code> and <code>$sample</code> aggregation operators are two of MongoDB
 3.2&#39;s killer features. They&#39;re easy to use in Node.js, so go ahead and

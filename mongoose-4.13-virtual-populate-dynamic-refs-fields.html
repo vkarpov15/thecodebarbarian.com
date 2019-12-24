@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">Mongoose 4.13</a> was released last week. As usual, its packed with powerful new features. The most exciting new feature is the ability to set <code>localField</code>, <code>foreignField</code>, and <code>ref</code> dynamically for <a href="http://mongoosejs.com/docs/populate.html#populate-virtuals">virtual populate</a>. The syntax for virtual populate&#39;s dynamic properties is slightly different than the one for <a href="http://mongoosejs.com/docs/populate.html#dynamic-ref">conventional populate</a>, but we think this new syntax is much more powerful.</p>
 <h2 id="introducing-dynamic-virtual-populate-properties">Introducing Dynamic Virtual Populate Properties</h2>
 <p>Virtual populate creates a <a href="http://mongoosejs.com/docs/guide.html#virtuals">virtual property</a> (one that is <strong>not</strong> stored in the database) that can look up documents from other collections. There are 4 options for configuring virtual populate, in addition to the name of the virtual: <code>ref</code>, <code>localField</code>, <code>foreignField</code>, and <code>justOne</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 mongoose.Promise = global.Promise;
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
 
@@ -37,10 +37,9 @@ BandSchema.virtual(<span class="hljs-string">'members'</span>, {
 });
 
 <span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, PersonSchema);
-<span class="hljs-keyword">var</span> Band = mongoose.model(<span class="hljs-string">'Band'</span>, BandSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Band = mongoose.model(<span class="hljs-string">'Band'</span>, BandSchema);</code></pre>
 <p>You can call <code>.populate(&#39;members&#39;)</code> to find documents in the &#39;Person&#39; model&#39;s collection whose <code>band</code> property equals the band&#39;s <code>name</code> property. For example:</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
@@ -86,11 +85,10 @@ BandSchema.virtual(<span class="hljs-string">'members'</span>, {
   <span class="hljs-comment">//         __v: 0 } ],</span>
   <span class="hljs-comment">//   id: '5a049172eff7d3338724f40b' }</span>
   <span class="hljs-built_in">console</span>.log(docs[<span class="hljs-number">1</span>]);
-}
-</code></pre>
+}</code></pre>
 <p>Before mongoose 4.13, <code>localField</code>, <code>foreignField</code>, and <code>ref</code> had to be strings, so they couldn&#39;t change based on the document. In mongoose 4.13 you can still set these properties to strings, but you can also set them to <em>functions</em> that take the current document as a parameter. This means you can determine what <code>localField</code>, <code>foreignField</code>, and <code>ref</code> are depending on the doc being populated.</p>
 <p>For example, lets say you had 2 models, &#39;Person&#39; and &#39;Organization&#39;, and people and organizations can send messages to each other represented by a &#39;Message&#39; model. Suppose you wanted <code>from</code> and <code>to</code> virtuals that you could populate to the correct sender and recipient for the message. Before mongoose 4.13, this would not be possible with virtual populate because people and organizations are in separate collections. However, now that <code>ref</code> can be dynamic, you can do this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 mongoose.Promise = global.Promise;
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
 
@@ -125,10 +123,9 @@ MessageSchema.virtual(<span class="hljs-string">'to'</span>, {
 
 <span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, PersonSchema);
 <span class="hljs-keyword">var</span> Organization = mongoose.model(<span class="hljs-string">'Organization'</span>, OrganizationSchema);
-<span class="hljs-keyword">var</span> Message = mongoose.model(<span class="hljs-string">'Message'</span>, MessageSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Message = mongoose.model(<span class="hljs-string">'Message'</span>, MessageSchema);</code></pre>
 <p>Here&#39;s how using these models looks. Mongoose abstracts out the interaction with <code>fromModel</code> and <code>toModel</code>. So all you need to do is <code>.populate(&#39;from to&#39;)</code> and you get the correct organization or person, depending on the value of <code>fromModel</code> and <code>toModel</code>.</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
@@ -173,12 +170,11 @@ MessageSchema.virtual(<span class="hljs-string">'to'</span>, {
   <span class="hljs-built_in">console</span>.log(docs[<span class="hljs-number">2</span>].from);
   <span class="hljs-comment">// { _id: 5a049618a62ecf3611b55a6e, name: 'C Corp', __v: 0 }</span>
   <span class="hljs-built_in">console</span>.log(docs[<span class="hljs-number">2</span>].to);
-}
-</code></pre>
-<h2 id="dynamic-localfield-and-foreignfield-">Dynamic <code>localField</code> and <code>foreignField</code></h2>
+}</code></pre>
+<h2 id="dynamic-localfield-and-foreignfield">Dynamic <code>localField</code> and <code>foreignField</code></h2>
 <p>Dynamic refs are supported in conventional populate as well as virtual populate, but the limitation of conventional populate was always the fact that the fields were fixed. Conventional populate is like virtual populate, except <code>foreignField</code> must always be <code>_id</code>. The primary reason for adding virtual populate was letting you specify <code>localField</code> and <code>foreignField</code>, and mongoose 4.13 brings that promise to fruition by making <code>localField</code> and <code>foreignField</code> fully dynamic on a per-document basis.</p>
 <p>For example, let&#39;s say you had an &#39;Assignment&#39; model that models assigning a task to either a &#39;User&#39; or an &#39;Admin&#39;. If an admin is assigned, that overwrites the user&#39;s assignment, regardless of whether a user is also assigned. Here&#39;s how you would create the <code>assigned</code> virtual:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 mongoose.Promise = global.Promise;
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, { useMongoClient: <span class="hljs-literal">true</span> });
 
@@ -204,10 +200,9 @@ AssignmentSchema.virtual(<span class="hljs-string">'assigned'</span>, {
 
 <span class="hljs-keyword">var</span> User = mongoose.model(<span class="hljs-string">'User'</span>, UserSchema);
 <span class="hljs-keyword">var</span> Admin = mongoose.model(<span class="hljs-string">'Admin'</span>, AdminSchema);
-<span class="hljs-keyword">var</span> Assignment = mongoose.model(<span class="hljs-string">'Assignment'</span>, AssignmentSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Assignment = mongoose.model(<span class="hljs-string">'Assignment'</span>, AssignmentSchema);</code></pre>
 <p>Here&#39;s an example of these models in action:</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
@@ -225,8 +220,7 @@ AssignmentSchema.virtual(<span class="hljs-string">'assigned'</span>, {
   <span class="hljs-comment">// [ { _id: 5a049d28425f8b3a90dfd892, name: 'Homer Simpson', __v: 0 },</span>
   <span class="hljs-comment">//   { _id: 5a049d28425f8b3a90dfd893, name: 'Mr. Burns', __v: 0 } ]</span>
   <span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.assigned));
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Virtual populate&#39;s new support for dynamic per-document <code>ref</code>, <code>localField</code>, and <code>foreignField</code> opens up a lot of new and powerful design patterns. I&#39;m really excited to see what <a href="http://mongoosejs.com/docs/plugins.html">plugins</a> people come up with. Mongoose 4.13 has <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">9 other new features</a>, including middleware for <code>.aggregate()</code>, so make sure you upgrade and take advantage of the new functionality! </p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

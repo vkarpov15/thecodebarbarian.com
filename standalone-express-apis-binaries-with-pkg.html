@@ -22,7 +22,8 @@
 <p>The actual Express API is structured so it is easy to bootstrap with multiple configs, <strong>without</strong> relying on environment variables. I&#39;m wary of using environment variables in Node.js because, like all global state, it can have nasty and unintended side effects. Express itself has several places where it switches behavior based on the <code>NODE_ENV</code> environment variable, and <a href="https://expressjs.com/en/advanced/best-practice-performance.html#set-nodeenv-to-production">the effects are only documented under &quot;advanced usage&quot;</a>. If you&#39;re an advanced Express user you can work around this, but if you&#39;re a casual user of a library built on top of Express, you can be in for a nasty surprise. And that&#39;s not counting the other node modules: the trivial <code>pkgtest</code> app has 31 instances of <code>NODE_ENV</code> in its <code>node_modules</code> directory according to <code>grep -r &quot;NODE_ENV&quot; node_modules/* | wc -l</code>, and I have no idea what the vast majority of them are.</p>
 <p><a href="http://i.imgur.com/nBIf5S9.png"><img src="http://i.imgur.com/nBIf5S9.png"></a></p>
 <p>Better for configuration to explicit rather than &quot;surprise, I&#39;m breaking your code in production because undocumented <a href="https://github.com/facebook/react-native/pull/7878">best practice, duh</a>!&quot;</p>
-<p><img src="http://i.imgur.com/kuCuFtY.png"></p>
+<img src="http://i.imgur.com/kuCuFtY.png">
+
 <h2 id="bundling-express-app-and-config-with-pkg">Bundling Express App and Config With pkg</h2>
 <p>As far as I know <code>pkg</code> doesn&#39;t support the <a href="https://nodejs.org/api/cli.html#cli_r_require_module">Node.js <code>-r</code> flag</a> so to support multiple configs you need multiple entry points to your application. In this case, one for dev and one for prod, that each pull different configs. Here&#39;s the dev entrypoint:</p>
 <p><a href="http://i.imgur.com/KzuvIQs.png"><img src="http://i.imgur.com/KzuvIQs.png"></a></p>
@@ -30,7 +31,7 @@
 <p><a href="http://i.imgur.com/Fc6mWsm.png"><img src="http://i.imgur.com/Fc6mWsm.png"></a></p>
 <p>So to run the API with dev configs, as long as you have Node installed, all you need to do is run <code>node .</code>, or <code>npm start</code> with the help of <code>package.json</code>. To run the API with prod configs, you run <code>node ./.prod/app.js</code>. In practice, you&#39;d store your prod configs in a separate repo so you can isolate permissions, and use <code>npm</code> to <a href="http://thecodebarbarian.com/github-is-my-favorite-private-npm-registry">list your API server&#39;s GitHub repo as a dependency</a>, but since this is just a quick example, I&#39;m keeping the prod config in the same repo.</p>
 <p>In order to use pkg to build an <code>app.dev</code> executable with the dev config and an <code>app</code> executable with the prod config, you need 2 separate <code>build-dev</code> and <code>build-prod</code> scripts that use <code>index.js</code> and <code>.prod/app.js</code> as entry points, respectively:</p>
-<pre><code class="lang-javascript">
+<pre><code class="language-javascript">
 {
   <span class="hljs-string">"name"</span>: <span class="hljs-string">"pkgtest"</span>,
   <span class="hljs-string">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
@@ -52,8 +53,7 @@
     <span class="hljs-string">"build-prod"</span>: <span class="hljs-string">"pkg -t latest-linux-x64 -o ./app ./.prod/app.js"</span>,
     <span class="hljs-string">"start"</span>: <span class="hljs-string">"node ."</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>Now, when you run <code>npm run build-prod</code>, you get a single executable <code>app</code> that you can run on any compatible Linux distro, without installing Node.js or running <code>npm install</code>. It also has configs bundled, so no need for a container to isolate environment variables. Just throw the executable onto a vanilla Linux VM from EC2, Azure, DigitalOcean, or cloud provider of your choice and it all works!</p>
 <p>Also, building with pkg is relatively fast and produces a 38 MB executable. Nothing to write home about, but certainly better than docker&#39;s famously slow builds and minimum ~643MB for the officially supported Node.js image.</p>
 <pre><code>$ time npm run build-prod
@@ -67,8 +67,7 @@ user    <span class="hljs-number">0</span>m2<span class="hljs-number">.938</span
 sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.506</span>s
 $ ls -al | grep <span class="hljs-string">"app"</span>
 -rwxrwxr-x   <span class="hljs-number">1</span> val val <span class="hljs-number">38674432</span> May  <span class="hljs-number">3</span> <span class="hljs-number">16</span>:<span class="hljs-number">16</span> app
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>I&#39;m not switching wholesale off of Docker for all my prod use cases anytime soon, but I like what I see so far with pkg. At the very least, I&#39;m eager to start using it for dev use cases, because I&#39;m not nearly good enough with Docker to teach junior devs how to use it well. Pkg even has support for <a href="https://github.com/zeit/pkg#config">bundling assets</a>, so instead of sharing a docker container with MongoDB, I can use tools like <a href="https://www.npmjs.com/package/mongodb-topology-manager">mongodb-version-manager</a> to send standalone executables that start and manage MongoDB replica sets and sharded clusters with no configuration. Give pkg a shot and see what new ideas you can come up with!</p>
 <p><em>As you saw in this blog post, async/await is powerful, but <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">limited to Node.js &gt;= 7.6.0</a>. If you&#39;re stuck using Node.js 4.x or 6.x because of LTS (especially since <a href="https://github.com/nodejs/CTC/issues/99">Node.js 8 is delayed</a>), you can still use similar patterns with ES6 generators and <a href="http://npmjs.org/package/co">co</a>. If you&#39;re looking for a much deeper dive into co, including how to write your own co replacement from scratch, check out my ebook, <a href="http://es2015generators.com/">The 80/20 Guide to ES2015 Generators</a></em></p>
 <p><a href="http://es2015generators.com"><img width="200" src="http://i.imgur.com/iBT2ZEw.png"/></a></p>

@@ -25,8 +25,7 @@ from your current directory, and installs all <code>dependencies</code> listed i
     <span class="hljs-string">"mongoose"</span>: <span class="hljs-string">"5.2.10"</span>,
     <span class="hljs-string">"express"</span>: <span class="hljs-string">"4.16.4"</span>
   }
-}
-</code></pre><p>One key difference between npm and its Python analog pip is that npm installs every dependency into the <code>./node_modules</code> directory, as opposed to one central directory. This means:</p>
+}</code></pre><p>One key difference between npm and its Python analog pip is that npm installs every dependency into the <code>./node_modules</code> directory, as opposed to one central directory. This means:</p>
 <ul>
 <li><code>rm -rf ./node_modules</code> is sufficient to uninstall every package a given repo
 depends on. When a Node.js developer says to &quot;clear your node modules&quot;, they mean run <code>rm -rf ./node_modules &amp;&amp; npm install</code>.</li>
@@ -46,19 +45,16 @@ depends on. When a Node.js developer says to &quot;clear your node modules&quot;
 <li>You should list the libraries and frameworks that your production code uses in <code>dependencies</code>. You should list testing frameworks, build systems, documentation generators, and other ancillary tools in <code>devDependencies</code>.</li>
 <li>When building your app for production, like in a <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a>, you should run <code>npm install --production</code> to skip <code>devDependencies</code>.</li>
 </ul>
-<h2 id="should-you-commit-package-lock-json-">Should You Commit <code>package-lock.json</code>?</h2>
+<h2 id="should-you-commit-package-lockjson">Should You Commit <code>package-lock.json</code>?</h2>
 <p>When you run <code>npm install</code> for the first time in an empty repo, you may see the
 below warning from npm:</p>
-<pre><code>npm notice created a lockfile <span class="hljs-keyword">as</span> package-lock.json. You should commit <span class="hljs-keyword">this</span> file.
-</code></pre><p>The <code>package-lock.json</code> file, otherwise known as the &quot;lockfile&quot;, pins exact dependencies of your nested dependencies. For example, suppose you depend on version 1.1.0 of a package called &#39;foo&#39;:</p>
+<pre><code>npm notice created a lockfile <span class="hljs-keyword">as</span> package-lock.json. You should commit <span class="hljs-keyword">this</span> file.</code></pre><p>The <code>package-lock.json</code> file, otherwise known as the &quot;lockfile&quot;, pins exact dependencies of your nested dependencies. For example, suppose you depend on version 1.1.0 of a package called &#39;foo&#39;:</p>
 <pre><code>{
   <span class="hljs-string">"foo"</span>: <span class="hljs-string">"1.1.0"</span>
-}
-</code></pre><p>Suppose &#39;foo&#39; depends on another package &#39;bar&#39;, but specifies that <a href="https://devhints.io/semver">any version of &#39;bar&#39; is ok</a>.</p>
+}</code></pre><p>Suppose &#39;foo&#39; depends on another package &#39;bar&#39;, but specifies that <a href="https://devhints.io/semver">any version of &#39;bar&#39; is ok</a>.</p>
 <pre><code>{
   <span class="hljs-string">"bar"</span>: <span class="hljs-string">"*"</span>
-}
-</code></pre><p>Without a lockfile, you would get the latest version of &#39;bar&#39; every time you <code>npm install</code>. That means if the maintainer of &#39;bar&#39; published a release that broke 
+}</code></pre><p>Without a lockfile, you would get the latest version of &#39;bar&#39; every time you <code>npm install</code>. That means if the maintainer of &#39;bar&#39; published a release that broke 
 &#39;foo&#39;, they would break your code as well.
 <a href="http://thecodebarbarian.com/node-static-a-semver-parable.html">Breaking upstream releases have happened</a>.</p>
 <p>The lockfile specifies the exact version of &#39;bar&#39;. If you got <code>bar@1.2.3</code>
@@ -80,17 +76,15 @@ your <code>package.json</code>.</p>
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"greet"</span>: <span class="hljs-string">"echo 'Hello'"</span>
   }
-}
-</code></pre><p>You can run this script with <code>npm run greet</code>:</p>
+}</code></pre><p>You can run this script with <code>npm run greet</code>:</p>
 <pre><code>$ npm run greet
 
 &gt; @ greet /home/test
 &gt; echo <span class="hljs-string">'Hello'</span>
 
 Hello
-$
-</code></pre><p>The <a href="https://docs.npmjs.com/cli/test.html">&quot;test&quot; script is special</a>. If you</p>
-<p>define a script named &quot;test&quot;, you can run it using <code>npm test</code> in addition to
+$ </code></pre><p>The <a href="https://docs.npmjs.com/cli/test.html">&quot;test&quot; script is special</a>. If you
+define a script named &quot;test&quot;, you can run it using <code>npm test</code> in addition to
 <code>npm run test</code>. Making <code>npm test</code> run your entire test suite is a best practice.
 For example, running <code>npm test</code> with the below <code>package.json</code> will print 
 &quot;Testing...&quot;</p>
@@ -98,20 +92,17 @@ For example, running <code>npm test</code> with the below <code>package.json</co
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo 'Testing...'"</span>
   }
-}
-</code></pre><p>The biggest reason to use <code>npm run</code> is the ability to access npm package
+}</code></pre><p>The biggest reason to use <code>npm run</code> is the ability to access npm package
 executables. For example, the <a href="http://npmjs.com/package/mocha">Mocha testing framework</a> exports a test runner executable. Suppose you
 have the below <code>package.json</code>:</p>
 <pre><code>{ 
   <span class="hljs-string">"devDependencies"</span>: {
     <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"5.x"</span>
   }
-}
-</code></pre><p>Suppose you also have the below <code>test.js</code> file that contains a single Mocha test:</p>
-<pre><code class="lang-javascript">it(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+}</code></pre><p>Suppose you also have the below <code>test.js</code> file that contains a single Mocha test:</p>
+<pre><code class="language-javascript">it(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, world'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>To run this test file, you would need to run <code>./node_modules/.bin/mocha test.js</code>:</p>
 <pre><code>$ ./node_modules/.bin/mocha test.js 
 
@@ -121,8 +112,7 @@ Hello, world
 
   <span class="hljs-number">1</span> passing (<span class="hljs-number">4</span>ms)
 
-$
-</code></pre><p>However, in your <code>package.json</code> scripts, you can skip the <code>./node_modules/.bin</code>
+$</code></pre><p>However, in your <code>package.json</code> scripts, you can skip the <code>./node_modules/.bin</code>
 because npm adds that to your <a href="https://opensource.com/article/17/6/set-path-linux">PATH variable</a> before running the script.
 In other words, with the below <code>package.json</code>, the <code>npm test</code> command will
 successfully run Mocha.</p>
@@ -133,13 +123,11 @@ successfully run Mocha.</p>
   <span class="hljs-string">"devDependencies"</span>: {
     <span class="hljs-string">"mocha"</span>: <span class="hljs-string">"5.x"</span>
   }
-}
-</code></pre><h2 id="passing-arguments-to-npm-run-">Passing Arguments to <code>npm run</code></h2>
+}</code></pre><h2 id="passing-arguments-to-npm-run">Passing Arguments to <code>npm run</code></h2>
 <p>You can pass command line arguments to your <code>npm run</code> scripts by adding <code>--</code>
 after <code>npm run script-name-here</code>. For example, the below command sends an
 HTTP request to <a href="https://httpbin.org/#/HTTP_Methods">httpbin.org</a> using <a href="https://curl.haxx.se/">curl</a>.</p>
-<pre><code>curl -X PUT http:<span class="hljs-comment">//httpbin.org/put -d '{"hello":"world"}'</span>
-</code></pre><p>Below is the output of this script:</p>
+<pre><code>curl -X PUT http:<span class="hljs-comment">//httpbin.org/put -d '{"hello":"world"}'</span></code></pre><p>Below is the output of this script:</p>
 <pre><code>{
   <span class="hljs-string">"args"</span>: {}, 
   <span class="hljs-string">"data"</span>: <span class="hljs-string">""</span>, 
@@ -157,17 +145,14 @@ HTTP request to <a href="https://httpbin.org/#/HTTP_Methods">httpbin.org</a> usi
   <span class="hljs-string">"json"</span>: <span class="hljs-literal">null</span>, 
   <span class="hljs-string">"origin"</span>: <span class="hljs-string">"138.207.148.170, 138.207.148.170"</span>, 
   <span class="hljs-string">"url"</span>: <span class="hljs-string">"https://httpbin.org/put"</span>
-}
-</code></pre><p>Suppose you have an npm script that executes a <code>PUT</code> request, but doesn&#39;t
+}</code></pre><p>Suppose you have an npm script that executes a <code>PUT</code> request, but doesn&#39;t
 specify the <code>-d</code> flag.</p>
 <pre><code>{
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"test-request"</span>: <span class="hljs-string">"curl -X PUT http://httpbin.org/put"</span>
   }
-}
-</code></pre><p>To add the <code>-d</code> flag, run the below script:</p>
-<pre><code>npm run test-request -- -d <span class="hljs-string">'{"hello":"world"}'</span>
-</code></pre><p>This is just the tip of the iceberg with <code>npm run</code>. There&#39;s a lot of other <a href="http://thecodebarbarian.com/3-neat-tricks-with-npm-run">neat <code>npm run</code> tricks</a> that you can use to save yourself some typing.</p>
+}</code></pre><p>To add the <code>-d</code> flag, run the below script:</p>
+<pre><code>npm run test-request -- -d <span class="hljs-string">'{"hello":"world"}'</span></code></pre><p>This is just the tip of the iceberg with <code>npm run</code>. There&#39;s a lot of other <a href="http://thecodebarbarian.com/3-neat-tricks-with-npm-run">neat <code>npm run</code> tricks</a> that you can use to save yourself some typing.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Whenever you start working on a Node.js project, the first step is running
 <code>npm install</code>, and the second step is running <code>npm test</code>. npm is different

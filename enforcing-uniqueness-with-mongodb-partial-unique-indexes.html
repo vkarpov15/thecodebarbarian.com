@@ -14,7 +14,7 @@
 </div>
 </div><div class="post-body-text-container"><p>You might remember <a href="https://en.wikipedia.org/wiki/Lock_%28computer_science%29">locking</a> from your undergrad systems programming class. Locks help when multiple threads that can be interrupted at any time access a shared resource. In distributed programming (like building a Node.js server that talks to a database) you have a similar problem: parallel operations can mutate documents in the database in conflicting ways. In particular, enforcing uniqueness, such as making sure only one user has a given email, is tricky.</p>
 <p>For example, consider <a href="https://www.npmjs.com/package/mongoose-unique-validator">mongoose-unique-validator</a>, a <a href="https://www.npmjs.com/package/mongoose">mongoose</a> plugin which has a <a href="https://www.npmjs.com/package/mongoose-unique-validator#caveats">well-known race condition</a>. The goal of mongoose-unique-validator is simple enough: enforce that a given path, say a user&#39;s <code>email</code> property, is unique across the collection. <a href="https://github.com/blakehaswell/mongoose-unique-validator/blob/547fa91/index.js#L110-L112">The way this plugin enforces uniqueness</a> is simple, do a <code>find()</code> for documents that have the same email and throw an error if there are any. The below <code>insertUser</code> function is a drastically simplified example of mongoose-unique-validator&#39;s approach to enforcing uniqueness:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertUser</span>(<span class="hljs-params">db, user</span>) </span>{
@@ -33,10 +33,9 @@
   <span class="hljs-keyword">await</span> insertUser(db, { email: <span class="hljs-string">'test@test.co'</span> });
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <p>In most practical cases this works, however, there&#39;s always that nasty edge case of multiple requests in parallel (imagine a user double-clicking on a button that triggers a request). I don&#39;t mean to disparage mongoose-unique-validator, it is a useful plugin in many cases, and I&#39;m well aware that enabling developers to provide a pristine user experience often requires trade-offs. Time and skill are tragically scarce resources, so think carefully about what you really need before choosing a tool.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertUser</span>(<span class="hljs-params">db, user</span>) </span>{
@@ -62,12 +61,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ]);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <h2 id="introducing-partial-unique-indexes">Introducing Partial Unique Indexes</h2>
 <p>You can solve the unique <code>email</code> problem with a <a href="https://docs.mongodb.com/manual/core/index-unique/">MongoDB unique index</a>. MongoDB then enforces internally that the user&#39;s email is unique, so you&#39;ll never get duplicates.</p>
 <p>However, unique constraints can be more sophisticated. For example, how about if some users don&#39;t have email addresses, but those that do should be unique? MongoDB has <a href="https://docs.mongodb.com/manual/core/index-sparse/">sparse indexes</a> for this case. A sparse unique index will enforce <code>email</code> uniqueness for documents where the <code>email</code> property exists (including <code>null</code> values).</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertUser</span>(<span class="hljs-params">db, user</span>) </span>{
@@ -93,10 +91,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ]);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <p>You can get even more fancy with unique constraints in MongoDB 3.2. For example, <a href="https://www.trybooster.com/careers#openings">Booster</a> has a restriction that a given vehicle can have at most one active fuel request. MongoDB 3.2 introduced the notion of <a href="https://docs.mongodb.com/manual/core/index-partial/#partial-index-with-unique-constraint">partial indexes</a>. A partial index is a much more general sparse index, it can be defined for all documents that match a given query, subject to restrictions I&#39;ll discuss in the last section. Here&#39;s how you create a partial index to enforce <code>vehicleId</code> uniqueness for requests that have status &#39;ACTIVE&#39;.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017'</span>);
@@ -122,12 +119,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ]);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <p>A partial unique index with <code>$exists: true</code> is equivalent to a sparse unique index.</p>
 <h2 id="limitations">Limitations</h2>
 <p>Internally, Booster does <strong>not</strong> actually use partial unique indexes to enforce the one active request per vehicle constraint. We instead use a distributed locking mechanism around creating a request to prevent race conditions. Why? Because there&#39;s more request statuses under the hood that count as &#39;active&#39; for the purposes of this constraint, and the query passed to <code>partialFilterExpression</code> <a href="https://docs.mongodb.com/manual/core/index-partial/#create-a-partial-index">cannot contain <code>$in</code></a>. In other words, the below code will throw an error:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017'</span>);
@@ -142,8 +138,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   });
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <p>Unfortunately, partial indexes only support an <a href="https://docs.mongodb.com/manual/core/index-partial/#create-a-partial-index">extremely limited subset of MongoDB query operators</a>. As of MongoDB 3.4, you can only use:</p>
 <ul>
 <li><code>$exists: true</code></li>

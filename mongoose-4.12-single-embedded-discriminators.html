@@ -20,7 +20,7 @@ different schemas in a single array. For example, let&#39;s say you have a
 of events in the batch. Suppose you have 2 different types of events,
 &#39;Clicked&#39; and &#39;Purchased&#39;. The below code is how you create a document
 array that can embed both &#39;Clicked&#39; and &#39;Purchased&#39; events:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
 
 <span class="hljs-keyword">const</span> batchSchema = <span class="hljs-keyword">new</span> Schema({ events: [eventSchema] });
@@ -48,13 +48,12 @@ batchSchema.path(<span class="hljs-string">'events'</span>).discriminator(<span 
     { kind: <span class="hljs-string">'Clicked'</span>, element: <span class="hljs-string">'Test'</span> },
     { kind: <span class="hljs-string">'Purchased'</span>, product: <span class="hljs-number">22</span> }
   ]
-};
-</code></pre>
+};</code></pre>
 <p>This left an obvious gap in our functionality: what about <a href="http://mongoosejs.com/docs/discriminators.html">discriminators</a> for <a href="http://mongoosejs.com/docs/subdocs.html">single nested subdocs</a> as
 opposed to document arrays?</p>
 <h2 id="hello-single-nested-discriminators">Hello, Single Nested Discriminators</h2>
 <p>Let&#39;s adapt the <code>eventSchema</code> from above to use single nested subdocs.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> eventDetailsSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> eventDetailsSchema = <span class="hljs-keyword">new</span> Schema({ message: <span class="hljs-built_in">String</span> },
   { discriminatorKey: <span class="hljs-string">'kind'</span>, _id: <span class="hljs-literal">false</span> });
 
 <span class="hljs-keyword">const</span> eventSchema = <span class="hljs-keyword">new</span> Schema({
@@ -75,13 +74,12 @@ eventSchema.path(<span class="hljs-string">'props'</span>).discriminator(<span c
     type: <span class="hljs-built_in">String</span>,
     required: <span class="hljs-literal">true</span>
   }
-}, { _id: <span class="hljs-literal">false</span> }));
-</code></pre>
+}, { _id: <span class="hljs-literal">false</span> }));</code></pre>
 <p>The <code>eventSchema.path(&#39;props&#39;)</code> call gets the <a href="http://mongoosejs.com/docs/schematypes.html">mongoose SchemaType</a> associated with
 the path <code>props</code>. The <code>DocumentArray</code> and <code>Embedded</code> (single nested subdocs) SchemaTypes have a <code>discriminator()</code> function for embedded discriminators.</p>
 <p>Here&#39;s how you can use <code>eventSchema</code> to create an event with a
 <code>props</code> property that contains a &#39;Clicked&#39; event:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
 
 <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> Event({
   message: <span class="hljs-string">'test'</span>,
@@ -97,8 +95,7 @@ the path <code>props</code>. The <code>DocumentArray</code> and <code>Embedded</
 <span class="hljs-comment">//   createdAt: 2017-10-12T17:14:54.003Z,</span>
 <span class="hljs-comment">//   props: { element: '#hero-image', kind: 'Clicked' },</span>
 <span class="hljs-comment">//   _id: 59dfa30e3205ff0b689eb081 } undefined</span>
-<span class="hljs-built_in">console</span>.log(e, e.validateSync());
-</code></pre>
+<span class="hljs-built_in">console</span>.log(e, e.validateSync());</code></pre>
 <h2 id="a-more-realistic-example">A More Realistic Example</h2>
 <p>Mongoose has had <a href="http://mongoosejs.com/docs/discriminators.html">discriminators for top-level documents</a> for years,
 so why are we adding discriminators for embedded docs? Because
@@ -136,8 +133,7 @@ that contains both books and computers.</p>
 <span class="hljs-comment">// on the value of the discriminator key (the `kind` property)</span>
 <span class="hljs-keyword">const</span> Product = mongoose.model(<span class="hljs-string">'Product'</span>, productSchema);
 <span class="hljs-keyword">const</span> Book = Product.discriminator(<span class="hljs-string">'Book'</span>, bookSchema);
-<span class="hljs-keyword">const</span> Computer = Product.discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);
-</code></pre><p>Now, let&#39;s say you have an &#39;Order&#39; model that has a one-to-one
+<span class="hljs-keyword">const</span> Computer = Product.discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);</code></pre><p>Now, let&#39;s say you have an &#39;Order&#39; model that has a one-to-one
 relationship with products. In other words, for the sake of this
 example, assume that an order always has exactly one product.
 You can do 3NF and have order only track
@@ -146,7 +142,7 @@ hard when products change over time. With single nested discriminators,
 you can embed the same discriminator logic from the top-level
 discriminator in the &#39;Order&#39; model. Mongoose will even apply all
 your <a href="http://mongoosejs.com/docs/middleware.html">middleware</a> and <a href="http://mongoosejs.com/docs/guide.html#methods">methods</a> from your discriminator schemas to the embedded subdoc.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> orderSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> orderSchema = <span class="hljs-keyword">new</span> Schema({
   createdAt: <span class="hljs-built_in">Date</span>,
   product: productSchema
 });
@@ -154,11 +150,10 @@ your <a href="http://mongoosejs.com/docs/middleware.html">middleware</a> and <a 
 orderSchema.path(<span class="hljs-string">'product'</span>).discriminator(<span class="hljs-string">'Book'</span>, bookSchema);
 orderSchema.path(<span class="hljs-string">'product'</span>).discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);
 
-<span class="hljs-keyword">const</span> Order = mongoose.model(<span class="hljs-string">'Order'</span>, orderSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> Order = mongoose.model(<span class="hljs-string">'Order'</span>, orderSchema);</code></pre>
 <p>Here&#39;s an example of using these two models. Note that, even if
 the product changes, the product that the order embeds does not.</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> laptop = <span class="hljs-keyword">await</span> Computer.create({
@@ -186,8 +181,7 @@ the product changes, the product that the order embeds does not.</p>
 
 <span class="hljs-comment">// Even though the product changed, the order doesn't</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Order after update'</span>, <span class="hljs-keyword">await</span> Order.findById(order._id));
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Single embedded discriminators mean that mongoose&#39;s discriminators API is finally fully fleshed out. This makes denormalizing sophisticated schemas easy. Single embedded discriminators are just one of <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4120--2017-10-02">8 new features in mongoose 4.12</a>, so make sure you upgrade and take advantage of these powerful new features.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

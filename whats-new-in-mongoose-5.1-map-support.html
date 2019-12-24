@@ -22,43 +22,40 @@ to track and validate in your schema ahead of time. For example, let&#39;s say y
 had a <code>UserSchema</code> and wanted to store the user&#39;s Twitter, GitHub, Instagram, and
 other social media accounts in a <code>socialHandles</code> property. With a map type, this
 is simple, you don&#39;t have to list out each social media service explicitly.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   socialHandles: {
     type: <span class="hljs-built_in">Map</span>, <span class="hljs-comment">// `socialHandles` is a key/value store for string keys</span>
     <span class="hljs-keyword">of</span>: <span class="hljs-built_in">String</span> <span class="hljs-comment">// Values must be strings</span>
   }
-});
-</code></pre>
+});</code></pre>
 <p>Without the map type, you have 3 alternatives:</p>
 <ul>
 <li>List out every social media service you want to support in your schema. This
 is the best option, but the list may grow out of control depending on how quickly
 you add new services. Plus, what if you wanted to add validation to each property?</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   socialHandles: {
     twitter: <span class="hljs-built_in">String</span>,
     github: <span class="hljs-built_in">String</span>,
     instagram: <span class="hljs-built_in">String</span>,
     <span class="hljs-comment">// ...</span>
   }
-});
-</code></pre>
+});</code></pre>
 <ul>
 <li>Make <code>socialHandles</code> a <a href="http://mongoosejs.com/docs/schematypes.html#mixed">mixed type property</a>. This works, but
 mongoose will no longer handle casting or validation, so you&#39;re responsible for
 making sure each value in <code>socialHandles</code> is a string.</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   <span class="hljs-comment">// You can store anything in `socialHandles`, mongoose won't cast or validate</span>
   socialHandles: {}
-});
-</code></pre>
+});</code></pre>
 <ul>
 <li>Set <a href="http://mongoosejs.com/docs/guide.html#strict"><code>strict</code> to false</a> for your whole schema. This approach is theoretically possible, but not a good alternative
 because mongoose won&#39;t cast or validate any additional properties in <code>socialHandles</code>.</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   socialHandles: {
     twitter: <span class="hljs-built_in">String</span>,
     github: <span class="hljs-built_in">String</span>,
@@ -67,13 +64,12 @@ because mongoose won&#39;t cast or validate any additional properties in <code>s
     <span class="hljs-comment">// Because of `strict: false`, you can store any additional properties</span>
     <span class="hljs-comment">// in `socialHandles` as well</span>
   }
-}, { strict: <span class="hljs-literal">false</span> });
-</code></pre>
+}, { strict: <span class="hljs-literal">false</span> });</code></pre>
 <p>With maps, you get the best of both worlds: mongoose will ensure every value in
 <code>socialHandles</code> is a string for you, and you don&#39;t have to list out every single
 social media service you support. Plus, you can declare validation for all your
 properties in one place.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
 <span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -96,11 +92,10 @@ mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</spa
 <span class="hljs-comment">//     'github' =&gt; 'vkarpov15',</span>
 <span class="hljs-comment">//     'twitter' =&gt; '@code_barbarian',</span>
 <span class="hljs-comment">//     'instagram' =&gt; 'vkarpov15' } }</span>
-<span class="hljs-built_in">console</span>.log(doc);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc);</code></pre>
 <h2 id="working-with-maps">Working With Maps</h2>
 <p>Mongoose maps <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">inherit from native JavaScript&#39;s <code>Map</code> type</a>, so you get the same functionality as JavaScript maps with some extra mongoose syntactic sugar baked in. For example, you can get a list of the map&#39;s keys and values using the <code>keys()</code> and <code>values()</code> methods:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
   socialHandles: {
     github: <span class="hljs-string">'vkarpov15'</span>,
     twitter: <span class="hljs-string">'@code_barbarian'</span>,
@@ -115,12 +110,11 @@ mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</spa
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> doc.socialHandles.values()) {
   <span class="hljs-comment">// Prints "vkarpov15", "@code_barbarian", "vkarpov15"</span>
   <span class="hljs-built_in">console</span>.log(val);
-}
-</code></pre>
+}</code></pre>
 <p>Because mongoose maps inherit from native JavaScript maps, if you want to get/set
 an individual key in the map, you need to use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get"><code>get()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/set"><code>set()</code></a> methods. Mongoose documents have <a href="http://mongoosejs.com/docs/api.html#document_Document-get"><code>get()</code></a> and <a href="http://mongoosejs.com/docs/api.html#document_Document-set"><code>set()</code></a> functions that you can use instead of <code>get()</code> and <code>set()</code> on the mongoose map as well. However,
 conventional assignment, like <code>doc.socialHandles.github = &#39;vkarpov15&#39;</code>, does <strong>not</strong> work.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Getting</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Getting</span>
 <span class="hljs-built_in">console</span>.log(doc.socialHandles.github); <span class="hljs-comment">// undefined</span>
 <span class="hljs-built_in">console</span>.log(doc.socialHandles.get(<span class="hljs-string">'github'</span>)); <span class="hljs-comment">// vkarpov15</span>
 <span class="hljs-comment">// Mongoose-specific</span>
@@ -132,14 +126,13 @@ doc.socialHandles.stackOverflow = <span class="hljs-string">'vkarpov15'</span>; 
 
 doc.socialHandles.set(<span class="hljs-string">'stackOverflow'</span>, <span class="hljs-string">'vkarpov15'</span>); <span class="hljs-comment">// works</span>
 doc.set(<span class="hljs-string">'socialHandles.stackOverflow'</span>, <span class="hljs-string">'vkarpov15'</span>); <span class="hljs-comment">// works too</span>
-<span class="hljs-built_in">console</span>.log(doc.get(<span class="hljs-string">'socialHandles.stackOverflow'</span>)); <span class="hljs-comment">// "vkarpov15"</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.get(<span class="hljs-string">'socialHandles.stackOverflow'</span>)); <span class="hljs-comment">// "vkarpov15"</span></code></pre>
 <h2 id="map-validation">Map Validation</h2>
 <p>Mongoose provides two mechanisms for <a href="http://mongoosejs.com/docs/validation.html">validating</a> your map. You can
 validate the whole map, or you can validate individual values in the map.
 Here&#39;s how you would add a <a href="http://mongoosejs.com/docs/validation.html#custom-validators">custom validator</a> to the
 <code>socialHandles</code> map.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   socialHandles: {
     type: <span class="hljs-built_in">Map</span>,
     <span class="hljs-keyword">of</span>: <span class="hljs-built_in">String</span>,
@@ -153,10 +146,9 @@ Here&#39;s how you would add a <a href="http://mongoosejs.com/docs/validation.ht
     }
   }
 });
-<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
 <p>With the custom validator in place, the below code will print an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
   socialHandles: {
     github: <span class="hljs-string">'http://github.com/vkarpov15'</span>, <span class="hljs-comment">// Validator will fail</span>
     twitter: <span class="hljs-string">'@code_barbarian'</span>,
@@ -165,12 +157,11 @@ Here&#39;s how you would add a <a href="http://mongoosejs.com/docs/validation.ht
 });
 
 <span class="hljs-comment">// User validation failed: socialHandles: Validator failed for path `socialHandles` with value `[object Map]`</span>
-<span class="hljs-built_in">console</span>.log(doc.validateSync().message);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.validateSync().message);</code></pre>
 <p>The other option is to add a custom validator for the individual values in the
 map as opposed to the map as a whole. You do this by specifying a nested
 <code>validate</code> property in the <code>of</code> property.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   socialHandles: {
     type: <span class="hljs-built_in">Map</span>,
     <span class="hljs-keyword">of</span>: {
@@ -184,11 +175,10 @@ map as opposed to the map as a whole. You do this by specifying a nested
     }
   }
 });
-<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
 <p>By putting a custom validator on the individual value, you&#39;ll get an error
 with a slightly different error message:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({
   socialHandles: {
     github: <span class="hljs-string">'http://github.com/vkarpov15'</span>, <span class="hljs-comment">// Validator will fail</span>
     twitter: <span class="hljs-string">'@code_barbarian'</span>,
@@ -197,13 +187,12 @@ with a slightly different error message:</p>
 });
 
 <span class="hljs-comment">// User validation failed: socialHandles.github: Validator failed for path `socialHandles.$*` with value `http://github.com/vkarpov15`</span>
-<span class="hljs-built_in">console</span>.log(doc.validateSync().message);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.validateSync().message);</code></pre>
 <p>The <code>$*</code> in <code>socialHandles.$*</code> is a special placeholder specifically for
 map types. <code>socialHandles.$*</code> is the path you use to access the <a href="http://mongoosejs.com/docs/schematypes.html"><code>SchemaType</code></a> of the map&#39;s values.
 For example, below is another way to add a custom validator to the map&#39;s values
 using <a href="http://mongoosejs.com/docs/api.html#schematype_SchemaType-validate">the <code>validate()</code> function on <code>SchemaType</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   socialHandles: {
     type: <span class="hljs-built_in">Map</span>,
     <span class="hljs-keyword">of</span>: <span class="hljs-built_in">String</span>
@@ -220,8 +209,7 @@ userSchema.path(<span class="hljs-string">'socialHandles.$*'</span>).validate(<s
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Handle <span class="hljs-subst">${handle}</span> must not be a URL`</span>);
   }
   <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Mongoose maps let you store arbitrary keys in your mongoose documents without
 losing the casting and validation that makes mongoose so powerful. Mongoose

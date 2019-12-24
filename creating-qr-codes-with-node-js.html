@@ -13,10 +13,9 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>A <a href="https://en.wikipedia.org/wiki/QR_code">QR Code</a> is a 2-dimensional bar code. They&#39;re generally used to encode a URL so someone can just scan the code and visit a site. QR codes can encode all sorts of data beyond just URLs, I used a <a href="https://www.thelevelup.com/">QR code to pay for my lunch</a> today. In this article, I&#39;ll walk you generating and reading QR codes in Node.js using 2 separate libraries.</p>
-<h2 id="generating-a-qr-code-in-node-js">Generating a QR Code in Node.js</h2>
+<h2 id="generating-a-qr-code-in-nodejs">Generating a QR Code in Node.js</h2>
 <p>The <a href="https://www.npmjs.com/package/qrcode">qrcode</a> npm module is the easiest way to get started generating QR codes in Node.js. First, install qrcode:</p>
-<pre><code>npm install qrcode@<span class="hljs-number">1.</span>x
-</code></pre><p>The qrcode library has a <a href="https://www.npmjs.com/package/qrcode#es6es7"><code>toDataURL()</code> function</a> that resolves to a base 64 png encoding of a QR code. Below is an example of what the output looks like in the Node.js shell:</p>
+<pre><code>npm install qrcode@<span class="hljs-number">1.</span>x</code></pre><p>The qrcode library has a <a href="https://www.npmjs.com/package/qrcode#es6es7"><code>toDataURL()</code> function</a> that resolves to a base 64 png encoding of a QR code. Below is an example of what the output looks like in the Node.js shell:</p>
 <pre><code>$ node -v
 v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
 $ node
@@ -27,8 +26,7 @@ $ node
 &gt; <span class="hljs-keyword">const</span> promise = qrcode.toDataURL(<span class="hljs-string">'foo'</span>).then(res =&gt; { str = res.substr(<span class="hljs-number">0</span>, <span class="hljs-number">25</span>) })
 <span class="hljs-literal">undefined</span>
 &gt; str
-<span class="hljs-string">'data:image/png;base64,iVB'</span>
-</code></pre><p>If you just write this string to a <code>png</code> file, it won&#39;t work. But what you can do is write it to an HTML file as the <code>src</code> attribute of an image, and most browsers will be able to render it for you:</p>
+<span class="hljs-string">'data:image/png;base64,iVB'</span></code></pre><p>If you just write this string to a <code>png</code> file, it won&#39;t work. But what you can do is write it to an HTML file as the <code>src</code> attribute of an image, and most browsers will be able to render it for you:</p>
 <pre><code><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> qrcode = <span class="hljs-built_in">require</span>(<span class="hljs-string">'qrcode'</span>);
 
@@ -39,18 +37,19 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   fs.writeFileSync(<span class="hljs-string">'./qr.html'</span>, <span class="hljs-string">`&lt;img src="<span class="hljs-subst">${res}</span>"&gt;`</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Wrote to ./qr.html'</span>);
-}
-</code></pre><p>Here&#39;s the QR code in Chrome:</p>
-<p><img class="inline-image" src="https://i.imgur.com/HTxyz4T.png"></p>
+}</code></pre><p>Here&#39;s the QR code in Chrome:</p>
+<img class="inline-image" src="https://i.imgur.com/HTxyz4T.png">
+
 <p>You can then get a QR code reader app for your phone, like <a href="https://play.google.com/store/apps/details?id=com.qrcodereaderapp">this one for Android</a>, and read the URL from the QR code using your phone&#39;s camera.</p>
-<p><img class="inline-image" style="width: 200px" src="https://s3.amazonaws.com/codebarbarian-images/qrscreen.png"></p>
-<h2 id="reading-qr-codes-from-node-js">Reading QR Codes from Node.js</h2>
+<img class="inline-image" style="width: 200px" src="https://s3.amazonaws.com/codebarbarian-images/qrscreen.png">
+
+<h2 id="reading-qr-codes-from-nodejs">Reading QR Codes from Node.js</h2>
 <p>For the purposes of this article, I&#39;ll use the <a href="https://www.npmjs.com/package/qrcode-reader">qrcode-reader npm module</a>. The qrcode-reader library also relies on the excellent <a href="https://www.npmjs.com/package/jimp">jimp</a> image manipulation library, so you will need to install both.</p>
-<pre><code>npm install jimp@<span class="hljs-number">0.5</span><span class="hljs-number">.4</span> qrcode-reader@<span class="hljs-number">1.</span>x
-</code></pre><p>Here&#39;s a photo of the QR code from the first section that I took with my phone. The angle is a little off and there&#39;s some glare, so this is a good test for how the qrcode-reader library behaves under imperfect circumstances.</p>
-<p><img class="inline-image" src="https://s3.amazonaws.com/codebarbarian-images/qr_photo.png"></p>
+<pre><code>npm install jimp@<span class="hljs-number">0.5</span><span class="hljs-number">.4</span> qrcode-reader@<span class="hljs-number">1.</span>x</code></pre><p>Here&#39;s a photo of the QR code from the first section that I took with my phone. The angle is a little off and there&#39;s some glare, so this is a good test for how the qrcode-reader library behaves under imperfect circumstances.</p>
+<img class="inline-image" src="https://s3.amazonaws.com/codebarbarian-images/qr_photo.png">
+
 <p>Below is a minimal example of using qrcode-reader and jimp to read the URL from <code>qr_photo.png</code> above.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> QRReader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'qrcode-reader'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> QRReader = <span class="hljs-built_in">require</span>(<span class="hljs-string">'qrcode-reader'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> jimp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jimp'</span>);
 
@@ -78,10 +77,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-comment">// http://asyncawait.net</span>
   <span class="hljs-built_in">console</span>.log(value.result);
-}
-</code></pre>
+}</code></pre>
 <p>If you want to get fancy, you can use <a href="https://www.npmjs.com/package/jimp#low-level-manipulation">jimp&#39;s <code>scan()</code> function</a> to draw a rectangle on the feature points as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> point <span class="hljs-keyword">of</span> value.points) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> point <span class="hljs-keyword">of</span> value.points) {
   img.scan(<span class="hljs-built_in">Math</span>.floor(point.x) - <span class="hljs-number">5</span>, <span class="hljs-built_in">Math</span>.floor(point.y) - <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y, idx</span>) </span>{
     <span class="hljs-comment">// Modify the RGBA of all pixels in a 10px by 10px square around the 'FinderPattern'</span>
     <span class="hljs-keyword">this</span>.bitmap.data[idx] = <span class="hljs-number">255</span>; <span class="hljs-comment">// Set red to 255</span>
@@ -91,10 +89,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   });
 }
 
-<span class="hljs-keyword">await</span> img.writeAsync(<span class="hljs-string">'./qr_photo_annotated.png'</span>);
-</code></pre>
+<span class="hljs-keyword">await</span> img.writeAsync(<span class="hljs-string">'./qr_photo_annotated.png'</span>);</code></pre>
 <p>Now, the <code>qr_photo_annotated.png</code> file will look like what you see below.</p>
-<p><img class="inline-image" src="https://s3.amazonaws.com/codebarbarian-images/qr_photo_annotated.png"></p>
+<img class="inline-image" src="https://s3.amazonaws.com/codebarbarian-images/qr_photo_annotated.png">
+
 <h2 id="moving-on">Moving On</h2>
 <p>QR codes are a tragically underused tool. You may think they&#39;re just for URLs, but they&#39;re great for any quick one-off transaction that would otherwise require typing: payments, wifi passwords, and assigning computer-readable identifiers to physical objects. If nothing else, they&#39;re a fun application for tinkering with computer vision.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

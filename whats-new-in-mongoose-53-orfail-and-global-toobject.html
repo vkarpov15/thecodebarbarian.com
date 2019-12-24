@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#530--2018-09-28">Mongoose 5.3.0</a> was shipped on September 28. This minor release includes 17 new features and improvements that will help you clean up repetitive code. In particular, the <a href="https://mongoosejs.com/docs/api.html#query_Query-orFail"><code>orFail()</code> query helper</a> and the new <a href="https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set"><code>toObject</code> and <code>toJSON</code> global options</a> will make life much easier for devs building <a href="http://expressjs.com/">Express</a> APIs and backend services with Mongoose. In this article, I&#39;ll provide an overview of these two features and what makes them so useful.</p>
 <h2 id="the-orfail-query-helper">The <code>orFail()</code> Query Helper</h2>
 <p>The <code>orFail()</code> query helper makes the query promise reject if no documents matched the query <code>conditions</code> (also known as the query <code>filter</code>). For example, here&#39;s how you might write an Express API endpoint that loads a user by their id:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> decorateApp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@awaitjs/express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> decorateApp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@awaitjs/express'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
@@ -28,16 +28,14 @@ app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-key
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Not Found!'</span>);
   }
   <span class="hljs-keyword">return</span> { user };
-});
-</code></pre>
+});</code></pre>
 <p>This endpoint is simple because Mongoose takes care of the subtle details. Mongoose makes sure <code>req.params.id</code> is something that can be recognized as a valid MongoDB ObjectId, and throws an error if <code>req.params.id</code> contains malformed input. Async/await catches both synchronous and asynchronous errors, so with a little help from <a href="http://npmjs.com/package/@awaitjs/express"><code>@awaitjs/express</code></a> your route handler will automatically send an HTTP response if an async error occurred. This means you can avoid the tedious exercise of writing <code>if (error != null)</code> over and over like you would in Golang.</p>
 <p>JavaScript is all about concise code with a minimum of unnecessary repetition. The above <code>findById()</code> function has something that will get repetitive: the <code>if (user == null)</code> check. You can make it more terse by using <code>assert.ok(user == null)</code>, but unfortunately the Node.js assert library doesn&#39;t support custom errors. That&#39;s where Mongoose&#39;s new <code>orFail()</code> function comes in.</p>
-<pre><code class="lang-javascript">app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findById</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findById</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findById(req.params.id).
     orFail(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Not Found'</span>));
   res.json({ user });
-});
-</code></pre>
+});</code></pre>
 <p>This <code>findById()</code> function is equivalent, but more concise and with one less branching statement. Intuitively, it reads &quot;find the user with this id, or fail if no user was found.&quot; Saving one <code>if</code> statement is not that exciting, but <code>findById().orFail()</code> is just the tip of the iceberg. The <code>orFail()</code> function can modify any Mongoose query operation:</p>
 <ul>
 <li><code>deleteMany()</code></li>
@@ -51,59 +49,51 @@ app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-key
 <li><code>updateMany()</code></li>
 </ul>
 <p>For example, suppose you want to expose an endpoint to delete a user by their id. In order to check whether the user was actually deleted, you would have to look at the <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/">MongoDB driver docs</a> and figure out what property to you need to check. I&#39;ve been working with the MongoDB driver for years and I still forget. Then you would write out <code>if (res.n === 0) throw new Error(&#39;Not Found&#39;)</code>. Not bad, but with Mongoose you can use <code>orFail()</code>, and save yourself an <code>if</code> statement and a trip to the driver docs.</p>
-<pre><code class="lang-javascript">app.delAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteById</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.delAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteById</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> User.deleteOne({ _id: req.params.id }).
     <span class="hljs-comment">// You can also pass a function that returns an error to `orFail()`</span>
     orFail(() =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Not Found'</span>));
   res.json({ ok: <span class="hljs-number">1</span> });
-});
-</code></pre>
+});</code></pre>
 <p>All in all, <code>orFail()</code> can easily save you dozens, perhaps even hundreds, of code branches. Combined with <a href="https://thecodebarbarian.com/80-20-guide-to-express-error-handling">Express error handling middleware</a>, you can centralize all your HTTP 404 logic in one place.</p>
 <h2 id="global-toobject-and-tojson-options">Global <code>toObject</code> and <code>toJSON</code> Options</h2>
 <p>A common Mongoose gotcha is that virtuals don&#39;t show up in <code>JSON.stringify()</code> output by default. In other words, suppose you have a user schema with a
 <code>fullName</code> virtual.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> });
 userSchema.virtual(<span class="hljs-string">'fullName'</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${this.firstName}</span> <span class="hljs-subst">${this.lastName}</span>`</span>;
 });
-<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
 <p>If you <code>res.json()</code> a user document, <code>fullName</code> will <strong>not</strong> show up by default.</p>
-<pre><code class="lang-javascript">app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findById</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.getAsync(<span class="hljs-string">'/user/:id'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findById</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findById(req.params.id).
     orFail(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Not Found'</span>));
   <span class="hljs-comment">// `fullName` will **not** show up in the HTTP response.</span>
   res.json({ user });
-});
-</code></pre>
+});</code></pre>
 <p>The way to tell Mongoose to include virtuals in <code>res.json()</code> is using the <a href="https://mongoosejs.com/docs/guide.html#toJSON"><code>toJSON</code> schema option</a>. Express&#39; <code>res.json()</code> function calls <code>JSON.stringify()</code>, and <code>JSON.stringify()</code> calls the user document&#39;s <a href="https://mongoosejs.com/docs/api.html#document_Document-toJSON"><code>toJSON()</code> function</a>. The <code>toJSON.virtuals</code> schema option tells Mongoose to add virtuals to the output of <code>toJSON()</code>, and thus to your HTTP response if you&#39;re using <code>res.json()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> }, {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> }, {
   toJSON: {
     virtuals: <span class="hljs-literal">true</span>
   }
 });
 userSchema.virtual(<span class="hljs-string">'fullName'</span>).get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${this.firstName}</span> <span class="hljs-subst">${this.lastName}</span>`</span>;
-});
-</code></pre>
+});</code></pre>
 <p>Unfortunately, many developers copy/paste this <code>toJSON</code> option into every schema, which is repetitive and cumbersome. Mongoose&#39;s <a href="https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set">global options</a> help you configure defaults that make sense for your application. If your app relies on virtuals in HTTP responses, Mongoose 5.3 lets you declare this option globally.</p>
-<pre><code class="lang-javascript">mongoose.set(<span class="hljs-string">'toJSON'</span>, { virtuals: <span class="hljs-literal">true</span> });
-</code></pre>
+<pre><code class="language-javascript">mongoose.set(<span class="hljs-string">'toJSON'</span>, { virtuals: <span class="hljs-literal">true</span> });</code></pre>
 <p>Setting the global <code>toJSON</code> object means schemas will get <code>{ virtuals: true }</code> by default. You can overwrite this on the individual schema level:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> }, {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({ firstName: <span class="hljs-built_in">String</span>, lastName: <span class="hljs-built_in">String</span> }, {
   toJSON: {
      <span class="hljs-comment">// Will overwrite global `mongoose.set('toJSON', { virtuals: true })`</span>
     virtuals: <span class="hljs-literal">false</span>
   }
-});
-</code></pre>
+});</code></pre>
 <p>Or on the individual <code>toJSON()</code> call:</p>
-<pre><code class="lang-javascript">res.json(user.toJSON({ virtuals: <span class="hljs-literal">false</span> }));
-</code></pre>
+<pre><code class="language-javascript">res.json(user.toJSON({ virtuals: <span class="hljs-literal">false</span> }));</code></pre>
 <p>The <code>toObject</code> global option is analogous to the <code>toJSON</code> option, except it sets
 the default options for <a href="https://mongoosejs.com/docs/api.html#document_Document-toObject"><code>Document.toObject()</code></a>, not <a href="https://mongoosejs.com/docs/api.html#document_Document-toJSON"><code>Document.toJSON()</code></a>. The two functions are identical, the only reason why there are two separate functions is because the <code>JSON.stringify()</code> function explicitly looks for functions called <code>toJSON()</code>.</p>
-<pre><code class="lang-javascript">mongoose.set(<span class="hljs-string">'toObject'</span>, { virtuals: <span class="hljs-literal">true</span> });
-</code></pre>
+<pre><code class="language-javascript">mongoose.set(<span class="hljs-string">'toObject'</span>, { virtuals: <span class="hljs-literal">true</span> });</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The <code>orFail()</code> query helper and global <code>toObject</code> + <code>toJSON</code> options are just two of the 17 new features in Mongoose 5.3.0. Mongoose 5.3 also adds <a href="http://thecodebarbarian.com/getting-started-with-async-iterators-in-node-js">async iterator</a> support, a <a href="https://mongoosejs.com/docs/api.html#model_Model.createCollection"><code>Model.createCollection()</code> function</a> and corresponding <a href="https://mongoosejs.com/docs/guide.html#autoCreate"><code>autoCreate</code> option</a>, and RegExps for middleware. Make sure you upgrade to take advantage of these new features!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

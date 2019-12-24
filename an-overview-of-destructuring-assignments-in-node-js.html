@@ -14,14 +14,13 @@
 </div>
 </div><div class="post-body-text-container"><p>JavaScript introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">destructuring assignments</a> as part of the <a href="https://www.ecma-international.org/ecma-262/6.0/">2015 edition of the JavaScript language spec</a>. Destructuring assignments let you assign multiple variables in a single statement, making it much easier to pull values out of arrays and objects.
 Below are examples of the two types of destructuring assignment: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring">array destructuring</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring">object destructuring</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Below is equivalent to `const a = [1, 2][0]; const b = [1, 2][1];`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Below is equivalent to `const a = [1, 2][0]; const b = [1, 2][1];`</span>
 <span class="hljs-keyword">const</span> [a, b] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
 <span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// "1 2"</span>
 
 <span class="hljs-comment">// Below is equivalent to `const x = ({x:1,y:2}).x; const y = ({x:1,y:2}).y;`</span>
 <span class="hljs-keyword">const</span> { x, y } = { x: <span class="hljs-number">1</span>, y: <span class="hljs-number">2</span> };
-<span class="hljs-built_in">console</span>.log(x, y); <span class="hljs-comment">// "1 2"</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(x, y); <span class="hljs-comment">// "1 2"</span></code></pre>
 <p>Destructuring assignments are powerful, but they also come with several
 syntactic quirks. Plus, you can get some truly baffling error
 messages if you do destructuring assignments incorrectly. In this article,
@@ -33,7 +32,7 @@ destructuring assignments in Node.js.</p>
 almost always see an array on the right hand side, but there&#39;s nothing stopping you from
 using array destructuring with a <a href="http://es2015generators.com/">generator</a>,
 a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">set</a>, or any other iterable.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [x, y] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> [x, y] = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
 <span class="hljs-built_in">console</span>.log(x, y); <span class="hljs-comment">// "1 2"</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">generatorFunction</span>(<span class="hljs-params"></span>) </span>{
@@ -44,13 +43,11 @@ a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 }
 
 <span class="hljs-keyword">const</span> [a, b] = generatorFunction();
-<span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// "1 2"</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(a, b); <span class="hljs-comment">// "1 2"</span></code></pre>
 <h2 id="array-destructuring-error-cases">Array Destructuring Error Cases</h2>
 <p>Here&#39;s a fun exercise: what happens if you try to use array destructuring where
 the right hand side isn&#39;t an array or iterable?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [a, b] = {};
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> [a, b] = {};</code></pre>
 <p>In Node.js 10.x you get a nice sane error: <code>TypeError: {} is not iterable</code>. But in Node.js 6.x and 8.x you get a baffling &quot;undefined is not a function&quot; error.</p>
 <pre><code>$ ./node-v6.9.5-linux-x64/bin/node
 &gt; const [a, b] = {};
@@ -65,23 +62,19 @@ TypeError: undefined is not a function
     at REPLServer.&lt;anonymous&gt; (repl.js:545:10)
     at emitOne (events.js:101:20)
     at REPLServer.emit (events.js:188:7)
-&gt;
-</code></pre><p>If you see this error, don&#39;t panic, <a href="https://bugs.chromium.org/p/v8/issues/detail?id=5532">it is a bug in V8</a>. The issue is that
+&gt;</code></pre><p>If you see this error, don&#39;t panic, <a href="https://bugs.chromium.org/p/v8/issues/detail?id=5532">it is a bug in V8</a>. The issue is that
 the right hand side of an array destructuring assignment must be an <a href="http://thecodebarbarian.com/getting-started-with-async-iterators-in-node-js.html#your-first-async-iterator">iterable</a>, which means it must have a <code>Symbol.iterator</code> function. V8 throws this error because it tries to call the
 non-existent <code>Symbol.iterator</code> function on an empty object.</p>
 <p>Another edge case with destructuring assignments might make you throw out
 <a href="http://npmjs.com/package/standard">standard</a> and run for the safety of semi-colons. What does the below script print?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}
-[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = {}
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))</code></pre>
 <p>It will not print &#39;1, 2, 3&#39;, you&#39;ll instead get an error <code>Cannot read property &#39;forEach&#39; of undefined</code>. That&#39;s because the above code is equivalent to:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = {}[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))</code></pre>
 <p>You need a semicolon <code>;</code> before destructuring assignment <em>unless</em> you use <code>let</code>
 or <code>const</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> map = {}
-;[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = {}
+;[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].forEach(x =&gt; <span class="hljs-built_in">console</span>.log(x))</code></pre>
 <p>If you use semicolons, it isn&#39;t a problem. If you use a linter like standard
 that doesn&#39;t require semicolons,
 your linter will give you a [&quot;Unexpected newline between object and <a href="https://eslint.org/docs/2.0.0/rules/no-unexpected-multiline"> of property access&quot; error</a>.</p>
@@ -89,52 +82,47 @@ your linter will give you a [&quot;Unexpected newline between object and <a href
 <p>Object destructuring is different from array destructuring. It doesn&#39;t use
 iterables, object destructuring is just a shorthand for multiple property
 accesses.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
 
 <span class="hljs-comment">// Same as `const name = obj.name; const age = obj.age;`</span>
-<span class="hljs-keyword">const</span> { name, age } = obj;
-</code></pre>
+<span class="hljs-keyword">const</span> { name, age } = obj;</code></pre>
 <p>By default, the variable name must match the property name, but you can
 change that. This is handy if you&#39;re working with an API that prefers
 <a href="https://en.wikipedia.org/wiki/Snake_case">snake case property names</a> and
 your linter only accepts <a href="https://en.wikipedia.org/wiki/Camel_case">camel case variable names</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, <span class="hljs-string">'date_of_birth'</span>: <span class="hljs-string">'19881031'</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, <span class="hljs-string">'date_of_birth'</span>: <span class="hljs-string">'19881031'</span> };
 
 <span class="hljs-comment">// Same as `const name = obj.name; const birthday = obj['date_of_birth'];`</span>
-<span class="hljs-keyword">const</span> { name, date_of_birth: birthday } = obj;
-</code></pre>
+<span class="hljs-keyword">const</span> { name, date_of_birth: birthday } = obj;</code></pre>
 <p>Things get messy when you use object destructuring without <code>let</code> or <code>const</code>.
 That&#39;s because if you do <code>{ name } = obj;</code>, the JavaScript interpretter
 interprets <code>{ name }</code> as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block">block</a>. If you use object destructuring without <code>let</code>, <code>const</code>, or <code>var</code> , you <strong>must</strong> wrap your assignment in parenthesis <code>()</code> as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span>, age: <span class="hljs-number">29</span> };
 
 <span class="hljs-keyword">let</span> name;
 <span class="hljs-keyword">let</span> age;
 <span class="hljs-comment">// Same as `name = obj.name; age = obj.age;`</span>
-({ name, age } = obj);
-</code></pre>
+({ name, age } = obj);</code></pre>
 <p>This becomes cumbersome when you&#39;re not using semi-colons, because JavaScript
 interprets <code>()</code> as a function call unless it is preceded by a semicolon <code>;</code>.
 The below is perfectly valid.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
 <span class="hljs-comment">// Prints "Hello, undefined!" because the below is a multi-line function call</span>
 hello
 ({ name } = obj)
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params">{ name }</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>);
-}
-</code></pre>
+}</code></pre>
 <p>If you&#39;re not using semicolons, you need to be careful to use both a semicolon <code>;</code> <em>and</em> parenthesis <code>()</code> when using object destructuring.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { name: <span class="hljs-string">'Val'</span> };
 hello <span class="hljs-comment">// Not called because of the semicolon on the next line</span>
 ;({ name } = obj)
 <span class="hljs-built_in">console</span>.log(name); <span class="hljs-comment">// Prints "Val"</span>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params">{ name }</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>);
-}
-</code></pre>
+}</code></pre>
 <p>If you choose to write JavaScript without semicolons, make sure you use a
 linter. The alternative is to be well versed in <a href="https://eslint.org/docs/2.0.0/rules/no-unexpected-multiline">all the exceptions to automatic semicolon insertion (ASI)</a> and
 be committed to keeping up with all <a href="https://github.com/tc39/ecma262/pull/1062#issuecomment-357039873">future changes in the JavaScript language that may change the list of ASI exceptions</a>.</p>

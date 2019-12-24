@@ -32,7 +32,7 @@ generators in more detail and shows you how to write your own simple
 implementations of co, koa, and regenerator. Here&#39;s how you would use co
 and <a href="https://www.npmjs.com/package/superagent">superagent</a> to load the
 HTML for Google&#39;s home page.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
@@ -43,14 +43,12 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
     <span class="hljs-comment">// Catch any HTTP errors</span>
   }
   <span class="hljs-built_in">console</span>.log(html);
-});
-</code></pre>
+});</code></pre>
 <p>However, <code>superagent.get()</code> is an asynchronous request. In ES5, you would
 write the below code to print the HTML for Google&#39;s home page.</p>
-<pre><code class="lang-javascript">superagent.get(<span class="hljs-string">'http://google.com'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res</span>) </span>{
+<pre><code class="language-javascript">superagent.get(<span class="hljs-string">'http://google.com'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res</span>) </span>{
   <span class="hljs-built_in">console</span>.log(res.text);
-});
-</code></pre>
+});</code></pre>
 <p>In ES2015, you can use a library like co to automatically handle asynchronous
 requests for you, as long as you pass it a generator function. You can even
 use try/catch to handle asynchronous errors! Before you learn how co works,
@@ -59,17 +57,16 @@ functions.</p>
 <h2 id="generators-and-generator-functions">Generators and Generator Functions</h2>
 <p>To create a
 <em>generator function</em>, you use <code>function*</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> html = (<span class="hljs-keyword">yield</span> superagent.get(<span class="hljs-string">'http://google.com'</span>)).text;
   <span class="hljs-built_in">console</span>.log(html);
-};
-</code></pre>
+};</code></pre>
 <p>When you call a generator function, the return value is a generator object,
 or <em>generator</em> for short. A generator has two functions, <code>next()</code> and
 <code>throw()</code>, that are used to control the generator&#39;s execution. To see how
 these functions work, let&#39;s take a look at how the generator from
 <code>generatorFunction()</code> above works.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> html = (<span class="hljs-keyword">yield</span> superagent.get(<span class="hljs-string">'http://google.com'</span>)).text;
   <span class="hljs-built_in">console</span>.log(html);
 };
@@ -80,25 +77,23 @@ these functions work, let&#39;s take a look at how the generator from
 <span class="hljs-built_in">console</span>.log(generator.next());
 <span class="hljs-comment">// Throws an error:</span>
 <span class="hljs-comment">// `TypeError: Cannot read property 'text' of undefined`</span>
-<span class="hljs-built_in">console</span>.log(generator.next());
-</code></pre>
+<span class="hljs-built_in">console</span>.log(generator.next());</code></pre>
 <p>The <code>next()</code> function executes the generator up to the next <code>yield</code> or <code>return</code>
 statement. It returns an object with 2 properties: the value that was yielded
 or returned, and whether the generator is exhausted. The most exciting part
 of the <code>next()</code> function is that it can take a parameter, and that parameter
 becomes the return value for the <code>yield</code> statement in the generator function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> generator = generatorFunction();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> generator = generatorFunction();
 
 <span class="hljs-comment">// Prints an object: `{ value: &lt;Superagent Request&gt;, done: false }`</span>
 <span class="hljs-built_in">console</span>.log(generator.next({ text: <span class="hljs-string">'test'</span> }));
 <span class="hljs-comment">// Will print out 'test', because</span>
 <span class="hljs-comment">// `yield superagent.get('http://google.com')` becomes</span>
 <span class="hljs-comment">// `{ text: 'test' }` from the above `next()` call</span>
-generator.next();
-</code></pre>
+generator.next();</code></pre>
 <p>The <code>throw()</code> function triggers an error in the generator function that you
 can try/catch. For instance:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> generatorFunction = <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">yield</span> next;
   } <span class="hljs-keyword">catch</span>(err) {
@@ -108,8 +103,7 @@ can try/catch. For instance:</p>
 
 <span class="hljs-keyword">const</span> generator = generatorFunction();
 <span class="hljs-comment">// Prints out 'Caught Error: Oops!'</span>
-generator.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>));
-</code></pre>
+generator.throw(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>));</code></pre>
 <p>Together, <code>next()</code> and <code>throw()</code> provide everything you need to write your own
 take on co.</p>
 <h2 id="writing-your-own-co">Writing Your Own Co</h2>
@@ -125,7 +119,7 @@ the resolved value if the promise resolves.</li>
 call <code>generator.next()</code> or <code>generator.throw()</code> in a <code>setTimeout()</code>, or even
 in the <code>onFulfilled</code> handler of a promise. With that in mind, here&#39;s a
 simplified implementation of co:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">generatorFunction</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">generatorFunction</span>) </span>{
   <span class="hljs-comment">// Point 1: create a generator</span>
   <span class="hljs-keyword">const</span> generator = generatorFunction();
   <span class="hljs-comment">// Start executing the generator</span>
@@ -147,8 +141,7 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
   <span class="hljs-keyword">const</span> html = (<span class="hljs-keyword">yield</span> superagent.get(<span class="hljs-string">'http://google.com'</span>)).text;
   <span class="hljs-comment">// Print google homepage HTML</span>
   <span class="hljs-built_in">console</span>.log(html);
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The above implementation is just a sketch of co. The real module has numerous
 powerful features, like sophisticated exception handling, the ability to yield

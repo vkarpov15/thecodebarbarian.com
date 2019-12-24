@@ -19,10 +19,11 @@ and placing orders. In this article, I&#39;ll demonstrate using the
 <a href="https://ripple.com/build/xrp-test-net/">XRP Test Net</a>.</p>
 <h2 id="hello-ripple">Hello, Ripple</h2>
 <p>In order to get started, first go to the <a href="https://ripple.com/build/xrp-test-net/">XRP Test Net site</a> and click &quot;Generate credentials&quot; to get an address and a secret.</p>
-<p><img src="https://i.imgur.com/LnLID1v.png"></p>
+<img src="https://i.imgur.com/LnLID1v.png">
+
 <p>Once you have an address, install the <a href="http://npmjs.com/package/ripple-lib"><code>ripple-lib</code> npm module</a> and run the below
 <code>test.js</code> file to query the state of the account.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { RippleAPI } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ripple-lib'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { RippleAPI } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ripple-lib'</span>);
 
 <span class="hljs-keyword">const</span> api = <span class="hljs-keyword">new</span> RippleAPI({
   server: <span class="hljs-string">'wss://s.altnet.rippletest.net:51233'</span> <span class="hljs-comment">// XRP Test Net</span>
@@ -36,8 +37,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>, info);
   process.exit(<span class="hljs-number">0</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Keep in mind the above JavaScript uses destructuring assignments and
 <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await</a>, so you should use Node.js &gt;= 7.6.0. Running the
 above script will show you the state of your test Ripple address, including
@@ -48,8 +48,7 @@ Done { sequence: <span class="hljs-number">1</span>,
   ownerCount: <span class="hljs-number">0</span>,
   previousAffectingTransactionID: <span class="hljs-string">'9910B28EE8D6671EFE7460B092AD084466DEB2790DF0B9E9BE8BF5C93655A6FC'</span>,
   previousAffectingTransactionLedgerVersion: <span class="hljs-number">9410953</span> }
-$
-</code></pre><h2 id="transferring-xrp">Transferring XRP</h2>
+$</code></pre><h2 id="transferring-xrp">Transferring XRP</h2>
 <p>Generate a second Ripple address on the XRP Test Net site. Run the <code>info.js</code>
 script to verify the 2nd account also has 10000 fake XRP.</p>
 <pre><code>$ env RIPPLE_ADDRESS=re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM node info.js
@@ -58,10 +57,9 @@ Done { sequence: <span class="hljs-number">1</span>,
   ownerCount: <span class="hljs-number">0</span>,
   previousAffectingTransactionID: <span class="hljs-string">'C060DB82373EF9111B7F2DBA1F341BC4E4299007B76DA784E85C424D7A8DDA06'</span>,
   previousAffectingTransactionLedgerVersion: <span class="hljs-number">9411702</span> }
-$
-</code></pre><p>Creating a Ripple payment in JavaScript is easy, payment objects look
+$</code></pre><p>Creating a Ripple payment in JavaScript is easy, payment objects look
 like the below JavaScript object. Here are <a href="https://developers.ripple.com/rippleapi-reference.html#payment">the full docs on what properties a Ripple payment object has</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Ripple payments are represented as JavaScript objects</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Ripple payments are represented as JavaScript objects</span>
 <span class="hljs-keyword">const</span> payment = {
   source: {
     address: process.env.RIPPLE_FROM_ADDRESS,
@@ -77,14 +75,13 @@ like the below JavaScript object. Here are <a href="https://developers.ripple.co
       currency: <span class="hljs-string">'XRP'</span>
     }
   }
-};
-</code></pre>
+};</code></pre>
 <p>Below is a standalone script for transferring 10 XRP from the address
 specified in the <code>RIPPLE_FROM_ADDRESS</code> environment variable to the
 address specified in the <code>RIPPLE_TO_ADDRESS</code> environment variable. You
 also need to put the sender&#39;s secret in the <code>RIPPLE_FROM_SECRET</code>
 environment variable.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { RippleAPI } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ripple-lib'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { RippleAPI } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ripple-lib'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 assert.ok(process.env.RIPPLE_FROM_ADDRESS, <span class="hljs-string">'Please specify a RIPPLE_FROM_ADDRESS'</span>);
@@ -131,16 +128,14 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>, res);
   process.exit(<span class="hljs-number">0</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Below is the output of running this script with 2 accounts on the XRP
 Test Net:</p>
 <pre><code>$ env RIPPLE_FROM_ADDRESS=<span class="hljs-string">"raJsStZf83aRh5Q92A1CVFchZjruxnnJNS"</span> env RIPPLE_TO_ADDRESS=<span class="hljs-string">"re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM"</span> env RIPPLE_FROM_SECRET=<span class="hljs-string">"OMITTED"</span> node transfer.js
 Signed <span class="hljs-number">12000022800000002400000001201</span>B008F9E3761400000000098968068400000000000000C7321038A271B6430679F6E39990E64A34D1C5D1774E32F667DEDBE9D60147814FDD2C174463044022029DA0502EFE4E630E71C2B7A4E47574BD79080BB3636B97FD215E0EB7E586A40022010F58C5BBED24C41C55631B5E960B9CECCA8C6E9430A537028C7A910383B6D4181143A11BE0D1AF2A02DAD1437B43D8B6109410DD1158314071B2D8758FAD2840A8582A345A44275427FA951
 Done { resultCode: <span class="hljs-string">'tesSUCCESS'</span>,
   resultMessage: <span class="hljs-string">'The transaction was applied. Only final in a validated ledger.'</span> }
-$
-</code></pre><p>Technically you need to wait for the <a href="https://ripple.com/build/xrp-ledger-consensus-process/#validation">Ripple ledger to validate</a> before you can consider this payment complete, but in this case
+$</code></pre><p>Technically you need to wait for the <a href="https://ripple.com/build/xrp-ledger-consensus-process/#validation">Ripple ledger to validate</a> before you can consider this payment complete, but in this case
 the validation is very fast. Run the <code>info.js</code> script again and you
 should see the &quot;to&quot; account now has 10010 XRP, and the &quot;from&quot; account
 now has approximately 9989 XRP as shown below.</p>
@@ -156,8 +151,7 @@ Done { sequence: <span class="hljs-number">2</span>,
   ownerCount: <span class="hljs-number">0</span>,
   previousAffectingTransactionID: <span class="hljs-string">'99042EF14E9FD6352E8C3BB6C64DC4BCB452A33FE999F00F9D17F8F127CCBDA8'</span>,
   previousAffectingTransactionLedgerVersion: <span class="hljs-number">9412148</span> }
-$
-</code></pre><p>Why does the from account have less than 9990 XRP? The Ripple protocol
+$</code></pre><p>Why does the from account have less than 9990 XRP? The Ripple protocol
 has a variable <a href="https://developers.ripple.com/transaction-cost.html">transaction fee</a> built in to defend against denial-of-service attacks and spam. The sender of a
 payment is <a href="https://developers.ripple.com/transaction-cost.html#transaction-costs-and-failed-transactions">responsible for paying the transaction cost</a>.</p>
 <h2 id="moving-on">Moving On</h2>

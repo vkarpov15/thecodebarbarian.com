@@ -25,7 +25,8 @@ In this article, I&#39;ll explain</p>
 </ul>
 <h1 id="api-level-integration-tests">API-Level Integration Tests</h1>
 <p>You may have seen the testing pyramid before:</p>
-<p><img src="http://i.imgur.com/uLQvkdS.png" style="width: 400px" /></p>
+<img src="http://i.imgur.com/uLQvkdS.png" style="width: 400px" />
+
 <p>The components of the testing pyramid are as described below.</p>
 <ul>
 <li>Unit tests test individual units of code in isolation (for instance, individual functions). They are fast and you usually have a lot of them.</li>
@@ -52,7 +53,7 @@ repo as an example. This repo defines a trivial REST API
 in the <code>server.js</code> file. There&#39;s one route: <code>GET /user/:user</code>
 returns a user object if the username is in the list, and
 an HTTP 404 otherwise.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">var</span> status = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http-status'</span>);
 <span class="hljs-keyword">var</span> users = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./users'</span>);
 
@@ -70,8 +71,7 @@ an HTTP 404 otherwise.</p>
   <span class="hljs-keyword">return</span> app.listen(port);
 };
 
-<span class="hljs-built_in">module</span>.exports = createServer;
-</code></pre>
+<span class="hljs-built_in">module</span>.exports = createServer;</code></pre>
 <p><strong><code>http-status</code> defines a map from readable HTTP status names
 to numeric codes. For instance, <code>NOT_FOUND === 404</code>. This
 module, while simple, is a module that I&#39;d never write a web
@@ -82,11 +82,10 @@ want to install <a href="http://www.mongodb.org/downloads">MongoDB</a>
 and <a href="https://www.npmjs.com/package/mongoose">Mongoose</a>, but
 the extra setup would just add extra overhead to this example.
 The <code>users.js</code> file is shown below.</p>
-<pre><code class="lang-javascript">exports.list = [
+<pre><code class="language-javascript">exports.list = [
   <span class="hljs-string">'user1'</span>,
   <span class="hljs-string">'user2'</span>
-];
-</code></pre>
+];</code></pre>
 <p>Nothing too fancy, but, as you&#39;ll see, enough to enable tests
 to manipulate the list of users. Another key advantage of
 API-level integration tests in NodeJS is that you can re-use
@@ -97,7 +96,7 @@ mocha&#39;s elegant flow control.
 In this case, tests can <code>require()</code> the same <code>users.js</code> file
 and manipulate the underlying list of users as shown in the
 <code>test/api-integration.test.js</code> file below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">var</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 <span class="hljs-keyword">var</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../server'</span>);
 <span class="hljs-keyword">var</span> users = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../users'</span>);
@@ -135,8 +134,7 @@ describe(<span class="hljs-string">'/user'</span>, <span class="hljs-function"><
       done();
     });
   });
-});
-</code></pre>
+});</code></pre>
 <p>The above code demonstrates the two key ideas of API-level
 integration tests. First, since you&#39;re using NodeJS, you
 can create an Express server and then use superagent to send
@@ -210,8 +208,7 @@ The key work is in the <code>docs.js</code> file:</p>
   }
 }
 
-<span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).writeFileSync(<span class="hljs-string">'README.md'</span>, mdOutput);
-</code></pre><p>Similar to <a href="https://www.npmjs.com/package/dox">dox</a>, acquit
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).writeFileSync(<span class="hljs-string">'README.md'</span>, mdOutput);</code></pre><p>Similar to <a href="https://www.npmjs.com/package/dox">dox</a>, acquit
 doesn&#39;t limit you to a particular output format. All acquit
 provides you is the <code>parse()</code> function, which parses your
 tests into a handy format for documentation generation, and
@@ -221,7 +218,7 @@ useful for trimming asterisks from multiline comments.</p>
 the <a href="https://www.npmjs.com/package/esprima">esprima JS parser</a>
 to parse the mocha tests you saw in the last section
 into &quot;blocks&quot; that look like what&#39;s shown below.</p>
-<pre><code class="lang-javascript">[
+<pre><code class="language-javascript">[
   {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"describe"</span>,
     <span class="hljs-string">"contents"</span>: <span class="hljs-string">"/user"</span>,
@@ -245,8 +242,7 @@ into &quot;blocks&quot; that look like what&#39;s shown below.</p>
     ],
     <span class="hljs-string">"comments"</span>: []
   }
-]
-</code></pre>
+]</code></pre>
 <p>You can then use this output to generate markdown (as shown
 in this example), jade, plain HTML, or whatever your preferred
 output format is. Running <code>docs.js</code> file with <code>node docs.js</code>

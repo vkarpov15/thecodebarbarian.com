@@ -13,11 +13,11 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/package/ramda">Ramda</a> is quickly becoming an indispensible part of my node projects. Lodash is more accessible and beginner-friendly, but ramda is far more powerful and expressive once you wrap your mind around it. In this article, I&#39;ll take a look at the <a href="http://ramdajs.com/docs/#applySpec"><code>applySpec()</code> function</a> and how it can replace dependency injectors like <a href="http://npmjs.org/package/wagner-core">wagner</a>.</p>
-<h1 id="what-s-dependency-injection-about-">What&#39;s Dependency Injection About?</h1>
+<h1 id="whats-dependency-injection-about">What&#39;s Dependency Injection About?</h1>
 <p>The fundamental idea of dependency injection is to separate out business logic
 and service initialization. For example, let&#39;s say you have some code that
 runs a query against MongoDB:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">let</span> db;
 
@@ -32,22 +32,21 @@ runs a query against MongoDB:</p>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
   <span class="hljs-keyword">return</span> getMongo().
     then(db =&gt; db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id }));
-};
-</code></pre>
+};</code></pre>
 <p>Node.js beginners tend to write code that differs only superficially from the
 tangled mess above. Little refactors like putting the <code>getMongo()</code> function
 in a separate file, getting the connection string from environment variables,
 and adding error handling don&#39;t help the fundamental issue that your query is
 tied one-to-one to a mongodb database handle. A better approach is something
 like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params">id</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUser</span>(<span class="hljs-params">id</span>) </span>{
   <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id });
-};
-</code></pre>
+};</code></pre>
 <p>This way, your database handle is completely decoupled from the query you run.
 You can initialize one or many database handles and still use the same
 business logic.</p>
-<p><img src="http://i.imgur.com/HXKxWYS.png" /></p>
+<img src="http://i.imgur.com/HXKxWYS.png" />
+
 <p>This is particularly important for MongoDB, which
 <a href="http://api.mongodb.com/python/current/faq.html#how-does-connection-pooling-work-in-pymongo">limits you to one operation per open socket at a time</a>. In other words, unless you tweak the pool size in the
 Node.js driver, MongoDB will only process up to 5 operations in parallel per
@@ -59,7 +58,7 @@ it easy to have separate database handles for queries you expect to be slow.</p>
 <h1 id="where-di-goes-wrong">Where DI Goes Wrong</h1>
 <p>Dependency injectors are powerful tools for breaking code up into services
 that depend on each other.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// db service</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// db service</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">db</span>(<span class="hljs-params">config</span>) </span>{
   <span class="hljs-comment">// initialize db</span>
 }
@@ -72,8 +71,7 @@ that depend on each other.</p>
 <span class="hljs-comment">// query service</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">queryBuilder</span>(<span class="hljs-params">db, config, logger</span>) </span>{
   <span class="hljs-comment">// initialize query builder</span>
-}
-</code></pre>
+}</code></pre>
 <p>For example, in the above code, a dependency injector like <a href="http://npmjs.org/package/wagner-core">wagner</a> would be smart enough to walk
 the graph of dependencies and see that in order to initialize <code>queryBuilder</code>,
 it needs to initialize <code>config</code> and <code>logger</code> first, then <code>db</code>, and then
@@ -93,7 +91,7 @@ services together. When everything in your codebase is a &quot;service&quot;, th
 given an object whose keys are functions and some parameters, it calls each
 function in the object and returns a new object whose keys are the return
 values of each function. In code,</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> stringifyMilliseconds = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stringifyMilliseconds = {
   milliseconds: x =&gt; <span class="hljs-string">`<span class="hljs-subst">${x}</span>ms`</span>,
   seconds: {
     exact: x =&gt; <span class="hljs-string">`<span class="hljs-subst">${x / 1000}</span>s`</span>,
@@ -107,13 +105,12 @@ values of each function. In code,</p>
  *   seconds: { exact: '1.234s', rounded: '1s' }
  * }
  */</span>
-<span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>).applySpec(stringifyMilliseconds)(<span class="hljs-number">1234</span>);
-</code></pre>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>).applySpec(stringifyMilliseconds)(<span class="hljs-number">1234</span>);</code></pre>
 <p>In other words, <code>applySpec()</code> lets you execute a bunch of functions
 with the same arguments and organize the return values. How does this help
 with DI? Well, let&#39;s say that you have a bunch of functions like the user
 query you had before.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   getUser: db =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
     <span class="hljs-keyword">return</span> db.collection(<span class="hljs-string">'User'</span>).findOne({ _id: id });
   },
@@ -128,27 +125,25 @@ query you had before.</p>
       <span class="hljs-keyword">return</span> res;
     })
   }
-};
-</code></pre>
+};</code></pre>
 <p>These functions are nice and DI-friendly: they don&#39;t rely on any one mechanism
 for initializing the database handle. They also have a couple things in
 common: they all take exactly one parameter, a database handle. This makes it
 easy to initialize all of them in a single function call with <code>applySpec()</code>.</p>
-<pre><code class="lang-javascript">co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">co(<span class="hljs-function"><span class="hljs-keyword">function</span> * (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">yield</span> mongodb.MongoClient.connect(process.env.MONGO_URL);
   <span class="hljs-keyword">const</span> User = applySpec(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./user'</span>))(db);
   <span class="hljs-comment">// User is now a collection of functions that have access to the `db` handle.</span>
   <span class="hljs-comment">// In other words, you can do 'yield User.getUser(id)'</span>
   <span class="hljs-keyword">return</span> User;
-});
-</code></pre>
+});</code></pre>
 <p>This way, <code>User</code> is now an organized collection of functions and the <code>db</code>
 dependency is closed over in a way that&#39;s transparent to clients using the
 <code>User</code> module. You can also now think of the functions in <code>User</code> as a
 distinct group as opposed to a collection of nebulous services.
 For example, since these functions all return promises, it&#39;s easier to
 instrument common error handling:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { applySpec, map } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { applySpec, map } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ramda'</span>);
 
 <span class="hljs-keyword">const</span> errorHandler = fn =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>).catch(error =&gt; {
@@ -158,8 +153,7 @@ instrument common error handling:</p>
 
 <span class="hljs-comment">// Apply 'errorHandler' to every function so you can '.catch()' the</span>
 <span class="hljs-comment">// promise returned from every function</span>
-<span class="hljs-keyword">const</span> User = map(errorHandler, applySpec(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./user'</span>))(db));
-</code></pre>
+<span class="hljs-keyword">const</span> User = map(errorHandler, applySpec(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./user'</span>))(db));</code></pre>
 <h1 id="moving-on">Moving On</h1>
 <p>This is just the tip of the iceberg with ramda. You can get an equivalent
 function to <code>applySpec()</code> with lodash using recursive <code>_.map()</code>, but, as

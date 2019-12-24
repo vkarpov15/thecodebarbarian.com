@@ -15,26 +15,23 @@
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#530--2018-09-28">Mongoose 5.3.0</a> was shipped on September 28. This minor release includes 17 new features and improvements, including support for JavaScript&#39;s new <a href="http://thecodebarbarian.com/getting-started-with-async-iterators-in-node-js">async iterator</a> feature. Async iterators were introduced in <a href="https://medium.com/front-end-hacking/javascript-whats-new-in-ecmascript-2018-es2018-17ede97f36d5">ECMAScript 2018</a> and are natively supported in Node.js 10.x.</p>
 <p>Async iterators add support for a new loop structure, a <code>for/await/of</code> loop,
 that looks like what you see below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> obj <span class="hljs-keyword">of</span> asyncIterator) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> obj <span class="hljs-keyword">of</span> asyncIterator) {
   <span class="hljs-built_in">console</span>.log(obj);
-}
-</code></pre>
+}</code></pre>
 <p>If you&#39;ve read <a href="http://asyncawait.net/"><em>Mastering Async/Await</em></a>, you know that <code>await</code> must be in a function marked <code>async</code>. Async iterators are no exception. You can only use a <code>for/await/of</code> loop in an async function. If you&#39;re not comfortable with async/await, <a href="/common-async-await-design-patterns-in-node.js.html">this blog post</a> will bring you up to speed.</p>
 <p>Now that the syntax is out of the way, let&#39;s take a look at how Mongoose leverages async iterators to make scanning through huge collections easier.</p>
 <h2 id="async-iterators-with-mongoose-queries">Async Iterators With Mongoose Queries</h2>
 <p>Suppose you have a collection of stocks and you want to pull the current price for each stock from the <a href="https://iextrading.com/developer/">IEX API</a>. Below are the <a href="https://mongoosejs.com/docs/guide.html">schema</a> and <a href="https://mongoosejs.com/docs/models.html">model</a> for this example.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> stockSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stockSchema = <span class="hljs-keyword">new</span> Schema({
   symbol: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
   currentPrice: <span class="hljs-built_in">Number</span>
 });
 
-<span class="hljs-keyword">const</span> Stock = mongoose.model(<span class="hljs-string">'Stock'</span>, stockSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> Stock = mongoose.model(<span class="hljs-string">'Stock'</span>, stockSchema);</code></pre>
 <p>Suppose you have only 3 stocks in your collection:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">await</span> Stock.create([{ symbol: <span class="hljs-string">'MDB'</span> }, { symbol: <span class="hljs-string">'F'</span> }, { symbol: <span class="hljs-string">'T'</span> }]);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> Stock.create([{ symbol: <span class="hljs-string">'MDB'</span> }, { symbol: <span class="hljs-string">'F'</span> }, { symbol: <span class="hljs-string">'T'</span> }]);</code></pre>
 <p>Without async iterators, you could iterate through all stocks like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> allStocks = <span class="hljs-keyword">await</span> Stock.find();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> allStocks = <span class="hljs-keyword">await</span> Stock.find();
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> allStocks) {
   <span class="hljs-keyword">const</span> price = <span class="hljs-keyword">await</span> superagent.
     get(<span class="hljs-string">`https://api.iextrading.com/1.0/stock/<span class="hljs-subst">${stock.symbol}</span>/price`</span>).
@@ -42,10 +39,9 @@ that looks like what you see below.</p>
   <span class="hljs-built_in">console</span>.log(stock.symbol, price);
   stock.price = price;
   <span class="hljs-keyword">await</span> stock.save();
-}
-</code></pre>
+}</code></pre>
 <p>The problem with the above approach is that it loads all stocks <em>before</em> starting the loop. That&#39;s fine for 3 stocks, but if you have thousands you should instead use a <a href="/cursors-in-mongoose-45">Mongoose cursor</a>. You can use <a href="/common-async-await-design-patterns-in-node.js.html#processing-a-mongodb-cursor">async/await to iterate through a cursor</a> as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = Stock.find().cursor();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cursor = Stock.find().cursor();
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> stock = <span class="hljs-keyword">await</span> cursor.next(); stock != <span class="hljs-literal">null</span>; stock = <span class="hljs-keyword">await</span> cursor.next()) {
   <span class="hljs-keyword">const</span> price = <span class="hljs-keyword">await</span> superagent.
     get(<span class="hljs-string">`https://api.iextrading.com/1.0/stock/<span class="hljs-subst">${stock.symbol}</span>/price`</span>).
@@ -53,21 +49,19 @@ that looks like what you see below.</p>
   <span class="hljs-built_in">console</span>.log(stock.symbol, price);
   stock.price = price;
   <span class="hljs-keyword">await</span> stock.save();
-}
-</code></pre>
+}</code></pre>
 <p>This syntax works, but it is verbose and tends to run over 80 character line limits if you use readable variable names. Async iterators make iterating over a cursor much more terse: if you use a <a href="https://mongoosejs.com/docs/queries.html">Mongoose query</a> as the right hand side of a <code>for/await/of</code> loop, Mongoose will create an async-iterator-friendly cursor for you. The below loop is equivalent to the <code>await cursor.next()</code> loop above, as long as you&#39;re using Node.js 10.x.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> Stock.find()) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> Stock.find()) {
   <span class="hljs-keyword">const</span> price = <span class="hljs-keyword">await</span> superagent.
     get(<span class="hljs-string">`https://api.iextrading.com/1.0/stock/<span class="hljs-subst">${stock.symbol}</span>/price`</span>).
     then(res =&gt; res.body);
   <span class="hljs-built_in">console</span>.log(stock.symbol, price);
   stock.price = price;
   <span class="hljs-keyword">await</span> stock.save();
-}
-</code></pre>
+}</code></pre>
 <h2 id="configuring-async-iterator-cursors">Configuring Async Iterator Cursors</h2>
 <p>The <a href="https://mongoosejs.com/docs/api.html#query_Query-sort"><code>sort()</code></a>, <a href="https://mongoosejs.com/docs/api.html#query_Query-limit"><code>limit()</code></a>, <a href="https://mongoosejs.com/docs/api.html#query_Query-skip"><code>skip()</code></a>, and <a href="https://mongoosejs.com/docs/api.html#query_Query-lean"><code>lean()</code></a> helpers all work as you would expect with async iterators.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Sort by symbol, skip the first 5, return at most 20, and don't hydrate</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Sort by symbol, skip the first 5, return at most 20, and don't hydrate</span>
 <span class="hljs-comment">// the returned doc. See https://mongoosejs.com/docs/api.html#model_Model.hydrate</span>
 <span class="hljs-keyword">const</span> query = Stock.find().sort({ symbol: <span class="hljs-number">1</span> }).skip(<span class="hljs-number">5</span>).limit(<span class="hljs-number">20</span>).lean();
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> query) {
@@ -76,13 +70,12 @@ that looks like what you see below.</p>
     then(res =&gt; res.body);
   <span class="hljs-built_in">console</span>.log(stock.symbol, price);
   <span class="hljs-comment">// No `save()` because `stock` is lean</span>
-}
-</code></pre>
+}</code></pre>
 <p><a href="https://mongoosejs.com/docs/api.html#query_Query-populate">Query <code>populate()</code></a>
 also works, but with a small performance caveat. If you use <code>populate()</code> with a
 cursor, Mongoose will execute a separate query for each document that comes off
 the cursor. For example, suppose you store stock prices in a separate collection.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> priceSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> priceSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   symbol: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
   price: { type: <span class="hljs-built_in">Number</span>, required: <span class="hljs-literal">true</span> }
 }, { timestamps: <span class="hljs-literal">true</span> <span class="hljs-comment">/* Adds `createdAt` */</span> });
@@ -102,14 +95,12 @@ stockSchema.virtual(<span class="hljs-string">'latestPrice'</span>, {
   options: {
     sort: { createdAt: <span class="hljs-number">-1</span> }
   }
-});
-</code></pre>
+});</code></pre>
 <p>Suppose you turn on <a href="https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set">Mongoose&#39;s debug mode</a> and <code>populate()</code> the <code>latestPrice</code> when iterating over the query cursor using <code>for/await/of</code>:</p>
-<pre><code class="lang-javascript">mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal">true</span>);
+<pre><code class="language-javascript">mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal">true</span>);
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> Stock.find().populate(<span class="hljs-string">'latestPrice'</span>)) {
   <span class="hljs-built_in">console</span>.log(stock.symbol, stock.latestPrice.price);
-}
-</code></pre>
+}</code></pre>
 <p>You&#39;ll see Mongoose executes one <code>find()</code> to get the cursor, and then a separate <code>find()</code> to populate each stock&#39;s <code>latestPrice</code>:</p>
 <pre><code>Mongoose: stocks.find({}, { projection: {} })
 Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'MDB'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
@@ -117,14 +108,12 @@ MDB <span class="hljs-number">70</span>
 Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'F'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
 F <span class="hljs-number">9</span>
 Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'T'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
-T <span class="hljs-number">33</span>
-</code></pre><h2 id="common-pitfalls">Common Pitfalls</h2>
+T <span class="hljs-number">33</span></code></pre><h2 id="common-pitfalls">Common Pitfalls</h2>
 <p>A Mongoose cursor does <strong>not</strong> conform to the <a href="https://github.com/tc39/proposal-async-iteration#async-iterators-and-async-iterables">async iterable spec</a>. If you use <code>for/await/of</code> with a Mongoose cursor you created yourself, you will get an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Throws "TypeError: Stock.find(...).cursor(...) is not async iterable"</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Throws "TypeError: Stock.find(...).cursor(...) is not async iterable"</span>
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> Stock.find().cursor()) {
   <span class="hljs-built_in">console</span>.log(stock.symbol);
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Async iterator support is just one of 17 new features in Mongoose 5.3.0. Mongoose 5.3.0 also introduced the <a href="/whats-new-in-mongoose-53-orfail-and-global-toobject.html"><code>orFail()</code> query helper</a>, a <a href="https://mongoosejs.com/docs/api.html#connection_Connection-deleteModel"><code>deleteModel()</code> helper</a> to clean up models after tests, and <a href="https://mongoosejs.com/docs/api.html#schema_Schema-pre">regular expression support for <code>Schema.pre()</code> and <code>Schema.post()</code></a>. Make sure you upgrade and take advantage of these powerful new features!</p>
 <p><em>Looking to get up to speed with async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of

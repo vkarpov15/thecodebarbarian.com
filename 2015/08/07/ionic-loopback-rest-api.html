@@ -69,8 +69,7 @@ the below output in your terminal. Call your application
    __&#39;.___.&#39;__
  Â´   `  |Â° Â´ Y `
 
-? What&#39;s the name of your application? stopwatch-server-example
-</code></pre><p>LoopBack will create a directory called <code>stopwatch-server-example</code>. The
+? What&#39;s the name of your application? stopwatch-server-example</code></pre><p>LoopBack will create a directory called <code>stopwatch-server-example</code>. The
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/23010aedf9eb9093b5a7357bd01dccc1b551470b">stopwatch-server-example directory&#39;s code will look like this</a> once LoopBack is done.</p>
 <h2 id="setting-up-facebook-login">Setting Up Facebook Login</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697">See a diff for this step on GitHub</a></em></p>
@@ -100,15 +99,14 @@ needs to be aware of them.</p>
 <code>&quot;./node_modules/loopback-component-passport/lib/models&quot;</code> to the <code>sources</code>
 list. This tells LoopBack where to find these models. You also need to add
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697#diff-3">&#39;UserCredential&#39; and &#39;UserIdentity&#39; to the top-level object</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"UserCredential"</span>: {
+<pre><code class="language-javascript"><span class="hljs-string">"UserCredential"</span>: {
   <span class="hljs-string">"dataSource"</span>: <span class="hljs-string">"db"</span>,
   <span class="hljs-string">"public"</span>: <span class="hljs-literal">true</span>
 },
 <span class="hljs-string">"UserIdentity"</span>: {
   <span class="hljs-string">"dataSource"</span>: <span class="hljs-string">"db"</span>,
   <span class="hljs-string">"public"</span>: <span class="hljs-literal">true</span>
-}
-</code></pre>
+}</code></pre>
 <p>Once that&#39;s done, you&#39;re going to have to configure your server to allow
 Facebook login. You should
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/ecdc101dc58aaadc88b59e8decd0beaa7e347697#diff-2">add a boot script to LoopBack&#39;s <code>server/boot</code> directory that configures  LoopBack&#39;s <code>PassportConfigurator</code></a>.
@@ -116,7 +114,7 @@ Facebook login. You should
 are a powerful mechanism for configuring your LoopBack server. A boot script
 enables you to add operations to your server startup process without adding
 extra bloat to your <code>server/server.js</code> file.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Make sure to also put this in `server/server.js`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Make sure to also put this in `server/server.js`</span>
 <span class="hljs-keyword">var</span> PassportConfigurator =
   <span class="hljs-built_in">require</span>(<span class="hljs-string">'loopback-component-passport'</span>).PassportConfigurator;
 
@@ -130,14 +128,13 @@ passportConfigurator.setupModels({
   userCredentialModel: app.models.UserCredential
 });
 passportConfigurator.configureProvider(<span class="hljs-string">'facebook-login'</span>,
-  <span class="hljs-built_in">require</span>(<span class="hljs-string">'../providers.json'</span>)[<span class="hljs-string">'facebook-login'</span>]);
-</code></pre>
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">'../providers.json'</span>)[<span class="hljs-string">'facebook-login'</span>]);</code></pre>
 <p>Notice the <code>providers.json</code> file that <code>require()</code> loads above. That file
 contains JSON configuration parameters for Facebook login, including your
 client id and secret. In the interest of avoiding Facebook&#39;s inane labyrinth
 of OAuth configurations, a functioning <code>providers.json</code> is included in the
 above commit and shown below.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"facebook-login"</span>: {
     <span class="hljs-string">"provider"</span>: <span class="hljs-string">"facebook"</span>,
     <span class="hljs-string">"module"</span>: <span class="hljs-string">"passport-facebook"</span>,
@@ -149,8 +146,7 @@ above commit and shown below.</p>
     <span class="hljs-string">"successRedirect"</span>: <span class="hljs-string">"/api/Users/me"</span>,
     <span class="hljs-string">"scope"</span>: [<span class="hljs-string">"public_profile"</span>]
   }
-}
-</code></pre>
+}</code></pre>
 <p>That&#39;s all you need to set up Facebook login! Now, if you start the server with
 <code>node .</code> and go to <code>http://localhost:3000/auth/facebook</code>, LoopBack will redirect
 users back to the <code>/api/Users/me</code> route. Notice, however, that this route is
@@ -178,7 +174,7 @@ sessions.</li>
 reference to the currently logged in user.</li>
 </ul>
 <p>To add these middleware, add the below code to your <code>server/middleware.json</code> file.</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"session:before"</span>: {
+<pre><code class="language-javascript"><span class="hljs-string">"session:before"</span>: {
   <span class="hljs-string">"cookie-parser"</span>: { <span class="hljs-string">"params"</span>: <span class="hljs-string">"test secret"</span> }
 },
 <span class="hljs-string">"session"</span>: {
@@ -189,15 +185,13 @@ reference to the currently logged in user.</li>
       <span class="hljs-string">"resave"</span>: <span class="hljs-literal">true</span>
     }
   }
-}
-</code></pre>
+}</code></pre>
 <p>You will also need to add the below code to your <code>server/boot/authentication.js</code>
 boot script.</p>
-<pre><code class="lang-javascript">server.middleware(<span class="hljs-string">'auth'</span>, loopback.token({
+<pre><code class="language-javascript">server.middleware(<span class="hljs-string">'auth'</span>, loopback.token({
   model: server.models.accessToken,
   currentUserLiteral: <span class="hljs-string">'me'</span>
-}));
-</code></pre>
+}));</code></pre>
 <p>The first two middleware modules are standard boilerplate that you may have
 seen if you&#39;ve used <a href="https://www.npmjs.com/package/express">Express</a> before. In
 fact, what you&#39;re doing with the <code>middleware.json</code> file is wiring up the the
@@ -207,8 +201,7 @@ LoopBack server.</p>
 should be able to visit <code>http://localhost:3000/api/Users/1</code> and see what
 information LoopBack has stored about you. For instance, below is the output
 when I log in.</p>
-<pre><code class="lang-javascript">{<span class="hljs-string">"username"</span>:<span class="hljs-string">"facebook-login.383798881820166"</span>,<span class="hljs-string">"email"</span>:<span class="hljs-string">"383798881820166@loopback.facebook.com"</span>,<span class="hljs-string">"id"</span>:<span class="hljs-number">1</span>}
-</code></pre>
+<pre><code class="language-javascript">{<span class="hljs-string">"username"</span>:<span class="hljs-string">"facebook-login.383798881820166"</span>,<span class="hljs-string">"email"</span>:<span class="hljs-string">"383798881820166@loopback.facebook.com"</span>,<span class="hljs-string">"id"</span>:<span class="hljs-number">1</span>}</code></pre>
 <p>However, getting this data depends on you knowing what your user ID is. You&#39;ll
 notice that your Facebook login is configured to redirect the user to <code>http://localhost:3000/api/Users/me</code> when they&#39;ve successfully logged in. The
 third middleware, the &#39;auth&#39; middleware, transforms <code>/me</code> into the ID for the
@@ -253,11 +246,10 @@ Enter an empty property name when done.
 
 Let&#39;s add another Time property.
 Enter an empty property name when done.
-? Property name:
-</code></pre><p>Once you have run this command and filled out the prompts as shown above,
+? Property name:</code></pre><p>Once you have run this command and filled out the prompts as shown above,
 you should now have a <code>common/models/time.json</code> file that looks like what
 you see below.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"name"</span>: <span class="hljs-string">"Time"</span>,
   <span class="hljs-string">"plural"</span>: <span class="hljs-string">"Times"</span>,
   <span class="hljs-string">"base"</span>: <span class="hljs-string">"PersistedModel"</span>,
@@ -278,8 +270,7 @@ you see below.</p>
   <span class="hljs-string">"relations"</span>: {},
   <span class="hljs-string">"acls"</span>: [],
   <span class="hljs-string">"methods"</span>: []
-}
-</code></pre>
+}</code></pre>
 <p>You now have a &#39;Time&#39; model with 2 properties: a required <code>time</code> number, and
 an optional <code>tag</code> string. However, this model doesn&#39;t take into account one
 important detail: the relationship between users and times. Specifically,
@@ -289,9 +280,8 @@ neat
 But since &#39;User&#39; is a built-in model that lives in your <code>node_modules</code> directory,
 it isn&#39;t tracked by source control. You can declare the relation in your
 <code>server/server.js</code> file.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> User = app.models.User;
-User.hasMany(app.models.Time, { <span class="hljs-keyword">as</span>: <span class="hljs-string">'times'</span>, foreignKey: <span class="hljs-string">'userId'</span> });
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> User = app.models.User;
+User.hasMany(app.models.Time, { <span class="hljs-keyword">as</span>: <span class="hljs-string">'times'</span>, foreignKey: <span class="hljs-string">'userId'</span> });</code></pre>
 <p>Now &#39;Times&#39; has a &#39;userId&#39; field that tracks which user this time belongs to.
 So now, when you log in, you should be able to go to
 <code>http://localhost:3000/api/Users/me/times</code> and get an HTTP 401 unauthorized.
@@ -319,15 +309,14 @@ $ slc loopback:acl
 ? Select the ACL scope: A single method
 ? Enter the method name: create
 ? Select the role: Any authenticated user
-? Select the permission to apply: Explicitly grant access
-</code></pre><p>The above process defines 3 access control rules for the &#39;Time&#39; model.</p>
+? Select the permission to apply: Explicitly grant access</code></pre><p>The above process defines 3 access control rules for the &#39;Time&#39; model.</p>
 <ol>
 <li>By default, access to all operations on the &#39;Time&#39; model is denied.</li>
 <li>A user can do whatever they want to a &#39;Time&#39; instance that they own.</li>
 <li>An authenticated user can create a new &#39;Time&#39; instance.</li>
 </ol>
 <p>Take a look at <code>common/models/time.json</code>, you should see the following:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"acls"</span>: [
+<pre><code class="language-javascript"><span class="hljs-string">"acls"</span>: [
   {
     <span class="hljs-string">"accessType"</span>: <span class="hljs-string">"*"</span>,
     <span class="hljs-string">"principalType"</span>: <span class="hljs-string">"ROLE"</span>,
@@ -347,8 +336,7 @@ $ slc loopback:acl
     <span class="hljs-string">"permission"</span>: <span class="hljs-string">"ALLOW"</span>,
     <span class="hljs-string">"property"</span>: <span class="hljs-string">"create"</span>
   }
-]
-</code></pre>
+]</code></pre>
 <p>Even after you do this, you&#39;re still going to get an HTTP 401 when you go to
 <code>http://localhost:3000/api/Users/me/times</code>. In order to make this work, you&#39;re
 going to have to add an ACL to the User model as well. The
@@ -356,7 +344,7 @@ going to have to add an ACL to the User model as well. The
 Once again, since the &#39;User&#39; model isn&#39;t tracked by git, the easiest place to
 make this change is in
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/27148a641c1af3b1c83ad65c456c881340325312#diff-2">a boot script called <code>server/boot/user-permissions.js</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">app</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">app</span>) </span>{
   <span class="hljs-keyword">var</span> User = app.models.User;
   <span class="hljs-keyword">var</span> ACL = app.models.ACL;
   User.hasMany(app.models.Time, { <span class="hljs-keyword">as</span>: <span class="hljs-string">'times'</span>, foreignKey: <span class="hljs-string">'userId'</span> });
@@ -368,8 +356,7 @@ make this change is in
     model: <span class="hljs-string">'User'</span>,
     property: <span class="hljs-string">'__get__times'</span>
   });
-};
-</code></pre>
+};</code></pre>
 <p>Now you should be able to access <code>http://localhost:3000/api/Users/me/times</code>
 after logging in. There&#39;s just one tiny permission issue left. Remember that
 you enabled any authenticated user to create a new time. The problem is that
@@ -379,11 +366,10 @@ this is a 3-liner using <a href="http://docs.strongloop.com/display/public/LB/Re
 place to make this change is in
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/27148a641c1af3b1c83ad65c456c881340325312#diff-0">the <code>common/models/Time.js</code> file</a>, which is where &#39;Time&#39; model configuration
 belongs.</p>
-<pre><code class="lang-javascript">app.models.Time.beforeRemote(<span class="hljs-string">'create'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ctx, modelInstance, next</span>) </span>{
+<pre><code class="language-javascript">app.models.Time.beforeRemote(<span class="hljs-string">'create'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ctx, modelInstance, next</span>) </span>{
   ctx.args.data.userId = ctx.req.accessToken.userId;
   next();
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Congratulations, you just built a full REST API with permissions and OAuth
 integration with 3 simple steps. Once you get familiar with LoopBack, you can

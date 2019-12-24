@@ -27,8 +27,7 @@ for things you can do with mongoose plugins.</p>
 <a href="https://www.youtube.com/watch?v=lLl0DVzRksk">very exciting game called &quot;what is a mongoose plugin and what can it do?&quot;</a>
 A mongoose plugin is a single JavaScript function that takes
 two parameters: the schema, and an optional options object.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPlugin</span>(<span class="hljs-params">schema, options</span>) </span>{}
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyPlugin</span>(<span class="hljs-params">schema, options</span>) </span>{}</code></pre>
 <p>The <code>options</code> parameter lets you define tuneable parameters
 for your plugin. But the more interesting parameter is the
 schema.</p>
@@ -39,34 +38,31 @@ Here&#39;s a few examples of useful things they can do:</p>
 <ul>
 <li>Add middleware (AKA pre, post hooks)</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ProfileQueryPlugin</span>(<span class="hljs-params">schema</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ProfileQueryPlugin</span>(<span class="hljs-params">schema</span>) </span>{
   schema.pre(<span class="hljs-string">'find'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.start = <span class="hljs-built_in">Date</span>.now();
   });
   schema.post(<span class="hljs-string">'find'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Query time: '</span> + (<span class="hljs-built_in">Date</span>.now() - <span class="hljs-keyword">this</span>.start));
   });
-}
-</code></pre>
+}</code></pre>
 <ul>
 <li>Add paths to the schema</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreatedAtPlugin</span>(<span class="hljs-params">schema</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CreatedAtPlugin</span>(<span class="hljs-params">schema</span>) </span>{
   schema.path(<span class="hljs-string">'createdAt'</span>, <span class="hljs-built_in">Date</span>).default(<span class="hljs-built_in">Date</span>.now);
-}
-</code></pre>
+}</code></pre>
 <ul>
 <li>Tweak schema options</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">InvertDefaultToJSONOptionsPlugin</span>(<span class="hljs-params">schema</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">InvertDefaultToJSONOptionsPlugin</span>(<span class="hljs-params">schema</span>) </span>{
   schema.set(<span class="hljs-string">'toObject'</span>, {
     getters: <span class="hljs-literal">true</span>,
     virtuals: <span class="hljs-literal">true</span>,
     minimize: <span class="hljs-literal">false</span>,
     depopulate: <span class="hljs-literal">true</span>
   });
-}
-</code></pre>
+}</code></pre>
 <p>In this article, you&#39;ll take a look at 3 plugins that each do
 one of these operations. By diving into these plugins, you&#39;ll
 hopefully be more comfortable using plugins in your own code.</p>
@@ -77,20 +73,19 @@ The purpose of this plugin is to address a commonly requested
 mongoose feature: the ability to say &quot;this field should
 always be populated every time I run a query on this model.&quot;
 For instance, if you define a schema as below:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> bandSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> bandSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   lead: { type: ObjectId, ref: <span class="hljs-string">'people'</span>, autopopulate: <span class="hljs-literal">true</span> }
 });
 bandSchema.plugin(<span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose-autopopulate'</span>));
 
-<span class="hljs-keyword">var</span> Band = mongoose.model(<span class="hljs-string">'band2'</span>, bandSchema, <span class="hljs-string">'bands'</span>);
-</code></pre>
+<span class="hljs-keyword">var</span> Band = mongoose.model(<span class="hljs-string">'band2'</span>, bandSchema, <span class="hljs-string">'bands'</span>);</code></pre>
 <p>Every time you call <code>Band.find()</code> or <code>Band.findOne()</code>,
 <code>mongoose-autopopulate</code> will populate the <code>lead</code> field
 for you. Now that mongoose 4.0 has pre and post hooks for
 <code>find()</code> and <code>findOne()</code>, this plugin&#39;s implementation is
 concise.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">schema</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">schema</span>) </span>{
   <span class="hljs-keyword">var</span> pathsToPopulate = [];
   <span class="hljs-comment">// Find every path that has an `autopopulate` option</span>
   schema.eachPath(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pathname, schemaType</span>) </span>{
@@ -117,8 +112,7 @@ concise.</p>
   schema.
     pre(<span class="hljs-string">'find'</span>, autopopulateHandler).
     pre(<span class="hljs-string">'findOne'</span>, autopopulateHandler);
-};
-</code></pre>
+};</code></pre>
 <p>You can see the <a href="https://github.com/vkarpov15/mongoose-autopopulate/blob/master/index.js">full implementation on GitHub</a>.
 The key pattern here is
 <a href="http://mongoosejs.com/docs/api.html#schema_Schema-eachPath">the <code>eachPath()</code> function</a>.
@@ -151,7 +145,7 @@ to <code>(a, b)</code>. You can do this efficiently by creating a
 The below code doesn&#39;t match the GitHub exactly, I changed
 comments to flow better with this article and removed
 some redundant code to make it more concise.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">random</span>(<span class="hljs-params">schema, options</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">random</span>(<span class="hljs-params">schema, options</span>) </span>{
   options = options || {};
 
   <span class="hljs-comment">// Can specify a random function other than Math.random</span>
@@ -189,8 +183,7 @@ some redundant code to make it more concise.</p>
 
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.find(conditions, fields, options, callback);
   };
-}
-</code></pre>
+}</code></pre>
 <p><em>The above code is included from
 <a href="https://github.com/matomesc/mongoose-random">this GitHub repo</a>
 and subject to the
@@ -210,7 +203,7 @@ the client, like passwords or email addresses.</p>
 plugin gives you an easy way to always hide certain fields
 from <code>toObject()</code> output. For instance, suppose you had
 the following schema.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   name: <span class="hljs-built_in">String</span>,
   password: { type: <span class="hljs-built_in">String</span>, hide: <span class="hljs-literal">true</span> }
 });
@@ -219,13 +212,12 @@ userSchema.plugin(<span class="hljs-built_in">require</span>(<span class="hljs-s
 <span class="hljs-keyword">var</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema, <span class="hljs-string">'users'</span>);
 <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> User({ name: <span class="hljs-string">'Val'</span>, password: <span class="hljs-string">'pwd'</span> });
 <span class="hljs-comment">// Prints `{ "name": "Val" }`. No password!</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(user.toObject()));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(user.toObject()));</code></pre>
 <p>The implementation of <code>mongoose-hidden</code> is pretty complex
 because it has numerous options and has the ability to hide
 virtuals. However, the general idea for implementing
 the <code>hide</code> option for schemas is pretty straightforward.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HidePlugin</span>(<span class="hljs-params">schema</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HidePlugin</span>(<span class="hljs-params">schema</span>) </span>{
   <span class="hljs-keyword">var</span> toHide = [];
   schema.eachPath(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pathname, schemaType</span>) </span>{
     <span class="hljs-keyword">if</span> (schemaType.options &amp;&amp; schemaType.options.hide) {
@@ -252,8 +244,7 @@ the <code>hide</code> option for schemas is pretty straightforward.</p>
 
     <span class="hljs-keyword">return</span> ret;
   };
-}
-</code></pre>
+}</code></pre>
 <p>The <code>transform</code> option is passed to <code>toObject()</code> and
 <code>toJSON()</code>. It lets you define a function that manipulates
 the returned object (the <code>ret</code> parameter in the transform

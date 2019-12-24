@@ -45,13 +45,14 @@ anyway. Or you could tell everyone to run <code>npm install</code> and
 nobody on your team can use gulp until you push a fix. And
 what if somebody needs to check out an old commit that will
 only work with an older version of gulp?</p>
-<p><img src="//i.imgur.com/PfWLSfz.png" /></p>
+<img src="//i.imgur.com/PfWLSfz.png" />
+
 <p>If only you had a way to map which commit depended on which
 version of gulp... Oh wait, that&#39;s called <code>package.json</code>. Is it worth it to type <code>gulp</code> instead of <code>./node_modules/gulp/bin/gulp.js</code>, especially when you can just
 create a shortcut in your <code>package.json</code> <code>scripts</code> section or in a <code>Makefile</code>?
 I love some good syntactic sugar as much as the next developer,
 but I don&#39;t think its worth the hassle.</p>
-<h1 id="when-g-is-useful">When <code>-g</code> is Useful</h1>
+<h1 id="when--g-is-useful">When <code>-g</code> is Useful</h1>
 <p>I&#39;d argue the only case where <code>-g</code> is useful would be modules
 like <a href="https://www.npmjs.com/package/n">n</a>, <a href="https://www.npmjs.com/package/nvm">nvm</a>, and <a href="https://www.npmjs.com/package/npm">npm</a>.
 When your primary purpose is to manage the bare minimum global

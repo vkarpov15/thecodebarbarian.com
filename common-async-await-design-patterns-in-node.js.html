@@ -16,7 +16,7 @@
 <h2 id="retrying-failed-requests">Retrying Failed Requests</h2>
 <p>The power of <code>await</code> is that it lets you write asynchronous code using synchronous
 language constructs. For example, here&#39;s how you might retry a failed HTTP request using the <a href="http://npmjs.org/package/superagent">superagent HTTP library</a> using callbacks.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 <span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
 
@@ -38,11 +38,10 @@ request(<span class="hljs-string">'http://google.com/this-throws-an-error'</span
     }
     callback(res);
   });
-}
-</code></pre>
+}</code></pre>
 <p>Not too difficult, but it involves recursion and can be tricky to grok for beginners. Plus, there&#39;s another more subtle issue. What happens if <code>superagent.get().end()</code> throws a <em>synchronous</em> exception? We&#39;d need to wrap the <code>_request()</code> call in a try/catch in order to handle all exceptions. Having to do this everywhere is
 cumbersome and error prone. With async/await, you can write an equivalent function with just <code>for</code> and <code>try/catch</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 <span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
 
@@ -57,10 +56,9 @@ test();
     } <span class="hljs-keyword">catch</span>(err) {}
   }
   <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 3</span>
-}
-</code></pre>
+}</code></pre>
 <p>Trust me, this works. I remember the first time I tried this pattern with <a href="https://www.npmjs.com/package/co">co</a>, I was baffled that it actually worked. However, the below does <strong>not</strong> work. Remember that <code>await</code> must always be in an <code>async</code> function, and the closure passed to <code>forEach()</code> below is not <code>async</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 <span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
 
@@ -74,12 +72,11 @@ test();
       <span class="hljs-keyword">await</span> superagent.get(<span class="hljs-string">'http://google.com/this-throws-an-error'</span>);
     } <span class="hljs-keyword">catch</span>(err) {}
   });
-}
-</code></pre>
+}</code></pre>
 <h2 id="processing-a-mongodb-cursor">Processing a MongoDB Cursor</h2>
 <p><a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find">MongoDB&#39;s <code>find()</code> function returns a <em>cursor</em></a>. A cursor is fundamentally an object with an asynchronous <code>next()</code> function that gets the next document in the query result. If there are no more results, <code>next()</code> resolves to null. MongoDB cursors have several helper functions like <code>each()</code>, <code>map()</code>, and <code>toArray()</code>, and the <a href="https://www.npmjs.com/package/mongoose">mongoose ODM</a> adds an <a href="http://thecodebarbarian.com/cursors-in-mongoose-45">additional <code>eachAsync()</code> function</a>, but these are all just syntactic sugar on top of <code>next()</code>.</p>
 <p>Without async/await, calling <code>next()</code> manually involves the same kind of recursion as the retry example. With async/await, you&#39;ll find yourself not using the helper functions anymore (other than maybe <code>toArray()</code>) because iterating through the cursor with a <code>for</code> loop is much easier:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 test();
 
@@ -99,21 +96,19 @@ test();
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> cursor.next(); doc != <span class="hljs-literal">null</span>; doc = <span class="hljs-keyword">await</span> cursor.next()) {
     <span class="hljs-built_in">console</span>.log(doc.name);
   }
-}
-</code></pre>
+}</code></pre>
 <p>If that&#39;s not convenient enough for you, there&#39;s a <a href="https://github.com/tc39/proposal-async-iteration">TC39 proposal for async iterators</a> that would let you do something like this. Note that the below code does <strong>not</strong> work in any currently released version of Node.js, it&#39;s just an example of what may be possible in the future.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = db.collection(<span class="hljs-string">'Movies'</span>).find().map(value =&gt; ({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cursor = db.collection(<span class="hljs-string">'Movies'</span>).find().map(value =&gt; ({
   value,
   done: !value
 }));
 
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
   <span class="hljs-built_in">console</span>.log(doc.name);
-}
-</code></pre>
+}</code></pre>
 <h2 id="multiple-requests-in-parallel">Multiple Requests in Parallel</h2>
 <p>Both of the above patterns execute requests in sequence, there&#39;s only one <code>next()</code> function call executing at any given time. What about multiple asynchronous tasks in parallel? Let&#39;s pretend you&#39;re a malicious hacker and want to hash multiple plaintext passwords in parallel with <a href="https://www.npmjs.com/package/bcrypt">bcrypt</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcrypt'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcrypt'</span>);
 
 <span class="hljs-keyword">const</span> NUM_SALT_ROUNDS = <span class="hljs-number">8</span>;
 
@@ -133,11 +128,10 @@ test();
    *   '$2a$08$VCdMy8NSwC8r9ip8eKI1QuBd9wSxPnZoZBw8b1QskK77tL2gxrUk.' ]
    */</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all(promises));
-}
-</code></pre>
+}</code></pre>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"><code>Promise.all()</code> function</a> takes an array of promises, and returns a promise that waits for every promise in the array to resolve and then resolves to an array that contains the value each promise in the original array resolved to. Each <code>bcrypt.hash()</code> call returns a promise, so <code>promises</code> in the above array contains an array of promises, and the value of <code>await Promise.all(promises)</code> is the result of each of the <code>bcrypt.hash()</code> calls.</p>
 <p><code>Promise.all()</code> is not the only way you can handle multiple async functions in parallel, there&#39;s also the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race"><code>Promise.race()</code> function</a> that executes multiple promises in parallel, waits for the first promise to resolve, and returns the value that promise resolved to. Here&#39;s an example of using <code>Promise.race()</code> with async/await:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/**
+<pre><code class="language-javascript"><span class="hljs-comment">/**
  * Prints below:
  * waited 250
  * resolved to 250
@@ -155,8 +149,7 @@ test();
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'waited'</span>, ms);
   <span class="hljs-keyword">return</span> ms;
-}
-</code></pre>
+}</code></pre>
 <p>Note that, although <code>Promise.race()</code> resolves after the first promise resolves, the remaining <code>async</code> functions still continue executing. <a href="https://github.com/tc39/proposal-cancelable-promises">Remember that promises are not cancellable</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Async/await is a huge win for JavaScript. With these two simple keywords you can remove numerous external dependencies and hundreds of lines of code from your codebase. You can add robust error handling, retries, and parallelization with just a handful of simple built-in language constructs. I hope you&#39;re as excited as I am for this feature to hit <a href="https://github.com/nodejs/LTS#lts-plan">Node.js 8 LTS (hopefully) in April 2017</a>.</p>

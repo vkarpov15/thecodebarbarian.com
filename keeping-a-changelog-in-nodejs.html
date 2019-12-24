@@ -14,7 +14,8 @@
 </div>
 </div><div class="post-body-text-container"><p><a href="https://keepachangelog.com/en/1.0.0/">Keeping a changelog</a> is an important practice that many developers don&#39;t value enough. Keeping a changelog makes it easy for humans to understand what the important changes in a new release are. Even if you squash commits, there&#39;s a key difference between git commit messages and changelogs: commit messages are for developers actively working on the project, changelogs are for consumers of the software. Plus, changelogs are more portable because they are typically written in markdown, so you can search a changelog using a text editor and ctrl+f.</p>
 <p>For example, if you&#39;re building a REST API, a mobile app developer may be a consumer of your software. The mobile app developer shouldn&#39;t care about minor internal refactors, but they care about whether that one bug was fixed or whether support for a new feature was released. That&#39;s why, at <a href="https://trybooster.com/careers">Booster</a>, we not only keep a changelog for all of our backend services, we have a slack channel that publishes the changelog of new versions as they come in.</p>
-<p><img src="https://i.imgur.com/myaDDCF.png"></p>
+<img src="https://i.imgur.com/myaDDCF.png">
+
 <p>Unfortunately, my best (highly unscientific) estimate is that only 5-10% of modules on <a href="https://www.npmjs.com/">npm</a> keep a changelog in their GitHub repo. Here&#39;s a few examples:</p>
 <ul>
 <li><a href="https://github.com/lodash/lodash/wiki/Changelog">lodash</a></li>
@@ -25,7 +26,8 @@
 <h2 id="angular-style-structured-commits">Angular-Style Structured Commits</h2>
 <p>The <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines">Angular team&#39;s commit message convention</a> is one of the more well adopted structured commit conventions.
 Below is an example of some commits to the <a href="https://github.com/angular/angular">Angular GitHub repo</a>.</p>
-<p><img src="https://i.imgur.com/Y4SUAxt.png"></p>
+<img src="https://i.imgur.com/Y4SUAxt.png">
+
 <p>According to the <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines">Angular commit message convention</a>, every commit message must start with a &#39;type&#39; that describes the nature of the change at a high level. The &#39;type&#39; lets you easily understand the intent of a commit: whether it fixes a bug, adds a new feature, changes the build system, etc. Below is a list of all currently supported types:</p>
 <ul>
 <li>build: Changes that affect the build system or external dependencies</li>
@@ -56,8 +58,7 @@ the &#39;Initial commit&#39; message. So when you run <code>./node_modules/.bin/
 
 ### Bug Fixes
 
-* **index:** remove unnecessary exclamation ([d148e12](https://github.com/vkarpov15/changelog-example/commit/d148e12))</span>
-</code></pre><p>Generally, you should run <code>standard-changelog</code> from a release script in your <code>package.json</code>. This release script should encapsulate everything you need to do to create a new release for your project:</p>
+* **index:** remove unnecessary exclamation ([d148e12](https://github.com/vkarpov15/changelog-example/commit/d148e12))</span></code></pre><p>Generally, you should run <code>standard-changelog</code> from a release script in your <code>package.json</code>. This release script should encapsulate everything you need to do to create a new release for your project:</p>
 <ul>
 <li>Create a <code>chore: release X.Y.Z</code> commit</li>
 <li>Create a git tag for the release</li>
@@ -76,8 +77,7 @@ the &#39;Initial commit&#39; message. So when you run <code>./node_modules/.bin/
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"release"</span>: <span class="hljs-string">"standard-changelog &amp;&amp; git commit -a -m \"chore: release `./node_modules/.bin/print-pkg-version`\" &amp;&amp; git tag `./node_modules/.bin/print-pkg-version` &amp;&amp; git push origin master --tags"</span>
   }
-}
-</code></pre><p>With this release script, you still need to bump the <code>package.json</code> version manually.</p>
+}</code></pre><p>With this release script, you still need to bump the <code>package.json</code> version manually.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Changelogs are how you tell your users what changes they need to be aware of. Commit logs are usually not enough, because they can include internal changes that are irrelevant to consumers and because they aren&#39;t sufficiently portable. So whether you&#39;re an npm module author, building an internal RESTful API, or building a mobile app, make sure you <a href="https://keepachangelog.com/en/1.0.0/">keep a changelog</a> so your users know exactly what changes they should be aware of.</p>
 <p><em>Worried about what&#39;s going on in your <code>./node_modules</code>? Still having left_pad nightmares? <a href="https://tidelift.com/subscription/pkg/npm-mongoose?utm_source=npm-mongoose&amp;utm_medium=website">Tidelift</a> is working to help maintainers communicate important changes to developers using their npm modules, like license changes and security fixes. If you like the idea of a centralized channel for npm module related information that&#39;s separate from GitHub, check out <a href="https://tidelift.com/subscription/pkg/npm-mongoose?utm_source=npm-mongoose&amp;utm_medium=website">Tidelift</a>.</em></p>

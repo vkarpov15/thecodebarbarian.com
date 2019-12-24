@@ -16,10 +16,10 @@
 virtual populate API addresses some significant limitations in the conventional
 populate API. Before you learn about the virtual populate API, let&#39;s see what&#39;s
 wrong with conventional populate.</p>
-<h2 id="but-populate-is-awesome-">But Populate Is Awesome!</h2>
+<h2 id="but-populate-is-awesome">But Populate Is Awesome!</h2>
 <p>The <code>populate()</code> function is mongoose&#39;s mechanism for pseudo-joins. Let&#39;s say
 you have 2 collections, &#39;Author&#39; and &#39;BlogPost&#39;:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: <span class="hljs-string">'BlogPost'</span> }]
 });
@@ -33,17 +33,15 @@ you have 2 collections, &#39;Author&#39; and &#39;BlogPost&#39;:</p>
 });
 
 <span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, AuthorSchema, <span class="hljs-string">'Author'</span>);
-<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);
-</code></pre>
+<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);</code></pre>
 <p>Using the conventional <code>populate()</code> API, you can load all an author&#39;s blog
 posts with a single query.</p>
-<pre><code class="lang-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+<pre><code class="language-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
   <span class="hljs-comment">// `author.posts` is an array of `BlogPost` documents</span>
-});
-</code></pre>
+});</code></pre>
 <p>You can even load all an author&#39;s blog posts and all the authors of comments
 on the author&#39;s blog posts.</p>
-<pre><code class="lang-javascript">Author.
+<pre><code class="language-javascript">Author.
   findOne().
   populate({
     path: <span class="hljs-string">'posts'</span>,
@@ -53,8 +51,7 @@ on the author&#39;s blog posts.</p>
   }).
   exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
     <span class="hljs-comment">// `author.posts.comments.author` now contains `Author` documents</span>
-  });
-</code></pre>
+  });</code></pre>
 <p>Populate is powerful, but encourages you to design your MongoDB schemas
 poorly. The relationship between authors and blog posts is a one-to-many
 relationship - each blog post has exactly one author, but an author can have
@@ -70,7 +67,7 @@ author of the post?</p>
 <p>The correct way to model this relationship is using an &#39;author&#39; property in
 <code>BlogPostSchema</code>. You can then define the &#39;posts&#39; property as a <em>virtual</em>,
 that is, a field that mongoose never persists to the database.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AuthorSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 });
 
@@ -92,24 +89,21 @@ AuthorSchema.virtual(<span class="hljs-string">'posts'</span>, {
 });
 
 <span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, AuthorSchema, <span class="hljs-string">'Author'</span>);
-<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);
-</code></pre>
+<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, BlogPostSchema, <span class="hljs-string">'BlogPost'</span>);</code></pre>
 <p>You can use the &#39;posts&#39; virtual to get all an author&#39;s blog posts in the same
 way:</p>
-<pre><code class="lang-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+<pre><code class="language-javascript">Author.findOne().populate(<span class="hljs-string">'posts'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
   <span class="hljs-comment">// `author.posts` is an array of `BlogPost` documents</span>
-});
-</code></pre>
+});</code></pre>
 <p>But now, even if your author has thousands of blog posts, your author document
 and blog post documents will always be small. Plus, you can use the
 <code>populate()</code> to get a blog post&#39;s author:</p>
-<pre><code class="lang-javascript">BlogPost.findOne().populate(<span class="hljs-string">'author'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
+<pre><code class="language-javascript">BlogPost.findOne().populate(<span class="hljs-string">'author'</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
   <span class="hljs-comment">// `author` now contains an 'Author' document</span>
-});
-</code></pre>
+});</code></pre>
 <p>If you want to get super fancy, you can even find the posts posted by
 every user that&#39;s commented on a blog post:</p>
-<pre><code class="lang-javascript">BlogPost.
+<pre><code class="language-javascript">BlogPost.
   findOne().
   populate({
     path: <span class="hljs-string">'comments.author'</span>,
@@ -120,8 +114,7 @@ every user that&#39;s commented on a blog post:</p>
   exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, author</span>) </span>{
     <span class="hljs-comment">// `comments.author.posts` now contains an array of all posts that the</span>
     <span class="hljs-comment">// comment's author wrote</span>
-  });
-</code></pre>
+  });</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The virtual populate API is an exciting addition to mongoose that enables you
 to design your schemas in an idiomatic way rather than design around the

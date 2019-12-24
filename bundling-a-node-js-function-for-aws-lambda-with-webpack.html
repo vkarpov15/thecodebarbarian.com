@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p>One of the major challenges when working with <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> is bundling all your <code>node_modules</code> into <a href="https://mongoosejs.com/docs/lambda.html">one zip file</a>. Most simple examples rely on zipping up the entirety of <code>./node_modules</code>, but that doesn&#39;t scale well if you&#39;re looking to built a suite of Lambda functions as opposed to a single &quot;Hello, World&quot; example. In this article, I&#39;ll demonstrate the problem with zipping up Lambda functions yourself and show you how to use Webpack to bundle a Lambda function that connects to MongoDB.</p>
 <h2 id="motivation">Motivation</h2>
 <p>For example, say you&#39;re building a couple simple API endpoints in Lambda using <a href="https://mongoosejs.com/docs/lambda.html">Mongoose</a>. You have a common file that handles connecting to the database called <code>db.js</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./.config'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./.config'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">let</span> conn = <span class="hljs-literal">null</span>;
@@ -31,14 +31,13 @@
   }
 
   <span class="hljs-keyword">return</span> conn;
-};
-</code></pre>
+};</code></pre>
 <p>Now, to create a Lambda bundle <code>lambda.zip</code> with a function that uses <code>db.js</code>, you need to <code>zip -r ./lambda.zip ./db.js ./fn.js ./node_modules</code>. Not bad. But presumably you also want to create some extra <a href="https://mongoosejs.com/docs/models.html">Mongoose models</a>, which involves adding another file to your <code>zip</code> command. In other words, you need to manually figure out the entire tree of <code>require()</code>-ed files and make sure they&#39;re all in your zip file, otherwise your Lambda function will crash.</p>
 <p>Furthermore, zipping up all of <code>node_modules</code> is a bad idea. Once your project grows beyond the proof-of-concept phase and you want to add a testing framework like <a href="http://npmjs.com/package/mocha">Mocha</a> or a linter like <a href="https://www.npmjs.com/package/eslint">eslint</a>, your <code>node_modules</code> will be filled with modules that your Lambda function doesn&#39;t need in production. <code>devDependencies</code> can help, but then you need to remember to <code>npm install --production</code> if you&#39;re building the bundle locally.</p>
 <p>In other words, creating a zip bundle manually means you need to follow <code>require()</code> statements to make sure you get all the modules you need and none of the modules you don&#39;t. Sounds like a textbook use case for <a href="https://webpack.js.org/">Webpack</a>.</p>
 <h2 id="bundling-a-lambda-function-with-webpack">Bundling a Lambda Function with Webpack</h2>
 <p>Suppose you have a function that gets a document from the &#39;State&#39; collection in MongoDB. If you&#39;re looking to try this code out, make sure you <code>npm install mongoose webpack webpack-cli</code> first.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./db'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./db'</span>);
 <span class="hljs-keyword">const</span> handler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./handler'</span>);
 
 exports.handler = handler(getState);
@@ -47,10 +46,9 @@ exports.handler = handler(getState);
   <span class="hljs-keyword">const</span> conn = <span class="hljs-keyword">await</span> db();
 
   <span class="hljs-keyword">return</span> conn.model(<span class="hljs-string">'State'</span>).findOne();
-}
-</code></pre>
+}</code></pre>
 <p>The <code>handler.js</code> file contains a small wrapper function that wraps the <code>getState()</code> function in AWS&#39; preferred function signature.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = fn =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, context, callback</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = fn =&gt; <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, context, callback</span>) </span>{
   <span class="hljs-comment">// See https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas</span>
   context.callbackWaitsForEmptyEventLoop = <span class="hljs-literal">false</span>;
 
@@ -67,8 +65,7 @@ exports.handler = handler(getState);
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
     }).
     <span class="hljs-keyword">catch</span>(error =&gt; callback(error));
-};
-</code></pre>
+};</code></pre>
 <p>There are 4 files to bundle, in addition to Mongoose and whatever <code>node_modules</code> Mongoose pulls in:</p>
 <ul>
 <li><code>getState.js</code>: this is the entry point</li>
@@ -77,7 +74,7 @@ exports.handler = handler(getState);
 <li><code>.config.js</code>: exports an object that contains sensitive credentials. You can also use <a href="https://docs.aws.amazon.com/lambda/latest/dg/env_variables.html">Lambda environment variables</a>.</li>
 </ul>
 <p>The Webpack config file is shown below. This config is simpler than most Webpack configs because you don&#39;t need Babel or JSX or any other plugins for Lambda. Lambda now <a href="https://aws.amazon.com/blogs/compute/node-js-8-10-runtime-now-available-in-aws-lambda/">supports Node.js 8</a>, so you don&#39;t even need Lambda for <a href="http://asyncawait.net/">async/await</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   entry: [<span class="hljs-string">'./getState.js'</span>],
   target: <span class="hljs-string">'node'</span>,
   output: {
@@ -85,16 +82,17 @@ exports.handler = handler(getState);
     filename: <span class="hljs-string">'getState.js'</span>,
     libraryTarget: <span class="hljs-string">'umd'</span>
   }
-};
-</code></pre>
+};</code></pre>
 <p>Lambda only accepts zip files as function uploads, so you still need to zip up <code>./bin/getState.js</code> after you run <code>./node_modules/.bin/webpack</code>.</p>
-<pre><code>zip -r ./bin/getState.zip ./bin/getState.js
-</code></pre><p>Now, you&#39;re ready to upload the <code>getState()</code> function to Lambda. Go to the <a href="https://console.aws.amazon.com/lambda/home">AWS Lambda console</a> and click &quot;Create Function&quot;. Name the function <code>getState()</code> and make sure you select &quot;Node.js 8.10&quot; as the runtime for <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await support</a>.</p>
-<p><img src="https://i.imgur.com/sf2H9hM.png" class="inline-image" /></p>
+<pre><code>zip -r ./bin/getState.zip ./bin/getState.js</code></pre><p>Now, you&#39;re ready to upload the <code>getState()</code> function to Lambda. Go to the <a href="https://console.aws.amazon.com/lambda/home">AWS Lambda console</a> and click &quot;Create Function&quot;. Name the function <code>getState()</code> and make sure you select &quot;Node.js 8.10&quot; as the runtime for <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await support</a>.</p>
+<img src="https://i.imgur.com/sf2H9hM.png" class="inline-image" />
+
 <p>Make sure you tweak the &#39;handler&#39; input to point to the correct file path. If you zipped up <code>./bin/getState.js</code>, Lambda will create a <code>./bin</code> directory when it unzips.</p>
-<p><img src="https://i.imgur.com/8m3szk0.png" class="inline-image" /></p>
+<img src="https://i.imgur.com/8m3szk0.png" class="inline-image" />
+
 <p>After setting the &#39;handler&#39;, click &#39;Test&#39; and you should see your function successfully execute.</p>
-<p><img src="https://i.imgur.com/zEqMLLB.png" class="inline-image" /></p>
+<img src="https://i.imgur.com/zEqMLLB.png" class="inline-image" />
+
 <h2 id="moving-on">Moving On</h2>
 <p>Serverless frameworks like AWS Lambda are becoming increasingly popular for API development. Lambda has numerous advantages over hosting an Express API on Amazon EC2.
 Lambda&#39;s <a href="https://aws.amazon.com/lambda/pricing/">free tier</a> gives you 1 million free requests per month, and doesn&#39;t expire after 12 months like EC2&#39;s. Lambda functions also are behind HTTPS by default, so you don&#39;t have to worry about <a href="https://letsencrypt.org/">renewing your LetsEncrypt certificates</a>. So next time you find yourself deploying a REST API, try tinkering with putting it on Lambda instead.</p>

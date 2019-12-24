@@ -15,44 +15,39 @@
 </div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">JavaScript arrays</a> are an essential part of the language. Fundamentally, an array is a value that stores an ordered list of other values. But JavaScript arrays come with a lot of nuances and surprises. In this article, I&#39;ll provide an overview of what you need to know about JavaScript arrays.</p>
 <h2 id="creating-arrays">Creating Arrays</h2>
 <p>The most common way to create an array in JavaScript is using square brackets <code>[]</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// `arr` is an array with 3 elements</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// `arr` is an array with 3 elements</span>
 <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 arr.length; <span class="hljs-comment">// 3</span>
 arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 'a'</span>
 arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'b'</span>
-arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'c'</span>
-</code></pre>
+arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'c'</span></code></pre>
 <p>JavaScript also has a built-in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"><code>Array</code> class</a>. You may see the above array declared this way:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>);
 
 arr.length; <span class="hljs-comment">// 3</span>
 arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 'a'</span>
 arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'b'</span>
-arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'c'</span>
-</code></pre>
+arr[<span class="hljs-number">2</span>]; <span class="hljs-comment">// 'c'</span></code></pre>
 <p>However, you should avoid using <code>new Array()</code> unless you have a very good reason to. That&#39;s because, if <code>new Array(v)</code> receives only one parameter and <code>v</code> is an integer between <code>0</code> and <code>2^31</code>, JavaScript will interpret that to mean you want to create an empty array of length <code>v</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">5</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">5</span>);
 
 arr.length; <span class="hljs-comment">// 5</span>
-arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// undefined</span>
-</code></pre>
+arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// undefined</span></code></pre>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of">ES6 introduced an <code>Array.of()</code> function</a> that avoids this gotcha:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-built_in">Array</span>.of(<span class="hljs-number">5</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = <span class="hljs-built_in">Array</span>.of(<span class="hljs-number">5</span>);
 
 arr.length; <span class="hljs-comment">// 1</span>
-arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 5</span>
-</code></pre>
+arr[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 5</span></code></pre>
 <h2 id="copying-arrays">Copying Arrays</h2>
 <p>There&#39;s 4 common ways to copy an array. First, given an array <code>arr</code>, you can use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat"><code>Array#concat()</code> function</a> to concat the values in <code>arr</code> onto an empty array:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-keyword">const</span> arr2 = [].concat(arr);
 arr2.length; <span class="hljs-comment">// 3</span>
-arr2 === arr; <span class="hljs-comment">// false</span>
-</code></pre>
+arr2 === arr; <span class="hljs-comment">// false</span></code></pre>
 <p>Second is the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"><code>Array#slice()</code> function</a>. The <code>slice()</code> function also takes 2 parameters, a <code>begin</code> and an <code>end</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-keyword">const</span> arr2 = arr.slice();
 arr2.length; <span class="hljs-comment">// 3</span>
@@ -61,97 +56,84 @@ arr2 === arr; <span class="hljs-comment">// false</span>
 <span class="hljs-comment">// Copy everything from index 1 onwards</span>
 arr.slice(<span class="hljs-number">1</span>); <span class="hljs-comment">// ['b', 'c']</span>
 <span class="hljs-comment">// Copy everything from index 0 to index 2, excluding index 2.</span>
-arr.slice(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// ['a', 'b']</span>
-</code></pre>
+arr.slice(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// ['a', 'b']</span></code></pre>
 <p><code>slice()</code> and <code>concat()</code> are the most common because they have wide browser support. <code>concat()</code> and <code>slice()</code> are in every modern browser and IE back to IE 5.5, so you&#39;re unlikely to find a JavaScript environment that doesn&#39;t have these functions. On the other hand, the next two array copying paradigms, <code>Array.from()</code> and spread syntax, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#Browser_compatibility">are not supported in any version of Internet Explorer</a>.</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">ES6 introduced an <code>Array.from()</code> function</a>. What makes <code>Array.from()</code> special is that it can convert an arbitrary JavaScript iterable into an array, including <a href="https://masteringjs.io/tutorials/fundamentals/map">maps</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">sets</a>. Arrays are iterables, so you can use <code>Array.from()</code> to copy an array.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-keyword">const</span> arr2 = <span class="hljs-built_in">Array</span>.from(arr);
 arr2.length; <span class="hljs-comment">// 3</span>
-arr2 === arr; <span class="hljs-comment">// false</span>
-</code></pre>
+arr2 === arr; <span class="hljs-comment">// false</span></code></pre>
 <p>Finally, ES6 also introduced <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#A_better_way_to_concatenate_arrays">spread syntax for copying arrays</a>. Spread means <code>...arr</code> is syntactically equivalent to <code>&#39;a&#39;, &#39;b&#39;, &#39;c&#39;</code>, including for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#Spread_in_function_calls">function calls</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-comment">// The '...' is spread syntax.</span>
 <span class="hljs-keyword">const</span> arr2 = [...arr];
 arr2.length; <span class="hljs-comment">// 3</span>
-arr2 === arr; <span class="hljs-comment">// false</span>
-</code></pre>
+arr2 === arr; <span class="hljs-comment">// false</span></code></pre>
 <h2 id="checking-if-a-value-is-an-array">Checking if a Value is an Array</h2>
 <p>Do <strong>not</strong> use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">JavaScript&#39;s <code>typeof</code> operator</a> to check whether a value is an array. That&#39;s because arrays are technically objects:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">typeof</span> []; <span class="hljs-comment">// 'object'</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">typeof</span> []; <span class="hljs-comment">// 'object'</span></code></pre>
 <p>The most common way to check whether a value is an array is the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"><code>Array.isArray()</code> function</a>, which is supported in all modern browsers and IE since IE9.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Array</span>.isArray([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// true</span>
+<pre><code class="language-javascript"><span class="hljs-built_in">Array</span>.isArray([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// true</span>
 
 <span class="hljs-built_in">Array</span>.isArray(<span class="hljs-literal">null</span>); <span class="hljs-comment">// false</span>
 <span class="hljs-built_in">Array</span>.isArray(<span class="hljs-string">'test'</span>); <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">Array</span>.isArray({ <span class="hljs-number">0</span>: <span class="hljs-string">'test'</span> }); <span class="hljs-comment">// false</span>
-</code></pre>
+<span class="hljs-built_in">Array</span>.isArray({ <span class="hljs-number">0</span>: <span class="hljs-string">'test'</span> }); <span class="hljs-comment">// false</span></code></pre>
 <p>You can also use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof"><code>instanceof</code> operator</a> to check if a value is <code>instanceof Array</code>.</p>
-<pre><code class="lang-javascript">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// true</span>
+<pre><code class="language-javascript">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// true</span>
 
 <span class="hljs-literal">null</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// false</span>
 <span class="hljs-string">'test'</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// false</span>
-({ <span class="hljs-number">0</span>: <span class="hljs-string">'test'</span> }) <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// false</span>
-</code></pre>
+({ <span class="hljs-number">0</span>: <span class="hljs-string">'test'</span> }) <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>; <span class="hljs-comment">// false</span></code></pre>
 <h2 id="iterating-and-manipulating-arrays">Iterating and Manipulating Arrays</h2>
 <p>There are <a href="/for-vs-for-each-vs-for-in-vs-for-of-in-javascript">numerous ways to iterate through an array in JavaScript</a>. They all have their tradeoffs, but the 3 most common ways to iterate over <code>arr</code> are:</p>
 <ul>
 <li>Conventional <code>for</code> loop</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
   arr[i]; <span class="hljs-comment">// 'a', 'b', 'c'</span>
-}
-</code></pre>
+}</code></pre>
 <ul>
 <li><a href="https://masteringjs.io/tutorials/fundamentals/foreach"><code>Array#forEach()</code></a></li>
 </ul>
-<pre><code class="lang-javascript">arr.forEach((val, i) =&gt; {
+<pre><code class="language-javascript">arr.forEach((val, i) =&gt; {
   val; <span class="hljs-comment">// 'a', 'b', 'c'</span>
   i; <span class="hljs-comment">// 0, 1, 2</span>
-});
-</code></pre>
+});</code></pre>
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of"><code>for/of</code> loop</a>, ES6 only</li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> arr) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> arr) {
   val; <span class="hljs-comment">// 'a', 'b', 'c'</span>
-}
-</code></pre>
+}</code></pre>
 <p>The conventional <code>for</code> loop and <code>for/of</code> loop both support <a href="https://www.w3schools.com/jsref/jsref_break.asp">the <code>break</code> statement to terminate the loop early</a> and the <a href="https://www.w3schools.com/jsref/jsref_continue.asp"><code>continue</code> statement to skip the rest of the current iteration of the loop</a>. There&#39;s <a href="https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break">no equivalent to <code>break</code> for <code>forEach()</code></a>, but you can use <code>return</code> as an equivalent to <code>continue</code> for <code>forEach()</code>.</p>
 <p>To add an element to the end of the array, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">the <code>Array#push()</code> function</a>. <a href="https://masteringjs.io/tutorials/fundamentals/push">Read more about <code>Array#push()</code> here</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>];
 
 arr.push(<span class="hljs-string">'c'</span>);
-arr; <span class="hljs-comment">// ['a', 'b', 'c']</span>
-</code></pre>
+arr; <span class="hljs-comment">// ['a', 'b', 'c']</span></code></pre>
 <p>To add to the beginning of the array, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift"><code>Array#unshift()</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 arr.unshift(<span class="hljs-string">'a'</span>);
-arr; [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
-</code></pre>
+arr; [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];</code></pre>
 <p>To insert an element in-place into an array and shift the rest of the array over, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>Array#splice()</code></a> (not to be confused with <code>slice()</code>). Here&#39;s a <a href="https://masteringjs.io/tutorials/fundamentals/array-splice"><code>Array.splice()</code> tutorial</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>];
 
 <span class="hljs-comment">// `2` means insert at index 2, `0` means delete 0 elements at index 2</span>
 arr.splice(<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'c'</span>);
 
 <span class="hljs-comment">// `splice()` modified the array in-place</span>
-arr; <span class="hljs-comment">// ['a', 'b', 'c', 'd']</span>
-</code></pre>
+arr; <span class="hljs-comment">// ['a', 'b', 'c', 'd']</span></code></pre>
 <p>To remove the first or last element in the array, you can use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift"><code>shift()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop"><code>pop()</code></a>, respectively. You can also use <code>splice()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 arr.shift();
 arr; <span class="hljs-comment">// ['b', 'c']</span>
 
 arr.pop();
-arr; <span class="hljs-comment">// ['b']</span>
-</code></pre>
+arr; <span class="hljs-comment">// ['b']</span></code></pre>
 <h2 id="functional-programming">Functional Programming</h2>
 <p>JavaScript arrays also have several functional programming primitives:</p>
 <ul>
@@ -164,15 +146,14 @@ arr; <span class="hljs-comment">// ['b']</span>
 </ul>
 <p>These functions are great for <a href="https://schier.co/blog/2013/11/14/method-chaining-in-javascript.html">chaining function calls</a>, so you can transform arrays without explicit looping. In some cases, chaining syntax can be much cleaner than the equivalent loop.</p>
 <p>For example, suppose you have an array of movies:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> movies = [
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> movies = [
   { title: <span class="hljs-string">'The Terminator'</span>, releaseDate: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1984-10-26'</span>) },
   { title: <span class="hljs-string">'Conan the Destroyer'</span>, releaseDate: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1984-06-29'</span>) },
   { title: <span class="hljs-string">'Predator'</span>, releaseDate: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1987-06-12'</span>) },
   { title: <span class="hljs-string">'Jingle All the Way'</span>, releaseDate: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1996-11-22'</span>) }
-];
-</code></pre>
+];</code></pre>
 <p>Suppose you want to filter for movies released between 1980 and 1989, and group them by year. You can do this </p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> byYear = {};
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> byYear = {};
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> movie <span class="hljs-keyword">of</span> movies) {
   <span class="hljs-keyword">const</span> year = movie.releaseDate.getYear();
   <span class="hljs-keyword">if</span> (year &lt; <span class="hljs-number">1980</span> || year &gt; <span class="hljs-number">1989</span>) {
@@ -180,35 +161,31 @@ arr; <span class="hljs-comment">// ['b']</span>
   }
   byYear[year] = byYear[year] || [];
   byYear[year].push(movie.title);
-}
-</code></pre>
+}</code></pre>
 <p>Using <a href="/tutorials/fundamentals/filter"><code>filter()</code></a>, <code>map()</code>, and <code>reduce()</code>, you can do this instead:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> byYear = movies.
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> byYear = movies.
   map(m =&gt; <span class="hljs-built_in">Object</span>.assign(m, { year: m.releaseDate.getYear() })).
   filter(m =&gt; m.year &gt;= <span class="hljs-number">1980</span> &amp;&amp; m.year &lt;= <span class="hljs-number">1989</span>).
   reduce((byYear, m) =&gt; {
     byYear[year] = byYear[year] || [];
     byYear[year].push(movie.title);
     <span class="hljs-keyword">return</span> byYear;
-  }, {});
-</code></pre>
+  }, {});</code></pre>
 <h2 id="holes">Holes</h2>
 <p>One annoying quirk of JavaScript arrays is <a href="http://2ality.com/2015/09/holes-arrays-es6.html">holes</a>. For example, the below array has a &quot;hole&quot; at index 1.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
 
 arr.length; <span class="hljs-comment">// 3</span>
-arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'undefined'</span>
-</code></pre>
+arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'undefined'</span></code></pre>
 <p>Holes can also occur if you <code>delete</code> an array index:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-keyword">delete</span> arr[<span class="hljs-number">1</span>];
 
 arr.length; <span class="hljs-comment">// 3</span>
-arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'undefined'</span>
-</code></pre>
+arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// 'undefined'</span></code></pre>
 <p>A hole is different from just setting <code>arr[1] = undefined</code> because some methods of iterating an array skip holes. Specifically, <code>forEach()</code> skips holes, but conventional <code>for</code> loops and <code>for/of</code> loops do not.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
 
 arr.forEach(v =&gt; {
   v; <span class="hljs-comment">// 'a', 'c'</span>
@@ -220,17 +197,15 @@ arr.forEach(v =&gt; {
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> arr) {
   val; <span class="hljs-comment">// 'a', undefined, 'c'</span>
-}
-</code></pre>
+}</code></pre>
 <p>You&#39;re unlikely to see array holes in practice, because it is impossible to represent an array hole in JSON. For example, if you <a href="http://thecodebarbarian.com/the-80-20-guide-to-json-stringify-in-javascript.html"><code>JSON.stringify()</code></a> an array with holes, JavaScript will replace the hole with <code>null</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
 
-<span class="hljs-built_in">JSON</span>.stringify(arr); <span class="hljs-comment">// '["a",null,"c"]'</span>
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(arr); <span class="hljs-comment">// '["a",null,"c"]'</span></code></pre>
 <h2 id="subclassing-the-array-class">Subclassing the <code>Array</code> Class</h2>
 <p><a href="https://davidtang.io/2017/09/21/subclassing-arrays-in-es2015.html">ES6 introduced the ability to subclass <code>Array</code></a>. For example, you can declare a custom array class that <code>extends Array</code> like any other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">ES6 class</a>.</p>
 <p>For example, suppose you want a custom array class that supports filtering by property name and value. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
   filterByProperty(name, value) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(obj =&gt; obj[name] === value);
   }
@@ -245,10 +220,9 @@ arr.forEach(v =&gt; {
 <span class="hljs-keyword">const</span> filtered = blogPosts.filterByProperty(<span class="hljs-string">'tag'</span>, <span class="hljs-string">'JavaScript'</span>);
 
 filtered.length; <span class="hljs-comment">// 2</span>
-filtered <span class="hljs-keyword">instanceof</span> MyArray; <span class="hljs-comment">// true</span>
-</code></pre>
+filtered <span class="hljs-keyword">instanceof</span> MyArray; <span class="hljs-comment">// true</span></code></pre>
 <p>Be careful about modifying the array constructor! When you call <code>filter()</code>, <code>map()</code>, etc. on a subclassed array, JavaScript will call the array constructor with a single parameter <code>0</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
   <span class="hljs-keyword">constructor</span>(v) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Called Constructor'</span>, v);
     <span class="hljs-keyword">super</span>(v);
@@ -258,8 +232,7 @@ filtered <span class="hljs-keyword">instanceof</span> MyArray; <span class="hljs
 <span class="hljs-keyword">const</span> arr = MyArray.of([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
 
 <span class="hljs-comment">// Prints "Called Constructor 0"</span>
-arr.filter(v =&gt; v &gt; <span class="hljs-number">2</span>);
-</code></pre>
+arr.filter(v =&gt; v &gt; <span class="hljs-number">2</span>);</code></pre>
 <p>If you choose to overwrite the array constructor with additional required parameters, make sure you can handle this case. You can also overwrite <code>filter()</code>, <code>map()</code>, and other functional paradigms to call your custom array constructor correctly.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Arrays are everywhere in JavaScript. Unfortunately, the Array API has a broad surface area and there&#39;s myriad tradeoffs between ways to achieve the same outcome. Depending on your use case, you may want to use functional programming versus loops, <code>concat()</code> versus spread, etc. Getting the details right is tricky, which is why <a href="https://github.com/airbnb/javascript/issues/1271">some people resort to draconian ESLint rules</a> to reduce the likelihood of mistakes. ESLint can help, but it is no substitute for a deep understanding of array fundamentals.</p>

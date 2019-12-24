@@ -13,17 +13,15 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a> are a built-in concurrency primitive that&#39;s been part of JavaScript since <a href="https://www.w3schools.com/js/js_es6.asp">ES6 in 2015</a>. The <code>Promise</code> class has been included in Node.js since <code>v4.0.0</code>. That means, unless you&#39;re on an unmaintained version of Node.js, you can use promises without any outside libraries.</p>
-<h2 id="getting-started-with-promises-in-node-js">Getting Started with Promises in Node.js</h2>
+<h2 id="getting-started-with-promises-in-nodejs">Getting Started with Promises in Node.js</h2>
 <p>A promise is an object representation of a value that is being computed asynchronously. The easiest way to create a promise is using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve"><code>Promise.resolve()</code> function</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create a promise with a pre-computed value 'Hello, World'</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Create a promise with a pre-computed value 'Hello, World'</span>
 <span class="hljs-keyword">const</span> promise = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'Hello, World!'</span>);
 
-promise <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>; <span class="hljs-comment">// true</span>
-</code></pre>
+promise <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>; <span class="hljs-comment">// true</span></code></pre>
 <p>The most important function for interacting with promises is the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>Promise#then()</code> function</a>. To get the promise&#39;s associated value once it is done being computed, you should call <code>.then()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Prints "Hello, World"</span>
-promise.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// Prints "Hello, World"</span>
+promise.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
 <p>There is no way to access a promise&#39;s value directly. In other words, the only way to &quot;unbox&quot; <code>promise</code> into the value &#39;Hello, World&#39; is by calling <code>.then()</code>.</p>
 <h2 id="the-technical-details-of-promises">The Technical Details of Promises</h2>
 <p>You can think of a promise as an object representation of an asynchronous operation. Technically, a promise is a <a href="https://en.wikipedia.org/wiki/Finite-state_machine">state machine</a> representing the status of an asynchronous operation. A promise can be in one of 3 states:</p>
@@ -31,62 +29,57 @@ promise.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
 <p>2) Fulfilled. The operation completed successfully.</p>
 <p>3) Rejected. The operation experienced an error.</p>
 <p>Here&#39;s a state diagram from <a href="http://asyncawait.net/"><em>Mastering Async/Await</em></a> that demonstrates the possible states:</p>
-<p><img src="https://i.imgur.com/hq1nYXo.png"></p>
+<img src="https://i.imgur.com/hq1nYXo.png">
+
 <p>Once a promise is either fulfilled or rejected, it stays fulfilled or rejected. That is why a promise that is no longer pending is called <em>settled</em>.</p>
 <p>Another important detail is that, as the client of a promise-based API, you can&#39;t fulfill or reject a promise. Given a promise object, you <strong>cannot</strong> make the promise change state, even if it is pending. You can only react to what the promise does using functions like <code>then()</code>.</p>
 <p>Speaking of <code>then()</code>, let&#39;s take another look at <code>then()</code> given the perspective of a promise as a state machine. The first parameter to <code>then()</code> is a function called <code>onFulfilled</code>.</p>
-<pre><code class="lang-javascript">promise.then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onFulfilled</span>(<span class="hljs-params">res</span>) </span>{
+<pre><code class="language-javascript">promise.then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onFulfilled</span>(<span class="hljs-params">res</span>) </span>{
   <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">// 'Hello, World'</span>
-});
-</code></pre>
+});</code></pre>
 <p>As the name <code>onFulfilled</code> implies, Node.js will call your <code>onFulfilled</code> function if your promise changes state from pending to fulfilled. If you call <code>then()</code> on a function that is already fulfilled, Node.js will call <code>onFulfilled</code> immediately.</p>
-<h2 id="errors-and-catch-">Errors and <code>catch()</code></h2>
+<h2 id="errors-and-catch">Errors and <code>catch()</code></h2>
 <p>If <code>promise</code> changes state from pending to fulfilled, Node.js will call your <code>onFulfilled</code> function. What happens if <code>promise</code> changes state from pending to rejected?</p>
 <p>Turns out the <code>.then()</code> function takes two function parameters, <code>onFulfilled</code> and <code>onRejected</code>. Node.js calls the <code>onRejected</code> function if your promise changes state from pending to rejected, or if the promise is already rejected.</p>
-<pre><code class="lang-javascript">promise.then(
+<pre><code class="language-javascript">promise.then(
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onFulfilled</span>(<span class="hljs-params">res</span>) </span>{ <span class="hljs-built_in">console</span>.log(res); },
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{ <span class="hljs-built_in">console</span>.log(err); }
-);
-</code></pre>
+);</code></pre>
 <p>If <code>onRejected</code> is null or undefined, Node.js will not treat that as an error. If a promise is rejected and it doesn&#39;t have an <code>onRejected</code> handler, that will become an <a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">unhandled promise rejection</a>.</p>
 <p>Promises also have a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject"><code>Promise.reject()</code> function</a> analagous to <code>Promise.resolve()</code>. Here&#39;s an example of using <code>Promise.reject()</code> with an <code>onRejected</code> handler.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>)).then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>)).then(<span class="hljs-literal">null</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{
   <span class="hljs-built_in">console</span>.log(err.message); <span class="hljs-comment">// Oops!</span>
-});
-</code></pre>
+});</code></pre>
 <p>The <code>.then(null, function onRejected() {})</code> pattern is so common in promises that there&#39;s a helper function for it: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>Promise#catch()</code></a>. The <code>catch()</code> function lets you add an <code>onRejected</code> handler without passing an <code>onFulfilled()</code> function.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>)).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>)).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{
   <span class="hljs-built_in">console</span>.log(err.message); <span class="hljs-comment">// Oops!</span>
-});
-</code></pre>
+});</code></pre>
 <h2 id="chaining-promises">Chaining Promises</h2>
 <p><a href="https://javascript.info/promise-chaining">Promise chaining</a> is what lets promises avoid deeply nested callbacks, also known as <a href="https://thecodebarbarian.com/2015/03/20/callback-hell-is-a-myth">&quot;callback hell&quot;</a>, &quot;pyramid of doom&quot;, and &quot;banana code&quot;.</p>
-<p><img src="https://cdn-images-1.medium.com/max/1200/1*Co0gr64Uo5kSg89ukFD2dw.jpeg"></p>
+<img src="https://cdn-images-1.medium.com/max/1200/1*Co0gr64Uo5kSg89ukFD2dw.jpeg">
+
 <p>The <a href="https://thecodebarbarian.com/write-your-own-node-js-promise-library-from-scratch.html#promise-chaining-github-gist-https-gist-github-com-vkarpov15-3efc81fa998ff5be42f4559d2f213f1e-">idea of promise chaining</a> is that if you call <code>then()</code> with an <code>onFulfilled()</code> that function returns a new promise <code>p</code>, <code>then()</code> should return a promise that is <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects">&quot;locked in&quot;</a> to match the state of <code>p</code>.</p>
 <p>For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> p1 = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'p1'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> p1 = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'p1'</span>);
 <span class="hljs-comment">// The `then()` function returns a promise!</span>
 <span class="hljs-keyword">const</span> p2 = p1.then(() =&gt; <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'p2'</span>));
 
 <span class="hljs-comment">// Prints "p2"</span>
-p2.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
-</code></pre>
+p2.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
 <p>In practice, promise chaining generally looks like a list of chained <code>.then()</code> calls. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">return</span> asyncOperation1().
+<pre><code class="language-javascript"><span class="hljs-keyword">return</span> asyncOperation1().
   then(res =&gt; asyncOperation2(res)).
   then(res =&gt; asyncOperation3(res)).
   <span class="hljs-comment">// If any of `asyncOperation1()` - `asyncOperation3()` rejects, Node will</span>
   <span class="hljs-comment">// call this `onRejected()` handler.</span>
-  <span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{ <span class="hljs-built_in">console</span>.log(err); });
-</code></pre>
+  <span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onRejected</span>(<span class="hljs-params">err</span>) </span>{ <span class="hljs-built_in">console</span>.log(err); });</code></pre>
 <p>Now that you&#39;ve seen the basics of promise chaining, lets see how you would use promise chaining with core Node.js APIs.</p>
-<h2 id="using-promises-with-core-node-js-apis">Using Promises with Core Node.js APIs</h2>
+<h2 id="using-promises-with-core-nodejs-apis">Using Promises with Core Node.js APIs</h2>
 <p>Node.js 10 introduced <a href="https://nodejs.org/api/fs.html#fs_fs_promises_api">a promise-based API for the built-in <code>fs</code> module</a>. That means you can read from and write to the file system using promises in Node.js.</p>
 <p>To use the promise-based <code>fs</code> API, use the following syntax:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).promises;
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).promises;</code></pre>
 <p>Now, suppose you want to read a file, replace all instances of &#39;foo&#39; with &#39;bar&#39;, and write the file back to disk. Here&#39;s how that might look with promise chaining.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).promises;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).promises;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replace</span>(<span class="hljs-params">filename</span>) </span>{
   <span class="hljs-keyword">let</span> handle;
@@ -109,11 +102,10 @@ p2.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
     then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>)).
     <span class="hljs-comment">// If any step fails, this `onRejected()` handler will get called.</span>
     <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err));
-}
-</code></pre>
+}</code></pre>
 <h2 id="converting-callbacks-to-promises">Converting Callbacks to Promises</h2>
 <p>Many older Node.js APIs are still written using callbacks. Node.js has a <a href="https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original"><code>promisify()</code> function</a> that can convert a function that uses Node.js&#39; callback syntax to a function that returns a promise.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">usingCallback</span>(<span class="hljs-params">callback</span>) </span>{
   <span class="hljs-comment">// Call `callback()` after 50 ms</span>
@@ -123,8 +115,7 @@ p2.then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
 <span class="hljs-keyword">const</span> usingPromise = util.promisify(usingCallback);
 
 <span class="hljs-comment">// Prints "Hello, World" after 50ms.</span>
-usingPromise().then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
-</code></pre>
+usingPromise().then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Promises have replaced callbacks as the fundamental concurrency primitive for Node.js. Promises are the basis for <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await in Node.js</a>, so your options are limited to promises, callbacks, or non-standard userland libraries. Now that the Node.js core APIs are starting to adopt promises, Node.js-style callbacks are fast becoming obsolete.</p>
 <p><em>Confused by promise chains? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> is the best way to compose promises in Node.js. Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>

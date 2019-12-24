@@ -16,7 +16,7 @@
 <h2 id="soft-deletes-with-aggregation-middleware">Soft Deletes With Aggregation Middleware</h2>
 <p>&quot;Soft deletes&quot; means adding a property, like <code>isDeleted</code>, to your documents that signify whether this document is considered &quot;deleted&quot;. This is useful if you want to delete a document from an end-user facing perspective while retaining it for future use. If you&#39;re using soft deletes, ideally clients of your API should never see soft deleted docs. From a mongoose perspective, this means deleted documents should be excluded from results by default, unless you explicitly ask for them.</p>
 <p>Accounting for <code>isDeleted</code> in <code>find()</code> and <code>findOne()</code> is easy with query middleware:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   isDeleted: {
     type: <span class="hljs-built_in">Boolean</span>,
@@ -38,10 +38,9 @@ userSchema.pre(<span class="hljs-string">'findOne'</span>, softDeleteMiddleware)
   next();
 }
 
-<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
 <p>Before Mongoose 4.13, you couldn&#39;t do this for <code>aggregate()</code>. In 4.13.4 you can ensure that you prepend a <code>$match</code> stage to every aggregation pipeline.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   isDeleted: {
     type: <span class="hljs-built_in">Boolean</span>,
@@ -59,10 +58,9 @@ userSchema.pre(<span class="hljs-string">'aggregate'</span>, softDeleteAggregate
   next();
 }
 
-<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
 <p>If you want to get fancy, you can check the aggregate object&#39;s options to conditionally prepend the <code>isDeleted: false</code> check.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">softDeleteAggregateMiddleware</span>(<span class="hljs-params">next</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">softDeleteAggregateMiddleware</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-comment">// `options` contains options passed in, and in aggregate middleware,</span>
   <span class="hljs-comment">// `this` refers to the aggregation builder object:</span>
   <span class="hljs-comment">// http://mongoosejs.com/docs/api.html#aggregate-js</span>
@@ -84,11 +82,10 @@ agg.exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(
   <span class="hljs-comment">// Will **not** have the `isDeleted` `$match` stage, because of the</span>
   <span class="hljs-comment">// `ignoreSoftDelete` option that the middleware above respects.</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>, agg.pipeline());
-});
-</code></pre>
+});</code></pre>
 <h2 id="aggregation-middleware-with-cursors">Aggregation Middleware With Cursors</h2>
 <p>Aggregation middleware also has support for post hooks. Post hooks are useful for post-processing results, like <a href="http://mongoosejs.com/docs/middleware.html#error-handling">error handling</a> or decorating the response from MongoDB. For example, suppose you wanted to add a <code>fetchedAt</code> timestamp for every document returned from your aggregation.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 });
 
@@ -110,11 +107,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-comment">//     __v: 0,</span>
   <span class="hljs-comment">//     fetchedAt: 2017-11-17T07:00:39.217Z } ]</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> User.aggregate([{ $match: { name: <span class="hljs-string">'test'</span> } }]));
-}
-</code></pre>
+}</code></pre>
 <p>However, mongoose also supports <a href="http://mongoosejs.com/docs/api.html#aggregate_Aggregate-cursor">cursors for aggregation</a>. A cursor is an object with a <code>next()</code> function that lets you iterate through
 aggregation results one at a time. Because walking through a cursor is not one distinct async operation, aggregation cursors fire pre hooks but <strong>not</strong> post hooks. Any <code>post(&#39;aggregate&#39;)</code> you set will <strong>not</strong> run if you use cursors.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 });
 
@@ -146,8 +142,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-comment">// { _id: 5a0f25281e3ea62d9a754566, name: 'test', __v: 0 }</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> cursor.next());
   <span class="hljs-comment">// Note that 'post aggregate' does **not** get printed</span>
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Aggregation middleware and <a href="http://thecodebarbarian.com/mongoose-4.13-virtual-populate-dynamic-refs-fields.html">dynamic fields for virtual populate</a> are just two of the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#4130--2017-11-02">10 new features in mongoose 4.13</a>. Aggregation middleware fills in a big gap in mongoose&#39;s middleware functionality, and helps you leverage your favorite query middleware patterns in conjunction with <a href="http://thecodebarbarian.com/2014/02/14/crunching-30-years-of-nba-data-with-mongodb-aggregation">MongoDB&#39;s powerful aggregation framework</a>. Make sure you upgrade and start writing aggregation middleware and plugins!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

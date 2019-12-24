@@ -13,24 +13,23 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/package/express">Express</a> is the most popular HTTP server framework for Node.js, but unfortunately it <a href="https://github.com/expressjs/express/issues/2259">doesn&#39;t have good support for async/await</a>. <a href="http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose#express">Express doesn&#39;t handle errors in async functions</a>. <a href="https://www.npmjs.com/package/fastify">Fastify</a> is an alternative Node.js server framework that enjoys much better support for async/await in addition to <a href="https://github.com/fastify/fastify#benchmarks">better performance</a>. In this article, I&#39;ll show you how Fastify works with async/await and show you the corner cases you need to be aware of.</p>
-<h2 id="hello-world-with-async-await-and-fastify">Hello, World with Async/Await and Fastify</h2>
+<h2 id="hello-world-with-asyncawait-and-fastify">Hello, World with Async/Await and Fastify</h2>
 <p>Like Express, the &quot;Hello, World&quot; case works well with async/await. Below
 is an example Fastify server that waits for about 100ms before responding
 with &quot;Hello, World!&quot;.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">request, reply</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
   reply.send(<span class="hljs-string">'Hello, World!'</span>);
 });
 
-<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>Where Fastify beats Express is handling errors in async route handlers. If
 you <code>throw</code> an error in an async route handler in Express, Express will
 never send a response. Fastify actually handles errors in async functions
 for you and reports them as <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500">HTTP 500 Internal Server Errors</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">request, reply</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
@@ -43,12 +42,11 @@ app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</
 } <span class="hljs-keyword">catch</span> (error) {
   <span class="hljs-comment">// Fastify reports the async error. Express would hang forever.</span>
   assert.equal(error.response.body.message, <span class="hljs-string">'Oops!'</span>);
-}
-</code></pre>
+}</code></pre>
 <h2 id="edge-cases">Edge Cases</h2>
 <p>Once you call the <code>reply.send()</code> function, any subsequent errors in your
 async function will <strong>not</strong> be reported.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">request, reply</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
@@ -57,11 +55,10 @@ app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
 });
 
-<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>If you&#39;re using Fastify with async/await, you should <a href="https://github.com/fastify/fastify/blob/master/docs/Routes.md#async-await">return data from the function body</a> instead calling <code>reply.send()</code> to prevent potential silent errors. After you
 <code>return</code> from an async function, the async function body can&#39;t <code>throw</code> an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fastify'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">request, reply</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
@@ -70,8 +67,7 @@ app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</
   <span class="hljs-keyword">return</span> response;
 });
 
-<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+<span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>In addition to having better performance on benchmarks, Fastify has better
 support for async/await than Express. Failure to handle async errors is a

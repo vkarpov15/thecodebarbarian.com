@@ -18,49 +18,39 @@
 <h2 id="1-installing-mongodb">1) Installing MongoDB</h2>
 <p>First, we&#39;re going to install MongoDB.</p>
 <p><strong>OSX:</strong> Open up your Terminal window and run</p>
-<pre><code>sudo brew install mongodb
-</code></pre><p><strong>Ubuntu:</strong> Open up your shell and run:</p>
+<pre><code>sudo brew install mongodb</code></pre><p><strong>Ubuntu:</strong> Open up your shell and run:</p>
 <pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv <span class="hljs-number">7</span>F0CEB10
 echo <span class="hljs-string">'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'</span> | sudo tee /etc/apt/sources.list.d/<span class="hljs-number">10</span>gen.list
 sudo apt-get update
-sudo apt-get install mongodb<span class="hljs-number">-10</span>gen
-</code></pre><p><strong>Windows:</strong> Go to <a href="http://www.mongodb.org/downloads">http://www.mongodb.org/downloads</a> and download the latest version of MongoDB for Windows, which should be a plain zip file. Once the download is done, extract the contents of the zip file to a memorable directory, such as &#39;c:\mongodb&#39;.</p>
+sudo apt-get install mongodb<span class="hljs-number">-10</span>gen</code></pre><p><strong>Windows:</strong> Go to <a href="http://www.mongodb.org/downloads">http://www.mongodb.org/downloads</a> and download the latest version of MongoDB for Windows, which should be a plain zip file. Once the download is done, extract the contents of the zip file to a memorable directory, such as &#39;c:\mongodb&#39;.</p>
 <p>That&#39;s it! After the installation process is done, you should be able to run the command</p>
-<pre><code>mongod
-</code></pre><p>directly from your command line on Mac and Ubuntu. On Windows, you&#39;ll need to run it as</p>
-<pre><code>/c/mongodb/bin/mongod
-</code></pre><p>Think of mongod as your local MongoDB server- you need to have a mongod process running in order to be able to use MongoDB. You can now leave mongod running, open up another terminal, and run <code>mongo test</code> (or <code>/c/mongodb/bin/mongo test</code> on Windows). This should open up the MongoDB shell. Hit ctrl-c to close the MongoDB shell.</p>
+<pre><code>mongod</code></pre><p>directly from your command line on Mac and Ubuntu. On Windows, you&#39;ll need to run it as</p>
+<pre><code>/c/mongodb/bin/mongod</code></pre><p>Think of mongod as your local MongoDB server- you need to have a mongod process running in order to be able to use MongoDB. You can now leave mongod running, open up another terminal, and run <code>mongo test</code> (or <code>/c/mongodb/bin/mongo test</code> on Windows). This should open up the MongoDB shell. Hit ctrl-c to close the MongoDB shell.</p>
 <h2 id="2-installing-nodejs-and-npm">2) Installing NodeJS and npm</h2>
 <p>Next we&#39;re going to install NodeJS and npm (node package manager).</p>
 <p><strong>OSX:</strong> Open your terminal and run</p>
 <pre><code>sudo brew install node
-curl http:<span class="hljs-comment">//npmjs.org/install.sh | sh</span>
-</code></pre><p>(Instructions from <a href="http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/">http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/</a>)</p>
+curl http:<span class="hljs-comment">//npmjs.org/install.sh | sh</span></code></pre><p>(Instructions from <a href="http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/">http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/</a>)</p>
 <p><strong>Ubuntu:</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get install python-software-properties python g++ make
 sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
-sudo apt-get install nodejs npm
-</code></pre><p><strong>Windows:</strong> Download the installer from <a href="http://nodejs.org/download/">http://nodejs.org/download/</a>. I recommend using the installer rather than the binary to save yourself the extra work of adding the binary location to the system path.</p>
+sudo apt-get install nodejs npm</code></pre><p><strong>Windows:</strong> Download the installer from <a href="http://nodejs.org/download/">http://nodejs.org/download/</a>. I recommend using the installer rather than the binary to save yourself the extra work of adding the binary location to the system path.</p>
 <p>Once you have successfully installed NodeJS, you should be able to run the &quot;node&quot; and &quot;npm&quot; commands from your terminal. When you run &quot;node,&quot; you should see a single &quot;&gt;.&quot; This is the node shell, hit ctrl-c to close it.</p>
 <p>When you run <code>npm</code> with no arguments, you should see a bunch of usage information. Keep in mind that <code>npm</code> sometimes requires root permissions to run. If an npm command fails for unclear reasons, try running it through &quot;sudo.&quot;</p>
 <p>At this point, you&#39;ve done essentially all you need to do to run a MEAN stack application. You can simply clone/fork <a href="https://github.com/vkarpov15/mean-stack-skeleton">https://github.com/vkarpov15/mean-stack-skeleton</a> , start a &quot;mongod&quot; process, navigate to the git repo, and run</p>
-<pre><code>npm install
-</code></pre><p>You should then be able to run</p>
-<pre><code>node app.js
-</code></pre><p>to start your server. However, I recommend at least reading through the rest of the below steps, as they will explain in a bit more detail some of the tools that you will be using. You can follow along step by step from the <a href="https://github.com/vkarpov15/mean-stack-skeleton/commits/master">mean-stack-skeleton repo commit log</a>, because, conveniently, the commits correspond one-to-one with steps 4-7.</p>
+<pre><code>npm install</code></pre><p>You should then be able to run</p>
+<pre><code>node app.js</code></pre><p>to start your server. However, I recommend at least reading through the rest of the below steps, as they will explain in a bit more detail some of the tools that you will be using. You can follow along step by step from the <a href="https://github.com/vkarpov15/mean-stack-skeleton/commits/master">mean-stack-skeleton repo commit log</a>, because, conveniently, the commits correspond one-to-one with steps 4-7.</p>
 <h2 id="3-installing-expressjs">3) Installing ExpressJS</h2>
 <p>Now that we have MongoDB and NodeJS, it is time to install ExpressJS- this is pretty trivial now that we already have npm installed from step 2. In Mac, Linux, and Windows, you should open up a terminal and run:</p>
-<pre><code>npm install express -g
-</code></pre><p>The &quot;-g&quot; flag means that the package will be installed so you can run it from your terminal.</p>
+<pre><code>npm install express -g</code></pre><p>The &quot;-g&quot; flag means that the package will be installed so you can run it from your terminal.</p>
 <p>We&#39;re using ExpressJS here because it adds some extremely useful tools for web development that NodeJS lacks. Contrary to what you may have heard, NodeJS is not a fully featured web server. NodeJS is simply a tool for doing I/O in an event-based concurrency framework with Javascript. It may be sufficient for a trivial server that prints &quot;Hello, World&quot; for every HTTP request, but it makes more sophisticated web development more difficult than it has to be. ExpressJS provides a familiar MVC (Model-View-Controller) framework for you to work with.</p>
 <h2 id="4-creating-an-expressjs-application">4) Creating an ExpressJS application</h2>
 <p>Now that we have all of our server tools in place, let&#39;s create an ExpressJS application. Start by running the command</p>
 <pre><code>express mytestapp
 cd mytestapp
-npm install
-</code></pre><p>This should create a &quot;mytestapp&quot; folder in your current directory that will contain your application. You should be able to now run <code>node app.js</code> from the &quot;mytestapp&quot; folder. If you point your browser to <a href="http://localhost:3000">http://localhost:3000</a>, you should see a simple &quot;Welcome to Express&quot; screen.</p>
+npm install</code></pre><p>This should create a &quot;mytestapp&quot; folder in your current directory that will contain your application. You should be able to now run <code>node app.js</code> from the &quot;mytestapp&quot; folder. If you point your browser to <a href="http://localhost:3000">http://localhost:3000</a>, you should see a simple &quot;Welcome to Express&quot; screen.</p>
 <p>The &quot;mytestapp&quot; directory will contain a few sub-directories: <code>routes</code>, <code>views</code>, <code>public</code>, and <code>node_modules</code>, as well as <code>app.js</code> and <code>package.json</code> files. Here&#39;s a brief description of what these files and directories do:</p>
 <ul>
 <li><strong>app.js:</strong> The main point of entry into your web server. This file defines the port that your application listens for requests on, includes dependencies via the &quot;require&quot; function, and defines handler functions for different REST-ful paths your clients can access.</li>
@@ -76,27 +66,21 @@ npm install
 <pre><code><span class="hljs-string">"dependencies"</span>: {
   <span class="hljs-string">"express"</span>: <span class="hljs-string">"3.0.3"</span>,
   <span class="hljs-string">"jade"</span>: <span class="hljs-string">"*"</span>
-}
-</code></pre><p>We&#39;re going to add two more lines</p>
+}</code></pre><p>We&#39;re going to add two more lines</p>
 <pre><code><span class="hljs-string">"dependencies"</span>: {
   <span class="hljs-string">"express"</span>: <span class="hljs-string">"3.0.3"</span>,
   <span class="hljs-string">"jade"</span>: <span class="hljs-string">"*"</span>,
   <span class="hljs-string">"mongodb"</span>: <span class="hljs-string">"&gt;= 0.9.6-7"</span>,
   <span class="hljs-string">"mongoose"</span> : <span class="hljs-string">"&gt;= 3.6"</span>
-}
-</code></pre><p>Next run</p>
-<pre><code>npm install
-</code></pre><p>If you&#39;re on OSX or Ubuntu, you may have to run <code>sudo npm install -d</code> to get it working. Now that we have both the NodeJS MongoDB driver and MongoDB, we can create a connection to MongoDB via Mongoose in our app.js file:</p>
+}</code></pre><p>Next run</p>
+<pre><code>npm install</code></pre><p>If you&#39;re on OSX or Ubuntu, you may have to run <code>sudo npm install -d</code> to get it working. Now that we have both the NodeJS MongoDB driver and MongoDB, we can create a connection to MongoDB via Mongoose in our app.js file:</p>
 <pre><code><span class="hljs-keyword">var</span> Mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">var</span> db = Mongoose.createConnection(<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'mytestapp'</span>);
-</code></pre><p>You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/2eec604f6698ee99d9d3d88070835073c0e8e0c6">here</a>. Run &quot;node app.js&quot; now -  your &quot;mongod&quot; process should output a message that looks something like &quot;[initandlisten] connection accepted from 127.0.0.1,&quot; which indicates that your app has successfully connected to your mongod process.</p>
+<span class="hljs-keyword">var</span> db = Mongoose.createConnection(<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'mytestapp'</span>);</code></pre><p>You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/2eec604f6698ee99d9d3d88070835073c0e8e0c6">here</a>. Run &quot;node app.js&quot; now -  your &quot;mongod&quot; process should output a message that looks something like &quot;[initandlisten] connection accepted from 127.0.0.1,&quot; which indicates that your app has successfully connected to your mongod process.</p>
 <h2 id="6-use-bower-for-adding-angularjs">6) Use Bower for adding AngularJS</h2>
 <p>Bower is another npm tool that we will use to add AngularJS to our app. It is essentially an npm for client-side Javascript. For example, if you want to add jQuery to your project, Bower enables you to do so from your terminal with the command &quot;bower install jquery.&quot; Install it with</p>
-<pre><code>npm install bower -g
-</code></pre><p>from your terminal.</p>
+<pre><code>npm install bower -g</code></pre><p>from your terminal.</p>
 <p>Bower has one minor quirk that you need to be aware of - it will install components into a &quot;bower_components&quot; directory by default, which unfortunately is not under the public directory. From your &quot;mytestapp&quot; directory, create a directory called &quot;vendor&quot; under &quot;public/javascripts.&quot; You can do this by running the command &quot;mkdir public/javascripts/vendor.&quot; Next, in the &quot;mytestapp&quot; directory, create a plain text file called &quot;.bowerrc&quot; that contains:</p>
-<pre><code>{ <span class="hljs-string">"directory"</span> : <span class="hljs-string">"public/javascripts/vendor"</span> }
-</code></pre><p>This configuration file will tell Bower to install tools into the &quot;public/javascripts/vendor&quot; directory. You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/35afa3e3c11bb2cf100b294eb74adf4158446755">here</a>.</p>
+<pre><code>{ <span class="hljs-string">"directory"</span> : <span class="hljs-string">"public/javascripts/vendor"</span> }</code></pre><p>This configuration file will tell Bower to install tools into the &quot;public/javascripts/vendor&quot; directory. You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/35afa3e3c11bb2cf100b294eb74adf4158446755">here</a>.</p>
 <h2 id="7-installing-angularjs">7) Installing AngularJS</h2>
 <p>Now lets install AngularJS v1.0.6 using &quot;bower install angular#1.0.6.&quot; You should see a <em>public/javascripts/vendor/angular</em> directory that contains &quot;angular.js,&quot; &quot;angular.min.js,&quot; and &quot;bower.json&quot; once you&#39;re done.</p>
 <h2 id="to-be-continued">To be continued</h2>

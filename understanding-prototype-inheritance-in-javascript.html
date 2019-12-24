@@ -13,40 +13,36 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>JavaScript uses <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes">prototype-based inheritance</a>, which is slightly different than inheritance in other languages. Suppose you create a new vanilla JavaScript object:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
 
 obj <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// true</span>
-obj.constructor === <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// true</span>
-</code></pre>
+obj.constructor === <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// true</span></code></pre>
 <p>The <a href="https://masteringjs.io/tutorials/fundamentals/instanceof"><code>instanceof</code> operator</a> tells you whether a given object is an instance of a given <a href="https://masteringjs.io/tutorials/fundamentals/class">JavaScript class</a>. You can also use
 <code>instanceof</code> with your own custom class:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
 
 <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
 
 obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// true</span>
 obj <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// true</span>
 
-obj.constructor === MyClass; <span class="hljs-comment">// true</span>
-</code></pre>
+obj.constructor === MyClass; <span class="hljs-comment">// true</span></code></pre>
 <h2 id="the-prototype-property">The <code>prototype</code> Property</h2>
 <p>In JavaScript, every class has a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype"><code>prototype</code> property</a>. A class&#39; <code>prototype</code> is an <em>object</em>. For example,
 <code>MyClass.prototype</code> is an object:</p>
-<pre><code class="lang-javascript">MyClass.prototype; <span class="hljs-comment">// MyClass {}</span>
-</code></pre>
+<pre><code class="language-javascript">MyClass.prototype; <span class="hljs-comment">// MyClass {}</span></code></pre>
 <p>JavaScript has a built-in <code>Object.getPrototypeOf()</code> function that lets you get
 the <code>prototype</code> of an object.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
 
-<span class="hljs-built_in">Object</span>.getPrototypeOf(obj) === MyClass.prototype; <span class="hljs-comment">// true</span>
-</code></pre>
+<span class="hljs-built_in">Object</span>.getPrototypeOf(obj) === MyClass.prototype; <span class="hljs-comment">// true</span></code></pre>
 <p>In JavaScript, checking if an object <code>obj</code> is an instance of a given class <code>C</code> (excluding inheritance) is equivalent to checking if <code>Obj.getPrototypeOf(obj) === C.prototype</code>.</p>
 <h2 id="setting-prototype-properties">Setting Prototype Properties</h2>
 <p>Prototypes are just JavaScript objects. When you access a property on an object,
 like accessing <code>obj.foo</code>, JavaScript first looks to see if <code>obj</code> has a <code>foo</code>
 property using <a href="https://masteringjs.io/tutorials/fundamentals/hasownproperty"><code>hasOwnProperty()</code></a>. If it doesn&#39;t, JavaScript then checks the constructor&#39;s prototype
 for a <code>foo</code> property. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
 
 <span class="hljs-comment">// If you set `foo` on `obj`'s constructor's prototype, that means you can</span>
 <span class="hljs-comment">// access `obj.foo`.</span>
@@ -55,34 +51,30 @@ MyClass.prototype.foo = <span class="hljs-number">42</span>;
 obj.foo; <span class="hljs-comment">// 42</span>
 
 <span class="hljs-comment">// `foo` is an _inherited property_ as opposed to an _own property_.</span>
-obj.hasOwnProperty(<span class="hljs-string">'foo'</span>);
-</code></pre>
+obj.hasOwnProperty(<span class="hljs-string">'foo'</span>);</code></pre>
 <h2 id="the-prototype-chain">The Prototype Chain</h2>
 <p>So instances of <code>MyClass</code> point up to <code>MyClass.prototype</code>, and checking whether
 an object is an instance of <code>MyClass</code> is defined as checking whether <code>Object.getPrototypeOf()</code> returns <code>MyClass.prototype</code>. Where does inheritance
 come in?</p>
 <p>The trick is that, since <code>MyClass.prototype</code> is an object, <code>Object.getPrototypeOf(MyClass)</code> points to the prototype of the base class <code>Object</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Object</span>.getPrototypeOf(MyClass.prototype) === <span class="hljs-built_in">Object</span>.protype; <span class="hljs-comment">// true</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-built_in">Object</span>.getPrototypeOf(MyClass.prototype) === <span class="hljs-built_in">Object</span>.protype; <span class="hljs-comment">// true</span></code></pre>
 <p>If you use <a href="/an-overview-of-es6-classes#inheritance">the <code>extends</code> keyword for inheritance</a>, <code>Object.getPrototypeOf()</code> helps you
 get the base class&#39;s prototype:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{}
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{}
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{}
 
 <span class="hljs-built_in">Object</span>.getPrototypeOf(SubClass.prototype) === BaseClass.prototype; <span class="hljs-comment">// true</span>
 <span class="hljs-built_in">Object</span>.getPrototypeOf(SubClass.prototype) === <span class="hljs-built_in">Object</span>.prototype; <span class="hljs-comment">// false</span>
 
 <span class="hljs-comment">// Since `BaseClass` implicitly inherits from object:</span>
-<span class="hljs-built_in">Object</span>.getPrototypeOf(BaseClass.prototype) === <span class="hljs-built_in">Object</span>.prototype;
-</code></pre>
+<span class="hljs-built_in">Object</span>.getPrototypeOf(BaseClass.prototype) === <span class="hljs-built_in">Object</span>.prototype;</code></pre>
 <p>Surprisingly enough, a class&#39;s <code>prototype</code> has a <code>constructor</code> property that
 points to the class itself. So to get the <code>BaseClass</code> constructor from <code>SubClass</code>,
 you should get the prototype&#39;s <code>constructor</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Object</span>.getPrototypeOf(SubClass.prototype).constructor === BaseClass; <span class="hljs-comment">// true</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-built_in">Object</span>.getPrototypeOf(SubClass.prototype).constructor === BaseClass; <span class="hljs-comment">// true</span></code></pre>
 <p>Given any class, you can walk up the inheritance tree and end up at <code>Object.prototype</code>. The <em>prototype chain</em> is the idea that you can follow
 a list of prototypes to get every class in an inheritance hierarchy.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{}
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{}
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseClass</span> </span>{}
 
 <span class="hljs-keyword">let</span> curPrototype = SubClass.prototype;
@@ -91,12 +83,11 @@ a list of prototypes to get every class in an inheritance hierarchy.</p>
 <span class="hljs-keyword">while</span> (curPrototype != <span class="hljs-literal">null</span>) {
   <span class="hljs-built_in">console</span>.log(curPrototype.constructor.name);
   curPrototype = <span class="hljs-built_in">Object</span>.getPrototypeOf(curPrototype);
-}
-</code></pre>
+}</code></pre>
 <p>For example, you can implement your own <code>instanceof</code> operator by walking
 up the prototype chain yourself. Given <code>v instanceof C</code>, The <code>instanceof</code> operator 
 walks up <code>v</code>&#39;s prototype chain to see if it can find <code>C.prototype</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isInstanceOf</span>(<span class="hljs-params">obj, Class</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isInstanceOf</span>(<span class="hljs-params">obj, Class</span>) </span>{
   <span class="hljs-keyword">const</span> prototypeToFind = Class.prototype;
 
   <span class="hljs-keyword">let</span> curPrototype = obj.constructor.prototype;
@@ -107,8 +98,7 @@ walks up <code>v</code>&#39;s prototype chain to see if it can find <code>C.prot
     curPrototype = <span class="hljs-built_in">Object</span>.getPrototypeOf(curPrototype);
   }
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>JavaScript prototypes can be confusing, but ES6 classes and
 <code>Object.getPrototypeOf()</code> have done a great job in making prototype-based

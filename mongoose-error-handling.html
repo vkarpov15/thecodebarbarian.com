@@ -22,7 +22,7 @@ mongoose&#39;s will look familiar.</p>
 <p>Mongoose has 2 types of middleware, &quot;pre&quot; middleware and &quot;post&quot; middleware.
 Pre middleware executes before the wrapped function, and post middleware
 executes after the wrapped function.</p>
-<pre><code class="lang-javascript">schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+<pre><code class="language-javascript">schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'before save'</span>);
   next();
 });
@@ -31,14 +31,13 @@ schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'after save'</span>);
 });
 
-doc.save(); <span class="hljs-comment">// Prints 'before save' followed by 'after save'</span>
-</code></pre>
+doc.save(); <span class="hljs-comment">// Prints 'before save' followed by 'after save'</span></code></pre>
 <p>However, since mongoose 3.x post middleware has been interchangeable with
 <code>on()</code> calls. In other words, <code>schema.post(&#39;save&#39;)</code> is the same thing as
 <code>schema.on(&#39;save&#39;)</code>. Therefore, by design, mongoose document post middleware
 does <em>not</em> get flow control
 (<a href="http://mongoosejs.com/docs/middleware.html">query post middleware does</a>, and in 5.0 document post middleware will too).</p>
-<pre><code class="lang-javascript">schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'after save'</span>);
 });
 
@@ -46,15 +45,14 @@ doc.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(
   <span class="hljs-comment">// May print "after save" after "save callback" or vice versa,</span>
   <span class="hljs-comment">// the order is undefined.</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'save callback'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>Mongoose 4.5 introduces a special type of document post middleware that
 <em>does</em> get flow control: error handlers.</p>
 <h2 id="introducing-mongoose-error-handling-middleware">Introducing Mongoose Error Handling Middleware</h2>
 <p>You define an error handler the same way you define a normal post middleware.
 To mark a post middleware as an error handler, you need to make it take 3
 parameters:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> Schema({
   name: {
     type: <span class="hljs-built_in">String</span>,
     unique: <span class="hljs-literal">true</span>
@@ -78,13 +76,12 @@ schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"
 Person.create([person, person], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
   <span class="hljs-comment">// Will print out "There was a duplicate key error"</span>
   <span class="hljs-built_in">console</span>.log(error);
-});
-</code></pre>
+});</code></pre>
 <p>An error handler middleware <em>only</em> gets called when an error occurred. In
 other words, the above error handler middleware will only execute if a
 pre save hook called <code>next()</code> with an error, if <code>save()</code> calls back with
 an error, or if a previous post hook called <code>next()</code> with an error.</p>
-<pre><code class="lang-javascript">schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+<pre><code class="language-javascript">schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-comment">// This middleware will prevent `save()` from executing and go straight</span>
   <span class="hljs-comment">// to executing the error handling middleware</span>
   next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'pre save error'</span>));
@@ -95,14 +92,13 @@ schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-function"
   <span class="hljs-comment">// skip all other non-error-handler post save hooks and execute the next</span>
   <span class="hljs-comment">// error handler middleware</span>
   next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'post save error'</span>));
-});
-</code></pre>
+});</code></pre>
 <p>As an aside, there are 4 functions in mongoose that can trigger a
 duplicate key error: <code>save()</code>, <code>insertMany()</code>, <code>update()</code>, and
 <code>fineOneAndUpdate()</code>. The <code>create()</code> function can also trigger a duplicate
 key error, but <code>create()</code> is just a thin wrapper around <code>save()</code>. Here&#39;s how
 you can handle duplicate key errors for all these functions:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> Schema({
   name: {
     type: <span class="hljs-built_in">String</span>,
     unique: <span class="hljs-literal">true</span>
@@ -122,8 +118,7 @@ schema.post(<span class="hljs-string">'update'</span>, handleE11000);
 schema.post(<span class="hljs-string">'findOneAndUpdate'</span>, handleE11000);
 schema.post(<span class="hljs-string">'insertMany'</span>, handleE11000);
 
-<span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, schema);
-</code></pre>
+<span class="hljs-keyword">var</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, schema);</code></pre>
 <p>With this new feature, you can write plugins that can convert MongoDB-specific
 errors (like the duplicate key error above) as well as mongoose-specific errors
 (like validation errors) into something that makes sense for your application.</p>

@@ -18,15 +18,14 @@
 <iframe width="630" height="355" src="https://www.useloom.com/embed/83f7f32e777f4859bc5b1e21613198fa" frameborder="0" allowfullscreen></iframe>
 
 <p>To set up a Firebase project for this app, follow <a href="https://firebase.google.com">Firebase onboarding</a> and create a new project. Clone the <a href="https://github.com/vkarpov15/pushups">GitHub repo</a> and copy the project&#39;s web config (from Authentication -&gt; Web Setup) into <code>firebaseConfig.js</code>. Your <code>firebaseConfig.js</code> should then look like:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   apiKey: <span class="hljs-comment">/* ... */</span>,
   authDomain: <span class="hljs-comment">/* ... */</span>,
   databaseURL: <span class="hljs-comment">/* ... */</span>,
   projectId: <span class="hljs-comment">/* ... */</span>,
   storageBucket: <span class="hljs-comment">/* ... */</span>,
   messagingSenderId: <span class="hljs-comment">/* ... */</span>
-};
-</code></pre>
+};</code></pre>
 <p>You should then be able to run <code>npm start</code> and run the app.</p>
 <h2 id="how-the-app-works">How the App Works</h2>
 <p>There&#39;s 3 meaningful files in this project:</p>
@@ -36,20 +35,27 @@
 <li><a href="https://github.com/vkarpov15/pushups/blob/master/client.jsx"><code>client.jsx</code></a> is the Preact component.</li>
 </ul>
 <p>The <code>firebase.js</code> file is the simplest, it configures firebase and exposes a firebase database handle:</p>
-<p><img src="http://i.imgur.com/aqQiE1Y.png"></p>
+<img src="http://i.imgur.com/aqQiE1Y.png">
+
 <p>The client-side app in <code>client.jsx</code> is a single Preact component called <code>App</code>. Once transpiled and browserify-ied, the <code>typeof window</code> logic will let the app run when included with a <code>&lt;script&gt;</code> tag. The <code>lastChild</code> bit tells Preact to replace the server-side rendered <code>App</code> component that the server will insert into the body. I got this pattern from <a href="https://jsfiddle.net/developit/2vgozmvc/">this JSFiddle</a>.</p>
-<p><img src="http://i.imgur.com/2AAvx2Y.png"></p>
+<img src="http://i.imgur.com/2AAvx2Y.png">
+
 <p>There&#39;s two data models that this app cares about. The <code>people</code> property tracks the total number of pushups each person owes, and the <code>timeline</code> property tracks each individual pushup assignment so the user can complete them. When the component mounts, the component starts listening to Firebase for changes:</p>
-<p><img src="http://i.imgur.com/voDEmUj.png"></p>
+<img src="http://i.imgur.com/voDEmUj.png">
+
 <p>There&#39;s one more subtlety with the <code>App</code> component. In Preact, the <code>render()</code> function <a href="https://www.npmjs.com/package/preact#components">takes 2 parameters</a>, the component <code>props</code> and the <code>state</code>. In the browser, the <code>App</code> component will track its internal state using <code>state</code> and <code>setState()</code>, much like <a href="https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367">React sans Redux</a>. However, the server-side rendering tool I used for this project passes state via <code>props</code>, so <code>render()</code> should handle both.</p>
-<p><img src="http://i.imgur.com/iqMNTpu.png"></p>
+<img src="http://i.imgur.com/iqMNTpu.png">
+
 <h2 id="server-side-rendering">Server-Side Rendering</h2>
 <p>Great, so now that we&#39;ve built a rudimentary client-side app that listens to Firebase. How do you get the server to render the app? The <a href="https://www.npmjs.com/package/preact-render-to-string">preact-render-to-string</a> npm module can render Preact markup to a string:</p>
-<p><img src="http://i.imgur.com/xt04m26.png"></p>
+<img src="http://i.imgur.com/xt04m26.png">
+
 <p>The first parameter to preact-render-to-string&#39;s <code>render()</code> function is a Preact virtual DOM element (e.g. <code>preact.h</code>) and the second parameter is props to pass to that element. These props will get passed to the <code>App</code> component&#39;s <code>render()</code> function as the first parameter. Once you&#39;ve rendered the component to HTML, all you need to add some surrounding HTML boilerplate:</p>
-<p><img src="http://i.imgur.com/Ky8Uy1R.png"></p>
+<img src="http://i.imgur.com/Ky8Uy1R.png">
+
 <p>The last step is getting the actual data from Firebase, so we can render real data on the server. Unfortunately, I haven&#39;t been able to figure out how to get the Firebase web client working in Node.js. There&#39;s the <a href="https://www.npmjs.com/package/firebase-admin">firebase-admin</a> module, but that module comes with its own complexities, so in this case I found the easiest solution to be <a href="https://www.npmjs.com/package/firebase-admin">Firebase&#39;s REST API</a>. Two simple HTTP requests using <a href="https://www.npmjs.com/package/superagent">superagent</a> and the app has all the data it needs for initial render.</p>
-<p><img src="http://i.imgur.com/R45QQds.png"></p>
+<img src="http://i.imgur.com/R45QQds.png">
+
 <p>And that&#39;s a wrap! Server-side rendering sounds intimidating, but all you need to do is load the correct data and render the right HTML. With Preact, preact-render-to-string, and the <code>lastChild</code> trick rendering the HTML is straightforward. Loading the correct data is the hard part, but if you <a href="https://firebase.google.com/docs/database/web/structure-data">structure your firebase data correctly</a> you can load the data with one or more calls to Firebase&#39;s REST API (or using the realtime connection, if you can figure out how to make that work in Node.js).</p>
 <p><em>Got JavaScript fatigue? Your diet might be every bit as responsible as Firebase&#39;s lackluster documentation. I just bought <a href="https://www.amazon.com/gp/product/0062652419/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0062652419&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=2a8014f07c615bb17e5e3056a31e6baa">Dave Asprey the Bulletproof Coffee Guy&#39;s new book &quot;Head Strong&quot;</a> to learn more about how I can optimize my diet and environment for maximum productivity.</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

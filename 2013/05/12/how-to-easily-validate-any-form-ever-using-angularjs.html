@@ -24,10 +24,8 @@
   dict = {}
   dict[u_name&quot;] = name
   dict[&quot;u_age&quot;] = age
-  db.insert(dict)
-</code></pre><p>And on the client side we&#39;d submit our form by pointing the browser to:</p>
-<pre><code>?op=saveInput&amp;name=[name]&amp;age=[age]
-</code></pre><p>This rough approach successfully solves Pain Point #1; Hydra will make sure <code>name</code> is non-empty and age is a non-negative integer, all while avoiding extra if-statements.  However, you&#39;ll notice that we unnecessarily repeat ourselves quite a bit in the code above.  This brings us to Pain Point #2- what happens when we try to add or delete data items?  As you will quickly find out, adding even a single field to the database would require a ridiculous amount of extra code.  For example, if we wanted to add a new field to our database (say &quot;hometown&quot;), we would have to add:</p>
+  db.insert(dict)</code></pre><p>And on the client side we&#39;d submit our form by pointing the browser to:</p>
+<pre><code>?op=saveInput&amp;name=[name]&amp;age=[age]</code></pre><p>This rough approach successfully solves Pain Point #1; Hydra will make sure <code>name</code> is non-empty and age is a non-negative integer, all while avoiding extra if-statements.  However, you&#39;ll notice that we unnecessarily repeat ourselves quite a bit in the code above.  This brings us to Pain Point #2- what happens when we try to add or delete data items?  As you will quickly find out, adding even a single field to the database would require a ridiculous amount of extra code.  For example, if we wanted to add a new field to our database (say &quot;hometown&quot;), we would have to add:</p>
 <ul>
 <li>An input in our client view</li>
 <li>An extra parameter to the form submit URL</li>
@@ -106,8 +104,7 @@ app.post(<span class="hljs-string">'/stocks.json'</span>, <span class="hljs-func
       });
     }
   });
-});
-</code></pre><p>Now the interesting part, <code>list_view.jade</code>. Lets declare an AngularJS controller:</p>
+});</code></pre><p>Now the interesting part, <code>list_view.jade</code>. Lets declare an AngularJS controller:</p>
 <pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StocksListController</span>(<span class="hljs-params">$scope, $http, $window</span>) </span>{
   $scope.stocksList = [];
   $scope.newStock = {};
@@ -137,8 +134,7 @@ app.post(<span class="hljs-string">'/stocks.json'</span>, <span class="hljs-func
         }
       });
   };
-}
-</code></pre><p>And finally our view, in <a href="http://jade-lang.com/">Jade</a>:</p>
+}</code></pre><p>And finally our view, in <a href="http://jade-lang.com/">Jade</a>:</p>
 <pre><code>div(ng-controller=<span class="hljs-string">"StocksListController"</span>,
     ng-init=<span class="hljs-string">"init( #{JSON.stringify(stocksList)} );"</span>)
   | Add a stock:
@@ -180,8 +176,7 @@ app.post(<span class="hljs-string">'/stocks.json'</span>, <span class="hljs-func
   hr
   br
   div(ng-repeat=<span class="hljs-string">"stock in stocksList.stocks"</span>)
-    | <span class="hljs-built_in">Symbol</span> : {{stock.symbol}}, Price : {{stock.price}}, Quantity : {{stock.quantity}}
-</code></pre><p>You might not realize it, but we&#39;re already done!  Is the UI ugly?  Absolutely.  In the words of Han Solo, &quot;she may not look like much, but she&#39;s got it where it counts, kid.&quot;  Lets do a brief walkthrough of what happens when the user tries to enter a stock:</p>
+    | <span class="hljs-built_in">Symbol</span> : {{stock.symbol}}, Price : {{stock.price}}, Quantity : {{stock.quantity}}</code></pre><p>You might not realize it, but we&#39;re already done!  Is the UI ugly?  Absolutely.  In the words of Han Solo, &quot;she may not look like much, but she&#39;s got it where it counts, kid.&quot;  Lets do a brief walkthrough of what happens when the user tries to enter a stock:</p>
 <ol>
 <li>User goes to <code>/stocks</code>.  ExpressJS renders <code>list_view.jade</code> with the current list of stocks.</li>
 <li>User enters in some data into our input fields and selects a currency, clicks submit.</li>
@@ -199,7 +194,7 @@ app.post(<span class="hljs-string">'/stocks.json'</span>, <span class="hljs-func
 </ul>
 <p>Please feel free to take this code that we&#39;ve written and use it as the basis for your own applications.  I would highly recommend that you tweak and expand on it, if for no other reason than the aforementioned ugly UI.  And as always, remember that I&#39;m just some guy on the internet- your code is YOUR code, and if you find a better way to make your application work you should absolutely do so!</p>
 <p><em>A side note about AngularJS:</em>  Hopefully you now see how AngularJS earned its spot in the MEAN Stack- it certainly lives up to the mantra of &quot;write less code, go have beer sooner.&quot;  It provides us with extremely sophisticated control of the view that&#39;s presented to the user with very little work, enabling us to write complex web clients with ease.  AngularJS is a very rich library, and in this post we&#39;ve barely scratched the surface of the kinds of sorcery that AngularJS makes possible.  I&#39;ll be writing plenty more about AngularJS in the future, but if you&#39;ve already fallen in love and can&#39;t wait, I&#39;d recommend that you work through the tutorials at <a href="http://angularjs.org/">http://angularjs.org/</a>.</p>
-<p><em>Have any questions about the code featured in this post?  Want to suggest a better approach?  Feel like telling me why the MEAN Stack is the worst thing that ever happened in the history of the world and how horrible I am?  Go ahead and leave a comment below, or shoot me an email at valkar207@gmail.com and I&#39;ll do my best to answer any questions you might have. You can also find me on github at <a href="https://github.com/vkarpov15">https://github.com/vkarpov15</a>.  My current venture is called The Ascot Project, and you can find that over at <a href="http://www.AscotProject.com">http://www.AscotProject.com</a>. Thanks again to my partner William Kelly (@idostartups) for helping to make this post happen.</em></p>
+<p><em>Have any questions about the code featured in this post?  Want to suggest a better approach?  Feel like telling me why the MEAN Stack is the worst thing that ever happened in the history of the world and how horrible I am?  Go ahead and leave a comment below, or shoot me an email at <a href="mailto:valkar207@gmail.com">valkar207@gmail.com</a> and I&#39;ll do my best to answer any questions you might have. You can also find me on github at <a href="https://github.com/vkarpov15">https://github.com/vkarpov15</a>.  My current venture is called The Ascot Project, and you can find that over at <a href="http://www.AscotProject.com">http://www.AscotProject.com</a>. Thanks again to my partner William Kelly (@idostartups) for helping to make this post happen.</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname

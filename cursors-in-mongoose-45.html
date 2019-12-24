@@ -24,11 +24,10 @@ new cursor API, or, modern streaming for mongoose.</p>
 of streaming is to process documents one at a time for query results that are
 too big to fit into memory at once. Here&#39;s an example of how the streaming API
 works in mongoose.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> stream = Customer.find({ name: <span class="hljs-string">'Axl'</span> }).stream();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stream = Customer.find({ name: <span class="hljs-string">'Axl'</span> }).stream();
 
 <span class="hljs-comment">// Print every document that matches the query, one at a time</span>
-stream.on(<span class="hljs-string">'data'</span>, doc =&gt; { <span class="hljs-built_in">console</span>.log(doc); });
-</code></pre>
+stream.on(<span class="hljs-string">'data'</span>, doc =&gt; { <span class="hljs-built_in">console</span>.log(doc); });</code></pre>
 <p>The bad news is that mongoose&#39;s stream code has been
 <a href="https://github.com/Automattic/mongoose/commits/4.5/lib/querystream.js">largely stagnant since 2012</a>.
 Since then, <a href="https://strongloop.com/strongblog/whats-new-io-js-beta-streams3/">Node.js has released 2 major overhauls of the stream API</a>,
@@ -36,7 +35,7 @@ which means that mongoose&#39;s streaming API is obsolete as well as
 <a href="https://github.com/Automattic/mongoose/wiki/5.0-Deprecation-Warnings">formally deprecated</a>.
 With 4.5.0, we&#39;re introducing a new query method, <code>.cursor()</code>, that behaves
 like <code>.stream()</code>, but with a few subtle differences.</p>
-<h1 id="what-are-cursors-">What are Cursors?</h1>
+<h1 id="what-are-cursors">What are Cursors?</h1>
 <p>In MongoDB parlance, a <em>cursor</em> is an object that
 you can use to iterate through the results of a query. If you execute a query
 against a MongoDB server directly, the result is a <a href="https://docs.mongodb.com/manual/core/cursors/">cursor</a> rather than a bunch
@@ -47,14 +46,13 @@ cursor API is overkill, so mongoose hides it from you by default.</p>
 <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next"><code>next()</code> function</a>, which gets the next document that matches the query. The mongoose 4.5 cursor
 API wraps the underlying driver&#39;s cursor API and gives you a <code>next()</code> function
 that you can use to iterate through each document:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> cursor = Customer.find({ name: <span class="hljs-string">'Axl'</span> }).cursor();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cursor = Customer.find({ name: <span class="hljs-string">'Axl'</span> }).cursor();
 
 <span class="hljs-comment">// Print the first document. Can also use callbacks</span>
-cursor.next.then(doc =&gt; { <span class="hljs-built_in">console</span>.log(doc); });
-</code></pre>
+cursor.next.then(doc =&gt; { <span class="hljs-built_in">console</span>.log(doc); });</code></pre>
 <p>Iterating over documents one-at-a-time using <code>next()</code> is cumbersome if
 you&#39;re using callbacks and promise chaining. It&#39;s doable:</p>
-<pre><code class="lang-javascript">next(cursor.next);
+<pre><code class="language-javascript">next(cursor.next);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">next</span>(<span class="hljs-params">promise</span>) </span>{
   promise.then(doc =&gt; {
@@ -63,13 +61,11 @@ you&#39;re using callbacks and promise chaining. It&#39;s doable:</p>
       next(cursor.next());
     }
   })
-}
-</code></pre>
+}</code></pre>
 <p>However, if you prefer to use streams, cursors in mongoose 4.5 are <a href="https://strongloop.com/strongblog/whats-new-io-js-beta-streams3/">streams3-compatible streams</a>:</p>
-<pre><code class="lang-javascript">cursor.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
+<pre><code class="language-javascript">cursor.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
   <span class="hljs-built_in">console</span>.log(doc);
-});
-</code></pre>
+});</code></pre>
 <h1 id="new-alternatives-to-streams">New Alternatives to Streams</h1>
 <p>Streams are not necessarily the perfect way to model pulling documents
 one-at-a-time from MongoDB. A readable stream is a <em>push-based</em> concurrency
@@ -80,14 +76,13 @@ for more data. Mongoose cursors introduce a couple new ways to process
 documents one at a time.</p>
 <p>Since the <code>next()</code> function returns a promise, you can use <a href="http://npmjs.org/package/co">co</a> to iterate through the cursor using a
 <code>for</code> loop:</p>
-<pre><code class="lang-javascript">co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> cursor = User.find({ name: <span class="hljs-string">'Axl'</span> }).populate(<span class="hljs-string">'band'</span>).cursor();
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">yield</span> cursor.next(); doc != <span class="hljs-literal">null</span>; doc = <span class="hljs-keyword">yield</span> cursor.next()) {
     <span class="hljs-comment">// Print the user, with the `band` field populated</span>
     <span class="hljs-built_in">console</span>.log(doc);
   }
-});
-</code></pre>
+});</code></pre>
 <p>If you&#39;re not using co or a similar concurrency framework, I would highly
 recommend you start doing so. Co makes complex async tasks like iterating
 through a cursor as simple as writing a for loop. If you&#39;re uncomfortable
@@ -99,21 +94,19 @@ point of <code>eachAsync()</code> is to make it easy to wait for an async operat
 to complete before processing the next document. For example, let&#39;s say you
 wanted to read documents from your mongoose collection and send them over
 the network one at a time:</p>
-<pre><code class="lang-javascript">cursor.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
+<pre><code class="language-javascript">cursor.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
   superagent.post(<span class="hljs-string">'/saveDoc'</span>, doc).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Saved'</span>, doc._id);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Looks simple enough, but what if your documents are huge and the network
 is really slow? The stream will keep reading data from the cursor and you&#39;ll
 eventually run out of memory. The ideal solution would only load the next
 document once the POST request has completed. Streams have a <a href="https://nodejs.org/api/stream.html#stream_readable_pause">pause()</a> method,
 but it buffers internally, so you&#39;ll run out of memory anyway.
 The <code>eachAsync()</code> function is the way to go:</p>
-<pre><code class="lang-javascript">cursor.eachAsync(doc =&gt; superagent.post(<span class="hljs-string">'/saveDoc'</span>, doc)).
-  then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>));
-</code></pre>
+<pre><code class="language-javascript">cursor.eachAsync(doc =&gt; superagent.post(<span class="hljs-string">'/saveDoc'</span>, doc)).
+  then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>));</code></pre>
 <p>The <code>eachAsync()</code> function takes a function <code>fn</code> that gets executed for
 every document in the cursor. If <code>fn</code> returns a promise, <code>eachAsync()</code> will
 wait until the promise resolves before pulling the next document from the

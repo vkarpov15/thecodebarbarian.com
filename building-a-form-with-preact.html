@@ -25,9 +25,8 @@ Entrypoint preact = preact.js
 Entrypoint react = react.js
 [<span class="hljs-number">2</span>] ./preact.js <span class="hljs-number">33</span> bytes {<span class="hljs-number">0</span>} [built]
 [<span class="hljs-number">4</span>] ./react.js <span class="hljs-number">71</span> bytes {<span class="hljs-number">1</span>} [built]
-    + <span class="hljs-number">8</span> hidden modules
-</code></pre><p>I used the below Webpack config to get the above result.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+    + <span class="hljs-number">8</span> hidden modules</code></pre><p>I used the below Webpack config to get the above result.</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   entry: {
     preact: <span class="hljs-string">'./preact.js'</span>,
     react: <span class="hljs-string">'./react.js'</span>
@@ -37,8 +36,7 @@ Entrypoint react = react.js
     path: <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/bin`</span>,
     filename: <span class="hljs-string">'[name].js'</span>
   }
-};
-</code></pre>
+};</code></pre>
 <p>Vanilla JS has gotten very good these days and you often don&#39;t need any framework, but
 once you need to manage state and user input, a framework makes
 things much easier. Preact is great because it doesn&#39;t add too much bloat to your
@@ -48,8 +46,7 @@ building a basic form using Preact.</p>
 <h2 id="setting-up-preact">Setting Up Preact</h2>
 <p>Like React, Preact is much easier with JSX, so you&#39;ll need to install Webpack, <a href="https://www.npmjs.com/package/@babel/core">Babel</a>, and a <a href="https://www.npmjs.com/package/@babel/plugin-transform-react-jsx">Babel transform for JSX</a>. You should
 also install a static HTTP server like <a href="https://www.npmjs.com/package/serve">serve</a>.</p>
-<pre><code>npm install preact babel-loader@<span class="hljs-number">8.</span>x @babel/core@<span class="hljs-number">7.</span>x @babel/plugin-transform-react-jsx@<span class="hljs-number">7.</span>x webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x
-</code></pre><p>This may seem like a lot to install for a simple app, but Babel and Webpack don&#39;t
+<pre><code>npm install preact babel-loader@<span class="hljs-number">8.</span>x @babel/core@<span class="hljs-number">7.</span>x @babel/plugin-transform-react-jsx@<span class="hljs-number">7.</span>x webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x</code></pre><p>This may seem like a lot to install for a simple app, but Babel and Webpack don&#39;t
 end up in the end bundle, so your app size will still be small.</p>
 <p>First, let&#39;s set up a basic <code>index.html</code> file that will serve as the entry point for the
 app.</p>
@@ -62,9 +59,8 @@ app.</p>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bin/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre><p>Next, let&#39;s create an <code>index.js</code> file that will render some basic JSX:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'preact'</span>);
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Next, let&#39;s create an <code>index.js</code> file that will render some basic JSX:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'preact'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
@@ -72,10 +68,9 @@ app.</p>
   }
 }
 
-React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">App</span>&gt;</span>, document.querySelector('#content'));</span>
-</code></pre>
+React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">App</span>&gt;</span>, document.querySelector('#content'));</span></code></pre>
 <p>To create the <code>bin/index.js</code> bundle that <code>index.html</code> will use, we&#39;ll need Webpack:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   entry: {
     index: <span class="hljs-string">'./index.js'</span>
   },
@@ -92,13 +87,11 @@ React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name
       }
     }]
   }
-};
-</code></pre>
+};</code></pre>
 <p>And to configure Babel, we&#39;ll need a <code>.babelrc</code> file as well:</p>
 <pre><code>{
   <span class="hljs-string">"plugins"</span>: [<span class="hljs-string">"@babel/plugin-transform-react-jsx"</span>]
-}
-</code></pre><p>To compile, run <code>./node_modules/.bin/webpack</code></p>
+}</code></pre><p>To compile, run <code>./node_modules/.bin/webpack</code></p>
 <pre><code>$ ./node_modules/.bin/webpack
 Hash: a4ff19ba7c622174cb97
 Version: webpack <span class="hljs-number">4.23</span><span class="hljs-number">.1</span>
@@ -108,30 +101,27 @@ Built at: <span class="hljs-number">2018</span><span class="hljs-number">-11</sp
 index.js  <span class="hljs-number">9.85</span> KiB       <span class="hljs-number">0</span>  [emitted]  index
 Entrypoint index = index.js
 [<span class="hljs-number">0</span>] ./index.js <span class="hljs-number">288</span> bytes {<span class="hljs-number">0</span>} [built]
-    + <span class="hljs-number">1</span> hidden <span class="hljs-built_in">module</span>
-</code></pre><p>Finally, run <code>serve</code> using <code>./node_modules/.bin/serve</code> and visit <code>http://localhost:5000</code>. You should see &quot;Hello, World&quot; show up.</p>
+    + <span class="hljs-number">1</span> hidden <span class="hljs-built_in">module</span></code></pre><p>Finally, run <code>serve</code> using <code>./node_modules/.bin/serve</code> and visit <code>http://localhost:5000</code>. You should see &quot;Hello, World&quot; show up.</p>
 <h2 id="a-basic-form">A Basic Form</h2>
 <p>Forms in Preact are much easier with the <a href="https://www.npmjs.com/package/linkstate">linkstate</a>
 module, which was split off from core Preact. The linkstate module is tiny relative to Preact
 itself, so don&#39;t worry about it adding bloat.</p>
-<pre><code>npm install linkstate@<span class="hljs-number">1.</span>x
-</code></pre><p>Like <a href="https://stackoverflow.com/questions/52531081/how-to-use-componentdidmount-to-render-values-to-form-in-react">in React</a>, the standard pattern for a form with <a href="https://reactjs.org/docs/forms.html">controlled inputs</a> in Preact is:</p>
+<pre><code>npm install linkstate@<span class="hljs-number">1.</span>x</code></pre><p>Like <a href="https://stackoverflow.com/questions/52531081/how-to-use-componentdidmount-to-render-values-to-form-in-react">in React</a>, the standard pattern for a form with <a href="https://reactjs.org/docs/forms.html">controlled inputs</a> in Preact is:</p>
 <p>1) Load form data in <code>componentDidMount()</code>
 2) Display the inputs with the input value bound to <code>state</code> and update <code>state</code> when the user modifies the form
 3) Call a <code>save()</code> function when the user submits the form</p>
 <p>In the interest of making this form a bit more realistic, I&#39;ll put the form behind a <code>setTimeout()</code>. When you&#39;re building an actual app, you will likely be loading this data via an HTTP request in <code>componentDidMount()</code>. To avoid having to set up an actual HTTP server, this example will use <code>setTimeout()</code> instead.</p>
-<pre><code class="lang-javascript">componentDidMount() {
+<pre><code class="language-javascript">componentDidMount() {
   <span class="hljs-keyword">this</span>.setState({ loading: <span class="hljs-literal">true</span> });
 
   setTimeout(() =&gt; {
     <span class="hljs-keyword">this</span>.setState({ loading: <span class="hljs-literal">false</span>, firstName: <span class="hljs-string">'Foo'</span>, lastName: <span class="hljs-string">'Bar'</span> });
   }, <span class="hljs-number">100</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Next, let&#39;s take a look at the <code>render()</code> function. Preact <code>render()</code> functions
 are slightly different than React&#39;s in that they take 2 params: <code>props</code> and <code>state</code>.
 For this example, <code>props</code> doesn&#39;t matter, but <code>state</code> contains the component state.</p>
-<pre><code class="lang-javascript">render(props, state) {
+<pre><code class="language-javascript">render(props, state) {
   <span class="hljs-keyword">if</span> (state.loading) {
     <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>;</span>
   }
@@ -156,16 +146,14 @@ For this example, <code>props</code> doesn&#39;t matter, but <code>state</code> 
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   )</span>;
-}
-</code></pre>
+}</code></pre>
 <p>Why is <code>linkstate</code> useful? Take a look at the <code>save()</code> function below. This is
 because JavaScript functions lose context when they&#39;re assigned to a value. If
 <code>save()</code> didn&#39;t return a function and you just used <code>onClick={this.save}</code>, <code>this</code>
 would be undefined in the <code>save()</code> function. You would instead need to do <code>this.save.bind(this)</code>, but <a href="https://stackoverflow.com/questions/18895305/will-function-prototype-bind-always-be-slow"><code>bind()</code> is slow</a>.</p>
-<pre><code class="lang-javascript">save() {
+<pre><code class="language-javascript">save() {
   <span class="hljs-keyword">return</span> () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.state.firstName, <span class="hljs-keyword">this</span>.state.lastName);
-}
-</code></pre>
+}</code></pre>
 <h2 id="a-form-component">A Form Component</h2>
 <p>In practice, your form will usually not be responsible for loading its own data.
 You&#39;ll likely have a top-level component that loads the data, and then several
@@ -178,7 +166,7 @@ store any modifications as <code>state</code> internally.</p>
 and then the top-level component will get back new data from the server. The
 form component then needs to be able to react to the new <code>props</code>. The way to
 handle this in Preact is the <a href="https://preactjs.com/guide/api-reference"><code>componentWillReceiveProps()</code> hook</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   componentDidMount() {
     <span class="hljs-keyword">this</span>.setState(<span class="hljs-built_in">Object</span>.assign({}, <span class="hljs-keyword">this</span>.state, <span class="hljs-keyword">this</span>.props));
   }
@@ -210,14 +198,13 @@ handle this in Preact is the <a href="https://preactjs.com/guide/api-reference">
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     )</span>;
   }
-}
-</code></pre>
+}</code></pre>
 <p>Below is the updated <code>save()</code> and <code>render()</code> for the top-level <code>App</code> component.
 The big change here is that the <code>App</code> component passes the <code>save()</code> function
 to the <code>Form</code> component as a prop. This is to avoid having to add
 <a href="http://npmjs.com/package/redux">Redux</a> or something similar to this simple example.
 In practice you probably should just use a Redux store.</p>
-<pre><code class="lang-javascript">save(data) {
+<pre><code class="language-javascript">save(data) {
   <span class="hljs-built_in">console</span>.log(data.firstName, data.lastName);
   setTimeout(() =&gt; {
     <span class="hljs-keyword">this</span>.setState(<span class="hljs-built_in">Object</span>.assign({}, data));
@@ -239,10 +226,10 @@ render(props, state) {
         <span class="hljs-attr">save</span>=<span class="hljs-string">{data</span> =&gt;</span> this.save(data)} /&gt;
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   )</span>;
-}
-</code></pre>
+}</code></pre>
 <p>All in all, the total page weight is 12KB without any gzipping. Not bad!</p>
-<p><img class="inline-image" src="https://i.imgur.com/lifNj6B.png"></p>
+<img class="inline-image" src="https://i.imgur.com/lifNj6B.png">
+
 <h2 id="moving-on">Moving On</h2>
 <p>Preact is a great library for when you want to build a simple form without adding 100KB+ to your total <a href="https://deviceatlas.com/blog/understanding-web-page-weight">page weight</a>. Vanilla JS is great for display-only pages, but starts getting cumbersome once you need to handle some non-trivial user input. Next time you want to use React but feel like it is too heavy, give Preact a shot.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

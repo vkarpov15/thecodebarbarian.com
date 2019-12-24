@@ -14,10 +14,10 @@
 </div>
 </div><div class="post-body-text-container"><p>People have often asked me about my biggest pain points with AngularJS.
 I don&#39;t have many complaints about AngularJS 1.x. But, my biggest by far is the <a href="https://code.angularjs.org/1.2.16/docs/api/ng/directive/form">form validation code</a>. Besides being unwieldy, it has a fundamental flaw: writing form validation logic in HTML is wrong. I wrote about a better way to <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">handle form validation using Mongoose on the server side</a> two years ago. In this article, I&#39;ll present a more modern approach using <a href="http://www.mongoosejs.com">Mongoose</a> 4.0.0-rc2&#39;s isomorphic component.</p>
-<h1 id="what-s-wrong-with-ngform-">What&#39;s Wrong With <code>ngForm</code>?</h1>
+<h1 id="whats-wrong-with-ngform">What&#39;s Wrong With <code>ngForm</code>?</h1>
 <p>Now don&#39;t get me wrong, the ability to call scope functions in HTML is an awesome feature. But using it to define form validation logic has three key disadvantages. First, it breaks separation of concerns. Form validation logic should operate on data (a plain-old JavaScript object, or POJO for short) as opposed to the state of HTML inputs. In other words, if a designer decides to change an <code>input</code> to a <code>select</code>, this should not affect the validation code at all. Secondly, it&#39;s tricky to control when form validation is executed. You might want to only run validation when an input element uses focus, but AngularJS runs it on every change by default. Even I&#39;m not quite comfortable with tweaking that behavior, and I <a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078/ref=sr_1_1?ie=UTF8&amp;qid=1424385919&amp;sr=8-1&amp;keywords=professional+angularjs">wrote a ~400 page book on AngularJS</a>. I can only imagine how beginners struggle with that.</p>
 <p>Lastly, in-HTML form validation logic fails to take advantage of isomorphism. In other words, its difficult to run your HTML form validation logic on the server. This means you need to write validation logic in two separate languages, a violation of the core MEAN stack principle &quot;thou shalt not maintain the same code in 2 different languages.&quot; If you&#39;re using Mongoose to validate data on the server, why not use the same validation logic in the browser?</p>
-<h1 id="enter-mongoose-s-browser-component">Enter Mongoose&#39;s Browser Component</h1>
+<h1 id="enter-mongooses-browser-component">Enter Mongoose&#39;s Browser Component</h1>
 <p>As you may know, Mongoose is a ORM-like layer (ODM) for NodeJS and MongoDB.
 By virtue of the fact that MongoDB has no notion of a schema, Mongoose has built up a rich set of validation functionality over the years.
 A couple years ago I described how to <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">integrate AngularJS with Mongoose server-side validation output</a>.
@@ -25,7 +25,7 @@ But, its 2015, and &quot;isomorphic JavaScript&quot; is the new buzzword.
 Mongoose is written in pure JavaScript, so it could be isomorphic in theory.
 Since 3.9.6, Mongoose supports limited isomorphism. Specifically, Mongoose 4.0.0-rc2&#39;s isomorphic component packages Mongoose&#39;s schema validation for the browser.</p>
 <p>To use Mongoose&#39;s browser component, you can include the <a href="http://d1l4stvdmqmdzl.cloudfront.net/4.0.0-rc2/mongoose.min.js">pre-built source in a <code>script</code> tag</a>. You can also <code>require(&#39;mongoose&#39;)</code> in code you&#39;ll build with <a href="https://www.npmjs.org/package/browserify">browserify</a>. Once you&#39;ve included Mongoose in your page, you should be able to run the below simple example. You can find <a href="http://jsfiddle.net/tq6rgodt/">this example on JSFiddle</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
     name: {
         type: <span class="hljs-built_in">String</span>,
         required: <span class="hljs-literal">true</span>
@@ -40,13 +40,12 @@ doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</sp
     doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
         print(<span class="hljs-string">'No more error: '</span> + err); 
     });
-});
-</code></pre>
+});</code></pre>
 <p>The above example doesn&#39;t look like anything special. But, you now have the ability to utilize advanced Mongoose features, like <a href="http://mongoosejs.com/docs/validation.html">custom validators</a>, <a href="http://mongoosejs.com/docs/middleware.html">pre and post validate middleware</a>, <a href="http://mongoosejs.com/docs/2.7.x/docs/virtuals.html">virtuals</a>, and <a href="http://mongoosejs.com/docs/plugins.html">plugins</a>.</p>
 <p><em>Mongoose makes heavy use of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">the <code>Object.defineProperty</code> function</a> in ECMAScript 5. As such, the browser component is not expected to work in browsers that don&#39;t support ECMAScript 5. This <a href="http://kangax.github.io/compat-table/es5/">includes Internet Explorer 8 and Safari 4</a>. I have not tested to see if Mongoose works in IE8 with an ES5 shim yet.</em></p>
 <h1 id="using-mongoose-custom-validators-in-the-browser">Using Mongoose Custom Validators in the Browser</h1>
 <p>Suppose you have a document that contains a list of prime numbers. Mongoose doesn&#39;t include a validator for checking if a number is prime (although I&#39;m <a href="http://en.wikipedia.org/wiki/Adleman%E2%80%93Pomerance%E2%80%93Rumely_primality_test">open to a pull request with a performant implementation</a>). Custom validators let you define your own primality test (<a href="http://jsfiddle.net/368an924/1/">JSFiddle</a>):</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> primeNumbersSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> primeNumbersSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
     primes: [{
         type: <span class="hljs-built_in">Number</span>,
         min: <span class="hljs-number">2</span>,
@@ -77,11 +76,10 @@ doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</sp
     doc.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
         print(<span class="hljs-string">'Error: '</span> + err); 
     });
-});
-</code></pre>
+});</code></pre>
 <h1 id="tying-in-angularjs">Tying in AngularJS</h1>
 <p>When I wrote about <a href="/2013/05/12/how-to-easily-validate-any-form-ever-using-angularjs">how to validate any form ever with AngularJS</a>, I defined a non-trivial schema describing a list of stocks.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> stockSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> stockSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   symbol: {
     type: <span class="hljs-built_in">String</span>,
     required: <span class="hljs-literal">true</span>,
@@ -112,11 +110,10 @@ stockSchema.virtual(<span class="hljs-string">'displayPrice'</span>).get(<span c
 
 <span class="hljs-keyword">var</span> stockListSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   stocks: [stockSchema]
-});
-</code></pre>
+});</code></pre>
 <p>The <code>stockListSchema</code> uses Mongoose&#39;s ability to nest schemas, so each element in <code>stocks</code> needs to match <code>stockSchema</code>. To fit into <code>stockSchema</code>, a document must have a <code>symbol</code>, <code>price.price</code>, <code>price.currency</code>, and <code>quantity</code>. The symbol and currency must be one of the allowed values specified in <code>VALID_SYMBOLS</code> and <code>CURRENCIES</code>, respectively.</p>
 <p>Here&#39;s the JavaScript you need to tie <code>stockListSchema</code> in with AngularJS and bypass the need for an HTTP call. You can read the below code or skip ahead to the <a href="http://jsfiddle.net/3d0405jc/3/">JSFiddle</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mongooseExample = angular.module(<span class="hljs-string">'mongooseExample'</span>, []);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> mongooseExample = angular.module(<span class="hljs-string">'mongooseExample'</span>, []);
 
 mongooseExample.controller(<span class="hljs-string">'TestController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>{
     $scope.stockList = <span class="hljs-keyword">new</span> mongoose.Document({}, stockListSchema);
@@ -141,10 +138,9 @@ mongooseExample.controller(<span class="hljs-string">'TestController'</span>, <s
             $scope.$apply();
         });
     };
-});
-</code></pre>
+});</code></pre>
 <p>Utilizing this controller in HTML is easy. You create <code>input</code> and <code>select</code> elements that AngularJS binds to your <code>newStock</code> Mongoose document. When the user clicks &quot;Add Stock&quot;, you use Mongoose to validate <code>newStock</code>. If its invalid, you make the validation errors visible to the <code>$scope</code>, so AngularJS can show the correct <code>div</code> elements with class &#39;error&#39;. If <code>newStock</code> is valid, you <a href="https://masteringjs.io/tutorials/fundamentals/push">push</a> the document onto the stock list and clear the input for the user.</p>
-<pre><code class="lang-javascript">&lt;div ng-app=<span class="hljs-string">"mongooseExample"</span>&gt;  
+<pre><code class="language-javascript">&lt;div ng-app=<span class="hljs-string">"mongooseExample"</span>&gt;  
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"TestController"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Add New Stock<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Symbol<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
@@ -176,8 +172,7 @@ mongooseExample.controller(<span class="hljs-string">'TestController'</span>, <s
             {{stock.symbol}} @ {{stock.displayPrice}}
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
 <h1 id="conclusion">Conclusion</h1>
 <p>I hope you realize how sweet Mongoose&#39;s browser component is. It&#39;s so cool that <a href="https://m.bookalokal.com/">it&#39;s already used in production with AngularJS</a> and it isn&#39;t even marked stable yet. If you&#39;re using the MEAN stack, this will make your apps faster (no need for HTTP calls to do server-side validation) as well as easier to maintain (one schema, one definitive source of what constitutes valid data). In addition, mobile web sites and <a href="http://ionicframework.com/">hybrid mobile apps</a> can now use Mongoose validation without an internet connection. Admit it: there is almost certainly a time when you did validation on the client that you didn&#39;t do on the server, or vice versa. Mongoose makes that sort of mistake a relic of the past.</p>
 <p><em>If you liked this article, check out my upcoming book,

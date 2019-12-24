@@ -20,7 +20,7 @@ function. The 2 key properties that makes symbols so special are:</p>
 <li>Symbols can be used as object keys. Only strings and symbols can be used as object keys. </li>
 <li>No two symbols are ever equal.</li>
 </ol>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>();
 <span class="hljs-keyword">const</span> symbol2 = <span class="hljs-built_in">Symbol</span>();
 
 symbol1 === symbol2; <span class="hljs-comment">// false</span>
@@ -30,47 +30,43 @@ obj[symbol1] = <span class="hljs-string">'Hello'</span>;
 obj[symbol2] = <span class="hljs-string">'World'</span>;
 
 obj[symbol1]; <span class="hljs-comment">// 'Hello'</span>
-obj[symbol2]; <span class="hljs-comment">// 'World'</span>
-</code></pre>
+obj[symbol2]; <span class="hljs-comment">// 'World'</span></code></pre>
 <p>Although the <code>Symbol()</code> call makes it look like symbols are objects, symbols are
 actually a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">primitive type in JavaScript</a>. Using
 <code>Symbol</code> as a constructor with <code>new</code> throws an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>();
 
 <span class="hljs-keyword">typeof</span> symbol1; <span class="hljs-comment">// 'symbol'</span>
 symbol1 <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span>; <span class="hljs-comment">// false</span>
 
 <span class="hljs-comment">// Throws "TypeError: Symbol is not a constructor"</span>
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Symbol</span>();
-</code></pre>
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Symbol</span>();</code></pre>
 <h2 id="descriptions">Descriptions</h2>
 <p>The <code>Symbol()</code> function takes a single parameter, the string <code>description</code>.
 The symbol&#39;s <code>description</code> is only for debugging purposes - the <code>description</code>
 shows up in the symbol&#39;s <code>toString()</code>. However, two symbols with
 the same description are <strong>not equal</strong>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'my symbol'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'my symbol'</span>);
 <span class="hljs-keyword">const</span> symbol2 = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'my symbol'</span>);
 
 symbol1 === symbol2; <span class="hljs-comment">// false</span>
-<span class="hljs-built_in">console</span>.log(symbol1); <span class="hljs-comment">// 'Symbol(my symbol)'</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(symbol1); <span class="hljs-comment">// 'Symbol(my symbol)'</span></code></pre>
 <p>There is also a global symbol registry. Creating a symbol using <code>Symbol.for()</code>
 adds a symbol to a global registry, keyed by the symbol&#39;s <code>description</code>. In other
 words, if you create two symbols with the same description using <code>Symbol.for()</code>,
 the two symbols will be equal.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'test'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> symbol1 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'test'</span>);
 <span class="hljs-keyword">const</span> symbol2 = <span class="hljs-built_in">Symbol</span>.for(<span class="hljs-string">'test'</span>);
 
 symbol1 === symbol2; <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">console</span>.log(symbol1); <span class="hljs-comment">// 'Symbol(test)'</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(symbol1); <span class="hljs-comment">// 'Symbol(test)'</span></code></pre>
 <p>Generally speaking, you shouldn&#39;t use the global symbol registry unless you
 have a very good reason to, because you might run into naming collisions.</p>
 <h2 id="name-collisions">Name Collisions</h2>
 <p>The first built-in symbol in JavaScript was the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator"><code>Symbol.iterator</code> symbol</a> in ES6.
 An object that has a <code>Symbol.iterator</code> function is considered an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol"><em>iterable</em></a>.
 That means you can use that object as the right hand side of a <a href="/for-vs-for-each-vs-for-in-vs-for-of-in-javascript"><code>for/of</code> loop</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> fibonacci = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> fibonacci = {
   [<span class="hljs-built_in">Symbol</span>.iterator]: <span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;
     <span class="hljs-keyword">let</span> b = <span class="hljs-number">1</span>;
@@ -93,13 +89,12 @@ That means you can use that object as the right hand side of a <a href="/for-vs-
     <span class="hljs-keyword">break</span>;
   }
   <span class="hljs-built_in">console</span>.log(x);
-}
-</code></pre>
+}</code></pre>
 <p>Why is <code>Symbol.iterator</code> a symbol rather than a string? Suppose instead of
 using <code>Symbol.iterator</code>, the iterable spec checked for the presence of a
 string property <code>&#39;iterator&#39;</code>. Furthermore, suppose you had the below class
 that was meant to be an iterable.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   <span class="hljs-keyword">constructor</span>(obj) {
     <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, obj);
   }
@@ -114,13 +109,11 @@ that was meant to be an iterable.</p>
       <span class="hljs-keyword">yield</span> keys[i++];
     })();
   }
-}
-</code></pre>
+}</code></pre>
 <p>Instances of <code>MyClass</code> will be iterables that allow you to iterate over the
 object&#39;s keys. But the above class also has a potential flaw. Suppose a malicious
 user were to pass an object with an <code>iterator</code> property to <code>MyClass</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass({ iterator: <span class="hljs-string">'not a function'</span> });
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass({ iterator: <span class="hljs-string">'not a function'</span> });</code></pre>
 <p>If you were to use <code>for/of</code> with <code>obj</code>, JavaScript would throw <code>TypeError: obj is not iterable</code>. That&#39;s because the user-specified <code>iterator</code> function would overwrite the 
 class&#39; iterator property. This is a similar security issue to <a href="/mongoose-prototype-pollution-vulnerability-disclosure">prototype pollution</a>, where naively copying user data may cause issues with special properties like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto"><code>__proto__</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor"><code>constructor</code></a>.</p>
 <p>The key pattern here is that <em>symbols enable a clear separation between user data and program data in objects</em>. Since symbols cannot be represented in JSON, there&#39;s no
@@ -133,7 +126,7 @@ can use symbols to ensure that user data doesn&#39;t conflict with your built-in
 private properties in JavaScript. Symbols don&#39;t show up in <code>Object.keys()</code>, and
 therefore, unless you explicitly <code>export</code> a symbol, no other code can access
 that property unless you explicitly go through the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols"><code>Object.getOwnPropertySymbols()</code> function</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getObj</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getObj</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> symbol = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'test'</span>);
   <span class="hljs-keyword">const</span> obj = {};
   obj[symbol] = <span class="hljs-string">'test'</span>;
@@ -150,16 +143,14 @@ obj[<span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'test'</
 
 <span class="hljs-comment">// You can still get a reference to the symbol using `getOwnPropertySymbols()`</span>
 <span class="hljs-keyword">const</span> [symbol] = <span class="hljs-built_in">Object</span>.getOwnPropertySymbols(obj);
-obj[symbol]; <span class="hljs-comment">// 'test'</span>
-</code></pre>
+obj[symbol]; <span class="hljs-comment">// 'test'</span></code></pre>
 <p>Symbols are also convenient for private properties because they do not show
 up in <a href="/the-80-20-guide-to-json-stringify-in-javascript.html"><code>JSON.stringify()</code> output</a>.
 Specifically, <a href="https://masteringjs.io/tutorials/fundamentals/stringify#converting-values-to-json"><code>JSON.stringify()</code> silently ignores symbol keys and values</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> symbol = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'test'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> symbol = <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'test'</span>);
 <span class="hljs-keyword">const</span> obj = { [symbol]: <span class="hljs-string">'test'</span>, test: symbol };
 
-<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// "{}"</span>
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify(obj); <span class="hljs-comment">// "{}"</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Symbols are a great tool for representing internal state in objects while
 ensuring that user data stays separate from program state. With symbols, there&#39;s

@@ -32,7 +32,7 @@ save you the effort of setting up a replica set on your own, the below example
 creates a 3 node replica set running on ports 31000-31002 using the <a href="http://npmjs.com/package/mongodb-topology-manager"><code>mongodb-topology-manager</code> npm module</a>. The <code>mongodb-topology-manager</code> npm module is great for tests and examples, but do
 <strong>not</strong> use it in production. If you want to use replica sets in production
 without managing them yourself, check out <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-comment">// If you're not familiar with async/await, check out this article:</span>
@@ -86,8 +86,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-keyword">await</span> replSet.purge();
   <span class="hljs-keyword">await</span> replSet.start();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Replica set started...'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The output from running the above script looks like this:</p>
 <pre><code>$ node change.js
 <span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">22.355</span>Z <span class="hljs-string">'mongoose version: 5.1.0'</span>
@@ -106,15 +105,14 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ns: { db: 'test', coll: 'Person' },
   documentKey: { _id: 5af5b13fe526027666c6bf83 } }
 ^C
-$</span>
-</code></pre><p>In particular, notice the <code>operationType</code>, <code>fullDocument</code>, and <code>ns</code> properties.
+$</span></code></pre><p>In particular, notice the <code>operationType</code>, <code>fullDocument</code>, and <code>ns</code> properties.
 The <code>operationType</code> property tells you the type of change that occurred,
 it will be either &#39;insert&#39;, &#39;update&#39;, &#39;replace&#39;, &#39;delete&#39;, or &#39;invalidate&#39;.
 Each <code>operationType</code> has slightly different properties. The <code>fullDocument</code>
 property contains the entire document after any updates have been applied.
 The <code>ns</code> property tells you the name of the database and collection that the
 changed document is in.</p>
-<h2 id="pub-sub-with-fake-market-data">Pub/Sub with Fake Market Data</h2>
+<h2 id="pubsub-with-fake-market-data">Pub/Sub with Fake Market Data</h2>
 <p>Suppose you were building an app that let users specify a stock ticker and a
 price threshold, and notified them when the stock&#39;s price went above or below
 a certain threshold. For instance, let&#39;s say you wanted to be notified when <a href="https://www.nasdaq.com/symbol/mdb">MongoDB stock</a> went above 45.
@@ -125,7 +123,7 @@ user-specified threshold.</p>
 <p>First, let&#39;s create a process that writes fake price data for MDB stock once
 per second. The price data will cross the threshold value of 45 every 10
 seconds.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-comment">// If you're not familiar with async/await, check out this article:</span>
@@ -170,14 +168,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
     <span class="hljs-comment">// Pause execution for 1 second.</span>
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
   }
-}
-</code></pre>
+}</code></pre>
 <p>The other process, <code>watchData.js</code>, will watch for new documents inserted into
 the &#39;Price&#39; collection. It will track the last price it saw, and every time
 it sees a new price it will query the &#39;Threshold&#39; collection to see if the new
 price crossed a threshold. You can imagine there&#39;s a separate API service that
 would let the app&#39;s users manage their thresholds.</p>
-<pre><code class="lang-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
+<pre><code class="language-javascript">run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// Connect to the replica set</span>
@@ -229,8 +226,7 @@ would let the app&#39;s users manage their thresholds.</p>
           <span class="hljs-string">`<span class="hljs-subst">${threshold.price}</span> crossed: <span class="hljs-subst">${$gte}</span>, <span class="hljs-subst">${$lte}</span>`</span>);
       }
     });
-}
-</code></pre>
+}</code></pre>
 <p>Run these two scripts in two separate terminal windows, The <code>ingestData.js</code>
 script will print out the stock prices it inserted:</p>
 <pre><code>$ node ingestData.js
@@ -249,15 +245,13 @@ script will print out the stock prices it inserted:</p>
 <span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.817</span>Z <span class="hljs-string">'Insert MDB price 45.1'</span>
 ...
 ^C
-$
-</code></pre><p>The <code>watchData.js</code> script will print out the times the stock price crossed 45:</p>
+$</code></pre><p>The <code>watchData.js</code> script will print out the times the stock price crossed 45:</p>
 <pre><code>$ node watchData.js
 <span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.841</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
 <span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">38.905</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.5, 45.02'</span>
 <span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">48.979</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
 ^C
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>MongoDB change streams enable you to use MongoDB for pubsub, which is great
 for people that already use MongoDB and don&#39;t want to manage a Kafka or RabbitMQ
 deployment. The asynchronous nature of Node.js and mongoose is a natural fit,

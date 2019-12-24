@@ -14,7 +14,7 @@
 </div>
 </div><div class="post-body-text-container"><p>The <a href="https://docs.angularjs.org/api/ngMock/service/$httpBackend"><code>$httpBackend</code> service</a> is definitely one of my top 10 AngularJS features. It makes TDD incredibly easy, <a href="http://thecodebarbarian.com/2015/06/12/testing-angularjs-directives">especially if you&#39;re testing directives as a whole</a>.
 For instance, if you have a directive that makes an HTTP request:</p>
-<pre><code class="lang-javascript">angular.module(<span class="hljs-string">'myApp'</span>, []).directive(<span class="hljs-string">'myDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">angular.module(<span class="hljs-string">'myApp'</span>, []).directive(<span class="hljs-string">'myDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
     scope: <span class="hljs-literal">false</span>,
     controller: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $http</span>) </span>{
@@ -23,11 +23,10 @@ For instance, if you have a directive that makes an HTTP request:</p>
       });
     }
   };
-});
-</code></pre>
+});</code></pre>
 <p>You can stub out requests on a per-test basis with the <code>$httpBackend</code>
 service, as long as you include the <code>ngMockE2E</code> module.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'MyDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'MyDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'makes an http request'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>) </span>{
     <span class="hljs-keyword">var</span> injector = angular.injector([<span class="hljs-string">'myApp'</span>, <span class="hljs-string">'ngMockE2E'</span>]);
     <span class="hljs-keyword">var</span> rootScope = injector.get(<span class="hljs-string">'$rootScope'</span>);
@@ -40,15 +39,14 @@ service, as long as you include the <code>ngMockE2E</code> module.</p>
     httpBackend.flush();
     assert.deepEqual(scope.data, { hello: <span class="hljs-string">'world'</span> });
   });
-})
-</code></pre>
+})</code></pre>
 <p>The <code>$httpBackend</code> service is neat, but it has all the same limitations
 that AngularJS 1.x does: it&#39;s hard to use <code>$httpBackend</code> in Node.js or
 with React, Riot, Cycle, or any non-AngularJS toolkit. Enter
 <a href="https://www.npmjs.com/package/superagent">superagent</a>, an elegant chainable
 HTTP request builder that&#39;s fully isomorphic (or &quot;universal&quot; if you prefer,
 but I think universal sounds too vague).</p>
-<h2 id="introducing-superagent-httpbackend-">Introducing <code>superagent-httpbackend</code></h2>
+<h2 id="introducing-superagent-httpbackend">Introducing <code>superagent-httpbackend</code></h2>
 <p>Superagent is a great HTTP client. It&#39;s isomorphic, so you can take advantage
 of server-side rendering and run tests in Node.js. It&#39;s also not tied to
 any particular framework, so you can re-use your HTTP client logic on the
@@ -69,7 +67,7 @@ superagent&#39;s <code>end()</code> function, so it should minimize conflict wit
 superagent plugins. I&#39;ve used <code>superagent-httpbackend</code> successfully with
 <code>superagent-promise</code> and a couple internal plugins.</p>
 <p>Here&#39;s an example of <code>superagent-httpbackend</code> in action.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 <span class="hljs-keyword">const</span> httpBackend = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent-httpbackend'</span>);
 
 <span class="hljs-keyword">let</span> response = <span class="hljs-literal">null</span>;
@@ -79,14 +77,13 @@ superagent.get(<span class="hljs-string">'/hello'</span>, (err, res) =&gt; {
 });
 assert.strictEqual(response, <span class="hljs-literal">null</span>);
 httpBackend.flush();
-assert.deepEqual(response.body, { hello: <span class="hljs-string">'world'</span> });
-</code></pre>
-<p>Like AngularJS&#39; <code>$httpBackend</code> service, <code>superagent-httpbackend</code> lets you</p>
-<p>define a stubbed out backend using <code>.expect()</code>. When you want to trigger
+assert.deepEqual(response.body, { hello: <span class="hljs-string">'world'</span> });</code></pre>
+<p>Like AngularJS&#39; <code>$httpBackend</code> service, <code>superagent-httpbackend</code> lets you
+define a stubbed out backend using <code>.expect()</code>. When you want to trigger
 all the responses, you call <code>httpBackend.flush()</code>. Note that
 <code>httpBackend.flush()</code> is <strong>synchronous</strong>, like <code>$httpBackend</code> and unlike
 the <code>superagent-mocker</code> equivalent.</p>
-<h2 id="why-superagent-">Why Superagent?</h2>
+<h2 id="why-superagent">Why Superagent?</h2>
 <p>The number of JavaScript environments out there is growing rapidly.
 Nowadays you need JavaScript that not only works on Node.js and in the
 browser, but in Cordova apps, React Native, NativeScript, Electron,

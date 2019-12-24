@@ -16,7 +16,7 @@
 <h2 id="motivation">Motivation</h2>
 <p>One of the primary goals for Mongoose is allowing you to safely write untrusted data to MongoDB without any additional validation. Given a <code>req.body</code> in Express, Mongoose should allow you to <a href="https://mongoosejs.com/docs/api/document.html#document_Document-set"><code>set()</code> the modified values</a> and save the data to the database with minimal extra work.</p>
 <p><a href="https://mongoosejs.com/docs/guide.html#timestamps">Mongoose timestamps</a> set a <code>createdAt</code> when the document is created, and an <code>updatedAt</code> when the document is updated. Ideally, <code>createdAt</code> shouldn&#39;t change once the document is created. But, currently, you can overwrite <code>createdAt</code>!</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 }, { timestamps: <span class="hljs-literal">true</span> }));
 
@@ -28,12 +28,11 @@
 doc.set({ createdAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019-06-01'</span>) });
 <span class="hljs-keyword">await</span> doc.save();
 
-<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-01T00:00:00.000Z</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-01T00:00:00.000Z</span></code></pre>
 <p>This means you need to be careful to strip out <code>createdAt</code> from any request bodies. Otherwise, a bug or a malicious user might set an incorrect <code>createdAt</code>.</p>
 <h2 id="introducing-immutable-properties">Introducing Immutable Properties</h2>
 <p>In Mongoose 5.6.0, you can make a property immutable. If you mark <code>createdAt</code> as immutable, Mongoose will disallow changing <code>createdAt</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   createdAt: {
     type: <span class="hljs-built_in">Date</span>,
@@ -51,10 +50,9 @@ doc.set({ createdAt: <span class="hljs-keyword">new</span> <span class="hljs-bui
 <span class="hljs-keyword">await</span> doc.save();
 
 <span class="hljs-built_in">console</span>.log(doc.name); <span class="hljs-comment">// 'test'</span>
-<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-18T16:55:49.197Z</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-18T16:55:49.197Z</span></code></pre>
 <p>Immutability only applies to documents that have already been saved to the database. In other words, you can modify immutable properties if the document&#39;s <a href="https://mongoosejs.com/docs/api/document.html#document_Document-isNew"><code>isNew</code> property</a> is <code>false</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Model = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>,
   createdAt: {
     type: <span class="hljs-built_in">Date</span>,
@@ -67,11 +65,10 @@ doc.createdAt = <span class="hljs-keyword">new</span> <span class="hljs-built_in
 
 <span class="hljs-keyword">await</span> doc.save();
 
-doc.createdAt; <span class="hljs-comment">// 2019-06-01T00:00:00.000Z</span>
-</code></pre>
+doc.createdAt; <span class="hljs-comment">// 2019-06-01T00:00:00.000Z</span></code></pre>
 <h2 id="with-update">With Update</h2>
 <p>Mongoose also strips updates to immutable properties from <a href="https://mongoosejs.com/docs/api/query.html#query_Query-updateOne"><code>updateOne()</code></a>, <a href="https://mongoosejs.com/docs/api/query.html#query_Query-updateMany"><code>updateMany()</code></a>, and <a href="https://mongoosejs.com/docs/api/query.html#query_Query-findOneAndUpdate"><code>findOneAndUpdate()</code></a>. Your update will succeed if you try to overwrite an immutable property, Mongoose will just strip out the immutable property.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 }, { timestamps: <span class="hljs-literal">true</span> });
 
@@ -89,8 +86,7 @@ doc = <span class="hljs-keyword">await</span> Model.findOneAndUpdate({}, {
 }, { <span class="hljs-keyword">new</span>: <span class="hljs-literal">true</span> });
 
 <span class="hljs-built_in">console</span>.log(doc.name); <span class="hljs-comment">// 'test'</span>
-<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-18T17:33:03.293Z</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(doc.createdAt); <span class="hljs-comment">// 2019-06-18T17:33:03.293Z</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Immutable properties are just one of 12 new features in Mongoose 5.6.0. Mongoose 5.6.0 also lets you use arrow functions to define <a href="https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get">virtual getters</a> and <a href="https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-set">setters</a>, set a global <a href="http://thecodebarbarian.com/slow-trains-in-mongodb-and-nodejs.html#the-maxtimems-option"><code>maxTimeMS</code> for your queries</a>, and set <a href="https://mongoosejs.com/docs/populate.html#saving-refs">populate&#39;s <code>ref</code> option to a function</a>. Make sure you upgrade to take advantage of all the new features!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
