@@ -18,14 +18,12 @@ v10<span class="hljs-number">.4</span><span class="hljs-number">.0</span>
 $ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v10<span class="hljs-number">.4</span><span class="hljs-number">.0</span>-linux-x64/bin/node
 &gt; <span class="hljs-number">10000000000</span>n * <span class="hljs-number">10000000000</span>n
 <span class="hljs-number">100000000000000000000</span>n
-&gt;
-</code></pre><h2 id="what-are-bigints-">What Are BigInts?</h2>
+&gt;</code></pre><h2 id="what-are-bigints">What Are BigInts?</h2>
 <p>BigInt is a new JavaScript primitive type that can store arbitrarily large integers, like the <a href="https://en.wikipedia.org/wiki/Busy_beaver#Exact_values_and_lower_bounds">Busy Beaver sequence</a> or values of the <a href="https://en.wikipedia.org/wiki/Ackermann_function">Ackermann sequence</a>. You can store arbitrarily large numbers as strings, but BigInts have the benefit of supporting <a href="https://github.com/tc39/proposal-bigint#operators">arithmetic operators</a>. In other words, you can add and multiply BigInts like you would normal numbers.</p>
 <p>There are 2 ways to create a BigInt: either by appending &#39;n&#39; at the end of an integer literal, or by using the <code>BigInt()</code> constructor:</p>
-<pre><code class="lang-javascript"><span class="hljs-number">42</span>n; <span class="hljs-comment">// This is a BigInt</span>
+<pre><code class="language-javascript"><span class="hljs-number">42</span>n; <span class="hljs-comment">// This is a BigInt</span>
 BigInt(<span class="hljs-string">'42'</span>); <span class="hljs-comment">// This is equivalent</span>
-BigInt(<span class="hljs-number">42</span>); <span class="hljs-comment">// Also works</span>
-</code></pre>
+BigInt(<span class="hljs-number">42</span>); <span class="hljs-comment">// Also works</span></code></pre>
 <p>BigInts are <strong>not</strong> numbers, they are a completely new type. They&#39;re the first new primitive type added to JavaScript since Symbols in ES2015. In Node.js 10.4, the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">primitive data types</a> are:</p>
 <ul>
 <li>Boolean</li>
@@ -37,19 +35,17 @@ BigInt(<span class="hljs-number">42</span>); <span class="hljs-comment">// Also 
 <li>BigInt</li>
 </ul>
 <p>To check if a value is a BigInt, you can use the <code>typeof</code> operator.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">typeof</span> <span class="hljs-number">42</span>n; <span class="hljs-comment">// "bigint". Note that `typeof` returns all-lowercase.</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">typeof</span> <span class="hljs-number">42</span>n; <span class="hljs-comment">// "bigint". Note that `typeof` returns all-lowercase.</span></code></pre>
 <p>BigInt equality is strictly by value.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> x = <span class="hljs-number">42</span>n;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> x = <span class="hljs-number">42</span>n;
 <span class="hljs-keyword">let</span> y = <span class="hljs-number">42</span>n;
 x === y; <span class="hljs-comment">// "true"</span>
 ++y;
-x === y; <span class="hljs-comment">// "false"</span>
-</code></pre>
+x === y; <span class="hljs-comment">// "false"</span></code></pre>
 <h2 id="arithmetic-on-bigints">Arithmetic On BigInts</h2>
 <p>The <code>+</code>, <code>*</code>, <code>-</code>, <code>**</code>, and <code>%</code> operators work as you would expect between 2
 BigInts. You can also use <code>++</code> and <code>--</code> as you would with numbers.</p>
-<pre><code class="lang-javascript"><span class="hljs-number">5</span>n + <span class="hljs-number">3</span>n; <span class="hljs-comment">// "8n"</span>
+<pre><code class="language-javascript"><span class="hljs-number">5</span>n + <span class="hljs-number">3</span>n; <span class="hljs-comment">// "8n"</span>
 <span class="hljs-number">5</span>n * <span class="hljs-number">3</span>n; <span class="hljs-comment">// "15n"</span>
 <span class="hljs-number">5</span>n - <span class="hljs-number">3</span>n; <span class="hljs-comment">// "2n"</span>
 <span class="hljs-number">5</span>n ** <span class="hljs-number">3</span>n; <span class="hljs-comment">// "125n"</span>
@@ -58,20 +54,18 @@ BigInts. You can also use <code>++</code> and <code>--</code> as you would with 
 <span class="hljs-keyword">let</span> x = <span class="hljs-number">1</span>;
 ++x; <span class="hljs-comment">// "2"</span>
 x++; <span class="hljs-comment">// "3"</span>
-x--; <span class="hljs-comment">// "2"</span>
-</code></pre>
+x--; <span class="hljs-comment">// "2"</span></code></pre>
 <p>Division, the <code>/</code> operator, is slightly trickier. BigInts are always integers,
 and the <a href="https://github.com/tc39/proposal-bigint#operators">TC39 spec says that BigInt division always rounds down</a>. So even though <code>5 / 3</code> is approximately <code>1.6666</code>, <code>5n / 3n === 1n</code>;</p>
 <p>Arithmetic operators between BigInts and numbers do <strong>not</strong> work. Multiplying a BigInt by a number throws an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// The below all throw "TypeError: Cannot mix BigInt and other types, use explicit conversions"</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// The below all throw "TypeError: Cannot mix BigInt and other types, use explicit conversions"</span>
 <span class="hljs-number">5</span>n + <span class="hljs-number">3</span>;
 <span class="hljs-number">5</span>n * <span class="hljs-number">3</span>;
 <span class="hljs-number">5</span> - <span class="hljs-number">3</span>n;
 <span class="hljs-number">5</span> ** <span class="hljs-number">3</span>n;
-<span class="hljs-number">5</span> % <span class="hljs-number">3</span>n;
-</code></pre>
+<span class="hljs-number">5</span> % <span class="hljs-number">3</span>n;</code></pre>
 <p>Comparisons, like <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, and <code>&lt;=</code>, work as you would expect, even when comparing BigInts to numbers.</p>
-<pre><code class="lang-javascript"><span class="hljs-number">42</span>n &gt; <span class="hljs-number">42</span>; <span class="hljs-comment">// false</span>
+<pre><code class="language-javascript"><span class="hljs-number">42</span>n &gt; <span class="hljs-number">42</span>; <span class="hljs-comment">// false</span>
 <span class="hljs-number">42</span>n &gt;= <span class="hljs-number">42</span>; <span class="hljs-comment">// true</span>
 <span class="hljs-number">43</span>n &gt; <span class="hljs-number">42</span>; <span class="hljs-comment">// true</span>
 <span class="hljs-number">42</span>n &lt; <span class="hljs-number">43</span>; <span class="hljs-comment">// true</span>
@@ -80,25 +74,21 @@ and the <a href="https://github.com/tc39/proposal-bigint#operators">TC39 spec sa
 <span class="hljs-number">42</span>n == <span class="hljs-number">42</span>; <span class="hljs-comment">// true</span>
 
 <span class="hljs-comment">// A BigInt is never strictly equal (===) to a number</span>
-<span class="hljs-number">42</span>n === <span class="hljs-number">42</span>; <span class="hljs-comment">// false</span>
-</code></pre>
+<span class="hljs-number">42</span>n === <span class="hljs-number">42</span>; <span class="hljs-comment">// false</span></code></pre>
 <p>Currently, JavaScripts <a href="https://www.w3schools.com/js/js_math.asp"><code>Math</code> utility functions</a> do <strong>not</strong> support BigInts. While you can use the exponentiation operator <code>**</code>, using <code>Math.pow()</code> throws an error:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">5</span>n, <span class="hljs-number">3</span>n); <span class="hljs-comment">// TypeError: Cannot convert a BigInt value to a number</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">5</span>n, <span class="hljs-number">3</span>n); <span class="hljs-comment">// TypeError: Cannot convert a BigInt value to a number</span></code></pre>
 <h2 id="limitations">Limitations</h2>
 <p>There are several limitations to using BigInts. Because BigInts are a new
 primitive type, many existing libraries and frameworks do not support them.
 Currently, you can&#39;t even <code>JSON.stringify()</code> an object that contains a BigInt.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Throws "TypeError: Do not know how to serialize a BigInt"</span>
-<span class="hljs-built_in">JSON</span>.stringify({ answer: <span class="hljs-number">42</span>n });
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// Throws "TypeError: Do not know how to serialize a BigInt"</span>
+<span class="hljs-built_in">JSON</span>.stringify({ answer: <span class="hljs-number">42</span>n });</code></pre>
 <p>To work around this limitation, you can add a <code>toJSON()</code> function to BigInt&#39;s prototype:</p>
-<pre><code class="lang-javascript">BigInt.prototype.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.toString(); };
+<pre><code class="language-javascript">BigInt.prototype.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.toString(); };
 
-<span class="hljs-built_in">JSON</span>.stringify({ answer: <span class="hljs-number">42</span>n }); <span class="hljs-comment">// '{"answer":"42"}'</span>
-</code></pre>
+<span class="hljs-built_in">JSON</span>.stringify({ answer: <span class="hljs-number">42</span>n }); <span class="hljs-comment">// '{"answer":"42"}'</span></code></pre>
 <p>Similarly, the <a href="https://www.npmjs.com/package/mongodb">MongoDB driver</a> and <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> currently do not support BigInts. The MongoDB driver will silently ignore properties whose values are BigInts.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -111,10 +101,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'BigInt'</span>).insertOne({ answer: <span class="hljs-number">42</span>n });
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'BigInt'</span>).findOne();
   <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">// "{ _id: 5b97e5458015164793387b9e }"</span>
-}
-</code></pre>
+}</code></pre>
 <p>Currently the only workaround for this is to add a <code>toBSON()</code> function to <code>BigInt.prototype</code>. This will tell the MongoDB driver to convert the BigInt to a string before storing it in MongoDB.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -132,10 +121,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'BigInt'</span>).insertOne({ answer: <span class="hljs-number">42</span>n });
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'BigInt'</span>).findOne();
   <span class="hljs-built_in">console</span>.log(res); <span class="hljs-comment">// "{ _id: 5b97e5458015164793387b9e, answer: '42' }"</span>
-}
-</code></pre>
+}</code></pre>
 <p>React doesn&#39;t currently support passing in BigInts as a <a href="https://reactjs.org/docs/react-api.html#createelement">child to <code>React.createElement()</code></a> either:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { renderToString } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom/server'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { renderToString } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom/server'</span>);
 <span class="hljs-keyword">const</span> { createElement, Component } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
@@ -146,8 +134,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 }
 
 <span class="hljs-comment">// &lt;h1 data-reactroot=""&gt;&lt;/h1&gt;</span>
-<span class="hljs-built_in">console</span>.log(renderToString(createElement(MyComponent)));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(renderToString(createElement(MyComponent)));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>BigInts are a very exciting new feature in Node.js 10.4. But, before you start using it, be careful: many libraries and frameworks don&#39;t support BigInts, not even native <code>JSON.parse()</code> and <code>JSON.stringify()</code>. Also, remember that stage 3 proposals <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe">have been withdrawn before</a>. There is no guarantee that BigInts as described here will be part of the JavaScript language beyond Node.js 10.x. That being said, I&#39;m looking forward to implementing BigInt support in Mongoose. So download Node.js 10.x and start trying out BigInts!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

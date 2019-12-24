@@ -21,31 +21,34 @@ only devops you need is bundling and uploading your app.</p>
 stateless functions is the need to establish a separate database connection every time the stateless function runs, which incurs a major performance penalty.
 Unfortunately, I haven&#39;t been able to figure out how to reuse a database connection
 in Google Cloud Functions, the trick that works for <a href="http://thecodebarbarian.com/getting-started-with-ibm-cloud-functions-and-mongodb.html">IBM Cloud</a>, <a href="http://thecodebarbarian.com/getting-started-with-azure-functions-and-mongodb.html">Azure Functions</a>, and <a href="https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas">AWS Lambda</a> does <strong>not</strong> work for Google Cloud Functions.</p>
-<h2 id="-hello-world-in-google-cloud-functions">&quot;Hello, World&quot; in Google Cloud Functions</h2>
+<h2 id="hello-world-in-google-cloud-functions">&quot;Hello, World&quot; in Google Cloud Functions</h2>
 <p>Go to the <a href="https://cloud.google.com/functions/">Google Cloud Functions landing page</a> and click &quot;Try it free&quot;.</p>
-<p><img src="https://i.imgur.com/lSzijLZ.png"></p>
+<img src="https://i.imgur.com/lSzijLZ.png">
+
 <p>Click on the hamburger icon in the upper left and find the &quot;Cloud Functions&quot; link in the sidebar, then click &quot;Create function&quot;.</p>
-<p><img src="https://i.imgur.com/cVNm44O.png"></p>
+<img src="https://i.imgur.com/cVNm44O.png">
+
 <p>Name your function &quot;hello-world&quot; and leave the rest of the options in the
 &quot;Create function&quot; form unchanged. Leave &quot;Function to execute&quot; as &quot;helloWorld&quot;,
 because that needs to match the name of the function your code exports. Below
 is the code you should enter in, so you can confirm what version of Node.js
 your function is running on.</p>
-<pre><code class="lang-javascript">exports.helloWorld = (req, res) =&gt; {
+<pre><code class="language-javascript">exports.helloWorld = (req, res) =&gt; {
   res.send(<span class="hljs-string">'Hello from Node.js '</span> + process.version);
-};
-</code></pre>
-<p><img src="https://i.imgur.com/OpJymV1.png"></p>
+};</code></pre>
+<img src="https://i.imgur.com/OpJymV1.png">
+
 <p>Click &quot;Create&quot; and wait for Google to deploy your cloud function.
 Once your function is deployed, click on it to display the function&#39;s details.</p>
-<p><img src="https://i.imgur.com/sRMnHMY.png"></p>
+<img src="https://i.imgur.com/sRMnHMY.png">
+
 <p>Click the &quot;Trigger&quot; tab to find your cloud function&#39;s URL.</p>
-<p><img src="https://i.imgur.com/r3rvHUy.png"></p>
+<img src="https://i.imgur.com/r3rvHUy.png">
+
 <p>Copy the URL and use <a href="https://en.wikipedia.org/wiki/CURL">curl</a> to run your cloud function.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
 Hello <span class="hljs-keyword">from</span> Node.js v6<span class="hljs-number">.11</span><span class="hljs-number">.5</span>
-$
-</code></pre><p>Google Cloud Functions don&#39;t give you any control over what version of Node.js you run,
+$  </code></pre><p>Google Cloud Functions don&#39;t give you any control over what version of Node.js you run,
 they run Node.js v6.11.5 currently. You can&#39;t use async/await natively on Google
 Cloud Functions at the time of this writing.</p>
 <h2 id="connecting-to-mongodb-atlas">Connecting to MongoDB Atlas</h2>
@@ -59,12 +62,12 @@ Edit <code>package.json</code> to match the below code.</p>
     <span class="hljs-string">"co"</span>: <span class="hljs-string">"4.6.0"</span>,
     <span class="hljs-string">"mongodb"</span>: <span class="hljs-string">"3.x"</span>
   }
-}
-</code></pre><p><img src="https://i.imgur.com/E4uBqOf.png"></p>
+}</code></pre><img src="https://i.imgur.com/E4uBqOf.png">
+
 <p>Once you redeploy, Google Cloud will automatically install your npm dependencies
 for you. Now, change your <code>index.js</code> to match the below code, replacing the <code>uri</code>
 with your <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> URI.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'ATLAS_URI_HERE'</span>;
@@ -78,17 +81,16 @@ exports.helloWorld = (req, res) =&gt; {
   }).catch(error =&gt; {
     res.send(<span class="hljs-string">'Error: '</span> + error.toString());
   });
-};
-</code></pre>
-<p><img src="https://i.imgur.com/8udyX2v.png"></p>
+};</code></pre>
+<img src="https://i.imgur.com/8udyX2v.png">
+
 <p>Click &quot;Save&quot; to deploy your function. Once it is deployed, you should be able
 to curl your cloud function and get a document from <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> back.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
 Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}]
-$
-</code></pre><p>At this point, you would try re-using the database connection using the same
+$</code></pre><p>At this point, you would try re-using the database connection using the same
 global state trick that works in AWS Lambda and other cloud function providers.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'ATLAS_URI_HERE'</span>;
@@ -108,16 +110,14 @@ exports.helloWorld = (req, res) =&gt; {
   }).catch(error =&gt; {
     res.send(<span class="hljs-string">'Error: '</span> + error.toString());
   })
-};
-</code></pre>
+};</code></pre>
 <p>Unfortunately, the global state trick doesn&#39;t seem to work in Google Cloud.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
 Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}], Reused: <span class="hljs-literal">false</span>
 $
 $ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
 Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}], Reused: <span class="hljs-literal">false</span>
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>FaaS is a powerful paradigm, but purely stateless functions suffer from performance
 limitations when dealing with databases because establishing a new database
 connection is costly. Most cloud function providers have a mechanism for

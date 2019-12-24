@@ -22,8 +22,7 @@
   background-size : <span class="hljs-string">'cover'</span>;
   background-repeat : <span class="hljs-string">'no-repeat'</span>;
   background-position : <span class="hljs-string">'center center'</span>;
-}
-</code></pre><p>Now let&#39;s say we wanted to automate this process, so that our designers don&#39;t have to write a separate CSS class for each image. We&#39;ll do this by adding an attribute called &#39;cover-background-image&#39; to some divs so our Javascript knows which image to set as the background. We can do this with jQuery or AngularJS, but lets do jQuery first. The general idea looks like this <a href="http://jsfiddle.net/vkarpov15/BQvbg/1/">(see it in action on JSFiddle)</a>:</p>
+}</code></pre><p>Now let&#39;s say we wanted to automate this process, so that our designers don&#39;t have to write a separate CSS class for each image. We&#39;ll do this by adding an attribute called &#39;cover-background-image&#39; to some divs so our Javascript knows which image to set as the background. We can do this with jQuery or AngularJS, but lets do jQuery first. The general idea looks like this <a href="http://jsfiddle.net/vkarpov15/BQvbg/1/">(see it in action on JSFiddle)</a>:</p>
 <pre><code>$(<span class="hljs-string">'div[cover-background-image]'</span>).
   each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, el</span>) </span>{
     $(element).css({
@@ -32,8 +31,7 @@
       <span class="hljs-string">'background-repeat'</span>: <span class="hljs-string">'no-repeat'</span>,
       <span class="hljs-string">'background-position'</span>: <span class="hljs-string">'center center'</span>
     });
-  });
-</code></pre><p>The general process will be the same with a directive - AngularJS calls your custom directive code for each element with a given attribute. Below is the equivalent directive in AngularJS, and on <a href="http://jsfiddle.net/vkarpov15/NE9cu/">JSFiddle</a>:</p>
+  });</code></pre><p>The general process will be the same with a directive - AngularJS calls your custom directive code for each element with a given attribute. Below is the equivalent directive in AngularJS, and on <a href="http://jsfiddle.net/vkarpov15/NE9cu/">JSFiddle</a>:</p>
 <pre><code><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []).
 m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scope, element, attrs</span>) </span>{
@@ -47,8 +45,7 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
       <span class="hljs-string">'background-position'</span>: pos
     });
   };
-});
-</code></pre><h2 id="making-the-directive-dynamic">Making The Directive Dynamic</h2>
+});</code></pre><h2 id="making-the-directive-dynamic">Making The Directive Dynamic</h2>
 <p>At this point some of you might be thinking, &quot;Hey, the only difference is that AngularJS requires more code!&quot; This is true for a relatively simple example like the one above. However, the real advantage to the AngularJS approach comes when you introduce two-way data-binding and the power of AngularJS scopes. Lets say that we want to introduce some carousel behavior to this image (switching the image every 5 seconds and allowing the user to navigate between images). In jQuery, supporting multiple carousels on the same page turns out to be a huge pain, because we have no easy way for mapping which images and which buttons belong to which carousel. When you try it the hard way, things end up looking a little something like this <a href="http://jsfiddle.net/vkarpov15/DDnUt/">JSFiddle</a>:</p>
 <pre><code>$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   $(<span class="hljs-string">'div[cover-background-image]'</span>).
@@ -99,8 +96,7 @@ m.directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="h
       };
       setTimeout(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
     });
-});
-</code></pre><p>As you can see, this is pretty quickly getting a bit more complex than we&#39;d like. More importantly, we&#39;ve needed to hard-code the <em>my-background-image</em> pseudo-directive with certain properties that will make our lives difficult later.</p>
+});</code></pre><p>As you can see, this is pretty quickly getting a bit more complex than we&#39;d like. More importantly, we&#39;ve needed to hard-code the <em>my-background-image</em> pseudo-directive with certain properties that will make our lives difficult later.</p>
 <p>First of all, we require the input of an array of images to be cycled. That may be fine for this specific application, but what if we want to re-use this code for a single image with no cycling? Then we&#39;ve got a timer that&#39;s doing nothing. Furthermore, putting an array variable in &#39;my-background-image&#39; requires that the variable be visible from the scope of the jQuery code. This leads to both headaches and lots of image arrays in the global scope. Finally, lets say that we want to add additional behaviors, such as swipe handling via <a href="http://eightmedia.github.io/hammer.js/">Hammer.js</a>. It becomes difficult to configure this behavior on a per-carousel basis - what if we have some carousels that should have swipe recognition and some that shouldn&#39;t?</p>
 <p>Now that we&#39;ve seen the difficulties that come with trying to make customizable and reusable UI behaviors and components, lets see how AngularJS provides us with the right framework and tools to do this task easily. Here&#39;s the first of four design patterns that you&#39;ll see frequently with AngularJS directives. With each pattern, I&#39;ll describe to you how the pattern works, and provide examples of this pattern in action both in my own JSFiddles and what others have written.</p>
 <h2 id="basic-directive-design-pattern-watch-and-update">Basic Directive Design Pattern: Watch and Update</h2>
@@ -153,11 +149,10 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
   };
 
   $timeout(nextImageTimeout, <span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);
-}
-</code></pre><p>With two-way data-binding, our directive changes very minimally from the previous example. Instead of taking the <code>my-background-image</code> attribute as a vanilla string, we tell AngularJS to interpret it as a variable and watch its value with a <code>scope.$watch</code> call. When the value changes, we update our CSS. We then move the carousel functionality to an AngularJS controller, so that we can reuse our directive in other non-carousel contexts. As you can see in the JSFiddle, we added an &quot;Add Image&quot; button that pushes another image to the top carousel&#39;s images collection, allowing the carousel to update automatically.</p>
+}</code></pre><p>With two-way data-binding, our directive changes very minimally from the previous example. Instead of taking the <code>my-background-image</code> attribute as a vanilla string, we tell AngularJS to interpret it as a variable and watch its value with a <code>scope.$watch</code> call. When the value changes, we update our CSS. We then move the carousel functionality to an AngularJS controller, so that we can reuse our directive in other non-carousel contexts. As you can see in the JSFiddle, we added an &quot;Add Image&quot; button that pushes another image to the top carousel&#39;s images collection, allowing the carousel to update automatically.</p>
 <p>Most importantly, AngularJS handles scoping for us, meaning that we can reference functions within the AngularJS controller from our HTML. Imagine trying to do something similar with onclick and jQuery - we would have to get very creative with refactoring our code to take all of our user behaviors out of <code>myBackgroundImage</code>.</p>
 <p>Now that we&#39;ve gotten the carousel functionality, it&#39;s simple enough to add an <code>ngSwipe</code> directive to our AngularJS module that will enable our users to navigate between images with swipes. Speaking of which:</p>
-<h2 id="basic-directive-design-pattern-wiring-external-event-handlers-to-call-apply-">Basic Directive Design Pattern: Wiring External Event Handlers to call <code>$apply</code></h2>
+<h2 id="basic-directive-design-pattern-wiring-external-event-handlers-to-call-apply">Basic Directive Design Pattern: Wiring External Event Handlers to call <code>$apply</code></h2>
 <p><em>Example: Writing a directive to wire Hammer.js swipeleft and swiperight with AngularJS</em></p>
 <p><em>Alternative Example: <a href="http://jsfiddle.net/mwDQr/1/">Hooking up the Google Places Autocomplete with AngularJS</a></em></p>
 <p>Another common task in writing AngularJS directives, especially when integrating with non-AngularJS libraries, is hooking up event handlers to update your AngularJS scope. Without going into too much detail about AngularJS&#39; internals, each scope has:</p>
@@ -199,13 +194,11 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
         });
       });
     };
-  });
-</code></pre><p>The calls to <code>$eval</code> evaluate the <code>swipeRight</code> and <code>swipeLeft</code> attributes, which will typically be function calls. For example, in our <a href="http://jsfiddle.net/vkarpov15/5vajr/">little carousel JSFiddle</a>, these calls will look something like this:</p>
+  });</code></pre><p>The calls to <code>$eval</code> evaluate the <code>swipeRight</code> and <code>swipeLeft</code> attributes, which will typically be function calls. For example, in our <a href="http://jsfiddle.net/vkarpov15/5vajr/">little carousel JSFiddle</a>, these calls will look something like this:</p>
 <pre><code>&lt;div  my-background-image=<span class="hljs-string">'image'</span>
       swipe-left=<span class="hljs-string">'nextImage()'</span>
       swipe-right=<span class="hljs-string">'prevImage()'</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-</code></pre><p>Notice that in the second image, we only allow the user to swipe left, whereas on the first one we allow swiping both left and right. Our <code>swipeLeft</code> and <code>swipeRight</code> directives are completely decoupled from the actual carousel implementation - we can use them anywhere to handle any sort of action we want to take when the user swipes on any element.</p>
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre><p>Notice that in the second image, we only allow the user to swipe left, whereas on the first one we allow swiping both left and right. Our <code>swipeLeft</code> and <code>swipeRight</code> directives are completely decoupled from the actual carousel implementation - we can use them anywhere to handle any sort of action we want to take when the user swipes on any element.</p>
 <p>In contrast, this is a far cry from the mostly equivalent jQuery implementation (<a href="http://jsfiddle.net/vkarpov15/GWZj3/">view on JSFiddle</a>), where we declare our Hammer.js handlers in jQuery (lines 46 and 47) and have no way of reusing them from HTML. We also have no easy way of allowing only &quot;swipe left&quot; without having to deal with some sort of configuration object. One potential alternative is to expose swipe left and swipe right as separate attributes (similar to our approach with the <code>cover-background-image</code> function), but then we run into a brick wall with scoping - we don&#39;t have an easy way to allow these event handlers to access the <code>previousImage</code> and <code>nextImage</code> functions within the <code>cover-background-image</code> code.</p>
 <h2 id="basic-directive-design-pattern-combining-watch-and-update-with-eval-on-an-external-event-handler">Basic Directive Design Pattern: Combining &quot;watch and update&quot; with <code>$eval</code> on an external event handler</h2>
 <p><em>Example: Wiring bootstrap-slider to work with AngularJS</em></p>
@@ -243,10 +236,8 @@ directive(<span class="hljs-string">'myBackgroundImage'</span>, <span class="hlj
           });
       });
     };
-  });
-</code></pre><p>The general idea here is that we do both of the first two design patterns in a single directive. We first initialize the slider using:</p>
-<pre><code>$(element[<span class="hljs-number">0</span>]).slider({ <span class="hljs-comment">/*config options */</span> });
-</code></pre><p>Then we use the <code>.on()</code> event handler to watch for changes in the view, and update <code>ngModel</code> to reflect these changes. Note how we make sure to call <code>scope.$apply</code> so that AngularJS knows that something happened.</p>
+  });</code></pre><p>The general idea here is that we do both of the first two design patterns in a single directive. We first initialize the slider using:</p>
+<pre><code>$(element[<span class="hljs-number">0</span>]).slider({ <span class="hljs-comment">/*config options */</span> });</code></pre><p>Then we use the <code>.on()</code> event handler to watch for changes in the view, and update <code>ngModel</code> to reflect these changes. Note how we make sure to call <code>scope.$apply</code> so that AngularJS knows that something happened.</p>
 <p>You may have noticed that we don&#39;t bother with handling updates to the <code>bootstrapSliderMin</code> and <code>bootstrapSliderMax</code> fields. The <code>bootstrap-slider</code> component doesn&#39;t support updating these attributes and improving <code>bootstrap-slider</code> is beyond the scope of this post.</p>
 <h2 id="basic-directive-design-pattern-creating-components-with-nesting-and-templating">Basic Directive Design Pattern: Creating Components with Nesting And Templating</h2>
 <p><em>Example: The entire carousel as one directive</em></p>
@@ -288,25 +279,19 @@ directive(<span class="hljs-string">'carousel'</span>, <span class="hljs-functio
    template : template,
    link : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
  };
-});
-</code></pre><p>The big difference here is that instead of returning a plain function, we&#39;re now returning an object with a bunch of options. Here&#39;s a brief walkthrough of what the above jibber-jabber actually does:</p>
+});</code></pre><p>The big difference here is that instead of returning a plain function, we&#39;re now returning an object with a bunch of options. Here&#39;s a brief walkthrough of what the above jibber-jabber actually does:</p>
 <ul>
-<li><code>restrict : &#39;E&#39;</code> means that this directive can only be used as an element. For example,<pre><code>&lt;carousel ng-images=<span class="hljs-string">"[]"</span> /&gt;
-</code></pre>will work, but<pre><code>&lt;div carousel=<span class="hljs-string">"true"</span> ng-images=<span class="hljs-string">"[]"</span> /&gt;
-</code></pre>won&#39;t. Other possible values of this option are detailed in <a href="http://docs.angularjs.org/guide/directive">http://docs.angularjs.org/guide/directive</a></li>
+<li><code>restrict : &#39;E&#39;</code> means that this directive can only be used as an element. For example,<pre><code>&lt;carousel ng-images=<span class="hljs-string">"[]"</span> /&gt;</code></pre>will work, but<pre><code>&lt;div carousel=<span class="hljs-string">"true"</span> ng-images=<span class="hljs-string">"[]"</span> /&gt;</code></pre>won&#39;t. Other possible values of this option are detailed in <a href="http://docs.angularjs.org/guide/directive">http://docs.angularjs.org/guide/directive</a></li>
 <li><code>require : &#39;ngImages&#39;</code> states that the <code>&lt;carousel&gt;</code> element must have an <code>ng-images</code> attribute; otherwise this directive will not be used on that element.</li>
 <li><code>Scope : { images : &#39;=ngImages&#39; }</code> shows that the directive will create a new scope. That scope will have an <code>images</code> variable that is two-way data-bound to the resulting value of <code>ngImages</code>.</li>
 <li><code>Controller: &#39;CarouselController&#39;</code> will wrap the template in an element that has <code>ng-controller=&quot;CarouselController&quot;</code></li>
 <li><code>template: ...</code> will populate the <code>&lt;carousel&gt;</code> element&#39;s inner HTML. Note that it can access <code>CarouselController</code>&#39;s functions.</li>
-<li><code>Link : ...</code> Here, the<pre><code><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
-</code></pre>syntax that we used in the first three paterns is a convenient shorthand for:<pre><code><span class="hljs-keyword">return</span> {
+<li><code>Link : ...</code> Here, the<pre><code><span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}</code></pre>syntax that we used in the first three paterns is a convenient shorthand for:<pre><code><span class="hljs-keyword">return</span> {
 link : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scope, element, attrs</span>) </span>{}
-};
-</code></pre>AngularJS lets you do different things with your directive at different steps of its internal processing, providing options like <code>preLink</code>, <code>postLink</code>, <code>compile</code>, etc. If you&#39;re curious, you can read more about them <a href="http://docs.angularjs.org/guide/directive">here</a>, but most of the time you can get away with just using <code>link</code> until you become an AngularJS whiz.</li>
+};</code></pre>AngularJS lets you do different things with your directive at different steps of its internal processing, providing options like <code>preLink</code>, <code>postLink</code>, <code>compile</code>, etc. If you&#39;re curious, you can read more about them <a href="http://docs.angularjs.org/guide/directive">here</a>, but most of the time you can get away with just using <code>link</code> until you become an AngularJS whiz.</li>
 </ul>
 <p>Finally, note that in the fiddle, we replaced one carousel with the carousel directive:</p>
-<pre><code>&lt;carousel ng-images=<span class="hljs-string">'["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif", "http://fc03.deviantart.net/fs28/i/2009/250/7/4/MUSASHI_MIYAMOTO_by_BARCYD.jpg", "http://fc08.deviantart.net/fs71/f/2012/066/3/5/goku_happy_by_kzo-d4s20sy.png";]'</span> /&gt;
-</code></pre><p>while leaving the other one in the old form:</p>
+<pre><code>&lt;carousel ng-images=<span class="hljs-string">'["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif", "http://fc03.deviantart.net/fs28/i/2009/250/7/4/MUSASHI_MIYAMOTO_by_BARCYD.jpg", "http://fc08.deviantart.net/fs71/f/2012/066/3/5/goku_happy_by_kzo-d4s20sy.png";]'</span> /&gt;</code></pre><p>while leaving the other one in the old form:</p>
 <pre><code>&lt;div  ng-controller=<span class="hljs-string">"CarouselController"</span>
       ng-init=<span class="hljs-string">'setImages(["http://images2.wikia.nocookie.net/__cb20110811172434/fallingskies/images/f/fd/Totoro_normal.gif","http://images.wikia.com/pokemon/images/archive/4/49/20110526012846!Ash_Pikachu.png","http://images2.wikia.nocookie.net/__cb20111231185621/trigun/images/2/2b/Vash1.jpg"])'</span>&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>  <span class="hljs-attr">my-background-image</span>=<span class="hljs-string">'images[index]'</span>
@@ -324,9 +309,8 @@ link : <span class="hljs-function"><span class="hljs-keyword">function</span>(<s
         <span class="hljs-attr">class</span>=<span class="hljs-string">"pointer"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Add Image<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-</code></pre><p>This illustrates the tradeoff between flexibility and convenience when defining a universal <code>&lt;carousel&gt;</code> directive.  In many cases, that initial work we did to combine the definitions of slider, background image, and swipe directives into a single <code>&lt;carousel&gt;</code> template will save an enormous amount of hassle later.  However, it&#39;s important to recognize the weakness of using a template for your directive- there is no good way to override that template.  Once you define the template, anything using that <code>&lt;carousel&gt;</code> directive will look and behave exactly like the original definition unless you change the template itself.  Personally, I like to separate directives as much as possible for the sake of flexibility, but every project is different so do whatever works for your application.</p>
-<h2 id="special-bonus-rule-1-directives-are-already-hard-keep-them-simple-don-t-ping-the-server-or-reformat-underlying-data-">Special Bonus Rule #1: Directives are already hard, keep them simple. Don&#39;t ping the server or reformat underlying data.</h2>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre><p>This illustrates the tradeoff between flexibility and convenience when defining a universal <code>&lt;carousel&gt;</code> directive.  In many cases, that initial work we did to combine the definitions of slider, background image, and swipe directives into a single <code>&lt;carousel&gt;</code> template will save an enormous amount of hassle later.  However, it&#39;s important to recognize the weakness of using a template for your directive- there is no good way to override that template.  Once you define the template, anything using that <code>&lt;carousel&gt;</code> directive will look and behave exactly like the original definition unless you change the template itself.  Personally, I like to separate directives as much as possible for the sake of flexibility, but every project is different so do whatever works for your application.</p>
+<h2 id="special-bonus-rule-1-directives-are-already-hard-keep-them-simple-dont-ping-the-server-or-reformat-underlying-data">Special Bonus Rule #1: Directives are already hard, keep them simple. Don&#39;t ping the server or reformat underlying data.</h2>
 <p>A brief aside on code modularity: a directive&#39;s functions should almost never be responsible for getting or formatting their own data.  There&#39;s nothing to stop you from using the <code>$http</code> service from within a directive, but this is almost always the wrong thing to do.  Writing a controller to use <code>$http</code> is the right way to do it. A directive already touches a DOM element, which is a very complex object and is difficult to stub out for testing.  Adding network I/O to the mix makes your code that much more difficult to understand and that much more difficult to test. In addition, network I/O locks in the way that your directive will get its data - maybe in some other place you&#39;ll want to have this directive receive data from a socket or take in preloaded data.  Your directive should either take data in as an attribute through scope.$eval and/or have a controller to handle acquiring and storing the data.</p>
 <h2 id="the-end">The End</h2>
 <p>So, do you feel like a master of AngularJS directives yet? So far we&#39;ve covered the basics of AngularJS directives and the design patterns that go into writing simple ones. Hopefully this blog post will help to reduce the endless wave of Stack Overflow questions asking, &quot;how do I integrate jQuery plugin X with AngularJS?&quot; If you came across this article because someone linked to it from Stack Overflow, welcome! By reading this far, you&#39;ve probably already come across the answer you needed.  If not, leave a comment about your problems and I will be happy to help you figure it out.</p>

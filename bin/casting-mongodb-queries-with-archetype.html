@@ -16,13 +16,12 @@
 was to support type casting for MongoDB queries. <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/ObjectID.html">MongoDB ObjectIds are objects</a>
 but they&#39;re usually sent over the wire as strings in JSON. In order to
 use the string in a query, you need to convert it into an ObjectId.</p>
-<pre><code class="lang-javascript">id = <span class="hljs-keyword">new</span> mongodb.ObjectId(id);
-</code></pre>
+<pre><code class="language-javascript">id = <span class="hljs-keyword">new</span> mongodb.ObjectId(id);</code></pre>
 <p>This works fine if you have one id. The MongoDB driver will create a new
 ObjectId and throw an error if it failed? But then what if you have multiple
 ObjectIds? What if you have ObjectIds that are nested in arrays? What if you
 want to support <a href="https://docs.mongodb.com/manual/reference/operator/query/">MongoDB query operators</a>?</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// How to convert all these into ObjectIds? "Flip the table" or</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// How to convert all these into ObjectIds? "Flip the table" or</span>
 <span class="hljs-comment">// "long wall of if statements and for loops" are not valid options.</span>
 <span class="hljs-keyword">const</span> data1 = {
   id: <span class="hljs-string">'586d5208616a940f835dac51'</span>,
@@ -36,13 +35,12 @@ want to support <a href="https://docs.mongodb.com/manual/reference/operator/quer
   id: {
     $<span class="hljs-keyword">in</span>: [<span class="hljs-string">'586d5208616a940f835dac51'</span>, <span class="hljs-string">'586d521e616a940f835dac52'</span>]
   }
-}
-</code></pre>
+}</code></pre>
 <p>Archetype makes this easy: you just define 2 types, and archetype handles
 all the hard recursion for you.</p>
 <h2 id="casting-to-objectids-in-archetype">Casting to ObjectIds in Archetype</h2>
 <p>Casting raw data into an ObjectId in Archetype is easy:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype-js'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype-js'</span>);
 <span class="hljs-keyword">const</span> {ObjectId} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">const</span> Type = <span class="hljs-keyword">new</span> Archetype({
@@ -63,8 +61,7 @@ all the hard recursion for you.</p>
 
 <span class="hljs-built_in">console</span>.log(v.id.constructor.name); <span class="hljs-comment">// ObjectID</span>
 <span class="hljs-built_in">console</span>.log(v.ids[<span class="hljs-number">0</span>].constructor.name); <span class="hljs-comment">// ObjectID</span>
-<span class="hljs-built_in">console</span>.log(v.nested.id.constructor.name); <span class="hljs-comment">// ObjectID</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(v.nested.id.constructor.name); <span class="hljs-comment">// ObjectID</span></code></pre>
 <p>The <code>new Type()</code> call will throw an exception if any of the ObjectIds are
 invalid. This demonstrates the fundamental goal of Archetype: it&#39;s a framework
 for composing types from other types. A single ObjectId is easy to understand,
@@ -76,31 +73,28 @@ ObjectId.</p>
 <code>$type</code> for another archetype. Let&#39;s see this in action for casting MongoDB
 query operators.</p>
 <p>Suppose you have the following MongoDB document:</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   id: ObjectId(<span class="hljs-string">'586d5208616a940f835dac51'</span>),
   nested: {
     id: ObjectId(<span class="hljs-string">'586d5208616a940f835dac51'</span>)
   }
-}
-</code></pre>
+}</code></pre>
 <p>We want Archetype to make it so the following queries will match the above document:</p>
-<pre><code class="lang-javascript">{ id: <span class="hljs-string">'586d5208616a940f835dac51'</span> }
+<pre><code class="language-javascript">{ id: <span class="hljs-string">'586d5208616a940f835dac51'</span> }
 { id: { $eq: <span class="hljs-string">'586d5208616a940f835dac51'</span> } }
 { id: { $<span class="hljs-keyword">in</span>: [<span class="hljs-string">'586d5208616a940f835dac51'</span>] } }
 { <span class="hljs-string">'nested.id'</span>: <span class="hljs-string">'586d5208616a940f835dac51'</span> }
 { <span class="hljs-string">'nested.id'</span>: { $eq: <span class="hljs-string">'586d5208616a940f835dac51'</span> } }
-{ <span class="hljs-string">'nested.id'</span>: { $<span class="hljs-keyword">in</span>: [<span class="hljs-string">'586d5208616a940f835dac51'</span>] } }
-</code></pre>
+{ <span class="hljs-string">'nested.id'</span>: { $<span class="hljs-keyword">in</span>: [<span class="hljs-string">'586d5208616a940f835dac51'</span>] } }</code></pre>
 <p>First, let&#39;s solve an easier problem: how do you coerce <code>{ $eq: &#39;586d5208616a940f835dac51&#39; }</code> and <code>{ $in: [&#39;586d5208616a940f835dac51&#39;] }</code> into ObjectIds? Here&#39;s an Archetype for that:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> QueryId = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> QueryId = <span class="hljs-keyword">new</span> Archetype({
   $eq: ObjectId,
   $<span class="hljs-keyword">in</span>: [ObjectId]
   <span class="hljs-comment">// Can add other MongoDB query operators as well - $gte, $lte, $nin, etc.</span>
-}).compile(<span class="hljs-string">'QueryId'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'QueryId'</span>);</code></pre>
 <p>How about coercing <code>&#39;586d5208616a940f835dac51&#39;</code>? Archetypes are just <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">JavaScript classes</a>,
 so you can build on top of them using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends">the <code>extends</code> keyword</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> QueryIdBase = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> QueryIdBase = <span class="hljs-keyword">new</span> Archetype({
   $eq: ObjectId,
   $<span class="hljs-keyword">in</span>: [ObjectId]
 }).compile(<span class="hljs-string">'QueryId'</span>);
@@ -116,18 +110,16 @@ so you can build on top of them using <a href="https://developer.mozilla.org/en-
 }
 
 <span class="hljs-comment">// ObjectId</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> QueryId(<span class="hljs-string">'586d5208616a940f835dac51'</span>).$eq.constructor.name);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> QueryId(<span class="hljs-string">'586d5208616a940f835dac51'</span>).$eq.constructor.name);</code></pre>
 <p>Now that you&#39;ve solved the core problem, you can use Archetype to compose
 this <code>QueryId</code> type to solve the original problem.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Query = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Query = <span class="hljs-keyword">new</span> Archetype({
   id: QueryId,
   <span class="hljs-string">'nested.id'</span>: QueryId
-}).compile(<span class="hljs-string">'Query'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'Query'</span>);</code></pre>
 <p>Now <code>Query</code> is a type you can use to coerce all your query properties into
 ObjectIds correctly. Don&#39;t believe me? Here&#39;s a test.</p>
-<pre><code class="lang-javascript">[
+<pre><code class="language-javascript">[
   { id: <span class="hljs-string">'586d5208616a940f835dac51'</span> },
   { id: { $eq: <span class="hljs-string">'586d5208616a940f835dac51'</span> } },
   { id: { $<span class="hljs-keyword">in</span>: [<span class="hljs-string">'586d5208616a940f835dac51'</span>] } },
@@ -146,11 +138,10 @@ ObjectIds correctly. Don&#39;t believe me? Here&#39;s a test.</p>
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">firstValue</span>(<span class="hljs-params">v</span>) </span>{
   <span class="hljs-keyword">return</span> v[<span class="hljs-built_in">Object</span>.keys(v)[<span class="hljs-number">0</span>]];
-}
-</code></pre>
+}</code></pre>
 <p>You can even create a function that generates a <code>QueryField</code> archetype for
 any type:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> QueryField = type =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> QueryField = type =&gt; {
   <span class="hljs-keyword">const</span> QueryFieldBase = <span class="hljs-keyword">new</span> Archetype({
     $eq: type,
     $<span class="hljs-keyword">in</span>: [type]
@@ -172,9 +163,9 @@ any type:</p>
 <span class="hljs-keyword">const</span> Query = <span class="hljs-keyword">new</span> Archetype({
   id: QueryField(ObjectId),
   <span class="hljs-string">'nested.id'</span>: QueryField(ObjectId)
-}).compile(<span class="hljs-string">'Query'</span>);
-</code></pre>
-<p><img src="http://i.imgur.com/tr8ssaK.png" /></p>
+}).compile(<span class="hljs-string">'Query'</span>);</code></pre>
+<img src="http://i.imgur.com/tr8ssaK.png" />
+
 <h2 id="conclusion">Conclusion</h2>
 <p>Archetype is all about composing types in an elegant and intuitive way. You can
 compose archetypes using nesting, extend archetypes using <code>extends</code>, and abstract out archetypes behind functions. Using these principles, you can build types in ways that

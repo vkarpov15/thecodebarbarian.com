@@ -20,11 +20,10 @@ This function is what makes modules like
 <code>Object.defineProperty()</code> before, here&#39;s a simple use case: suppose you wanted
 to be able to increment and decrement a JavaScript date&#39;s month property
 using the <code>++</code> and <code>--</code> operators.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();</code></pre>
 <p>Without <code>Object.defineProperty()</code> this task would be impossible outside of
 functions. With <code>Object.defineProperty()</code>, this is easy:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
 <span class="hljs-comment">// Thu Apr 23 2015 19:23:46 GMT-0300 (UYT)</span>
 <span class="hljs-built_in">console</span>.log(d);
 <span class="hljs-built_in">Object</span>.defineProperty(d, <span class="hljs-string">'month'</span>, {
@@ -39,12 +38,11 @@ functions. With <code>Object.defineProperty()</code>, this is easy:</p>
 ++d.month;
 <span class="hljs-comment">// Sat May 23 2015 19:23:46 GMT-0300 (UYT)</span>
 <span class="hljs-comment">// Exactly one month later!</span>
-<span class="hljs-built_in">console</span>.log(d);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(d);</code></pre>
 <p>You may be wondering why I&#39;m discussing <code>Object.defineProperty()</code> in a post
 about proxies. Turns out, proxies are just a more general form of
 <code>Object.defineProperty()</code>.</p>
-<h2 id="what-are-proxies-">What are Proxies?</h2>
+<h2 id="what-are-proxies">What are Proxies?</h2>
 <p>In the previous section, you saw some of the cool syntactic tricks that
 <code>Object.defineProperty()</code> makes possible. The <code>Object.defineProperty()</code> function
 is just one way you can hook in to the
@@ -57,7 +55,7 @@ JavaScript interpretter allows you to hook functions into this property access.<
 allow you to define a catch-all function that executes for <strong>all</strong> property
 accesses on an object. A basic cute example of how proxies work is an object
 that enables you to convert a string to uppercase with a property access:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> uppercase = <span class="hljs-built_in">Proxy</span>.create({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> uppercase = <span class="hljs-built_in">Proxy</span>.create({
   get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">proxy, key</span>) </span>{
     <span class="hljs-keyword">return</span> key.toUpperCase();
   }
@@ -66,8 +64,7 @@ that enables you to convert a string to uppercase with a property access:</p>
 <span class="hljs-comment">// Outputs "A"</span>
 <span class="hljs-built_in">console</span>.log(uppercase.a);
 <span class="hljs-comment">// Outputs "B"</span>
-<span class="hljs-built_in">console</span>.log(uppercase.b);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(uppercase.b);</code></pre>
 <p><strong>Note</strong> The above code will only run in Node 0.12 with the <code>--harmony_proxies</code>
 flag. The <code>--harmony</code> flag is <strong>not</strong> sufficient to enable proxies in NodeJS.</p>
 <h2 id="using-setters-with-proxies">Using Setters with Proxies</h2>
@@ -81,7 +78,7 @@ in a proxy setter. The most simple choice is to use a proxy as a wrapper around
 a non-proxy object in the proxy&#39;s scope. For instance, let&#39;s say you want to
 store an array of dates, but you want to be able to interact with the dates as
 if they were strings.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 <span class="hljs-keyword">var</span> arr = [];
 
 <span class="hljs-keyword">var</span> p = <span class="hljs-built_in">Proxy</span>.create({
@@ -114,8 +111,7 @@ p[<span class="hljs-number">0</span>] = <span class="hljs-string">'2011-06-01'</
 <span class="hljs-built_in">console</span>.log(p[<span class="hljs-number">0</span>] + <span class="hljs-string">' is a '</span> + arr[<span class="hljs-number">0</span>].format(<span class="hljs-string">'dddd'</span>));
 p[<span class="hljs-number">0</span>] = <span class="hljs-string">'2012-06-01'</span>;
 <span class="hljs-comment">// Prints "2012-06-01 is a Friday"</span>
-<span class="hljs-built_in">console</span>.log(p[<span class="hljs-number">0</span>] + <span class="hljs-string">' is a '</span> + arr[<span class="hljs-number">0</span>].format(<span class="hljs-string">'dddd'</span>));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(p[<span class="hljs-number">0</span>] + <span class="hljs-string">' is a '</span> + arr[<span class="hljs-number">0</span>].format(<span class="hljs-string">'dddd'</span>));</code></pre>
 <p>In the above example the proxy <code>p</code> sits in front of the array of
 <a href="http://momentjs.com/docs/">moment objects</a> <code>arr</code>. Any set operation on the
 proxy gets translated by the <code>set</code> function above into setting a moment
@@ -138,14 +134,13 @@ right.</p>
 <span class="hljs-built_in">TypeError</span>: <span class="hljs-literal">undefined</span> is not a <span class="hljs-function"><span class="hljs-keyword">function</span>
     <span class="hljs-title">at</span> <span class="hljs-title">Function</span>.<span class="hljs-title">keys</span> (<span class="hljs-params">native</span>)
     <span class="hljs-title">at</span> <span class="hljs-title">formatValue</span> (<span class="hljs-params">util.js:236:21</span>)
-    <span class="hljs-title">at</span> <span class="hljs-title">Object</span>.<span class="hljs-title">inspect</span> (<span class="hljs-params">util.js:147:10</span>)</span>
-</code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is</p>
-<p>definitely not undefined. This is a problem with how the proxy was implemented.
+    <span class="hljs-title">at</span> <span class="hljs-title">Object</span>.<span class="hljs-title">inspect</span> (<span class="hljs-params">util.js:147:10</span>)</span></code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is
+definitely not undefined. This is a problem with how the proxy was implemented.
 Because a proxy has full control over property accesses, there&#39;s no way for
 node to figure out what properties the proxy has other than trying every
 possible string. To be able to inspect the proxy properly, you need to define
 the <code>getOwnPropertyNames</code> and <code>getOwnPropertyDescriptor</code> &quot;traps&quot;:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">Proxy</span>.create({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> p = <span class="hljs-built_in">Proxy</span>.create({
   get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">proxy, key</span>) </span>{
     <span class="hljs-keyword">var</span> i = <span class="hljs-built_in">parseInt</span>(key, <span class="hljs-number">10</span>);
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i)) {
@@ -172,11 +167,10 @@ the <code>getOwnPropertyNames</code> and <code>getOwnPropertyDescriptor</code> &
   getOwnPropertyDescriptor: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(arr, key);
   }
-});
-</code></pre>
+});</code></pre>
 <p>With these two traps, <code>require(&#39;util&#39;).inspect(p);</code> works as you might expect,
 modulo the fact that <code>p</code> is not an array.</p>
-<pre><code class="lang-javascript">{ <span class="hljs-string">'0'</span>: 
+<pre><code class="language-javascript">{ <span class="hljs-string">'0'</span>: 
    { [<span class="hljs-built_in">Number</span>: <span class="hljs-number">1338519600000</span>]
      _isAMomentObject: <span class="hljs-literal">true</span>,
      _i: <span class="hljs-string">'2012-06-01'</span>,
@@ -199,8 +193,7 @@ modulo the fact that <code>p</code> is not an array.</p>
         _abbr: <span class="hljs-string">'en'</span>,
         _ordinalParseLenient: <span class="hljs-regexp">/\d{1,2}(th|st|nd|rd)|\d{1,2}/</span> },
      _d: Fri Jun <span class="hljs-number">01</span> <span class="hljs-number">2012</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> GMT<span class="hljs-number">-0300</span> (UYT),
-     _isValid: <span class="hljs-literal">true</span> } }
-</code></pre>
+     _isValid: <span class="hljs-literal">true</span> } }</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>Proxies are a pretty exciting feature in ECMAScript 6. For one thing, we&#39;ll
 finally be able to implement syntactic sugar on top of array accesses. Proxies

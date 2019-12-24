@@ -33,8 +33,7 @@
 ? What&#39;s the name of your application? loopback-example
 
 
-I&#39;m all done. Running npm install for you to install the required dependencies. If this fails, try running the command yourself.
-</code></pre><p>You can now use the LoopBack framework to create a database model. For the sake of minimizing this example&#39;s dependencies, you&#39;ll store your model in memory. For this example, you&#39;ll create a <code>Breakfast</code> model that will store good places to get some eggs and bacon in New York (which is surprisingly difficult to do given the number of places that think pastries are a breakfast food). You can create a new model by running <code>./node_modules/strongloop/bin/slc loopback:model</code>. StrongLoop will then ask you to add properties to your model. To keep it simple, add 2 properties: a name and an address.</p>
+I&#39;m all done. Running npm install for you to install the required dependencies. If this fails, try running the command yourself.</code></pre><p>You can now use the LoopBack framework to create a database model. For the sake of minimizing this example&#39;s dependencies, you&#39;ll store your model in memory. For this example, you&#39;ll create a <code>Breakfast</code> model that will store good places to get some eggs and bacon in New York (which is surprisingly difficult to do given the number of places that think pastries are a breakfast food). You can create a new model by running <code>./node_modules/strongloop/bin/slc loopback:model</code>. StrongLoop will then ask you to add properties to your model. To keep it simple, add 2 properties: a name and an address.</p>
 <pre><code>specter:loopback-example vkarpov$ ./node_modules/strongloop/bin/slc loopback:model
 ? Enter the model name: Breakfast
 ? Select the data-source to attach Breakfast to: db (memory)
@@ -58,20 +57,22 @@ Enter an empty property name when done.
 
 Let&#39;s add another Breakfast property.
 Enter an empty property name when done.
-? Property name:
-</code></pre><p>You may not have noticed it, but you&#39;ve just created a very simple REST API. Run <code>./node_modules/strongloop/bin/slc run</code> to start up a web server, and navigate to <code>localhost:3000/explorer</code>. You should see a nice web UI with all your models and their corresponding REST API endpoints.</p>
-<p><img src="//i.imgur.com/JrBuH78.png" style="width: 100%"></p>
+? Property name: </code></pre><p>You may not have noticed it, but you&#39;ve just created a very simple REST API. Run <code>./node_modules/strongloop/bin/slc run</code> to start up a web server, and navigate to <code>localhost:3000/explorer</code>. You should see a nice web UI with all your models and their corresponding REST API endpoints.</p>
+<img src="//i.imgur.com/JrBuH78.png" style="width: 100%">
+
 <p>Here, you see that LoopBack generates basic documentation as well as routes. Generating documentation is a key feature that too many scaffolding frameworks ignore altogether. LoopBack&#39;s API Explorer, on the other hand, provides some basic API endpoint documentation that even lets you simulate HTTP requests.</p>
-<p><img src="//i.imgur.com/VN2EXKt.png" style="width: 100%"></p>
+<img src="//i.imgur.com/VN2EXKt.png" style="width: 100%">
+
 <p>You can even use the API Explorer to add sample data.</p>
-<p><img src="//i.imgur.com/zxkiYVX.png" style="width: 100%"></p>
+<img src="//i.imgur.com/zxkiYVX.png" style="width: 100%">
+
 <h2 id="integrating-the-loopback-angularjs-sdk">Integrating the LoopBack AngularJS SDK</h2>
 <p>The LoopBack AngularJS SDK is packaged with v2.8.10 of the <code>strongloop</code> module. The AngularJS SDK builds AngularJS services on top of the <a href="http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/"><code>$resource</code> service</a> for interacting with the LoopBack-generated REST API from the previous section. You can generate a service for the <code>BreakfastSpots</code> module without any extra work by running the following command.</p>
 <pre><code>cd client
 mkdir js
-../node_modules/strongloop/node_modules/loopback-sdk-angular-cli/bin/lb-ng ../server/server.js js/services.js
-</code></pre><p>The <code>lb-ng</code> script is the CLI for the LoopBack AngularJS SDK. If you installed LoopBack with <code>-g</code> you should be able to run it with <code>lb-ng</code>. Running the above command generates a <code>client/js/services.js</code> file. This file contains an AngularJS service for each model defined in your LoopBack REST API. While this is very cool, be careful: the <code>services.js</code> file will get bloated very quickly. With this one added service, the generated <code>services.js</code> file is 55kb - the code for the <code>BreakfastSpots</code> service alone is over 600 lines. The vast majority of this code is documentation, and maybe I&#39;m just being a crusty curmudgeon, but this seems excessive.</p>
-<p><img src="//i.imgur.com/vBuDOOu.png"></p>
+../node_modules/strongloop/node_modules/loopback-sdk-angular-cli/bin/lb-ng ../server/server.js js/services.js</code></pre><p>The <code>lb-ng</code> script is the CLI for the LoopBack AngularJS SDK. If you installed LoopBack with <code>-g</code> you should be able to run it with <code>lb-ng</code>. Running the above command generates a <code>client/js/services.js</code> file. This file contains an AngularJS service for each model defined in your LoopBack REST API. While this is very cool, be careful: the <code>services.js</code> file will get bloated very quickly. With this one added service, the generated <code>services.js</code> file is 55kb - the code for the <code>BreakfastSpots</code> service alone is over 600 lines. The vast majority of this code is documentation, and maybe I&#39;m just being a crusty curmudgeon, but this seems excessive.</p>
+<img src="//i.imgur.com/vBuDOOu.png">
+
 <p>Rant aside, tying <code>services.js</code> into an AngularJS client is pleasantly trivial. First, you need to tweak LoopBack&#39;s middleware configuration, <code>server/middleware.json</code>, to look like this:</p>
 <pre><code>{
   <span class="hljs-string">"initial:before"</span>: {
@@ -102,9 +103,8 @@ mkdir js
   <span class="hljs-string">"final:after"</span>: {
     <span class="hljs-string">"errorhandler"</span>: {}
   }
-}
-</code></pre><p>The <code>files</code> key above is the most important part. This setting tells the LoopBack server to serve static files from the <code>client</code> directory. Once you&#39;ve tweaked this configuration, you can create an <code>index.html</code> file that displays a list of all <code>BreakfastSpots</code>.</p>
-<pre><code class="lang-html">&lt;html ng-app=<span class="hljs-string">"myApp"</span>&gt;
+}</code></pre><p>The <code>files</code> key above is the most important part. This setting tells the LoopBack server to serve static files from the <code>client</code> directory. Once you&#39;ve tweaked this configuration, you can create an <code>index.html</code> file that displays a list of all <code>BreakfastSpots</code>.</p>
+<pre><code class="language-html">&lt;html ng-app=<span class="hljs-string">"myApp"</span>&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
             <span class="hljs-attr">src</span>=<span class="hljs-string">"//code.angularjs.org/1.2.16/angular.js"</span>&gt;</span><span class="undefined">
@@ -133,10 +133,10 @@ mkdir js
       <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>LoopBack&#39;s services have a very nice property: <code>find()</code> returns an array that gets populated whenever the HTTP call returns. Thanks to AngularJS two-way data binding, you don&#39;t even need to pass a callback to <code>find()</code>.</p>
-<p><img src="//i.imgur.com/ddQPrDM.png" style="border: 2px dashed #777"></p>
+<img src="//i.imgur.com/ddQPrDM.png" style="border: 2px dashed #777">
+
 <p>Note that you <em>must</em> include the <code>angular-resource.js</code> file. The <code>services.js</code> file explicitly relies on <code>ngResource</code>, which isn&#39;t part of the core <code>angular.js</code> file.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>In this tutorial, you used StrongLoop&#39;s LoopBack framework to generate a REST API and a corresponding AngularJS client. While I am still suspicious of scaffolding, I hope you saw the benefits of LoopBack&#39;s ability to generate rigorous documentation. Furthermore, LoopBack is just one part of StrongLoop&#39;s new product <a href="http://docs.strongloop.com/display/ARC/StrongLoop+Arc">Arc</a>. Arc provides a GUI on top of the command line tools you saw in this tutorial. In addition, Arc provides a monitoring tool for your LoopBack REST APIs. While I haven&#39;t tried the monitoring tool yet, the idea of a scaffolding framework that generates documentation and sets up monitoring is what first piqued my interest in LoopBack. I&#39;m excited to see what StrongLoop has in store for the future of LoopBack and Arc.</p>

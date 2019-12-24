@@ -42,20 +42,18 @@ do anything useful.</p>
 <p>Suppose you have a trivial browser-side JavaScript file like below.
 This code is
 <a href="https://github.com/vkarpov15/karma-demo/blob/master/lib/sample.js"><code>lib/sample.js</code> in the karma-demo GitHub repo</a></p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">theAnswer</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">theAnswer</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;
-}
-</code></pre>
+}</code></pre>
 <p>Testing this in NodeJS would be fairly simple. But, what if you
 wanted to test this in a real browser, like Chrome?
 Let&#39;s say you have the
 <a href="https://github.com/vkarpov15/karma-demo/blob/master/test/sample.test.js">following test file</a>.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'sample'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'sample'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'returns 42'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     assert.equal(theAnswer(), <span class="hljs-number">42</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>To run this test in Chrome, set up your <code>package.json</code> with
 karma and 3 plugins. As you might expect, <code>karma-mocha</code> is
 a karma plugin that enables you to use the
@@ -63,23 +61,22 @@ a karma plugin that enables you to use the
 <code>karma-chrome-launcher</code> enables karma to launch Chrome locally.
 The <code>karma-chai</code> package is a wrapper around the
 <a href="https://www.npmjs.com/package/chai"><code>chai</code> assertion framework</a>,
-since neither mocha nor karma includes an assertion framework by</p>
-<p>default.</p>
-<pre><code class="lang-javascript">{
+since neither mocha nor karma includes an assertion framework by
+default.</p>
+<pre><code class="language-javascript">{
   <span class="hljs-string">"devDependencies"</span>: {
     <span class="hljs-string">"karma"</span>: <span class="hljs-string">"0.12.31"</span>,
     <span class="hljs-string">"karma-chai"</span>: <span class="hljs-string">"0.1.0"</span>,
     <span class="hljs-string">"karma-chrome-launcher"</span>: <span class="hljs-string">"0.1.4"</span>,
     <span class="hljs-string">"karma-mocha"</span>: <span class="hljs-string">"0.1.10"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>Now that you have karma installed, you need a karma config file.
 You can run <code>./node_modules/karma/bin/karma init</code> to have karma
 initialize one for you, but the
 <a href="https://github.com/vkarpov15/karma-demo/blob/master/test/karma.mocha.conf.js">karma config file you&#39;re going to need</a>
 is shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
   config.set({
     <span class="hljs-comment">// Use cwd as base path</span>
     basePath: <span class="hljs-string">''</span>,
@@ -117,8 +114,7 @@ is shown below.</p>
     <span class="hljs-comment">// Consider browser as dead if no response for 5 sec</span>
     browserNoActivityTimeout: <span class="hljs-number">5000</span>
   });
-};
-</code></pre>
+};</code></pre>
 <p>One key feature of the above config file is that karma configs are
 NodeJS JavaScript, not just JSON or YAML. You can do file I/O,
 access environment variables, and <code>require()</code> npm modules in your
@@ -132,8 +128,7 @@ WARN [karma]: Port <span class="hljs-number">8080</span> <span class="hljs-keywo
 INFO [karma]: Karma v0<span class="hljs-number">.12</span><span class="hljs-number">.31</span> server started at http:<span class="hljs-comment">//localhost:8081/__karma__/</span>
 INFO [launcher]: Starting browser Chrome
 INFO [Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>)]: Connected on socket NE7VtfIGgPAVbIB8nBIA <span class="hljs-keyword">with</span> id <span class="hljs-number">416059</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.001</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.012</span> secs / <span class="hljs-number">0.001</span> secs)
-</code></pre><h2 id="testing-dom-interactions-with-ngscenario">Testing DOM Interactions with ngScenario</h2>
+Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.001</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.012</span> secs / <span class="hljs-number">0.001</span> secs)</code></pre><h2 id="testing-dom-interactions-with-ngscenario">Testing DOM Interactions with ngScenario</h2>
 <p>Karma isn&#39;t just useful for testing isolated JavaScript. With
 <a href="https://code.angularjs.org/1.2.16/docs/guide/e2e-testing">ngScenario</a>
 and the
@@ -148,7 +143,7 @@ page apps too.</p>
 <a href="https://github.com/vkarpov15/karma-demo/blob/master/lib/sample.html">the following page</a>,
 which uses the <code>sample.js</code> file from the previous section to
 display the number &quot;42&quot; on the page.</p>
-<pre><code class="lang-html">&lt;html&gt;
+<pre><code class="language-html">&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/sample.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
@@ -160,25 +155,23 @@ display the number &quot;42&quot; on the page.</p>
   <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">"onLoad()"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>In order to serve this page and the <code>sample.js</code> file, you need
 an HTTP server. You can put together a simple one using
 <a href="https://www.npmjs.com/package/express">express</a>
 as show below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">var</span> app = express();
 
 app.use(express.static(<span class="hljs-string">'./lib'</span>));
 
 app.listen(<span class="hljs-number">3000</span>);
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server listening on 3000'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server listening on 3000'</span>);</code></pre>
 <p>Navigate to <code>http://localhost:3000/sample.html</code> and you should
 see the number &quot;42&quot;. Now, let&#39;s set up karma to test this.</p>
 <p>In order to use ngScenario with karma, you need to install the
 karma-ng-scenario plugin.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"dependencies"</span>: {
     <span class="hljs-string">"express"</span>: <span class="hljs-string">"4.12.3"</span>
   },
@@ -187,12 +180,11 @@ karma-ng-scenario plugin.</p>
     <span class="hljs-string">"karma-chrome-launcher"</span>: <span class="hljs-string">"0.1.4"</span>,
     <span class="hljs-string">"karma-ng-scenario"</span>: <span class="hljs-string">"0.1.0"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>Once you have the karma-ng-scenario plugin, you will need to
 create a <a href="https://github.com/vkarpov15/karma-demo/blob/f0094a17f7fbf5b6a3941bd6066030dfbd63ab89/test/karma.ng-scenario.conf.js">slightly modified karma config file</a>.
 The <code>git diff</code> between this file and the previous section&#39;s config file <code>karma.mocha.conf.js</code> is shown below.</p>
-<pre><code class="lang-javascript"> <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"> <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
    config.set({
      basePath: <span class="hljs-string">''</span>,
 
@@ -229,8 +221,7 @@ The <code>git diff</code> between this file and the previous section&#39;s confi
 +    <span class="hljs-comment">// 45 sec</span>
 +    browserNoActivityTimeout: <span class="hljs-number">45000</span>
    });
- };
-</code></pre>
+ };</code></pre>
 <p>That&#39;s all you need! Now, start your web server with
 <code>node index.js</code> (your web server needs to be running for
 ngScenario to work) and run <code>karma start</code> to execute your tests.</p>
@@ -240,33 +231,30 @@ WARN [karma]: Port <span class="hljs-number">8080</span> <span class="hljs-keywo
 INFO [karma]: Karma v0<span class="hljs-number">.12</span><span class="hljs-number">.31</span> server started at http:<span class="hljs-comment">//localhost:8081/__karma__/</span>
 INFO [launcher]: Starting browser Chrome
 INFO [Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>)]: Connected on socket pyFsC9jnnhcbkTXT5y3t <span class="hljs-keyword">with</span> id <span class="hljs-number">7382597</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.137</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.152</span> secs / <span class="hljs-number">0.137</span> secs)
-</code></pre><p>The <code>karma.ng-scenario.conf.js</code> file is configured for karma to
+Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.137</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.152</span> secs / <span class="hljs-number">0.137</span> secs)</code></pre><p>The <code>karma.ng-scenario.conf.js</code> file is configured for karma to
 automatically re-run tests if any of the loaded files change.
 Suppose you changed the test file <code>scenario.test.js</code> to break:</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'sample.html'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'sample.html'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'displays 42'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     browser().navigateTo(<span class="hljs-string">'/sample.html'</span>);
     <span class="hljs-comment">// This assertion will fail</span>
     expect(element(<span class="hljs-string">'#content'</span>).text()).toBe(<span class="hljs-string">'43'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Karma will automatically re-run tests and show you the following
 output.</p>
 <pre><code>INFO [watcher]: Changed file <span class="hljs-string">"/Users/vkarpov/Workspace/karma-demo/test/scenario.test.js"</span>.
 Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>) sample.html displays <span class="hljs-number">42</span> FAILED
   expect element <span class="hljs-string">'#content'</span> text toBe <span class="hljs-string">"43"</span>
   /Users/vkarpov/Workspace/karma-demo/test/scenario.test.js:<span class="hljs-number">4</span>:<span class="hljs-number">32</span>: expected <span class="hljs-string">"43"</span> but was <span class="hljs-string">"42"</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.121</span> Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) ERROR (<span class="hljs-number">0.136</span> secs / <span class="hljs-number">0.121</span> secs)
-</code></pre><p><strong>Note</strong> the AngularJS team considers <code>ngScenario</code> to be
+Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.121</span> Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) ERROR (<span class="hljs-number">0.136</span> secs / <span class="hljs-number">0.121</span> secs)</code></pre><p><strong>Note</strong> the AngularJS team considers <code>ngScenario</code> to be
 deprecated in favor of
 <a href="https://www.npmjs.com/package/protractor">protractor</a>. However,
 I still think ngScenario and karma have a key niche to fill in
 terms of testing JavaScript DOM interactions against a local 
 server as part of TDD workflow. If you&#39;re interested in working with me to re-imagine how ngScenario should
 work, shoot me an email at val [at] karpov [dot] io.</p>
-<h2 id="to-the-cloud-">To the Cloud!</h2>
+<h2 id="to-the-cloud">To the Cloud!</h2>
 <p>So far, you&#39;ve only tested your code in Chrome. While testing
 in Chrome is better than not testing in the browser at all,
 it&#39;s far from a complete testing paradigm. Thankfully, there&#39;s
@@ -279,7 +267,7 @@ for an account with <a href="https://saucelabs.com/">Sauce Labs</a> to get
 an API key.</p>
 <p>To integrate karma with Sauce, you&#39;re going to need the
 karma-sauce-launcher plugin.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"dependencies"</span>: {
     <span class="hljs-string">"express"</span>: <span class="hljs-string">"4.12.3"</span>
   },
@@ -291,13 +279,12 @@ karma-sauce-launcher plugin.</p>
     <span class="hljs-string">"karma-mocha"</span>: <span class="hljs-string">"0.1.10"</span>,
     <span class="hljs-string">"karma-sauce-launcher"</span>: <span class="hljs-string">"0.2.8"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>To run the ngScenario test from the previous section on IE9 and
 Safari 5 using Sauce, create
 <a href="https://github.com/vkarpov15/karma-demo/blob/master/test/karma.sauce.conf.js">another karma config file</a>.
 The <code>git diff</code> between this new file and the previous section&#39;s config file is show below.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
 +  <span class="hljs-keyword">var</span> customLaunchers = {
 +    sl_safari: {
 +      base: <span class="hljs-string">'SauceLabs'</span>,
@@ -357,8 +344,7 @@ The <code>git diff</code> between this new file and the previous section&#39;s c
 +      testName: <span class="hljs-string">'Web App E2E Tests'</span>
 +    },
    });
- };
-</code></pre>
+ };</code></pre>
 <p>This is all you need to do. Karma handles setting up an SSH
 tunnel for you, so the Sauce browser can make real requests to
 your local server.</p>
@@ -373,8 +359,7 @@ INFO [launcher.sauce]: safari 5 (OS X 10.6) session at https://saucelabs.com/tes
 INFO [IE 9.0.0 (Windows 7)]: Connected on socket vGbX2IuqZHZEP6rj9Ltx with id 56376293
 INFO [Safari 5.1.9 (Mac OS X 10.6.8)]: Connected on socket K7Nfu1zw5yhVOozy9Lty with id 49486594
 TOTAL: 2 SUCCESS
-INFO [launcher.sauce]: Shutting down Sauce Connect</span>
-</code></pre><p><strong>Note</strong> the above example does not use autowatch. This is because,
+INFO [launcher.sauce]: Shutting down Sauce Connect</span></code></pre><p><strong>Note</strong> the above example does not use autowatch. This is because,
 in my experience, end-to-end tests run on Sauce labs are too slow 
 for the type of fast feedback I&#39;d like from the &#39;test on save&#39;
 paradigm. These heavy end-to-end tests are

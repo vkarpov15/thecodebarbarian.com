@@ -25,35 +25,33 @@ polygon describing what parts of the San Francisco Bay Area are not eligible for
 <a href="http://www.fareestimate.com/news/flat-fares/">flat fare rides</a>. Clearly a
 candidate for a <a href="https://tools.ietf.org/html/rfc7946#section-3.1.7">MultiPolygon</a>
 but odds are some part of Uber&#39;s stack doesn&#39;t support it.</p>
-<p><img src="https://i.imgur.com/FJDF3Pc.png" style="height: 500px"></p>
-<h2 id="which-points-are-within-a-polygon-">Which Points are Within a Polygon?</h2>
+<img src="https://i.imgur.com/FJDF3Pc.png" style="height: 500px">
+
+<h2 id="which-points-are-within-a-polygon">Which Points are Within a Polygon?</h2>
 <p>GeoJSON has several fundamental data structures, but this article will
 only consider features, points, lines, and polygons. A <em>point</em> is a single latitude
 and longitude coordinate pair that represents a single point on the Earth.
 An example GeoJSON point is shown below.</p>
-<pre><code class="lang-javascript">{ type: <span class="hljs-string">'Point'</span>, coordinates: [ <span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span> ] } }
-</code></pre>
+<pre><code class="language-javascript">{ type: <span class="hljs-string">'Point'</span>, coordinates: [ <span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span> ] } }</code></pre>
 <p>A <em>polygon</em> is a list of points defining a shape on a map. Below is a sample
 GeoJSON polygon that approximately represents the US state of Colorado.</p>
-<pre><code class="lang-javascript">{ type: <span class="hljs-string">'Polygon'</span>,
+<pre><code class="language-javascript">{ type: <span class="hljs-string">'Polygon'</span>,
   coordinates:
    [ [ [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ],
        [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ],
        [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ],
        [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ],
-       [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] }
-</code></pre>
+       [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] }</code></pre>
 <p>A <em>line</em> is a list of coordinates representing a line on the map. For example, below is a GeoJSON line that represents the boundary of the Colorado polygon above.</p>
-<pre><code class="lang-javascript">{ type: <span class="hljs-string">'LineString'</span>,
+<pre><code class="language-javascript">{ type: <span class="hljs-string">'LineString'</span>,
   coordinates:
    [ [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ],
      [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ],
      [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ],
      [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ],
-     [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] }
-</code></pre>
+     [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] }</code></pre>
 <p>A <em>feature</em> is a wrapper object that contains a point, line or polygon in its <code>geometry</code> property. Below is a feature that wraps the above polygon.</p>
-<pre><code class="lang-javascript">{ type: <span class="hljs-string">'Feature'</span>,
+<pre><code class="language-javascript">{ type: <span class="hljs-string">'Feature'</span>,
   properties: {},
   geometry:
    { type: <span class="hljs-string">'Polygon'</span>,
@@ -62,11 +60,10 @@ GeoJSON polygon that approximately represents the US state of Colorado.</p>
           [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ],
           [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ],
           [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ],
-          [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] } }
-</code></pre>
+          [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] } }</code></pre>
 <p>Generally, Turf prefers to use features rather than points or polygons. The
 <a href="https://www.npmjs.com/package/@turf/helpers"><code>@turf/helpers</code> npm package</a> contains helpers for creating point and polygon features. Below is an example of creating a polygon feature representing the state of Colorado and 4 point features representing North American ski destinations.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
 
 <span class="hljs-comment">// Rough approximation of the state of Colorado, see:</span>
 <span class="hljs-comment">// http://i.imgur.com/59OCqJR.jpg</span>
@@ -84,26 +81,25 @@ GeoJSON polygon that approximately represents the US state of Colorado.</p>
 <span class="hljs-keyword">const</span> squaw = point([<span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span>]);
 <span class="hljs-keyword">const</span> mammoth = point([<span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span>]);
 <span class="hljs-keyword">const</span> aspen = point([<span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span>]);
-<span class="hljs-keyword">const</span> whistler = point([<span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span>]);
-</code></pre>
+<span class="hljs-keyword">const</span> whistler = point([<span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span>]);</code></pre>
 <p>Here&#39;s how these features look on a map. Click on the map for an interactive
 view.</p>
-<p><a href="http://bl.ocks.org/anonymous/raw/a297439e02cad4ae5c41ed9e1d89b344/">
+<a href="http://bl.ocks.org/anonymous/raw/a297439e02cad4ae5c41ed9e1d89b344/">
 <img src="http://i.imgur.com/59OCqJR.jpg" />
-</a></p>
+</a>
+
 <p>How do you determine which of these points is within the polygon? You can use the <a href="https://www.npmjs.com/package/@turf/inside"><code>@turf/inside</code> npm package</a>, which returns <code>true</code> if the given point is within the polygon, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter()</code> over an array</a> of the 4 points.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> inside = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/inside'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> inside = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/inside'</span>);
 
 <span class="hljs-keyword">const</span> inColorado = [squaw, mammoth, aspen, whistler].filter(point =&gt; inside(point, colorado));
 <span class="hljs-comment">// `[ [-106.82, 39.18] ]`, corresponds to Aspen</span>
-<span class="hljs-built_in">console</span>.log(inColorado.map(point =&gt; point.geometry.coordinates));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(inColorado.map(point =&gt; point.geometry.coordinates));</code></pre>
 <p>Determining whether a point is within a polygon is one of the most common geospatial computing tasks. For example, the gross Uber polygon in the introduction is used to determine whether a point (your current position) is within an area that isn&#39;t eligible for flat fares (the polygon that contains the major Bay Area airports).</p>
 <h2 id="sort-points-by-distance-from-a-point">Sort Points By Distance from A Point</h2>
 <p>Another common geospatial computing task is determining the distance between two points, or, more generally, ordering points based on their distance from a point.
 The <a href="https://www.npmjs.com/package/@turf/distance"><code>@turf/distance</code> npm package</a> computes the distance between two points. Here&#39;s how you use Turf&#39;s <code>distance()</code>
 function to sort the 4 ski destinations based on their distance from San Francisco.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
 <span class="hljs-keyword">const</span> distance = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/distance'</span>);
 
 <span class="hljs-comment">// Approximate coordinates of 4 ski destinations in North America.</span>
@@ -125,12 +121,11 @@ points.sort((p1, p2) =&gt; distance(p1, sf) - distance(p2, sf));
 <span class="hljs-comment">//   [ -118.9, 37.61 ],</span>
 <span class="hljs-comment">//   [ -106.82, 39.18 ],</span>
 <span class="hljs-comment">//   [ -122.95, 50.12 ] ]</span>
-<span class="hljs-built_in">console</span>.log(points.map(point =&gt; point.geometry.coordinates));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(points.map(point =&gt; point.geometry.coordinates));</code></pre>
 <h2 id="distance-from-point-to-polygon">Distance from Point to Polygon</h2>
 <p>Checking if a point is in a polygon and finding the distance between two points are both fairly simple. Let&#39;s do something more sophisticated: what&#39;s the distance between a polygon and a point outside the polygon? For example, with the above data set, how far is Mammoth Lakes from the border of Colorado?</p>
 <p>Since Mammoth Lakes is not in Colorado, the distance between Mammoth Lakes and Colorado is the same thing as the distance between Mammoth Lakes and the border of Colorado. Turf has a handy <a href="http://turfjs.org/docs#polygonToLine"><code>polygonToLine()</code> function</a> that converts a polygon to a line, so you can convert the Colorado polygon to a line representing the border of Colorado. Then, you can use the <a href="http://turfjs.org/docs#pointToLineDistance"><code>pointToLineDistance()</code> function</a> that computes the distance from a point to a line. Here&#39;s how you combine these two functions to compute the distance from Mammoth Lakes to Colorado:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { point, polygon } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/helpers'</span>);
 <span class="hljs-keyword">const</span> pointToLineDistance = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/point-to-line-distance'</span>);
 <span class="hljs-keyword">const</span> polygonToLine = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/polygon-to-line'</span>);
 
@@ -147,8 +142,7 @@ points.sort((p1, p2) =&gt; distance(p1, sf) - distance(p2, sf));
 <span class="hljs-keyword">const</span> mammoth = point([<span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span>]);
 
 <span class="hljs-comment">// Mammoth Lakes is ~545 miles from the border of Colorado</span>
-<span class="hljs-built_in">console</span>.log(pointToLineDistance(mammoth, polygonToLine(colorado), { units: <span class="hljs-string">'miles'</span> }));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(pointToLineDistance(mammoth, polygonToLine(colorado), { units: <span class="hljs-string">'miles'</span> }));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Turf makes Node.js a natural choice for working with GeoJSON. The above use cases are just the tip of the iceberg of what Turf offers. Writing your own logic to calculate the distance between two points isn&#39;t too hard, but Turf can do some very complex calculations for you, like <a href="http://turfjs.org/docs#convex">convex hulls</a>, <a href="http://turfjs.org/docs#lineIntersect">line intersection</a>, <a href="http://turfjs.org/docs#voronoi">Voronoi diagrams</a>, and <a href="http://turfjs.org/docs#area">areas</a>. The Turf team is adding new functionality regularly: I previously implemented <a href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN clustering</a> on top of Turf for an internal project, and they&#39;ve since <a href="https://www.npmjs.com/package/@turf/clusters-dbscan">added their own implementation</a>. Check out Turf if you find yourself dealing with geospatial data, it will enable you to do some incredible things with geospatial data.</p>
 <p><em>Like this article? <a href="https://www.patreon.com/codebarbarian">Subscribe on Patreon</a> to get access to exclusive in-depth articles on Node.js</em></p>

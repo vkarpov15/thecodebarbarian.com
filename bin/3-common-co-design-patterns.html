@@ -23,7 +23,7 @@ if they fail.
 Co lets you retry requests using a plain-old <code>for</code> loop and <code>try/catch</code>.
 While this code looks synchronous, it&#39;s actually async, just co handles the
 async for you.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 <span class="hljs-keyword">const</span> NUM_RETRIES = <span class="hljs-number">3</span>;
@@ -37,10 +37,9 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
     } <span class="hljs-keyword">catch</span>(err) {}
   }
   <span class="hljs-built_in">console</span>.log(i); <span class="hljs-comment">// 3</span>
-});
-</code></pre>
+});</code></pre>
 <p>You can even write a <code>retry</code> helper function using co.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> retry = (fn, numRetries) =&gt; co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> retry = (fn, numRetries) =&gt; co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; numRetries; ++i) {
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">yield</span> fn();
@@ -58,8 +57,7 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
   } <span class="hljs-keyword">catch</span>(err) {
     <span class="hljs-built_in">console</span>.log(err.toString()); <span class="hljs-comment">// Error: ran out of retries</span>
   }
-});
-</code></pre>
+});</code></pre>
 <h2 id="processing-a-stream">Processing a Stream</h2>
 <p><a href="https://github.com/substack/stream-handbook">Node.js streams</a> enable you
 to process large data sets piece-by-piece. However, the primary way you
@@ -80,7 +78,7 @@ Therefore, you can use <code>co</code> to process the stream using a <code>while
 <a href="https://www.gutenberg.org/files/135/135-0.txt">Victor Hugo&#39;s <em>Les Miserables</em></a>
 and counts the number of times the main character&#39;s last name is mentioned in
 the text chunk by chunk.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
 <span class="hljs-keyword">const</span> stream = fs.createReadStream(<span class="hljs-string">'./les_miserables.txt'</span>);
@@ -102,15 +100,14 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
     valjeanCount += (res.toString().match(<span class="hljs-regexp">/valjean/ig</span>) || []).length;
   }
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'count:'</span>, valjeanCount); <span class="hljs-comment">// count: 1120</span>
-});
-</code></pre>
+});</code></pre>
 <h2 id="processing-a-mongodb-cursor">Processing a MongoDB Cursor</h2>
 <p><a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find">MongoDB&#39;s <code>find()</code> function returns a <em>cursor</em></a>, which is an object that lets you load data from MongoDB in several
 different ways. You can use the <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#toArray"><code>toArray()</code> function</a> to get all the documents
 that match your query at once, you can <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#stream">convert it to a stream</a>, or you can use the <a href="http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next"><code>next()</code> function</a> to get the next document manually.
 Since <code>next()</code> returns a promise, you can use co to exhaust a MongoDB cursor
 using a plain old <code>for</code> loop.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
@@ -119,8 +116,7 @@ co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">yield</span> cursor.next(); doc != <span class="hljs-literal">null</span>; doc = <span class="hljs-keyword">yield</span> cursor.next()) {
     <span class="hljs-built_in">console</span>.log(doc); <span class="hljs-comment">// log the docs one at a time</span>
   }
-});
-</code></pre>
+});</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>Co is powerful because it enables you to write async code using common
 synchronous primitives, like <code>for</code> loops and <code>try/catch</code>. It enables you

@@ -19,23 +19,21 @@
 these come with their own problems: sinopia is self-hosted, and gemfury and
 npm cost money. All 3 require you to learn a separate tool just to be able
 to download and install dependencies.</p>
-<h2 id="why-not-just-use-github-">Why Not Just Use GitHub?</h2>
+<h2 id="why-not-just-use-github">Why Not Just Use GitHub?</h2>
 <p>There&#39;s a tragically underutilized npm feature that can make GitHub into
 your own personal private registry. Here&#39;s how you might list mongoose
 version 4.2.4 in your package.json:</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"dependencies"</span>: {
     <span class="hljs-string">"mongoose"</span>: <span class="hljs-string">"4.2.4"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>You can also do this:</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"dependencies"</span>: {
     <span class="hljs-string">"mongoose"</span>: <span class="hljs-string">"git@github.com:Automattic/mongoose.git#4.2.4"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>You get slightly different output from <code>npm list</code> (show below), but you can then
 <code>require(&#39;mongoose&#39;)</code> like you would normally. Upgrading is also easy:
 just change <code>4.2.4</code> to <code>4.2.7</code> and run <code>npm install</code> normally. Also, you&#39;re
@@ -58,10 +56,8 @@ even branch after the <code>#</code> above.</p>
   │ └── bluebird@<span class="hljs-number">2.9</span><span class="hljs-number">.26</span>
   ├── muri@<span class="hljs-number">1.0</span><span class="hljs-number">.0</span>
   ├── regexp-clone@<span class="hljs-number">0.0</span><span class="hljs-number">.1</span>
-  └── sliced@<span class="hljs-number">0.0</span><span class="hljs-number">.5</span>
-</code></pre><p>To install from the command line, use the below command.</p>
-<pre><code>npm install git+ssh:<span class="hljs-comment">//git@github.com/Automattic/mongoose.git#4.2.4</span>
-</code></pre><p>This also works with private repos. As long as you can clone a repo, you can
+  └── sliced@<span class="hljs-number">0.0</span><span class="hljs-number">.5</span></code></pre><p>To install from the command line, use the below command.</p>
+<pre><code>npm install git+ssh:<span class="hljs-comment">//git@github.com/Automattic/mongoose.git#4.2.4</span></code></pre><p>This also works with private repos. As long as you can clone a repo, you can
 put it in your <code>package.json</code> dependencies. The big advantage is that, instead
 of having 2 tools to manage access to your internal GitHub repos (GitHub and
 your private npm registry), you have only 1.</p>

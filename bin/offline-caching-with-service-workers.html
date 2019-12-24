@@ -23,12 +23,14 @@ available offline.</p>
 tweaked to use absolute paths so it appears normally in your browser when you
 have internet access. Set up a static web server locally on port 5000 (I recommend <a href="https://www.npmjs.com/package/serve"><code>npm install serve@9.4.0</code></a> ), you should see the below
 page when you visit <code>http://localhost:5000/guide</code>.</p>
-<p><img class="inline-image" src="https://i.imgur.com/5EkX0h1.png"></p>
+<img class="inline-image" src="https://i.imgur.com/5EkX0h1.png">
+
 <p>The Mongoose docs site is lean relative to your average site, which is <a href="https://www.wired.com/2016/04/average-webpage-now-size-original-doom/">bigger than the original <em>Doom</em> video game</a>.
 However, in order to render properly it still needs some fonts, CSS files, and
 images. For the Mongoose docs, the JS files are non-essential, they just handle
 ads and analytics.</p>
-<p><img class="inline-image" src="https://i.imgur.com/dzYT9fX.png"></p>
+<img class="inline-image" src="https://i.imgur.com/dzYT9fX.png">
+
 <p>If you turn on the &quot;Offline&quot; checkbox in the Chrome Network tab, the page will
 no longer render. With service workers, you can make this page render perfectly,
 even in offline mode.</p>
@@ -42,32 +44,33 @@ you <strong>must</strong> use HTTPS.</p>
 the top level of the directory the static server uses, so you can access your service worker from <code>http://localhost:5000/sw.js</code>.</p>
 <pre><code>$ curl http:<span class="hljs-comment">//localhost:5000/sw.js</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
-$
-</code></pre><p>Next, run <code>navigator.serviceWorker.register(&#39;./sw.js&#39;)</code> from your Chrome console.
+$</code></pre><p>Next, run <code>navigator.serviceWorker.register(&#39;./sw.js&#39;)</code> from your Chrome console.
 You should see &quot;Hello, World!&quot; pop up.</p>
-<p><img class="inline-image" src="https://i.imgur.com/iW5jxVe.png"></p>
+<img class="inline-image" src="https://i.imgur.com/iW5jxVe.png">
+
 <p>By itself, this service worker isn&#39;t interesting because it just prints a message
 when it is registered and doesn&#39;t listen to any other events. For example, if
 you reload the page, the <code>console.log()</code> won&#39;t execute again.</p>
 <p>Service workers can intercept every outbound HTTP request from your page.
 Change your <code>sw.js</code> file to the below to print out every single HTTP request
 that the browser makes when rendering <code>guide.html</code>.</p>
-<pre><code class="lang-javascript">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+<pre><code class="language-javascript">self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'fetch'</span>, event);
-});
-</code></pre>
-<p><img class="inline-image" src="https://i.imgur.com/E0fyiI4.png"></p>
+});</code></pre>
+<img class="inline-image" src="https://i.imgur.com/E0fyiI4.png">
+
 <p>The browser retains the service worker even in offline mode, so if you turn on
 the &quot;Offline&quot; checkbox in Chrome&#39;s network tab you&#39;ll still see your service
 worker intercept the HTTP request. Using this and the Cache API, you can
 serve this page offline.</p>
-<p><img class="inline-image" src="https://i.imgur.com/p22JQQd.png"></p>
+<img class="inline-image" src="https://i.imgur.com/p22JQQd.png">
+
 <h2 id="caching-assets-in-the-service-worker">Caching Assets in the Service Worker</h2>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/addAll"><code>Cache.addAll()</code> function</a> lets you pre-fetch a bunch of assets and store them in the cache. Combined with the
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent/respondWith"><code>FetchEvent.respondWith()</code> function</a>, you can use promise chaining to <code>catch()</code> any network requests that fail and
 check to see if the asset is cached locally. Google calls this caching strategy
 <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache">&quot;Network falling back to cache&quot;</a>.</p>
-<pre><code class="lang-javascript">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
+<pre><code class="language-javascript">self.addEventListener(<span class="hljs-string">'install'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
   event.waitUntil(
     caches.open(<span class="hljs-string">'mycache'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cache</span>) </span>{
       <span class="hljs-keyword">return</span> cache.addAll([
@@ -88,11 +91,11 @@ self.addEventListener(<span class="hljs-string">'fetch'</span>, <span class="hlj
   <span class="hljs-keyword">return</span> event.respondWith(
     fetch(event.request).catch(() =&gt; caches.match(event.request.url))
   );
-});
-</code></pre>
+});</code></pre>
 <p>With this new service worker, you should see the Mongoose schema docs show up
 even in offline mode. If the <a href="https://developers.google.com/web/fundamentals/primers/service-workers/#update-a-service-worker">service worker doesn&#39;t update automatically</a>, you may need to force an update using <code>navigator.serviceWorker.getRegistration().then(reg =&gt; reg.update())</code>.</p>
-<p><img class="inline-image" src="https://i.imgur.com/RD450C6.png"></p>
+<img class="inline-image" src="https://i.imgur.com/RD450C6.png">
+
 <h2 id="moving-on">Moving On</h2>
 <p>Ever start a project on an airplane and realize that you desperately
 need access to docs? Service workers promise to make it much easier to access

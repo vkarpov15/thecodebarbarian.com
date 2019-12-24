@@ -19,7 +19,7 @@
 <h2 id="creating-a-new-document">Creating a New Document</h2>
 <p>When you create a new vehicle, there&#39;s no requests that point to it, so there&#39;s no need to do anything. But when you create a new request, you should always embed the vehicle. This is where monogram&#39;s middleware comes in.</p>
 <p>Monogram&#39;s middleware is fundamentally <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">aspect-oriented</a>. A monogram collection has the same API signatures as the <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html">MongoDB driver</a>, but what monogram provides is a mechanism to hook into the stream of function calls, inspect an object representation of the function call, and potentially mutate the function call. As a client of monogram you shouldn&#39;t be aware of using monogram at all, you should write what looks like plain-old MongoDB driver code. But middleware lets you easily bolt on functionality to your MongoDB driver logic.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
 <span class="hljs-keyword">const</span> monogram = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -52,10 +52,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-comment">// { _id: ..., make: 'BMW', model: 'X1', year: 2017 }</span>
   <span class="hljs-built_in">console</span>.log(request.vehicle);
-}
-</code></pre>
+}</code></pre>
 <p>Other than the mysterious <code>embedVehicle()</code> function above, the above code would still run even if you were just using the MongoDB driver directly. It wouldn&#39;t print out the same results though, because the <code>embedVehicle()</code> function needs to attach middleware to embed the vehicle. Below is the <code>embedVehicle()</code> function. It attaches two middleware functions that check for changes to the request&#39;s <code>vehicleId</code> property and attach a separate <code>vehicle</code> property.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">embedVehicle</span>(<span class="hljs-params">db, collection</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">embedVehicle</span>(<span class="hljs-params">db, collection</span>) </span>{
   <span class="hljs-comment">// `insertOne`, `insertMany`</span>
   collection.pre(<span class="hljs-regexp">/^insert/</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">action</span>) </span>{
     <span class="hljs-keyword">let</span> docs = action.params[<span class="hljs-number">0</span>];
@@ -85,12 +84,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
       });
     }
   });
-}
-</code></pre>
+}</code></pre>
 <h2 id="updating-an-existing-document">Updating an Existing Document</h2>
 <p>The above covers keeping the <code>vehicle</code> property in sync when creating and updating a request. What about creating and updating a vehicle? The correct behavior in this case requires some nuance. If the customer updates their vehicle from a Toyota Camry to a BMW X1, that shouldn&#39;t update any requests they had from 2 years ago. But, on the other hand, if a customer fat-fingers their vehicle as a BMW X3 instead of a BMW X1, we should allow them to update it on their request so we know to the right car to look for. So, in other words, the <code>vehicle</code> should only be updated if the request is active, but not if the request was already completed.</p>
 <p>The story is that a customer creates a request, changes their vehicle from a Toyota Camry to a BMW X1. Some time later, the request is marked as complete, and then the customer changes the year on their BMW X1. In the first case, the embedded <code>vehicle</code> should get updated because the request is still active. But once the request is complete, the embedded <code>vehicle</code> should not change. Below is this story in code.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> monogram.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
   <span class="hljs-comment">// Attach some middleware</span>
@@ -129,10 +127,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-comment">// Not updated, because the request was not active</span>
   <span class="hljs-comment">// { _id: ..., make: 'BMW', model: 'X1', year: 2017 }</span>
   <span class="hljs-built_in">console</span>.log(request.vehicle);
-}
-</code></pre>
+}</code></pre>
 <p>Below is the <code>updateRequestVehicle()</code> middleware. This middleware is very simplified and will not handle all vehicle update cases, but is enough for this simple example.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateRequestVehicle</span>(<span class="hljs-params">Vehicle, Request</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateRequestVehicle</span>(<span class="hljs-params">Vehicle, Request</span>) </span>{
   <span class="hljs-comment">// `updateOne()`, `updateMany()`, `findOneAndUpdate()`</span>
   Vehicle.pre(<span class="hljs-regexp">/update/i</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">action</span>) </span>{
     <span class="hljs-keyword">const</span> filter = action.params[<span class="hljs-number">0</span>];
@@ -149,8 +146,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
     }, {});
     <span class="hljs-keyword">await</span> Request.updateMany({ status: <span class="hljs-string">'ACTIVE'</span>, vehicleId: filter._id }, { $set });
   });
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Monogram is a tool for advanced users of MongoDB to attach additional logic to their MongoDB driver code. Because monogram middleware always takes one parameter representing the function call as a POJO, its easy to build a rich data consistency layer underneath your business logic. In particular, monogram helps you build smarter data consistency models using denormalization, because keeping data in sync isn&#39;t always the right choice.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

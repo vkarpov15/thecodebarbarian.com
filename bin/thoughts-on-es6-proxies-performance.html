@@ -13,20 +13,19 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="http://thecodebarbarian.com/2015/04/24/80-20-guide-to-ecmascript-6-proxies">Proxies</a> are a powerful ES2015 feature that let you intercept operations on object properties by defining &quot;traps&quot; (function handlers) for getting/setting a property. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = {};
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = {};
 <span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, {
   get: () =&gt; {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hi'</span>);
   }
 });
 
-obj.a; <span class="hljs-comment">// prints "hi"</span>
-</code></pre>
+obj.a; <span class="hljs-comment">// prints "hi"</span></code></pre>
 <p>Proxies have been hailed as the <a href="https://www.bitovi.com/blog/long-live-es6-proxies">replacement for the now-defunct <code>Object.observe()</code> proposal</a>. Unfortunately,
 they have one big limitation: <a href="http://mrale.ph/blog/2015/01/11/whats-up-with-monomorphism.html#representing-path-to-the-property">performance</a>. It still blows my mind that <code>Object.observe()</code> was scrapped for performance limitations when, in my admittedly naive understanding of V8, <code>Object.observe()</code> is much easier for the <a href="http://thibaultlaurens.github.io/javascript/2013/04/29/how-the-v8-engine-works/">JIT</a> to optimize than proxies.</p>
-<h2 id="how-slow-are-proxies-">How Slow Are Proxies?</h2>
+<h2 id="how-slow-are-proxies">How Slow Are Proxies?</h2>
 <p>Here&#39;s a rudimentary <a href="">benchmark</a> using node v6.9.0:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 
 <span class="hljs-keyword">var</span> suite = <span class="hljs-keyword">new</span> Benchmark.Suite;
 
@@ -59,16 +58,14 @@ suite.
   on(<span class="hljs-string">'complete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Fastest is '</span> + <span class="hljs-keyword">this</span>.filter(<span class="hljs-string">'fastest'</span>).map(<span class="hljs-string">'name'</span>));
   }).
-  run();
-</code></pre>
+  run();</code></pre>
 <p>Here are the results:</p>
 <pre><code>$ node proxy.js
 vanilla x <span class="hljs-number">74</span>,<span class="hljs-number">288</span>,<span class="hljs-number">023</span> ops/sec ±<span class="hljs-number">0.78</span>% (<span class="hljs-number">86</span> runs sampled)
 proxy x <span class="hljs-number">3</span>,<span class="hljs-number">625</span>,<span class="hljs-number">152</span> ops/sec ±<span class="hljs-number">2.51</span>% (<span class="hljs-number">86</span> runs sampled)
 defineProperty x <span class="hljs-number">74</span>,<span class="hljs-number">815</span>,<span class="hljs-number">513</span> ops/sec ±<span class="hljs-number">0.80</span>% (<span class="hljs-number">85</span> runs sampled)
 Fastest is defineProperty,vanilla
-$
-</code></pre><p>In this simple benchmark, setting on a proxy object is an order of magnitude
+$</code></pre><p>In this simple benchmark, setting on a proxy object is an order of magnitude
 slower than setting a property on a vanilla POJO or a property with a custom
 setter.</p>
 <p>In case you&#39;re curious, here&#39;s the results with an empty <code>Object.observe()</code> function in node 4.2.1, back when we had <code>Object.observe()</code>.</p>
@@ -76,28 +73,25 @@ setter.</p>
 vanilla x <span class="hljs-number">78</span>,<span class="hljs-number">615</span>,<span class="hljs-number">272</span> ops/sec ±<span class="hljs-number">1.55</span>% (<span class="hljs-number">84</span> runs sampled)
 defineProperty x <span class="hljs-number">79</span>,<span class="hljs-number">882</span>,<span class="hljs-number">188</span> ops/sec ±<span class="hljs-number">1.31</span>% (<span class="hljs-number">85</span> runs sampled)
 <span class="hljs-built_in">Object</span>.observe() x <span class="hljs-number">5</span>,<span class="hljs-number">234</span>,<span class="hljs-number">672</span> ops/sec ±<span class="hljs-number">0.86</span>% (<span class="hljs-number">89</span> runs sampled)
-Fastest is defineProperty,vanilla
-</code></pre><p>Some <a href="http://www.2ality.com/2014/12/es6-proxies.html">reading</a> might lead you to believe proxies are faster if you bypass the get/set traps and just define your own
+Fastest is defineProperty,vanilla</code></pre><p>Some <a href="http://www.2ality.com/2014/12/es6-proxies.html">reading</a> might lead you to believe proxies are faster if you bypass the get/set traps and just define your own
 <code>getOwnPropertyDescriptor()</code> trap.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _obj = {};
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};
 <span class="hljs-keyword">var</span> propertyDescriptor = {
   configurable: <span class="hljs-literal">true</span>,
   set: v =&gt; { _obj.prop = v; }
 };
 <span class="hljs-keyword">var</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(_obj, {
   getOwnPropertyDescriptor: (target, prop) =&gt; propertyDescriptor
-});
-</code></pre>
+});</code></pre>
 <p>Unfortunately, the <code>getOwnPropertyDescriptor()</code> trick actually makes this benchmark even slower.</p>
 <pre><code>$ node proxy.js
 vanilla x <span class="hljs-number">73</span>,<span class="hljs-number">695</span>,<span class="hljs-number">484</span> ops/sec ±<span class="hljs-number">1.04</span>% (<span class="hljs-number">88</span> runs sampled)
 proxy x <span class="hljs-number">2</span>,<span class="hljs-number">026</span>,<span class="hljs-number">006</span> ops/sec ±<span class="hljs-number">0.74</span>% (<span class="hljs-number">90</span> runs sampled)
 defineProperty x <span class="hljs-number">74</span>,<span class="hljs-number">137</span>,<span class="hljs-number">733</span> ops/sec ±<span class="hljs-number">1.25</span>% (<span class="hljs-number">88</span> runs sampled)
 Fastest is defineProperty,vanilla
-$
-</code></pre><p>In case you were wondering, using proxies to wrap function calls is also
+$</code></pre><p>In case you were wondering, using proxies to wrap function calls is also
 an order of magnitude less performant than just wrapping the function call.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 
 <span class="hljs-keyword">var</span> suite = <span class="hljs-keyword">new</span> Benchmark.Suite;
 
@@ -125,16 +119,14 @@ suite.
   on(<span class="hljs-string">'complete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Fastest is '</span> + <span class="hljs-keyword">this</span>.filter(<span class="hljs-string">'fastest'</span>).map(<span class="hljs-string">'name'</span>));
   }).
-  run();
-</code></pre>
+  run();</code></pre>
 <pre><code>$ node proxy2.js
 vanilla x <span class="hljs-number">78</span>,<span class="hljs-number">426</span>,<span class="hljs-number">813</span> ops/sec ±<span class="hljs-number">0.93</span>% (<span class="hljs-number">88</span> runs sampled)
 proxy x <span class="hljs-number">5</span>,<span class="hljs-number">244</span>,<span class="hljs-number">789</span> ops/sec ±<span class="hljs-number">2.17</span>% (<span class="hljs-number">87</span> runs sampled)
 wrap x <span class="hljs-number">75</span>,<span class="hljs-number">350</span>,<span class="hljs-number">773</span> ops/sec ±<span class="hljs-number">0.85</span>% (<span class="hljs-number">85</span> runs sampled)
-Fastest is vanilla
-</code></pre><h2 id="tricks-for-improving-proxy-performance">Tricks for Improving Proxy Performance</h2>
+Fastest is vanilla</code></pre><h2 id="tricks-for-improving-proxy-performance">Tricks for Improving Proxy Performance</h2>
 <p>So far the biggest impact I&#39;ve seen on proxy performance comes from making the property being modified not <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty#Description">configurable</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _obj = {};
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};
 <span class="hljs-built_in">Object</span>.defineProperty(_obj, <span class="hljs-string">'prop'</span>, { configurable: <span class="hljs-literal">false</span> });
 <span class="hljs-keyword">var</span> propertyDescriptor = {
   configurable: <span class="hljs-literal">false</span>,
@@ -143,16 +135,14 @@ Fastest is vanilla
 };
 <span class="hljs-keyword">var</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(_obj, {
   getOwnPropertyDescriptor: (target, prop) =&gt; propertyDescriptor
-});
-</code></pre>
+});</code></pre>
 <pre><code>$ node proxy.js
 vanilla x <span class="hljs-number">74</span>,<span class="hljs-number">622</span>,<span class="hljs-number">163</span> ops/sec ±<span class="hljs-number">0.95</span>% (<span class="hljs-number">85</span> runs sampled)
 proxy x <span class="hljs-number">4</span>,<span class="hljs-number">649</span>,<span class="hljs-number">544</span> ops/sec ±<span class="hljs-number">0.47</span>% (<span class="hljs-number">85</span> runs sampled)
 defineProperty x <span class="hljs-number">77</span>,<span class="hljs-number">048</span>,<span class="hljs-number">878</span> ops/sec ±<span class="hljs-number">0.60</span>% (<span class="hljs-number">88</span> runs sampled)
 Fastest is defineProperty
-$
-</code></pre><p>Unfortunately, if you&#39;re going to take this approach, you might as well just use <code>Object.defineProperty()</code> for getters/setters. The reason is that you&#39;d have to make every property you want to access on the proxy non-configurable. Otherwise V8 will crash, because your proxy can&#39;t return a property descriptor that V8 doesn&#39;t think is compatible with the underlying object.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> _obj = {};
+$</code></pre><p>Unfortunately, if you&#39;re going to take this approach, you might as well just use <code>Object.defineProperty()</code> for getters/setters. The reason is that you&#39;d have to make every property you want to access on the proxy non-configurable. Otherwise V8 will crash, because your proxy can&#39;t return a property descriptor that V8 doesn&#39;t think is compatible with the underlying object.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};
 <span class="hljs-built_in">Object</span>.freeze(_obj);
 <span class="hljs-keyword">var</span> propertyDescriptor = {
   configurable: <span class="hljs-literal">false</span>,
@@ -167,9 +157,8 @@ $
 <span class="hljs-comment">// "TypeError: 'getOwnPropertyDescriptor' on proxy: trap returned</span>
 <span class="hljs-comment">// descriptor for property 'prop' that is incompatible with the</span>
 <span class="hljs-comment">// existing property in the proxy target"</span>
-proxy.prop = <span class="hljs-number">5</span>;
-</code></pre>
-<h2 id="are-proxies-dead-on-arrival-">Are Proxies Dead on Arrival?</h2>
+proxy.prop = <span class="hljs-number">5</span>;</code></pre>
+<h2 id="are-proxies-dead-on-arrival">Are Proxies Dead on Arrival?</h2>
 <p>Proxies have some neat advantages over <code>Object.defineProperty()</code>: you can nest
 proxies (but you can&#39;t nest getters/setters) and you don&#39;t have to know every
 property you want to track ahead of time. As a side effect, you can also use
@@ -178,7 +167,7 @@ in ES5. However, proxies also come with very significant performance impact over
 POJOs or <code>Object.defineProperty()</code>.</p>
 <p>How significant is this performance impact? Let&#39;s compare the performance impact
 of proxies against the performance impact of using promises over callbacks:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 
 <span class="hljs-keyword">var</span> suite = <span class="hljs-keyword">new</span> Benchmark.Suite;
 
@@ -201,21 +190,18 @@ suite.
   on(<span class="hljs-string">'complete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Fastest is '</span> + <span class="hljs-keyword">this</span>.filter(<span class="hljs-string">'fastest'</span>).map(<span class="hljs-string">'name'</span>));
   }).
-  run();
-</code></pre>
+  run();</code></pre>
 <pre><code>$ node promise.js
 new function x 26,282,805 ops/sec ±0.74% (90 runs sampled)
 new promise x 1,953,037 ops/sec ±1.02% (86 runs sampled)
 promise resolve x 194,173 ops/sec ±13.80% (61 runs sampled)
 Fastest is new function
-$
-</code></pre><p>But wait, doesn&#39;t <a href="https://www.npmjs.com/package/bluebird">bluebird</a> offer &quot;exceptionally good performance&quot; relative to other promise libraries? Let&#39;s see what happens if we replace native node promises with bluebird 2.11.1 in the above benchmark.</p>
+$</code></pre><p>But wait, doesn&#39;t <a href="https://www.npmjs.com/package/bluebird">bluebird</a> offer &quot;exceptionally good performance&quot; relative to other promise libraries? Let&#39;s see what happens if we replace native node promises with bluebird 2.11.1 in the above benchmark.</p>
 <pre><code>$ node promise.js
 new function x 26,986,342 ops/sec ±0.48% (89 runs sampled)
 new promise x 11,157,758 ops/sec ±1.05% (87 runs sampled)
 promise resolve x 671,079 ops/sec ±27.01% (18 runs sampled)
-Fastest is new function
-</code></pre><p>Wow! Looks like promises are way slower than callbacks. Is it time to give up
+Fastest is new function</code></pre><p>Wow! Looks like promises are way slower than callbacks. Is it time to give up
 on promises and return to simpler times when <a href="https://en.wikiquote.org/wiki/Linus_Torvalds#1991-94">men were men and used design patterns rather than whiz-bang async primitives?</a> There&#39;s been
 <a href="http://softwareengineering.stackexchange.com/questions/278778/why-are-native-es6-promises-slower-and-more-memory-intensive-than-bluebird">some concern</a> about the performance implications of promises, but plenty of companies use promises without feeling the performance overhead, <a href="https://www.boosterfuels.com/join-the-team">my current employer</a> included. While I can&#39;t find confirmation, I&#39;d guess that even
 Uber uses promises given that <a href="https://www.linkedin.com/in/kkowal">the author of Q works there</a>.</p>

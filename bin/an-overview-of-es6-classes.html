@@ -15,27 +15,24 @@
 </div><div class="post-body-text-container"><p>JavaScript introduced the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"><code>class</code> keyword</a> in 2015 with the release of ES6. React made classes an indispensable language feature when they introduced support for <a href="https://github.com/facebook/react/blob/master/CHANGELOG.md#0130-march-10-2015">using <code>extends React.Component</code> instead of <code>React.createClass()</code> in 2015</a>, and removed support for <a href="https://github.com/facebook/react/blob/master/CHANGELOG.md#1600-september-26-2017"><code>React.createClass()</code> entirely in 2017</a> in favor of classes. Today, classes are a fundamental part of JavaScript, and many new JavaScript devs don&#39;t remember a time before classes. In this article, I&#39;ll provide an overview of how classes work in JavaScript: how to declare classes, what features JavaScript provides with classes, and how inheritance works.</p>
 <h2 id="working-with-classes">Working With Classes</h2>
 <p>Here&#39;s how you define a basic class <code>MyClass</code>, and create an instance of <code>MyClass</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
   }
 }
 
 <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
-obj.answer; <span class="hljs-comment">// 42</span>
-</code></pre>
+obj.answer; <span class="hljs-comment">// 42</span></code></pre>
 <p>You <em>must</em> instantiate a class with <code>new</code>. Calling <code>MyClass()</code> without <code>new</code>
 throws an error:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// TypeError: Class constructor MyClass cannot be invoked without 'new'</span>
-MyClass();
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// TypeError: Class constructor MyClass cannot be invoked without 'new'</span>
+MyClass();</code></pre>
 <p>A class is <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-function-objects">technically a function</a>, although the <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-function-objects-call-thisargument-argumentslist">ECMAScript spec explicitly disallows calling a class without <code>new</code></a>. In fact, <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-typeof-operator-runtime-semantics-evaluation">the <code>typeof</code> operator</a> identifies <code>MyClass</code> as a function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">typeof</span> MyClass; <span class="hljs-comment">// 'function'</span>
-MyClass <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>; <span class="hljs-comment">//  true</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">typeof</span> MyClass; <span class="hljs-comment">// 'function'</span>
+MyClass <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>; <span class="hljs-comment">//  true</span></code></pre>
 <p>To check whether an object is an instance of a class, you should use the <code>instanceof</code>
 operator. You can also check whether the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor"><code>constructor</code> property</a> is equal to <code>MyClass</code>.</p>
-<pre><code class="lang-javascript">obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// true</span>
+<pre><code class="language-javascript">obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// true</span>
 <span class="hljs-comment">// Works, but `instanceof` is better...</span>
 obj.constructor === MyClass;
 
@@ -43,13 +40,12 @@ obj.constructor === MyClass;
 <span class="hljs-keyword">const</span> obj = {};
 obj.constructor = MyClass;
 obj <span class="hljs-keyword">instanceof</span> MyClass; <span class="hljs-comment">// false</span>
-obj.constructor === MyClass; <span class="hljs-comment">// true</span>
-</code></pre>
+obj.constructor === MyClass; <span class="hljs-comment">// true</span></code></pre>
 <p>Like functions, classes in JavaScript are variables like any other. You can
 assign a class to a variable, overwrite that class, and pass a class as a
 parameter to a function. Like functions, you can also declare classes with or
 without explicit names.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> Foo = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> Foo = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
   }
@@ -62,8 +58,7 @@ Foo = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
 }
 
 <span class="hljs-built_in">console</span>.log(Foo); <span class="hljs-comment">// '[Function: Foo]'</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> Foo()); <span class="hljs-comment">// 'Foo { answer: 43 }'</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> Foo()); <span class="hljs-comment">// 'Foo { answer: 43 }'</span></code></pre>
 <p>Unlike functions, classes are never <a href="http://adripofjavascript.com/blog/drips/variable-and-function-hoisting.html"><em>hoisted</em></a>.
 In the below example the function <code>Foo()</code> prints successfully, because JavaScript
 looks ahead and &#39;hoists&#39; <code>Foo()</code> to the top of the function. But trying to print the
@@ -72,19 +67,18 @@ class <code>Bar</code> throws a reference error, because JavaScript does <strong
 <p>ES6 classes support numerous object-oriented programming constructs, like <a href="https://docs.mql4.com/basis/oop/staticmembers">static functions</a>, <a href="https://en.wikipedia.org/wiki/Method_%28computer_programming%29">instance methods</a>, and <a href="https://www.w3schools.com/java/java_encapsulation.asp">getters and setters</a>.</p>
 <p>Static functions are functions defined on the class itself. You call <code>ClassName.staticName()</code>, and, within the static function, <code>this</code> refers to
 the class.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   static myStatic() {
     <span class="hljs-keyword">this</span>; <span class="hljs-comment">// [Function: MyClass]</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;
   }
 }
 
-MyClass.myStatic(); <span class="hljs-comment">// '42'</span>
-</code></pre>
+MyClass.myStatic(); <span class="hljs-comment">// '42'</span></code></pre>
 <p>Instance methods are functions on instances of the class. When you create a new
 object using <code>new MyClass()</code>, you can call <code>obj.myMethod()</code>. Within <code>myMethod()</code>,
 <code>this</code> refers to <code>obj</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
     <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>;
   }
@@ -96,8 +90,7 @@ object using <code>new MyClass()</code>, you can call <code>obj.myMethod()</code
 }
 
 <span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> MyClass();
-obj.myMethod(); <span class="hljs-comment">// 42</span>
-</code></pre>
+obj.myMethod(); <span class="hljs-comment">// 42</span></code></pre>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">Getters</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">setters</a> let you define functions that run when you access or assign a property on
 an instance of the class. For example, getters and setters can let you <a href="http://thecodebarbarian.com/convert-a-string-to-a-number-in-javascript.html">convert values to numbers</a> when you set the property.</p>
 <p>In the below example, instances of <code>MyClass</code> have a
@@ -106,7 +99,7 @@ property has a getter function that JavaScript executes when you access <code>ob
 and a setter function that JavaScript executes when you assign to <code>obj.num</code> using
 <code>=</code> or <code>Object.assign()</code>. The setter function converts <code>num</code> to a number, and
 throws an error if it could not convert the given value to a number.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   get num() {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._num;
   }
@@ -129,8 +122,7 @@ obj.num; <span class="hljs-comment">// 42</span>
 <span class="hljs-comment">// Error: "not a number" is not a number</span>
 obj.num = <span class="hljs-string">'not a number'</span>;
 <span class="hljs-comment">// Error: "not a number" is not a number</span>
-<span class="hljs-built_in">Object</span>.assign(obj, { num: <span class="hljs-string">'not a number'</span> });
-</code></pre>
+<span class="hljs-built_in">Object</span>.assign(obj, { num: <span class="hljs-string">'not a number'</span> });</code></pre>
 <h2 id="inheritance">Inheritance</h2>
 <p>Inheritance is one of the <a href="https://beginnersbook.com/2013/03/oops-in-java-encapsulation-inheritance-polymorphism-abstraction/">four core concepts of object-oriented programming</a>. Besides syntactic sugar, the big advantage of using
 ES6 classes over <a href="https://www.phpied.com/3-ways-to-define-a-javascript-class/">pre-ES6 functions as class definitions</a>
@@ -139,7 +131,7 @@ is cleaner inheritance.</p>
 inheritance in JavaScript looks a lot like inheritance in more &quot;proper&quot;
 object-oriented languages like Java. Here&#39;s a basic example of inheritance using
 ES6 classes:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{  
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{  
   static foo() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
   static bar() { <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>; }
 
@@ -167,13 +159,12 @@ obj.a(); <span class="hljs-comment">// 3</span>
 obj.b(); <span class="hljs-comment">// 2 * 4 = 8</span>
 
 obj <span class="hljs-keyword">instanceof</span> ChildClass; <span class="hljs-comment">// true</span>
-obj <span class="hljs-keyword">instanceof</span> BaseClass; <span class="hljs-comment">// true</span>
-</code></pre>
+obj <span class="hljs-keyword">instanceof</span> BaseClass; <span class="hljs-comment">// true</span></code></pre>
 <p>The <code>class A extends B</code> syntax means the child class <code>A</code> has the same <em>members</em>
 (including statics, methods, getters, and setters) as the
 base class <code>B</code>, but can also override <code>B</code>&#39;s members. Here&#39;s how you would do
 the same thing using pre-ES6 prototype-based inheritance.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BaseClass</span>(<span class="hljs-params"></span>) </span>{}  
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BaseClass</span>(<span class="hljs-params"></span>) </span>{}  
 
 BaseClass.foo = () =&gt; <span class="hljs-number">1</span>;
 BaseClass.bar = () =&gt; <span class="hljs-number">2</span>;
@@ -190,11 +181,10 @@ ChildClass.prototype = <span class="hljs-built_in">Object</span>.create(BaseClas
 ChildClass.bar = () =&gt; BaseClass.bar() * <span class="hljs-number">2</span>;
 ChildClass.prototype.b = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> BaseClass.prototype.b.call(<span class="hljs-keyword">this</span>) * <span class="hljs-number">2</span>;
-};
-</code></pre>
+};</code></pre>
 <p>Like in Java, you call the parent class&#39;s constructor using <code>super</code>, and you
 need to call <code>super()</code> in the constructor before accessing <code>this</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{
   <span class="hljs-keyword">constructor</span>() { <span class="hljs-keyword">this</span>.answer = <span class="hljs-number">42</span>; }
 }
 
@@ -216,13 +206,12 @@ need to call <code>super()</code> in the constructor before accessing <code>this
 <span class="hljs-keyword">new</span> Child1(); <span class="hljs-comment">// works</span>
 
 <span class="hljs-comment">// ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor</span>
-<span class="hljs-keyword">new</span> Child2();
-</code></pre>
-<h2 id="differences-vs-node-js-util-inherits-">Differences vs Node.js <code>util.inherits()</code></h2>
+<span class="hljs-keyword">new</span> Child2();</code></pre>
+<h2 id="differences-vs-nodejs-utilinherits">Differences vs Node.js <code>util.inherits()</code></h2>
 <p>Node.js has a <a href="https://nodejs.org/api/util.html#util_util_inherits_constructor_superconstructor">native <code>inherits()</code> function</a> that many developers used for inheritance before ES6. The key difference
 between <code>inherits()</code> and <code>extends</code> is that Node.js <code>inherits()</code> does <strong>not</strong>
 inherit statics.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> </span>{
   static foo() { <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; }
@@ -240,8 +229,7 @@ util.inherits(Child2, BaseClass);
 Child1.foo(); <span class="hljs-comment">// 1</span>
 <span class="hljs-comment">// The `Child2` pseudo-class does **not** inherit the `foo()` static function</span>
 <span class="hljs-comment">//  from `BaseClass`</span>
-Child2.foo(); <span class="hljs-comment">// TypeError: Child2.foo is not a function</span>
-</code></pre>
+Child2.foo(); <span class="hljs-comment">// TypeError: Child2.foo is not a function</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Classes are a fundamental part of JavaScript, and ES6 classes give you syntax
 and inheritance that closely mimic those of OOP languages like Java. JavaScript

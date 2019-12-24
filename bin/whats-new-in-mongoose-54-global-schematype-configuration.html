@@ -13,9 +13,9 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://js.report/package/mongoose/5.4.0">Mongoose 5.4</a> was released on December 14, with 13 new features. The overarching theme for the most important new features is making <a href="https://mongoosejs.com/docs/schematypes.html">Mongoose SchemaTypes</a> configurable at the level of individual types. Before digging in to the new features, let&#39;s first review what a SchemaType is.</p>
-<h2 id="what-are-schematypes-">What Are SchemaTypes?</h2>
+<h2 id="what-are-schematypes">What Are SchemaTypes?</h2>
 <p>In Mongoose, a <a href="https://mongoosejs.com/docs/guide.html">schema</a> defines the shape of a document: what properties the document should have, and what types those properties should be. In Mongoose, A schema contains zero or more SchemaType instances, and each SchemaType instance defines what type a single property should be. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-comment">// `schema` will have one SchemaType with `path = 'name'`</span>
 <span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -35,8 +35,7 @@ schema.path(<span class="hljs-string">'name'</span>) <span class="hljs-keyword">
 
 <span class="hljs-comment">// You can iterate over all SchemaTypes in a schema using `eachPath()`</span>
 <span class="hljs-comment">// See https://mongoosejs.com/docs/api.html#schema_Schema-eachPath</span>
-schema.eachPath((path, schematype) =&gt; <span class="hljs-built_in">console</span>.log(schematype.path)); <span class="hljs-comment">// "name"</span>
-</code></pre>
+schema.eachPath((path, schematype) =&gt; <span class="hljs-built_in">console</span>.log(schematype.path)); <span class="hljs-comment">// "name"</span></code></pre>
 <p><code>SchemaType</code> is a class, and there are <a href="https://mongoosejs.com/docs/schematypes.html">several classes that inherit from <code>SchemaType</code></a>:</p>
 <ul>
 <li><code>mongoose.Schema.Types.String</code></li>
@@ -52,7 +51,7 @@ schema.eachPath((path, schematype) =&gt; <span class="hljs-built_in">console</sp
 <p>Before Mongoose 5.4, the <code>SchemaType</code> class had no static properties. You could add <a href="https://mongoosejs.com/docs/validation.html">validation</a>, <a href="https://mongoosejs.com/docs/api.html#schematype_SchemaType-get">getters</a>, <a href="https://mongoosejs.com/docs/api.html#schematype_SchemaType-set">setters</a>, and other custom behavior to individual SchemaType instances, but not to all SchemaType instances.</p>
 <p>Mongoose 5.4 added several static functions to the <code>SchemaType</code> class: <a href="https://mongoosejs.com/docs/api.html#schematype_SchemaType-cast"><code>cast()</code></a>, <a href="https://mongoosejs.com/docs/api.html#schematype_SchemaType-get"><code>get()</code></a>, and <a href="https://mongoosejs.com/docs/api.html#schematype_SchemaType-checkRequired"><code>checkRequired()</code></a>. These functions let you configure behavior for all instances of a SchemaType.</p>
 <p>For example, several people have requested that <a href="https://github.com/Automattic/mongoose/issues/6859">Mongoose cast empty string <code>&#39;&#39;</code> to <code>false</code> for boolean types</a>. With Mongoose 5.4, you can use <code>mongoose.Boolean.cast()</code> to wrap the logic Mongoose uses to cast booleans:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-comment">// Wrap Boolean casting so empty string becomes false</span>
 <span class="hljs-keyword">const</span> original = mongoose.Schema.Types.Boolean.cast();
@@ -72,10 +71,9 @@ mongoose.Schema.Types.Boolean.cast(v =&gt; {
 <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> Model({ test: <span class="hljs-string">''</span> });
 
 doc.test; <span class="hljs-comment">// false</span>
-doc.validateSync(); <span class="hljs-comment">// undefined, no error!</span>
-</code></pre>
+doc.validateSync(); <span class="hljs-comment">// undefined, no error!</span></code></pre>
 <p>You can also pass <code>false</code> to <code>cast()</code> to disable casting for a given SchemaType:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-comment">// Disable casting for numbers: only nullish values or values with</span>
 <span class="hljs-comment">// `typeof v === 'number'` are allowed. Everything else causes a CastError</span>
@@ -89,8 +87,7 @@ mongoose.Number.cast(<span class="hljs-literal">false</span>);
 
 <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> Model({ test: <span class="hljs-string">'123'</span> });
 
-doc.validateSync(); <span class="hljs-comment">// CastError for path `test`</span>
-</code></pre>
+doc.validateSync(); <span class="hljs-comment">// CastError for path `test`</span></code></pre>
 <h2 id="schematype-getters">SchemaType Getters</h2>
 <p>The <code>SchemaType.get()</code> function lets you define a custom getter for all instances of a given SchemaType. For example, many people have requested <a href="https://github.com/Automattic/mongoose/issues/6996">Mongoose automatically convert MongoDB ObjectIds to hex strings</a>. Because a MongoDB ObjectId is an object, comparing ObjectIds using built-in JavaScript functions is cumbersome:</p>
 <pre><code>$ node -v
@@ -113,9 +110,8 @@ $ node
 &gt; [oid1].indexOf(oid2)
 <span class="hljs-number">-1</span>
 &gt; [oid1].includes(oid2)
-<span class="hljs-literal">false</span>
-</code></pre><p>Before Mongoose 5.4, you could define a custom getter on each individual ObjectId path that would convert ObjectIds to strings for you:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<span class="hljs-literal">false</span></code></pre><p>Before Mongoose 5.4, you could define a custom getter on each individual ObjectId path that would convert ObjectIds to strings for you:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -131,13 +127,11 @@ $ node
 
 <span class="hljs-comment">// `doc.test` will always be a string</span>
 assert.ok(<span class="hljs-keyword">typeof</span> doc.test === <span class="hljs-string">'string'</span>);
-assert.ok(doc.test === <span class="hljs-string">'5c2e35400844102978e69f8c'</span>);
-</code></pre>
+assert.ok(doc.test === <span class="hljs-string">'5c2e35400844102978e69f8c'</span>);</code></pre>
 <p>However, you would have to add a getter to <em>every</em> ObjectId path. With <code>SchemaType.get()</code>, you can add the above getter to every ObjectId path using the below one-liner.</p>
-<pre><code class="lang-javascript">mongoose.ObjectId.get(v =&gt; v.toString());
-</code></pre>
+<pre><code class="language-javascript">mongoose.ObjectId.get(v =&gt; v.toString());</code></pre>
 <p>Here&#39;s an example of comparing ObjectIds using <code>===</code> with a global getter.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.ObjectId.get(v =&gt; v.toString());
@@ -160,8 +154,7 @@ assert.ok(doc.test === <span class="hljs-string">'5c2e35400844102978e69f8c'</spa
 assert.ok(doc.test === doc2.test);
 
 <span class="hljs-keyword">const</span> doc3 = <span class="hljs-keyword">new</span> Model({ test: <span class="hljs-string">'bad'</span> });
-assert.ok(doc3.validateSync() <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>); <span class="hljs-comment">// Mongoose still casts</span>
-</code></pre>
+assert.ok(doc3.validateSync() <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>); <span class="hljs-comment">// Mongoose still casts</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Global getters and custom casting are just 2 of 13 new features in Mongoose 5.4. There&#39;s also <a href="https://mongoosejs.com/docs/api.html#model_Model.findOneAndReplace"><code>Model.findOneAndReplace()</code></a>, <a href="https://mongoosejs.com/docs/populate.html#count">a <code>count</code> option for populate virtuals</a>, and a <a href="https://mongoosejs.com/docs/api.html#query_Query-map"><code>Query#map()</code> function</a>. Make sure you upgrade and take advantage of these new features!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

@@ -14,9 +14,9 @@
 </div>
 </div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> makes it easy to <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">integrate asynchronous behavior with imperative constructs like for loops, if statements, and try/catch blocks</a>. Unfortunately, it doesn&#39;t do the same for functional constructs like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach"><code>forEach</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>reduce</code></a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter</code></a>. Using these constructs with async functions leads to behavior that can seem downright baffling. In this article, I&#39;ll show you some common gotchas for async functions with JavaScript&#39;s built-in functional array methods and how to work around them.</p>
 <p><em>Note: the below code is only tested on Node v7.6.0. Furthermore, the below code is only intended to be a thought experiment and a didactic example. I wouldn&#39;t recommend using it in production.</em></p>
-<h2 id="motivation-and-foreach-">Motivation and <code>forEach</code></h2>
+<h2 id="motivation-and-foreach">Motivation and <code>forEach</code></h2>
 <p>In synchronous land, <code>forEach()</code> executes a function for each element of the array in order. For example, the below script is guaranteed to print 0-9:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-built_in">console</span>.log(n);
 }
 
@@ -24,10 +24,9 @@
   [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].forEach(print);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Unfortunately, things get more subtle with async functions. The below script will print 0-9 in reverse order!</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-comment">// Wait 1 second before printing 0, 0.9 seconds before printing 1, etc.</span>
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span> - n * <span class="hljs-number">100</span>));
   <span class="hljs-comment">// Will usually print 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 but order is not strictly</span>
@@ -39,16 +38,14 @@ test();
   [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].forEach(print);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Even though both functions are async, Node.js won&#39;t wait for the first <code>print()</code> call to finish before executing the next one! Can you just add an <code>await</code>?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// SyntaxError: Unexpected identifier</span>
   [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].forEach(n =&gt; { <span class="hljs-keyword">await</span> print(n); });
-}
-</code></pre>
+}</code></pre>
 <p>Nope, <a href="http://knowyourmeme.com/memes/i-can-t-let-you-do-that-starfox">can&#39;t let you do that Starfox</a>, that&#39;s a <code>SyntaxError</code>, because <code>await</code> must <strong>always</strong> be in an <code>async</code> function. At this point, you can just give up and use <a href="https://www.npmjs.com/package/promise-series">the non-standard <code>Promise.series()</code> function</a>. But, if you remember that <code>async</code> functions are just functions that return promises, you can use promise chaining and <code>.reduce()</code> your way into getting an in-order <code>forEach()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span> - n * <span class="hljs-number">100</span>));
   <span class="hljs-built_in">console</span>.log(n);
 }
@@ -60,10 +57,9 @@ test();
     reduce((promise, n) =&gt; promise.then(() =&gt; print(n)), <span class="hljs-built_in">Promise</span>.resolve());
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>You can also wrap this functionality into a handy <code>forEachAsync()</code> function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span> - n * <span class="hljs-number">100</span>));
   <span class="hljs-built_in">console</span>.log(n);
 }
@@ -76,11 +72,10 @@ test();
   <span class="hljs-keyword">await</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].forEachAsync(print);
 }
 
-test();
-</code></pre>
-<h2 id="chaining-with-map-and-filter-">Chaining with <code>map()</code> and <code>filter()</code></h2>
+test();</code></pre>
+<h2 id="chaining-with-map-and-filter">Chaining with <code>map()</code> and <code>filter()</code></h2>
 <p>One big advantage of JavaScript&#39;s functional array constructs is chaining. Suppose you&#39;re given an array of ids and you want to pull the documents that correspond to those ids, filter out the ones that are already in another database, and save all of those. You can do this without any functional primitives, but it will involve a lot of intermediate values.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copy</span>(<span class="hljs-params">ids, db1, db2</span>) </span>{
   <span class="hljs-comment">// Find all docs from db1</span>
@@ -120,19 +115,17 @@ test();
   <span class="hljs-keyword">await</span> copy(docs.map(doc =&gt; doc._id), db1, db2);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Functional would make this a lot cleaner - you&#39;d just need <code>ids.map().filter().forEach()</code>, but each of those <code>map()</code>, <code>filter()</code>, and <code>each()</code> need to handle async functions. We already have <code>forEachAsync()</code>, implementing <code>mapAsync()</code> and <code>filterAsync()</code> is similar:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">Array</span>.prototype.mapAsync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">Array</span>.prototype.mapAsync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(<span class="hljs-keyword">this</span>.map(fn));
 };
 
 <span class="hljs-built_in">Array</span>.prototype.filterAsync = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.mapAsync(fn).then(_arr =&gt; <span class="hljs-keyword">this</span>.filter((v, i) =&gt; !!_arr[i]));
-};
-</code></pre>
+};</code></pre>
 <p>However, now we get to the problem of chaining. How do you chain together <code>mapAsync()</code> and <code>filterAsync()</code>? You could use <code>.then()</code> but that would not be quite as neat. Instead, you can create an <code>AsyncArray</code> class that represents a Promise that will eventually return an array, and attach <code>mapAsync</code>, <code>filterAsync</code>, and <code>forEachAsync</code> as class methods:</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncArray</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncArray</span> </span>{
   <span class="hljs-keyword">constructor</span>(promise) {
     <span class="hljs-keyword">this</span>.$promise = promise || <span class="hljs-built_in">Promise</span>.resolve();
   }
@@ -156,10 +149,9 @@ test();
   forEachAsync(fn) {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(arr =&gt; arr.reduce((promise, n) =&gt; promise.then(() =&gt; fn(n)), <span class="hljs-built_in">Promise</span>.resolve()));
   }
-}
-</code></pre>
+}</code></pre>
 <p>With this <code>AsyncArray</code> class, you chain <code>mapAsync()</code>, <code>filterAsync()</code>, and <code>forEachAsync()</code> since each of these helper methods returns an <code>AsyncArray</code>. Here&#39;s how it looks with the previous MongoDB example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copy</span>(<span class="hljs-params">ids, db1, db2</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">copy</span>(<span class="hljs-params">ids, db1, db2</span>) </span>{
   <span class="hljs-keyword">new</span> AsyncArray(<span class="hljs-built_in">Promise</span>.resolve(ids)).
     mapAsync(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">_id</span>) </span>{
       <span class="hljs-keyword">return</span> db1.collection(<span class="hljs-string">'Test'</span>).findOne({ _id });
@@ -195,20 +187,18 @@ test();
   <span class="hljs-keyword">await</span> copy(docs.map(doc =&gt; doc._id), db1, db2);
 }
 
-test();
-</code></pre>
-<h2 id="wrapping-up-with-reduce-">Wrapping Up with <code>reduce()</code></h2>
+test();</code></pre>
+<h2 id="wrapping-up-with-reduce">Wrapping Up with <code>reduce()</code></h2>
 <p>Now that you have <code>mapAsync()</code>, <code>filterAsync()</code>, and <code>forEachAsync()</code>, why not go all the way and implement <code>reduceAsync()</code> too?</p>
-<pre><code class="lang-javascript">  reduceAsync(fn, initial) {
+<pre><code class="language-javascript">  reduceAsync(fn, initial) {
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(initial).then(cur =&gt; {
       <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.forEachAsync(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v, i</span>) </span>{
         cur = <span class="hljs-keyword">await</span> fn(cur, v, i);
       }).then(() =&gt; cur);
     });
-  }
-</code></pre>
+  }</code></pre>
 <p>Here&#39;s how to use <code>reduceAsync()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
   <span class="hljs-keyword">await</span> db.dropDatabase();
 
@@ -233,8 +223,7 @@ test();
   <span class="hljs-built_in">console</span>.log(nameToId);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Overall, using async functions with <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, and <code>forEach()</code> is possible, but requires custom functions and sophisticated promise chaining. I&#39;m sure somebody will come out with a library that makes working with promise arrays seamless, and I look forward to seeing it. Functional programming primitives make synchronous array operations clean and elegant, and remove a lot of wasteful intermediary values via chaining. Adding helpers that can operate on promises that resolve to arrays opens up some exciting possibilities.</p>
 <p><em>Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>

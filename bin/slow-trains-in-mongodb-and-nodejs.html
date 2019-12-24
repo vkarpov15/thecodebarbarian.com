@@ -14,7 +14,7 @@
 </div>
 </div><div class="post-body-text-container"><p>When running MongoDB in production, you may see queries that should be fast, but instead are exceedingly slow. For example, my Node.js apps have seen a <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne"><code>findOne()</code></a> on a collection with only 1 document take over 1 <em>second</em>.</p>
 <p>There&#39;s a simple explanation for this phenomenon: a MongoDB server can <a href="http://mongodb.github.io/node-mongodb-native/2.0/reference/faq/#how-can-i-avoid-a-very-slow-operation-delaying-other-operations">only execute a single operation on a given socket at a time</a>. In other words, the number of concurrent operations your Node.js connection can handle is limited by the <code>poolSize</code> option. For example, the 2nd query below will take approximately 1 second, because <code>poolSize = 1</code> and it is blocked by a slow query.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -39,8 +39,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
   <span class="hljs-comment">// Will print something like "Executed query in 1031 ms"</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>You can visualize this by imagining <code>db</code> as a set of <code>poolSize</code> train tracks. If there&#39;s only 1 track and a slow, overburdened cargo train takes 1 second to clear the track, the bullet train behind it needs to wait.</p>
 <p>In general, there are 5 methods I&#39;ve used to minimize the impact of slow trains:</p>
 <p>1) Increase <code>poolSize</code></p>
@@ -48,9 +47,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 <p>3) Break up one slow operation into many fast operations</p>
 <p>4) Indexes</p>
 <p>5) <a href="https://docs.mongodb.com/manual/reference/operator/meta/maxTimeMS/">The <code>maxTimeMS</code> option</a></p>
-<h2 id="increase-poolsize-">Increase <code>poolSize</code></h2>
+<h2 id="increase-poolsize">Increase <code>poolSize</code></h2>
 <p>Increasing <code>poolSize</code> is a one-liner in both the <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html">MongoDB Node.js driver</a> and <a href="https://mongoosejs.com/docs/connections.html#options">Mongoose</a>. <code>poolSize = 1</code> is good for experimenting with the slow train problem, but in production you should use at least the default <code>poolSize = 5</code>. Below is an example with <code>poolSize = 10</code>.</p>
-<pre><code class="lang-javascript">  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.
+<pre><code class="language-javascript">  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.
     connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
       useNewUrlParser: <span class="hljs-literal">true</span>,
       poolSize: <span class="hljs-number">10</span> <span class="hljs-comment">// Can now run 10 operations at a time</span>
@@ -66,12 +65,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne();
 
   <span class="hljs-comment">// Will print something like "Executed query in 4 ms"</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-</code></pre>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);</code></pre>
 <p>However, too many connections can cause performance issues and can cause you to <a href="https://stackoverflow.com/questions/16713415/mongodb-increasing-max-connections-in-mongodb">hit OS-level resource limits</a>. So increasing <code>poolSize</code> to 10k is most likely a bad idea. In production, I generally use <code>poolSize = 10</code>.</p>
 <h2 id="separate-connection-pools-for-potentially-slow-operations">Separate Connection Pools for Potentially Slow Operations</h2>
 <p>Increasing <code>poolSize</code> won&#39;t help if you get a large batch of slow queries all at once. But what can help is separate connection pools for operations that are performance sensitive versus operations that can be slow. For example, in the below example there&#39;s two connections <code>db1</code> and <code>db2</code>. A slow query on <code>db1</code> doesn&#39;t block MongoDB from responding to a fast query on <code>db2</code>.</p>
-<pre><code class="lang-javascript">  <span class="hljs-comment">// First connection for slow operations</span>
+<pre><code class="language-javascript">  <span class="hljs-comment">// First connection for slow operations</span>
   <span class="hljs-keyword">const</span> db1 = <span class="hljs-keyword">await</span> mongodb.MongoClient.
     connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
       useNewUrlParser: <span class="hljs-literal">true</span>,
@@ -98,12 +96,11 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
   <span class="hljs-keyword">await</span> db2.collection(<span class="hljs-string">'Test'</span>).findOne();
 
   <span class="hljs-comment">// Will print something like "Executed query in 4 ms"</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-</code></pre>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);</code></pre>
 <h2 id="break-up-one-slow-operation-into-many-fast-operations">Break Up One Slow Operation Into Many Fast Operations</h2>
 <p><a href="https://docs.mongodb.com/manual/aggregation/">MongoDB aggregations</a> count as a single operation. Because the aggregation framework is so expressive, many people end up creating exceedingly complex aggregations that end up causing slow trains in production.</p>
 <p>In general, if you have an aggregation that&#39;s causing slow trains in production, you should consider replacing the aggregation with Node.js logic that relies on <code>find()</code>. For example, you could replace <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/"><code>$lookup</code></a> with <a href="https://mongoosejs.com/docs/populate.html">Mongoose populate</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -139,11 +136,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
   <span class="hljs-comment">// "Executed query in 301 ms"</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-}
-</code></pre>
+}</code></pre>
 <h2 id="indexes">Indexes</h2>
 <p><a href="https://docs.mongodb.com/manual/indexes/">MongoDB indexes</a> are a complex subject, but for the purposes of this article the idea is simple: make a slow query fast. For example, you can speed up the <code>$lookup</code> aggregation above using an index on <code>fooId</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
@@ -178,11 +174,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
 
   <span class="hljs-comment">// "Executed query in 19 ms"</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-}
-</code></pre>
+}</code></pre>
 <h2 id="the-maxtimems-option">The <code>maxTimeMS</code> Option</h2>
 <p>The <a href="https://docs.mongodb.com/manual/reference/operator/meta/maxTimeMS/"><code>maxTimeMS</code> option</a> tells the MongoDB server to stop running a query after a certain period of time. In the below example, the slow <code>aggregate()</code> call will throw an error after approximately 10ms. Because the MongoDB server stops executing the slow aggregation after 10ms, it unblocks the fast <code>findOne()</code>.</p>
-<pre><code class="lang-javascript">  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.
+<pre><code class="language-javascript">  <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.
     connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
       useNewUrlParser: <span class="hljs-literal">true</span>,
       poolSize: <span class="hljs-number">1</span> <span class="hljs-comment">// Only 1 operation can run at a time</span>
@@ -214,8 +209,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.log(error));
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne();
 
   <span class="hljs-comment">// "Executed query in 19 ms"</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);
-</code></pre>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Executed query in'</span>, <span class="hljs-built_in">Date</span>.now() - startTime, <span class="hljs-string">'ms'</span>);</code></pre>
 <p>One nice detail of <code>maxTimeMS</code> is that it does <strong>not</strong> count time spent blocked behind a slow train. In other words, if you run a <code>find()</code> with <code>maxTimeMS = 100</code>, and that <code>find()</code> spends 500ms blocked behind a slow query and then executes in 50ms, you won&#39;t see an error, even though your Node.js process waited 550ms for the query. This means <code>maxTimeMS</code> helps you find queries that are actually slow, as opposed to queries that appear slow because they&#39;re blocked by other slow queries.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Slow trains in MongoDB may seem like a major limitation, but this behavior has some benefits. Many other databases have similar limits built in, like <a href="https://planet.mysql.com/entry/?id=29516"><code>max_concurrent_queries</code> in MySQL</a>, because too many concurrent queries can also lead to performance issues. The guidelines in this article have helped me keep API instances running smoothly even with <code>poolSize = 10</code>, try them out and please discuss in the comments section.</p>

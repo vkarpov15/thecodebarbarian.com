@@ -13,9 +13,9 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4100--2017-05-18">Mongoose 4.10.0 just landed</a> and brings with it several powerful features and bug fixes. The most +1-ed feature in this <a href="https://github.com/Automattic/mongoose/issues/3347">supporting <code>unique</code> in array definitions</a> via the <a href="https://www.npmjs.com/package/mongoose-unique-array">mongoose-unique-array plugin</a>. This feature is implemented as a separate plugin because <code>mongoose-unique-array</code> does much more than <a href="http://mongoosejs.com/docs/validation.html#the-unique-option-is-not-a-validator">simply create a unique index</a>, it also ties in to validators and versioning. In this article, I&#39;ll explain how to use <code>mongoose-unique-array</code> and the caveats you need to be aware of when using it.</p>
-<h2 id="why-a-separate-plugin-">Why a Separate Plugin?</h2>
+<h2 id="why-a-separate-plugin">Why a Separate Plugin?</h2>
 <p>In mongoose 4.10.0, you can create a model with an array of strings that are supposed to be unique. You don&#39;t need the <code>mongoose-unique-array</code> plugin to create a unique index on an array:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal">true</span>);
@@ -39,10 +39,9 @@ mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>However, <a href="https://docs.mongodb.com/manual/core/index-unique/#unique-constraint-across-separate-documents">MongoDB unique indexes do not prevent saving a document with duplicate values in the <code>names</code> array</a>. MongoDB unique indexes prevent multiple documents from having the value &#39;Test&#39; in their <code>names</code> arrays, but a single document can have duplicate values in <code>names</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal">true</span>);
@@ -66,10 +65,9 @@ mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>The <code>mongoose-unique-array</code> plugin adds a <a href="http://mongoosejs.com/docs/validation.html#custom-validators">custom validator</a> to the <code>names</code> array that makes sure the array has no duplicate values.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> uniqueArrayPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose-unique-array'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
@@ -96,10 +94,9 @@ mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>This also works for <a href="http://mongoosejs.com/docs/subdocs.html">document arrays</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">const</span> mySchema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -119,11 +116,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack, error.errors));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack, error.errors));</code></pre>
 <h2 id="concurrency-caveats">Concurrency Caveats</h2>
 <p>In the above cases, the entire array is in memory, so checking the array for duplicates is easy: mongoose just loops through the array. However, mongoose converts <code>.push()</code> into a <a href="https://docs.mongodb.com/manual/reference/operator/update/push/"><code>$push</code> operation in MongoDB</a>. In other words, if you use <code>push()</code> instead of overwriting the array each time, mongoose might not actually have the entire array in memory. In this case, the custom validator will not work.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">const</span> mySchema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -145,10 +141,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> M.findById(doc1._id));
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack, error.errors));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack, error.errors));</code></pre>
 <p>To cope with this edge case, <code>mongoose-unique-array</code> modifies the query mongoose uses to <code>save()</code> the document. It also sets the <code>saveErrorIfNotFound</code> option on your schema so a <code>save()</code> that doesn&#39;t successfully modify a document throws an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
 
   <span class="hljs-keyword">const</span> mySchema = <span class="hljs-keyword">new</span> mongoose.Schema({
@@ -178,11 +173,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> M.findById(doc1._id));
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 <p>With debug mode on, you can see the query that mongoose uses to update <code>doc2</code>. Notice that this query only pushes if every element of <code>names</code> is not equal to &#39;Test&#39;. Check out the <a href="https://docs.mongodb.com/manual/reference/operator/query/nin/#nin">docs on MongoDB&#39;s <code>$nin</code> operator</a> for more information.</p>
-<pre><code>Mongoose: tests.update({ _id: ObjectId(<span class="hljs-string">"591f5f93b6966a66c59355fc"</span>), names: { <span class="hljs-string">'$nin'</span>: [ <span class="hljs-string">'Test'</span> ] } }, { <span class="hljs-string">'$pushAll'</span>: { names: [ <span class="hljs-string">'Test'</span> ] }, <span class="hljs-string">'$inc'</span>: { __v: <span class="hljs-number">1</span> } })
-</code></pre><p>The <code>mongoose-unique-array</code> plugin only affects <code>save()</code>. If you use <a href="http://mongoosejs.com/docs/validation.html#update-validators">update validation</a>, <code>mongoose-unique-array</code> will also help you if you <code>$set</code> an array. However, <code>mongoose-unique-array</code> does <strong>not</strong> help you if you use <code>update()</code> and <code>$push</code>.</p>
+<pre><code>Mongoose: tests.update({ _id: ObjectId(<span class="hljs-string">"591f5f93b6966a66c59355fc"</span>), names: { <span class="hljs-string">'$nin'</span>: [ <span class="hljs-string">'Test'</span> ] } }, { <span class="hljs-string">'$pushAll'</span>: { names: [ <span class="hljs-string">'Test'</span> ] }, <span class="hljs-string">'$inc'</span>: { __v: <span class="hljs-number">1</span> } })</code></pre><p>The <code>mongoose-unique-array</code> plugin only affects <code>save()</code>. If you use <a href="http://mongoosejs.com/docs/validation.html#update-validators">update validation</a>, <code>mongoose-unique-array</code> will also help you if you <code>$set</code> an array. However, <code>mongoose-unique-array</code> does <strong>not</strong> help you if you use <code>update()</code> and <code>$push</code>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#4100--2017-05-18">Mongoose 4.10</a> has 8 powerful new features and several small bug fixes, including aliasing and the ability to modify function parameters in pre hooks. Look forward to more articles on these new features, and make sure you upgrade to take advantage of these new features.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

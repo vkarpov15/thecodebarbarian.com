@@ -35,7 +35,7 @@ This plugin takes in a Mocha test file and converts it into a Markdown
 file. Test descriptions become headers, leading comments above test
 descriptions become paragraphs, and test bodies become code samples.
 Suppose you have the below <code>example.js</code> file:</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">/* This is how you print "Hello, World!" in JavaScript */</span>
   it(<span class="hljs-string">'bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
@@ -45,8 +45,7 @@ Suppose you have the below <code>example.js</code> file:</p>
   it(<span class="hljs-string">'baz'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Bye!'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Running <code>acquit-markdown</code> from the command line will generate markdown
 from this file:</p>
 <pre><code>$ ./node_modules/.bin/acquit-markdown -p example.js
@@ -66,11 +65,10 @@ You can print any string
 
 ```javascript
 console.log(&#39;Bye!&#39;);
-```
-</code></pre><p>Mocha tests often come with boilerplate that you don&#39;t want to end
+```</code></pre><p>Mocha tests often come with boilerplate that you don&#39;t want to end
 up in your examples, like <a href="https://mochajs.org/#detects-multiple-calls-to-done">the <code>done()</code> function</a>.
 Thankfully, there&#39;s an <a href="https://www.npmjs.com/package/acquit-ignore"><code>acquit-ignore</code> plugin</a> that tells Acquit to ignore code that&#39;s delimited by <code>// acquit:ignore:start</code> and <code>// acquit:ignore:end</code>.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'test'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// `setTimeout()` runs a function asynchronously</span>
   it(<span class="hljs-string">'async'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>) </span>{
     setTimeout(() =&gt; {
@@ -80,8 +78,7 @@ Thankfully, there&#39;s an <a href="https://www.npmjs.com/package/acquit-ignore"
       <span class="hljs-comment">// acquit:ignore:end</span>
     }, <span class="hljs-number">50</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>You can tell the <code>acquit-markdown</code> executable to pull in the <code>acquit-ignore</code> plugin using the <code>-r</code> flag:</p>
 <pre><code>$ ./node_modules/.bin/acquit-markdown -r acquit-ignore -p ./example.js
 # test
@@ -94,8 +91,7 @@ Thankfully, there&#39;s an <a href="https://www.npmjs.com/package/acquit-ignore"
 setTimeout(() =&gt; {
 console.log('This is async');
 }, 50);
-```
-</code></pre><h2 id="using-acquit-for-existing-content">Using Acquit For Existing Content</h2>
+```</code></pre><h2 id="using-acquit-for-existing-content">Using Acquit For Existing Content</h2>
 <p>Another way to run Acquit is to use the <a href="https://www.npmjs.com/package/acquit-require"><code>acquit-require</code></a> plugin.
 This plugin operates on a string and replaces instances of <code>[require:foo]</code> with the first test that matches the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> &#39;foo&#39;.</p>
 <p>For example, suppose you have the below <code>sample.md</code> file:</p>
@@ -103,14 +99,12 @@ This plugin operates on a string and replaces instances of <code>[require:foo]</
 
 <span class="hljs-string">``</span><span class="hljs-string">`
 [require:bar]
-`</span><span class="hljs-string">``</span>
-</code></pre><p>And a test file <code>example.js</code>:</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+`</span><span class="hljs-string">``</span></code></pre><p>And a test file <code>example.js</code>:</p>
+<pre><code class="language-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>You can use <code>acquit-require</code> to pull in the first test whose
 description matches &#39;bar&#39;.</p>
 <pre><code>$ ./node_modules/.bin/acquit-<span class="hljs-built_in">require</span> -p sample.md -t example.js
@@ -118,8 +112,7 @@ Printing <span class="hljs-string">"Hello, World"</span> <span class="hljs-keywo
 
 <span class="hljs-string">``</span><span class="hljs-string">`
 console.log('Hello, World!');
-`</span><span class="hljs-string">``</span>
-</code></pre><p>You can also use <code>acquit-require</code> <a href="http://acquit.mongoosejs.io/docs/examples.html">programmatically from Node.js</a>.</p>
+`</span><span class="hljs-string">``</span></code></pre><p>You can also use <code>acquit-require</code> <a href="http://acquit.mongoosejs.io/docs/examples.html">programmatically from Node.js</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Acquit has become a key part of my workflow as a module maintainer,
 API developer, and writer. Acquit saves you time by letting you

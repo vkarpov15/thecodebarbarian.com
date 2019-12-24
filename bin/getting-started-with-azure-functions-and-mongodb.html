@@ -20,60 +20,71 @@ architectures have a workaround for this, so you don&#39;t incur the additional
 latency of connecting to the database every time. There are some good articles about reusing database connections with <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> using <a href="https://www.mongodb.com/blog/post/serverless-development-with-nodejs-aws-lambda-mongodb-atlas">the MongoDB driver</a> and <a href="http://mongoosejs.com/docs/lambda.html">mongoose</a>, but I haven&#39;t been able to find any information on <a href="https://azure.microsoft.com/en-us/services/functions/">Azure Functions</a>. This article will walk you through setting up an Azure Function in Node.js that connects to MongoDB and reuses the database connection between requests.</p>
 <h2 id="creating-a-simple-azure-function">Creating a Simple Azure Function</h2>
 <p>Log in to the Azure Portal and click &quot;Create a resource.&quot;</p>
-<p><img src="https://camo.githubusercontent.com/93b991feb866bac963b1a3bc11d86ed3c4047a38/68747470733a2f2f692e696d6775722e636f6d2f723349644277512e706e67"></p>
+<img src="https://camo.githubusercontent.com/93b991feb866bac963b1a3bc11d86ed3c4047a38/68747470733a2f2f692e696d6775722e636f6d2f723349644277512e706e67">
+
 <p>Click &quot;Compute&quot; and then &quot;Function App&quot; to create a new Function App. A Function App is a collection of individual functions.</p>
-<p><img src="https://camo.githubusercontent.com/b60475e045f9df6fc0348a5a62b90e0931370f0b/68747470733a2f2f692e696d6775722e636f6d2f3741324e616e382e706e67"></p>
+<img src="https://camo.githubusercontent.com/b60475e045f9df6fc0348a5a62b90e0931370f0b/68747470733a2f2f692e696d6775722e636f6d2f3741324e616e382e706e67">
+
 <p>Azure will ask you for information about your function app. For the purposes of this article, all you need to do is give your app a name. Just beware that your app name needs to be unique across all apps, not just yours. In this example, I prefixed the app name with my GitHub username.</p>
-<p><img src="https://camo.githubusercontent.com/b60475e045f9df6fc0348a5a62b90e0931370f0b/68747470733a2f2f692e696d6775722e636f6d2f3741324e616e382e706e67"></p>
+<img src="https://camo.githubusercontent.com/b60475e045f9df6fc0348a5a62b90e0931370f0b/68747470733a2f2f692e696d6775722e636f6d2f3741324e616e382e706e67">
+
 <p>Click &quot;Create&quot; and Azure will kick off creating your Function App. Click the bell icon on the upper right to look out for a notification that Azure finished creating your app.</p>
-<p><img src="https://user-images.githubusercontent.com/1620265/37663494-b5bf46d6-2c2f-11e8-8208-fc0e5610bccf.png"></p>
+<img src="https://user-images.githubusercontent.com/1620265/37663494-b5bf46d6-2c2f-11e8-8208-fc0e5610bccf.png">
+
 <p>Once Azure has created your app, click &quot;Go to resource&quot; to configure your Function App.</p>
-<p><img src="https://user-images.githubusercontent.com/1620265/37663610-f6f6b198-2c2f-11e8-804c-23ba7b046cca.png"></p>
+<img src="https://user-images.githubusercontent.com/1620265/37663610-f6f6b198-2c2f-11e8-804c-23ba7b046cca.png">
+
 <p>Next, create a new function.</p>
-<p><img src="https://user-images.githubusercontent.com/1620265/37663687-20cb14be-2c30-11e8-89f9-122d98246d6a.png"></p>
+<img src="https://user-images.githubusercontent.com/1620265/37663687-20cb14be-2c30-11e8-89f9-122d98246d6a.png">
+
 <p>Choose the &quot;Webhook + API&quot; scenario and &quot;JavaScript&quot; as your language, and then click &quot;Create this function.&quot;</p>
-<p><img src="https://user-images.githubusercontent.com/1620265/37663755-4af748de-2c30-11e8-98f6-ee749f95174f.png"></p>
+<img src="https://user-images.githubusercontent.com/1620265/37663755-4af748de-2c30-11e8-98f6-ee749f95174f.png">
+
 <p>Azure will give you a code editor to create your function. Use the below JavaScript for your function. The &#39;Content-Type&#39; header is necessary because Azure Functions
 respond with XML by default.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, req</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, req</span>) </span>{
   context.res = {
     headers: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
     body: { res: <span class="hljs-string">'Hello, World'</span> }
   };
   context.done();
-};
-</code></pre>
-<p><img src="https://i.imgur.com/CC3X9ru.png"></p>
+};</code></pre>
+<img src="https://i.imgur.com/CC3X9ru.png">
+
 <p>Click on &quot;Get Function URL&quot; to get the publicly accessible endpoint for your function.</p>
-<p><img src="https://i.imgur.com/5MnVcNS.png"></p>
+<img src="https://i.imgur.com/5MnVcNS.png">
+
 <p>You should now be able to curl your function with this URL.</p>
 <pre><code>$ curl https:<span class="hljs-comment">//vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED</span>
 {<span class="hljs-string">"res"</span>:<span class="hljs-string">"Hello, World"</span>}
-$
-</code></pre><h2 id="installing-the-mongodb-driver-on-azure">Installing the MongoDB Driver on Azure</h2>
+$</code></pre><h2 id="installing-the-mongodb-driver-on-azure">Installing the MongoDB Driver on Azure</h2>
 <p>Now that you&#39;ve set up your first function, let&#39;s make the function connect to a database. Adding npm modules to your Azure Function is very different from <a href="http://mongoosejs.com/docs/lambda.html">the bundling process that AWS Lambda requires</a>. With Azure Functions, you <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node#node-version-and-package-management">have to log in to a server, create a <code>package.json</code>, and run <code>npm install</code></a>. This seems odd for a &quot;serverless&quot; architecture, but the benefit is you don&#39;t have to bundle the same dependencies over and over again or worry about <a href="https://docs.aws.amazon.com/lambda/latest/dg/limits.html"><code>node_modules</code> running over Lambda&#39;s onerous limits on function size</a>.</p>
 <p>To install the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a>, first go to <code>&lt;your-function-name&gt;.scm.azurewebsites.net</code>, and click on &#39;Debug Console&#39; -&gt; &#39;PowerShell&#39;.</p>
-<p><img src="https://i.imgur.com/msuHeXE.png"></p>
+<img src="https://i.imgur.com/msuHeXE.png">
+
 <p>This will open up a live shell you can use to administer your function app.</p>
-<p><img src="https://i.imgur.com/ZwDMSwk.png"></p>
+<img src="https://i.imgur.com/ZwDMSwk.png">
+
 <p>Navigate to the <code>D:\home\site\wwwroot</code> directory and click on the plus icon to
 create a new file called <code>package.json</code>.</p>
-<p><img src="https://i.imgur.com/vjJ5l0C.png"></p>
+<img src="https://i.imgur.com/vjJ5l0C.png">
+
 <p>Create the below minimal <code>package.json</code> file and hit &#39;Save&#39;.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
     <span class="hljs-string">"name"</span>: <span class="hljs-string">"vkarpov15-test"</span>,
     <span class="hljs-string">"dependencies"</span>: {
         <span class="hljs-string">"mongodb"</span>: <span class="hljs-string">"3.x"</span>
     }
-}
-</code></pre>
-<p><img src="https://i.imgur.com/z6S2WYZ.png"></p>
+}</code></pre>
+<img src="https://i.imgur.com/z6S2WYZ.png">
+
 <p>Next, run <code>npm install</code> from the shell.</p>
-<p><img src="https://i.imgur.com/naZyzG3.png"></p>
+<img src="https://i.imgur.com/naZyzG3.png">
+
 <p>Now, go back to your Azure Function and you should be able to connect to
 <a href="http://mbsy.co/mongodb/28365503">MongoDB Atlas</a> and execute a query using
 the below code.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-comment">// URI for MongoDB Atlas</span>
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb+srv://OMITTED.mongodb.net/test'</span>;
@@ -103,16 +114,16 @@ the below code.</p>
       context.done();     
     });
   });
-};
-</code></pre>
-<p><img src="https://i.imgur.com/cvFQs6b.png"></p>
+};</code></pre>
+<img src="https://i.imgur.com/cvFQs6b.png">
+
 <h2 id="reusing-the-database-connection">Reusing the Database Connection</h2>
 <p>Unfortunately, creating a new database connection every time the function runs
 is terrible for performance. Like with <a href="http://mongoosejs.com/docs/lambda.html">Lambda</a>, you can use the quirks of the Node.js runtime to retain a database connection between calls. Specifically,
 global variables in your script <a href="https://markheath.net/post/sharing-state-between-azure-functions">may be retained between function calls</a>,
 so if you add a global pointer to a MongoDB client it will be retained until
 Azure cleans it up.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb+srv://OMITTED/test'</span>;
 
@@ -156,8 +167,7 @@ Azure cleans it up.</p>
       context.done();     
     });
   }
-};
-</code></pre>
+};</code></pre>
 <p>The first time you hit the API endpoint, the function will create a new database
 connection. The second time, the function will re-use an existing database
 connection and run considerably faster.</p>
@@ -175,8 +185,7 @@ $ time curl https:<span class="hljs-comment">//vkarpov15-test.azurewebsites.net/
 real    <span class="hljs-number">0</span>m0<span class="hljs-number">.981</span>s
 user    <span class="hljs-number">0</span>m0<span class="hljs-number">.104</span>s
 sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.021</span>s
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Azure Functions are an interesting alternative to AWS Lambda. Azure Functions don&#39;t require you to bundle <code>node_modules</code>, instead letting you share <code>node_modules</code> across multiple functions in a function app. Also, <a href="https://assist-software.net/blog/pros-and-cons-serverless-computing-faas-comparison-aws-lambda-vs-azure-functions-vs-google">Azure charges you based on memory usage</a> rather than setting a hard limit on memory usage like Lambda does. I have yet to use Azure Functions for a production application, but so far Azure Functions look promising and I look forward to trying them out for a real app.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

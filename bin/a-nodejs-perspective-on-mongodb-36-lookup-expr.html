@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>MongoDB 3.2 introduced the <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/"><code>$lookup</code> aggregation framework pipeline stage</a>, which let you pull documents from a separate collection into your aggregation framework pipeline. Before MongoDB 3.6, <code>$lookup</code> could only do <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#equality-match">left outer joins with equality matching</a>. In other words, suppose you had a collection of users, a collection of stocks, and a collection that mapped users to the stocks they hold. The <code>$lookup</code> stage can give you an array of stocks a user holds. But in MongoDB 3.2 and 3.4, <code>$lookup</code> could not give you just the stocks that had gone up in price since the customer bought them.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -78,14 +78,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-comment">//   { shares: 5, basePrice: 200, ticker: 'BRK.B', currentPrice: 202 },</span>
   <span class="hljs-comment">//   { shares: 5, basePrice: 370, ticker: 'LMT', currentPrice: 360 } ]</span>
   <span class="hljs-built_in">console</span>.log(docs);
-}
-</code></pre>
+}</code></pre>
 <p>MongoDB 3.6 introduces support for much more sophisticated lookups with the <a href="https://docs.mongodb.com/manual/reference/operator/query/expr/#op._S_expr">new <code>$expr</code> operator</a>. In particular, <code>$expr</code> allows you to do a <code>$lookup</code> that only pulls stock holdings that have appreciated in value. In this article, I&#39;ll show you how to use the <code>$expr</code> operator with queries, as well as with <code>$lookup</code>.</p>
 <p>I&#39;ll use Node.js and the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a> directly. You should use MongoDB driver <code>&gt;= 3.0.0</code> or Mongoose <code>&gt;= 5.0.0</code> because those are the the versions that <a href="http://mongoosejs.com/docs/compatibility.html">support MongoDB 3.6</a>.</p>
 <h2 id="using-expr-with-queries">Using <code>$expr</code> With Queries</h2>
 <p>The <code>$expr</code> operator allows you to query based on computed properties. This is especially powerful with <code>$lookup</code>, but is also useful for queries. For example, let&#39;s say you wanted to find all stock holdings where the total cost of the stock was more than $1000. In other words, find all documents in the &#39;StockHolding&#39; collection where <code>shares * basePrice &gt; 1000</code>. In older versions of MongoDB you could do this with the <a href="https://docs.mongodb.com/manual/reference/operator/query/where/"><code>$where</code> operator</a>, but the <code>$where</code> operator suffers from <a href="https://docs.mongodb.com/manual/reference/operator/query/where/#restrictions">numerous restrictions</a>, <a href="https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where">performance limitations</a>, and <a href="https://lockmedown.com/securing-node-js-mongodb-security-injection-attacks/">security issues</a>. MongoDB recommends using <code>$expr</code> as a replacement for <code>$where</code>.</p>
 <p>Here&#39;s how you structure this query using <code>$expr</code>. The <code>$expr</code> operator gives you access to <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/">aggregation operators</a>, even in your queries. For this query, you can use the <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/gt/"><code>$gt</code> aggregation operator</a> and the <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/multiply/"><code>$multiply</code> operator</a>. Note that the <code>$gt</code> <em>aggregation</em> operator syntax differs slightly from that of the <a href="https://docs.mongodb.com/manual/reference/operator/query/gt/"><code>$gt</code> <em>query</em> operator</a>, which is a distinct operator.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).find({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).find({
   <span class="hljs-comment">// Equivalent to `$where: 'this.shares * this.basePrice &gt; 1000'`</span>
   $expr: {
     $gt: [
@@ -100,13 +99,12 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 <span class="hljs-comment">//     stock: 'LMT',</span>
 <span class="hljs-comment">//     shares: 5,</span>
 <span class="hljs-comment">//     basePrice: 370 } ]</span>
-<span class="hljs-built_in">console</span>.log(docs);
-</code></pre>
-<h2 id="-expr-and-lookup-"><code>$expr</code> and <code>$lookup</code></h2>
+<span class="hljs-built_in">console</span>.log(docs);</code></pre>
+<h2 id="expr-and-lookup"><code>$expr</code> and <code>$lookup</code></h2>
 <p>With a single query, you can find the stock holdings where the total cost of the holding was at least $1000. What about stock holdings where the current value of the holding is at least $1000? With the data as structured, you need to use <code>$lookup</code> because the stock&#39;s <code>currentPrice</code> is not tracked in the individual holding document. You need to do a <code>$lookup</code> that matches stocks by ticker <em>and</em> by the product of <code>shares</code> and <code>currentPrice</code>.</p>
 <p>The <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/#specify-multiple-join-conditions-with-lookup">new <code>$lookup</code> syntax</a> uses the <code>let</code> and <code>pipeline</code> properties as a replacement for <code>localField</code> and <code>foreignField</code>. Instead of doing an exact equality match looking for documents in the <code>from</code> collection where the value of <code>foreignField</code> is equal to the value of <code>localField</code>, <code>let</code> and <code>pipeline</code> let you define more sophisticated lookups. Specifically, <code>let</code> defines which properties from the local collection (in this case &#39;StockHolding&#39;) that you want to use, and <code>pipeline</code> defines a nested aggregation pipeline that computes the output.</p>
 <p>For example, below is a basic <code>$lookup</code> that looks up the corresponding stock for each holding using <code>localField</code> and <code>foreignField</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
   {
     $lookup: {
       <span class="hljs-keyword">from</span>: <span class="hljs-string">'Stock'</span>,
@@ -115,10 +113,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
       <span class="hljs-keyword">as</span>: <span class="hljs-string">'stock'</span>
     }
   }
-]).toArray();
-</code></pre>
+]).toArray();</code></pre>
 <p>Below is an equivalent aggregation using <code>let</code> and <code>pipeline</code>. Note that variables declared in <code>let</code> may only be used in a <code>$expr</code> operator.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
   {
     $lookup: {
       <span class="hljs-keyword">from</span>: <span class="hljs-string">'Stock'</span>,
@@ -140,10 +137,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
       <span class="hljs-keyword">as</span>: <span class="hljs-string">'stock'</span>
     }
   }
-]).toArray();
-</code></pre>
+]).toArray();</code></pre>
 <p>In this simple case, the <code>let</code> and <code>pipeline</code> approach is more complex, but the new approach is also more flexible. For example, the below pipeline finds all stock holdings whose current value is greater than $1000 based on the <code>shares</code> property from the holding document and the <code>currentPrice</code> property from the stock document.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'StockHolding'</span>).aggregate([
   {
     $lookup: {
       <span class="hljs-keyword">from</span>: <span class="hljs-string">'Stock'</span>,
@@ -195,8 +191,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 <span class="hljs-comment">//        currentPrice: 360 },</span>
 <span class="hljs-comment">//     shares: 5,</span>
 <span class="hljs-comment">//     basePrice: 370 } ]</span>
-<span class="hljs-built_in">console</span>.log(docs);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(docs);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The new <code>$expr</code> operator and the new <code>let</code> and <code>pipeline</code> syntax for <code>$lookup</code> go a long way towards replicating SQL joins in MongoDB. The <code>pipeline</code> syntax goes beyond the simple left-outer joins that you could do with <code>localField</code> and <code>foreignField</code>, enabling deeply nested lookups and matching based on date and number comparisons. MongoDB 3.6 has <a href="https://docs.mongodb.com/manual/release-notes/3.6/#aggregation">several more exciting new aggregation features</a> in addition to the new <code>$lookup</code> syntax, so make sure you upgrade to take advantage of all of the new features. Just make sure you upgrade to MongoDB driver <code>&gt;= 3.0.0</code> or mongoose <code>&gt;= 5.0.0</code> first.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

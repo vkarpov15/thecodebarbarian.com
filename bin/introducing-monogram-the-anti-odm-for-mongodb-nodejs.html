@@ -16,7 +16,7 @@
 <h2 id="function-calls-are-objects">Function Calls are Objects</h2>
 <p>The mind-bending idea that <a href="https://maetl.net/talks/rise-and-fall-of-orm">made ORMs so popular in the late 90&#39;s and early 2000&#39;s</a> was that you could merge object-oriented programming with RDBMS by mapping objects in your programming language of choice (typically Java for early ORMs) to rows in your database. In other words, an ORM let you think of database rows as objects, and the MongoDB equivalent ODM lets you think of MongoDB documents as objects. Unfortunately, even with <code>Object.observe()</code> it&#39;s tricky to <a href="http://mongoosejs.com/docs/faq.html">get this mapping right in the general case</a> because of in-place updates, not to mention <a href="http://aaronheckmann.blogspot.com/2012/06/mongoose-v3-part-1-versioning.html">the difficulties of distributed programming</a>.</p>
 <p>What if, instead of mapping documents to objects, we mapped database operations to objects? What if, instead of scratching our heads about how to make arrays and dates a nail for the OOP hammer, we took a page out of <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">aspect-oriented programming&#39;s</a> book and thought about how to better instrument our database operations? The key idea of monogram is that every function call on a <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html">MongoDB collection</a> can be represented as an object that we call an <em>action</em>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -37,13 +37,12 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
   });
 
   <span class="hljs-keyword">await</span> Test.insertOne({ hello: <span class="hljs-string">'world'</span> });
-}
-</code></pre>
+}</code></pre>
 <p>Monogram defines actions for every <a href="https://github.com/mongodb/specifications/blob/master/source/crud/crud.rst#operations">operation in the MongoDB CRUD spec</a>. This certainly makes logging easy, the above code is all you need to log every single database operation to the console. When you attach middleware to your collection like above, your middleware executes <strong>before</strong> the actual database function executes. In other words, the <code>console.log()</code> above happens before the <code>insertOne()</code> gets sent out to MongoDB. What about if you wanted to print out how long each operation took?</p>
 <h2 id="rxjs-observable-of-actions">RxJS Observable of Actions</h2>
 <p>One idea that&#39;s been proposed as an alternative to <code>Object.observe()</code> is the <a href="https://github.com/tc39/proposal-observable">Observable proposal</a> and <a href="https://www.npmjs.com/package/rxjs">RxJS</a>. Observables are a completely different construct in that they do <strong>not</strong> listen for changes on objects. They&#39;re just streams of objects that you can <code>filter()</code>, <code>map()</code>, <code>merge()</code>, etc. Observables would not serve as the basis for a change-tracking system for an ODM, but they work great as a <a href="http://thecodebarbarian.com/rest-apis-with-observables">middleware mechanism for action streams</a>.</p>
 <p>Monogram collections have an <code>action$</code> stream that represents every function call you make on that collection:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -65,10 +64,9 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
   });
 
   <span class="hljs-keyword">await</span> Test.insertOne({ hello: <span class="hljs-string">'world'</span> });
-}
-</code></pre>
+}</code></pre>
 <p>Monogram added <code>promise</code> property to the action object. This promise is the return value of the native MongoDB driver&#39;s <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertOne"><code>insertOne()</code> function</a>. You can use this promise in the subscribe callback to print out each database operation and how long it took.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -86,12 +84,11 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
   });
 
   <span class="hljs-keyword">await</span> Test.insertOne({ hello: <span class="hljs-string">'world'</span> });
-}
-</code></pre>
+}</code></pre>
 <p>Actions are such a powerful abstraction because they always have the same form. In <a href="http://npmjs.org/package/mongoose">mongoose</a>, <a href="http://mongoosejs.com/docs/middleware.html">middleware</a> comes in a <a href="https://en.wikipedia.org/wiki/M%C3%B6tley_Cr%C3%BCe">motley crew</a> of forms. It&#39;s easy to add a <code>pre(&#39;save&#39;)</code> hook, but it&#39;s hard to log every single operation or have common logic that works with both <code>pre(&#39;save&#39;)</code> and <code>pre(&#39;find&#39;)</code>. In monogram, every action has the same properties and goes through the same pipeline, so actions are easier to instrument. And, because they&#39;re easier to instrument, they&#39;re also easier to mutate.</p>
 <h2 id="mutating-actions">Mutating Actions</h2>
 <p>You might wonder why there&#39;s the <code>pre()</code> middleware function and an observable of actions. The reason is similar to the difference between <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md">hot and cold observables</a>. Once an action is assigned a <code>promise</code> property, you can no longer mutate or cancel that action, it&#39;s already in flight. You can mutate the promise and the action object, but that won&#39;t affect what gets sent to the database. In <code>pre()</code>, however, you can do whatever you want to the action object. For example, you can disallow deleting documents:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -106,10 +103,9 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
 
   <span class="hljs-comment">// Throws an error "Deletes are not allowed!"</span>
   <span class="hljs-keyword">await</span> Test.deleteOne({ hello: <span class="hljs-string">'world'</span> });
-}
-</code></pre>
+}</code></pre>
 <p>How about if you wanted to transparently support <a href="https://www.npmjs.com/package/mongoose-delete">soft deletes</a> rather than throw an error if a developer tries to <code>deleteOne()</code>? That&#39;s easy too. You can transform the action object in <code>pre()</code> middleware. You can change the parameters and even the function that will get called:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
   <span class="hljs-keyword">const</span> Test = db.collection(<span class="hljs-string">'Test'</span>);
@@ -149,10 +145,9 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
    *   promise: Promise { &lt;pending&gt; } }
    */</span>
   <span class="hljs-keyword">await</span> Test.deleteOne();
-}
-</code></pre>
+}</code></pre>
 <p>What about backing up deleted documents to a separate collection? This has always been tricky since <a href="https://docs.mongodb.com/manual/reference/method/db.collection.copyTo/">MongoDB deprecated <code>copyTo()</code></a>, but monogram makes this easy too:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
   <span class="hljs-keyword">const</span> Test = db.collection(<span class="hljs-string">'Test'</span>);
@@ -182,8 +177,7 @@ test().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.
    * Test.deleteOne()
    */</span>
   <span class="hljs-keyword">await</span> Test.deleteOne();
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Monogram is a potent abstraction for both advanced and novice users of MongoDB and Node.js. From logging to soft deletes to <a href="https://github.com/vkarpov15/monogram#enforcing-internal-best-practices">enforcing best practices</a> to distributed locking, monogram makes instrumenting logic and handling <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross-cutting concerns</a> easy. Give it a shot and open up any issues you find on <a href="https://github.com/vkarpov15/monogram/issues">GitHub</a>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

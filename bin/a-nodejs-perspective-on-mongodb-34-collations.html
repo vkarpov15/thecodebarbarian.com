@@ -16,7 +16,8 @@
 <h2 id="ignoring-diacritics">Ignoring Diacritics</h2>
 <p>At a previous company I was tasked with implementing a city search bar much like
 Airbnb&#39;s:</p>
-<p><img src="http://i.imgur.com/H8rxitP.png"></p>
+<img src="http://i.imgur.com/H8rxitP.png">
+
 <p>The problem is how to make &quot;San Jose&quot; match &quot;San Jos&eacute;&quot; with the acute accent over the &#39;e&#39;. Before collations, your best bet would be to use a module like <a href="https://www.npmjs.com/package/diacritics">diacritics</a> to remove all diacritics from the city. In practice you would have a <code>displayName</code> that would include diacritics for display, and a <code>searchName</code> with diacritics removed for searching.</p>
 <p>With collations, searching with diacritics is easy. Let&#39;s say you insert 2 documents, one with &quot;San Jose&quot; as the California city is commonly spelled, and another with &quot;San Jos&eacute;&quot;.</p>
 <pre><code>&gt; db.cities.insertMany([{ name: <span class="hljs-string">'San Jose'</span> }, { name: <span class="hljs-string">'San José'</span> }])
@@ -26,13 +27,11 @@ Airbnb&#39;s:</p>
         ObjectId(<span class="hljs-string">"58af53b1dd6258670ac02a5b"</span>),
         ObjectId(<span class="hljs-string">"58af53b1dd6258670ac02a5c"</span>)
     ]
-}
-</code></pre><p>If you use the new <code>collation()</code> function, you can make MongoDB ignore the differences in diacritics using the <code>strength</code> option. The <a href="https://docs.mongodb.com/manual/reference/collation/#collation-document">collation arguments</a> take experience to become comfortable with. For now, remember that <code>strength: 1</code> means MongoDB will ignore case and diacritics.</p>
+}</code></pre><p>If you use the new <code>collation()</code> function, you can make MongoDB ignore the differences in diacritics using the <code>strength</code> option. The <a href="https://docs.mongodb.com/manual/reference/collation/#collation-document">collation arguments</a> take experience to become comfortable with. For now, remember that <code>strength: 1</code> means MongoDB will ignore case and diacritics.</p>
 <pre><code>&gt; db.cities.find({ name: <span class="hljs-string">'San Jose'</span> }).collation({ locale: <span class="hljs-string">'en_US'</span>, strength: <span class="hljs-number">1</span> }).pretty()
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af560ce96c6b1ca7e5b922"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"San Jose"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af560ce96c6b1ca7e5b923"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"San José"</span> }
-&gt;
-</code></pre><p>Keep in mind that collations do <em>not</em> currently work with regular expression search, so <code>db.cities.find({ name: /^San Jose/ })</code> will not match &quot;San Jos&eacute;&quot;.</p>
+&gt;</code></pre><p>Keep in mind that collations do <em>not</em> currently work with regular expression search, so <code>db.cities.find({ name: /^San Jose/ })</code> will not match &quot;San Jos&eacute;&quot;.</p>
 <h2 id="case-insensitive-sorting">Case Insensitive Sorting</h2>
 <p>Collations aren&#39;t just useful for matching, they also help with sorting. By default MongoDB sorts strings by their characters&#39; ASCII order (modulo non-ASCII characters), so &#39;Alpha&#39; comes before &#39;Zeta&#39; comes before &#39;_&#39; comes before &#39;alpha&#39;.</p>
 <pre><code>&gt; db.words.insertMany([{ v: <span class="hljs-string">'Alpha'</span>, }, { v: <span class="hljs-string">'Zeta'</span> }, { v: <span class="hljs-string">'_'</span> }, { v: <span class="hljs-string">'alpha'</span> }, { v: <span class="hljs-string">'zeta'</span> }])
@@ -52,33 +51,29 @@ Airbnb&#39;s:</p>
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78dd"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"_"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78de"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"alpha"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78df"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"zeta"</span> }
-&gt;
-</code></pre><p>The <code>caseLevel</code> option, if set, sorts so that &#39;alpha&#39; and &#39;Alpha&#39; come before &#39;zeta&#39; and &#39;Zeta&#39;.</p>
+&gt;</code></pre><p>The <code>caseLevel</code> option, if set, sorts so that &#39;alpha&#39; and &#39;Alpha&#39; come before &#39;zeta&#39; and &#39;Zeta&#39;.</p>
 <pre><code>&gt; db.words.find({}).sort({ v: <span class="hljs-number">1</span> }).collation({ locale: <span class="hljs-string">'en_US'</span>, caseLevel: <span class="hljs-literal">true</span> })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78dd"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"_"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78de"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"alpha"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78db"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"Alpha"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78df"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"zeta"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6376b6f40a81313d78dc"</span>), <span class="hljs-string">"v"</span> : <span class="hljs-string">"Zeta"</span> }
-&gt;
-</code></pre><h2 id="ordering-numeric-strings">Ordering Numeric Strings</h2>
+&gt;</code></pre><h2 id="ordering-numeric-strings">Ordering Numeric Strings</h2>
 <p>Another annoying issue with sorting strings is handling numbers. For example, let&#39;s say you insert a bunch of files named &#39;invoice_1&#39;, &#39;invoice_2&#39;, &#39;invoice_10&#39;, and &#39;invoice_100&#39;. In conventional sort order, &#39;invoice_2&#39; will come after &#39;invoice_10&#39; and &#39;invoice_100&#39;.</p>
 <pre><code>&gt; db.files.insertMany([{ name: <span class="hljs-string">'invoice_1'</span> }, { name: <span class="hljs-string">'invoice_2'</span> }, { name: <span class="hljs-string">'invoice_10'</span> }, { name: <span class="hljs-string">'invoice_100'</span> }])
 &gt; db.files.find().sort({ name: <span class="hljs-number">1</span> })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e0"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_1"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e2"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_10"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e3"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_100"</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e1"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_2"</span> }
-</code></pre><p>If you turn on the <code>numericOrdering</code> flag, MongoDB will sort numeric substrings based on their numeric value rather than by ASCII characters. In other words, the order will be &#39;invoice_1&#39;, &#39;invoice_2&#39;, &#39;invoice_10&#39;, &#39;invoice_100&#39;, which makes more sense in this case.</p>
+{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e1"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_2"</span> }</code></pre><p>If you turn on the <code>numericOrdering</code> flag, MongoDB will sort numeric substrings based on their numeric value rather than by ASCII characters. In other words, the order will be &#39;invoice_1&#39;, &#39;invoice_2&#39;, &#39;invoice_10&#39;, &#39;invoice_100&#39;, which makes more sense in this case.</p>
 <pre><code>&gt; db.files.find().sort({ name: <span class="hljs-number">1</span> }).collation({ locale: <span class="hljs-string">'en_US'</span>, numericOrdering: <span class="hljs-literal">true</span> })
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e0"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_1"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e1"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_2"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e2"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_10"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58af6568b6f40a81313d78e3"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"invoice_100"</span> }
-&gt;
-</code></pre><h2 id="collations-in-node-js">Collations in Node.js</h2>
+&gt;</code></pre><h2 id="collations-in-nodejs">Collations in Node.js</h2>
 <p>Version <a href="https://github.com/mongodb/node-mongodb-native/blob/2.2/HISTORY.md#2210-2016-09-15">2.2.10</a> of the MongoDB driver and Mongoose <a href="https://github.com/Automattic/mongoose/blob/master/History.md#480--2017-01-28">4.8.0</a> include helpers for collations. Here&#39;s an example of using a collation with <code>find()</code> using the MongoDB driver:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">let</span> db
 
@@ -102,10 +97,9 @@ mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017
 [ { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb52, name: <span class="hljs-string">'invoice_1'</span> },
   { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb53, name: <span class="hljs-string">'invoice_2'</span> },
   { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb54, name: <span class="hljs-string">'invoice_10'</span> },
-  { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb55, name: <span class="hljs-string">'invoice_100'</span> } ]
-</code></pre>
+  { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb55, name: <span class="hljs-string">'invoice_100'</span> } ]</code></pre>
 <p>And using the mongoose query builder&#39;s <code>collation()</code> helper function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
@@ -118,8 +112,7 @@ File.find().sort({ name: <span class="hljs-number">1</span> }).collation({ local
 [ { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb52, name: <span class="hljs-string">'invoice_1'</span> },
   { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb53, name: <span class="hljs-string">'invoice_2'</span> },
   { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb54, name: <span class="hljs-string">'invoice_10'</span> },
-  { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb55, name: <span class="hljs-string">'invoice_100'</span> } ]
-</code></pre>
+  { _id: <span class="hljs-number">58</span>af7b819ed98b28c1f2bb55, name: <span class="hljs-string">'invoice_100'</span> } ]</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Collations are powerful, but far from the only great new feature in MongoDB 3.4. I previously wrote about the <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html">Decimal type</a>, the <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-facet.html"><code>$facet</code> aggregation operator</a>, and the <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-graphlookup.html"><code>$graphLookup</code> aggregation operator</a>. Check out those articles and learn how to take advantage of MongoDB 3.4 in Node.js!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

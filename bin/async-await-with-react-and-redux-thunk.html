@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>There&#39;s a lot of <a href="https://stackoverflow.com/questions/38357234/is-it-possible-to-use-async-await-in-react-js">misinformation on how to use async/await with React</a> and Redux. In general, React does <strong>not</strong> support async/await, but you can make it work with some caveats. In particular, <code>render()</code> cannot be async, but <a href="https://www.youtube.com/watch?v=v6iR3Zk4oDY">React suspense</a> may change this. For example, the below minimal example with Node.js 8.9.4, React 16.4.1, and React-DOM 16.4.1 will throw an error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { Component, createElement } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { Component, createElement } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-keyword">const</span> { renderToString } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom/server'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
@@ -26,12 +26,11 @@
 <span class="hljs-comment">// (found: [object Promise])"</span>
 assert.throws(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   renderToString(createElement(MyComponent));
-}, <span class="hljs-regexp">/Objects are not valid as a React child/</span>);
-</code></pre>
+}, <span class="hljs-regexp">/Objects are not valid as a React child/</span>);</code></pre>
 <p>You can make <a href="https://stackoverflow.com/questions/43312223/asynchronous-call-in-componentwillmount-finishes-after-render-method">lifecycle methods async</a>, like <code>componentWillMount()</code>, in some
 cases. However, async <code>componentWillMount()</code> doesn&#39;t work at all with server-side
 rendering.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   <span class="hljs-keyword">async</span> componentWillMount() {
     <span class="hljs-keyword">this</span>.setState({ text: <span class="hljs-string">'Before'</span> });
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setImmediate(resolve));
@@ -48,8 +47,7 @@ rendering.</p>
 <span class="hljs-comment">// to settle.</span>
 <span class="hljs-comment">// Also prints "Warning: setState(...): Can only update a</span>
 <span class="hljs-comment">// mounting component."</span>
-<span class="hljs-built_in">console</span>.log(renderToString(createElement(MyComponent)));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(renderToString(createElement(MyComponent)));</code></pre>
 <p>Since React doesn&#39;t support async/await in general, you still need to use
 a library like <a href="http://npmjs.com/package/redux">redux</a> and a middleware tool
 like <a href="https://www.npmjs.com/package/redux-thunk">redux-thunk</a> to handle
@@ -62,7 +60,7 @@ The function takes a single parameter, a function <code>dispatch()</code>, which
 you dispatch actions. This function is called an <em>action creator</em>.
 Below is an example of dispatching actions from an async action creator
 using <code>redux-thunk</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create a Redux store with `redux-thunk` middleware</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Create a Redux store with `redux-thunk` middleware</span>
 <span class="hljs-keyword">const</span> { applyMiddleware, createStore } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
 <span class="hljs-keyword">const</span> thunk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux-thunk'</span>).default;
 <span class="hljs-keyword">const</span> reducer = (state, action) =&gt; {
@@ -98,15 +96,14 @@ store.dispatch(<span class="hljs-keyword">async</span> <span class="hljs-functio
   dispatch({ type: <span class="hljs-string">'DECREMENT'</span> });
   <span class="hljs-comment">// &lt;h1 data-reactroot=""&gt;Count: 0&lt;/h1&gt;</span>
   <span class="hljs-built_in">console</span>.log(renderToString(createElement(MyComponent)));
-});
-</code></pre>
+});</code></pre>
 <p>Side note: <code>redux-thunk</code> has nothing to do with the <a href="https://github.com/thunks/thunks#what-is-a-thunk">normal definition of a thunk</a> as &quot;a function that takes a single parameter, a <code>callback</code>&quot;. When working with React, a thunk is
 typically <a href="https://www.npmjs.com/package/redux-thunk#whats-a-thunk">any function that encapsulates logic that will be run later</a>, which is not
 a very useful definition. Broadly, React&#39;s definition of a thunk is a superset
 of the conventional JavaScript definition of a thunk.</p>
 <p>What happens if your async thunk throws an error? Turns out <a href="https://github.com/reduxjs/redux-thunk/issues/81"><code>redux-thunk</code> has no built-in error handling</a>,
 so you&#39;ll get an <a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">unhandled promise rejection</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { applyMiddleware, createStore } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { applyMiddleware, createStore } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
 <span class="hljs-keyword">const</span> thunk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux-thunk'</span>).default;
 <span class="hljs-comment">// ...</span>
 
@@ -120,14 +117,13 @@ store.dispatch(<span class="hljs-keyword">async</span> <span class="hljs-functio
   <span class="hljs-comment">// Unhandled promise rejection! See</span>
   <span class="hljs-comment">// http://bit.ly/unhandled-promise-rejection</span>
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>In other words, <code>redux-thunk</code> doesn&#39;t support async/await any more than
 React itself does. However, since <code>redux-thunk</code> accepts a function rather than
 relying on classes, you can create a <code>wrap()</code> function that ensures you
 <code>dispatch()</code> an error event if your async thunk errors out. This is the same
 pattern you need to use for handling async functions with <a href="http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose#express">Express</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { applyMiddleware, createStore } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { applyMiddleware, createStore } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
 <span class="hljs-keyword">const</span> thunk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux-thunk'</span>).default;
 <span class="hljs-keyword">const</span> reducer = (state, action) =&gt; {
   <span class="hljs-keyword">switch</span>(action.type) {
@@ -156,8 +152,7 @@ store.dispatch(wrap(<span class="hljs-keyword">async</span> <span class="hljs-fu
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">dispatch</span>) </span>{
     fn(dispatch).catch(error =&gt; dispatch({ type: <span class="hljs-string">'ERROR'</span>, error }));
   };
-}
-</code></pre>
+}</code></pre>
 <p>Next, let&#39;s take a look at an example of using a wrapper function with a
 more realistic React setup.</p>
 <h2 id="running-in-the-browser">Running in the Browser</h2>
@@ -168,9 +163,8 @@ and hook up Redux using <a href="https://www.npmjs.com/package/react-redux"><cod
 <p>First, install all the minimal tooling you need to compile and run a React app,
 as well as React and Redux themselves.</p>
 <pre><code>$ npm install babel-loader babel-preset-react webpack webpack-cli serve --save
-$ npm install react react-dom redux-thunk redux --save
-</code></pre><p>Minimal <code>webpack.config.js</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+$ npm install react react-dom redux-thunk redux --save</code></pre><p>Minimal <code>webpack.config.js</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   entry: [<span class="hljs-string">'./index.js'</span>],
   <span class="hljs-built_in">module</span>: {
     rules: [{
@@ -181,26 +175,23 @@ $ npm install react react-dom redux-thunk redux --save
         }
     }]
   }
-};
-</code></pre>
+};</code></pre>
 <p>Minimal <code>.babelrc</code>:</p>
 <pre><code>{
   <span class="hljs-string">"presets"</span>: [<span class="hljs-string">"react"</span>]
-}
-</code></pre><p>Minimal <code>index.html</code>:</p>
+}</code></pre><p>Minimal <code>index.html</code>:</p>
 <pre><code>&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre><p>Below is the <code>index.js</code> file. This example uses <code>wrap()</code> to handle errors
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Below is the <code>index.js</code> file. This example uses <code>wrap()</code> to handle errors
 in async action creators. The below example uses a long-lived action creator
 that dispatches an &#39;INCREMENT&#39; action after 5 seconds and then throws an
 error after another 5 seconds. The <code>wrap()</code> function handles the error and
 dispatches an error action.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> { applyMiddleware, createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 <span class="hljs-keyword">import</span> dom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> thunk <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-thunk'</span>;
@@ -249,8 +240,7 @@ function wrap(fn) {
   return function(dispatch) {
     fn(dispatch).catch(error =&gt; dispatch({ type: 'ERROR', error }));
   };
-}</span>
-</code></pre>
+}</span></code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Async/await is still fairly new and the React and Redux ecosystem don&#39;t have
 great support for async functions yet. I&#39;m looking forward to seeing

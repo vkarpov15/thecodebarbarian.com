@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a> is a separate executable that has been shipped alongside Node.js and npm since 2017. npx is a flexible tool for running node packages that makes <a href="https://thecodebarbarian.com/2015/02/27/npm-install--g">installing npm packages globally</a> largely obsolete. In this article, I&#39;ll demonstrate how npx lets you avoid <code>npm install -g</code>, and show a couple other cool things npx can do.</p>
-<h2 id="no-more-node_modules-bin-">No More <code>./node_modules/.bin</code></h2>
+<h2 id="no-more-node_modulesbin">No More <code>./node_modules/.bin</code></h2>
 <p>The primary use case for npx is running executable npm packages, like
 <a href="http://npmjs.com/package/mocha">the Mocha test runner</a>. Suppose you run
 <code>npm install mocha@5.x</code> in an empty directory. There are three ways you can run
@@ -27,15 +27,12 @@ Mocha from this directory:</p>
 <code>./node_modules/.bin</code> every time. The second approach is better, but has a
 gotcha when you need to use command line arguments. Suppose you only wanted to
 run tests that have &#39;foo&#39; in the title. You can run the below command.</p>
-<pre><code>./node_modules/.bin/mocha -g <span class="hljs-string">"foo"</span>
-</code></pre><p>To pass the <code>-g</code> command line argument to Mocha through an npm script, you need
+<pre><code>./node_modules/.bin/mocha -g <span class="hljs-string">"foo"</span></code></pre><p>To pass the <code>-g</code> command line argument to Mocha through an npm script, you need
 to <a href="https://stackoverflow.com/questions/31171684/passing-a-command-line-argument-or-flag-to-npm-package-json-scripts">add <code>--</code> before the command line argument</a>. To experienced Node.js developers from the pre-npx days,
 using <code>--</code> is second nature, but this is a common pain point for beginners.</p>
-<pre><code>npm test -- -g <span class="hljs-string">"foo"</span>
-</code></pre><p>npx passes command line arguments transparently to the executable, so you don&#39;t need 
+<pre><code>npm test -- -g <span class="hljs-string">"foo"</span></code></pre><p>npx passes command line arguments transparently to the executable, so you don&#39;t need 
 <code>--</code> anymore.</p>
-<pre><code>npx mocha -g <span class="hljs-string">"foo"</span>
-</code></pre><h2 id="install-and-run">Install and Run</h2>
+<pre><code>npx mocha -g <span class="hljs-string">"foo"</span></code></pre><h2 id="install-and-run">Install and Run</h2>
 <p>Another great use case for npx is scaffolding tools, like <a href="https://github.com/yeoman/yo">yo</a> or <a href="https://www.npmjs.com/package/create-react-app">create-react-app</a>.
 Before npx, I <a href="https://thecodebarbarian.com/2015/02/27/npm-install--g#when-g-is-useful">was ok with installing scaffolding tools with <code>-g</code></a>. Now,
 there is no need because npx also automatically installs for you.</p>
@@ -61,8 +58,7 @@ $
 $ npm list -g | grep <span class="hljs-string">"create-react-app"</span>
 $
 $ ls node_modules | grep <span class="hljs-string">"create-react-app"</span>
-$
-</code></pre><p>Another neat use case is starting a MongoDB replica set with one command using
+$ </code></pre><p>Another neat use case is starting a MongoDB replica set with one command using
 <a href="https://www.npmjs.com/package/run-rs">run-rs</a>.</p>
 <pre><code>$ npx run-rs --version <span class="hljs-number">4.0</span><span class="hljs-number">.4</span> --shell
 Downloading MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.4</span>
@@ -77,8 +73,7 @@ Started replica set on <span class="hljs-string">"mongodb://localhost:27017,loca
 Running mongo shell: <span class="hljs-regexp">/home/</span>val/.npm/_npx/<span class="hljs-number">9123</span>/lib/node_modules/run-rs/<span class="hljs-number">4.0</span><span class="hljs-number">.4</span>/mongo
 rs:PRIMARY&gt; db.version()
 <span class="hljs-number">4.0</span><span class="hljs-number">.4</span>
-rs:PRIMARY&gt;
-</code></pre><h2 id="running-a-github-repo">Running a GitHub Repo</h2>
+rs:PRIMARY&gt; </code></pre><h2 id="running-a-github-repo">Running a GitHub Repo</h2>
 <p>npx can run anything that has a <a href="https://docs.npmjs.com/files/package.json#bin"><code>bin</code> in its <code>package.json</code></a>. That means it can run <a href="https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32">GitHub gists</a>. It can also
 install and run an entire GitHub repo, just like <a href="http://thecodebarbarian.com/github-is-my-favorite-private-npm-registry">how npm can install from GitHub</a>.
 For example, this <a href="https://github.com/vkarpov15/sample-server">sample-server GitHub repo</a> starts a web server on port 8081 that always prints &quot;Hello, World&quot;. You can use npx to run this GitHub repo:</p>
@@ -88,8 +83,7 @@ npx: installed <span class="hljs-number">1</span> <span class="hljs-keyword">in<
 <p>You can then hit the web server with curl:</p>
 <pre><code>$ curl http:<span class="hljs-comment">//localhost:8081</span>
 Hello World!
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>npx can save you a lot of time and effort. It can do much more than running
 locally installed executables without <code>./node_modules/.bin</code>. For example, you can
 use npx to install and run the latest version of a release script every time,

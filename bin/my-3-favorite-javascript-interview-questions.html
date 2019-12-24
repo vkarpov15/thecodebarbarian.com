@@ -32,7 +32,7 @@ work can only tell you so much.</p>
 from a REST-ish API and render it. Seems pretty basic, but you&#39;d be surprised
 how many developers struggle with it. Here&#39;s the problem prompt I put on 
 <a href="http://collabedit.com/">collabedit</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/**
+<pre><code class="language-javascript"><span class="hljs-comment">/**
  * Alpha Vantage exposes an API endpoint that lets you get the current price
  * of a stock. For example, if you make the below request, you get the current
  * price of Microsoft stock (MSFT).
@@ -67,8 +67,7 @@ how many developers struggle with it. Here&#39;s the problem prompt I put on
     <span class="hljs-string">"09. change"</span>: <span class="hljs-string">"2.5450"</span>,
     <span class="hljs-string">"10. change percent"</span>: <span class="hljs-string">"1.8544%"</span>
   }
-};
-</code></pre>
+};</code></pre>
 <p>TLDR; given a stock symbol like &#39;MSFT&#39; or &#39;AAPL&#39;, write a React component that
 pings a REST API and displays the current price. React is a placeholder -
 I&#39;ve asked the same question with Vue and Angular.</p>
@@ -76,7 +75,7 @@ I&#39;ve asked the same question with Vue and Angular.</p>
 accessing nested properties and properties with &#39;.&#39; in the name happen in
 practice.</p>
 <p>Here&#39;s a basic solution in React using <a href="https://masteringjs.io/tutorials/vue/axios">Axios</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StockPriceComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -111,8 +110,7 @@ practice.</p>
       <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>)</span>;
     }
   }
-}
-</code></pre>
+}</code></pre>
 <p>Depending on how well the candidate did, there&#39;s several follow up questions:</p>
 <ul>
 <li>Error handling. How did the candidate surface errors? If using React, do they know about error boundaries?</li>
@@ -120,10 +118,10 @@ practice.</p>
 <li>React hooks. How would this code look if written with hooks?</li>
 <li>Promises. What happens if the response body changes? How would you rewrite this using Suspense?</li>
 </ul>
-<h2 id="the-async-reactive-programming-test">The Async/Reactive Programming Test</h2>
+<h2 id="the-asyncreactive-programming-test">The Async/Reactive Programming Test</h2>
 <p>Frontend framework tests are handy, but for full stack or backend devs I usually
 prefer to go into more detail about async, promises, and <a href="https://www.getrevue.co/profile/masteringjs/issues/reactive-vs-imperative-programming-193784">reactive vs imperative</a> rather than getting lost in the minutiae of frontend frameworks. Here&#39;s the prompt:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/**
+<pre><code class="language-javascript"><span class="hljs-comment">/**
  * A Node.js readable stream (https://nodejs.org/api/stream.html#stream_readable_streams)
  * can be thought of as an event emitter that emits 3 events:
  *
@@ -141,21 +139,19 @@ prefer to go into more detail about async, promises, and <a href="https://www.ge
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamToPromise</span>(<span class="hljs-params">stream</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'not implemented'</span>));
-}
-</code></pre>
+}</code></pre>
 <p>TLDR; given a simplified stream (no backpressure, etc.), return a promise that fulfills with the concatenation of all &#39;data&#39; events emitted by the stream.</p>
 <p>One thing I love about this question is that I&#39;ve had to write this code dozens
 of times. There&#39;s always some odd npm module like <a href="https://www.npmjs.com/package/ftp">ftp</a> that insists on only providing a stream-based API when I really only want a promise-based API. Naturally, this wouldn&#39;t work for large files, but it works fine for the small CSV files that I use ftp to download. You can hear more about that on <a href="https://devchat.tv/js-jabber/jsj-399-debugging-with-async08-with-valeri-karpov/">my latest appearance on the JavaScript Jabber podcast</a>.</p>
 <p>Here&#39;s the solution:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamToPromise</span>(<span class="hljs-params">stream</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamToPromise</span>(<span class="hljs-params">stream</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
     <span class="hljs-keyword">let</span> res = <span class="hljs-string">''</span>;
     stream.on(<span class="hljs-string">'data'</span>, data =&gt; { res += data; });
     stream.on(<span class="hljs-string">'error'</span>, err =&gt; reject(err));
     stream.on(<span class="hljs-string">'end'</span>, () =&gt; resolve(res));
   });
-}
-</code></pre>
+}</code></pre>
 <p>There isn&#39;t much code to write, but a lot of thought and understanding goes into
 writing this. The only potentially tricky bit of syntax is remembering what
 the <code>Promise</code> constructor looks like. But the most common cause of confusion
@@ -168,13 +164,13 @@ loop to try to exhaust the stream imperatively.</p>
 <li>Is it possible for the above function to miss a &#39;data&#39; event?</li>
 <li>Can you <a href="https://thecodebarbarian.com/3-common-co-design-patterns#processing-a-stream">process  a stream imperatively</a>? Why is doing so a bad idea?</li>
 </ul>
-<h2 id="the-node-mongodb-test">The Node + MongoDB Test</h2>
+<h2 id="the-node--mongodb-test">The Node + MongoDB Test</h2>
 <p>Dealing with data that&#39;s too big to fit in memory is a common task in Node.
 In my experience data usually fits into memory, hence the <code>streamToPromise()</code> 
 exercise, but even if you&#39;re not working with a huge data set, you&#39;ll likely
 see code that&#39;s designed to handle huge data sets. This exercise is about
 <a href="https://thecodebarbarian.com/cursors-in-mongoose-45">iterating through a MongoDB cursor</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/**
+<pre><code class="language-javascript"><span class="hljs-comment">/**
  * A MongoDB cursor can be thought of as an object that exposes a single
  * function `next()`. The `next()` function returns a promise that resolves
  * to the next document in the query result, or `null` if there are no
@@ -195,8 +191,7 @@ see code that&#39;s designed to handle huge data sets. This exercise is about
 <span class="hljs-keyword">const</span> getPrice = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./getPrice'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateAveragePortfolio</span>(<span class="hljs-params">cursor</span>) </span>{
-}
-</code></pre>
+}</code></pre>
 <p>TLDR; given a collection of stock holdings that do <strong>not</strong> include the current
 price, calculate the average value of a user&#39;s holdings.</p>
 <p>At a high level, this looks a lot like the React <code>StockPriceComponent</code> question,
@@ -209,7 +204,7 @@ tests:</p>
 <li>Comfort level with promises and async/await. Can the candidate actually iterate a cursor with async/await?</li>
 </ul>
 <p>Below is the solution:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> getPrice = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./getPrice'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> getPrice = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./getPrice'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateAveragePortfolio</span>(<span class="hljs-params">cursor</span>) </span>{
   <span class="hljs-keyword">const</span> prices = {};
@@ -233,8 +228,7 @@ tests:</p>
   <span class="hljs-comment">// portfolio if all you need is the average. You just need the sum of all</span>
   <span class="hljs-comment">// the portfolio sizes and the number of users.</span>
   <span class="hljs-keyword">return</span> totalValue / userIds.size;
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s some follow-up questions:</p>
 <ul>
 <li>Why wouldn&#39;t you use a stream for this? What happens when you try to do async operations like <code>getPrice()</code> in a stream?</li>

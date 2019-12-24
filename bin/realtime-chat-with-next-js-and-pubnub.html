@@ -21,14 +21,13 @@
 <p>Creating a PubNub instance is simple. There are 2 keys: a <code>publishKey</code> and a <code>subscribeKey</code>. The <code>publishKey</code> gives you permission to publish to channels,
 and the <code>subscribeKey</code> gives you permission to subscribe to channels. PubNub has
 <a href="https://www.pubnub.com/docs/web-javascript/pam-security">more sophisticated security settings</a>, but these two keys are sufficient for this example.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
 
 <span class="hljs-keyword">const</span> { publishKey, subscribeKey } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./config'</span>);
-<span class="hljs-keyword">const</span> pubnub = <span class="hljs-keyword">new</span> PubNub({ publishKey, subscribeKey });
-</code></pre>
+<span class="hljs-keyword">const</span> pubnub = <span class="hljs-keyword">new</span> PubNub({ publishKey, subscribeKey });</code></pre>
 <p>The above code works well on both the client and the server. Note that I used <code>require()</code> above. If you&#39;re using ES6 imports, you need to do <code>import pubnub from &#39;pubnub&#39;;</code>, <code>import * as PubNub from &#39;pubnub&#39;;</code> will <strong>not</strong> work.</p>
 <p>The <code>pubnub</code> object above has 2 methods you&#39;ll be concerned with in this article, <code>publish()</code> and <code>subscribe()</code>. The <code>publish()</code> method lets you send a message to a channel:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> message = {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> message = {
   client: <span class="hljs-string">'Brian K.'</span>,
   content: <span class="hljs-string">'Hello, World!'</span>
 };
@@ -36,10 +35,9 @@ and the <code>subscribeKey</code> gives you permission to subscribe to channels.
 pubnub.publish({
   channel: <span class="hljs-string">'messages'</span>,
   message
-});
-</code></pre>
+});</code></pre>
 <p>The <code>subscribe()</code> method lets you register a callback that will be called every time a message is received on a given channel:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Now subscribed to the 'messages' channel</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Now subscribed to the 'messages' channel</span>
 pubnub.subscribe({
   channels: [<span class="hljs-string">'messages'</span>]
 });
@@ -51,12 +49,11 @@ pubnub.addListener({
     <span class="hljs-comment">// Prints "Brian K.: Hello, World!"</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${message.client}</span>: <span class="hljs-subst">${message.content}</span>`</span>);
   }
-});
-</code></pre>
+});</code></pre>
 <p>The above code is fully isomorphic, so your server can <code>publish()</code> a message and any client that called <code>subscribe()</code> on that channel will receive it. Communicating between client and server becomes very easy when you don&#39;t have to worry about failed HTTP requests and potentially disconnected sockets!</p>
-<h2 id="integrating-with-next-js">Integrating With Next.js</h2>
+<h2 id="integrating-with-nextjs">Integrating With Next.js</h2>
 <p>Here&#39;s how I set up the server-side code that handles serving up the client-side Next.js app:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> next = <span class="hljs-built_in">require</span>(<span class="hljs-string">'next'</span>);
 
@@ -92,10 +89,9 @@ pubnub.addListener({
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Listening on <span class="hljs-subst">${port}</span>`</span>);
 }
 
-start().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+start().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>There&#39;s separate REST-ish endpoints for getting a list of messages and publishing a new message. In this example, the client does <strong>not</strong> have permission to push to the &#39;messages&#39; channel. The API sits as a layer in front of PubNub to make sure every message published is properly formatted. In this case, the validation is simple and not terribly robust:</p>
-<pre><code class="lang-javascript">server.post(<span class="hljs-string">'/message/:client'</span>, (req, res) =&gt; {
+<pre><code class="language-javascript">server.post(<span class="hljs-string">'/message/:client'</span>, (req, res) =&gt; {
   <span class="hljs-keyword">const</span> message = {
     client: req.params.client,
     content: req.body.message
@@ -106,10 +102,9 @@ start().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error
     message
   });
   res.json({ message });
-});
-</code></pre>
+});</code></pre>
 <p>You can imagine a more sophisticated validation layer, but I&#39;m skipping that in the interest of keeping this example lean. The Next.js app lives in a single component, <a href="https://github.com/vkarpov15/pubnub-next-chat/blob/master/pages/index.js"><code>pages/index.js</code></a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> PubNub = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pubnub'</span>);
 <span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-comment">// `config` is the client config, which *only* contains the `subscribeKey`.</span>
 <span class="hljs-comment">// To publish a new message, need to go through the POST /message API endpoint</span>
@@ -165,8 +160,7 @@ start().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error
         })
     }
   }
-}
-</code></pre>
+}</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>PubNub looks like a great tool for pushing state changes from the server to the client. Unlike <a href="https://www.npmjs.com/package/socket.io">socket.io</a>, it&#39;s a hosted solution, so you don&#39;t have to worry about the nuances of scaling websocket connections. Unlike Firebase, PubNub is message based, so you don&#39;t have to worry about managing persistent state. Give it a shot next time you&#39;re looking to build push notifications into an app and let me know what you think!</p>
 <p><em>Got JavaScript fatigue? There&#39;s better ways to fight it than reaching for yet another crappy opinionated app starter. I&#39;ve been experimenting with <a href="https://www.amazon.com/gp/product/B06XJPN6JH/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B06XJPN6JH&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=2d45c96fc830a32958564d09ef8c76f2">Bulletproof&#39;s new Neuromaster supplement</a> (<a href="https://www.amazon.com/Bulletproof-NeuroMaster-Capsules-Brain-Derived-Neurotrophic/dp/B06XJPN6JH/ref=sr_1_1_a_it?ie=UTF8&amp;qid=1494367527&amp;sr=8-1&amp;keywords=neuromaster+bulletproof">non-affiliate link</a>) during my work-from-home days. It&#39;s helped me stay motivated and focused even as distractions and interruptions pile up.</em></p>

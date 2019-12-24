@@ -17,7 +17,7 @@
 <p>The <a href="https://www.npmjs.com/package/mongodb-topology-manager">mongodb-topology-manager</a> npm package is indispensible for testing MongoDB connection logic. This lib can stop and start MongoDB servers, replica sets, and sharded clusters from Node.js. The <a href="https://github.com/mongodb/node-mongodb-native/blob/a541a333149cc9428fa2d08d19cc7d9bee0e4ec3/package.json#L36">MongoDB driver Node.js uses it for testing internally</a>.</p>
 <p>First, let&#39;s see what happens when the MongoDB server that the driver is
 connected to shuts down. The <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#Db"><code>db</code> handle the driver gives you emits several events</a>, including &#39;close&#39; when it loses connection and &#39;reconnect&#39; when it reconnects. The driver attempts to reconnect by default, but this is a tuneable option. Note that these events only get fired for a single server or mongos, <strong>not</strong> when you&#39;re connected to a replica set (more on that later). Here&#39;s a script that uses the topology manager to stop/start a MongoDB instance so you can see these events actually fire:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { Server } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { Server } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
@@ -51,8 +51,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-comment">// Restarting the server will emit the 'reconnect' event</span>
   <span class="hljs-keyword">await</span> server.start();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The driver events are useful for logging and alerting. You should take action
 and alert someone when connection is lost.</p>
 <p>The driver has some subtleties about how it handles database operations while
@@ -60,7 +59,7 @@ the driver is not connected. For example, if you run a <code>findOne()</code> qu
 the above script after the script stops the server but before it restarts the
 server, you&#39;ll see that query doesn&#39;t execute until <strong>after</strong> the driver
 reconnects.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Stopping the server will emit a 'close' event</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Stopping the server will emit a 'close' event</span>
 <span class="hljs-keyword">await</span> server.stop();
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'stopped server'</span>);
 
@@ -78,11 +77,10 @@ db.collection(<span class="hljs-string">'Test'</span>).findOne({}, <span class="
 
 <span class="hljs-comment">// Restarting the server will emit the 'reconnect' event</span>
 <span class="hljs-keyword">await</span> server.start();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);</code></pre>
 <p>This buffering behavior can be confusing, but thankfully you can turn it off
 with the <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect"><code>bufferMaxEntries</code> option to <code>MongoClient.connect()</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Connect to the server</span>
 <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
   <span class="hljs-comment">// Turn off all buffering, error immediately if disconnected</span>
   bufferMaxEntries: <span class="hljs-number">0</span>
@@ -106,12 +104,11 @@ db.collection(<span class="hljs-string">'Test'</span>).findOne({}, <span class="
 
 <span class="hljs-comment">// Restarting the server will emit the 'reconnect' event</span>
 <span class="hljs-keyword">await</span> server.start();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);</code></pre>
 <p>Buffering will send operations to the server when the driver reconnects, or return an error if the driver gave up trying to reconnect. By default, the MongoDB driver
 stops trying to reconnect to a single server after 30 seconds. Specifically, the driver will
 retry <code>reconnectTries</code> times every <code>reconnectInterval</code> milliseconds (both options to <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect">the <code>MongoClient.connect()</code> function</a> ) and give up when it runs out of <code>reconnectTries</code>. To see this in action, let&#39;s reduce <code>reconnectTries</code> and <code>reconnectInterval</code> so the driver gives up trying to reconnect after 1 second. Any buffered queries will give back a &#39;failed to reconnect&#39; error, and the driver will emit a &#39;reconnectFailed&#39; event.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Connect to the server</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Connect to the server</span>
 <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27000/test'</span>, {
   reconnectTries: <span class="hljs-number">2</span>,
   reconnectInterval: <span class="hljs-number">500</span>
@@ -139,13 +136,12 @@ db.collection(<span class="hljs-string">'Test'</span>).findOne({}, <span class="
 
 <span class="hljs-comment">// Will **not** get 'reconnect' event, because the driver already gave up</span>
 <span class="hljs-keyword">await</span> server.start();
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarted server'</span>);</code></pre>
 <p>When you get the &#39;reconnectFailed&#39; event, you should crash your application or manually reconnect, because your db handle will never finish reconnecting. You should tune <code>reconnectTries</code> to something that makes sense for you. Some prefer to set it to <code>Number.MAX_VALUE</code> so the driver will continue trying to reconnect forever. Others prefer to make it relatively small and start crashing their application so their alerting can kick in. If you choose to make <code>reconnectTries</code> large enough that the driver will continue to try to reconnect forever, I would recommend you shut off buffering by setting <code>bufferMaxEntries: 0</code>, because otherwise you&#39;ll have database operations that can be queued up for arbitrarily long periods of time.</p>
 <h2 id="replica-set-outages">Replica Set Outages</h2>
 <p>The driver handles <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/ReplSet.html">replica set connections</a> very differently from how it handles single server connections. Even connecting to a one node replica set is different from connecting to a standalone server. One caveat is that when one server disconnects, you might still be able to read and write depending on your read preference, so when dealing with replica sets the important events are &#39;left&#39; and &#39;joined&#39;, reflecting when a server joins or leaves the replica set.</p>
 <p>The general idea of these events is that when you get a &#39;left&#39; event with <code>data === &#39;primary&#39;</code> that means the replica set has no primary, so writes will get buffered, or fail if you disabled buffering. Then, when you get a &#39;joined&#39; event with <code>data === &#39;primary&#39;</code> the replica set now has a primary and you can execute writes again. Here&#39;s an example of the events that get emitted when the primary gets shut down.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> { inspect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
@@ -195,16 +191,14 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-keyword">await</span> replSet.removeMember(primary);
 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Replica set connections are still subject to buffering by default, so the <code>findOne()</code> query above will hang until a the replica set elects a new primary (modulo <a href="https://docs.mongodb.com/manual/core/read-preference/">read preferences</a> ). You can set <code>bufferMaxEntries: 0</code> on a replica set connection as well to fail fast when there&#39;s no connection available.</p>
-<pre><code class="lang-javascript">mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/test?replicaSet=rs0'</span>, {
+<pre><code class="language-javascript">mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:31000,localhost:31001,localhost:31002/test?replicaSet=rs0'</span>, {
   <span class="hljs-comment">// With this option, above script will fail with "no connection available for operation"</span>
   bufferMaxEntries: <span class="hljs-number">0</span>
-});
-</code></pre>
+});</code></pre>
 <p>Being cognizant of buffering is especially important for replica set connections because by default the MongoDB driver will <strong>never</strong> stop trying to reconnect to a replica set. There is no equivalent to the single server &#39;reconnectFailed&#39; event for replica sets because the driver will continue trying to reconnect indefinitely. Even if you shut down the entire replica set and restart it later, the driver will keep trying to reconnect and keep buffering your requests.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> { inspect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
@@ -248,8 +242,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'restarting'</span>);
   <span class="hljs-keyword">await</span> replSet.restart();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>A final note: the MongoDB driver has an <a href="http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect"><code>autoReconnect</code> option</a> that is on by default. You can turn it off to make it so that the MongoDB driver never tries to reconnect. However, turning this option off is almost always wrong and should only be done if you&#39;re an advanced user with a very good reason to do so. If you&#39;re looking to make your MongoDB queries fail fast when connection is lost, <code>bufferMaxEntries: 0</code> is the right way to do it, <strong>not</strong> <code>autoReconnect: false</code>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>The MongoDB Node.js driver is very good about handling connection issues automatically. If you lose a node in your replica set or you restart your single server, the driver will usually recover on its own with no external help needed. You do need to be aware of the &#39;reconnectFailed&#39; event and the &#39;reconnectTries&#39; and &#39;reconnectInterval&#39; options when you&#39;re connected to a single server. In particular, the &#39;reconnectFailed&#39; event means the driver has given up trying to reconnect and you should surface this as a fatal error unless you have a good reason not to. You may also want to disable buffering (<code>bufferMaxEntries: 0</code>) if you want your database requests to fail fast rather than waiting for the driver to reconnect for use cases like <a href="https://mesosphere.github.io/marathon/docs/health-checks.html">HTTP-based health checks</a>.</p>

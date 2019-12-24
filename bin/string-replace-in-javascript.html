@@ -17,51 +17,46 @@
 <p><a href="https://www.sitepoint.com/immutability-javascript/">JavaScript strings are immutable</a>,
 so the <code>String#replace()</code> function returns the modified string. It does <strong>not</strong> modify
 the existing string.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> str1 = <span class="hljs-string">'foo bar'</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> str1 = <span class="hljs-string">'foo bar'</span>;
 <span class="hljs-keyword">const</span> str2 = str1.replace(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>);
 
 str1; <span class="hljs-comment">// 'foo bar'</span>
-str2; <span class="hljs-comment">// 'bar bar'</span>
-</code></pre>
+str2; <span class="hljs-comment">// 'bar bar'</span></code></pre>
 <p>Generally, the first argument to <code>replace()</code> is called the <em>pattern</em>, and the 2nd
 argument is called the <em>replacement</em>. In the above example, &#39;foo&#39; is the pattern
 and &#39;bar&#39; is the replacement.</p>
 <p>By default, <code>replace()</code> only replaces the first instance of the pattern. In
 the below example, JavaScript only replaces the first instance of &#39;foo&#39; with &#39;bar&#39;.</p>
-<pre><code class="lang-javascript"><span class="hljs-string">'foo foo'</span>.replace(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>); <span class="hljs-comment">// 'bar foo'</span>
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-string">'foo foo'</span>.replace(<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>); <span class="hljs-comment">// 'bar foo'</span></code></pre>
 <p>Unfortunately, in my experience it&#39;s rare you only want to replace the first instance
 of a substring. To make JavaScript replace <em>all</em> instances of a substring rather than
 just one, you need to use a regular expression.</p>
 <h2 id="regexps-and-the-global-flag">RegExps and the <code>global</code> Flag</h2>
 <p>To replace all instances of &#39;foo&#39; in a string, you need to use a
 <a href="http://2ality.com/2013/08/regexp-g.html">regular expression with the <code>/g</code> flag</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Note the 'g' after `/foo/`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Note the 'g' after `/foo/`</span>
 <span class="hljs-string">'foo foo'</span>.replace(<span class="hljs-regexp">/foo/g</span>, <span class="hljs-string">'bar'</span>); <span class="hljs-comment">// 'bar bar'</span>
 
 <span class="hljs-comment">// Without 'g', `replace()` will only replace the first 'foo'</span>
-<span class="hljs-string">'foo foo'</span>.replace(<span class="hljs-regexp">/foo/</span>, <span class="hljs-string">'bar'</span>); <span class="hljs-comment">// 'bar foo'</span>
-</code></pre>
+<span class="hljs-string">'foo foo'</span>.replace(<span class="hljs-regexp">/foo/</span>, <span class="hljs-string">'bar'</span>); <span class="hljs-comment">// 'bar foo'</span></code></pre>
 <p>Using the <code>/str/</code> syntax can be inconvenient if the string you want to replace
 has slashes or special characters. In that case, you can use
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">JavaScript&#39;s <code>RegExp</code> constructor</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Pass 'g' as the 2nd argument to set the global flag</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Pass 'g' as the 2nd argument to set the global flag</span>
 <span class="hljs-keyword">const</span> re = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'/home/user'</span>, <span class="hljs-string">'g'</span>);
 
 <span class="hljs-string">'/home/user/path/to/file.txt'</span>.replace(re, <span class="hljs-string">'~'</span>); <span class="hljs-comment">// '~/path/to/file.txt'</span>
 
-re.global; <span class="hljs-comment">// true</span>
-</code></pre>
+re.global; <span class="hljs-comment">// true</span></code></pre>
 <p>If you want to make sanitize user input to make it safe to use with RegExps and
 <code>.replace()</code>, you should use the <a href="https://www.npmjs.com/package/escape-string-regexp"><code>escape-string-regexp</code> package</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> escapeString = <span class="hljs-built_in">require</span>(<span class="hljs-string">'escape-string-regexp'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> escapeString = <span class="hljs-built_in">require</span>(<span class="hljs-string">'escape-string-regexp'</span>);
 
 <span class="hljs-comment">// Without escaping the string, `new RegExp('.*')` gives you a RegExp</span>
 <span class="hljs-comment">// that matches any string, rather than just instances of '.*'.</span>
 <span class="hljs-keyword">const</span> re = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(escapeString(<span class="hljs-string">'.*'</span>), <span class="hljs-string">'g'</span>);
 
-<span class="hljs-string">'.* .*'</span>.replace(re, <span class="hljs-string">'foo'</span>); <span class="hljs-comment">// foo foo</span>
-</code></pre>
+<span class="hljs-string">'.* .*'</span>.replace(re, <span class="hljs-string">'foo'</span>); <span class="hljs-comment">// foo foo</span></code></pre>
 <h2 id="replacement-patterns">Replacement Patterns</h2>
 <p>There are several <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter">special character sequences that you can use in the 2nd argument to <code>replace()</code></a>.
 For example, suppose you want to wrap all numbers in a string in parentheses.
@@ -69,25 +64,22 @@ JavaScript replaces <code>$&amp;</code> in the replacement string with the match
 so you can wrap all numbers in parentheses as shown below. Note that JavaScript
 does <strong>not</strong> treat the replacement string as a regular expression, so you don&#39;t
 need to escape the parentheses.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> str = <span class="hljs-string">'Like example 1, example 2 also shows this pattern'</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> str = <span class="hljs-string">'Like example 1, example 2 also shows this pattern'</span>;
 
 <span class="hljs-comment">// 'Like example (1), example (2) also shows this pattern'</span>
-str.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'($&amp;)'</span>);
-</code></pre>
+str.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'($&amp;)'</span>);</code></pre>
 <p>A slightly more tricky task is prefixing all numbers in a string with a dollar
 sign &#39;$&#39;. Using <code>$$&amp;</code> as your replacement will <strong>not</strong> give you the right result.
 You need to use <code>$$$&amp;</code> with 3 <code>$</code> characters.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Year over year revenue grew from $4M to $5M</span>
-<span class="hljs-string">'Year over year revenue grew from 4M to 5M'</span>.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'$$$&amp;'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// Year over year revenue grew from $4M to $5M</span>
+<span class="hljs-string">'Year over year revenue grew from 4M to 5M'</span>.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'$$$&amp;'</span>);</code></pre>
 <p>If you want to add a single <code>$</code> sign immediately before a replacement pattern,
 you need to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter">escape it by using <code>$$</code></a>.
 You <em>only</em> need to escape <code>$</code> if you&#39;re using it immediately before <code>$</code>, <code>&amp;</code>, <code>`</code>, <code>&#39;</code>. You also need to escape <code>$</code> if it immediately precedes a digit and you&#39;re using capture groups.
 For example, you do <strong>not</strong> need to escape <code>$</code>
 if the next character in the replacement is a space:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Year over year revenue grew from $ 4M to $ 5M</span>
-<span class="hljs-string">'Year over year revenue grew from 4M to 5M'</span>.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'$ $&amp;'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// Year over year revenue grew from $ 4M to $ 5M</span>
+<span class="hljs-string">'Year over year revenue grew from 4M to 5M'</span>.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-string">'$ $&amp;'</span>);</code></pre>
 <h2 id="passing-a-function-as-the-replacement">Passing a Function as the Replacement</h2>
 <p>You can get extra fancy and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter">pass a function as the replacement</a>. JavaScript will call your replacement function for every
 instance of the pattern, and replace with the return value of your replacement
@@ -101,7 +93,7 @@ The 3 arguments are:</p>
 <li><code>string</code>: The string you called <code>replace()</code> on.</li>
 </ul>
 <p>Here&#39;s an example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> values = [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>, <span class="hljs-string">'baz'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> values = [<span class="hljs-string">'foo'</span>, <span class="hljs-string">'bar'</span>, <span class="hljs-string">'baz'</span>];
 
 <span class="hljs-comment">// The below replaces '1 2 3' with 'foo bar baz'</span>
 <span class="hljs-string">'1 2 3'</span>.replace(<span class="hljs-regexp">/\d+/g</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, offset, string</span>) </span>{
@@ -111,8 +103,7 @@ The 3 arguments are:</p>
   string; <span class="hljs-comment">// Always '1 2 3'</span>
 
   <span class="hljs-keyword">return</span> values[<span class="hljs-built_in">Number</span>(name) - <span class="hljs-number">1</span>]; <span class="hljs-comment">// return 'foo', 'bar', 'baz'</span>
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Replacing substrings in JavaScript has some common pitfalls, most notably only
 replacing only the first instance of the substring by default. But JavaScript

@@ -23,28 +23,25 @@ tradeoffs are a <a href="https://stackoverflow.com/questions/9329446/for-each-ov
 <p>I&#39;ll provide an overview of the difference between these looping constructs using several different edge cases. I&#39;ll also link to the relevant <a href="http://eslint.org/">ESLint</a> rules that you can use to enforce looping best practices in your projects.</p>
 <h2 id="syntactic-overview">Syntactic Overview</h2>
 <p>The <code>for</code> and <code>for/in</code> looping constructs give you access to the index in the array, not the actual element. For example, suppose you want to print out the values stored in the below array:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];</code></pre>
 <p>With <code>for</code> and <code>for/in</code>, you need to print out <code>arr[i]</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
   <span class="hljs-built_in">console</span>.log(arr[i]);
 }
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> arr) {
   <span class="hljs-built_in">console</span>.log(arr[i]);
-}
-</code></pre>
+}</code></pre>
 <p>With the other two constructs, <code>forEach()</code> and <code>for/of</code>, you get access to the array element itself. With <code>forEach()</code> you can access the array index <code>i</code>, with <code>for/of</code> you cannot.</p>
-<pre><code class="lang-javascript">arr.forEach((v, i) =&gt; <span class="hljs-built_in">console</span>.log(v));
+<pre><code class="language-javascript">arr.forEach((v, i) =&gt; <span class="hljs-built_in">console</span>.log(v));
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> arr) {
   <span class="hljs-built_in">console</span>.log(v);
-}
-</code></pre>
+}</code></pre>
 <h2 id="non-numeric-properties">Non-Numeric Properties</h2>
 <p>JavaScript arrays are objects. That means you can add string properties to your array,
 not just numbers.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 
 <span class="hljs-keyword">typeof</span> arr; <span class="hljs-comment">// 'object'</span>
 
@@ -52,19 +49,17 @@ not just numbers.</p>
 arr.test = <span class="hljs-string">'bad'</span>;
 
 arr.test; <span class="hljs-comment">// 'abc'</span>
-arr[<span class="hljs-number">1</span>] === arr[<span class="hljs-string">'1'</span>]; <span class="hljs-comment">// true, JavaScript arrays are just special objects</span>
-</code></pre>
+arr[<span class="hljs-number">1</span>] === arr[<span class="hljs-string">'1'</span>]; <span class="hljs-comment">// true, JavaScript arrays are just special objects</span></code></pre>
 <p>3 of the 4 looping constructs ignore the non-numeric property. However, <code>for/in</code> will actually print out &quot;bad&quot;:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 arr.test = <span class="hljs-string">'bad'</span>;
 
 <span class="hljs-comment">// Prints "a, b, c, bad"</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i <span class="hljs-keyword">in</span> arr) {
   <span class="hljs-built_in">console</span>.log(arr[i]);
-}
-</code></pre>
+}</code></pre>
 <p>This is why <a href="https://stackoverflow.com/questions/500504/why-is-using-for-in-with-array-iteration-a-bad-idea">iterating through an array using <code>for/in</code> is generally bad practice</a>. The other looping constructs correctly ignore the num-numeric key:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
 arr.test = <span class="hljs-string">'abc'</span>;
 
 <span class="hljs-comment">// Prints "a, b, c"</span>
@@ -78,18 +73,16 @@ arr.forEach((el, i) =&gt; <span class="hljs-built_in">console</span>.log(i, el))
 <span class="hljs-comment">// Prints "a, b, c"</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> arr) {
   <span class="hljs-built_in">console</span>.log(el);
-}
-</code></pre>
+}</code></pre>
 <p><strong>Takeaway:</strong> Avoid using <code>for/in</code> over an array unless you&#39;re certain you mean to iterate over non-numeric keys and inherited keys. Use the <a href="https://eslint.org/docs/rules/guard-for-in"><code>guard-for-in</code> ESLint rule</a> to disallow <code>for/in</code>.</p>
 <h2 id="empty-elements">Empty Elements</h2>
 <p>JavaScript arrays allow <a href="https://stackoverflow.com/questions/281264/remove-empty-elements-from-an-array-in-javascript">empty elements</a>. The below array is syntactically valid and has length 3:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>,, <span class="hljs-string">'c'</span>];
 
-arr.length; <span class="hljs-comment">// 3</span>
-</code></pre>
+arr.length; <span class="hljs-comment">// 3</span></code></pre>
 <p>What makes things even more confusing is that looping constructs treat <code>[&#39;a&#39;,, &#39;c&#39;]</code>
 differently from <code>[&#39;a&#39;, undefined, &#39;c&#39;]</code>. Below is how the 4 looping constructs handle <code>[&#39;a&#39;,, &#39;c&#39;]</code> with an empty element. <code>for/in</code> and <code>for/each</code> skip the empty element, <code>for</code> and <code>for/of</code> do not.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Prints "a, undefined, c"</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Prints "a, undefined, c"</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
   <span class="hljs-built_in">console</span>.log(arr[i]);
 }
@@ -105,14 +98,12 @@ arr.forEach(v =&gt; <span class="hljs-built_in">console</span>.log(v));
 <span class="hljs-comment">// Prints "a, undefined, c"</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> v <span class="hljs-keyword">of</span> arr) {
   <span class="hljs-built_in">console</span>.log(v);
-}
-</code></pre>
+}</code></pre>
 <p>In case you&#39;re wondering, all 4 constructs print &quot;a, undefined, c&quot; for <code>[&#39;a&#39;, undefined, &#39;c&#39;]</code>.</p>
 <p>There&#39;s another way to add an empty element to an array:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Equivalent to `['a', 'b', 'c',, 'e']`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Equivalent to `['a', 'b', 'c',, 'e']`</span>
 <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
-arr[<span class="hljs-number">5</span>] = <span class="hljs-string">'e'</span>;
-</code></pre>
+arr[<span class="hljs-number">5</span>] = <span class="hljs-string">'e'</span>;</code></pre>
 <p><code>forEach()</code> and <code>for/in</code> skip empty elements in the array, <code>for</code> and <code>for/of</code> do not. The <code>forEach()</code> behavior may cause problems, however, holes in JavaScript arrays are generally rare because they are not supported in JSON:</p>
 <pre><code>$ node
 &gt; <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{"arr":["a","b","c"]}'</span>)
@@ -133,42 +124,38 @@ rules:
   no-restricted-syntax:
     - error
     - selector: CallExpression[callee.property.name=<span class="hljs-string">"forEach"</span>]
-      message: Do not use <span class="hljs-string">`forEach()`</span>, use <span class="hljs-string">`for/of`</span> instead
-</code></pre><h2 id="function-context">Function Context</h2>
+      message: Do not use <span class="hljs-string">`forEach()`</span>, use <span class="hljs-string">`for/of`</span> instead</code></pre><h2 id="function-context">Function Context</h2>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context">Function context</a> is a fancy way of saying what <code>this</code> refers to. <code>for</code>, <code>for/in</code>, and <code>for/of</code> retain the outside scope&#39;s value of <code>this</code>, but the <code>forEach()</code> callback will have a different <code>this</code> <em>unless</em> you use an <a href="https://medium.freecodecamp.org/learn-es6-the-dope-way-part-ii-arrow-functions-and-the-this-keyword-381ac7a32881">arrow function</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>];
 
 <span class="hljs-comment">// Prints "undefined"</span>
 arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
-});
-</code></pre>
+});</code></pre>
 <p><strong>Takeaway:</strong> Use arrow functions with <code>forEach()</code>. Use the <a href="https://eslint.org/docs/rules/prefer-arrow-callback"><code>no-arrow-callback</code> ESLint rule</a> to require arrow functions for all callbacks that don&#39;t use <code>this</code>.</p>
-<h2 id="async-await-and-generators">Async/Await and Generators</h2>
+<h2 id="asyncawait-and-generators">Async/Await and Generators</h2>
 <p>Another edge case with <code>forEach()</code> is that it <a href="https://thecodebarbarian.com/basic-functional-programming-with-async-await.html">doesn&#39;t quite work right with async/await</a> or <a href="http://es2015generators.com/">generators</a>. If your <code>forEach()</code> callback is synchronous then it doesn&#39;t matter, but you can&#39;t use <code>await</code> within a <code>forEach()</code> callback:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
   arr.forEach(el =&gt; {
     <span class="hljs-comment">// SyntaxError</span>
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
     <span class="hljs-built_in">console</span>.log(el);
   });
-}
-</code></pre>
+}</code></pre>
 <p>You can&#39;t use <code>yield</code> either:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
   arr.forEach(el =&gt; {
     <span class="hljs-comment">// SyntaxError</span>
     <span class="hljs-keyword">yield</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
     <span class="hljs-built_in">console</span>.log(el);
   });
-}
-</code></pre>
+}</code></pre>
 <p>The above examples work fine with <code>for/of</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncFn</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncFn</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> arr = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>];
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> el <span class="hljs-keyword">of</span> arr) {
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
@@ -182,10 +169,9 @@ arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</spa
     <span class="hljs-keyword">yield</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
     <span class="hljs-built_in">console</span>.log(el);
   }
-}
-</code></pre>
+}</code></pre>
 <p>Even if you mark your <code>forEach()</code> callback as <code>async</code>, you&#39;re in for <a href="https://thecodebarbarian.com/basic-functional-programming-with-async-await.html#motivation-and-foreach-">substantial headache</a> in trying to get async <code>forEach()</code> to work in series and pause your async function. For example, the below script will print 0-9 in <em>reverse order</em>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">print</span>(<span class="hljs-params">n</span>) </span>{
   <span class="hljs-comment">// Wait 1 second before printing 0, 0.9 seconds before printing 1, etc.</span>
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span> - n * <span class="hljs-number">100</span>));
   <span class="hljs-comment">// Will usually print 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 but order is not strictly</span>
@@ -197,8 +183,7 @@ arr.forEach(<span class="hljs-function"><span class="hljs-keyword">function</spa
   [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].forEach(print);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p><strong>Takeaway:</strong> If you&#39;re using <a href="http://asyncawait.net/">async/await</a> or <a href="http://es2015generators.com/">generators</a>, remember that <code>forEach()</code> is syntactic sugar. Like sugar, it should be used sparingly and shouldn&#39;t be used for everything.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p>Generally, <code>for/of</code> is the most robust way to iterate over an array in JavaScript.
@@ -210,10 +195,9 @@ should be used sparingly, but there are numerous cases where it makes code more
 concise.</p>
 <p>(1) To access the current array index in a <code>for/of</code> loop, you can use
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries">the <code>Array#entries()</code> function</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [i, v] <span class="hljs-keyword">of</span> arr.entries()) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [i, v] <span class="hljs-keyword">of</span> arr.entries()) {
   <span class="hljs-built_in">console</span>.log(i, v); <span class="hljs-comment">// Prints "0 a", "1 b", "2 c"</span>
-}
-</code></pre>
+}</code></pre>
 <p><em>Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>

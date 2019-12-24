@@ -63,8 +63,7 @@
   {
     $limit : <span class="hljs-number">5</span>
   }
-]);
-</code></pre><p>We can expand on this simple example to answer the question of which team won the most games between the 2000-2001 season and the 2009-2010 season, by changing the $match step to limit ourselves to games that took place between August 1, 2000 and August 1, 2010. Turns out, the San Antonio Spurs won 579 games in that time period, narrowly beating the Dallas Mavericks&#39; 568.</p>
+]);</code></pre><p>We can expand on this simple example to answer the question of which team won the most games between the 2000-2001 season and the 2009-2010 season, by changing the $match step to limit ourselves to games that took place between August 1, 2000 and August 1, 2010. Turns out, the San Antonio Spurs won 579 games in that time period, narrowly beating the Dallas Mavericks&#39; 568.</p>
 <pre><code>db.games.aggregate([
   {
     $match : {
@@ -94,8 +93,7 @@
   {
     $limit : <span class="hljs-number">5</span>
   }
-]);
-</code></pre><h2 id="correlating-stats-with-wins">Correlating Stats With Wins</h2>
+]);</code></pre><h2 id="correlating-stats-with-wins">Correlating Stats With Wins</h2>
 <p>Lets do something a bit more interesting using a couple of aggregation operators that you don&#39;t often see when analyzing the zip codes data set: the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/gte/"><code>$gte</code> operator</a> and the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/cond/"><code>$cond</code> operator</a> in the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/project/"><code>$project stage</code></a>. Lets use these to compute how often a team wins when they record more defensive rebounds than their opponent across the entire data set.</p>
 <p>The tricky bit here is getting a notion of the difference between the winning team&#39;s defensive rebounding total and the losing team&#39;s defensive rebounding total. The aggregation framework makes computing the difference a bit tricky, but using <code>$cond</code>, we can transform the document so that the defensive rebounding total is negative if the team lost. We can then use <code>$group</code> to compute the defensive rebounding difference for each game. Lets walk through this step by step:</p>
 <ol>
@@ -139,8 +137,7 @@
       count : { $sum : <span class="hljs-number">1</span> }
     }
   }
-]);
-</code></pre><p>The result turns out to be pretty interesting: the team which recorded more defensive rebounds won about 75% of the time. To put this in perspective, the team that recorded more field goals than the other team only wins 78.8% of the time! Try rewriting the above aggregation for other statistics, such as field goals, 3 pointers, turnovers, etc. You&#39;ll find some rather interesting results. Offensive rebounds turn out to be a very bad predictor of which team won, as the team which recorded more offensive rebounds only won 51% of the time. 3 pointers turn out to be a very good predictor of which team won: the team which recorded more 3 pointers won about 64% of the time.</p>
+]);</code></pre><p>The result turns out to be pretty interesting: the team which recorded more defensive rebounds won about 75% of the time. To put this in perspective, the team that recorded more field goals than the other team only wins 78.8% of the time! Try rewriting the above aggregation for other statistics, such as field goals, 3 pointers, turnovers, etc. You&#39;ll find some rather interesting results. Offensive rebounds turn out to be a very bad predictor of which team won, as the team which recorded more offensive rebounds only won 51% of the time. 3 pointers turn out to be a very good predictor of which team won: the team which recorded more 3 pointers won about 64% of the time.</p>
 <h2 id="defensive-rebounds-and-total-rebounds-versus-win-percentage">Defensive Rebounds and Total Rebounds Versus Win Percentage</h2>
 <p>Lets compute some data related to this that will be fun to graph. We&#39;re going to compute what percentage of the time a team wins as a function of the number of defensive rebounds they recorded. This aggregation is pretty simple, all we need to do is <code>$unwind</code> the box score, and use <code>$group</code> to compute the average value of the won flag across each different defensive rebounding total.</p>
 <pre><code>db.games.aggregate([
@@ -156,8 +153,7 @@
   {
     $sort : { _id : <span class="hljs-number">1</span> }
   }
-]);
-</code></pre><p>And when we graph out the results of this aggregation, we can create a nice graph which neatly shows a pretty solid correlation between defensive rebounds and win percentage. An interesting factoid: the team that recorded the fewest defensive rebounds in a win was the 1995-96 Toronto Raptors, who beat the Milwaukee Bucks 93-87 on 12/26/1995 despite recording only 14 defensive rebounds.</p>
+]);</code></pre><p>And when we graph out the results of this aggregation, we can create a nice graph which neatly shows a pretty solid correlation between defensive rebounds and win percentage. An interesting factoid: the team that recorded the fewest defensive rebounds in a win was the 1995-96 Toronto Raptors, who beat the Milwaukee Bucks 93-87 on 12/26/1995 despite recording only 14 defensive rebounds.</p>
 <p><a href="//lh3.googleusercontent.com/18mV0Ncz4UqJ0EUjDixCjYvwofYL1RrUi9gEqeh0TjU0GM9H6l6Ghqo6peu9idrh7-3uN5rY5CTcoDlXyg6gXnEgTkkg7kOsBoANvZZuBmH-8x1gu1U98eVhuA"><img src="//lh3.googleusercontent.com/18mV0Ncz4UqJ0EUjDixCjYvwofYL1RrUi9gEqeh0TjU0GM9H6l6Ghqo6peu9idrh7-3uN5rY5CTcoDlXyg6gXnEgTkkg7kOsBoANvZZuBmH-8x1gu1U98eVhuA" style="width: 100%"></a></p>
 <p>We can pretty easily modify the above aggregation to compute the same breakdown for total rebounds (TRB) versus defensive rebounds, and see if we get a different result.</p>
 <pre><code>db.games.aggregate([
@@ -173,8 +169,7 @@
   {
     $sort : { _id : <span class="hljs-number">1</span> }
   }
-]);
-</code></pre><p>And in fact we do! After about 53 total rebounds, the positive correlation between total rebounds and win percentage vanishes completely! The correlation is definitely not as strong here as it was for defensive rebounds. As an aside, the Cleveland Cavaliers beat the New York Knicks 101-97 on April 11, 1996, despite recording only 21 total rebounds. Inversely, the San Antonio Spurs lost to the Houston Rockets, 112-110, on January 4, 1992 despite recording 75 total rebounds.</p>
+]);</code></pre><p>And in fact we do! After about 53 total rebounds, the positive correlation between total rebounds and win percentage vanishes completely! The correlation is definitely not as strong here as it was for defensive rebounds. As an aside, the Cleveland Cavaliers beat the New York Knicks 101-97 on April 11, 1996, despite recording only 21 total rebounds. Inversely, the San Antonio Spurs lost to the Houston Rockets, 112-110, on January 4, 1992 despite recording 75 total rebounds.</p>
 <p><a href="//lh6.googleusercontent.com/7dFgSze9fqGqQ3mkSm8i-SPZHoMA7kmVsSRsOcpHtacS65Ez7WD6Hu73pqfG0vwozBdaShJ-PEXOvbBsC4CfEVQQXgcmoLyoUFiA2IVrA1utWPPPnwDpkSTUHg"><img src="//lh6.googleusercontent.com/7dFgSze9fqGqQ3mkSm8i-SPZHoMA7kmVsSRsOcpHtacS65Ez7WD6Hu73pqfG0vwozBdaShJ-PEXOvbBsC4CfEVQQXgcmoLyoUFiA2IVrA1utWPPPnwDpkSTUHg" style="width: 100%"></a></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>I hope this blog post has gotten you as excited about the aggregation framework as I am. Once again, you can download the data set <a href="http://bit.ly/1gAatZK">here</a>, and you&#39;re very much encouraged to play with it yourself. I look forward to seeing what unique NBA analyses y&#39;all will come up with.</p>

@@ -28,7 +28,7 @@ and run them in the browser using <a href="http://thecodebarbarian.com/2015/05/0
 <h2 id="testing-a-trivial-directive">Testing a Trivial Directive</h2>
 <p>Let&#39;s say you have one trivial directive that displays the number of times its
 been clicked using an inline template.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
 
 app.directive(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
@@ -42,8 +42,7 @@ app.directive(<span class="hljs-string">'counterDirective'</span>, <span class="
 
 app.controller(<span class="hljs-string">'MyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope</span>) </span>{
   $scope.counter = <span class="hljs-number">0</span>;
-});
-</code></pre>
+});</code></pre>
 <p>You can unit test <code>MyController</code>, but that&#39;s not particularly interesting. The
 logic in the HTML is more complex than the logic in JavaScript, which is why
 unit testing controllers in AngularJS often feels pedantic. Let&#39;s take this
@@ -52,7 +51,7 @@ config file. Note that you&#39;ll need to install the <code>karma-mocha</code>, 
 and <code>karma-chrome-launcher</code> npm packages for this config file to work properly.</p>
 <p><strong>Shameless Plug:</strong> If you&#39;re not familiar with karma, check out
 <a href="http://thecodebarbarian.com/2015/05/08/testing-client-side-javascript-with-karma">my guide to testing client-side JavaScript with karma</a></p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
   config.set({
     files: [
       <span class="hljs-string">'http://code.jquery.com/jquery-1.11.3.js'</span>,
@@ -63,15 +62,14 @@ and <code>karma-chrome-launcher</code> npm packages for this config file to work
     frameworks: [<span class="hljs-string">'mocha'</span>, <span class="hljs-string">'chai'</span>],
     browsers: [<span class="hljs-string">'Chrome'</span>]
   });
-};
-</code></pre>
+};</code></pre>
 <p>Why jQuery? Because AngularJS&#39; internal jqLite implementation is <em>very</em>
 light, so light it
 <a href="https://docs.angularjs.org/api/ng/function/angular.element#angular-s-jqlite">doesn&#39;t include functions like <code>.click()</code></a>.
 For tests like this, it helps to have the convenient jQuery <code>.click()</code> syntax.</p>
 <p>Now, let&#39;s take a look at <code>test.js</code>. As mentioned previously, this is just plain
 old mocha tests, no AngularJS-specific testing frameworks at all.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> injector;
   <span class="hljs-keyword">var</span> element;
   <span class="hljs-keyword">var</span> scope;
@@ -95,8 +93,7 @@ old mocha tests, no AngularJS-specific testing frameworks at all.</p>
     element.find(<span class="hljs-string">'div'</span>).click();
     assert.equal(element.text(), <span class="hljs-string">'You\'ve clicked this div 1 times'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>As you can see, the test is pleasantly simple. Bootstrapping AngularJS to
 compile the <code>counterDirective</code> HTML is straightforward, it&#39;s just not something
 that the AngularJS docs make clear. All you need to do is create a new
@@ -117,7 +114,7 @@ been successfully loaded, your test is going to need a little extra help in the
 form of a scope event.</p>
 <p><strong>Note</strong> this code is a little hacky, but I haven&#39;t found a better way. I&#39;m open
 to suggestions :)</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
 
 app.directive(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
@@ -133,8 +130,7 @@ app.controller(<span class="hljs-string">'MyController'</span>, <span class="hlj
   setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     $scope.$emit(<span class="hljs-string">'MyController'</span>);
   }, <span class="hljs-number">0</span>);
-});
-</code></pre>
+});</code></pre>
 <p><strong>Edit:</strong> In late 2015 I started using <a href="https://www.npmjs.com/package/gulp-html2js">gulp-html2js</a> to avoid the need for an event emitter. That module pre-populates your AngularJS template cache (see <a href="http://www.amazon.com/Professional-AngularJS-Valeri-Karpov/dp/1118832078">Professional AngularJS chapter 6</a>) so your tests don&#39;t have to make HTTP requests to get your templates.</p>
 <p>The new <code>counterDirective</code> now uses a template loaded over HTTP,
 <code>directive.html</code>. In order to make it possible for the tests to detect when
@@ -143,7 +139,7 @@ the directive template has been loaded, the <code>$emit()</code> call above runs
 should be rendered when it fires.</p>
 <p>Your test can then wait for the &#39;MyController&#39; event to start interacting
 with the directive, using mocha&#39;s nice async testing functionality.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> injector;
   <span class="hljs-keyword">var</span> element;
   <span class="hljs-keyword">var</span> scope;
@@ -166,11 +162,10 @@ with the directive, using mocha&#39;s nice async testing functionality.</p>
       done();
     });
   });
-});
-</code></pre>
+});</code></pre>
 <p>In order to get these tests to work, you also need to add a karma proxy to
 make sure karma knows where <code>/directive.html</code> is:</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
   config.set({
     files: [
       <span class="hljs-string">'http://code.jquery.com/jquery-1.11.3.js'</span>,
@@ -185,8 +180,7 @@ make sure karma knows where <code>/directive.html</code> is:</p>
       <span class="hljs-string">'/'</span>: <span class="hljs-string">'http://localhost:3000'</span>
     }
   });
-};
-</code></pre>
+};</code></pre>
 <h2 id="testing-http-interactions">Testing HTTP Interactions</h2>
 <p>Now you can test directives that use <code>templateUrl</code>, which covers a broad set of
 directives already. The last part is testing directives that make HTTP calls.
@@ -194,7 +188,7 @@ Often your HTTP calls will be abstracted out behind services that you can stub
 out. However, if you just want to abstract away the server, you can stub out
 <code>$http</code> using the <code>$httpBackend</code> service and the <code>ngMockE2E</code> module.</p>
 <p>Suppose you added a simple <code>$http</code> call to your directive&#39;s controller:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> app = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'ng'</span>]);
 
 app.directive(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
@@ -215,11 +209,10 @@ app.controller(<span class="hljs-string">'MyController'</span>, <span class="hlj
   setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     $scope.$emit(<span class="hljs-string">'MyController'</span>);
   }, <span class="hljs-number">0</span>);
-});
-</code></pre>
+});</code></pre>
 <p>You need to add the <code>angular-routes.js</code> file to Karma, so you can use the
 <code>ngMockE2E</code> module to stub out <code>$http</code> properly.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
   config.set({
     files: [
       <span class="hljs-string">'http://code.jquery.com/jquery-1.11.3.js'</span>,
@@ -235,10 +228,9 @@ app.controller(<span class="hljs-string">'MyController'</span>, <span class="hlj
       <span class="hljs-string">'/'</span>: <span class="hljs-string">'http://localhost:3000'</span>
     }
   });
-};
-</code></pre>
+};</code></pre>
 <p>And here&#39;s your new <code>test.js</code>:</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'counterDirective'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> injector;
   <span class="hljs-keyword">var</span> element;
   <span class="hljs-keyword">var</span> scope;
@@ -277,8 +269,7 @@ app.controller(<span class="hljs-string">'MyController'</span>, <span class="hlj
       done();
     });
   });
-});
-</code></pre>
+});</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>One of the key features of AngularJS is its powerful testing features. Because
 of its structure, you can test AngularJS code at just about any level of

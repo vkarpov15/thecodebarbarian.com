@@ -16,7 +16,7 @@
 there&#39;s no good way for the library to tell you when you&#39;re using the API
 incorrectly. This was my dilemma in upgrading a codebase from <a href="http://npmjs.com/package/mongodb">MongoDB Node driver</a> 2.1.x to 3.x. In particular,
 dropping support for the <a href="https://github.com/mongodb/node-mongodb-native/blob/master/HISTORY.md#breaking-changes-1"><code>fields</code> parameter</a> was brutal because this syntax was used everywhere in the code.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// In MongoDB Driver 2.x, `{ key: 1 }` would mean key2 was excluded from the</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// In MongoDB Driver 2.x, `{ key: 1 }` would mean key2 was excluded from the</span>
 <span class="hljs-comment">// results. Not in MongoDB Driver 3.x.</span>
 <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne({}, { key1: <span class="hljs-number">1</span> });
 <span class="hljs-built_in">console</span>.log(doc);
@@ -26,8 +26,7 @@ dropping support for the <a href="https://github.com/mongodb/node-mongodb-native
 <span class="hljs-comment">// But 2.x prints:</span>
 <span class="hljs-comment">// `[ { _id: 5b9ae07d9b6dcf3725f3d74d, key1: 'foo' } ]`</span>
 <span class="hljs-keyword">const</span> docs = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).find({}, { key1: <span class="hljs-number">1</span> }).toArray();
-<span class="hljs-built_in">console</span>.log(docs);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(docs);</code></pre>
 <p>I&#39;m sure there are a lot of ways to migrate this code, but since we already had
 a robust test suite and used <a href="https://www.npmjs.com/package/monogram">monogram</a>,
 I used <a href="https://github.com/boosterfuels/monogram#enforcing-internal-best-practices">Monogram&#39;s middleware</a> to throw an error every time <code>find()</code> and <code>findOne()</code> were used incorrectly.</p>
@@ -42,7 +41,7 @@ you call any collection function in Monogram, like <code>find()</code> or <code>
 </ul>
 <p>Monogram actions are a similar concept to <a href="https://redux.js.org/basics/actions">Redux actions</a>. Monogram then passes the action through a list of user-defined middleware functions. For example, below is a
 middleware function that prints out the function your code is calling and its parameters.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 <span class="hljs-keyword">const</span> { inspect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -68,8 +67,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Test'</span>).findOne({}, { key1: <span class="hljs-number">1</span> });
   <span class="hljs-built_in">console</span>.log(doc);
-}
-</code></pre>
+}</code></pre>
 <p>Now that you can define middleware that can see all function calls on a given
 collection, let&#39;s take a look at how to actually solve the original problem of
 catching code that&#39;s using the obsolete <code>find()</code> syntax.</p>
@@ -79,7 +77,7 @@ call is using an outdated API. The general idea is to check if the 2nd argument
 to <code>find()</code> and <code>findOne()</code> contains a property that isn&#39;t a <a href="http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOne">valid option for <code>findOne()</code></a>. In MongoDB Node driver 3.x, the 2nd parameter to <code>findOne()</code> is always
 treated as an <code>options</code> object. Below is the middleware I used to throw an error
 if the outdated API is used.</p>
-<pre><code class="lang-javascript">db.collection(<span class="hljs-string">'Test'</span>).pre(<span class="hljs-regexp">/^(find|findOne)$/</span>, action =&gt; {
+<pre><code class="language-javascript">db.collection(<span class="hljs-string">'Test'</span>).pre(<span class="hljs-regexp">/^(find|findOne)$/</span>, action =&gt; {
   <span class="hljs-keyword">const</span> opts = action.params[<span class="hljs-number">1</span>];
   <span class="hljs-keyword">const</span> allowedOptions = [<span class="hljs-string">'projection'</span>, <span class="hljs-string">'sort'</span>, <span class="hljs-string">'skip'</span>, <span class="hljs-string">'limit'</span>, <span class="hljs-string">'hint'</span>];
   <span class="hljs-keyword">if</span> (opts != <span class="hljs-literal">null</span> &amp;&amp;
@@ -88,8 +86,7 @@ if the outdated API is used.</p>
       <span class="hljs-string">'as 2nd arg to find(). Use `projection` instead. Got '</span> +
       <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>).inspect(opts));
   }
-});
-</code></pre>
+});</code></pre>
 <p>Monogram bubbles this error up with a neat stack trace. Even if this middleware
 was async, Monogram would still retain the original stack trace from the initial
 function call.</p>
@@ -100,8 +97,7 @@ function call.</p>
     at Generator.next (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">anonymous</span>&gt;</span>)</span>
     at onFulfilled (<span class="hljs-regexp">/home/</span>project/node_modules/co/index.js:<span class="hljs-number">65</span>:<span class="hljs-number">19</span>)
     at &lt;anonymous&gt;
-    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">188</span>:<span class="hljs-number">7</span>)
-</code></pre><h2 id="moving-on">Moving On</h2>
+    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">188</span>:<span class="hljs-number">7</span>)</code></pre><h2 id="moving-on">Moving On</h2>
 <p><a href="https://www.npmjs.com/package/monogram">Monogram</a> provides a neat lightweight
 middleware API on top of the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js Driver</a> for teams that find <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> too heavyweight. If you&#39;re
 using the MongoDB Node.js Driver directly and are stuck on 2.x, give Monogram

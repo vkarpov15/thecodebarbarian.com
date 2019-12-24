@@ -16,7 +16,7 @@
 <h2 id="mocha">Mocha</h2>
 <p>Mocha has enjoyed <a href="https://github.com/mochajs/mocha/blob/master/CHANGELOG.md#1180--2014-03-13">rudimentary support for tests that return promises since 2014</a>. Since <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js"><code>async</code> functions return promises</a>, mocha has had support for <code>async</code> test functions since 2014. For example, if you wrote
 tests to test a login API endpoint using superagent using vanilla promises, it would look something like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'success'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -31,10 +31,9 @@ describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"
         assert.ok(token._id);
       });
   });
-});
-</code></pre>
+});</code></pre>
 <p>This test works just fine in mocha, the test will succeed if the promise resolves and fail if the promise rejects. Before async/await, you could use <a href="https://www.npmjs.com/package/co-mocha">co-mocha</a> to seamlessly integrate with co:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 <span class="hljs-keyword">const</span> coMocha = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co-mocha'</span>);
 <span class="hljs-keyword">const</span> mocha = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>);
 
@@ -52,10 +51,9 @@ describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"
     assert.ok(token);
     assert.ok(token._id);
   });
-});
-</code></pre>
+});</code></pre>
 <p>With co-mocha, you don&#39;t need promise chaining, but you do need an outside library. With async/await though, since <code>async</code> functions return a promise, you don&#39;t need any outside libraries, the below test just works:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> agent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
 
 describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'success'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -69,12 +67,11 @@ describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"
     assert.ok(token);
     assert.ok(token._id);
   });
-});
-</code></pre>
+});</code></pre>
 <p>You can also use <code>async</code> functions with <a href="https://mochajs.org/#working-with-promises">mocha <code>before()</code>, <code>beforeEach()</code>, etc. hooks</a>. Using mocha with async/await is painless.</p>
 <h2 id="express">Express</h2>
 <p>Using async/await with the <a href="http://expressjs.com/">Express web framework</a> is more subtle than it looks. You might naively think that the below code is perfectly ok:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -88,16 +85,14 @@ describe(<span class="hljs-string">'login()'</span>, <span class="hljs-function"
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'App listening'</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>However, what happens if the route handler throws an exception?</p>
-<pre><code class="lang-javascript">app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
   res.send(<span class="hljs-string">'Hello, World!'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>Any incoming HTTP request will hang forever, because Express doesn&#39;t handle <a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js.html">promise rejections</a> for you. <a href="https://expressjs.com/en/guide/error-handling.html">Express error handlers</a> don&#39;t help either.</p>
-<pre><code class="lang-javascript">app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
   res.send(<span class="hljs-string">'Hello, World!'</span>);
 });
@@ -106,10 +101,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) </span>{
   <span class="hljs-built_in">console</span>.error(err.stack);
   res.status(<span class="hljs-number">500</span>).send(<span class="hljs-string">'Something broke!'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>Unfortunately, as far as I know, there&#39;s no way to make the above code work without patching <code>app.get()</code>. However, with a more promise-friendly design pattern and a helper function, you can pass async function errors to Express error handlers.</p>
-<pre><code class="lang-javascript">app.get(<span class="hljs-string">'*'</span>, wrap(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'*'</span>, wrap(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
 }));
 
@@ -125,13 +119,12 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<
     <span class="hljs-comment">// middleware in the chain, in this case the error handler.</span>
     fn(req).then(returnVal =&gt; res.send(returnVal)).catch(next);
   };
-}
-</code></pre>
+}</code></pre>
 <p>The key idea in the above code is that, since <code>async</code> functions return a promise,
 you need to <code>.catch()</code> any promise rejections and pass them along to <code>next()</code>. Remember that Express error handlers are only triggered by errors passed to <code>next()</code>, not exceptions that you <code>throw</code>.</p>
 <p>In general, when using Express with async/await, or its ES6 cousin <a href="http://es2015generators.com/">co/yield</a>, I find it much easier to separate out using <code>res</code> from the actual logic of the route handler. Like the <code>wrap()</code> function above, I prefer to put business logic in the <code>async</code> function and call <code>res.json()</code> or <code>res.send()</code> in the <code>.then()</code> function. This makes error handling cleaner, because then you know you won&#39;t double-call <code>res.send()</code> if some error in the route handler happened after you called <code>res.send()</code>.</p>
 <p>Similarly, using async/await for middleware is easy with a wrapper function. For example, suppose you wanted to log the method and URL from the HTTP request to MongoDB:</p>
-<pre><code class="lang-javascript">app.use(wrapMiddleware(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
+<pre><code class="language-javascript">app.use(wrapMiddleware(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'logs'</span>).insertOne({
     createdAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(),
     method: req.method,
@@ -145,11 +138,10 @@ you need to <code>.catch()</code> any promise rejections and pass them along to 
     <span class="hljs-comment">// with the error from the promise rejection</span>
     fn(req).then(() =&gt; next(), next);
   };
-}
-</code></pre>
+}</code></pre>
 <h2 id="mongoose">Mongoose</h2>
 <p>Queries in Mongoose 4.x have a <code>.then()</code> function, so you don&#39;t need any extra work to use mongoose with async/await:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// No need to `await` on this, mongoose 4 handles connection buffering</span>
@@ -166,10 +158,9 @@ you need to <code>.catch()</code> any promise rejections and pass them along to 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> MyModel.find());
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>Async/await makes interacting with <a href="http://thecodebarbarian.com/cursors-in-mongoose-45">mongoose cursors</a> much more elegant. While you still can <a href="http://thecodebarbarian.com/3-common-co-design-patterns">use cursors as a stream with async/await</a>, it&#39;s much more elegant to use the <code>next()</code> function. Fundamentally, a mongoose cursor is an object with a <code>next()</code> function that returns a promise which resolves to the next document in the query result, or <code>null</code> if there are no more documents.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
@@ -190,10 +181,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   }
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <p>Mongoose cursors also have a neat <code>eachAsync()</code> function that lets you do some rudimentary <a href="http://thecodebarbarian.com/basic-functional-programming-with-async-await.html">functional programming with async/await</a>. The <code>eachAsync()</code> function executes a (potentially <code>async</code>) function for each document that the cursor returns. If that function returns a promise, it will wait for that promise to resolve before getting the next document. This is the easiest way to exhaust a cursor in mongoose.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
@@ -218,8 +208,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   });
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Async/await is a powerful tool that integrates seamlessly with some, but not all, popular npm modules. As usual, <a href="https://en.wikipedia.org/wiki/Caveat_emptor">caveat npmtor</a>. I&#39;ve written <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">3</a> <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js">separate</a> <a href="http://thecodebarbarian.com/basic-functional-programming-with-async-await.html">articles</a> on related async/await topics that you should check out if you&#39;re still getting your feet wet.</p>
 <p><em>Want to learn how to identify whether your favorite npm modules work with

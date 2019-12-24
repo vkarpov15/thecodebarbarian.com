@@ -18,7 +18,7 @@ enable you to store documents with slightly different schemas in the same
 collection and query them back in a consistent way. In this article, you&#39;ll
 learn about how to use discriminators to store different types of events. You&#39;ll
 also see how to use the aggregation framework to run rudimentary analyses.</p>
-<h2 id="why-discriminators-">Why Discriminators?</h2>
+<h2 id="why-discriminators">Why Discriminators?</h2>
 <p>Suppose you&#39;re using mongoose to track 2 different types of events; a user
 clicking a link, and a user buying a product. Storing both types of event in
 the same collection would be handy so you could use the
@@ -33,7 +33,7 @@ should track the product id and the final purchase price.</p>
 schema using <a href="http://mongoosejs.com/docs/schematypes.html#mixed">mongoose&#39;s <code>Mixed</code> type</a>.
 The <code>Mixed</code> type is mongoose&#39;s wildcard type - mongoose doesn&#39;t run casting or
 validation on <code>Mixed</code> fields.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> eventSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> eventSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   <span class="hljs-comment">// The type of event</span>
   kind: {
     type: <span class="hljs-built_in">String</span>,
@@ -51,23 +51,21 @@ validation on <code>Mixed</code> fields.</p>
   data: {}
 });
 
-<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);</code></pre>
 <p>Unfortunately, using <code>Mixed</code> defeats the purpose of using mongoose in the
 first place. If you&#39;re not going to validate the data at all, you should
 consider just using the <a href="https://github.com/mongodb/node-mongodb-native">MongoDB driver</a>
 directly.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> Event({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> Event({
   kind: <span class="hljs-string">'ClickedLink'</span>,
   data: { badField: <span class="hljs-string">'abc'</span> }
 });
 
 <span class="hljs-comment">// No error, 'badField' is perfectly valid</span>
-assert.ifError(e.validateSync());
-</code></pre>
+assert.ifError(e.validateSync());</code></pre>
 <h2 id="the-discriminator-function">The <code>discriminator()</code> Function</h2>
 <p>Suppose you created a general event model that looked like what you see below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> options = { discriminatorKey: <span class="hljs-string">'kind'</span> };
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> options = { discriminatorKey: <span class="hljs-string">'kind'</span> };
 
 <span class="hljs-keyword">var</span> eventSchema = <span class="hljs-keyword">new</span> mongoose.Schema(
   {
@@ -78,13 +76,12 @@ assert.ifError(e.validateSync());
     }
   },
   options);
-<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);
-</code></pre>
+<span class="hljs-keyword">var</span> Event = mongoose.model(<span class="hljs-string">'Event'</span>, eventSchema);</code></pre>
 <p>The <code>discriminatorKey</code> option tells mongoose to add a path to the schema called
 &#39;kind&#39; and use it to track which type of document this is. For instance, suppose
 you declared two discriminators, <code>ClickedLinkEvent</code> and <code>PurchasedEvent</code>, as
 shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// ClickedLinkEvent</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// ClickedLinkEvent</span>
 <span class="hljs-keyword">var</span> clickedEventSchema = <span class="hljs-keyword">new</span> mongoose.Schema(
   {
     <span class="hljs-keyword">from</span>: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
@@ -101,13 +98,12 @@ shown below.</p>
   },
   options);
 <span class="hljs-keyword">var</span> PurchasedEvent = Event.discriminator(<span class="hljs-string">'Purchased'</span>,
-  purchasedSchema);
-</code></pre>
+  purchasedSchema);</code></pre>
 <p>The <code>ClickedLinkEvent</code> and <code>PurchasedEvent</code> discriminators work almost exactly
 like regular mongoose models. For instance, you can create a new
 <code>ClickedLinkEvent</code> and mongoose validation will ensure that the <code>to</code> field is
 specified.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> ClickedLinkEvent({
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> ClickedLinkEvent({
   <span class="hljs-keyword">from</span>: <span class="hljs-string">'http://www.google.com'</span>
 });
 
@@ -117,8 +113,7 @@ specified.</p>
 <span class="hljs-keyword">var</span> error = e.validateSync();
 assert.ok(error);
 <span class="hljs-comment">// Prints ['to'] because no 'to' link specified</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(error.errors));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.keys(error.errors));</code></pre>
 <p>Note that the schema for the <code>ClickedLinkEvent</code> discriminator is the <strong>union</strong>
 of <code>eventSchema</code> and <code>clickedEventSchema</code>. That is, the schema for
 <code>ClickedLinkEvent</code> has:</p>
@@ -131,7 +126,7 @@ of <code>eventSchema</code> and <code>clickedEventSchema</code>. That is, the sc
 particular, documents that are instances of <code>ClickedLinkEvent</code> and
 <code>PurchasedEvent</code> get stored in the &#39;events&#39; collection. Querying with the
 <code>Event</code> model can then find <strong>all</strong> documents that are of either type.</p>
-<pre><code class="lang-javascript">ClickedLinkEvent.create({ <span class="hljs-keyword">from</span>: <span class="hljs-string">'abc'</span>, to: <span class="hljs-string">'123'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+<pre><code class="language-javascript">ClickedLinkEvent.create({ <span class="hljs-keyword">from</span>: <span class="hljs-string">'abc'</span>, to: <span class="hljs-string">'123'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
   assert.ifError(err);
   <span class="hljs-keyword">var</span> product = { product: <span class="hljs-string">'00000000000000000000000c'</span> };
   PurchasedEvent.create(product, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
@@ -151,8 +146,7 @@ particular, documents that are instances of <code>ClickedLinkEvent</code> and
       example2();
     });
   });
-});
-</code></pre>
+});</code></pre>
 <p>For instance, if you were to look at the &#39;events&#39; collection in MongoDB
 after running the above code, you&#39;d see:</p>
 <pre><code>&gt; db.events.find().pretty()
@@ -170,35 +164,32 @@ after running the above code, you&#39;d see:</p>
     <span class="hljs-string">"kind"</span> : <span class="hljs-string">"Purchased"</span>,
     <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-07-22T18:20:27.378Z"</span>),
     <span class="hljs-string">"__v"</span> : <span class="hljs-number">0</span>
-}
-</code></pre><p>However, if you use the <code>ClickedLinkEvent</code> discriminator to query, you&#39;ll get
+}</code></pre><p>However, if you use the <code>ClickedLinkEvent</code> discriminator to query, you&#39;ll get
 back just the documents that have <code>kind === &#39;ClickedLink&#39;</code>.</p>
-<pre><code class="lang-javascript">ClickedLinkEvent.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, events</span>) </span>{
+<pre><code class="language-javascript">ClickedLinkEvent.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, events</span>) </span>{
   assert.ifError(error);
   assert.equal(events.length, <span class="hljs-number">1</span>);
   assert.equal(events[<span class="hljs-number">0</span>].kind, <span class="hljs-string">'ClickedLink'</span>);
 
   assert.equal(events[<span class="hljs-number">0</span>].from, <span class="hljs-string">'abc'</span>);
-});
-</code></pre>
+});</code></pre>
 <h2 id="using-the-aggregation-framework">Using the Aggregation Framework</h2>
 <p>In mongoose, aggregations are discriminator-aware, so you can do tasks like
 &#39;find the most commonly purchased products&#39; without even being aware of the
 discriminator&#39;s existence.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Get back top 5 most purchased products</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Get back top 5 most purchased products</span>
 PurchasedEvent.aggregate([
   { $group: { _id: <span class="hljs-string">'$product'</span>, count: { $inc: <span class="hljs-number">1</span> } } },
   { $sort: { count: <span class="hljs-number">-1</span> } },
   { $limit: <span class="hljs-number">5</span> }
-], callback);
-</code></pre>
+], callback);</code></pre>
 <p>However, you have the additional ability to switch back and forth between
 aggregating across all events versus aggregating across just <code>PurchasedEvent</code>
 documents without any joins. For instance, suppose you wanted to compare the
 number of users that purchased product <code>00000000000000000000000c</code> and the
 number of users that visited the page <code>/product/00000000000000000000000c</code>. You
 can achieve this with a single aggregation:</p>
-<pre><code class="lang-javascript">Event.aggregate([
+<pre><code class="language-javascript">Event.aggregate([
   {
     $match: {
       $or: [
@@ -213,8 +204,7 @@ can achieve this with a single aggregation:</p>
       count: { $sum: <span class="hljs-number">1</span> }
     }
   }
-]);
-</code></pre>
+]);</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>Discriminators are a powerful mongoose feature that enable you to store
 similar documents in the same collection with different schema constraints.

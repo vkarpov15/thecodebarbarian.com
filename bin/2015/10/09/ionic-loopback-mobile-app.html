@@ -36,13 +36,12 @@ their corresponding HTML with a couple script tags.</p>
 <a href="https://strongloop.com/strongblog/part-2-ionic-loopback-frameworks-directives-with-the-angularjs-loopback-sdk/">the second article in this series</a>
 use AngularJS&#39; <code>templateUrl</code> property to load their HTML from the server.
 For instance,</p>
-<pre><code class="lang-javascript">directive(<span class="hljs-string">'timer'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">directive(<span class="hljs-string">'timer'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
     templateUrl: <span class="hljs-string">'templates/timer.html'</span>
     <span class="hljs-comment">// ...</span>
   };
-});
-</code></pre>
+});</code></pre>
 <p>Loading templates from the server makes sense for desktop browser apps, but
 it&#39;s a terrible choice for mobile. Mobile app users often have unreliable
 internet access, so depending on an HTTP request to render your app is
@@ -55,8 +54,7 @@ For the purposes of this article series, you only need to know that AngularJS
 won&#39;t make an HTTP request for the template if you pre-populate the template
 cache. That is, if you set a value for <code>templates/timer.html</code> in the cache
 as shown below, AngularJS will use the cached value.</p>
-<pre><code class="lang-javascript">$templateCache.put(<span class="hljs-string">'templates/timer.html'</span>, <span class="hljs-string">'&lt;h1&gt;This is my template!&lt;/h1&gt;'</span>);
-</code></pre>
+<pre><code class="language-javascript">$templateCache.put(<span class="hljs-string">'templates/timer.html'</span>, <span class="hljs-string">'&lt;h1&gt;This is my template!&lt;/h1&gt;'</span>);</code></pre>
 <p>However, you wrote your directive templates in HTML. How are you going to
 translate them into JavaScript? As is usually the case with JavaScript,
 there&#39;s an npm module for that:
@@ -64,13 +62,12 @@ there&#39;s an npm module for that:
 takes a bunch of HTML files and generates a JavaScript file that calls
 <code>$templateCache.put()</code> for each of the HTML files. To use this
 module, first you need to add gulp and a couple plugins to your <code>package.json</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"devDependencies"</span>: {
+<pre><code class="language-javascript"><span class="hljs-string">"devDependencies"</span>: {
   <span class="hljs-string">"jshint"</span>: <span class="hljs-string">"^2.5.6"</span>,
   <span class="hljs-string">"gulp"</span>: <span class="hljs-string">"3.8.11"</span>,
   <span class="hljs-string">"gulp-concat"</span>: <span class="hljs-string">"2.6.0"</span>,
   <span class="hljs-string">"gulp-html2js"</span>: <span class="hljs-string">"0.2.0"</span>
-}
-</code></pre>
+}</code></pre>
 <p>Next, you&#39;re going to write a <code>gulpfile</code> that defines a &#39;compile&#39; task. This
 task is going to write 2 files, <code>dist/all.js</code> and <code>dist/templates.js</code>. The
 <code>dist/all.js</code> file contains all your JavaScript files concatenated into one.
@@ -80,7 +77,7 @@ a dependency on the &#39;core&#39; and &#39;templates&#39; modules is sufficient
 directives you wrote in the second article in this series. Below is the
 code for the &#39;html2js&#39; task. You can find the
 <a href="https://github.com/vkarpov15/stopwatch-server-example/commit/b7d742127308b8d550a1a58279466af40a6a4523#diff-0">full gulpfile on GitHub</a></p>
-<pre><code class="lang-javascript">gulp.task(<span class="hljs-string">'html2js'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">gulp.task(<span class="hljs-string">'html2js'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   gulp.src(<span class="hljs-string">'./client/templates/*'</span>).
     pipe(html2js({
       <span class="hljs-comment">// Note this replace option. By default, gulp-html2js</span>
@@ -93,8 +90,7 @@ code for the &#39;html2js&#39; task. You can find the
     })).
     pipe(concat(<span class="hljs-string">'templates.js'</span>)).
     pipe(gulp.dest(<span class="hljs-string">'./client/dist'</span>));
-});
-</code></pre>
+});</code></pre>
 <h2 id="introducing-ionic">Introducing Ionic</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/092f5e8ee398e8b1674c7d49ebae1362f1397284">See a diff for this step on GitHub</a></em></p>
 <p><a href="http://ionicframework.com/getting-started/">Getting started with Ionic</a> is
@@ -109,13 +105,15 @@ starter app.</p>
 Ionic&#39;s powerful CLI and launch a browser that has a side-by-side view
 of how your app will look on iOS and on Android. The CLI should look like
 the below picture.</p>
-<p><a href="http://i.imgur.com/Yy71OPV.png">
+<a href="http://i.imgur.com/Yy71OPV.png">
 <img src="http://i.imgur.com/Yy71OPV.png" style="width: 300px">
-</a></p>
+</a>
+
 <p>The browser should look like the below picture.</p>
-<p><a href="http://i.imgur.com/aC4EJw8.png">
+<a href="http://i.imgur.com/aC4EJw8.png">
 <img src="http://i.imgur.com/aC4EJw8.png" style="width: 300px">
-</a></p>
+</a>
+
 <h2 id="including-your-directives-in-ionic">Including Your Directives in Ionic</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/9bfec6bc4bb5237ca9d5c4704041c641706c64b2">See a diff for this step on GitHub</a></em></p>
 <p>In this step, you&#39;ll take the Ionic tabs starter app and make it display
@@ -125,45 +123,42 @@ minus the ability to make HTTP requests to the server.</p>
 to use the <a href="http://bower.io">bower package manager</a>. Ionic already uses
 Bower, so you don&#39;t need to install anything extra. Just add a bower
 dependency on your GitHub repo:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"dependencies"</span>: {
+<pre><code class="language-javascript"><span class="hljs-string">"dependencies"</span>: {
   <span class="hljs-string">"angular-resource"</span>: <span class="hljs-string">"1.4.3"</span>,
   <span class="hljs-string">"moment"</span>: <span class="hljs-string">"2.10.6"</span>,
   <span class="hljs-string">"directives"</span>: <span class="hljs-string">"https://raw.githubusercontent.com/vkarpov15/stopwatch-server-example/master/client/dist/all.js"</span>,
   <span class="hljs-string">"templates"</span>: <span class="hljs-string">"https://raw.githubusercontent.com/vkarpov15/stopwatch-server-example/master/client/dist/templates.js"</span>
-}
-</code></pre>
+}</code></pre>
 <p>Once you run <code>bower install</code>, bower will install ngResource and momentJS
 alongside your directives and templates. You can set the install path in
 your <code>.bowerrc</code> file, so bower installs into a directory your Ionic app
 can access.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"directory"</span>: <span class="hljs-string">"./www/js"</span>
-}
-</code></pre>
+}</code></pre>
 <p>The <code>www</code> directory is the root directory for your Ionic app. You might
 have noticed that it has an <code>index.html</code> file - this is the root HTML file
 for your Ionic app. Now that you&#39;ve installed your dependencies, add the
 below <code>script</code> tags to <code>index.html</code> to include ngResource, moment, and
 your stopwatch directives.</p>
-<pre><code class="lang-html">&lt;script src=<span class="hljs-string">"js/angular-resource/angular-resource.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="language-html">&lt;script src=<span class="hljs-string">"js/angular-resource/angular-resource.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"js/moment/moment.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"js/directives/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"js/templates/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"js/templates/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
 <p>Your Ionic app also has a main AngularJS module, defined in <code>www/js/app.js</code>.
 Add the &#39;core&#39; (from <code>directives/index.js</code>) and &#39;templates&#39;
 (from <code>templates/index.js</code>) modules to the <code>starter</code> module&#39;s list of
 dependencies.</p>
-<pre><code class="lang-javascript">angular.module(<span class="hljs-string">'starter'</span>,
-  [<span class="hljs-string">'ionic'</span>, <span class="hljs-string">'starter.controllers'</span>, <span class="hljs-string">'starter.services'</span>, <span class="hljs-string">'core'</span>, <span class="hljs-string">'templates'</span>])
-</code></pre>
+<pre><code class="language-javascript">angular.module(<span class="hljs-string">'starter'</span>,
+  [<span class="hljs-string">'ionic'</span>, <span class="hljs-string">'starter.controllers'</span>, <span class="hljs-string">'starter.services'</span>, <span class="hljs-string">'core'</span>, <span class="hljs-string">'templates'</span>])</code></pre>
 <p>Now that you&#39;ve properly included your AngularJS modules, you should be able
 to
 <a href="https://github.com/vkarpov15/stopwatch-example/commit/9bfec6bc4bb5237ca9d5c4704041c641706c64b2#diff-5">include the <code>timer</code> directive in your app&#39;s dashboard tab as shown in this GitHub diff</a>. You should then see your timer directive
 in your <code>ionic serve --lab</code> window as shown below.</p>
-<p><a href="http://i.imgur.com/7fsSrDj.png">
+<a href="http://i.imgur.com/7fsSrDj.png">
 <img src="http://i.imgur.com/7fsSrDj.png" style="width: 250px">
-</a></p>
+</a>
+
 <h2 id="tying-it-all-together">Tying It All Together</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/221f280761d3f61a5dc1d15e92731c5507632d29">See a diff for this step on GitHub</a></em></p>
 <p>You may have noticed that your timer directive from the previous example
@@ -180,7 +175,7 @@ Interceptors enable you to transform <strong>every</strong> HTTP request your ap
 makes. In particular, the below request interceptor converts every request
 to <code>/api/Times</code> into a cross-origin request to
 <code>http://localhost:3000/api/Times</code>.</p>
-<pre><code class="lang-javascript">.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
+<pre><code class="language-javascript">.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
   $httpProvider.interceptors.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> {
       request: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req</span>) </span>{
@@ -196,8 +191,7 @@ to <code>/api/Times</code> into a cross-origin request to
       }
     };
   });
-})
-</code></pre>
+})</code></pre>
 <p>The above interceptor also does one more important task. Notice the
 <a href="https://docs.angularjs.org/api/ng/service/$http#usage"><code>withCredentials</code> property</a>?
 That tells AngularJS to send cookies on cross-origin requests. Because
@@ -226,7 +220,7 @@ window&#39;s URL changes. You can take a look at the
 your <code>timer</code> and <code>timeList</code> directives should work as written. You can
 start your timer, save it, and then see your timer results in the &#39;account&#39;
 tab.</p>
-<p><a href="http://i.imgur.com/dywAvH8.png">
+<a href="http://i.imgur.com/dywAvH8.png">
 <img src="http://i.imgur.com/dywAvH8.png" style="width: 250px">
 </a>
 <a href="http://i.imgur.com/1Co19cW.png">
@@ -234,7 +228,8 @@ tab.</p>
 </a>
 <a href="http://i.imgur.com/iind2bS.png">
 <img src="http://i.imgur.com/iind2bS.png" style="width: 250px">
-</a></p>
+</a>
+
 <h2 id="moving-on">Moving On</h2>
 <p>Congratulations! You just took your AngularJS directives and packaged them
 into an Ionic framework app by adding a build step and making a couple

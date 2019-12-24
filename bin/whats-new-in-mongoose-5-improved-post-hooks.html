@@ -17,7 +17,7 @@
 <p>The mongoose 4.x docs mention that <a href="http://mongoosejs.com/docs/4.x/docs/middleware.html#post">&quot;post middleware does not receive flow control&quot;</a>. This
 is a fancy way of saying that <a href="https://github.com/Automattic/mongoose/blob/4.x/lib/schema.js#L1184-L1188"><code>post(&#39;save&#39;, doc =&gt; {})</code> is equivalent to <code>on(&#39;save&#39;, doc =&gt; {})</code></a> in mongoose 4. This distinction only applies to document middleware: <code>save()</code>, <code>validate()</code>, and <code>remove()</code>, <strong>not</strong> <code>find()</code>.</p>
 <p>In practice, this lead to the annoying gotcha that <code>post(&#39;save&#39;)</code> hooks that take one argument always run before <code>post(&#39;save&#39;)</code> hooks that take 2 arguments, regardless of the order they&#39;re declared. The below script will print &quot;post save 2&quot; <strong>before</strong> &quot;post save 1&quot; in mongoose 4.x, despite the fact that the synchronous post hook is attached after the asynchronous post hook.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> Schema = mongoose.Schema;
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -40,10 +40,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Person({ name: <span class="hljs-string">'Taco'</span> });
   <span class="hljs-keyword">await</span> p.save();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'save promise resolved!'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>What makes this behavior especially confusing is that query middleware handles this case correctly, because it used a different middleware library in 4.x. The below script will print &quot;post find 1&quot; <strong>before</strong> &quot;post find 2&quot;, even in mongoose 4.x.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> Schema = mongoose.Schema;
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -65,11 +64,10 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-keyword">await</span> Person.findOne();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'find promise resolved!'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>This is because in 2013 mongoose only supported synchronous post hooks, and was considering removing post hooks entirely in favor of just supporting <code>.on(&#39;save&#39;)</code>. Thankfully, that idea never came to fruition, and asynchronous post hooks became a core part of mongoose middleware.</p>
 <p>In mongoose 5, we&#39;ve scrapped the notion of <code>post(&#39;save&#39;)</code> being a shortcut for <code>on(&#39;save&#39;)</code> entirely, so post hooks will always run in the order they&#39;re attached to the schema. As an additional benefit, asynchronous post hooks now <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">work with <code>async/await</code></a> as well.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> Schema = mongoose.Schema;
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -92,10 +90,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Person({ name: <span class="hljs-string">'Taco'</span> });
   <span class="hljs-keyword">await</span> p.save();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'save promise resolved!'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>If you rely on the mongoose 4.x order for post hooks, you should replace your synchronous post hooks with <code>on(&#39;save&#39;)</code> in mongoose 5.x:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
 schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">100</span>));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'post save 1'</span>);
@@ -103,11 +100,10 @@ schema.post(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">
 
 schema.on(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">doc</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'on save'</span>);
-});
-</code></pre>
+});</code></pre>
 <h2 id="query-middleware-is-applied-when-model-is-compiled">Query Middleware is Applied When Model is Compiled</h2>
 <p>For performance reasons, mongoose applies middleware once when you call <code>mongoose.model()</code> or <code>collection.model()</code>. In other words, any hooks you add to your schema <strong>after</strong> calling <code>mongoose.model()</code> will not be called. In mongoose 4.x before 4.8.0, we lazily applied hooks to documents, so you the below code would work:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
 
 <span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
 
@@ -117,10 +113,9 @@ schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function">
 
 <span class="hljs-comment">// In mongoose 4 before 4.8.0, would print 'pre save'.</span>
 <span class="hljs-comment">// In &gt;= 4.8.0, would not print.</span>
-M.save();
-</code></pre>
+M.save();</code></pre>
 <p>This change made mongoose 4.8.0 orders of magnitude faster than its predecessors when creating documents with large document arrays. For mongoose 5.x, we made a similar change for query middleware. While the performance impact isn&#39;t as monumental because query middleware is not applied to child documents, we&#39;ve still seen a 10-20% speed-up on creating queries in mongoose 5. Here&#39;s a rudimentary benchmark to demonstrate the performance improvement.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> Benchmark = <span class="hljs-built_in">require</span>(<span class="hljs-string">'benchmark'</span>);
 <span class="hljs-keyword">const</span> mongoose4 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
@@ -146,14 +141,12 @@ suite.
   on(<span class="hljs-string">'complete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Fastest is '</span> + <span class="hljs-keyword">this</span>.filter(<span class="hljs-string">'fastest'</span>).map(<span class="hljs-string">'name'</span>));
   }).
-  run();
-</code></pre>
+  run();</code></pre>
 <pre><code>$ node queryperf.js
 mongoose4 x <span class="hljs-number">1</span>,<span class="hljs-number">398</span>,<span class="hljs-number">712</span> ops/sec +<span class="hljs-number">-0.95</span>% (<span class="hljs-number">91</span> runs sampled)
 mongoose5 x <span class="hljs-number">1</span>,<span class="hljs-number">648</span>,<span class="hljs-number">981</span> ops/sec +<span class="hljs-number">-0.78</span>% (<span class="hljs-number">90</span> runs sampled)
 Fastest is mongoose5
-$
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Barring any major bugs, we plan on formally releasing mongoose 5.0.0 next week. These middleware changes are just 2 of 34 <a href="https://github.com/Automattic/mongoose/blob/master/History.md">improvements we&#39;ve made for the 5.0.0 release</a>. You can find more details on the <a href="https://github.com/Automattic/mongoose/blob/master/migrating_to_5.md">backwards breaking changes in mongoose 5 on GitHub</a>. Download mongoose 5 with <code>npm install mongoose@5.0.0-rc2</code> and let us know what you think on <a href="https://github.com/Automattic/mongoose/issues">GitHub</a>!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

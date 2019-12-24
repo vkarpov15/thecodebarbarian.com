@@ -13,10 +13,11 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally"><code>Promise.prototype.finally()</code></a> recently reached <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">stage 4</a> of the TC39 proposal process. This means the <code>Promise.prototype.finally()</code> proposal was accepted and is now part of the <a href="https://tc39.github.io/ecma262/#sec-promise.prototype.finally">latest draft of the ECMAScript spec</a>, and it is only a matter of time before it lands in Node.js. This article will show you how to use <code>Promise.prototype.finally()</code> and how to write your own simplified polyfill.</p>
-<p><img src="https://i.imgur.com/Xxlnt5M.png"></p>
-<h2 id="what-is-promise-prototype-finally-">What is <code>Promise.prototype.finally()</code>?</h2>
+<img src="https://i.imgur.com/Xxlnt5M.png">
+
+<h2 id="what-is-promiseprototypefinally">What is <code>Promise.prototype.finally()</code>?</h2>
 <p>Suppose you&#39;ve created a new promise:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseThatFulfills = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve) =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseThatFulfills = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve) =&gt; {
   <span class="hljs-comment">// Calling `resolve()` is how you fulfill a promise. "Fulfilled" and "resolved" are different</span>
   <span class="hljs-comment">// concepts: if you call `resolve()` with a value that is not a promise, the promise will</span>
   <span class="hljs-comment">// become fulfilled. However, if you call `resolve()` with a promise, the outer promise will</span>
@@ -26,12 +27,10 @@
 
 <span class="hljs-keyword">const</span> promiseThatRejects = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
   setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'whoops!'</span>)), <span class="hljs-number">1000</span>);
-});
-</code></pre>
+});</code></pre>
 <p>You can chain promises together using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"><code>.then()</code> function</a>.</p>
-<pre><code class="lang-javascript">promiseThatFulfills.then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
-promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
-</code></pre>
+<pre><code class="language-javascript">promiseThatFulfills.then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));</code></pre>
 <p>Note that <code>.then()</code> takes two function parameters. The first is <code>onFulfilled()</code>, which gets called if the promise is fulfilled. The second is <code>onRejected()</code>, which gets called if the promise rejects. A promise is a state machine that can be in one of 3 states:</p>
 <ul>
 <li>Pending: the underlying operation is in progress and the promise has neither fulfilled nor rejected yet</li>
@@ -39,17 +38,16 @@ promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span c
 <li>Rejected: the underlying operation failed for some reason and the promise now has an associated error</li>
 </ul>
 <p>Furthermore, a promise that is fulfilled or rejected is called &quot;settled.&quot;</p>
-<p><img src="https://i.imgur.com/iB1wjrw.png"></p>
+<img src="https://i.imgur.com/iB1wjrw.png">
+
 <p>While <code>.then()</code> is the core mechanism for promise chaining, it isn&#39;t the only one. Promises also have a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>.catch()</code> function</a> that is handy for error handling.</p>
-<pre><code class="lang-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
-</code></pre>
+<pre><code class="language-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));</code></pre>
 <p>The <code>.catch()</code> function is just a convenient shorthand for <code>.then()</code> with an <code>onRejected</code> handler and no <code>onFulfilled</code> handler:</p>
-<pre><code class="lang-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
+<pre><code class="language-javascript">promiseThatRejects.catch(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
 <span class="hljs-comment">// Equivalent</span>
-promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));
-</code></pre>
+promiseThatRejects.then(<span class="hljs-literal">null</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Will print after about 1 second'</span>));</code></pre>
 <p>Like <code>.catch()</code>, the <code>.finally()</code> function is a convenient shorthand for <code>.then()</code>. The difference is that <code>.finally()</code> executes a function <code>onFinally</code> when the promise is settled, that is, when it is either fulfilled or rejected. The <code>.finally()</code> function is not part of any Node.js release at the time of this writing, but the <a href="https://www.npmjs.com/package/promise.prototype.finally"><code>promise.prototype.finally</code> module on npm</a> has a polyfill.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -63,11 +61,10 @@ promiseFinally.shim();
 });
 
 promiseThatFulfills.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'fulfilled'</span>));
-promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));
-</code></pre>
+promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));</code></pre>
 <p>The above script will print both &#39;fulfilled&#39; and &#39;rejected&#39;, because the <code>onFinally</code> handler gets called when the promise is settled, regardless of whether it is fulfilled or rejected. However, the <code>onFinally</code> handler does <strong>not</strong> receive any parameters, so you can&#39;t tell whether the promise was fulfilled or rejected.</p>
 <p>The <code>finally()</code> function returns a promise, so you can chain more <code>.then()</code>, <code>.catch()</code>, and <code>.finally()</code> calls onto the return value. The promise that <code>finally()</code> returns will fulfill to whatever the promise it was chained onto would fulfill to. For example, the below script will still print &#39;foo&#39;, even though the <code>onFinally</code> handler returns &#39;bar&#39;.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -76,10 +73,9 @@ promiseFinally.shim();
   <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
   <span class="hljs-comment">// Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough</span>
   <span class="hljs-comment">// for fulfilled values and rejected errors</span>
-  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
-</code></pre>
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
 <p>Similarly, the below script will still print &#39;foo&#39;, even though the <code>onFinally</code> function didn&#39;t trigger any errors.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -88,12 +84,11 @@ promiseFinally.shim();
   <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
   <span class="hljs-comment">// Will print 'foo', **not** 'bar', because `finally()` acts as a passthrough</span>
   <span class="hljs-comment">// for fulfilled values and rejected errors</span>
-  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
-</code></pre>
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));</code></pre>
 <p>The above script demonstrates an important detail of working with <code>finally()</code>: <code>finally()</code> does <strong>not</strong> handle promise rejections for you. How <code>finally()</code> handles promise rejections merits more careful study.</p>
 <h2 id="error-handling">Error Handling</h2>
 <p>The <code>finally()</code> function is <strong>not</strong> meant to handle promise rejections. As a matter of fact, it <a href="https://github.com/tc39/proposal-promise-finally/blob/fd934c0b42d59bf8d9446e737ba14d50a9067216/polyfill.js#L40">explicitly rethrows errors</a> after your <code>onFinally()</code> function executes. The below script will print an unhandled promise rejection warning.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -102,15 +97,13 @@ promiseFinally.shim();
   setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'whoops!'</span>)), <span class="hljs-number">1000</span>);
 });
 
-promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));
-</code></pre>
+promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));</code></pre>
 <pre><code>$ node <span class="hljs-keyword">finally</span>.js
 rejected
 (node:<span class="hljs-number">5342</span>) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: <span class="hljs-number">2</span>): <span class="hljs-built_in">Error</span>: whoops!
 (node:<span class="hljs-number">5342</span>) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.
-$
-</code></pre><p>Like with <a href="https://www.w3schools.com/jsref/jsref_try_catch.asp"><code>try/catch/finally</code></a>, you typically want to chain <code>.finally()</code> after a <code>.catch()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+$</code></pre><p>Like with <a href="https://www.w3schools.com/jsref/jsref_try_catch.asp"><code>try/catch/finally</code></a>, you typically want to chain <code>.finally()</code> after a <code>.catch()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -121,10 +114,9 @@ promiseFinally.shim();
 
 promiseThatRejects.
   <span class="hljs-keyword">catch</span>(() =&gt; { <span class="hljs-comment">/* ignore the error */</span> }).
-  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>));
-</code></pre>
+  <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>));</code></pre>
 <p>However, the <code>finally()</code> function returns a promise, so there&#39;s nothing stopping you from chaining <code>.catch()</code> after <code>.finally()</code>. In particular, if your <code>onFinally</code> handler can error out, for example if it makes an HTTP request, you should add a <code>.catch()</code> at the end to handle any errors that may occur.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 
 <span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 promiseFinally.shim();
@@ -136,12 +128,11 @@ promiseFinally.shim();
 promiseThatRejects.
   <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>)).
   <span class="hljs-comment">// No unhandled promise rejection because there's a `.catch()`</span>
-  <span class="hljs-keyword">catch</span>(() =&gt; { <span class="hljs-comment">/* ignore the error */</span> });
-</code></pre>
+  <span class="hljs-keyword">catch</span>(() =&gt; { <span class="hljs-comment">/* ignore the error */</span> });</code></pre>
 <h2 id="simplified-polyfill">Simplified Polyfill</h2>
 <p>I think that the easiest way to really grok something is to <a href="http://es2015generators.com/">write your own implementation</a>. The <code>.finally()</code> function is a good candidate for this because the <a href="https://github.com/tc39/proposal-promise-finally/blob/fd934c0b42d59bf8d9446e737ba14d50a9067216/polyfill.js">official polyfill</a> is only 45 lines, and most of it isn&#39;t necessary for a simple proof of concept.</p>
 <p>Here are the test cases this simple <code>finally()</code> polyfill will work to address. The below script should print &#39;foo&#39; 5 times.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Return value is ignored, promise fulfills normally</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Return value is ignored, promise fulfills normally</span>
 <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>).
   <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-string">'bar'</span>).
   then(res =&gt; <span class="hljs-built_in">console</span>.log(res));
@@ -167,10 +158,9 @@ promiseThatRejects.
 <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
 <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'foo'</span>).
   <span class="hljs-keyword">finally</span>(() =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>))).
-  then(res =&gt; <span class="hljs-built_in">console</span>.log(res, <span class="hljs-built_in">Date</span>.now() - start));
-</code></pre>
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res, <span class="hljs-built_in">Date</span>.now() - start));</code></pre>
 <p>Below is the simplified polyfill.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Add `finally()` to `Promise.prototype`</span>
 <span class="hljs-built_in">Promise</span>.prototype.finally = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onFinally</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.then(
     <span class="hljs-comment">/* onFulfilled */</span>
@@ -178,15 +168,15 @@ promiseThatRejects.
     <span class="hljs-comment">/* onRejected */</span>
     err =&gt; <span class="hljs-built_in">Promise</span>.resolve(onFinally()).then(() =&gt; { <span class="hljs-keyword">throw</span> err; })
   );
-};
-</code></pre>
+};</code></pre>
 <p>The key idea behind this implementation is that the <code>onFinally</code> handler may return a promise. If it does, you need to <code>.then()</code> on that promise and resolve or reject with what the initial promise settled to. You can explicitly check if the return value from the <code>onFinally</code> handler is a promise, but <code>Promise.resolve()</code> already does that for you and saves you several <code>if</code> statements. You also need to make sure you track the value or error the initial promise settled to, and make sure the returned promise from <code>finally()</code> either fulfills to the initial resolved value <code>res</code>, or rethrow the initial rejected error <code>err</code>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>The <code>Promise.prototype.finally()</code> function is one of <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">8 stage 4 TC39 proposals</a> at the time of this writing, which means <code>finally()</code> and 7 other new core language features are coming to Node.js. The <code>finally()</code> function is one of the most exciting of the 8 new features, because it promises to make cleaning up after async operations much cleaner. For example, below is code that I have running in production right now that desperately needs <code>finally()</code> for releasing a lock after a function is done executing.</p>
-<p><img src="https://i.imgur.com/ZbW81Xa.png"></p>
-<p>_Confused by promise chains? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> is the best way to compose promises in Node.js.
+<img src="https://i.imgur.com/ZbW81Xa.png">
+
+<p><em>Confused by promise chains? <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">Async/await</a> is the best way to compose promises in Node.js.
 Await handles promise rejections for you, so unhandled promise rejections go away. My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
-async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a>_</p>
+async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

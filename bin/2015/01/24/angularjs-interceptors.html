@@ -23,25 +23,23 @@ cases. In this article, you&#39;ll learn interceptors by example.</p>
 that, up until recently, returned the HTTP status as part of the response body.
 The <a href="http://instagram.com/developer/endpoints/#structure">Instagram API</a> is
 a good example.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"meta"</span>: {
     <span class="hljs-string">"code"</span>: <span class="hljs-number">200</span>
   },
   <span class="hljs-string">"data"</span>: {
     <span class="hljs-string">"name"</span>: <span class="hljs-string">"Val"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>Suppose the API maintainer decides returning the HTTP status code in
 the body is no longer necessary. The new API response would look like this:</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"name"</span>: <span class="hljs-string">"Val"</span>
-}
-</code></pre>
+}</code></pre>
 <p>One approach would be to change every place
 where you use <code>meta.code</code>. Unfortunately, in a big application, that could be
 a tedious task. Enter a simple HTTP interceptor:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []);
 
 m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
   $httpProvider.interceptors.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -55,8 +53,7 @@ m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(
       }
     };
   });
-});
-</code></pre>
+});</code></pre>
 <p>This simple HTTP interceptor demonstrates the basic interceptor syntax.
 Interceptors are represented as an array of functions on
 <a href="https://docs.angularjs.org/api/ng/provider/$httpProvider">the <code>$httpProvider</code> provider</a>. Providers can only be accessed in
@@ -93,8 +90,7 @@ the <code>JSON.stringify()</code> output looks like for a sample HTTP request:</
     }
   },
   <span class="hljs-string">"statusText"</span>: <span class="hljs-string">"OK"</span>
-}
-</code></pre><p>Your <code>response</code> function can modify this object in any way it sees fit. In
+}</code></pre><p>Your <code>response</code> function can modify this object in any way it sees fit. In
 this particular example, the underlying API changed its output format.
 However, the response interceptor abstracts out the API change so your
 code can continue to use <code>response.data.meta.status</code> indefinitely.</p>
@@ -110,7 +106,7 @@ will attach these credentials in the request <code>Authorization</code> header. 
 is a heavily simplified version of the
 <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Access Authentication protocol</a>.</p>
 <p>Suppose <code>userService</code> looks like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []);
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> m = angular.module(<span class="hljs-string">'myApp'</span>, []);
 
 m.factory(<span class="hljs-string">'userService'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> {
@@ -118,11 +114,10 @@ m.factory(<span class="hljs-string">'userService'</span>, <span class="hljs-func
       <span class="hljs-keyword">return</span> <span class="hljs-string">'Taco'</span>;
     }
   }
-});
-</code></pre>
+});</code></pre>
 <p>How are you going to tie this service into an interceptor? It&#39;s easier than
 you think: the interceptor function is tied in to the AngularJS dependency injector.</p>
-<pre><code class="lang-javascript">m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
+<pre><code class="language-javascript">m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
   <span class="hljs-comment">// Pull in `userService` from the dependency injector</span>
   $httpProvider.interceptors.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">userService</span>) </span>{
     <span class="hljs-keyword">return</span> {
@@ -134,14 +129,13 @@ you think: the interceptor function is tied in to the AngularJS dependency injec
       }
     };
   }
-});
-</code></pre>
+});</code></pre>
 <p>Thanks to this request interceptor, <em>all</em> your outgoing HTTP requests now
 have an <code>Authorization</code> header. Request interceptors are analagous to
 response interceptors: they take a request object and return a request
 object, which may or may not be the original <code>req</code> parameter. Below is
 the <code>JSON.stringify()</code> output from a sample <code>req</code> object.</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>,
   <span class="hljs-string">"transformRequest"</span>: [
     <span class="hljs-literal">null</span>
@@ -153,8 +147,7 @@ the <code>JSON.stringify()</code> output from a sample <code>req</code> object.<
   <span class="hljs-string">"headers"</span>: {
     <span class="hljs-string">"Accept"</span>: <span class="hljs-string">"application/json, text/plain, */*"</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>The ability to set the <code>Authorization</code> header on every request is useful. But,
 what happens if a user&#39;s session times out while they&#39;re on your page?
 Your server will start returning HTTP 401&#39;s, and your user&#39;s requests will
@@ -177,19 +170,17 @@ can use promises libraries like <code>q</code> or
 You can even use promises returned by the <code>$http</code> service,
 because <a href="https://docs.angularjs.org/api/ng/service/$http#usage"><code>$http</code> promises have a <code>.then()</code> function</a>. For
 instance,</p>
-<pre><code class="lang-javascript">$http.get(<span class="hljs-string">'/sample'</span>).
+<pre><code class="language-javascript">$http.get(<span class="hljs-string">'/sample'</span>).
   success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data, status, headers, config</span>) </span>{
-  });
-</code></pre>
+  });</code></pre>
 <p>is equivalent to</p>
-<pre><code class="lang-javascript">$http.get(<span class="hljs-string">'/sample'</span>).
+<pre><code class="language-javascript">$http.get(<span class="hljs-string">'/sample'</span>).
   then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
     <span class="hljs-comment">// Use res.data, res.status, res.headers, res.config</span>
-  });
-</code></pre>
+  });</code></pre>
 <p>So what does a <code>responseError</code> interceptor look like? Below
 is the interceptor that will handle HTTP 401&#39;s.</p>
-<pre><code class="lang-javascript">m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
+<pre><code class="language-javascript">m.config(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$httpProvider</span>) </span>{
   $httpProvider.interceptors.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$q, $injector, userService</span>) </span>{
     <span class="hljs-keyword">return</span> {
       request: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">request</span>) </span>{
@@ -213,8 +204,7 @@ is the interceptor that will handle HTTP 401&#39;s.</p>
       }
     };
   });
-});
-</code></pre>
+});</code></pre>
 <p>The above code assumes the <code>userService.authenticate()</code>
 function returns a <code>then()</code>-able promise around the
 user entering their password. If that condition is met,
@@ -243,7 +233,7 @@ To open a modal with this service, you call <code>$modal.open()</code>. The retu
 property that wraps the &quot;submit the modal&quot; operation in
 a promise. Thus, you can implement the
 <code>userService.authenticate()</code> function as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> authenticate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> authenticate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">var</span> $modal = $injector.get(<span class="hljs-string">'$modal'</span>);
 
   <span class="hljs-keyword">var</span> modal = $modal.open({
@@ -265,8 +255,7 @@ a promise. Thus, you can implement the
   <span class="hljs-keyword">return</span> modal.result.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pwd</span>) </span>{
     password = pwd;
   });
-};
-</code></pre>
+};</code></pre>
 <p>That&#39;s it! Now that you have a promise wrapper around the
 user logging in, your error interceptor can handle HTTP
 401&#39;s gracefully. In practice, your <code>authenticate()</code>

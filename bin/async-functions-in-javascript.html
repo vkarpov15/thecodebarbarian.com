@@ -18,20 +18,20 @@
 <li>You can <strong>only</strong> use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await"><code>await</code> operator</a> in the body of an async function.</li>
 </ul>
 <p>Async functions allow you to write asynchronous code that looks synchronous. In this article, you&#39;ll learn the basics of what makes async functions special.</p>
-<h2 id="using-await-">Using <code>await</code></h2>
+<h2 id="using-await">Using <code>await</code></h2>
 <p>Given a promise <code>p</code>, the <code>await</code> operator pauses execution of your async function until <code>p</code> is settled. For example, the below code will print &quot;Hello World&quot; after 1 second.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// Pause execution for 1 second</span>
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World'</span>);
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>A promise can be in one of 3 states: pending, fulfilled, or rejected. A promise is considered settled once it is either fulfilled or rejected. In the above example, the promise is in the pending state for 1 second, and then <code>resolve()</code> transitions the promise to the fulfilled state. Below is a diagram of the possible states a promise can be in.</p>
-<p><img src="https://i.imgur.com/hq1nYXo.png" class="inline-image"></p>
+<img src="https://i.imgur.com/hq1nYXo.png" class="inline-image">
+
 <p>The most powerful feature of <code>await</code> is that you can use it in conjunction with <code>for</code> loops and <code>if</code> statements. For example, the below code will print &#39;1&#39; and &#39;2&#39;, wait 1 second, then print &#39;3&#39; and &#39;4&#39;, and so on up to &#39;9&#39; and &#39;10&#39;.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; ++i) {
     <span class="hljs-keyword">if</span> (i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>) {
       <span class="hljs-comment">// Pause execution for 1 second</span>
@@ -41,8 +41,7 @@ run();
   }
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>Side note: <a href="https://thecodebarbarian.com/basic-functional-programming-with-async-await.html">be careful about using array functional programming functions like <code>forEach()</code> with async functions</a>.</p>
 <h2 id="an-async-function-always-returns-a-promise">An Async Function Always Returns a Promise</h2>
 <p>There are 2 ways to declare an async function:</p>
@@ -51,14 +50,13 @@ run();
 <li>Async arrow function: <code>async () =&gt; { /* ... */ }</code></li>
 </ul>
 <p>Both normal async functions and async arrow functions always return promises. The JavaScript runtime wraps return values in a promise for you, you do <strong>not</strong> need to explicitly return a promise. For example, the below async function returns a promise, even though the function body says <code>return 42</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAnswer</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAnswer</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;
 }
 
 <span class="hljs-keyword">const</span> res = getAnswer();
 res === <span class="hljs-number">42</span>; <span class="hljs-comment">// false</span>
-res <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>; <span class="hljs-comment">// true</span>
-</code></pre>
+res <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>; <span class="hljs-comment">// true</span></code></pre>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function#Description">Mozilla docs refer to &#39;42&#39; as the <em>resolved value</em></a> of the async function. You can think of an async function as wrapping the value you <code>return</code> from the function body in a promise.</p>
 <p>JavaScript also has a notion of an <a href="https://medium.com/@segersian/howto-async-generators-in-nodejs-c7f0851f9c02">async generator function</a>. Async generator functions do <strong>not</strong> return promises.</p>
 <h2 id="error-handling">Error Handling</h2>
@@ -66,7 +64,7 @@ res <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Pro
 to handle asynchronous errors. The <code>await</code> operator pauses execution 
 until a promise is settled, and, if the promise is rejected, <code>await</code>
 throws a catchable error.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops'</span>));
   } <span class="hljs-keyword">catch</span> (error) {
@@ -74,10 +72,9 @@ throws a catchable error.</p>
   }
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>The <code>try/catch</code> block also handles synchronous errors:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'sync'</span>);
     <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'async'</span>));
@@ -86,12 +83,11 @@ run();
   }
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>However, just because you can use <code>try/catch</code>, doesn&#39;t necessarily mean
 you should. For example, what happens if you <code>return</code> a promise that
 rejects?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops'</span>));
   } <span class="hljs-keyword">catch</span> (error) {
@@ -100,10 +96,9 @@ rejects?</p>
 }
 
 <span class="hljs-comment">// Unhandled promise rejection!</span>
-run();
-</code></pre>
+run();</code></pre>
 <p>You can work around this issue using <code>return await</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops'</span>));
   } <span class="hljs-keyword">catch</span> (error) {
@@ -111,10 +106,9 @@ run();
   }
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>Another common pattern is to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>Promise#catch()</code></a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myAsyncFunction</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myAsyncFunction</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops'</span>));
 }
 
@@ -126,14 +120,13 @@ run();
     <span class="hljs-keyword">catch</span>(err =&gt; err);
 }
 
-run();
-</code></pre>
+run();</code></pre>
 <p>Since async functions return a promise, you can also call <code>.catch()</code> on
 the return value of an async function. This is the preferred pattern for
 error handling because it handles <em>all</em> errors in an async function,
 including synchronous errors, async errors, and returning a rejected
 promise.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">syncError</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">syncError</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'sync'</span>);
 }
 
@@ -148,8 +141,7 @@ promise.</p>
 syncError().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err.message)); <span class="hljs-comment">// 'sync'</span>
 asyncError().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err.message)); <span class="hljs-comment">// 'async'</span>
 <span class="hljs-comment">// 'returnRejected'</span>
-returnRejected().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));
-</code></pre>
+returnRejected().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err.message));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Async/await is the future of concurrency in JavaScript.
 Callbacks are rapidly becoming a distant memory, and promise

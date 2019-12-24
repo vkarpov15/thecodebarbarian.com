@@ -13,10 +13,11 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>One of the great perks of living in the San Francisco Bay Area is proximity to some amazing wine regions. Over the last couple years, I&#39;ve visited vineyards in regions like Napa Valley, Sonoma Valley, Paso Robles, and even <a href="https://www.lasafaris.com/">Malibu</a>. I recently ran into a <a href="https://archive.ics.uci.edu/ml/datasets/Wine+Quality">machine learning data set that has data on 6000 Portuguese wines</a> that includes a 1-10 quality rating, which seems like a great excuse to build a neural network that can predict the 1-10 quality rating based on factors like residual sugar and alcohol content. Effectively, this neural network attempts to match the wine palate of whoever put this data set together.</p>
-<h2 id="training-a-neural-network-with-brain-js">Training a Neural Network with Brain.js</h2>
+<h2 id="training-a-neural-network-with-brainjs">Training a Neural Network with Brain.js</h2>
 <p><a href="https://www.npmjs.com/package/brain.js">Brain.js</a> is a simple npm module for building <a href="https://en.wikipedia.org/wiki/Artificial_neural_network">neural networks</a>, a common machine learning model that you might see in an <a href="https://www.cs.princeton.edu/courses/archive/fall16/cos402/">undergraduate AI class</a>.</p>
 <p>The wine data can be downloaded <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv">here</a>. The file is a CSV that uses semi-colons (<code>;</code>) as a delimiter. The contents look like this:</p>
-<p><img src="https://i.imgur.com/JVkYJ74.png"></p>
+<img src="https://i.imgur.com/JVkYJ74.png">
+
 <p>The first 11 columns are various chemical properties of a given wine, and the 12th and final column is a &quot;quality&quot; score that represents how good this wine tastes according to the person who recorded this data.</p>
 <p>&quot;Training&quot; is how you build a neural network. Given some training data, Brain.js builds a mathematical model for predicting the quality rating of a wine based on the chemical properties. Below is an example from the Brain.js docs about how to train and then use a neural network.</p>
 <pre><code><span class="hljs-keyword">var</span> net = <span class="hljs-keyword">new</span> brain.NeuralNetwork();
@@ -25,8 +26,7 @@ net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="h
            {input: { r: <span class="hljs-number">0.16</span>, g: <span class="hljs-number">0.09</span>, b: <span class="hljs-number">0.2</span> }, output: { white: <span class="hljs-number">1</span> }},
            {input: { r: <span class="hljs-number">0.5</span>, g: <span class="hljs-number">0.5</span>, b: <span class="hljs-number">1.0</span> }, output: { white: <span class="hljs-number">1</span> }}]);
 
-<span class="hljs-keyword">var</span> output = net.run({ r: <span class="hljs-number">1</span>, g: <span class="hljs-number">0.4</span>, b: <span class="hljs-number">0</span> });  <span class="hljs-comment">// { white: 0.99, black: 0.002 }</span>
-</code></pre><p>For the wine data, the input will be an object representing the chemical properties, and the output will contain one property, the quality. One key detail about Brain.js is that all inputs <strong>must</strong> be between 0 and 1, so you need to scale some of the inputs. Below is the first wine from the CSV converted into a format that Brain.js can use for training a neural network.</p>
+<span class="hljs-keyword">var</span> output = net.run({ r: <span class="hljs-number">1</span>, g: <span class="hljs-number">0.4</span>, b: <span class="hljs-number">0</span> });  <span class="hljs-comment">// { white: 0.99, black: 0.002 }</span></code></pre><p>For the wine data, the input will be an object representing the chemical properties, and the output will contain one property, the quality. One key detail about Brain.js is that all inputs <strong>must</strong> be between 0 and 1, so you need to scale some of the inputs. Below is the first wine from the CSV converted into a format that Brain.js can use for training a neural network.</p>
 <pre><code>{ input:
    { <span class="hljs-string">'fixed acidity'</span>: <span class="hljs-number">0.7</span>,
      <span class="hljs-string">'volatile acidity'</span>: <span class="hljs-number">0.027000000000000003</span>,
@@ -39,9 +39,8 @@ net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="h
      pH: <span class="hljs-number">0.3</span>,
      sulphates: <span class="hljs-number">0.045</span>,
      alcohol: <span class="hljs-number">0.08800000000000001</span> },
-  output: { quality: <span class="hljs-number">0.6</span> } }
-</code></pre><p>Below is the code for training a neural network on the first 1000 wines in the CSV.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { NeuralNetwork } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'brain.js'</span>);
+  output: { quality: <span class="hljs-number">0.6</span> } }</code></pre><p>Below is the code for training a neural network on the first 1000 wines in the CSV.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { NeuralNetwork } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'brain.js'</span>);
 <span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 
@@ -80,10 +79,9 @@ net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="h
 
 <span class="hljs-built_in">console</span>.log(trainingData[<span class="hljs-number">0</span>]);
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done training'</span>, net.train(trainingData));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done training'</span>, net.train(trainingData));</code></pre>
 <p>Once you have trained a neural network, you can use it to estimate the quality of subsequent wines based on their chemical properties. Below is code that takes the neural network, runs it on the next 50 wines, and calculates the average difference between the neural network&#39;s prediction and the actual quality of the wine.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> error = <span class="hljs-number">0</span>;
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> error = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">50</span>; ++i) {
   <span class="hljs-keyword">const</span> { quality } = net.run(_.omit(data[numTrainingData + i], [<span class="hljs-string">'quality'</span>]));
   error += <span class="hljs-built_in">Math</span>.abs(quality - data[numTrainingData + i].quality);
@@ -91,20 +89,17 @@ net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="h
 }
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Average error'</span>, error / <span class="hljs-number">50</span>);
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);</code></pre>
 <p>Below is the truncated output. This rudimentary neural network gets within about 0.6 of the actual quality rating on average.</p>
 <pre><code><span class="hljs-number">45</span> <span class="hljs-number">0.602045476436615</span> <span class="hljs-number">0.5</span>
 <span class="hljs-number">46</span> <span class="hljs-number">0.5928407311439514</span> <span class="hljs-number">0.5</span>
 <span class="hljs-number">47</span> <span class="hljs-number">0.4441471993923187</span> <span class="hljs-number">0.5</span>
 <span class="hljs-number">48</span> <span class="hljs-number">0.449766606092453</span> <span class="hljs-number">0.5</span>
 <span class="hljs-number">49</span> <span class="hljs-number">0.7137854695320129</span> <span class="hljs-number">0.6</span>
-Average error <span class="hljs-number">0.06042885661125182</span>
-</code></pre><h2 id="serializing-the-neural-network">Serializing the Neural Network</h2>
+Average error <span class="hljs-number">0.06042885661125182</span></code></pre><h2 id="serializing-the-neural-network">Serializing the Neural Network</h2>
 <p>In practice you don&#39;t want to recompute the neural network every time, because even in this simple example training the neural network takes approximately 20 seconds. You can serialize the neural network using the <code>toJSON()</code> function:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Serialize the neural network as JSON to a file</span>
-fs.writeFileSync(<span class="hljs-string">'./net.json'</span>, <span class="hljs-built_in">JSON</span>.stringify(net.toJSON(), <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>));
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// Serialize the neural network as JSON to a file</span>
+fs.writeFileSync(<span class="hljs-string">'./net.json'</span>, <span class="hljs-built_in">JSON</span>.stringify(net.toJSON(), <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>));</code></pre>
 <p>Open up the <code>net.json</code> file to see what the neural network looks like. Neural networks consist of &quot;nodes&quot; or &quot;neurons&quot; that <a href="https://ujjwalkarn.me/2016/08/09/quick-intro-neural-networks/">assign a weight to each input</a>. When you train a neural network, brain.js searches to try to come up with weights that match the training data as closely as possible. Here&#39;s a sample node from the <code>net.json</code> file that shows the weights for each parameter.</p>
 <pre><code>{
   <span class="hljs-string">"bias"</span>: <span class="hljs-number">-5.532558917999268</span>,
@@ -121,9 +116,8 @@ fs.writeFileSync(<span class="hljs-string">'./net.json'</span>, <span class="hlj
     <span class="hljs-string">"sulphates"</span>: <span class="hljs-number">2.17152738571167</span>,
     <span class="hljs-string">"alcohol"</span>: <span class="hljs-number">9.936287879943848</span>
   }
-}
-</code></pre><p>You can then load the neural network from the JSON file and re-use it.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> net = <span class="hljs-keyword">new</span> NeuralNetwork();
+}</code></pre><p>You can then load the neural network from the JSON file and re-use it.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> net = <span class="hljs-keyword">new</span> NeuralNetwork();
 
 net.fromJSON(<span class="hljs-built_in">JSON</span>.parse(fs.readFileSync(<span class="hljs-string">'./net.json'</span>, <span class="hljs-string">'utf8'</span>)));
 
@@ -135,8 +129,7 @@ net.fromJSON(<span class="hljs-built_in">JSON</span>.parse(fs.readFileSync(<span
   error += <span class="hljs-built_in">Math</span>.abs(quality - data[numTrainingData + i].quality);
   <span class="hljs-built_in">console</span>.log(i, quality, data[numTrainingData + i].quality);
 }
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Average error'</span>, error / <span class="hljs-number">50</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Average error'</span>, error / <span class="hljs-number">50</span>);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>There&#39;s an npm module for just about everything, even machine learning. Brain.js is one of the older libraries. There&#39;s also a newer one by Google that supposedly has better performance called <a href="https://www.npmjs.com/package/deeplearn">deeplearn</a>. If you&#39;re interested in the theory of machine learning, I highly recommend <a href="https://www.amazon.com/gp/product/0136042597/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0136042597&amp;linkCode=as2&amp;tag=codebarbarian-20&amp;linkId=c8940ad951d92db9dc714ccee1e58e78"><em>Artificial Intelligence: A Modern Approach</em> by Stuart Russell and Peter Norvig</a>. R&amp;N is the standard textbook for undergraduate AI courses and serves as an excellent introduction.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

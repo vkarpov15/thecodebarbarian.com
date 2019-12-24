@@ -21,7 +21,7 @@
 <p>The problem with transactional scheduling is durability: if you just schedule with <code>setTimeout()</code>, you lose the job if your process restarts. Furthermore, with <code>setTimeout()</code> you can&#39;t assign a separate process to do the job. When you need persistence and IPC without having to set up a messaging solution (RabbitMQ, Kafka, etc.) the natural solution is to use your database. When your database is MongoDB, <a href="https://www.npmjs.com/package/agenda">agenda</a> gives you a quick and easy solution for durable inter-process task scheduling.</p>
 <h2 id="hello-world-with-agenda">Hello World With Agenda</h2>
 <p>Here&#39;s how you&#39;d schedule a job with agenda in Node.js (<a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">using async/await, so node &gt;= 7.6.0</a>).</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -50,8 +50,7 @@
 run().catch(error =&gt; {
   <span class="hljs-built_in">console</span>.error(error);
   process.exit(<span class="hljs-number">-1</span>);
-});
-</code></pre>
+});</code></pre>
 <p>Take a look at the <code>agendatest.jobs</code> collection in MongoDB after the above script has finished running, you should see a document that looks like what you see below.</p>
 <pre><code>$ mongo agendatest
 dMongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
@@ -69,13 +68,11 @@ MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-nu
     <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:52.919Z"</span>),
     <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:53.825Z"</span>)
 }
-&gt;
-</code></pre><p>Agenda created a new document that represents the job. Because the job lives in MongoDB, agenda can pick up where it left off even if you kill the script before the job runs. For example, let&#39;s change the job to run in 10 seconds and kill the process before the job runs.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
+&gt;</code></pre><p>Agenda created a new document that represents the job. Because the job lives in MongoDB, agenda can pick up where it left off even if you kill the script before the job runs. For example, let&#39;s change the job to run in 10 seconds and kill the process before the job runs.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
 <span class="hljs-comment">// Jobs are uniquely defined by their name, in this case "hello"</span>
 agenda.schedule(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-built_in">Date</span>.now() + <span class="hljs-number">10000</span>), <span class="hljs-string">'hello'</span>);
-agenda.start();
-</code></pre>
+agenda.start();</code></pre>
 <pre><code>$ time node agenda.js
 ^C
 
@@ -89,10 +86,9 @@ Hello, World!
 real    <span class="hljs-number">0</span>m0<span class="hljs-number">.325</span>s
 user    <span class="hljs-number">0</span>m0<span class="hljs-number">.317</span>s
 sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.024</span>s
-$
-</code></pre><h2 id="separate-processes-and-pub-sub">Separate Processes And Pub/Sub</h2>
+$</code></pre><h2 id="separate-processes-and-pubsub">Separate Processes And Pub/Sub</h2>
 <p>You can have a single process that handles both scheduling and running your jobs, but agenda also makes it easy to have a producer process that schedules jobs, and a consumer process that runs jobs. You just need to ensure that both processes have an agenda instance that look at the same collection in MongoDB. Here&#39;s an example <code>producer.js</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -111,10 +107,9 @@ $
 run().catch(error =&gt; {
   <span class="hljs-built_in">console</span>.error(error);
   process.exit(<span class="hljs-number">-1</span>);
-});
-</code></pre>
+});</code></pre>
 <p>Here&#39;s <code>consumer.js</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -139,11 +134,10 @@ run().catch(error =&gt; {
 run().catch(error =&gt; {
   <span class="hljs-built_in">console</span>.error(error);
   process.exit(<span class="hljs-number">-1</span>);
-});
-</code></pre>
+});</code></pre>
 <p>In <code>producer.js</code> you <code>schedule()</code> jobs to run. In <code>consumer.js</code>, you <code>define()</code> the function to run for a given job and <code>start()</code> the job processor.</p>
 <p>You can also pass arbitrary parameters to your jobs. Here&#39;s a modified <code>producer.js</code> that schedules a job called &#39;print&#39; which takes a parameter <code>message</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -163,8 +157,7 @@ run().catch(error =&gt; {
 run().catch(error =&gt; {
   <span class="hljs-built_in">console</span>.error(error);
   process.exit(<span class="hljs-number">-1</span>);
-});
-</code></pre>
+});</code></pre>
 <p>When you schedule this job, here&#39;s how it will look in MongoDB:</p>
 <pre><code>&gt; db.jobs.findOne()
 {
@@ -180,9 +173,8 @@ run().catch(error =&gt; {
     <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.172Z"</span>),
     <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.180Z"</span>)
 }
-&gt;
-</code></pre><p>And here&#39;s the <code>consumer.js</code> whose &#39;print&#39; job pulls the <code>message</code> parameter passed in to <code>schedule()</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+&gt;</code></pre><p>And here&#39;s the <code>consumer.js</code> whose &#39;print&#39; job pulls the <code>message</code> parameter passed in to <code>schedule()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -206,11 +198,10 @@ run().catch(error =&gt; {
 run().catch(error =&gt; {
   <span class="hljs-built_in">console</span>.error(error);
   process.exit(<span class="hljs-number">-1</span>);
-});
-</code></pre>
+});</code></pre>
 <h2 id="cancelling-and-rescheduling">Cancelling and Rescheduling</h2>
 <p>Where agenda starts to break down is cancelling and rescheduling jobs. The issue is that, internally, agenda &quot;locks&quot; a job when it&#39;s close to running and that prevents cancellation and modification. I opened up <a href="https://github.com/rschmukler/agenda/issues/401">an issue on GitHub to track the inability to properly cancel jobs</a>. An agenda instance does have a <code>cancel()</code> function which is essentially equivalent to a <code>deleteMany()</code> on the &#39;jobs&#39; collection, but that does not work as advertised. For example, the below example still prints &quot;Hello, World!&quot; despite the fact that the script calls <code>cancel()</code> and the job is no longer in the database.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -250,10 +241,9 @@ run().catch(error =&gt; {
     }
     resolve(res);
   };
-}
-</code></pre>
+}</code></pre>
 <p>In order to actually cancel the job, your job needs to explicitly check MongoDB to make sure the job was not cancelled as shown below.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/agendatest'</span>);
   <span class="hljs-keyword">const</span> agenda = <span class="hljs-keyword">new</span> Agenda().mongo(db, <span class="hljs-string">'jobs'</span>);
 
@@ -286,8 +276,7 @@ run().catch(error =&gt; {
     <span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'jobs'</span>).count({ _id: job.attrs._id });
     <span class="hljs-keyword">return</span> !(count &gt; <span class="hljs-number">0</span>);
   }
-}
-</code></pre>
+}</code></pre>
 <p>For the same reason, rescheduling a job that&#39;s already been locked is a lost cause currently. If you want to reschedule a job, the best way to do so is to cancel the job using the above paradigm and then schedule a new one.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Agenda is a neat tool for transactional scheduling with MongoDB and Node.js. It even has <a href="https://github.com/joeframbach/agendash">two</a> <a href="https://github.com/moudy/agenda-ui">GUIs</a>! While agenda does have some problems with cancellation, it works for most basic cases and has some cool plugins. Check it out next time you&#39;re tempted to reach for RabbitMQ or Redis for transactional scheduling!</p>

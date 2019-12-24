@@ -17,7 +17,7 @@ has <a href="https://docs.mongodb.com/manual/release-notes/3.4/#aggregation">27 
 Last week I covered the new <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-graphlookup.html"><code>$graphLookup</code> stage</a>, which recursively searches collections. This week I&#39;ll cover the new <a href="https://docs.mongodb.com/v3.4/reference/operator/aggregation/facet/"><code>$facet</code> stage</a> and
 the related <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/bucket/"><code>$bucket</code></a> and <a href="https://docs.mongodb.com/v3.4/reference/operator/aggregation/bucketAuto/"><code>$bucketAuto</code></a> operators. These new features are tailor-made for building powerful product search pages, and will quickly become your favorite aggregation features if you&#39;re working on
 an ecommerce product.</p>
-<h2 id="what-is-faceted-search-">What is Faceted Search?</h2>
+<h2 id="what-is-faceted-search">What is Faceted Search?</h2>
 <p>Here&#39;s the view you see when searching for products on Amazon:</p>
 <p><a href="http://i.imgur.com/JXjcuZn.png"><img src="http://i.imgur.com/JXjcuZn.png" width="300"></a></p>
 <p>The &quot;Refine By&quot; menu on the left is a classic example of faceted search. When you
@@ -30,7 +30,7 @@ are eligible for Prime.</p>
 MongoDB 3.4. Your options were to either <a href="https://www.mongodb.com/blog/post/faceted-search-with-mongodb">re-structure your data specifically for faceted search</a> or execute a separate aggregation for every single individual &quot;facet&quot; you want to
 filter by.</p>
 <p>Let&#39;s take a look at a more concrete example. Here&#39;s a collection of 4 books:</p>
-<pre><code class="lang-javascript">db.books.insertMany([
+<pre><code class="language-javascript">db.books.insertMany([
   {
     title: <span class="hljs-string">'Professional AngularJS'</span>,
     author: <span class="hljs-string">'Valeri Karpov'</span>,
@@ -59,11 +59,10 @@ filter by.</p>
     year: <span class="hljs-number">1984</span>,
     tags: [<span class="hljs-string">'Fitness'</span>]
   }
-]);
-</code></pre>
+]);</code></pre>
 <p>In order to enable faceted search by year, you need to run an aggregation query
 that buckets books by the year they were published.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   <span class="hljs-comment">// Count the number of books published in a given year</span>
   {
     $group: {
@@ -79,11 +78,10 @@ that buckets books by the year they were published.</p>
 { <span class="hljs-string">"_id"</span> : <span class="hljs-number">2016</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-number">2015</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
 { <span class="hljs-string">"_id"</span> : <span class="hljs-number">2013</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">1984</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
-</code></pre>
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">1984</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }</code></pre>
 <p>To drill down into just books by Arnold Schwarzenegger, you&#39;d need to add a
 <code>$match</code> query.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   <span class="hljs-comment">// Just Arnold's books</span>
   { $match: { author: <span class="hljs-string">'Arnold Schwarzenegger'</span> } },
   <span class="hljs-comment">// Count the number of books published in a given year</span>
@@ -99,13 +97,12 @@ that buckets books by the year they were published.</p>
 
 <span class="hljs-comment">// Output</span>
 { <span class="hljs-string">"_id"</span> : <span class="hljs-number">2013</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">1984</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }
-</code></pre>
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">1984</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> }</code></pre>
 <p>However, you need to execute a separate aggregation for every other facet.
 For example, in MongoDB 3.2 there would be no good way to get both the
 author counts and the year counts in a single aggregation. You&#39;d have to
 execute the below aggregation separately to get the author counts.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   <span class="hljs-comment">// Count the number of books published in a given year</span>
   {
     $group: {
@@ -119,8 +116,7 @@ execute the below aggregation separately to get the author counts.</p>
 
 <span class="hljs-comment">// Output</span>
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Valeri Karpov"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-</code></pre>
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Valeri Karpov"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }</code></pre>
 <p>Furthermore, there
 was no way to bucket books by price. The <code>$group</code> stage lets you count up
 the number of books that cost $10 exactly, but there&#39;s no way to group books
@@ -129,7 +125,7 @@ At <a href="https://www.crunchbase.com/organization/bookalokal-inc#/entity">Book
 up on using aggregation for this and just used a Node.js stream to count up
 the different facets. However, <code>$facet</code> and <code>$bucket</code> make it possible to count
 up facets in a single aggregation.</p>
-<h2 id="introducing-facet-and-bucket-">Introducing <code>$facet</code> and <code>$bucket</code></h2>
+<h2 id="introducing-facet-and-bucket">Introducing <code>$facet</code> and <code>$bucket</code></h2>
 <p><code>$facet</code> is fundamentally an aggregation stage that executes
 multiple aggregation pipelines in parallel and spits out the combined result
 when the pipelines are all done. You can think of it as
@@ -139,7 +135,7 @@ aggregations for counting books by year and books by author? Here&#39;s the same
 2 aggregations combined into a single aggregation with <code>$facet</code>. The
 <code>$facet</code> stage lets you execute both pipelines in parallel and store the
 output from both pipelines in a single document.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   {
     $facet: {
       <span class="hljs-comment">// The `years` property will be the output of the 'count by year' pipeline</span>
@@ -200,23 +196,21 @@ output from both pipelines in a single document.</p>
             <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>
         }
     ]
-}
-</code></pre>
+}</code></pre>
 <p>One big advantage of using <code>$facet</code> is that you can combine <code>$match</code> with
 <code>$facet</code>. If you execute a separate aggregation for every facet, you have to
 execute the same <code>$match</code> query for every facet, which can be a lot of wasted
 work. With <code>$facet</code>, you can execute <code>$match</code> once and use then <code>$facet</code>.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   <span class="hljs-comment">// Just Arnold's books</span>
   { $match: { author: <span class="hljs-string">'Arnold Schwarzenegger'</span> } },
   {
     $facet: { <span class="hljs-comment">/** same $facet stage as before */</span> }
   }
-]);
-</code></pre>
+]);</code></pre>
 <p>What about grouping by price? That&#39;s what the <code>$bucket</code> operator does for you.
 Here&#39;s <code>$bucket</code> without <code>$facet</code>.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   {
     $bucket: {
       <span class="hljs-comment">// Bucket by price</span>
@@ -229,11 +223,10 @@ Here&#39;s <code>$bucket</code> without <code>$facet</code>.</p>
 
 <span class="hljs-comment">// Output. The `_id` is the lower bound of the price range</span>
 { <span class="hljs-string">"_id"</span> : <span class="hljs-number">10</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">25</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-</code></pre>
+{ <span class="hljs-string">"_id"</span> : <span class="hljs-number">25</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }</code></pre>
 <p>If you don&#39;t care about setting up ranges manually, <code>$bucketAuto</code> will
 automatically break your documents up into a specified number of buckets.</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   {
     $bucketAuto: {
       <span class="hljs-comment">// Bucket by price</span>
@@ -246,11 +239,10 @@ automatically break your documents up into a specified number of buckets.</p>
 
 <span class="hljs-comment">// Output. `_id` represents the range of each bucket</span>
 { <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"min"</span> : <span class="hljs-number">10</span>, <span class="hljs-string">"max"</span> : <span class="hljs-number">32</span> }, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"min"</span> : <span class="hljs-number">32</span>, <span class="hljs-string">"max"</span> : <span class="hljs-number">37</span> }, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }
-</code></pre>
+{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"min"</span> : <span class="hljs-number">32</span>, <span class="hljs-string">"max"</span> : <span class="hljs-number">37</span> }, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }</code></pre>
 <p>You can combine <code>$bucketAuto</code> with the established <code>$facet</code> query to get
 counts for every facet:</p>
-<pre><code class="lang-javascript">db.books.aggregate([
+<pre><code class="language-javascript">db.books.aggregate([
   {
     $facet: {
       <span class="hljs-comment">// The `years` property will be the output of the 'count by year' pipeline</span>
@@ -291,13 +283,12 @@ counts for every facet:</p>
             <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>
         }
     ]
-}
-</code></pre>
-<h2 id="-facet-and-bucket-in-node-js"><code>$facet</code> and <code>$bucket</code> in Node.js</h2>
+}</code></pre>
+<h2 id="facet-and-bucket-in-nodejs"><code>$facet</code> and <code>$bucket</code> in Node.js</h2>
 <p>There are no version restrictions that I&#39;m aware of on using <code>$facet</code>,
 <code>$bucket</code>, and <code>$bucketAuto</code> in mongodb and mongoose. The below scripts
 work at least as far back as <code>mongodb@2.1.0</code> and <code>mongoose@4.5.0</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>).
   then(db =&gt; db.collection(<span class="hljs-string">'books'</span>).aggregate([
@@ -341,9 +332,8 @@ mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017
     }
   ]).toArray()).
   then(res =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(res, <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>))).
-  <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));
-</code></pre>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+  <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
@@ -390,15 +380,13 @@ Book.aggregate([
   }
 ]).
 then(res =&gt; <span class="hljs-built_in">console</span>.log(res)).
-<span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));
-</code></pre>
+<span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));</code></pre>
 <p>Mongoose 4.8.0 will include a helper for <code>$facet</code> for its
 <a href="http://mongoosejs.com/docs/api.html#aggregate-js">chainable aggregation pipeline builder</a>:</p>
-<pre><code class="lang-javascript">MyModel.aggregate().facet({
+<pre><code class="language-javascript">MyModel.aggregate().facet({
   field1: [<span class="hljs-comment">/* pipeline 1 */</span>],
   field2: [<span class="hljs-comment">/* pipeline 2 */</span>]
-}).exec();
-</code></pre>
+}).exec();</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>MongoDB 3.4 has an incredible variety of new aggregation features, including
 <code>$facet</code> and <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-graphlookup.html"><code>$graphLookup</code></a>. If you have graph data or an ecommerce search page, make

@@ -17,7 +17,7 @@ the last few months. There&#39;s been a lot of hype around use cases for
 <a href="https://www.npmjs.com/package/rxjs">RxJS</a>, but most of them are
 incomprehensible and dubiously useful. Here are the RxJS ideas that
 I&#39;m truly thankful for.</p>
-<h2 id="event-emitters-and-node-js-streams-suck">Event Emitters and Node.js Streams Suck</h2>
+<h2 id="event-emitters-and-nodejs-streams-suck">Event Emitters and Node.js Streams Suck</h2>
 <p>Since the early days of JavaScript, we had the ability to register
 event handlers, like <code>document.on(&#39;load&#39;)</code>. The event emitter design
 pattern is ubiquitous, but has some major limitations. The biggest
@@ -47,7 +47,8 @@ had to write a class that would extend from the <code>TransformStream</code> cla
 The API really harkens back to the good old days of Java when everything
 was a class and all projects where as comically bloated as
 <a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">Enterprise Quality Fizzbuzz</a>. Pretty soon you&#39;ll start thinking that writing a <code>TransformStreamAbstractFactoryProvider</code> class is a good idea.</p>
-<p><img src="https://i.imgflip.com/1erfgw.jpg" /></p>
+<img src="https://i.imgflip.com/1erfgw.jpg" />
+
 <p>Observables take the streams API to its logical conclusion. Transforming
 observables is neat and simple with ES6 arrow functions:</p>
 <ul>
@@ -55,12 +56,12 @@ observables is neat and simple with ES6 arrow functions:</p>
 <li>Filter out certain values? <code>o2 = o1.filter(obj =&gt; obj.enabled)</code></li>
 <li>Transform? <code>o2 = o1.map(obj =&gt; obj.name)</code></li>
 </ul>
-<h2 id="what-are-transformable-streams-good-for-">What are Transformable Streams Good For?</h2>
+<h2 id="what-are-transformable-streams-good-for">What are Transformable Streams Good For?</h2>
 <p>One of my favorite use cases for observables is promise rejection
 handling. Sounds crazy, I know, but bear with me. How do you usually
 handle promise rejections? If you&#39;re like I was this time last year,
 you do something like this:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// One file</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// One file</span>
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save</span>(<span class="hljs-params">user</span>) </span>{
   <span class="hljs-keyword">return</span> co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">yield</span> db.collection(<span class="hljs-string">'User'</span>).updateOne({ _id: user._id }, {
@@ -70,8 +71,7 @@ you do something like this:</p>
 };
 
 <span class="hljs-comment">// Another file</span>
-save(user).catch(handleRejection);
-</code></pre>
+save(user).catch(handleRejection);</code></pre>
 <p>You probably have a nice <code>handleRejection</code> function that handles your
 promise rejections, say by responding with an HTTP error code and
 reporting an error to <a href="https://github.com/getsentry/sentry">sentry</a>.
@@ -80,7 +80,7 @@ promises and promise error handlers. <code>handleRejection()</code> is now in da
 of becoming a <a href="https://en.wikipedia.org/wiki/God_object">god function</a>
 because it&#39;ll serve as an entry point for all error handling.</p>
 <p>Now suppose you have an observable that spits out promises.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> result$ = <span class="hljs-keyword">new</span> Observable(observer =&gt; {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> result$ = <span class="hljs-keyword">new</span> Observable(observer =&gt; {
   app.put(<span class="hljs-string">'/user'</span>, (req, res) =&gt; {
     observer.next({ req, res, promise: save(user) });
   })
@@ -96,8 +96,7 @@ result$.subscribe(obj =&gt; {
   obj.promise.then(res =&gt; {
     obj.res.send(<span class="hljs-string">'Success'</span>, res);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Now, there is no one function that you need to put everywhere to handle
 promise rejections. As long as the promise goes into the observable,
 it&#39;ll get a rejection handler. You can also filter and map your

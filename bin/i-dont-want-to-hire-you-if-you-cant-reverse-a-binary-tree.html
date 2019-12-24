@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p>The practice of asking brainteasers in interviews is a common punching bag
 for pundits. Last summer, Hacker News blew up over the following exceptionally
 insightful tweet on the topic.</p>
-<p><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Google: 90% of our engineers use the software you wrote (Homebrew), but you can’t invert a binary tree on a whiteboard so fuck off.</p>&mdash; Max Howell (@mxcl) <a href="https://twitter.com/mxcl/status/608682016205344768">June 10, 2015</a></blockquote></p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Google: 90% of our engineers use the software you wrote (Homebrew), but you can’t invert a binary tree on a whiteboard so fuck off.</p>&mdash; Max Howell (@mxcl) <a href="https://twitter.com/mxcl/status/608682016205344768">June 10, 2015</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>First of all, don&#39;t get me wrong,
@@ -29,22 +29,22 @@ several years. I&#39;m retiring this question from my pool of brainteasers, beca
 I&#39;ve asked it far too many times already. However, I think it&#39;s a good example
 of how asking a neat algorithms question can tell you a lot about what kind of
 work somebody will produce.</p>
-<h1 id="how-do-you-compute-whether-a-binary-tree-is-symmetric-">How Do You Compute Whether a Binary Tree is Symmetric?</h1>
+<h1 id="how-do-you-compute-whether-a-binary-tree-is-symmetric">How Do You Compute Whether a Binary Tree is Symmetric?</h1>
 <p>Intuitively, it&#39;s easy to tell whether a binary tree is symmetric. Here&#39;s
 a few small trees courtesy of the fine people at
 <a href="http://mathworld.wolfram.com/">Wolfram MathWorld</a>. The trees at row 1 column 1,
 row 2 column 3, row 4 column 5, row 5 column 1, and row 5 column 7 are
 symmetric, the rest aren&#39;t.</p>
-<p><a href="http://mathworld.wolfram.com/images/eps-gif/BinaryTrees_800.gif">
+<a href="http://mathworld.wolfram.com/images/eps-gif/BinaryTrees_800.gif">
   <img src="http://mathworld.wolfram.com/images/eps-gif/BinaryTrees_800.gif">
-</a></p>
+</a>
+
 <p>The task is to write a function, that, given a binary tree, returns true
 if it is symmetric. I always leave the choice of language up to the interviewee,
 because a good solution should be easy to understand in most languages.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
   <span class="hljs-comment">// Check root.left, root.right, return true if symmetric</span>
-}
-</code></pre>
+}</code></pre>
 <p>Here&#39;s the first reason why this question is so good: a skilled
 programmer can map their intuition to code. You can tell
 at a glance whether a binary tree is symmetric, but beginners will often
@@ -66,7 +66,7 @@ it means for two trees to be symmetric:</p>
 the reverse of <code>t2</code> is equal to <code>t1</code>.</li>
 </ul>
 <p>The first definition leads to the most concise solution:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
   <span class="hljs-keyword">return</span> isSymmetricHelper(root.left, root.right);
 }
 
@@ -79,13 +79,12 @@ the reverse of <code>t2</code> is equal to <code>t1</code>.</li>
   }
   <span class="hljs-keyword">return</span> isSymmetricHelper(t1.left, t2.right) &amp;&amp;
     isSymmetricHelper(t1.right, t2.left);
-}
-</code></pre>
+}</code></pre>
 <p>The second definition requires reversing a binary tree and then comparing
 if two binary trees are equal. This is the solution that requires reversing
 a binary tree on the whiteboard, and the one that most intern candidates end
 up using to solve the problem in 20 minutes.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSymmetric</span>(<span class="hljs-params">root</span>) </span>{
   <span class="hljs-keyword">return</span> isEqual(reverse(root.left), root.right);
 }
 
@@ -107,9 +106,8 @@ up using to solve the problem in 20 minutes.</p>
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
   }
   <span class="hljs-keyword">return</span> isEqual(t1.left, t2.left) &amp;&amp; isEqual(t1.right, t2.right);
-}
-</code></pre>
-<h1 id="why-is-this-important-">Why Is This Important?</h1>
+}</code></pre>
+<h1 id="why-is-this-important">Why Is This Important?</h1>
 <p>Trees are the single most important data structure in computer science.
 Just about everything you do in your programming career will be related
 to trees. For example, let&#39;s take a look at your average full stack

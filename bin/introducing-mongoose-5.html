@@ -17,21 +17,18 @@
 <h2 id="native-promises-by-default">Native Promises By Default</h2>
 <p>The <a href="https://teamtreehouse.com/community/warning-mongoose-mpromise-mongooses-default-promise-library-is-deprecated-plug-in-your-own-promise-library-instead">&quot;mpromise (mongoose&#39;s default promise library) is deprecated, plug in your own promise library instead&quot;</a> warning has nagged Mongoose developers since <a href="https://github.com/Automattic/mongoose/commit/bde243cba9efc5a8309bb8bccb835778aab6868c">May 2016</a>. Because Mongoose 4 was released right before the formal adoption of the ES6 spec and Node.js 4, we were stuck with the legacy baggage of <a href="http://npmjs.com/package/mpromise">mpromise</a>, Mongoose&#39;s original promise library that was written to match the <a href="https://github.com/promises-aplus/promises-spec">mostly defunct Promises/A+ spec</a>. The mpromise library predates the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">ES6 promise spec</a>, and inconsistencies between mpromise and ES6 promises caused a lot of headache.</p>
 <p>In Mongoose 5, mpromise is gone for good. In fact, mpromise is no longer supported, the below will <strong>not</strong> work:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// This won't work in mongoose 5</span>
-mongoose.Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mpromise'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// This won't work in mongoose 5</span>
+mongoose.Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mpromise'</span>);</code></pre>
 <p>Mongoose 5 uses Node.js&#39; native promises by default.</p>
-<pre><code class="lang-javascript">mongoose.Promise === global.Promise; <span class="hljs-comment">// true</span>
-</code></pre>
+<pre><code class="language-javascript">mongoose.Promise === global.Promise; <span class="hljs-comment">// true</span></code></pre>
 <p>The <code>mongoose.Promise</code> property is still supported. You can still make mongoose always return <a href="http://npmjs.com/package/bluebird">bluebird</a> promises with the below code. On a related note, since mpromise is no longer supported, <code>mongoose.Promise</code> now contains the actual promise constructor. In other words, <code>mongoose.Promise</code> is no longer a compatibility layer that reconciles mpromise and ES6 promises, it is strictly equal to the promise constructor.</p>
-<pre><code class="lang-javascript">mongoose.Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
-mongoose.Promise === <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>); <span class="hljs-comment">// true in 5.x, false in 4.x</span>
-</code></pre>
-<h2 id="promises-and-async-await-with-middleware">Promises and Async/Await With Middleware</h2>
+<pre><code class="language-javascript">mongoose.Promise = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
+mongoose.Promise === <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>); <span class="hljs-comment">// true in 5.x, false in 4.x</span></code></pre>
+<h2 id="promises-and-asyncawait-with-middleware">Promises and Async/Await With Middleware</h2>
 <p><a href="http://mongoosejs.com/docs/middleware.html">Mongoose&#39;s middleware</a> pattern is similar to that of its former <a href="https://github.com/LearnBoost">LearnBoost</a> cousin <a href="http://expressjs.com/en/guide/writing-middleware.html">Express</a>. Asynchronous middleware in mongoose is handled using the <code>next()</code> function: once your asynchronous middleware wants to kick off the next middleware in the chain, it needs to call <code>next()</code>. When callbacks were the dominant async paradigm in Node.js this pattern made sense, but with promises and <a href="http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose">async/await</a> we can do better.</p>
 <p>Before you panic and start rewriting all your middleware, don&#39;t worry, mongoose hasn&#39;t gone the <a href="http://npmjs.com/package/koa">koa</a> route and made <code>next</code> a promise. Your existing pre and post hooks should continue to work as written modulo a couple minor changes. However, with mongoose 5 you can now use <code>async/await</code> with middleware and not worry about <code>next()</code> at all.</p>
 <p>For example, below is an example of using callback-style middleware to update an embedded <code>vehicle</code> property on the &#39;Customer&#39; model every time a vehicle gets updated.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 mongoose.set(<span class="hljs-string">'debug'</span>, <span class="hljs-literal">true</span>);
@@ -68,10 +65,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 
   <span class="hljs-comment">// `year` will be '2018'</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> Customer.findById(customer._id));
-}
-</code></pre>
+}</code></pre>
 <p>In mongoose 5.x, you can write the above middleware using <code>async/await</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Middleware can return a promise in 5.x. Mongoose will attach `.then(next, next)` for you.</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Middleware can return a promise in 5.x. Mongoose will attach `.then(next, next)` for you.</span>
 vehicleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> Customer.updateMany({ <span class="hljs-string">'vehicle._id'</span>: <span class="hljs-keyword">this</span>._id }, { $set: { vehicle: <span class="hljs-keyword">this</span> } });
 });
@@ -81,23 +77,21 @@ vehicleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-key
 vehicleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">await</span> Customer.updateMany({ <span class="hljs-string">'vehicle._id'</span>: <span class="hljs-keyword">this</span>._id }, { $set: { vehicle: <span class="hljs-keyword">this</span> } });
   next();
-});
-</code></pre>
+});</code></pre>
 <p>A key change in 5.x is that <code>next()</code> may only be called once. Calling <code>next()</code> multiple times is a no-op. For example, the below middleware will <strong>not</strong> report an error, because the 2nd <code>next()</code> call will be ignored.</p>
-<pre><code class="lang-javascript">vehicleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+<pre><code class="language-javascript">vehicleSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
   <span class="hljs-keyword">await</span> Customer.updateMany({ <span class="hljs-string">'vehicle._id'</span>: <span class="hljs-keyword">this</span>._id }, { $set: { vehicle: <span class="hljs-keyword">this</span> } });
   next();
   <span class="hljs-comment">// Ignored because calling `next()` twice is a no-op</span>
   next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>));
   <span class="hljs-comment">// Ignored because mongoose handles promise rejections by calling `next(err)`</span>
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>In general, if you want to use async/await with mongoose middleware, you should <strong>not</strong> use <code>next()</code> directly unless you have a good reason to.</p>
 <h2 id="change-streams">Change Streams</h2>
 <p><a href="https://docs.mongodb.com/manual/changeStreams/">Change streams</a> are one of the most exciting new features in MongoDB 3.6. Change streams notify you when a given document or documents have changed. For example, in the above case, let&#39;s say
 someone modified the customer&#39;s vehicle from the MongoDB shell. Because the update didn&#39;t go through mongoose, your middleware won&#39;t fire and your customer document will be out of date. With change streams, you get notified of all changes affecting your documents, no matter what app they came from. Below is an example of using change streams and <code>collection.watch()</code> with mongoose.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> vehicleSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> vehicleSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   make: <span class="hljs-built_in">String</span>,
   model: <span class="hljs-built_in">String</span>,
   year: <span class="hljs-built_in">Number</span>,
@@ -147,8 +141,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">250</span>));
 
   <span class="hljs-comment">// Should get `year = 2018`</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> Customer.findById(customer._id));
-</code></pre>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> Customer.findById(customer._id));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Mongoose 5.0.0-rc0 has 34 changes and improvements that will help you leverage modern JavaScript without the extra boilerplate. This is a release candidate as opposed to a formal release, so be careful running it in production. Please try it out and report any <a href="https://github.com/Automattic/mongoose/issues/new">issues you find on GitHub</a>. We&#39;re very excited to get this new release out and look forward to hearing your feedback!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

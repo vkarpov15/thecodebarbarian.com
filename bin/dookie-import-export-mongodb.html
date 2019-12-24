@@ -40,7 +40,7 @@ pre-process JSON or YAML data before inserting it into MongoDB.</p>
 <p>Dookie has two fundamental operations, &#39;push&#39; and &#39;pull&#39;. In other words,
 you can push data into MongoDB and pull data out of MongoDB. Let&#39;s say you have
 the following JSON object:</p>
-<pre><code class="lang-javascript">{
+<pre><code class="language-javascript">{
   <span class="hljs-string">"people"</span>: [
     {
       <span class="hljs-string">"_id"</span>: {
@@ -64,8 +64,7 @@ the following JSON object:</p>
       ]
     }
   ]
-}
-</code></pre>
+}</code></pre>
 <p>This object represents the state of a MongoDB database. The database has 2
 collections: &quot;people&quot; and &quot;bands&quot;. The &quot;people&quot; collection has two documents,
 and the &quot;bands&quot; collection has one. In the MongoDB shell, this database
@@ -80,8 +79,7 @@ people
 &gt; db.people.find().pretty()
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"561d87b8b260cf35147998ca"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Axl Rose"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"561d88f5b260cf35147998cb"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Slash"</span> }
-&gt;
-</code></pre><p>Dookie&#39;s &quot;pull&quot; operation lets you export this data from MongoDB into
+&gt;</code></pre><p>Dookie&#39;s &quot;pull&quot; operation lets you export this data from MongoDB into
 a JSON file. The below command exports the database named &quot;test&quot; into
 the file <code>export.json</code>.</p>
 <pre><code>$ ./node_modules/.bin/dookie pull --db test --file ./<span class="hljs-keyword">export</span>.json
@@ -96,19 +94,17 @@ $ head <span class="hljs-keyword">export</span>.json
       <span class="hljs-string">"name"</span>: <span class="hljs-string">"Axl Rose"</span>
     },
     {
-      <span class="hljs-string">"_id"</span>: {
-</code></pre><p>You can also use dookie from Node.js. Dookie has a <code>pull()</code> function that
+      <span class="hljs-string">"_id"</span>: {</code></pre><p>You can also use dookie from Node.js. Dookie has a <code>pull()</code> function that
 takes in a
 <a href="https://docs.mongodb.org/manual/reference/connection-string/">MongoDB connection string</a> and
 returns a
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>. The below script writes the contents of the &quot;test&quot;
 database to <code>export.json</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 dookie.pull(<span class="hljs-string">'mongodb://localhost:27017/test'</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
   fs.writeFileSync(<span class="hljs-string">'./export.json'</span>, res);
-});
-</code></pre>
+});</code></pre>
 <p>The &quot;push&quot; operation does the opposite. Once you have <code>export.json</code>, you
 can then replace the test database with the contents of <code>export.json</code>.</p>
 <pre><code>$ mongo
@@ -130,21 +126,19 @@ bands
 people
 &gt; db.bands.find().pretty()
 { <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Guns N' Roses"</span>, <span class="hljs-string">"members"</span> : [ <span class="hljs-string">"Axl Rose"</span>, <span class="hljs-string">"Slash"</span> ] }
-&gt;
-</code></pre><p>You can also do the same thing from Node.js. This is very handy for mocha
+&gt;</code></pre><p>You can also do the same thing from Node.js. This is very handy for mocha
 tests. These days my
 <a href="http://thecodebarbarian.com/2015/03/13/testing-rest-apis-with-acquit">API integration tests</a>
 almost always have <code>dookie.push()</code> in a <code>beforeEach()</code> hook.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> dookie = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dookie'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> data = <span class="hljs-built_in">JSON</span>.parse(fs.readFileSync(<span class="hljs-string">'./export.json'</span>, <span class="hljs-string">'utf8'</span>));
 dookie.push(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, data).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done!'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>The &quot;push&quot; operation also supports <a href="http://yaml.org/">YAML</a>, so if you have
 a file named <code>export.yml</code> like you see below:</p>
-<pre><code class="lang-yaml">people:
+<pre><code class="language-yaml">people:
   - _id:
       # MongoDB extended JSON syntax
       $oid: 561d87b8b260cf35147998ca
@@ -157,8 +151,7 @@ bands:
   - _id: Guns N&#39; Roses
     members:
       - Axl Rose
-      - Slash
-</code></pre>
+      - Slash</code></pre>
 <p>You can import it using <code>dookie push</code>. In my experience YAML a better language
 for dookie data sets than JSON, because it&#39;s easier to read and supports
 comments.</p>
@@ -174,7 +167,7 @@ common, and you don&#39;t want to copy/paste these details everywhere. The
 <code>$extend</code> syntax lets your documents inherit properties from &quot;variables.&quot;
 In dookie, a &quot;variable&quot; is a top-level field that starts with &quot;$&quot; (because
 MongoDB collection names can&#39;t start with &quot;$&quot;).</p>
-<pre><code class="lang-yaml">$movie:
+<pre><code class="language-yaml">$movie:
   deleted: <span class="hljs-literal">false</span>
   leadActor: Arnold Schwarzenegger
 
@@ -187,8 +180,7 @@ movies:
     name: <span class="hljs-string">"Terminator 2: Judgment Day"</span>
     supportingActors:
       - Linda Hamilton
-      - Robert Patrick
-</code></pre>
+      - Robert Patrick</code></pre>
 <p>If you run <code>dookie push</code> on the above YAML file, you&#39;ll get a database with
 1 collection that contains 2 documents, both with the correct <code>deleted</code> and
 <code>leadActor</code> fields.</p>
@@ -219,18 +211,16 @@ movies
     ],
     <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>,
     <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
-}
-</code></pre><p>The <code>$extend</code> syntax is even more powerful when you combine it with <code>$require</code>.
+}</code></pre><p>The <code>$extend</code> syntax is even more powerful when you combine it with <code>$require</code>.
 Let&#39;s say you want to write multiple test files that leverage the above
 data set. For instance, suppose you wanted to test what happens when a movie
 has <code>deleted</code> set to true, so you wrote the below file <code>deleted.yml</code>.</p>
-<pre><code class="lang-yaml">$<span class="hljs-built_in">require</span>: <span class="hljs-string">"./test.yml"</span>
+<pre><code class="language-yaml">$<span class="hljs-built_in">require</span>: <span class="hljs-string">"./test.yml"</span>
 
 movies:
   - $extend: $movie
     deleted: <span class="hljs-literal">true</span>
-    name: Hercules <span class="hljs-keyword">in</span> New York
-</code></pre>
+    name: Hercules <span class="hljs-keyword">in</span> New York</code></pre>
 <p>The <code>$require</code> syntax above pulls in the <code>test.yml</code> file from the <code>$extend</code>
 example, including all of its variables. The <code>$require</code> syntax also allows
 you to attach an additional movie. Once you push the above file, you get
@@ -266,8 +256,7 @@ connecting to: test
     <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">true</span>,
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Hercules in New York"</span>,
     <span class="hljs-string">"leadActor"</span> : <span class="hljs-string">"Arnold Schwarzenegger"</span>
-}
-</code></pre><h2 id="moving-on">Moving On</h2>
+}</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Stop using seed scripts and mongoimport/mongoexport scripts for your
 MongoDB and Node.js test data! Dookie lets you build and compose data sets
 in a declarative manner, and stand up the data sets from mocha tests or from

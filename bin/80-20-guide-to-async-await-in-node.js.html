@@ -16,16 +16,15 @@
 <p><em>All code in this article was tested on node.js 7.6.0. It will not work on earlier versions of node. <a href="https://nodejs.org/en/blog/release/v7.0.0/">Node.js 7.x</a> is an odd-numbered Node.js release, which means it is scheduled to be deprecated in June 2017, so I wouldn&#39;t recommend using it in production.</em></p>
 <h2 id="hello-world">Hello, World</h2>
 <p>Here&#39;s a &quot;Hello, World&quot; example of using async/await:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>You can run this node script like any other, without any transpilers, and it
 will print out &quot;Hello, World!&quot; after approximately 1 second.</p>
-<pre><code class="lang-javascript">$ ~<span class="hljs-regexp">/Workspace/</span>node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/node <span class="hljs-keyword">async</span>.js
+<pre><code class="language-javascript">$ ~<span class="hljs-regexp">/Workspace/</span>node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/node <span class="hljs-keyword">async</span>.js
 Hello, World!
 $
 $ time ~<span class="hljs-regexp">/Workspace/</span>node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/node <span class="hljs-keyword">async</span>.js
@@ -34,38 +33,34 @@ Hello, World!
 real    <span class="hljs-number">0</span>m1<span class="hljs-number">.121</span>s
 user    <span class="hljs-number">0</span>m0<span class="hljs-number">.115</span>s
 sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.008</span>s
-$
-</code></pre>
+$</code></pre>
 <p>Async functions are based entirely on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promises</a>. You should always <code>await</code> on a promise. Using <code>await</code> on a non-promise won&#39;t do anything:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// Works, just doesn't do anything useful</span>
   <span class="hljs-keyword">await</span> <span class="hljs-number">5</span>;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>You don&#39;t need to use native Node.js promises with <code>await</code>. <a href="https://www.npmjs.com/package/bluebird">Bluebird</a> or any other promise lib should work. In general, using <code>await</code> with any object that has a <code>then()</code> function will work:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-comment">// This object is a "thenable". It's a promise by the letter of the law,</span>
   <span class="hljs-comment">// but not the spirit of the law.</span>
   <span class="hljs-keyword">await</span> { then: resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>) };
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>There is one major restriction for using <code>await</code>: you <strong>must</strong> use <code>await</code> within a function that&#39;s declared <code>async</code>. The below code will result in a <code>SyntaxError</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>));
   <span class="hljs-comment">// SyntaxError: Unexpected identifier</span>
   <span class="hljs-keyword">await</span> p;
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Furthermore, <code>await</code> must <strong>not</strong> be in a closure embedded in an async function, unless the closure is also an async function. The below code also results in a <code>SyntaxError</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> p = <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'test'</span>);
@@ -76,19 +71,17 @@ test();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, world!'</span>);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Another important detail to remember about <code>async</code> functions is that <code>async</code> functions return promises:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">1000</span>));
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
 }
 
 <span class="hljs-comment">// Prints "Promise { &lt;pending&gt; }"</span>
-<span class="hljs-built_in">console</span>.log(test());
-</code></pre>
+<span class="hljs-built_in">console</span>.log(test());</code></pre>
 <p>This means that you can <code>await</code> on the result of an <code>async</code> function.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
 }
 
@@ -99,11 +92,10 @@ test();
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <h2 id="return-values-and-exceptions">Return Values and Exceptions</h2>
 <p>A promise can either <em>resolve</em> to a value or <em>reject</em> with an error. Async/await lets you handle these cases with synchronous operators: assignment for resolved values, and <code>try/catch</code> for exceptions. The return value of <code>await</code> is the value that the promise resolves to:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; {
     <span class="hljs-comment">// This promise resolves to "Hello, World!" after ~ 1sec</span>
     setTimeout(() =&gt; resolve(<span class="hljs-string">'Hello, World!'</span>), <span class="hljs-number">1000</span>);
@@ -112,10 +104,9 @@ test();
   <span class="hljs-built_in">console</span>.log(res);
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>In an async function, you can use <code>try/catch</code> to catch promise rejections. In other words, asynchronous promise rejections behave like synchronous errors:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
       setTimeout(() =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Woops!'</span>)), <span class="hljs-number">1000</span>);
@@ -126,10 +117,9 @@ test();
   }
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>Using <code>try/catch</code> as an error handling mechanism is powerful because it enables you to handle synchronous errors and asynchronous errors with a single syntax. In callback land you&#39;d often have to wrap your async calls in a <code>try/catch</code> as well as handling the <code>error</code> callback parameter.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bad</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bad</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'bad'</span>);
 }
 
@@ -151,11 +141,10 @@ test();
   }
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <h2 id="loops-and-conditionals">Loops and Conditionals</h2>
 <p>The number one killer feature of async/await is that you can write async code using <code>if</code> statements, <code>for</code> loops, and all the other synchronous constructs that you had to swear off of when using callbacks. You don&#39;t need any <a href="http://npmjs.org/package/async">flow control libraries</a> with async/await, you just use conditionals and loops. Here&#39;s an example using a <code>for</code> loop:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
 }
 
@@ -167,10 +156,9 @@ test();
   }
 }
 
-test();
-</code></pre>
+test();</code></pre>
 <p>And an example using an <code>if</code> statement:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
 }
 
@@ -184,21 +172,19 @@ test();
   }
 }
 
-test();
-</code></pre>
-<h2 id="remember-it-s-asynchronous">Remember It&#39;s Asynchronous</h2>
+test();</code></pre>
+<h2 id="remember-its-asynchronous">Remember It&#39;s Asynchronous</h2>
 <p>One cute JavaScript interview question I used to ask was what would the below code print out?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) {
+<pre><code class="language-javascript"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) {
   <span class="hljs-comment">// Actually prints out "5" 5 times.</span>
   <span class="hljs-comment">// But if you use `let` above, it'll print out 0-4</span>
   setTimeout(() =&gt; <span class="hljs-built_in">console</span>.log(i), <span class="hljs-number">0</span>);
 }
 
 <span class="hljs-comment">// This will print *before* the 5's</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>);
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>);</code></pre>
 <p>Asynchronous code is confusing, and async/await makes it easier to write asyncronous code but doesn&#39;t change the nature of asynchronous code. Just because <code>async</code> functions look synchronous doesn&#39;t mean they are:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
 }
 
@@ -223,12 +209,11 @@ test(<span class="hljs-number">130</span>);
 <span class="hljs-number">350</span>
 <span class="hljs-number">390</span>
 <span class="hljs-number">520</span>
-<span class="hljs-number">650</span>
-</code></pre>
+<span class="hljs-number">650</span></code></pre>
 <h2 id="error-handling">Error Handling</h2>
 <p>Remember that you can only use <code>await</code> within an <code>async</code> function, and <code>async</code> functions return promises. This means that somewhere in your code you&#39;re going to have to handle errors. Async/await gives you a powerful mechanism for aggregating errors: all errors that occur in the async function, synchronous or asynchronous, are bubbled up as a promise rejection. However, it&#39;s up to you to handle the error. Here&#39;s <a href="https://medium.com/@yamalight/danger-of-using-async-await-in-es7-8006e3eb7efb#.9hi1z9gry">another interesting article on the topic of handling promise rejections with async/await</a>.</p>
 <p>Let&#39;s say you want to use async/await with the <a href="http://npmjs.org/package/express">Express web framework</a>. The naive way of using async functions with Express works in the most basic case:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app = express();
 
@@ -244,11 +229,10 @@ app.listen(<span class="hljs-number">3000</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
-}
-</code></pre>
+}</code></pre>
 <p><a href="http://i.imgur.com/RmWWczB.png"><img src="http://i.imgur.com/RmWWczB.png"></a></p>
 <p>So we&#39;re done, right? <strong>Wrong</strong>. What happens if you throw an exception in the <code>handler</code> function?</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app = express();
 
@@ -262,21 +246,19 @@ app.listen(<span class="hljs-number">3000</span>);
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">ms</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
-}
-</code></pre>
+}</code></pre>
 <p>Express will hang forever, the server won&#39;t crash, and the only indication of an error would be an unhandled promise rejection warning.</p>
 <pre><code>$ node <span class="hljs-keyword">async</span>.js
 (node:<span class="hljs-number">17661</span>) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: <span class="hljs-number">1</span>): <span class="hljs-built_in">Error</span>: Hang!
-(node:<span class="hljs-number">17661</span>) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.
-</code></pre><p>Since <code>await</code> treats promise rejections as exceptions, unless you <code>try/catch</code> around <code>await</code> the rejection will cause the entire function to stop executing. The below <code>handler</code> function will also hang with an unhandled promise rejection warning.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
+(node:<span class="hljs-number">17661</span>) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.</code></pre><p>Since <code>await</code> treats promise rejections as exceptions, unless you <code>try/catch</code> around <code>await</code> the rejection will cause the entire function to stop executing. The below <code>handler</code> function will also hang with an unhandled promise rejection warning.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
   res.send(<span class="hljs-string">'Hello, World!'</span>);
-}
-</code></pre>
-<p><img src="https://cdn.meme.am/cache/instances/folder898/500x/76013898.jpg"></p>
+}</code></pre>
+<img src="https://cdn.meme.am/cache/instances/folder898/500x/76013898.jpg">
+
 <p>The single most important takeaway from this article is that <code>async</code> functions return a promise. Async/await gives you the ability to build sophisticated async logic with loops, conditionals, and <code>try/catch</code>, but in the end it packages all this logic into a single promise. If you see async/await code that doesn&#39;t include any <code>.catch()</code> calls, odds are that code is missing some error cases. Here&#39;s a better way of handling async functions with Express:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app = express();
 
@@ -293,12 +275,11 @@ app.listen(<span class="hljs-number">3000</span>);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
   res.send(<span class="hljs-string">'Hello, World!'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The <code>safeHandler</code> function chains <code>.catch()</code> onto the promise that the async <code>handler</code> function returns. This ensures that your server sends an HTTP response, even if <code>handler</code> errors out. If calling <code>safeHandler</code> on every request handler seems cumbersome, there are numerous alternatives, like using <a href="http://thecodebarbarian.com/rest-apis-with-observables.html">observables</a> or <a href="http://thecodebarbarian.com/using-ramda-as-a-dependency-injector">ramda</a>.</p>
-<h2 id="async-await-vs-co-yield">Async/Await vs Co/Yield</h2>
+<h2 id="asyncawait-vs-coyield">Async/Await vs Co/Yield</h2>
 <p>The <a href="https://www.npmjs.com/package/co">co</a> library uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">ES6 generators</a> to get functionality similar to async/await. For example, here&#39;s how the <code>safeHandler</code> code example would look with co/yield:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app = express();
@@ -318,12 +299,11 @@ app.listen(<span class="hljs-number">3000</span>);
     <span class="hljs-keyword">yield</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
     res.send(<span class="hljs-string">'Hello, World!'</span>);
   });
-}
-</code></pre>
+}</code></pre>
 <p>As a matter of fact, you can replace every <code>async function(params) {}</code> in this article with <code>function(params) { return co(function*() {}) }</code> and <code>await</code> with <code>yield</code> and all the examples will still work.</p>
 <p>The upside of using co is that co works without any transpilation in Node.js 4.x and 6.x. The <a href="https://github.com/nodejs/LTS#lts-schedule">EOL of 4.x and 6.x</a> is in 2018 and 2019, respectively, so these releases are more stable than Node.js 7.x. Until Node.js 8 is released <a href="https://github.com/nodejs/node/issues/10117">(tentatively scheduled for April 2017)</a> there&#39;s no LTS version of Node.js that supports async/await without transpilers. Co also enjoys better browser support, and every transpiler for async/await that I know of compiles down to using generators. If you&#39;re interested in really mastering co and generators, check out my ebook, <a href="http://es2015generators.com">The 80/20 Guide to ES2015 Generators</a>, which walks you through writing your own co from scratch.</p>
 <p>Async/await has numerous advantages, most notably readable stack traces. Let&#39;s compare the stack traces of using co vs using async/await with the Express example:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">return</span> co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">yield</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
     res.send(<span class="hljs-string">'Hello, World!'</span>);
@@ -335,8 +315,7 @@ app.listen(<span class="hljs-number">3000</span>);
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
   res.send(<span class="hljs-string">'Hello, World!'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>Async:</p>
 <pre><code>$ node <span class="hljs-keyword">async</span>.js
 <span class="hljs-built_in">Error</span>: Hang!
@@ -349,8 +328,7 @@ app.listen(<span class="hljs-number">3000</span>);
     at Layer.handle [<span class="hljs-keyword">as</span> handle_request] (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/layer.js:<span class="hljs-number">95</span>:<span class="hljs-number">5</span>)
     at /home/val/node_modules/express/lib/router/index.js:<span class="hljs-number">281</span>:<span class="hljs-number">22</span>
     at <span class="hljs-built_in">Function</span>.process_params (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/index.js:<span class="hljs-number">335</span>:<span class="hljs-number">12</span>)
-    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/index.js:<span class="hljs-number">275</span>:<span class="hljs-number">10</span>)
-</code></pre><p>Co:</p>
+    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/index.js:<span class="hljs-number">275</span>:<span class="hljs-number">10</span>)</code></pre><p>Co:</p>
 <pre><code>$ node <span class="hljs-keyword">async</span>.js
 <span class="hljs-built_in">Error</span>: Hang!
     at <span class="hljs-built_in">Promise</span> (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">18</span>:<span class="hljs-number">51</span>)
@@ -362,8 +340,7 @@ app.listen(<span class="hljs-number">3000</span>);
     at handler (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">17</span>:<span class="hljs-number">10</span>)
     at /home/val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">12</span>:<span class="hljs-number">5</span>
     at Layer.handle [<span class="hljs-keyword">as</span> handle_request] (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/layer.js:<span class="hljs-number">95</span>:<span class="hljs-number">5</span>)
-    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/route.js:<span class="hljs-number">137</span>:<span class="hljs-number">13</span>)
-</code></pre><p>So async/await has better stack traces and lets you construct promises using the built-in loops and conditionals that you already know, so download Node.js 7.6 and give it a shot!</p>
+    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/route.js:<span class="hljs-number">137</span>:<span class="hljs-number">13</span>)</code></pre><p>So async/await has better stack traces and lets you construct promises using the built-in loops and conditionals that you already know, so download Node.js 7.6 and give it a shot!</p>
 <p><em>Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>

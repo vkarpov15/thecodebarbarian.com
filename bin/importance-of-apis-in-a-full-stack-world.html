@@ -15,27 +15,26 @@
 </div><div class="post-body-text-container"><p><em>This article originally appeared on <a href="https://www.lunchbadger.com/go-full-stack-with-express-and-apis/">LunchBadger</a>. LunchBadger <a href="https://www.lunchbadger.com/development/">helps you build APIs in a continuous lifecycle using serverless open source</a>.</em></p>
 <p>Around 2011-2014, the notion of a full stack JavaScript developer became mainstream. The idea was that, as browsers became more standardized, hybrid native app frameworks like Cordova grew in sophistication, and Node.js continued to grow in popularity, we would all be working on independent small JavaScript projects that each had their own client, server, and database. However, increasing fragmentation in the client-side JavaScript space, the continued superiority of native mobile apps over hybrid mobile apps, and the power of specialization has drastically slowed the rise of full stack JavaScript.</p>
 <p>Now that the promise of a single unified client is no longer an imminent possibility, APIs, REST and otherwise, are more pivotal than ever for unifying disparate clients. Node.js&#39; powerful concurrency model along with the prolific npm and <a href="https://www.npmjs.com/package/express">Express</a> ecosystems make Express the ideal tool to build your next API.</p>
-<h2 id="shouldn-t-we-all-just-be-using-firebase-">Shouldn&#39;t We All Just Be Using Firebase?</h2>
+<h2 id="shouldnt-we-all-just-be-using-firebase">Shouldn&#39;t We All Just Be Using Firebase?</h2>
 <p>There was a time when I thought AngularFire meant the end of backend development. Firebase&#39;s client library maintained a socket connection to a realtime database, and, best of all, AngularFire integrated with Angular 1&#39;s dirty checking to sync your changes in JavaScript to the realtime database with no work on your part. All you did was write some HTML and you&#39;re done. Add in over-the-air updates with Ionic 1 and you had a mobile app too.</p>
-<pre><code class="lang-javascript">app.controller(<span class="hljs-string">'MyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $firebaseObject</span>) </span>{
+<pre><code class="language-javascript">app.controller(<span class="hljs-string">'MyController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, $firebaseObject</span>) </span>{
   <span class="hljs-keyword">var</span> ref = firebase.database().ref();
   $scope.data = $firebaseObject(ref);
-});
-</code></pre>
-<pre><code class="lang-html">&lt;div controller=<span class="hljs-string">"MyController"</span>&gt;
+});</code></pre>
+<pre><code class="language-html">&lt;div controller=<span class="hljs-string">"MyController"</span>&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{data.title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
 <p>Unfortunately, it also became clear that Angular 1 was difficult to optimize and extend beyond building simple forms. Cordova&#39;s proving to have similar issues. Sophisticated clients require developers to specialize.</p>
 <p>With the assumption that you need disparate clients, like an iOS app, an Android app, an Electron desktop app, and a web client, you need a centralized logic layer. If you use a realtime database directly and your Android app&#39;s logic doesn&#39;t keep up with your iOS app&#39;s logic, you&#39;ve got a problem. That&#39;s where APIs come in.</p>
-<h2 id="what-should-apis-do-">What Should APIs Do?</h2>
+<h2 id="what-should-apis-do">What Should APIs Do?</h2>
 <p>I think KeenIO summed it up best when they said APIs <a href="https://blog.keen.io/the-api-era-f004f6800488">&quot;boil complex processes down to simple commands that magically do lots of work for you.&quot;</a> Or, like <a href="https://twitter.com/browserling/status/866694093929316352">Browserling put it</a>, an API is like a Kraken that lurks under the surface of your apps and ties together logic and data sources so your apps don&#39;t have to. Here&#39;s a few examples of tasks that APIs should take care of for their clients.</p>
-<p><img src="https://pbs.twimg.com/media/DAcdpz-WsAIczvd.jpg"></p>
+<img src="https://pbs.twimg.com/media/DAcdpz-WsAIczvd.jpg">
+
 <ul>
 <li>Security</li>
 </ul>
 <p>Clients are wildly insecure, as I was recently reminded when I booked a blocked-off slot for car maintenance because the dealer&#39;s site relied on Angular 1 form validation. They didn&#39;t verify the slot was available on their server. <a href="http://expressjs.com/en/guide/writing-middleware.html">Express middleware</a> makes it easy to define security rules for a group of routes without repeating yourself. For example, the <a href="https://www.npmjs.com/package/express-jwt">express-jwt</a> library makes it easy to set up <a href="https://jwt.io/">JSON Web Token</a> authentication. You can write additional middleware to define your own custom rules.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 
 <span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-jwt'</span>)({ secret: <span class="hljs-string">'my secret key'</span> });
@@ -56,15 +55,14 @@ app.use(<span class="hljs-string">'/admin'</span>, <span class="hljs-function"><
     <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">401</span>).json({ err: <span class="hljs-string">'Must be admin!'</span> });
   }
   <span class="hljs-keyword">return</span> next();
-});
-</code></pre>
+});</code></pre>
 <ul>
 <li>Concurrency and Locking</li>
 </ul>
 <p>I&#39;m sure you&#39;ve heard that Node.js is non-blocking and there&#39;s no standard Node.js notion of a &quot;lock&quot;, as opposed to languages like <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true">Java</a>. However, these days APIs are typically scaled horizontally, either across multiple instances of an API server or across numerous microservices. When you have multiple servers on different machines, the standard in-memory locks you might remember from undergrad systems programming are not very useful. You need <a href="https://redis.io/topics/distlock">distributed locking</a>, and managing distributed locking across different clients is a nightmare.</p>
 <p>Express middleware makes it easy to lock a resource for a certain group of endpoints. A common example is locking a user every time the client hits an endpoint that updates a user. You might have separate endpoints like <code>updateAdmin</code> for doing special types of updates, so in general you&#39;d like to
 lock the user every time someone hits a <code>PUT</code> endpoint under <code>/user</code>. Here&#39;s an example using MongoDB as the store for the distributed lock.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 
@@ -104,13 +102,12 @@ lock the user every time someone hits a <code>PUT</code> endpoint under <code>/u
   app.listen(<span class="hljs-number">3000</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <ul>
 <li>Data Validation</li>
 </ul>
 <p>Data formats change fast, and apps can&#39;t keep up unless you force upgrade your users regularly. Thankfully, because JavaScript is a dynamically typed language, the JavaScript community has a myriad of well-adopted type casting and data validation libraries, including <a href="http://npmjs.org/package/mongoose">mongoose</a>, <a href="https://www.npmjs.com/package/joi">joi</a>, <a href="https://www.npmjs.com/package/ajv">ajv</a>, and others.  <a href="http://expressjs.com/en/guide/error-handling.html">Express error handling middleware</a> enables you to handle data validation errors in a standard way across your application.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'joi'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'joi'</span>);
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
@@ -151,14 +148,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   app.listen(<span class="hljs-number">3000</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <ul>
 <li>Interfacing With Externally Facing APIs</li>
 </ul>
 <p>For both security and maintainability, APIs should be responsible for most interactions between your software and external APIs. Leveraging external APIs is difficult and error prone, having a centralized layer for communicating with external APIs and reporting errors is critical. Keeping potentially sensitive API keys out of the hands of insecure clients is also important.</p>
 <p>Express error handling middleware makes it easy to handle errors from external APIs in a standardized way, so long as the errors are reported through <code>next()</code>. Here&#39;s an example of error handling middleware for the Twilio API.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Twilio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'twilio'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Twilio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'twilio'</span>);
 <span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 <span class="hljs-keyword">const</span> twilio = <span class="hljs-keyword">new</span> Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -198,8 +194,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   app.listen(<span class="hljs-number">3000</span>);
 }
 
-run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
-</code></pre>
+run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Because clients are becoming increasingly specialized, APIs are becoming increasingly important for providing consistency across wildly different clients. The 2013 dream of a single unified JavaScript client for mobile, browser, and desktop is infeasible for most companies. But, because of the prolific npm ecosystem, Node.js&#39; elegant concurrency model, and code sharing with browser, <a href="https://electron.atom.io/">Electron</a>, and <a href="https://facebook.github.io/react-native/">React Native</a>, a Node.js API written in Express is still the way to go.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

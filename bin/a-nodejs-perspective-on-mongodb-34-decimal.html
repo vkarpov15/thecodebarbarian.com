@@ -17,7 +17,7 @@
 known as &quot;decimal&quot; or &quot;Decimal128&quot;. The decimal type provides a workaround for the
 numerous <a href="https://en.wikipedia.org/wiki/Floating_point#Accuracy_problems">fundamental issues</a> inherent to using binary floating points to represent
 base 10 values.</p>
-<h2 id="what-s-wrong-with-binary-floating-points-">What&#39;s Wrong With Binary Floating Points?</h2>
+<h2 id="whats-wrong-with-binary-floating-points">What&#39;s Wrong With Binary Floating Points?</h2>
 <p>Here&#39;s a quick example of inserting a document into MongoDB with a property
 <code>x</code> with initial value 0.1, and then incrementing it by 0.2. The resulting
 value of <code>x</code> is <strong>not</strong> 0.3.</p>
@@ -34,8 +34,7 @@ connecting to: test
 { <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>, <span class="hljs-string">"matchedCount"</span> : <span class="hljs-number">1</span>, <span class="hljs-string">"modifiedCount"</span> : <span class="hljs-number">1</span> }
 &gt; db.test.findOne()
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"588a3f711554cc7d70642fa1"</span>), <span class="hljs-string">"x"</span> : <span class="hljs-number">0.30000000000000004</span> }
-&gt;
-</code></pre><p>This problem is not limited to MongoDB, you get the same result in node:</p>
+&gt;</code></pre><p>This problem is not limited to MongoDB, you get the same result in node:</p>
 <pre><code>$ node
 &gt; <span class="hljs-number">0.1</span>
 <span class="hljs-number">0.1</span>
@@ -45,8 +44,7 @@ connecting to: test
 <span class="hljs-number">0.020000000000000004</span>
 &gt; <span class="hljs-number">0.1</span> * <span class="hljs-number">0.1</span>
 <span class="hljs-number">0.010000000000000002</span>
-&gt;
-</code></pre><p>Silly JavaScript, can&#39;t even do math right. Let&#39;s try Python.</p>
+&gt;</code></pre><p>Silly JavaScript, can&#39;t even do math right. Let&#39;s try Python.</p>
 <pre><code>$ python
 Python <span class="hljs-number">2.7</span><span class="hljs-number">.6</span> (<span class="hljs-keyword">default</span>, Jun <span class="hljs-number">22</span> <span class="hljs-number">2015</span>, <span class="hljs-number">17</span>:<span class="hljs-number">58</span>:<span class="hljs-number">13</span>)
 [GCC <span class="hljs-number">4.8</span><span class="hljs-number">.2</span>] on linux2
@@ -56,12 +54,12 @@ Type <span class="hljs-string">"help"</span>, <span class="hljs-string">"copyrig
 &gt;&gt;&gt; <span class="hljs-number">0.2</span>
 <span class="hljs-number">0.2</span>
 &gt;&gt;&gt; <span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>
-<span class="hljs-number">0.30000000000000004</span>
-</code></pre><p>The fundamental issue is not with MongoDB, JavaScript, or Python, it&#39;s with how
+<span class="hljs-number">0.30000000000000004</span></code></pre><p>The fundamental issue is not with MongoDB, JavaScript, or Python, it&#39;s with how
 0.1 is represented in binary: <code>0.00011001100110011...</code>, a repeating decimal over
 <code>0011</code>. In other words, 0.1 is not representable by binary floating points.
 Nor are seemingly innocuous numbers like 1.126 and 1.789.</p>
-<p><img src="http://i.imgur.com/lzcuVPE.png" /></p>
+<img src="http://i.imgur.com/lzcuVPE.png" />
+
 <p>These accuracy problems make using floating points for monetary values cumbersome at best. Small errors add up fast, especially when you use floats to accumulate values over time like <a href="https://www.boosterfuels.com/join-the-team">keeping track of the amount of fuel that should be in a tanker</a>. In MongoDB 3.2 your only options were to either round values in the client or use a <a href="https://docs.mongodb.com/manual/tutorial/model-monetary-data/#numeric-model">scale factor</a> (converting to an integer for the purposes of arithmetic and then dividing again).</p>
 <p>Using the decimal type, these accuracy issues are no longer a problem. The
 fundamental idea of the decimal type is that it represents numbers in base 10,
@@ -78,8 +76,7 @@ connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/test</span>
 { <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>, <span class="hljs-string">"matchedCount"</span> : <span class="hljs-number">1</span>, <span class="hljs-string">"modifiedCount"</span> : <span class="hljs-number">1</span> }
 &gt; db.test.findOne()
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"588a448a3eef9d93ffc9f197"</span>), <span class="hljs-string">"x"</span> : NumberDecimal(<span class="hljs-string">"0.3"</span>) }
-&gt;
-</code></pre><p>Mixing decimal floating points and binary floating points is likely a bad idea, but
+&gt;</code></pre><p>Mixing decimal floating points and binary floating points is likely a bad idea, but
 MongoDB seems to handle that too:</p>
 <pre><code>&gt; db.test.insertOne({ x: NumberDecimal(<span class="hljs-string">'0.1'</span>) })
 {
@@ -93,8 +90,7 @@ MongoDB seems to handle that too:</p>
     <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"588a4a708cefd826806dbe19"</span>),
     <span class="hljs-string">"x"</span> : NumberDecimal(<span class="hljs-string">"0.300000000000000"</span>)
 }
-&gt;
-</code></pre><pre><code>&gt; db.test.insertOne({ x: <span class="hljs-number">0.1</span> })
+&gt;</code></pre><pre><code>&gt; db.test.insertOne({ x: <span class="hljs-number">0.1</span> })
 {
     <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>,
     <span class="hljs-string">"insertedId"</span> : ObjectId(<span class="hljs-string">"588a4a94c215d53cf9d8f3d5"</span>)
@@ -106,14 +102,13 @@ MongoDB seems to handle that too:</p>
     <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"588a4a94c215d53cf9d8f3d5"</span>),
     <span class="hljs-string">"x"</span> : NumberDecimal(<span class="hljs-string">"0.300000000000000"</span>)
 }
-&gt;
-</code></pre><h2 id="decimal-in-node-js">Decimal in Node.js</h2>
+&gt;</code></pre><h2 id="decimal-in-nodejs">Decimal in Node.js</h2>
 <p>JavaScript has no native support for decimal floating points, so working with
 the decimal type has some troublesome edge cases. Here&#39;s a rudimentary example
 of using the decimal type in Node.js.</p>
 <p>Keep in mind that the decimal type is new in version 2.2.0 of the MongoDB
 Node.js driver, so make sure you use <code>mongodb &gt;= 2.2.0</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-keyword">let</span> db;
 mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>).
@@ -124,8 +119,7 @@ mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017
   then(() =&gt; db.collection(<span class="hljs-string">'test'</span>).updateOne({}, { $inc: { x: mongodb.Decimal128.fromString(<span class="hljs-string">'0.2'</span>) } })).
   then(() =&gt; db.collection(<span class="hljs-string">'test'</span>).findOne()).
   then(res =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(res, <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>))).
-  <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));
-</code></pre>
+  <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'error'</span>, error));</code></pre>
 <p>The output of this script looks like this:</p>
 <pre><code>$ node decimal.js
 {
@@ -133,21 +127,19 @@ mongodb.MongoClient.connect(<span class="hljs-string">'mongodb://localhost:27017
   <span class="hljs-string">"x"</span>: {
     <span class="hljs-string">"$numberDecimal"</span>: <span class="hljs-string">"0.3"</span>
   }
-}
-</code></pre><p>The key detail you should notice is that the JSON output is in <a href="https://docs.mongodb.com/manual/reference/mongodb-extended-json/">MongoDB extended JSON format</a> (the <code>$numberDecimal</code> property) and the decimal is represented as a string rather than
+}</code></pre><p>The key detail you should notice is that the JSON output is in <a href="https://docs.mongodb.com/manual/reference/mongodb-extended-json/">MongoDB extended JSON format</a> (the <code>$numberDecimal</code> property) and the decimal is represented as a string rather than
 a number. Switching back and forth between extended JSON and the actual Decimal
 type is easy with the <a href="https://www.npmjs.com/package/mongodb-extended-json"><code>mongodb-extended-json</code> npm package</a>.</p>
 <p>As of this writing, the Decimal type in Node.js does <strong>not</strong> have any arithmetic
 helpers.</p>
 <pre><code>&gt; Decimal128.fromString(<span class="hljs-string">'0.1'</span>).add(Decimal128.fromString(<span class="hljs-string">'0.2'</span>))
 <span class="hljs-built_in">TypeError</span>: Decimal128.fromString(...).add is not a <span class="hljs-function"><span class="hljs-keyword">function</span>
-    <span class="hljs-title">at</span> <span class="hljs-title">repl</span>:1:30</span>
-</code></pre><p>To do arithmetic in Node.js, you would need to convert the decimal&#39;s string
+    <span class="hljs-title">at</span> <span class="hljs-title">repl</span>:1:30</span></code></pre><p>To do arithmetic in Node.js, you would need to convert the decimal&#39;s string
 representation to a native JavaScript number. You can also <a href="https://github.com/mongodb/js-bson/blob/1268c4bb0e04d8df31a5f0f2073d5d70e98c487a/lib/bson/decimal128.js#L79-L94">get into the nitty-gritty of manipulating the buffer underlying the MongoDB driver&#39;s decimal type</a> but I wouldn&#39;t recommend it. In most simple cases, the decimal string representation should be easy to convert to a number
 using <a href="http://www.w3schools.com/jsref/jsref_parsefloat.asp"><code>parseFloat()</code></a>.</p>
 <p>Mongoose 4.8.0 also has support for the decimal type. <a href="http://mongoosejs.com/docs/schematypes.html">Mongoose&#39;s type casting</a>
 really shines here, it automatically converts strings into decimals for you:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
 
@@ -164,8 +156,7 @@ Doc.create({ x: <span class="hljs-string">'0.1'</span> }).
 <span class="hljs-comment">// Output</span>
 doc { _id: <span class="hljs-number">588</span>a5a0b9621524d3d84a059,
   x: { <span class="hljs-string">'$numberDecimal'</span>: <span class="hljs-string">'0.3'</span> },
-  __v: <span class="hljs-number">0</span> }
-</code></pre>
+  __v: <span class="hljs-number">0</span> }</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>MongoDB 3.4 has some amazing new features - I already covered the new
 aggregation operators <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-facet.html"><code>$facet</code></a> and <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-graphlookup.html"><code>$graphLookup</code></a>. The Decimal type is just as impressive: it enables accurate

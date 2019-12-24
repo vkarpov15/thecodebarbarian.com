@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p>The <code>saveErrorIfNotFound</code> option and <code>$where</code> property in <a href="https://github.com/Automattic/mongoose/blob/master/History.md#480--2017-01-28">mongoose 4.8</a> gives <a href="http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins">plugins</a> a powerful new way to modify the behavior of <code>save()</code>. This feature may not seem as exciting as <code>eachAsync()</code> or the major perf improvements in 4.8, but I think it will help the community develop some handy abstractions on top of <code>save()</code>. How do these
 features work? Let&#39;s say you try to save a document that was deleted after you
 loaded it:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 }));
 
@@ -30,15 +30,14 @@ M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</sp
 });
 
 <span class="hljs-comment">// Output</span>
-<span class="hljs-literal">null</span> { name: <span class="hljs-string">'test'</span>, __v: <span class="hljs-number">0</span>, _id: <span class="hljs-number">589</span>cd5f176f15f362784d93a } <span class="hljs-number">0</span>
-</code></pre>
+<span class="hljs-literal">null</span> { name: <span class="hljs-string">'test'</span>, __v: <span class="hljs-number">0</span>, _id: <span class="hljs-number">589</span>cd5f176f15f362784d93a } <span class="hljs-number">0</span></code></pre>
 <p>Mongoose doesn&#39;t report an error when it can&#39;t find the document to modify. The
 only indication is the third parameter to the callback, <code>numModified</code>, is 0.
 There&#39;s a couple problems with this setup, including, what happens if you&#39;re
 using promises? ES6 Promises can only resolve to a <strong>single</strong> value, so
 <code>numModified</code> is undefined and there is no way for you to tell if the underlying
 doc was saved or not.</p>
-<pre><code class="lang-javascript">mongoose.Promise = global.Promise;
+<pre><code class="language-javascript">mongoose.Promise = global.Promise;
 
 M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc</span>) </span>{
   M.remove({ _id: doc._id }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -48,11 +47,10 @@ M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</sp
       <span class="hljs-built_in">console</span>.log(doc, numModified);
     });
   });
-});
-</code></pre>
+});</code></pre>
 <h2 id="the-saveerrorifnotfound-option">The <code>saveErrorIfNotFound</code> Option</h2>
 <p>If you set mongoose 4.8&#39;s <code>saveErrorIfNotFound</code> flag to true, you&#39;ll find that mongoose reports a <code>DocumentNotFoundError</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> M = mongoose.model(<span class="hljs-string">'Test'</span>, <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 }, { saveErrorIfNotFound: <span class="hljs-literal">true</span> }));
 
@@ -62,26 +60,24 @@ M.create({}, <span class="hljs-function"><span class="hljs-keyword">function</sp
     <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cd7d98e9237368e1d7097 }"</span>
     doc.save().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
   });
-});
-</code></pre>
+});</code></pre>
 <p>This behavior works better with promises than the default <code>numModified</code> behavior,
 which was designed to work with a callback-based API. We&#39;re leaning toward setting
 <code>saveErrorIfNotFound</code> to true by default in 5.0 but haven&#39;t committed to it. If
 you have strong feelings one way or the other, please <a href="https://github.com/Automattic/mongoose/issues/4973">put your thoughts in this GitHub issue</a>.</p>
 <p>You&#39;ll notice that the <code>DocumentNotFoundError</code> message includes the query that was used to identify the document to save. Why is that? Because the <code>$where</code> property
 actually lets you change the underlying query that <code>save()</code> uses.</p>
-<pre><code class="lang-javascript">M.create({}).then(doc =&gt; {
+<pre><code class="language-javascript">M.create({}).then(doc =&gt; {
   doc.name = <span class="hljs-string">'test'</span>;
   doc.$where = { prop: <span class="hljs-string">'test'</span> };
   <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cda0cc9cbea37c23f4d4d, prop: 'test' }"</span>
   doc.save().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-});
-</code></pre>
+});</code></pre>
 <p>Modifying the <code>$where</code> object in conjunction with <code>saveErrorIfNotFound</code> lets you define a new class of abstractions around <code>save()</code>. Let&#39;s take a look at a few examples.</p>
-<h2 id="example-uses-for-where-">Example Uses for <code>$where</code></h2>
+<h2 id="example-uses-for-where">Example Uses for <code>$where</code></h2>
 <ol>
 <li><p>Optimistic concurrency / timestamp checking</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
  name: <span class="hljs-built_in">String</span>
 <span class="hljs-comment">// set `createdAt` and `updatedAt` with the `timestamps` option</span>
 }, { saveErrorIfNotFound: <span class="hljs-literal">true</span>, timestamps: <span class="hljs-literal">true</span> });
@@ -103,11 +99,10 @@ M.create({}).
    <span class="hljs-keyword">return</span> doc.save();
  }).
  <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdbc260f49038414cef3b, updatedAt: 2017-02-09T21:14:42.211Z }"</span>
- <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 </li>
 <li><p>Enforcing soft deletes</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
  name: <span class="hljs-built_in">String</span>,
  isDeleted: <span class="hljs-built_in">Boolean</span>
 }, { saveErrorIfNotFound: <span class="hljs-literal">true</span> });
@@ -125,11 +120,10 @@ M.create({}).
  then(doc =&gt; M.updateOne({ _id: doc._id }, { $set: { isDeleted: <span class="hljs-literal">true</span> } }).then(() =&gt; doc)).
  then(doc =&gt; { doc.name = <span class="hljs-string">'test3'</span>; <span class="hljs-keyword">return</span> doc.save(); }).
  <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdc62fb7963387bd79075, isDeleted: { '$ne': true } }"</span>
- <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 </li>
 <li><p>Versioning (alternative to timestamp checking)</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
  name: <span class="hljs-built_in">String</span>,
  <span class="hljs-comment">// Start at 0 and increment every time we save</span>
  _version: { type: <span class="hljs-built_in">Number</span>, <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span> }
@@ -164,8 +158,7 @@ M.create({}).
    <span class="hljs-keyword">return</span> docs[<span class="hljs-number">1</span>].save();
  }).
  <span class="hljs-comment">// DocumentNotFoundError: No document found for query "{ _id: 589cdd6ca39d3538bd3218de, _version: 1 }"</span>
- <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));
-</code></pre>
+ <span class="hljs-keyword">catch</span>(error =&gt; <span class="hljs-built_in">console</span>.error(error));</code></pre>
 </li>
 </ol>
 <p>There&#39;s numerous other use cases for <code>$where</code>, like setting <a href="https://docs.mongodb.com/manual/core/sharding-shard-key/">shard keys</a>, enforcing

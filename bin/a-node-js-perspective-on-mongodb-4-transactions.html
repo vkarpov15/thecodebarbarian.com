@@ -17,7 +17,7 @@ important new feature in <a href="https://www.mongodb.com/mongodb-4.0">MongoDB 4
 MongoDB has supported <a href="https://docs.mongodb.com/manual/core/write-operations-atomicity/">ACID for single document operations</a> for many years, and <a href="http://thecodebarbarian.com/managing-embedded-documents-with-monogram">denormalized data</a> meant many apps didn&#39;t need transactions. However, for certain applications,
 there&#39;s no way to escape the need for multi-document transactions. In this
 article, I&#39;ll demonstrate using transactions with the <a href="http://npmjs.com/package/mongodb">MongoDB Node.js driver</a> and <a href="https://www.npmjs.com/package/mongoose">mongoose</a>.</p>
-<h2 id="transferring-money-between-accounts-in-node-js">Transferring Money Between Accounts in Node.js</h2>
+<h2 id="transferring-money-between-accounts-in-nodejs">Transferring Money Between Accounts in Node.js</h2>
 <p><a href="https://docs.mongodb.com/manual/replication/#transactions">MongoDB currently only supports transactions on replica sets</a>, not standalone servers. To run a <a href="/introducing-run-rs-zero-config-mongodb-runner.html">local replica set for development</a> on OSX or Linux, use npm to install <a href="https://www.npmjs.com/package/run-rs">run-rs</a> globally and run <code>run-rs --version 4.0.0</code>. Run-rs will download MongoDB 4.0.0 for you.</p>
 <pre><code>$ npm install run-rs -g
 $ run-rs --version <span class="hljs-number">4.0</span><span class="hljs-number">.0</span>
@@ -25,10 +25,8 @@ Purging database...
 Running <span class="hljs-string">'/home/node/lib/node_modules/run-rs/4.0.0/mongod'</span>
 Starting replica set...
 Started replica set on <span class="hljs-string">"mongodb://localhost:27017,localhost:27018,localhost:27019"</span>
-Connected to oplog
-</code></pre><p>Once you have a MongoDB 4.0.0 replica set running, you&#39;ll also need <a href="https://www.npmjs.com/package/mongodb">v3.1.0 of the MongoDB Node.js driver</a>.</p>
-<pre><code>npm install mongodb@<span class="hljs-number">3.1</span>
-</code></pre><p>One example of an app that needs multi-document transactions is a bank account
+Connected to oplog</code></pre><p>Once you have a MongoDB 4.0.0 replica set running, you&#39;ll also need <a href="https://www.npmjs.com/package/mongodb">v3.1.0 of the MongoDB Node.js driver</a>.</p>
+<pre><code>npm install mongodb@<span class="hljs-number">3.1</span></code></pre><p>One example of an app that needs multi-document transactions is a bank account
 app. If you transfer money from account <code>A</code> to account <code>B</code>, nobody should see an
 in-between state where money has been deducted from account <code>A</code> but hasn&#39;t
 been added to account <code>B</code>. And, if subtracting money from account <code>A</code> fails due
@@ -36,7 +34,7 @@ to insufficient funds, you shouldn&#39;t add money to account <code>B</code>.</p
 <p>In MongoDB, transactions are built on top of <a href="https://docs.mongodb.com/manual/reference/server-sessions/">sessions</a>. To
 start a transaction, you first need to start a session using <code>client.startSession()</code>. You can then call the session&#39;s <code>startTransaction()</code>
 method to start a transaction.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Boilerplate: connect to DB</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Boilerplate: connect to DB</span>
 <span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:27017,localhost:27018,localhost:27019/txn'</span>;
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">await</span> MongoClient.connect(uri, { useNewUrlParser: <span class="hljs-literal">true</span>, replicaSet: <span class="hljs-string">'rs'</span> });
@@ -87,15 +85,13 @@ method to start a transaction.</p>
     session.endSession();
     <span class="hljs-keyword">throw</span> error; <span class="hljs-comment">// Rethrow so calling function sees error</span>
   }
-}
-</code></pre>
+}</code></pre>
 <h2 id="transactions-with-mongoose">Transactions with Mongoose</h2>
 <p>To use transactions with <a href="http://mongoosejs.com/">Mongoose</a>, you need <code>mongoose &gt;= 5.2.0</code>.</p>
-<pre><code>npm install mongoose@<span class="hljs-number">5.2</span>
-</code></pre><p>Transactions with Mongoose are similar to with the MongoDB driver. The big
+<pre><code>npm install mongoose@<span class="hljs-number">5.2</span></code></pre><p>Transactions with Mongoose are similar to with the MongoDB driver. The big
 difference is that, with Mongoose, <a href="http://mongoosejs.com/docs/api.html#startsession_startSession"><code>startSession()</code> returns a promise rather than a session</a>,
 so you need to use <code>await</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Boilerplate: connect to DB</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Boilerplate: connect to DB</span>
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">const</span> uri = <span class="hljs-string">'mongodb://localhost:27017,localhost:27018,localhost:27019/txn'</span>;
 <span class="hljs-keyword">await</span> mongoose.connect(uri, { replicaSet: <span class="hljs-string">'rs'</span> });
@@ -143,13 +139,12 @@ so you need to use <code>await</code>.</p>
     session.endSession();
     <span class="hljs-keyword">throw</span> error; <span class="hljs-comment">// Rethrow so calling function sees error</span>
   }
-}
-</code></pre>
+}</code></pre>
 <p>With both Mongoose and the MongoDB Node.js driver, MongoDB will report a
 &quot;WriteConflict&quot; error if two transactions attempt to write conflicting data,
 like if two <code>transfer()</code> calls attempt to transfer money from the same account
 at the same time.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
     transfer(<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>, <span class="hljs-number">4</span>),
@@ -157,8 +152,7 @@ at the same time.</p>
   ]);
 } <span class="hljs-keyword">catch</span> (error) {
   error.message; <span class="hljs-comment">// "MongoError: WriteConflict"</span>
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Transactions are the most important feature to land in MongoDB in recent memory.
 The ability to execute multiple operations in isolation and potentially undo

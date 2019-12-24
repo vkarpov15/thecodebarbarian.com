@@ -20,7 +20,7 @@ and example scripts, but do <strong>not</strong> use it for your production appl
 set and don&#39;t want to manage it yourself, I recommend using <a href="http://mbsy.co/mongodb/28365503">MongoDB Atlas</a>. </p>
 <p>Once you set up a replica set, you will be able to create a change stream using the the <code>watch()</code> method on <a href="http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch">MongoDB driver collections</a> or <a href="http://mongoosejs.com/docs/api.html#watch_watch">Mongoose models</a>.</p>
 <p>Below is a standalone script <code>changestream.js</code> that starts up a MongoDB replica set, creates a change stream, and inserts a document to trigger the change stream. The only requirements to run this script are a <code>mongod</code> in your PATH, Node.js, and running <code>npm install mongodb mongodb-topology manager</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
@@ -56,8 +56,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
   <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).insertOne({ name: <span class="hljs-string">'Axl Rose'</span> });
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The output of running the above script looks like this:</p>
 <pre><code>$ node changestream.js
 <span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T17:<span class="hljs-number">48</span>:<span class="hljs-number">03.986</span>Z <span class="hljs-string">'start'</span>
@@ -76,15 +75,14 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ns: { db: 'test', coll: 'Person' },
   documentKey: { _id: 5a7ddee248096515af26a46b } }
 ^C
-$</span>
-</code></pre><p>Change stream data has several important properties:</p>
+$</span></code></pre><p>Change stream data has several important properties:</p>
 <ul>
 <li><code>operationType</code>: must be one of &#39;insert&#39;, &#39;update&#39;, &#39;replace&#39;, &#39;delete&#39;, or &#39;invalidate&#39;. See <a href="https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format">this spec</a>. Other than &#39;invalidate&#39;, these correspond to MongoDB CRUD operations in the obvious way, <code>insertOne()</code> becomes &#39;insert&#39;, <code>updateOne()</code> becomes &#39;update&#39;, <code>replaceOne()</code> becomes &#39;replace&#39;, and <code>deleteOne()</code> becomes &#39;delete&#39;. Likewise, <code>insertMany()</code> gets translated to multiple &#39;insert&#39; events in a change stream.</li>
 <li><code>ns</code>: the database name and collection this change happened on.</li>
 <li><code>fullDocument</code>: the current state of the document at the time that this operation occurred. More on this later.</li>
 </ul>
 <p>Operations that affect multiple documents, like <code>insertMany()</code>, generate one &#39;change&#39; event per affected document. For example, if you call <code>insertMany()</code> with 2 documents, you&#39;ll get two &#39;change&#39; events. In general, each &#39;change&#39; event describes changes to a <strong>single</strong> document.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a change in the database</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// Create a change stream. The 'change' event gets emitted when there's a change in the database</span>
 db.collection(<span class="hljs-string">'Person'</span>).watch().on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
 
 <span class="hljs-comment">// Insert a doc, will trigger the change stream handler above</span>
@@ -92,8 +90,7 @@ db.collection(<span class="hljs-string">'Person'</span>).watch().on(<span class=
 <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).insertMany([{ name: <span class="hljs-string">'Axl Rose'</span> }, { name: <span class="hljs-string">'Slash'</span> }]);
 <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).find().toArray());
-</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).find().toArray());</code></pre>
 <p>Below is the output with the above changes to <code>changestream.js</code>:</p>
 <pre><code>$ node changestream.js
 <span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T18:<span class="hljs-number">01</span>:<span class="hljs-number">50.366</span>Z <span class="hljs-string">'start'</span>
@@ -125,10 +122,9 @@ db.collection(<span class="hljs-string">'Person'</span>).watch().on(<span class=
   ns: { db: 'test', coll: 'Person' },
   documentKey: { _id: 5a7de21ba1a72d1c38d7d65a } }
 ^C
-$</span>
-</code></pre><h2 id="updates-and-the-fulldocument-option">Updates and the <code>fullDocument</code> Option</h2>
+$</span></code></pre><h2 id="updates-and-the-fulldocument-option">Updates and the <code>fullDocument</code> Option</h2>
 <p>The change document for inserts and replaces is straightforward because <code>fullDocument</code>, the document that you&#39;re inserting, will always be present. Updates are slightly trickier, by default <code>operationType = &#39;update&#39;</code> means <code>fullDocument</code> will <strong>not</strong> be present. Instead, there will be an <code>updateDescription</code> property that describes the changes to the document. For example, below is a modified <code>changestream.js</code> that inserts a document and then does an <code>updateOne()</code> on the document.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
@@ -164,8 +160,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Updated doc'</span>);
 
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'Person'</span>).findOne());
-}
-</code></pre>
+}</code></pre>
 <p>The output looks like what you see below:</p>
 <pre><code>$ node changestream.js
 <span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">12</span>:<span class="hljs-number">22.379</span>Z <span class="hljs-string">'start'</span>
@@ -197,14 +192,12 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   documentKey: { _id: 5a7e1cd3b819da11d05cd0d5 },
   updateDescription: { updatedFields: { name: 'Slash' }, removedFields: [] } }
 ^C
-$</span>
-</code></pre><p>The <code>updateDescription</code> is useful, but usually you will want the current state of the document as well. In order to get the <code>fullDocument</code> property for updates, you need to <a href="https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format">set the <code>fullDocument</code> option on the <code>watch()</code> function to the string &#39;updateLookup&#39;</a>:</p>
-<pre><code class="lang-javascript">db.collection(<span class="hljs-string">'Person'</span>).
+$</span></code></pre><p>The <code>updateDescription</code> is useful, but usually you will want the current state of the document as well. In order to get the <code>fullDocument</code> property for updates, you need to <a href="https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format">set the <code>fullDocument</code> option on the <code>watch()</code> function to the string &#39;updateLookup&#39;</a>:</p>
+<pre><code class="language-javascript">db.collection(<span class="hljs-string">'Person'</span>).
   watch({ fullDocument: <span class="hljs-string">'updateLookup'</span> }).
-  on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));
-</code></pre>
+  on(<span class="hljs-string">'change'</span>, data =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), data));</code></pre>
 <p>The output document is shown below. Note that <code>fullDocument</code> contains the document <strong>after</strong> the update was applied.</p>
-<pre><code class="lang-javascript">{ _id:
+<pre><code class="language-javascript">{ _id:
    { _data:
       Binary {
         _bsontype: <span class="hljs-string">'Binary'</span>,
@@ -215,12 +208,11 @@ $</span>
   fullDocument: { _id: 5a7e1f1635c9cb1b221ca752, name: 'Slash' },
   ns: { db: 'test', coll: 'Person' },
   documentKey: { _id: 5a7e1f1635c9cb1b221ca752 },
-  updateDescription: { updatedFields: { name: 'Slash' }, removedFields: [] } }</span>
-</code></pre>
+  updateDescription: { updatedFields: { name: 'Slash' }, removedFields: [] } }</span></code></pre>
 <h2 id="change-streams-in-mongoose">Change Streams in Mongoose</h2>
 <p><a href="http://thecodebarbarian.com/introducing-mongoose-5.html#change-streams">Mongoose 5.x has rudimentary support for change streams</a>. Currently, mongoose doesn&#39;t provide any special features on top of change streams beyond <a href="http://mongoosejs.com/docs/api.html#watch_watch"><code>Model.watch()</code> function</a>.
 Below is the initial <code>changestream.js</code> file using Mongoose instead of the MongoDB driver.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ReplSet } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb-topology-manager'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 
 run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error));
@@ -261,8 +253,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserting doc'</span>);
   <span class="hljs-keyword">await</span> Person.create({ name: <span class="hljs-string">'Axl Rose'</span> });
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-string">'Inserted doc'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>The output, shown below, is the same as the MongoDB driver example. Mongoose currently does <strong>not</strong> do any special casting with &#39;change&#39; events.</p>
 <pre><code>$ node changestream.js
 <span class="hljs-number">2018</span><span class="hljs-number">-02</span><span class="hljs-number">-09</span>T22:<span class="hljs-number">33</span>:<span class="hljs-number">07.468</span>Z <span class="hljs-string">'start'</span>
@@ -281,8 +272,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   ns: { db: 'test', coll: 'people' },
   documentKey: { _id: 5a7e21b0e50e0d2065ea5a2b } }
 ^C
-$</span>
-</code></pre><h2 id="moving-on">Moving On</h2>
+$</span></code></pre><h2 id="moving-on">Moving On</h2>
 <p>Change streams are the most prominent new feature in MongoDB 3.6, but they&#39;re far from the only one. <a href="http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-36-array-filters.html">Array filters</a> give you sophisticated tools for updating arrays. The aggregation framework has <a href="https://docs.mongodb.com/manual/release-notes/3.6/#aggregation">numerous new operators and stages</a>. Make sure you upgrade and try out all these new features, just remember that you first upgrade <a href="http://npmjs.com/package/mongodb">the MongoDB driver</a> to <code>&gt;= 3.0.0</code> or <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> to <code>&gt;= 5.0.0</code>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

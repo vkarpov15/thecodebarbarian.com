@@ -28,7 +28,7 @@ but it is enough for a meaningful demo of Cypress&#39; features.</p>
 <iframe width="630" height="394" src="https://www.useloom.com/embed/be840401e6684001b188a3d0bb92350d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 <p>Below is the HTML for the autocomplete page, the <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.html"><code>index.html</code> file</a>:</p>
-<pre><code class="lang-html">&lt;html&gt;
+<pre><code class="language-html">&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search-wrapper"</span>&gt;</span>
@@ -40,14 +40,13 @@ but it is enough for a meaningful demo of Cypress&#39; features.</p>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>The HTML isn&#39;t particularly interesting. The real functionality is in the
 <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.js"><code>index.js</code> file</a>. This file is responsible for instrumenting the HTML to send out
 an HTTP request to npm using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch()</code></a> and
 rendering the results as an unordered list. To avoid promise chaining, the
 below example uses <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async/await</a>.</p>
-<pre><code class="lang-javascript">init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#search'</span>), <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#results'</span>));
+<pre><code class="language-javascript">init(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#search'</span>), <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#results'</span>));
 
 <span class="hljs-keyword">const</span> endpoint = <span class="hljs-string">'https://registry.npmjs.org/-/v1/search'</span>;
 
@@ -84,16 +83,14 @@ below example uses <a href="http://thecodebarbarian.com/common-async-await-desig
       `</span>).
       join(<span class="hljs-string">'\n'</span>);
   }
-}
-</code></pre>
+}</code></pre>
 <p>One neat feature of this example is that it doesn&#39;t require any bundlers like
 <a href="http://npmjs.com/package/webpack">webpack</a>. Most real apps will use webpack
 to compile the apps they test with Cypress, but this example just uses a
 <code>&lt;script&gt;</code> tag in the interest of staying focused and concise.</p>
 <h2 id="testing-the-autocomplete-with-cypress">Testing the Autocomplete with Cypress</h2>
 <p>Installing <a href="http://npmjs.com/package/cypress">Cypress</a> is easy via npm:</p>
-<pre><code>npm install cypress
-</code></pre><p>In order to easily run Cypress, <a href="https://docs.cypress.io/guides/getting-started/installing-cypress.html#Opening-Cypress">add <code>cypress:open</code> script to your <code>package.json</code> file</a>.</p>
+<pre><code>npm install cypress</code></pre><p>In order to easily run Cypress, <a href="https://docs.cypress.io/guides/getting-started/installing-cypress.html#Opening-Cypress">add <code>cypress:open</code> script to your <code>package.json</code> file</a>.</p>
 <pre><code>{
   <span class="hljs-string">"name"</span>: <span class="hljs-string">"cypress-autocomplete"</span>,
   <span class="hljs-string">"devDependencies"</span>: {
@@ -104,15 +101,14 @@ to compile the apps they test with Cypress, but this example just uses a
     <span class="hljs-string">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>,
     <span class="hljs-string">"serve"</span>: <span class="hljs-string">"serve ./"</span>
   }
-}
-</code></pre><p>In one terminal tab, run <code>npm run serve</code> to start an <a href="http://npmjs.com/package/serve">HTTP server that serves files from your file system</a>. In another tab,
+}</code></pre><p>In one terminal tab, run <code>npm run serve</code> to start an <a href="http://npmjs.com/package/serve">HTTP server that serves files from your file system</a>. In another tab,
 run <code>npm run cypress:open</code> to start Cypress. When you run Cypress, you should
 see a window like what you see below.</p>
 <p><a href="https://i.imgur.com/oLu2DbN.png"><img src="https://i.imgur.com/oLu2DbN.png"></a></p>
 <p>Next, add a <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/cypress/integration/simple.js">test file <code>sample.js</code></a> to the <code>cypress/integration</code> folder. Below
 is a simple test for the autocomplete that stubs out the npm API and asserts
 that the autocomplete renders some fake data.</p>
-<pre><code class="lang-javascript">describe(<span class="hljs-string">'Autocomplete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">describe(<span class="hljs-string">'Autocomplete'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'renders results'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     cy.visit(<span class="hljs-string">'http://localhost:5000'</span>, {
       onBeforeLoad: win =&gt; {
@@ -141,8 +137,7 @@ that the autocomplete renders some fake data.</p>
       should(<span class="hljs-string">'contain'</span>, <span class="hljs-string">'mongoose'</span>).
       and(<span class="hljs-string">'contain'</span>, <span class="hljs-string">'mongoose-autopopulate'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>Find this test file in the Cypress test runner and click it. Cypress will
 then run the test for you. Below is a video of the process end-to-end.</p>
 <iframe width="630" height="355" src="https://www.useloom.com/embed/8285f4774f9c4dfc8c380c4226d4ed3d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

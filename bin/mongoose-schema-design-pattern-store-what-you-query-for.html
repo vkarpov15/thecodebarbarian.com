@@ -16,7 +16,7 @@
 is that you can&#39;t filter by fields in the foreign collection. For example, suppose
 you have 2 models: <code>Book</code> and <code>Author</code>, and you want to filter books by the author&#39;s
 name.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
 <span class="hljs-keyword">const</span> Book = mongoose.model(<span class="hljs-string">'Book'</span>, Schema({
   title: <span class="hljs-built_in">String</span>,
   author: {
@@ -46,8 +46,7 @@ name.</p>
 
 books.length; <span class="hljs-comment">// 2</span>
 books[<span class="hljs-number">0</span>].author; <span class="hljs-comment">// null</span>
-books[<span class="hljs-number">1</span>].author; <span class="hljs-comment">// { name: 'Ian Fleming' }</span>
-</code></pre>
+books[<span class="hljs-number">1</span>].author; <span class="hljs-comment">// { name: 'Ian Fleming' }</span></code></pre>
 <p>In the above example, even though the <a href="http://thecodebarbarian.com/mongoose-5-5-static-hooks-and-populate-match-functions#populate-match-function">populate <code>match</code></a>
 filters based on the author&#39;s name, Mongoose still returns all the books, including
 those whose <code>author.name</code> doesn&#39;t match. If <code>author.name</code> isn&#39;t <code>&#39;Ian Fleming&#39;</code>, the
@@ -62,7 +61,7 @@ into 2 queries:</p>
 <h2 id="store-what-you-query-for">Store What You Query For</h2>
 <p>If you need to filter books by the author&#39;s name in a performant way, the right way
 is to store the author&#39;s name in the book document:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// 2 models: Book and Author</span>
 <span class="hljs-keyword">const</span> Book = mongoose.model(<span class="hljs-string">'Book'</span>, Schema({
   title: <span class="hljs-built_in">String</span>,
   author: {
@@ -79,8 +78,7 @@ authorSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyw
     <span class="hljs-keyword">await</span> Book.updateMany({ authorId: <span class="hljs-keyword">this</span>.author }, { authorName: <span class="hljs-keyword">this</span>.name });
   }
 });
-<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, authorSchema);
-</code></pre>
+<span class="hljs-keyword">const</span> Author = mongoose.model(<span class="hljs-string">'Author'</span>, authorSchema);</code></pre>
 <p>This way, you can filter and sort by the author&#39;s name without an extra <code>populate()</code>.
 The pattern of storing the author&#39;s name in the <code>bookSchema</code> and updating the book
 collection every time an author&#39;s name changes is called <em>dereferencing</em>.
@@ -91,12 +89,12 @@ you can run MongoDB at massive scale without caching solutions like
 but filter and sort books by author name frequently. A handy mnemomic for this
 rule of thumb is to &quot;store what you query for.&quot; Make the queries you execute most
 frequently fast, at the cost of making infrequent updates slightly slower.</p>
-<h2 id="versus-using-lookup-">Versus Using <code>$lookup</code></h2>
+<h2 id="versus-using-lookup">Versus Using <code>$lookup</code></h2>
 <p><a href="/a-nodejs-perspective-on-mongodb-36-lookup-expr">MongoDB 3.6 introduced a <code>$lookup</code> aggregation operator</a> that behaves similarly to a
 <a href="https://www.dofactory.com/sql/left-outer-join">left outer join</a>. In other words,
 even if you don&#39;t dereference the <code>author</code> property, you can use the aggregation
 framework and <code>$lookup</code> to sort books by their author name.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> [author1, author2] = <span class="hljs-keyword">await</span> Author.create([
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> [author1, author2] = <span class="hljs-keyword">await</span> Author.create([
   { name: <span class="hljs-string">'Michael Crichton'</span> },
   { name: <span class="hljs-string">'Ian Fleming'</span> }
 ]);
@@ -122,22 +120,21 @@ framework and <code>$lookup</code> to sort books by their author name.</p>
 ]);
 
 books[<span class="hljs-number">0</span>].title; <span class="hljs-comment">// 'Casino Royale'</span>
-books[<span class="hljs-number">1</span>].title; <span class="hljs-comment">// 'Jurassic Park'</span>
-</code></pre>
+books[<span class="hljs-number">1</span>].title; <span class="hljs-comment">// 'Jurassic Park'</span></code></pre>
 <p>Why doesn&#39;t Mongoose populate use <code>$lookup</code>? The issue comes down to consistent
 performance. Because <code>$lookup</code> executes a separate lookup for every document
 coming into the <code>$lookup</code> stage, <a href="/slow-trains-in-mongodb-and-nodejs#break-up-one-slow-operation-into-many-fast-operations"><code>$lookup</code>&#39;s performance degrades as <code>O(n^2)</code> in case of index misses</a>,
 which in turn can then cause a <a href="/slow-trains-in-mongodb-and-nodejs">slow train</a>.</p>
 <p>On the other hand, Mongoose executes 1 query for each <code>populate()</code> call, which leads
 to better throughput, and only one collection scan in the event of an index miss.</p>
-<h2 id="but-update-anomalies-https-www-essentialsql-com-get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english-">But <a href="https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/">Update Anomalies!</a></h2>
+<h2 id="but-update-anomalies">But <a href="https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/">Update Anomalies!</a></h2>
 <p>If you manually update the database or you have a separate app that doesn&#39;t correctly
 update <code>authorName</code>, you might have a case where the author&#39;s name in the <code>Book</code>
 model doesn&#39;t line up with the <code>Author</code> model. While update anomalies like this
 are certainly possible, they are rare in production: the most likely causes are
 either a manual update to the database that bypasses the app, or a developer
 using a pattern that bypasses Mongoose middleware.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> authorSchema = Schema({ name: <span class="hljs-built_in">String</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> authorSchema = Schema({ name: <span class="hljs-built_in">String</span> });
 <span class="hljs-comment">// Add middleware to update the dereferenced `authorName`</span>
 authorSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isModified(<span class="hljs-string">'name'</span>)) {
@@ -148,8 +145,7 @@ authorSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyw
 
 <span class="hljs-comment">// Won't trigger the 'save' middleware. You would need a separate `pre('updateOne')`</span>
 <span class="hljs-comment">// hook to capture this case.</span>
-<span class="hljs-keyword">await</span> Author.updateOne({}, { name: <span class="hljs-string">'test'</span> });
-</code></pre>
+<span class="hljs-keyword">await</span> Author.updateOne({}, { name: <span class="hljs-string">'test'</span> });</code></pre>
 <p>If update anomalies occur, they&#39;re easy to fix with a migration. It&#39;s
 much easier to identify and fix update anomalies than widespread performance
 degradation.</p>

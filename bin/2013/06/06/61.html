@@ -24,8 +24,7 @@
           }
         });
   });
-});
-</code></pre><p>In my <a href="http://thecodebarbarian.com/2013/04/29/easy-web-prototyping-with-mongodb-and-nodejs">first post</a> I touched on MongooseJS, a schema and usability wrapper for MongoDB in NodeJS. MongooseJS was developed by LearnBoost, an education startup based in San Francisco, and maintained by 10gen. MongooseJS lets us take advantage of MongoDB&#39;s flexibility and performance benefits while using development paradigms similar to Ruby on Rails and ActiveRecord. In this post, I&#39;ll go into more detail about how The Ascot Project uses Mongoose for our data, some best practices we&#39;ve learned, and some pitfalls we&#39;ve found that aren&#39;t clearly documented.</p>
+});</code></pre><p>In my <a href="http://thecodebarbarian.com/2013/04/29/easy-web-prototyping-with-mongodb-and-nodejs">first post</a> I touched on MongooseJS, a schema and usability wrapper for MongoDB in NodeJS. MongooseJS was developed by LearnBoost, an education startup based in San Francisco, and maintained by 10gen. MongooseJS lets us take advantage of MongoDB&#39;s flexibility and performance benefits while using development paradigms similar to Ruby on Rails and ActiveRecord. In this post, I&#39;ll go into more detail about how The Ascot Project uses Mongoose for our data, some best practices we&#39;ve learned, and some pitfalls we&#39;ve found that aren&#39;t clearly documented.</p>
 <p>Before we dive into the details of working with Mongoose, let&#39;s take a second to define the primary objects that we will be using. Loosely speaking, Mongoose&#39;s schema setup is defined by 3 types: <code>Schema</code>, <code>Connection</code>, and <code>Model</code>.</p>
 <p>A <em>Schema</em> is an object that defines the structure of any documents that will be stored in your MongoDB collection; it enables you to define types and validators for all of your data items.</p>
 <p>A <em>Connection</em> is a fairly standard wrapper around a database connection.</p>
@@ -47,8 +46,7 @@
   }
 });
 <span class="hljs-keyword">var</span> MyModel = myConnection.model(<span class="hljs-string">'mycollection'</span>, MySchema);
-<span class="hljs-keyword">var</span> myDocument = <span class="hljs-keyword">new</span> MyModel({});
-</code></pre><p>What makes this code so magical? There are 4 primary advantages that Mongoose has over the default MongoDB wrapper:</p>
+<span class="hljs-keyword">var</span> myDocument = <span class="hljs-keyword">new</span> MyModel({});</code></pre><p>What makes this code so magical? There are 4 primary advantages that Mongoose has over the default MongoDB wrapper:</p>
 <ol>
 <li>MongoDB uses named collections of arbitrary objects, and a Mongoose JS Model abstracts away this layer. Because of this, we don&#39;t have to deal with tasks such as asynchronously telling MongoDB to switch to that collection, or work with the annoying <code>createFromHexString</code> function. For example, in the above code, loading and displaying a document would look more like:<pre><code>app.get(<span class="hljs-string">'/document/:id'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
 Document.findOne({ _id : req.params.id }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, document</span>) </span>{
@@ -58,11 +56,9 @@ Document.findOne({ _id : req.params.id }, <span class="hljs-function"><span clas
    res.render(<span class="hljs-string">'document'</span>, { <span class="hljs-built_in">document</span> : <span class="hljs-built_in">document</span> });
  }
 });
-});
-</code></pre></li>
+});</code></pre></li>
 <li>Mongoose Models handle the grunt work of setting default values and validating data. In the above example <code>myDocument.name = &#39;Val&#39;</code>, and if we try to save with a name that&#39;s not in the provided enum, Mongoose will give us back a nice error. If you want to learn a bit more about the cool things you can do with Mongoose validation, you can check out my blog post on how to integrate Mongoose validation with AngularJS.</li>
-<li>Mongoose lets us attach functions to our models:<pre><code>MySchema.methods.greet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, '</span> + <span class="hljs-keyword">this</span>.name; };
-</code></pre></li>
+<li>Mongoose lets us attach functions to our models:<pre><code>MySchema.methods.greet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, '</span> + <span class="hljs-keyword">this</span>.name; };</code></pre></li>
 <li>Mongoose handles limited sub-document population using manual references (i.e. no MongoDB DBRefs), which gives us the ability to mimic a familiar SQL join. For example:</li>
 </ol>
 <pre><code><span class="hljs-keyword">var</span> UserGroupSchema = <span class="hljs-keyword">new</span> Mongoose.schema({
@@ -76,11 +72,10 @@ group.save(<span class="hljs-function"><span class="hljs-keyword">function</span
     <span class="hljs-comment">// Prints 'Val'</span>
     <span class="hljs-built_in">console</span>.log(groups[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].name);
   });
-});
-</code></pre><p>In the last few months, my team and I have learned a great deal about working with Mongoose and using it to open up the true power of MongoDB. Like most powerful tools, it can be used well and it can be used poorly, and unfortunately a lot of the examples you can find online fall into the latter. Through trial and error over the course of Ascot&#39;s development, my team has settled on some key principles for using Mongoose the right way:</p>
-<h2 id="1-schema-1-file">1 Schema = 1 file</h2>
+});</code></pre><p>In the last few months, my team and I have learned a great deal about working with Mongoose and using it to open up the true power of MongoDB. Like most powerful tools, it can be used well and it can be used poorly, and unfortunately a lot of the examples you can find online fall into the latter. Through trial and error over the course of Ascot&#39;s development, my team has settled on some key principles for using Mongoose the right way:</p>
+<h2 id="1-schema--1-file">1 Schema = 1 file</h2>
 <p>A schema should never be declared in app.js, and you should never have multiple schemas in a single file (even if you intend to nest one schema in another). While it is often expedient to inline everything into app.js, not keeping schemas in separate files makes things more difficult in the long run. Separate files lowers the barrier to entry for understanding your code base and makes tracking changes much easier.</p>
-<h2 id="mongoose-can-t-handle-multi-level-population-yet-and-populated-fields-are-not-documents-">Mongoose can&#39;t handle multi-level population yet, and populated fields are not Documents.</h2>
+<h2 id="mongoose-cant-handle-multi-level-population-yet-and-populated-fields-are-not-documents">Mongoose can&#39;t handle multi-level population yet, and populated fields are not Documents.</h2>
 <p>Nesting schemas is helpful but it&#39;s an incomplete solution. Design your schemas accordingly.</p>
 <p>Let&#39;s say we have a few interconnected Models:</p>
 <pre><code><span class="hljs-keyword">var</span> ImageSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
@@ -102,8 +97,7 @@ UserSchema.methods.greet = <span class="hljs-function"><span class="hljs-keyword
 
 <span class="hljs-keyword">var</span> Group = <span class="hljs-keyword">new</span> Mongoose.Schema({
   users : [{ type : Mongoose.Schema.ObjectId, ref : <span class="hljs-string">'users'</span> }]
-});
-</code></pre><p>Our Group Model contains a list of Users, which in turn each have a reference to an Image. Can MongooseJS resolve these references for us? The answer, it turns out, is yes and no.</p>
+});</code></pre><p>Our Group Model contains a list of Users, which in turn each have a reference to an Image. Can MongooseJS resolve these references for us? The answer, it turns out, is yes and no.</p>
 <pre><code>Group.
   find({}).
   populate(<span class="hljs-string">'user'</span>).
@@ -114,22 +108,19 @@ UserSchema.methods.greet = <span class="hljs-function"><span class="hljs-keyword
 
     groups[<span class="hljs-number">0</span>].users[<span class="hljs-number">0</span>].image; <span class="hljs-comment">// Is still an object id, doesn't get populated</span>
     groups[<span class="hljs-number">0</span>].users[<span class="hljs-number">0</span>].image.created; <span class="hljs-comment">// Undefined</span>
-  });
-</code></pre><p>In other words, you can call <code>populate</code> to easily resolve an ObjectID into the associated object, but you can&#39;t call <code>populate</code> to resolve an ObjectID that&#39;s contained in that object. Furthermore, since the populated object is not technically a Document, you can&#39;t call any functions you attached to the schema. Although this is definitely a severe limitation, it can often be avoided by the use of nested schemas. For example, we can define our <code>UserSchema</code> like this:</p>
+  });</code></pre><p>In other words, you can call <code>populate</code> to easily resolve an ObjectID into the associated object, but you can&#39;t call <code>populate</code> to resolve an ObjectID that&#39;s contained in that object. Furthermore, since the populated object is not technically a Document, you can&#39;t call any functions you attached to the schema. Although this is definitely a severe limitation, it can often be avoided by the use of nested schemas. For example, we can define our <code>UserSchema</code> like this:</p>
 <pre><code><span class="hljs-keyword">var</span> UserSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
   username : { type : <span class="hljs-built_in">String</span> },
   image : [ImageSchema]
-});
-</code></pre><p>In this case, we don&#39;t have to call <code>populate</code> to resolve the image. Instead, we can do this:</p>
+});</code></pre><p>In this case, we don&#39;t have to call <code>populate</code> to resolve the image. Instead, we can do this:</p>
 <pre><code>Group.
   find({}).
   populate(<span class="hljs-string">'user'</span>).
   exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, groups</span>) </span>{
     groups[<span class="hljs-number">0</span>].users[<span class="hljs-number">0</span>].image.created; <span class="hljs-comment">// Date associated with image</span>
-  });
-</code></pre><p>However, nested schemas don&#39;t solve all of our problems, because we still don&#39;t have a good way to handle many-to-many relationships. Nested schemas are an excellent solution for cases where the nested schema can only exist when it belongs to exactly one of a parent schema. In the above example, we implicitly assume that a single image belongs to exactly one user - no other user can reference the exact same image object.</p>
+  });</code></pre><p>However, nested schemas don&#39;t solve all of our problems, because we still don&#39;t have a good way to handle many-to-many relationships. Nested schemas are an excellent solution for cases where the nested schema can only exist when it belongs to exactly one of a parent schema. In the above example, we implicitly assume that a single image belongs to exactly one user - no other user can reference the exact same image object.</p>
 <p>For instance, we shouldn&#39;t have UserSchema as a nested schema of Group&#39;s schema, because a User can be a part of multiple Groups, and thus we&#39;d have to store separate copies of a single User object in multiple Groups. Furthermore, a User ought to be able to exist in our database without being part of any groups.</p>
-<h2 id="declare-your-models-exactly-once-and-use-dependency-injection-never-declare-them-in-a-routes-file-">Declare your models exactly once and use dependency injection; never declare them in a routes file.</h2>
+<h2 id="declare-your-models-exactly-once-and-use-dependency-injection-never-declare-them-in-a-routes-file">Declare your models exactly once and use dependency injection; never declare them in a routes file.</h2>
 <p>This is best expressed in an example:</p>
 <pre><code><span class="hljs-comment">// GOOD</span>
 exports.listUsers = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">User</span>) </span>{
@@ -149,8 +140,7 @@ exports.listUsers = <span class="hljs-keyword">return</span> <span class="hljs-f
   User.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, users</span>) </span>{
     res.render(<span class="hljs-string">'list_users'</span>, { users : users });
   });
-};
-</code></pre><p>The biggest problem with the &quot;bad&quot; version of listUsers shown above is that if you declare your model at the top of this particular file, you have to define it in every file where you use the User model. This leads to a lot of error-prone find-and-replace work for you, the programmer, whenever you want to do something like rename the Schema or change the collection name that underlies the User model.</p>
+};</code></pre><p>The biggest problem with the &quot;bad&quot; version of listUsers shown above is that if you declare your model at the top of this particular file, you have to define it in every file where you use the User model. This leads to a lot of error-prone find-and-replace work for you, the programmer, whenever you want to do something like rename the Schema or change the collection name that underlies the User model.</p>
 <p>Early in Ascot&#39;s development we made this mistake with a single file, and ended up with a particularly annoying bug when we changed our MongoDB password several months later. The proper way to do this is to declare your Models exactly once, include them in your <code>app.js</code>, and pass them to your routes as necessary.</p>
 <p>In addition, note that the &quot;bad&quot; <code>listUsers</code> is impossible to unit test. The User schema in the &quot;bad&quot; example is inaccessible through calls to require, so we can&#39;t mock it out for testing. In the &quot;good&quot; example, we can write a test easily using Nodeunit:</p>
 <pre><code><span class="hljs-keyword">var</span> UserRoutes = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./routes/user.js'</span>);
@@ -163,12 +153,11 @@ exports.testListUsers = <span class="hljs-function"><span class="hljs-keyword">f
         test.equals(mockUser.collection, params.users); test.done();
       }
     });
-};
-</code></pre><p>And speaking of Nodeunit:</p>
-<h2 id="unit-tests-catch-mistakes-encourage-you-to-write-modular-code-and-allow-you-to-easily-make-sure-your-logic-works-they-are-your-friend-">Unit tests catch mistakes, encourage you to write modular code, and allow you to easily make sure your logic works. They are your friend.</h2>
+};</code></pre><p>And speaking of Nodeunit:</p>
+<h2 id="unit-tests-catch-mistakes-encourage-you-to-write-modular-code-and-allow-you-to-easily-make-sure-your-logic-works-they-are-your-friend">Unit tests catch mistakes, encourage you to write modular code, and allow you to easily make sure your logic works. They are your friend.</h2>
 <p>I&#39;ll be the first to say that writing unit tests can be very annoying. Some tests can seem trivial, they don&#39;t necessarily catch all bugs, and often you write way more test code than actual production code. However, a good suite of tests can save you a lot of worry; you can make changes and then quickly verify that you haven&#39;t broken any of your modules. Ascot Project currently uses Nodeunit for our backend unit tests; Nodeunit is simple, flexible, and works well for us.</p>
 <p>And there you have it! Mongoose is an excellent library, and if you&#39;re using MongoDB and NodeJS, you should definitely consider using it. It will save you from writing a lot of extra code, it&#39;ll handle some basic population, and it&#39;ll handle all your validation and object creation grunt work. This adds up to more time spent building awesome stuff, and less time trying to figure out how to get your database interface to work.</p>
-<p><em>Have any questions about the code featured in this post? Want to suggest a better approach? Feel like telling me why the MEAN Stack is the worst thing that ever happened in the history of the world and how horrible I am? Go ahead and leave a comment below, or shoot me an email at valkar207@gmail.com and I&#39;ll do my best to answer any questions you might have. You can also find me on github at <a href="https://github.com/vkarpov15">https://github.com/vkarpov15</a>. My current venture is called The Ascot Project, and you can find that over at <a href="http://www.AscotProject.com">http://www.AscotProject.com</a>. Huge thanks to my partner William Kelly (@idostartups) for all of his work helping me get this post together.</em></p>
+<p><em>Have any questions about the code featured in this post? Want to suggest a better approach? Feel like telling me why the MEAN Stack is the worst thing that ever happened in the history of the world and how horrible I am? Go ahead and leave a comment below, or shoot me an email at <a href="mailto:valkar207@gmail.com">valkar207@gmail.com</a> and I&#39;ll do my best to answer any questions you might have. You can also find me on github at <a href="https://github.com/vkarpov15">https://github.com/vkarpov15</a>. My current venture is called The Ascot Project, and you can find that over at <a href="http://www.AscotProject.com">http://www.AscotProject.com</a>. Huge thanks to my partner William Kelly (@idostartups) for all of his work helping me get this post together.</em></p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname

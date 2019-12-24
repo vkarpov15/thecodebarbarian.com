@@ -16,10 +16,9 @@
 non-obvious <a href="http://thecodebarbarian.com/using-async-await-with-mocha-express-and-mongoose#express">lack of support for async/await</a>. This functionality is <a href="https://github.com/expressjs/express/pull/2237">scheduled to land in Express 5.0</a>, but the Express 5.0 GitHub PR has been open since 2014 and as of this writing there&#39;s no scheduled release date. To avoid having to <code>wrap()</code> every single middleware and route handler, I&#39;m releasing the <a href="https://www.npmjs.com/package/@awaitjs/express"><code>@awaitjs/express</code></a> module. It adds <a href="https://github.com/vkarpov15/awaitjs-express#it-adds-useasync-getasync-etc-to-your-express-app"><code>getAsync()</code>, <code>useAsync()</code>, and other helpers</a> to Express apps to add full support for async/await. It even supports async <a href="https://thecodebarbarian.com/80-20-guide-to-express-error-handling">error handling middleware</a>.</p>
 <h2 id="getting-started">Getting Started</h2>
 <p>To install:</p>
-<pre><code>npm install @awaitjs/express
-</code></pre><p>The <code>@awaitjs/express</code> module exports two functions, <a href="https://github.com/vkarpov15/awaitjs-express#decorateapp"><code>decorateApp()</code></a> and <a href="https://github.com/vkarpov15/awaitjs-express#wrap"><code>wrap()</code></a>. The <code>decorateApp()</code> function is what you generally want to use, because that&#39;s what
+<pre><code>npm install @awaitjs/express</code></pre><p>The <code>@awaitjs/express</code> module exports two functions, <a href="https://github.com/vkarpov15/awaitjs-express#decorateapp"><code>decorateApp()</code></a> and <a href="https://github.com/vkarpov15/awaitjs-express#wrap"><code>wrap()</code></a>. The <code>decorateApp()</code> function is what you generally want to use, because that&#39;s what
 adds <code>useAsync()</code>, <code>getAsync()</code>, etc. to your app.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> { decorateApp } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@awaitjs/express'</span>);
 
 <span class="hljs-keyword">const</span> app = decorateApp(express());
@@ -32,14 +31,13 @@ app.getAsync(<span class="hljs-string">'*'</span>, <span class="hljs-keyword">as
 
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, req, res, next</span>) </span>{
   res.send(error.message);
-});
-</code></pre>
-<h2 id="no-need-to-call-next-">No Need to Call <code>next()</code></h2>
+});</code></pre>
+<h2 id="no-need-to-call-next">No Need to Call <code>next()</code></h2>
 <p>The <code>@awaitjs/express</code> module frees you from having to call <code>next()</code> in
 Express middleware. Once your async function is fulfilled, the module will
 call <code>next()</code> for you automatically. You can still call <code>next()</code>, but you
 don&#39;t have to.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> { decorateApp } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@awaitjs/express'</span>);
 
 <span class="hljs-keyword">const</span> app = decorateApp(express());
@@ -51,12 +49,11 @@ app.useAsync(<span class="hljs-keyword">async</span> <span class="hljs-function"
 
 app.get(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   res.send(<span class="hljs-string">'Hello, World'</span>);
-});
-</code></pre>
+});</code></pre>
 <h2 id="async-error-handling-middleware">Async Error Handling Middleware</h2>
 <p>Many existing solutions don&#39;t correctly handle async error handling middleware.
 For example, the latest release <code>v1.1.4</code> of the <a href="https://www.npmjs.com/package/express-async-handler">popular <code>express-async-handler</code> package</a> doesn&#39;t handle async error handling middleware correctly as shown in the below example.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> asyncHandler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express-async-handler'</span>);
 <span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
@@ -91,10 +88,9 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   assert.equal(res.text, <span class="hljs-string">'foo'</span>);
 
   <span class="hljs-keyword">await</span> server.close();
-}
-</code></pre>
+}</code></pre>
 <p>Thankfully, <code>@awaitjs/express</code> handles this detail correctly.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> { decorateApp } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@awaitjs/express'</span>);
 <span class="hljs-keyword">const</span> superagent = <span class="hljs-built_in">require</span>(<span class="hljs-string">'superagent'</span>);
@@ -129,8 +125,7 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
   assert.equal(res.text, <span class="hljs-string">'foo'</span>);
 
   <span class="hljs-keyword">await</span> server.close();
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Getting Express to correctly support async/await is tricky. Even the <a href="https://www.npmjs.com/package/express-async-handler">most popular module</a> at the time of this writing doesn&#39;t quite get everything right. So instead of copy/pasting a dubious <code>wrap()</code> everywhere, download <a href="https://www.npmjs.com/package/@awaitjs/express"><code>@awaitjs/express</code></a> and start using async functions with Express.</p>
 <p><em>Surprised that Express doesn&#39;t support async/await in general? Want to know how to determine whether your favorite npm modules support async/await without reconciling contradictory answers on StackOverflow? Chapter 4 of <a href="http://asyncawait.net/">Mastering Async/Await</a> explains the core principles for determining whether a given library or framework supports async/await, so get the ebook today!</em></p>

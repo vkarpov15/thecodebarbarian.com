@@ -14,14 +14,15 @@
 </div>
 </div><div class="post-body-text-container"><p>The most important feature of most server-side frameworks is middleware: the ability to hook your own logic into the framework&#39;s logic, like <a href="https://en.wikipedia.org/wiki/IFTTT">IFTTT</a> for your code. <a href="http://expressjs.com/en/guide/writing-middleware.html">Express</a>, <a href="http://mongoosejs.com/docs/middleware.html">Mongoose</a>, <a href="http://guides.rubyonrails.org/rails_on_rack.html#configuring-middleware-stack">Rails</a>, and <a href="https://docs.djangoproject.com/en/1.10/topics/http/middleware/">Django</a> all rely heavily on middleware. <a href="https://loopback.io/doc/en/lb3/Operation-hooks.html">LoopBack</a> and <a href="http://docs.sequelizejs.com/en/latest/docs/hooks/">Sequelize</a> have hooks, AngularJS has <a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController">parsers</a> and <a href="http://thecodebarbarian.com/2015/01/24/angularjs-interceptors">interceptors</a>, <a href="https://hapijs.com/api#request-lifecycle">Hapi</a> has extensions, but these are all just <a href="https://en.wikipedia.org/wiki/A_rose_by_any_other_name_would_smell_as_sweet">roses by another name</a>. Except Hapi, Hapi by any other name would still have a foul code stench.</p>
 <p>When so many libraries implement the same concept, there&#39;s an opportunity for consolidation. Middleware fundamentally lets you plug in to a stream of actions and do X when action Y happens. Thankfully, JavaScript has a <a href="https://github.com/tc39/proposal-observable">data structure representing a transformable stream of actions</a>: observables. In this article, I&#39;ll use <a href="https://www.npmjs.com/package/xstream">xstream</a> on top of the vanilla <a href="https://nodejs.org/api/http.html">Node.js http library</a> to show you how you can do middleware (error handling, permission checking, etc.) without frameworks.</p>
-<p><img src="http://i.imgur.com/9e7Ai23.png" /></p>
+<img src="http://i.imgur.com/9e7Ai23.png" />
+
 <p><em>Disclaimer</em> The following code is a thought experiment, not a battle-hardened #Enterprise web framework. I haven&#39;t used it in production or built a real product with it. Use it at your own risk.</p>
 <h2 id="piping-http-into-xstream">Piping HTTP Into xstream</h2>
 <p>The xstream library is a simplified take on heavy observable libs like <a href="https://www.npmjs.com/package/rxjs">RxJS</a>. The xstream API is superficially
 different from RxJS or the <a href="https://github.com/tc39/proposal-observable">TC39 Observable specification</a> but the differences
 are not relevant for this example.</p>
 <p>Here&#39;s how you write a &quot;hello, world&quot; HTTP server with xstream:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
 <span class="hljs-keyword">const</span> xs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'xstream'</span>).default;
 
 <span class="hljs-keyword">const</span> server = http.createServer();
@@ -49,15 +50,14 @@ server$.addListener({
   }
 });
 
-server.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+server.listen(<span class="hljs-number">3000</span>);</code></pre>
 <h2 id="routing-and-404s">Routing and 404s</h2>
 <p>So far, xstream has done nothing to make our code better. To add a little extra
 motivation, let&#39;s start with some simple routing. In API land, routing means mapping an HTTP request for a URL like <code>GET /foo</code> to a function that handles the request and formats a response.</p>
 <p>For the purposes of this article, a request handler will be a function that takes
 in the raw request and returns a <a href="https://strongloop.com/strongblog/promises-in-node-js-an-alternative-to-callbacks/">Promise</a>. You may think it&#39;s strange to use both promises and observables, but there&#39;s a few reasons to rely on promises: <a href="http://npmjs.org/package/co">co</a> returns promises, promises are easy to chain, and more developers understand promises.</p>
 <p>Here&#39;s the code for an xstream-based server that prints &#39;Hello, World&#39; if you hit the <code>/</code> endpoint, and returns an HTTP 404 otherwise.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> server$ = xs.create(serverProducer).
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> server$ = xs.create(serverProducer).
   <span class="hljs-comment">// When user hits the `/` endpoint, return a promise that resolves to our message</span>
   map(route(<span class="hljs-string">'/'</span>, () =&gt; <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'hello, world'</span>))).
   <span class="hljs-comment">// Otherwise, return a promise that we'll convert to an HTTP 404</span>
@@ -96,15 +96,14 @@ server.listen(<span class="hljs-number">3000</span>);
     });
   }
   <span class="hljs-keyword">return</span> v;
-}
-</code></pre>
+}</code></pre>
 <h2 id="authentication">Authentication</h2>
 <p>The classic use case for middleware is authentication: making it so that
 certain endpoints return an HTTP 401 if the proper authorization header is
 not set. With a little help from promise chaining, you can create a promise
 that resolves if auth succeeded and rejects if auth failed, and then chain
 that promise to your route&#39;s promise.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> server$ = xs.create(serverProducer).
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> server$ = xs.create(serverProducer).
   <span class="hljs-comment">// When user hits the `/` endpoint, return a promise that resolves to our message</span>
   map(route(<span class="hljs-string">'/'</span>, () =&gt; <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'hello, world'</span>))).
   <span class="hljs-comment">// When the user hits any endpoint that starts with '/auth', check auth</span>
@@ -170,24 +169,22 @@ server.listen(<span class="hljs-number">3000</span>);
     });
   }
   <span class="hljs-keyword">return</span> v;
-}
-</code></pre>
+}</code></pre>
 <p>You might wonder why the above example uses an <code>if</code> statement in them <code>map()</code> for routing instead of <code>filter()</code> and then <code>map()</code>. This is for the benefit of the <code>notFoundHandler</code>. The <code>filter()</code> operator creates a new observable that only emits events that match the given filter, but we eventually want every HTTP request to
 reach the <code>notFoundHandler</code> to check if the request has been handled or not.</p>
 <h2 id="handling-errors">Handling Errors</h2>
 <p>One neat side effect (pun intended) of this architecture is that error reporting becomes trivial. Say you use <a href="https://sentry.io">sentry</a> or <a href="https://raygun.com/">raygun</a> or whatever your error tracker of choice is. All you need is to subscripe to the <code>server$</code> observable and <code>.catch()</code> any errors that occur.</p>
-<pre><code class="lang-javascript">server$.addListener({
+<pre><code class="language-javascript">server$.addListener({
   next: ({ op }) =&gt; {
     <span class="hljs-comment">// `op` is the promise that was chosen to represent handling this request</span>
     op.catch(error =&gt; reportErrorToSentry(error));
   }
-});
-</code></pre>
+});</code></pre>
 <p>That&#39;s for reporting errors as a side effect. What about transforming errors? Suppose you have an endpoint that tells you what state a given zip code is in. US zip codes
 must be 5 digits long, so you want to <code>assert()</code> that the given zip code matches
 the regexp <code>/^[0-9]{5}$/</code>. Furthermore, you want to make it a rule that assertion
 errors always become HTTP 400 (BadRequest) errors. You can add another <code>.map()</code> to handle this case:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 <span class="hljs-keyword">const</span> qs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'querystring'</span>);
 
@@ -277,8 +274,7 @@ server.listen(<span class="hljs-number">3000</span>);
     });
   }
   <span class="hljs-keyword">return</span> v;
-}
-</code></pre>
+}</code></pre>
 <p>The advantage of attaching <code>convertAssertionErrors()</code> as another <code>.map()</code> is that <code>convertAssertionErrors()</code> gets called on every HTTP request, without the individual route handler being aware of it. Furthermore, <code>convertAssertionErrors()</code> can slice the requests stream any way it wants. For example, you can make assertion errors
 become HTTP 500 errors for a certain set of endpoints. In other words, you get the benefits of middleware without the framework lock-in.</p>
 <h2 id="next-steps">Next Steps</h2>

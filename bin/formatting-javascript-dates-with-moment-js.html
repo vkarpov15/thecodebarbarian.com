@@ -22,12 +22,11 @@ formatted strings in JavaScript, although some people <a href="https://github.co
 use to convert a <a href="https://momentjs.com/docs/#/parsing/object/">Moment object</a> to a
 string. For example, here&#39;s how you would convert a YYYY-MM-DD string into a more
 human-readable format:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019/06/01'</span>);
 
-moment(d).format(<span class="hljs-string">'MMMM d, YYYY'</span>); <span class="hljs-comment">// June 1, 2019</span>
-</code></pre>
+moment(d).format(<span class="hljs-string">'MMMM d, YYYY'</span>); <span class="hljs-comment">// June 1, 2019</span></code></pre>
 <p>The <code>format()</code> function takes in a string and replaces all instances of <a href="https://momentjs.com/docs/#/displaying/">tokens</a> with the corresponding date value. A token is a 
 <a href="https://masteringjs.io/tutorials/fundamentals/substring">substring</a> like <code>&#39;YYYY&#39;</code>
 or <code>&#39;d&#39;</code> that Moment knows to replace with a part of the date, like the year or the
@@ -53,17 +52,15 @@ day of the month. Below are some commonly used formatting tokens for dates:</p>
 <p>Sometimes you want to add text to the format string that conflicts with a moment
 token. For example, if you want a more elaborate date like <code>&#39;The 1st of June&#39;</code>,
 naively you might try the below format:</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// 'T126 1st of June'</span>
-m.format(<span class="hljs-string">'The Do of MMMM'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// 'T126 1st of June'</span>
+m.format(<span class="hljs-string">'The Do of MMMM'</span>);</code></pre>
 <p>However, you&#39;ll get a surprising output: <code>&#39;T126 1st of June&#39;</code>. That&#39;s because both
 <code>h</code> and <code>e</code> are moment tokens. <a href="https://stackoverflow.com/questions/28241002/moment-js-include-text-in-middle-of-date-format">You can escape moment tokens using square brackets</a> <code>[]</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// 'The 1st of June'</span>
-m.format(<span class="hljs-string">'[The] Do [of] MMMM'</span>);
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// 'The 1st of June'</span>
+m.format(<span class="hljs-string">'[The] Do [of] MMMM'</span>);</code></pre>
 <p>For <a href="https://momentjs.com/docs/#/parsing/">locale-aware formatting</a>, you can use
 the <code>L</code> and <code>LL</code> tokens to get a locale-specific formatting of the date.</p>
-<pre><code class="lang-javascript">moment.locale(); <span class="hljs-comment">// 'en'</span>
+<pre><code class="language-javascript">moment.locale(); <span class="hljs-comment">// 'en'</span>
 
 <span class="hljs-keyword">let</span> m = moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019/06/01'</span>));
 
@@ -75,18 +72,16 @@ moment.locale(<span class="hljs-string">'de'</span>);
 
 m = moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019/06/01'</span>));
 m.format(<span class="hljs-string">'L'</span>); <span class="hljs-comment">// '01.06.2019'</span>
-m.format(<span class="hljs-string">'LL'</span>); <span class="hljs-comment">// '1. Juni 2019'</span>
-</code></pre>
+m.format(<span class="hljs-string">'LL'</span>); <span class="hljs-comment">// '1. Juni 2019'</span></code></pre>
 <h2 id="formatting-times">Formatting Times</h2>
 <p>Moment also supports formatting times. The <code>format()</code> function is very flexible, so
 you can display just the date component, just the time component, or a combination
 of both. For example, here&#39;s how you can display a date&#39;s time in <code>2:04pm</code> format:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 
 <span class="hljs-keyword">const</span> m = moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019/06/01 14:04:03'</span>));
 
-m.format(<span class="hljs-string">'h:mma'</span>); <span class="hljs-comment">// '2:04pm'</span>
-</code></pre>
+m.format(<span class="hljs-string">'h:mma'</span>); <span class="hljs-comment">// '2:04pm'</span></code></pre>
 <p>Here&#39;s a list of commonly used time format tokens.</p>
 <ul>
 <li><code>HH</code>: hour of day from 0-24, zero-padded, <code>&#39;14&#39;</code></li>
@@ -112,7 +107,7 @@ m.format(<span class="hljs-string">'h:mma'</span>); <span class="hljs-comment">/
 that let you <a href="https://momentjs.com/docs/#/durations/humanize/">humanize</a> the
 difference between two times into something human-friendly like <code>&#39;a minute ago&#39;</code>.</p>
 <p>The <a href="https://momentjs.com/docs/#/displaying/difference/"><code>moment.diff()</code> function</a> returns a <a href="https://momentjs.com/docs/#/durations/">Moment duration object</a> that represents the difference between two moments. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 
 <span class="hljs-keyword">const</span> m1 = moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2019/06/01 2:04:03'</span>));
 <span class="hljs-keyword">const</span> m2 = m1.clone().add(<span class="hljs-number">59</span>, <span class="hljs-string">'seconds'</span>);
@@ -124,12 +119,11 @@ duration.milliseconds(); <span class="hljs-comment">// 59000</span>
 duration.humanize(); <span class="hljs-comment">// 'a minute'</span>
 duration.humanize(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 'in a minute'</span>
 
-moment.duration(m2.diff(m1)).humanize(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 'a minute ago'</span>
-</code></pre>
+moment.duration(m2.diff(m1)).humanize(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 'a minute ago'</span></code></pre>
 <p>The <code>humanize()</code> function takes an optional parameter <code>suffix</code> that, if set to
 true, indicates whether the duration is positive or negative (&#39;in a minute&#39; vs &#39;a minute ago&#39;). The <code>humanize()</code> function is locale aware, so you can render durations
 in your customer&#39;s language:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 
 <span class="hljs-comment">// Pretend we're in Germany</span>
 moment.locale(<span class="hljs-string">'de'</span>);
@@ -140,8 +134,7 @@ moment.locale(<span class="hljs-string">'de'</span>);
 <span class="hljs-keyword">const</span> duration = moment.duration(m1.diff(m2));
 
 <span class="hljs-comment">// Prints "vor einer Minute"</span>
-<span class="hljs-built_in">console</span>.log(duration.humanize(<span class="hljs-literal">true</span>));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(duration.humanize(<span class="hljs-literal">true</span>));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Moment is an extremely powerful library with an unbelievable breadth of features.
 Time zones, localization, addition and subtraction, durations: Moment makes most

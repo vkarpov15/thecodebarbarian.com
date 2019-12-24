@@ -18,7 +18,7 @@ engineering, I believe it&#39;s a product that gives you a 20% advantage for 80%
 extra work. In my mind, TypeScript is a supplement
 for mature JS dev teams with a lot of unavoidable complexity in their business
 logic. For most JavaScript apps, runtime type casting is all you need.</p>
-<h2 id="what-s-wrong-with-typescript-">What&#39;s Wrong With TypeScript?</h2>
+<h2 id="whats-wrong-with-typescript">What&#39;s Wrong With TypeScript?</h2>
 <p>Here&#39;s a simple server in TypeScript:</p>
 <pre><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
 <span class="hljs-keyword">import</span> { json } <span class="hljs-keyword">from</span> <span class="hljs-string">'body-parser'</span>;
@@ -34,12 +34,13 @@ app.post(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
   res.send((<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Test</span>&gt;</span> req.body).a.substr(0, 1)); // <span class="hljs-tag">&lt;<span class="hljs-name">--</span> <span class="hljs-attr">Danger</span>!
 });
 
-<span class="hljs-attr">app.listen</span>(<span class="hljs-attr">3000</span>);</span></span>
-</code></pre><p>Look carefully at the POST route. Let&#39;s say you hit the POST route with an
+<span class="hljs-attr">app.listen</span>(<span class="hljs-attr">3000</span>);</span></span></code></pre><p>Look carefully at the POST route. Let&#39;s say you hit the POST route with an
 HTTP request where the body has a string property &#39;a&#39;:</p>
-<p><img src="http://i.imgur.com/UHRx9FJ.png"></p>
+<img src="http://i.imgur.com/UHRx9FJ.png">
+
 <p>Everything works as expected. But what if &#39;a&#39; is a number?</p>
-<p><img src="http://i.imgur.com/7DSCBEr.png"></p>
+<img src="http://i.imgur.com/7DSCBEr.png">
+
 <p>Everything goes boom. Experienced <a href="https://basarat.gitbooks.io/typescript/content/docs/types/type-assertion.html#type-assertion-vs-casting">TypeScript developers shouldn&#39;t find this surprising</a>, but I&#39;m sure most TypeScript developers have
 gotten bit by this at some point.</p>
 <p>Is this an obscure edge case? I&#39;d argue not. Static typing was designed for
@@ -73,7 +74,7 @@ correct. We evaluated a bunch of options:</p>
 <p>Naturally, the solution was to write our own, and <a href="https://www.npmjs.com/package/archetype-js">archetype</a> was born. Archetype
 is an extensible and nestable library for runtime type casting. Let&#39;s say you
 want to define what makes a valid <code>Person</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { ObjectId } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ObjectId } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 <span class="hljs-keyword">const</span> moment = <span class="hljs-built_in">require</span>(<span class="hljs-string">'moment'</span>);
 
 <span class="hljs-comment">// `Person` is now a constructor</span>
@@ -87,26 +88,24 @@ want to define what makes a valid <code>Person</code>:</p>
     $type: moment,
     $<span class="hljs-keyword">default</span>: () =&gt; moment()
   }
-}).compile(<span class="hljs-string">'Person'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'Person'</span>);</code></pre>
 <p><code>Person</code> is now a constructor that throws an error if and only if the given
 data is invalid.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">try</span> {
+<pre><code class="language-javascript"><span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">new</span> Person({
     name: <span class="hljs-string">'test'</span>,
     bandId: <span class="hljs-string">'ImNotAValidObjectId'</span>
   });
 } <span class="hljs-keyword">catch</span>(error) {
   error.errors[<span class="hljs-string">'bandId'</span>].message; <span class="hljs-comment">// Mongodb ObjectId error</span>
-}
-</code></pre>
+}</code></pre>
 <p>If the data is valid, archetype will cast all the object&#39;s properties into
 the given types: &#39;name&#39; will be a string, &#39;bandId&#39; will be a fully fledged
 MongoDB ObjectId, and &#39;createdAt&#39; will be a <a href="https://www.npmjs.com/package/moment">moment.js</a> object.</p>
 <p>There&#39;s nothing special about the moment or MongoDB ObjectId types. Writing your
 own custom type is as simple as writing a class. For example, suppose you wanted
 to work around the issue where <a href="https://github.com/mongodb/js-bson/issues/112">technically any string of length 12 is a valid parameter to the MongoDB ObjectId constructor</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyObjectId</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">mongodb</span>.<span class="hljs-title">ObjectId</span> </span>{
   <span class="hljs-keyword">constructor</span>(v) {
@@ -123,11 +122,10 @@ to work around the issue where <a href="https://github.com/mongodb/js-bson/issue
     $type: MyObjectId,
     $required: <span class="hljs-literal">true</span>
   }
-}).compile(<span class="hljs-string">'Person'</span>);
-</code></pre>
+}).compile(<span class="hljs-string">'Person'</span>);</code></pre>
 <p>If the <code>MyObjectId</code> constructor throws an error, <code>new Person()</code> will throw an
 error as well. Because of this, archetypes are nestable too.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
   name: <span class="hljs-string">'string'</span>
 }).compile(<span class="hljs-string">'Person'</span>);
 
@@ -139,10 +137,9 @@ error as well. Because of this, archetypes are nestable too.</p>
 <span class="hljs-keyword">new</span> Band({
   name: <span class="hljs-string">"Guns N' Roses"</span>,
   people: [{ name: <span class="hljs-string">'Axl Rose'</span> }]
-});
-</code></pre>
+});</code></pre>
 <p>Archetype works particularly well with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">destructuring assignments</a>. Instead of writing this:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { name, bandId } = req.body;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { name, bandId } = req.body;
 <span class="hljs-keyword">if</span> (name == <span class="hljs-literal">null</span>) {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Name is required'</span>);
 }
@@ -156,16 +153,14 @@ error as well. Because of this, archetypes are nestable too.</p>
   bandId = <span class="hljs-keyword">new</span> ObjectId(bandId);
 } <span class="hljs-keyword">catch</span> (error) {
   <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Invalid ObjectId'</span>);
-}
-</code></pre>
+}</code></pre>
 <p>You can just write:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Person = <span class="hljs-keyword">new</span> Archetype({
   name: { $type: <span class="hljs-string">'string'</span>, $required: <span class="hljs-literal">true</span> },
   band: { $type: ObjectId, $required: <span class="hljs-literal">true</span> }
 }).compile(<span class="hljs-string">'Person'</span>);
 
-<span class="hljs-keyword">const</span> { name, bandId } = <span class="hljs-keyword">new</span> Person(req.body);
-</code></pre>
+<span class="hljs-keyword">const</span> { name, bandId } = <span class="hljs-keyword">new</span> Person(req.body);</code></pre>
 <p>Archetype makes handling incoming data from HTTP or from user-provided options
 a breeze. There&#39;s no more excuse to bury yourself in <a href="https://github.com/crocodilejs/custom-fonts-in-emails/blob/5715ea731b5977f472148efe6e3a327ea0641b56/src/index.js#L59-L114">walls of if statements</a>.</p>
 <h2 id="conclusion">Conclusion</h2>

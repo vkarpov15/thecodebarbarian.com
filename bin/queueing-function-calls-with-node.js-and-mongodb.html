@@ -16,7 +16,7 @@
 <h2 id="queueing-with-promise-chaining">Queueing with Promise Chaining</h2>
 <p>Promises and chaining can let you build a queue of async functions with only a few lines of code. This is handy for enforcing that certain functions only run one at a time. <a href="http://thecodebarbarian.com/enforcing-uniqueness-with-mongodb-partial-unique-indexes.html">MongoDB&#39;s unique indexes</a> are limited when it comes to enforcing more complex uniqueness constraints. For example, MongoDB&#39;s unique indexes don&#39;t allow you to say that emails should be unique unless they end with <code>@mycompany.com</code>. Queueing your registration requests is one way to work around this limitation.</p>
 <p>Naively, you might think that calling <code>find()</code> before inserting a document would be sufficient for this use case:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Archetype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'archetype'</span>);
 <span class="hljs-keyword">const</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> mongodb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
@@ -58,15 +58,13 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
     fn(req).then(returnVal =&gt; res.json(returnVal)).catch(err =&gt; res.status(<span class="hljs-number">500</span>).json({ message: err.message }));
   };
-}
-</code></pre>
+}</code></pre>
 <p>With <a href="https://en.wikipedia.org/wiki/CURL">curl</a>, you&#39;ll see that the above server properly detects duplicates so long as they&#39;re sufficiently far apart.</p>
 <pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
 {<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e4c7721b1c606283d90d"</span>}}
 $ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
 {<span class="hljs-string">"message"</span>:<span class="hljs-string">"User already exists with email val@karpov.io"</span>}
-$
-</code></pre><p>But if you execute both curl commands in parallel using <code>&amp;</code>, both commands successfully insert a user with the same email!</p>
+$</code></pre><p>But if you execute both curl commands in parallel using <code>&amp;</code>, both commands successfully insert a user with the same email!</p>
 <pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user &amp; curl -H "Content-Type: application/json" -X POST -d '{"email":"val@karpov.io"}' http://localhost:3000/user</span>
 [<span class="hljs-number">1</span>] <span class="hljs-number">25046</span>
 {<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e624721b1c606283d90e"</span>}}{<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e624721b1c606283d90f"</span>}}[<span class="hljs-number">1</span>]+  Done                    curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
@@ -77,9 +75,8 @@ MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-nu
 &gt; db.User.find().pretty()
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e624721b1c606283d90e"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e624721b1c606283d90f"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
-&gt;
-</code></pre><p>As expected, the naive approach doesn&#39;t quite work. This case is surprisingly common in practice: if a user manages to double-click on a register button, you&#39;ll get two registration requests at the same time. Distributed locking is the right approach if you have multiple processes, but you can do something much easier if you only have one process: promise chaining. In other words, have a <code>lastPromise</code> variable and chain all <code>register</code> function calls onto the <code>lastPromise</code> variable with <code>.then()</code> in the order they are received.</p>
-<pre><code class="lang-javascript">app.post(<span class="hljs-string">'/user'</span>, wrap(queue(register)));
+&gt;</code></pre><p>As expected, the naive approach doesn&#39;t quite work. This case is surprisingly common in practice: if a user manages to double-click on a register button, you&#39;ll get two registration requests at the same time. Distributed locking is the right approach if you have multiple processes, but you can do something much easier if you only have one process: promise chaining. In other words, have a <code>lastPromise</code> variable and chain all <code>register</code> function calls onto the <code>lastPromise</code> variable with <code>.then()</code> in the order they are received.</p>
+<pre><code class="language-javascript">app.post(<span class="hljs-string">'/user'</span>, wrap(queue(register)));
 
 app.listen(<span class="hljs-number">3000</span>);
 
@@ -110,8 +107,7 @@ app.listen(<span class="hljs-number">3000</span>);
     lastPromise = returnedPromise.catch(() =&gt; {});
     <span class="hljs-keyword">return</span> returnedPromise;
   };
-}
-</code></pre>
+}</code></pre>
 <p>As long as you only run one server, this approach works. Note that I haven&#39;t looked into any potential memory leaks or performance implications, so be careful if you want to use something like this in production.</p>
 <pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user &amp; curl -H "Content-Type: application/json" -X POST -d '{"email":"val@karpov.io"}' http://localhost:3000/user</span>
 [<span class="hljs-number">1</span>] <span class="hljs-number">25535</span>
@@ -124,11 +120,10 @@ MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-nu
 { <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e8ed899e8063a0bb0b35"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
 &gt; ^C
 bye
-$
-</code></pre><p>Queueing is one potential method for dealing with concurrency in JavaScript. Queueing plays especially nicely with <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async functions</a>, because async functions return promises and promises are objects that you can pass around.</p>
+$</code></pre><p>Queueing is one potential method for dealing with concurrency in JavaScript. Queueing plays especially nicely with <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async functions</a>, because async functions return promises and promises are objects that you can pass around.</p>
 <h2 id="using-mongoose">Using Mongoose</h2>
 <p>Queueing is especially powerful if you use it with a middleware tool like <a href="http://npmjs.org/package/mongoose">mongoose</a> or <a href="http://thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs.html">monogram</a>. With <a href="http://mongoosejs.com/docs/middleware.html">mongoose middleware</a>, you can safely make a query checking if <code>email</code> is unique every time you <code>save()</code> a document, as long as you enforce queueing.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
   email: {
     type: <span class="hljs-built_in">String</span>,
     required: <span class="hljs-literal">true</span>,
@@ -163,13 +158,12 @@ app.listen(<span class="hljs-number">3000</span>);
   <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> User(req.body);
   <span class="hljs-keyword">await</span> user.save();
   <span class="hljs-keyword">return</span> { user };
-}
-</code></pre>
+}</code></pre>
 <p>You might wonder why you can&#39;t enforce queueing in mongoose middleware. That&#39;s
 because, currently, there is no way to access the actual <code>save()</code> promise in mongoose middleware. You can access the document itself, but getting the promise returned by <code>user.save()</code> in the <code>pre(&#39;save&#39;)</code> middleware is not currently possible.</p>
 <h2 id="using-monogram">Using Monogram</h2>
 <p>The primary motivation for <a href="https://www.npmjs.com/package/monogram">monogram</a> was a stronger middleware abstraction. Mongoose middleware is powerful, but monogram middleware allows you to do a lot of things that are either impossible or just unnatural with mongoose. For example, monogram middleware can actually change what function gets called. This is handy for soft deletes: you can change <code>deleteOne()</code> calls to <code>updateOne()</code> calls. You can also use it to convert <code>insertOne()</code> calls into a custom function that enforces queues.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = express();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = express();
 app.use(bodyParser.json());
 
 <span class="hljs-keyword">const</span> db = <span class="hljs-keyword">await</span> monogram.connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>);
@@ -216,8 +210,7 @@ app.post(<span class="hljs-string">'/user'</span>, wrap(<span class="hljs-keywor
   <span class="hljs-comment">// `insertOne` handles email checking and queueing implicitly</span>
   <span class="hljs-keyword">await</span> User.insertOne(user);
   <span class="hljs-keyword">return</span> { user };
-}));
-</code></pre>
+}));</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Because async functions return promises and promises are objects, you can build some sophisticated abstractions on top of your async functions. Using the <code>queue()</code> function from this example, you can easily convert any async function into one that enforces only one instance of this function can run at a time. If you only have one server, this can be a useful mechanism for enforcing concurrency without having to set up locking.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

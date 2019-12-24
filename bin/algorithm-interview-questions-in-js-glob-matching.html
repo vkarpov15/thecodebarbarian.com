@@ -12,7 +12,7 @@
 <div class="native-inline">
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
-</div><div class="post-body-text-container"><p>Much to <a href="http://thecodebarbarian.com/i-dont-want-to-hire-you-if-you-cant-reverse-a-binary-tree">many people&#39;s chagrin</a>, the practice of asking algorithms questions in tech interviews doesn&#39;t seem like it is going anywhere. From what I&#39;ve heard though, more and more companies are allowing people to answer algorithms questions in JavaScript. In this week&#39;s article, I&#39;ll walk through a common interview question, <a href="https://en.wikipedia.org/wiki/Glob_(programming">glob matching</a>), and implement the solution in JavaScript.</p>
+</div><div class="post-body-text-container"><p>Much to <a href="http://thecodebarbarian.com/i-dont-want-to-hire-you-if-you-cant-reverse-a-binary-tree">many people&#39;s chagrin</a>, the practice of asking algorithms questions in tech interviews doesn&#39;t seem like it is going anywhere. From what I&#39;ve heard though, more and more companies are allowing people to answer algorithms questions in JavaScript. In this week&#39;s article, I&#39;ll walk through a common interview question, <a href="https://en.wikipedia.org/wiki/Glob_(programming)">glob matching</a>, and implement the solution in JavaScript.</p>
 <h2 id="introducing-glob-matching">Introducing Glob Matching</h2>
 <p>The exercise is that, given a <code>pattern</code> and a <code>str</code>, determine if <code>str</code> matches
 <code>pattern</code>. The only special character you need to support is the wildcard character &#39;*&#39;, which matches any number of characters, including no characters. For example:</p>
@@ -33,7 +33,7 @@ Here&#39;s the idea of the recursive algorithm:</p>
 <li>If <code>pattern</code> contains a &#39;<em>&#39;, then <code>str</code> matches if <code>pattern</code> up to the first &#39;</em>&#39; character matches the first <code>i</code> characters of <code>str</code> and the rest of <code>pattern</code> matches the rest of <code>str</code>.</li>
 </ul>
 <p>Here&#39;s the implementation:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">patternMatches</span>(<span class="hljs-params">pattern, str</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">patternMatches</span>(<span class="hljs-params">pattern, str</span>) </span>{
   <span class="hljs-keyword">if</span> (!pattern.includes(<span class="hljs-string">'*'</span>)) {
     <span class="hljs-comment">// No wildcards, so must be an exact match</span>
     <span class="hljs-keyword">return</span> pattern === str;
@@ -62,8 +62,7 @@ Here&#39;s the idea of the recursive algorithm:</p>
   }
 
   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-}
-</code></pre>
+}</code></pre>
 <h2 id="dynamic-programming">Dynamic Programming</h2>
 <p>The recursive solution is neat, but also has exponential running time. Getting
 the recursive solution is good, but getting the <a href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a> solution is
@@ -75,7 +74,7 @@ impressive. Like most dynamic programming solutions, the trick is to create a <c
 <li>If <code>pattern[i - 1]</code> is not &#39;*&#39;, <code>pattern[i - 1]</code> must equal <code>str[j - 1]</code> and the first <code>i - 1</code> characters of <code>pattern</code> must match the first <code>j - 1</code> characters of <code>str</code>.</li>
 </ul>
 <p>Here&#39;s the actual implementation.</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">patternMatches</span>(<span class="hljs-params">pattern, str</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">patternMatches</span>(<span class="hljs-params">pattern, str</span>) </span>{
   <span class="hljs-keyword">if</span> (!pattern.includes(<span class="hljs-string">'*'</span>)) {
     <span class="hljs-comment">// No wildcards, so must be an exact match</span>
     <span class="hljs-keyword">return</span> pattern === str;
@@ -114,8 +113,7 @@ impressive. Like most dynamic programming solutions, the trick is to create a <c
   }
 
   <span class="hljs-keyword">return</span> arr[pattern.length][str.length];
-}
-</code></pre>
+}</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Glob matching is a great exercise to build your understanding of recursion and dynamic programming. In practice you&#39;d use a package like <a href="https://www.npmjs.com/package/minimatch">minimatch</a>, but you&#39;re not going to stop doing <a href="https://en.wikipedia.org/wiki/Bench_press">bench presses</a> even if the limit of your physical exertion on an average day is lifting a cup of coffee. Like doing bench presses, I find it helpful to work through an algorithmic exercises like these to challenge myself and stay sharp, even if I rarely need to do dynamic programming in my day-to-day.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

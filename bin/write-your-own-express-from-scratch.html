@@ -27,14 +27,13 @@ First, you&#39;ll see how to implement a rudimentary middleware pipeline. Then y
 <p>First, let&#39;s implement rudimentary support for Express middleware, without any routing. Modulo <a href="http://expressjs.com/en/guide/error-handling.html">error handling middleware</a>, all Express middleware is a function
 that takes 3 parameters: the request <code>req</code>, the response <code>res</code>, and the <code>next()</code> function. Middleware is executed
 sequentially on each request, and <code>next()</code> is how you tell Express to kick off the next middleware. If a middleware doesn&#39;t call <code>next()</code>, it should make sure to call <code>res.end()</code> to send the HTTP response to the client.</p>
-<pre><code class="lang-javascript">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myMiddleware</span>(<span class="hljs-params">req, res, next</span>) </span>{
+<pre><code class="language-javascript">app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myMiddleware</span>(<span class="hljs-params">req, res, next</span>) </span>{
   res.end(<span class="hljs-string">'Hello, world'</span>);
   next();
-});
-</code></pre>
+});</code></pre>
 <p>Everything is middleware, even <a href="http://expressjs.com/en/guide/routing.html">routes</a> are <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L491-L504">just sugar</a> for pushing middleware onto the stack. In the Express internals, <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L428">the <code>use()</code> function</a> converts
 the middleware function <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L464-L468">into a &#39;Layer&#39;</a>, which is just an object wrapper around the middleware function. The <code>use()</code> function then <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L472">pushes the layer onto the &#39;stack&#39;</a>, which is just an array of layers. With that in mind, let&#39;s create the Espresso class and create a <code>use()</code> function:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Espresso</span> </span>{
   <span class="hljs-keyword">constructor</span>() {
@@ -47,12 +46,11 @@ the middleware function <a href="https://github.com/expressjs/express/blob/35139
     }
     <span class="hljs-keyword">this</span>._stack.push(middleware);
   }
-}
-</code></pre>
+}</code></pre>
 <p>Espresso also needs to be able to create an HTTP server that executes all middleware on every request. Express has
 the <a href="http://expressjs.com/en/starter/hello-world.html"><code>listen()</code> function</a> for this, which just <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/application.js#L616-L619">wraps Node.js&#39; built-in <code>http.createServer()</code> function</a>. Here&#39;s
 how Espresso implements this <code>listen()</code> function:</p>
-<pre><code class="lang-javascript">listen(port, callback) {
+<pre><code class="language-javascript">listen(port, callback) {
   <span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
     <span class="hljs-comment">// `this.handle()` executes all middleware defined on this Espresso</span>
     <span class="hljs-comment">// app instance, will implement this method next!</span>
@@ -64,12 +62,11 @@ how Espresso implements this <code>listen()</code> function:</p>
     });
   };
   <span class="hljs-keyword">return</span> http.createServer(handler).listen({ port }, callback);
-}
-</code></pre>
+}</code></pre>
 <p>The <code>handle()</code> method used above is responsible for executing every middleware. Internally, Express routers have a
 <a href="https://github.com/expressjs/express/blob/351396f971280ab79faddcf9782ea50f4e88358d/lib/router/index.js#L136">similar <code>handle()</code> method that executes middleware that matches a request</a>.
 For this first step, Espresso won&#39;t implement routing, it will just execute all middleware that was passed in to <code>app.use()</code>. Here&#39;s how you can implement the <code>handle()</code> method by calling <code>next()</code> recursively.</p>
-<pre><code class="lang-javascript">handle(req, res, callback) {
+<pre><code class="language-javascript">handle(req, res, callback) {
   <span class="hljs-keyword">let</span> idx = <span class="hljs-number">0</span>;
 
   <span class="hljs-keyword">const</span> next = (err) =&gt; {
@@ -98,10 +95,9 @@ For this first step, Espresso won&#39;t implement routing, it will just execute 
   };
 
   next();
-}
-</code></pre>
+}</code></pre>
 <p>You can find the whole Espresso class on GitHub. You can also find associated mocha tests here. Let&#39;s see the Espresso class in action with a simple &quot;Hello, World&quot; example in a <a href="http://npmjs.com/package/mocha">mocha</a> test using <a href="https://www.npmjs.com/package/axios">axios</a> as an HTTP client.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Espresso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/step1'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Espresso = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../lib/step1'</span>);
 <span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
 <span class="hljs-keyword">const</span> cors = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cors'</span>);
@@ -126,14 +122,13 @@ describe(<span class="hljs-string">'Espresso'</span>, <span class="hljs-function
     <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3000'</span>);
     assert.equal(res.data, <span class="hljs-string">'Hello, world!'</span>);
   });
-});
-</code></pre>
+});</code></pre>
 <p>To show that this is actually sufficient to reproduce the basics of Express middleware, let&#39;s plug in an
 actual Express plugin into Espresso and see it in action. The <a href="https://www.npmjs.com/package/cors">CORS module</a>
 is an Express plugin that sets the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">AccessControlAllowOrigin header for enabling cross-origin resource sharing</a>, otherwise known as making an HTTP request from Chrome to
 a server that has a different hostname or port than the one currently in your URL bar. Here&#39;s a test that shows
 using <code>cors()</code> with Espresso works as intended with no additional changes.</p>
-<pre><code class="lang-javascript">it(<span class="hljs-string">'works with real Express middleware (CORS)'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<pre><code class="language-javascript">it(<span class="hljs-string">'works with real Express middleware (CORS)'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Espresso();
   app.use(cors());
   app.use((req, res, next) =&gt; {
@@ -147,8 +142,7 @@ using <code>cors()</code> with Espresso works as intended with no additional cha
   <span class="hljs-comment">// This is the header that `cors()` should set</span>
   assert.equal(res.headers[<span class="hljs-string">'access-control-allow-origin'</span>], <span class="hljs-string">'*'</span>);
   assert.equal(res.data, <span class="hljs-string">'Hello with CORS'</span>);
-});
-</code></pre>
+});</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>That&#39;s the first of 4 steps to building your own Express from scratch. The Express code base may seem baffling at first. I&#39;ve been using Express for years and even then the difference between <code>req.url</code> and <code>req.originalUrl</code> never clicked for me until I wrote this article. But, once you grok the core principles, you&#39;ll be able to easily debug baffling issues and perhaps even contribute to Express itself.</p>
 <p><em>If you liked this article, you can help support my efforts to synthesize the Node.js ecosystem into easily digestible chunks, and get access to this and future articles, by <a href="https://www.patreon.com/codebarbarian">subscribing on Patreon</a>. January 2018&#39;s article is titled &quot;Building Distributed Locking with Node.js and MongoDB&quot;.</em></p>

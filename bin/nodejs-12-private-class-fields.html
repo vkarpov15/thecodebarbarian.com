@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="https://github.com/tc39/proposal-class-fields#private-fields">Private class fields</a> are a <a href="https://tc39.github.io/process-document/">Stage 3 TC39 proposal</a>. Even though they&#39;re still experimental, you can use private class fields in Node.js 12 without flags or transpilers. In this article, I&#39;ll explain the basics of private class fields and how they interact with existing paradigms, like <code>Object.keys()</code> and <a href="https://nodejs.org/api/assert.html#assert_assert_deepstrictequal_actual_expected_message"><code>assert.deepStrictEqual()</code></a>.</p>
 <h2 id="your-first-private-class-field">Your First Private Class Field</h2>
 <p>ES6 classes allow you to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Field_declarations">declare fields</a> on the class. Fields are own properties on instances of the class, so <a href="https://masteringjs.io/tutorials/fundamentals/hasownproperty"><code>hasOwnProperty()</code></a> returns <code>true</code> for class fields.</p>
-<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
   myField = <span class="hljs-number">42</span>;
 }
 
@@ -25,10 +25,9 @@ x.hasOwnProperty(<span class="hljs-string">'myField'</span>); <span class="hljs-
 
 x.myField = <span class="hljs-number">43</span>;
 x.myField; <span class="hljs-comment">// 43</span>
-x.hasOwnProperty(<span class="hljs-string">'myField'</span>); <span class="hljs-comment">// true</span>
-</code></pre>
+x.hasOwnProperty(<span class="hljs-string">'myField'</span>); <span class="hljs-comment">// true</span></code></pre>
 <p>As specified as of 2019, <a href="https://github.com/tc39/proposal-class-fields#private-fields">private fields are fields whose name starts with <code>#</code></a>. For example, the below class has a private field <code>#b</code>.</p>
-<pre><code class="lang-javascript">class Foo {
+<pre><code class="language-javascript">class Foo {
   #b = 15;
 
   get() {
@@ -38,27 +37,23 @@ x.hasOwnProperty(<span class="hljs-string">'myField'</span>); <span class="hljs-
   increment() {
     ++this.#b;
   }
-}
-</code></pre>
+}</code></pre>
 <p>Private fields are not visible outside of the class. Outside the class, <code>obj[&#39;#b&#39;]</code> is undefined and the <code>#b</code> field is not an own property.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Foo();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Foo();
 
 obj[<span class="hljs-string">'#b'</span>]; <span class="hljs-comment">// undefined</span>
-obj.hasOwnProperty(<span class="hljs-string">'#b'</span>); <span class="hljs-comment">// false</span>
-</code></pre>
+obj.hasOwnProperty(<span class="hljs-string">'#b'</span>); <span class="hljs-comment">// false</span></code></pre>
 <p>JavaScript will throw an error if you attempt to access a private field outside of a class using <code>.</code>:</p>
-<pre><code class="lang-javascript">// SyntaxError: Undefined private field #b: must be declared in an enclosing class
-obj.#b;
-</code></pre>
-<h2 id="implications-for-node-js">Implications For Node.js</h2>
+<pre><code class="language-javascript">// SyntaxError: Undefined private field #b: must be declared in an enclosing class
+obj.#b;</code></pre>
+<h2 id="implications-for-nodejs">Implications For Node.js</h2>
 <p>Private class fields are invisible outside the class, and <a href="https://github.com/tc39/proposal-class-fields#no-backdoor-to-access-private">there&#39;s no back door to access them</a>. So functions like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys"><code>Object.keys()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors"><code>Object.getOwnPropertyDescriptors()</code></a> don&#39;t see private class fields.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Foo();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = <span class="hljs-keyword">new</span> Foo();
 
 <span class="hljs-built_in">Object</span>.keys(obj); <span class="hljs-comment">// []</span>
-<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptors(obj); <span class="hljs-comment">// {}</span>
-</code></pre>
+<span class="hljs-built_in">Object</span>.getOwnPropertyDescriptors(obj); <span class="hljs-comment">// {}</span></code></pre>
 <p>Private fields are useful for encapsulating internal state. Functions like <a href="https://nodejs.org/api/assert.html#assert_assert_deepstrictequal_actual_expected_message"><code>assert.deepStrictEqual()</code></a> don&#39;t have access to private class fields, so you can now compare two objects while ignoring internal state.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> obj1 = <span class="hljs-keyword">new</span> Foo();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj1 = <span class="hljs-keyword">new</span> Foo();
 <span class="hljs-keyword">const</span> obj2 = <span class="hljs-keyword">new</span> Foo();
 
 assert.deepStrictEqual(obj1, obj2);
@@ -67,8 +62,7 @@ obj1.increment();
 obj1.get() === obj2.get(); <span class="hljs-comment">// false</span>
 
 <span class="hljs-comment">// Succeeds even though `#b` has a different value</span>
-assert.deepStrictEqual(obj1, obj2);
-</code></pre>
+assert.deepStrictEqual(obj1, obj2);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Private class fields are still a Stage 3 proposal, which means the spec may change and/or the spec might never be formally adopted. Don&#39;t build your entire production application on private class fields. But, now that they&#39;re included in Node.js 12 without any flags, try them out and see what you think!</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

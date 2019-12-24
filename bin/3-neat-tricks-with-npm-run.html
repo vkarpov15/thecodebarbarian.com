@@ -48,8 +48,7 @@ You can define a <code>start</code> script in your <code>package.json</code> fil
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"start"</span>: <span class="hljs-string">"env NODE_PATH=./ node --harmony_proxies index.js"</span>
   }
-}
-</code></pre><p>Now, if you run <code>npm start</code> (which is just short for <code>npm run start</code>), npm
+}</code></pre><p>Now, if you run <code>npm start</code> (which is just short for <code>npm run start</code>), npm
 will run the <code>start</code> script for you and start your application with your special
 configuration options.</p>
 <h2 id="command-line-shortcuts">Command Line Shortcuts</h2>
@@ -70,15 +69,13 @@ your <code>package.json</code> scripts without asking your users to <code>npm in
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"watch"</span>: <span class="hljs-string">"gulp watch"</span>
   }
-}
-</code></pre><p>Now, <code>npm run watch</code> is a handy shortcut for <code>./node_modules/.bin/gulp watch</code>.
+}</code></pre><p>Now, <code>npm run watch</code> is a handy shortcut for <code>./node_modules/.bin/gulp watch</code>.
 You can do the same thing with mocha.</p>
 <pre><code>{
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"test"</span>: <span class="hljs-string">"mocha -r nyan test/*.test.js"</span>
   }
-}
-</code></pre><p>Now <code>npm test</code> (which is the same as <code>npm run test</code>) is a handy shortcut for
+}</code></pre><p>Now <code>npm test</code> (which is the same as <code>npm run test</code>) is a handy shortcut for
 running all your mocha tests in your <code>test</code> directory using the nyan cat
 reporter.</p>
 <p>The mocha executable also has some neat command line flags. For instance, the
@@ -88,8 +85,7 @@ pass extra flags to mocha. For instance, the below commands are equivalent.</p>
 <pre><code># This command...
 npm test -- -g &quot;login.*fails&quot;
 # is the same thing as this one
-./node_modules/.bin/mocha -r nyan test/*.test.js -g &quot;login.*fails&quot;
-</code></pre><h2 id="an-alternative-to-gulp">An Alternative to Gulp</h2>
+./node_modules/.bin/mocha -r nyan test/*.test.js -g &quot;login.*fails&quot;</code></pre><h2 id="an-alternative-to-gulp">An Alternative to Gulp</h2>
 <p>Gulp is a powerful streaming build system that lets you parallelize
 compiling your files. It&#39;s a great tool, but it can be overkill for some
 applications, especially if your team doesn&#39;t have much experience with
@@ -97,29 +93,26 @@ Node.js streams. The <code>npm run</code> command can serve as a less-performant
 replacement for gulp in many use cases. For instance, suppose you have
 some ES2015 code in <code>example.js</code> that you want to transpile with babel and
 then pipe into browserify for use in the browser.</p>
-<pre><code class="lang-javascript"><span class="hljs-meta">'use strict'</span>;
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
 
 co(<span class="hljs-function"><span class="hljs-keyword">function</span>*(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, world!'</span>);
-});
-</code></pre>
+});</code></pre>
 <p>If you wanted to use gulp to compile this, you&#39;d probably use the <code>gulp-babel</code>
 and <code>gulp-browserify</code> npm modules, which wrap babel and browserify for gulp.
 However, babel and browserify have command line interfaces, so you can
 compile this file using Unix-style pipes. Note that the below example
 requires babel 5.x, it won&#39;t work with babel 6.</p>
-<pre><code>./node_modules/.bin/browserify example.js | ./node_modules/.bin/babel &gt; ./bin/example.js
-</code></pre><p>Once again, the <code>./node_modules/.bin</code> part is annoying. Thankfully, if
+<pre><code>./node_modules/.bin/browserify example.js | ./node_modules/.bin/babel &gt; ./bin/example.js</code></pre><p>Once again, the <code>./node_modules/.bin</code> part is annoying. Thankfully, if
 you define a <code>compile</code> script in <code>package.json</code>, you can just achieve the
 same result with <code>npm run compile</code>.</p>
 <pre><code>{
   <span class="hljs-string">"scripts"</span>: {
     <span class="hljs-string">"compile"</span>: <span class="hljs-string">"browserify example.js | babel &gt; ./bin/example.js"</span>
   }
-}
-</code></pre><h2 id="closing-thoughts">Closing Thoughts</h2>
+}</code></pre><h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>The <code>npm run</code> command lets npm function as a versatile task runner in addition
 to a task manager. Good node.js applications leverage <code>npm start</code> and
 <code>npm test</code> to make it explicit how to run your application and how to test it.

@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p><a href="http://expressjs.com/en/guide/error-handling.html">Express&#39; error handling middleware</a> is a powerful tool for consolidating your HTTP error response logic. Odds are, if you&#39;ve written Express code you&#39;ve written code that looks like what you see below.</p>
-<pre><code class="lang-javascript">app.get(<span class="hljs-string">'/User'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'/User'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">let</span> users;
   <span class="hljs-keyword">try</span> {
     users = <span class="hljs-keyword">await</span> db.collection(<span class="hljs-string">'User'</span>).find().toArray();
@@ -21,12 +21,11 @@
     res.status(<span class="hljs-number">500</span>).json({ error: error.toString() });
   }
   res.json({ users });
-});
-</code></pre>
+});</code></pre>
 <p>This pattern works well if you have one or two endpoints, but if you&#39;re maintaining dozens you&#39;re going to quickly lose your mind. Let&#39;s say you&#39;ve decided HTTP response code 503 is more appropriate than HTTP 500, you&#39;re going to have to change that for every single endpoint. How about adding stack traces to the error response in your dev environment? And do you really want to add a <code>try/catch</code> around every single HTTP and database call in your codebase? Sure that&#39;s the &quot;responsible&quot; and &quot;disciplined&quot; thing to do, but in programming discipline doesn&#39;t scale very well. With error handling middleware, you can do better.</p>
 <h2 id="defining-error-handling-middleware">Defining Error Handling Middleware</h2>
 <p>Express middleware is broken up into different types based on the number of arguments your middleware function takes. A middleware function that takes 4 arguments is classified as &quot;error handling middleware&quot;, and will only get called if an error occurs.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
   <span class="hljs-comment">// This middleware throws an error, so Express will go straight to</span>
@@ -47,13 +46,12 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<
   res.json({ message: error.message });
 });
 
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>There are 2 ways to report an error in middleware to Express. The first,
 as you saw above, is to throw an exception in the same tick. Because of
 the async nature of JavaScript, this isn&#39;t very useful. If you throw
 an error asynchronously, you&#39;ll just crash the server.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
   <span class="hljs-comment">// Will crash the server on every HTTP request</span>
@@ -65,11 +63,10 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<
   res.json({ message: error.message });
 });
 
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>The only way to report errors to Express for use with error handlers is
 using the third argument to conventional middleware, the <code>next()</code> function. Your normal route handlers (like <code>app.get(&#39;/User&#39;, function(req, res) {})</code>) can also take a <code>next()</code> function as an argument.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
   <span class="hljs-comment">// Reporting async errors *must* go through `next()`</span>
@@ -81,10 +78,9 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<
   res.json({ message: error.message });
 });
 
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>Remember that Express middleware executes <strong>in order</strong>. You should define error handlers <strong>last</strong>, after all other middleware. Otherwise, your error handler won&#39;t get called:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, req, res, next</span>) </span>{
   <span class="hljs-comment">// Will **not** get called. You'll get Express' default error</span>
@@ -97,11 +93,10 @@ app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span 
   setImmediate(() =&gt; { next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'woops'</span>)); });
 });
 
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
-<h2 id="use-with-async-await">Use With Async/Await</h2>
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
+<h2 id="use-with-asyncawait">Use With Async/Await</h2>
 <p>Cumbersome integration with promises is where the cracks start to show in Express&#39; API. Express was mostly written 2011-2014, before ES6, and it still lacks a good answer for how to handle the <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async/await keywords</a>. For example, the below server will never successfully send an HTTP response, because <a href="http://thecodebarbarian.com/unhandled-promise-rejections-in-node.js">the promise rejection will never get handled</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-comment">// Reporting async errors *must* go through `next()`</span>
@@ -117,19 +112,17 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<
   res.json({ message: error.message });
 });
 
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
 <p>However, with a little helper function you can tie async/await errors in with Express error handling middleware. Remember that <code>async</code> functions return promises, so you need to make sure to <code>.catch()</code> any errors and pass them to <code>next()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrapAsync</span>(<span class="hljs-params">fn</span>) </span>{
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrapAsync</span>(<span class="hljs-params">fn</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
     <span class="hljs-comment">// Make sure to `.catch()` any errors and pass them along to the `next()`</span>
     <span class="hljs-comment">// middleware in the chain, in this case the error handler.</span>
     fn(req, res, next).catch(next);
   };
-}
-</code></pre>
+}</code></pre>
 <p>If you make sure to call <code>wrapAsync()</code> on every async middleware function, any async exceptions will end up in your Express error handlers:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
 
 app.get(<span class="hljs-string">'*'</span>, wrapAsync(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), <span class="hljs-number">50</span>));
@@ -150,11 +143,10 @@ app.listen(<span class="hljs-number">3000</span>);
     <span class="hljs-comment">// middleware in the chain, in this case the error handler.</span>
     fn(req, res, next).catch(next);
   };
-}
-</code></pre>
+}</code></pre>
 <p>Now this is where the power of error handling middleware really comes in. In other languages (I&#39;m looking at you, <a href="https://blog.golang.org/error-handling-and-go">Golang</a> ) you&#39;re essentially required to check for errors on every I/O operation and manually bubble them up. I&#39;m sure this tedious exercise builds character, but in practice it just makes code cumbersome and hard to refactor.</p>
 <p>With <code>wrapAsync()</code>, every async error ends up in an error handling middleware. You can define cross-cutting rules like &quot;every assertion error triggers an HTTP 400&quot; and &quot;every database error should be an HTTP 503&quot;:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> { AssertionError } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { AssertionError } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> { MongoError } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>);
 
 app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleAssertionError</span>(<span class="hljs-params">error, req, res, next</span>) </span>{
@@ -175,8 +167,7 @@ app.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <
     });
   }
   next(error);
-});
-</code></pre>
+});</code></pre>
 <p>Instead of defining error handling on a one-off basis in your individual routes, or, worse yet, in a giant <code>handleError()</code> God function, you can define distinct handlers that each handle a certain error condition. You can define error handlers for what happens when your API can&#39;t connect to your database, when the user&#39;s request didn&#39;t match your schema, and when an external API failed.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Express error handling middleware lets you handle errors in a way that maximizes separation of concerns. You don&#39;t need to handle errors in your business logic - if you use async/await, you don&#39;t even need <code>try/catch</code>. These errors will bubble to your error handlers, which can then decide how to respond to the request. Make sure you take advantage of this powerful feature in your next Express app!</p>

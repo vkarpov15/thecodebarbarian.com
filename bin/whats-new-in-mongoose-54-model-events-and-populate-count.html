@@ -15,7 +15,7 @@
 </div><div class="post-body-text-container"><p><a href="https://js.report/package/mongoose/5.4.0">Mongoose 5.4</a> was released on December 14, with 13 new features. The overarching theme for 5.4 is making <a href="http://thecodebarbarian.com/whats-new-in-mongoose-54-global-schematype-configuration.html">Mongoose SchemaTypes more configurable</a>, but that isn&#39;t the whole story. Mongoose 5.4 has several new features that will help you make your apps more robust and concise. In this article, I&#39;ll cover the new <a href="https://mongoosejs.com/docs/api.html#model_Model-events"><code>Model.events</code> property</a> and the new <a href="https://mongoosejs.com/docs/populate.html#count"><code>count</code> option for virtual populate</a>.</p>
 <h2 id="the-count-option-for-virtual-populate">The <code>count</code> Option for Virtual Populate</h2>
 <p><a href="https://mongoosejs.com/docs/populate.html#populate-virtuals">Virtual populate</a> is a more flexible alternative to <a href="https://mongoosejs.com/docs/populate.html">conventional populate</a>. Virtual populate allows you to specify <a href="https://mongoosejs.com/docs/api.html#virtualtype_VirtualType"><code>localField</code> and <code>foreignField</code></a>. With Mongoose 5.4.0, you can also specify a <a href="https://mongoosejs.com/docs/api.html#virtualtype_VirtualType"><code>count</code> option</a> that tells Mongoose to populate the number of documents, instead of the documents themselves. Below is an example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> childSchema = <span class="hljs-keyword">new</span> Schema({ parentId: mongoose.ObjectId });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> childSchema = <span class="hljs-keyword">new</span> Schema({ parentId: mongoose.ObjectId });
 
 <span class="hljs-keyword">const</span> parentSchema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
 parentSchema.virtual(<span class="hljs-string">'childCount'</span>, {
@@ -35,21 +35,19 @@ parentSchema.virtual(<span class="hljs-string">'childCount'</span>, {
 <span class="hljs-comment">// docs whose `parentId` matches.</span>
 p = <span class="hljs-keyword">await</span> Parent.findOne().populate(<span class="hljs-string">'childCount'</span>);
 
-<span class="hljs-built_in">console</span>.log(p.childCount); <span class="hljs-comment">// "1"</span>
-</code></pre>
+<span class="hljs-built_in">console</span>.log(p.childCount); <span class="hljs-comment">// "1"</span></code></pre>
 <p>Under the hood, Mongoose uses <a href="https://mongoosejs.com/docs/api.html#query_Query-countDocuments"><code>countDocuments()</code></a> to populate your virtual if you specify <code>count: true</code>. This means better performance and less network overhead if you only need the number of documents.</p>
 <p>Note that <code>childCount</code> is still a virtual. That means <code>childCount</code> won&#39;t show up in <code>JSON.stringify()</code> or Express&#39; <code>res.json()</code> output unless you explicitly turn on <a href="http://thecodebarbarian.com/whats-new-in-mongoose-53-orfail-and-global-toobject#global-toobject-and-tojson-options"><code>virtuals: true</code> in your <code>toJSON</code> options</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(p)); <span class="hljs-comment">// Doesn't include `childCount`</span>
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(p)); <span class="hljs-comment">// Doesn't include `childCount`</span>
 
 <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(p.toJSON({ virtuals: <span class="hljs-literal">true</span> }))); <span class="hljs-comment">// Includes `childCount`</span>
 
 <span class="hljs-comment">// Can also set `virtuals: true` globally</span>
 mongoose.set(<span class="hljs-string">'toJSON'</span>, { virtuals: <span class="hljs-literal">true</span> });
-<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(p)); <span class="hljs-comment">// Includes `childCount` because of global option</span>
-</code></pre>
-<h2 id="the-model-events-property">The <code>Model.events</code> Property</h2>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(p)); <span class="hljs-comment">// Includes `childCount` because of global option</span></code></pre>
+<h2 id="the-modelevents-property">The <code>Model.events</code> Property</h2>
 <p>Tracking errors is a pain. <a href="http://thecodebarbarian.com/mongoose-error-handling">Mongoose error handling middleware</a> makes it easier:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ test: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ test: <span class="hljs-built_in">Number</span> });
 <span class="hljs-comment">// RegExp syntax new in Mongoose 5.3</span>
 schema.post(<span class="hljs-regexp">/.*/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res, next</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error middleware:'</span>, error);
@@ -59,10 +57,9 @@ schema.post(<span class="hljs-regexp">/.*/</span>, <span class="hljs-function"><
 <span class="hljs-keyword">const</span> Test = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
 
 <span class="hljs-keyword">await</span> Test.create({ test: <span class="hljs-string">'foo'</span> }); <span class="hljs-comment">// Prints "Error middleware: ..."</span>
-<span class="hljs-keyword">await</span> Test.findOne({ test: <span class="hljs-string">'foo'</span> }); <span class="hljs-comment">// Also prints "Error middleware: ..."</span>
-</code></pre>
+<span class="hljs-keyword">await</span> Test.findOne({ test: <span class="hljs-string">'foo'</span> }); <span class="hljs-comment">// Also prints "Error middleware: ..."</span></code></pre>
 <p>However, error handling middleware comes with a few caveats. First, Mongoose doesn&#39;t have <a href="https://mongoosejs.com/docs/middleware.html">middleware for all model functions yet</a>. Also, Mongoose middleware can run multiple times for cases where there&#39;s a naming conflict. For example, there&#39;s middleware for both <a href="https://mongoosejs.com/docs/api.html#model_Model-remove"><code>Document#remove()</code></a> and <a href="https://mongoosejs.com/docs/api.html#query_Query-remove"><code>Query#remove()</code></a>, so the below script will execute error handling middleware twice.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ _id: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ _id: <span class="hljs-built_in">Number</span> });
 schema.post(<span class="hljs-regexp">/.*/</span>, { <span class="hljs-built_in">document</span>: <span class="hljs-literal">true</span>, query: <span class="hljs-literal">true</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, res, next</span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error middleware:'</span>, error.message);
   next();
@@ -74,10 +71,9 @@ schema.post(<span class="hljs-regexp">/.*/</span>, { <span class="hljs-built_in"
 <span class="hljs-comment">// This double calls error handling middleware, once for `Document#remove()` and</span>
 <span class="hljs-comment">// once for `Query#remove()`, because `Document#remove()` calls `Query#remove()`</span>
 <span class="hljs-comment">// under the hood</span>
-<span class="hljs-keyword">await</span> doc.remove();
-</code></pre>
+<span class="hljs-keyword">await</span> doc.remove();</code></pre>
 <p>In Mongoose 5.4.0 we added a <a href="https://mongoosejs.com/docs/api.html#model_Model-events"><code>Model.events</code></a> property. This property is a <a href="https://nodejs.org/api/events.html#events_class_eventemitter">Node.js <code>EventEmitter</code></a> that emits an &#39;error&#39; event whenever any operation on that model errors. Unlike with error handling middleware, you won&#39;t get a double error using <code>remove()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ _id: <span class="hljs-built_in">Number</span> });
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ _id: <span class="hljs-built_in">Number</span> });
 
 <span class="hljs-keyword">const</span> Test = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
 
@@ -86,8 +82,7 @@ schema.post(<span class="hljs-regexp">/.*/</span>, { <span class="hljs-built_in"
 Test.events.on(<span class="hljs-string">'error'</span>, err =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error event:'</span>, err.message));
 
 <span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> Test({ _id: <span class="hljs-keyword">void</span> <span class="hljs-number">0</span> });
-<span class="hljs-keyword">await</span> doc.remove(); <span class="hljs-comment">// Prints "Error event: No _id found on document!"</span>
-</code></pre>
+<span class="hljs-keyword">await</span> doc.remove(); <span class="hljs-comment">// Prints "Error event: No _id found on document!"</span></code></pre>
 <p>The <code>Model.events</code> property is a supplement for error handling middleware rather than a replacement. Error handling middleware is useful for transforming errors and ensuring that user-facing errors are readable. But, depending on your architecture, <code>Model.events</code> might make it easier to ensure all errors end up in an error tracking repository like <a href="https://sentry.io/welcome/">Sentry</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p><code>Model.events</code> and <code>count</code> for virtual populate are just 2 of 13 new features in Mongoose 5.4. There&#39;s also <a href="https://mongoosejs.com/docs/api.html#model_Model.findOneAndReplace"><code>Model.findOneAndReplace()</code></a>, <a href="http://thecodebarbarian.com/whats-new-in-mongoose-54-global-schematype-configuration.html">global SchemaType configuration</a>, and <a href="https://mongoosejs.com/docs/middleware.html">hooks for <code>deleteOne()</code> and <code>deleteMany()</code></a>. Make sure you upgrade and take advantage of these new features!</p>

@@ -26,7 +26,7 @@ be too slow. To avoid a full collection scan, you might store a hash map that
 maps names to users with that name. At a high level, an index is a
 sophisticated implementation of this sort of hash map.</p>
 <p>Mongoose supports <a href="http://mongoosejs.com/docs/api.html#schematype_SchemaType-index">2 syntaxes for declaring an index</a> on a user&#39;s name.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: { type: <span class="hljs-built_in">String</span>, index: <span class="hljs-literal">true</span> } <span class="hljs-comment">// Build an index on `name`</span>
 });
 
@@ -34,8 +34,7 @@ sophisticated implementation of this sort of hash map.</p>
 <span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
 });
-userSchema.index({ name: <span class="hljs-number">1</span> });
-</code></pre>
+userSchema.index({ name: <span class="hljs-number">1</span> });</code></pre>
 <p>In Mongoose, you declare indexes in your schemas. When you compile a <a href="http://mongoosejs.com/docs/models.html">model</a> from your schema, Mongoose
 will build indexes for you <a href="https://docs.mongodb.com/manual/core/index-creation/#index-creation-background">in the background</a>. You can use <a href="http://mongoosejs.com/docs/api.html#init_init"><code>Model.init()</code></a> to get back
 a promise that fulfills when your index build is done. Under the hood, when you call <a href="http://mongoosejs.com/docs/api.html#mongoose_Mongoose-model"><code>mongoose.model()</code></a>, Mongoose
@@ -48,18 +47,17 @@ supports an <a href="http://mongoosejs.com/docs/guide.html#autoIndex"><code>auto
 to not build indexes by default.</p>
 <p>Unfortunately, there is one major gap with the above index functionality:
 how do you remove or change an index? Suppose you decide you no longer need
-an index on a user&#39;s <code>name</code>. You would remove the index from your schema</p>
-<p>definition, but that would <strong>not</strong>
+an index on a user&#39;s <code>name</code>. You would remove the index from your schema
+definition, but that would <strong>not</strong>
 <a href="https://docs.mongodb.com/manual/reference/method/db.collection.dropIndex/">drop the index</a>
 from your production database. Before 5.2.0, Mongoose had no mechanism for
 dropping indexes that were not defined in your schema.</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// No more `name` index, but existing databases, like your production db,</span>
+<pre><code class="language-javascript"><span class="hljs-comment">// No more `name` index, but existing databases, like your production db,</span>
 <span class="hljs-comment">// will still have the index.</span>
 <span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> Schema({
   name: <span class="hljs-built_in">String</span>
-});
-</code></pre>
-<h2 id="introducing-model-syncindexes-">Introducing <code>Model.syncIndexes()</code></h2>
+});</code></pre>
+<h2 id="introducing-modelsyncindexes">Introducing <code>Model.syncIndexes()</code></h2>
 <p>The <a href="https://mongoosejs.com/docs/api.html#model_Model.syncIndexes"><code>Model.syncIndexes()</code> function</a> ensures
 that the indexes defined in your model&#39;s schema line up with the indexes
 in your MongoDB collection. Here&#39;s what <code>syncIndexes()</code> does:</p>

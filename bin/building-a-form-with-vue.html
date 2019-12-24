@@ -21,8 +21,7 @@ However, for educational purposes, this article will <code>npm install</code> th
 <p>The first step is to <code>npm install</code> a couple packages. In addition to vue and
 webpack, install <a href="https://www.npmjs.com/package/serve">serve</a> to spin up a
 lightweight web server.</p>
-<pre><code>npm install vue@<span class="hljs-number">2.6</span> webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x
-</code></pre><p>Create an <code>index.html</code> file that loads a <code>main.js</code> bundle. The <code>#content</code> div
+<pre><code>npm install vue@<span class="hljs-number">2.6</span> webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x</code></pre><p>Create an <code>index.html</code> file that loads a <code>main.js</code> bundle. The <code>#content</code> div
 is the element Vue will render into, and <code>name-form</code> is a <a href="https://vuejs.org/v2/guide/components.html">custom component</a> that
 we&#39;ll add to Vue.</p>
 <pre><code>&lt;html&gt;
@@ -35,11 +34,10 @@ we&#39;ll add to Vue.</p>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span>
-</code></pre><p>Here&#39;s a minimal <a href="https://webpack.js.org/configuration/">Webpack config file</a> <code>webpack.config.js</code> that will take a
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Here&#39;s a minimal <a href="https://webpack.js.org/configuration/">Webpack config file</a> <code>webpack.config.js</code> that will take a
 <code>main.js</code> file, which contains the definition of the <code>name-form</code> component,
 and create a standalone bundle <code>dist/main.js</code>.</p>
-<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = {
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   mode: process.env.NODE_ENV || <span class="hljs-string">'production'</span>,
   entry: {
     main: <span class="hljs-string">'./main.js'</span>
@@ -49,14 +47,12 @@ and create a standalone bundle <code>dist/main.js</code>.</p>
     path: <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/dist`</span>,
     filename: <span class="hljs-string">'[name].js'</span>
   }
-};
-</code></pre>
+};</code></pre>
 <p><a href="https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only">Importing Vue via <code>require()</code></a> is easy, but not quite trivial. Here&#39;s how you import Vue with <code>require()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;
-</code></pre>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;</code></pre>
 <p>Here&#39;s the full <code>main.js</code> file. The <code>main.js</code> file imports Vue, defines the
 <code>name-form</code> component to show &#39;Hello, World&#39;, and creates a <a href="https://vuejs.org/v2/guide/instance.html">new Vue instance</a> bound to the <code>#content</code> div.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue/dist/vue.esm'</span>).default;
 
 Vue.component(<span class="hljs-string">'name-form'</span>, {
   template: <span class="hljs-string">`
@@ -64,8 +60,7 @@ Vue.component(<span class="hljs-string">'name-form'</span>, {
   `</span>,
 });
 
-<span class="hljs-keyword">new</span> Vue({ el: <span class="hljs-string">'#content'</span> });
-</code></pre>
+<span class="hljs-keyword">new</span> Vue({ el: <span class="hljs-string">'#content'</span> });</code></pre>
 <p>Run <code>./node_modules/.bin/webpack</code> to compile <code>main.js</code>, and <code>./node_modules/.bin/serve</code> to start an HTTP server on port 5000.</p>
 <pre><code>$ ./node_modules/.bin/webpack
 Hash: d3f433b3f83a66e3b75c
@@ -78,9 +73,9 @@ Entrypoint main = main.js
 [<span class="hljs-number">0</span>] (webpack)/buildin/global.js <span class="hljs-number">472</span> bytes {<span class="hljs-number">0</span>} [built]
 [<span class="hljs-number">1</span>] ./main.js <span class="hljs-number">158</span> bytes {<span class="hljs-number">0</span>} [built]
     + <span class="hljs-number">4</span> hidden modules
-$ ./node_modules/.bin/serve
-</code></pre><p>Visit <code>http://localhost:5000</code>, and you should see &#39;Hello, World&#39; show up.</p>
-<p><img src="https://i.imgur.com/sAX0ZUh.png"></p>
+$ ./node_modules/.bin/serve</code></pre><p>Visit <code>http://localhost:5000</code>, and you should see &#39;Hello, World&#39; show up.</p>
+<img src="https://i.imgur.com/sAX0ZUh.png">
+
 <p>For this simple &#39;Hello, World&#39; example, Vue&#39;s total bundle size is larger than
 <a href="http://thecodebarbarian.com/building-a-form-with-preact">Preact&#39;s</a>, but smaller
 than React&#39;s. Here&#39;s the bundle sizes that Webpack outputs, assuming unminified code:</p>
@@ -89,7 +84,7 @@ than React&#39;s. Here&#39;s the bundle sizes that Webpack outputs, assuming unm
 <li>Vue: 96.7kb</li>
 <li>React: 109kb</li>
 </ul>
-<h2 id="user-input-with-data-and-v-model-">User Input With <code>data</code> and <code>v-model</code></h2>
+<h2 id="user-input-with-data-and-v-model">User Input With <code>data</code> and <code>v-model</code></h2>
 <p>Forms are much easier with <a href="https://vuejs.org/v2/guide/forms.html">two way data binding</a> as opposed to React-style <a href="https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow">one way data flow</a>.
 To add a two-way binding to the <code>name-form</code> component, you need to add two
 things to your component:</p>
@@ -101,7 +96,7 @@ things to your component:</p>
 one for <code>lastName</code>. When you click the submit button, the <code>submit()</code> function
 prints out the current values for <code>firstName</code> and <code>lastName</code>, and then empties
 both inputs.</p>
-<pre><code class="lang-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
+<pre><code class="language-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
   template: <span class="hljs-string">`
     &lt;div&gt;
       &lt;div&gt;
@@ -132,33 +127,32 @@ both inputs.</p>
       <span class="hljs-keyword">this</span>.lastName = <span class="hljs-string">''</span>;
     }
   }
-});
-</code></pre>
+});</code></pre>
 <p>Here&#39;s the form in action:</p>
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.useloom.com/embed/9e3797c79ee14e1eafa94d69c4f6d0de" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 <p>Vue&#39;s two way data binding tracks changes on the <code>input</code> fields and propagates them to the <code>firstName</code> and <code>lastName</code> data properties. When <code>submit()</code> changes <code>firstName</code> and <code>lastName</code>, Vue propagates those changes to the <code>input</code> fields.</p>
 <p>Under the hood, <a href="https://vuejs.org/v2/guide/reactivity.html#How-Changes-Are-Tracked">Vue uses JavaScript getters and setters</a> to track
 changes, as opposed to <a href="http://jimhoskins.com/2012/12/17/angularjs-and-apply.html">Angular 1&#39;s approach of diffing whenever <code>$apply()</code> is called</a>. Conceptually, Vue loops through every property in the object your <code>data()</code> function returns, and uses <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">JavaScript&#39;s <code>Object.defineProperty()</code> function</a> to attach a getter and setter for that property.</p>
-<h2 id="submitting-the-form-with-async-await">Submitting the Form with Async/Await</h2>
+<h2 id="submitting-the-form-with-asyncawait">Submitting the Form with Async/Await</h2>
 <p><a href="https://vuejs.org/v2/guide/components-dynamic-async.html#Async-Components">Vue has good support for promises and async/await</a>. In particular, <a href="https://v1.vuejs.org/guide/events.html">Vue methods</a> support promises, including throwing an error when the returned promise rejects. For
 example, suppose the <code>submit()</code> method from the previous example were async,
 and it threw an async error as shown below:</p>
-<pre><code class="lang-javascript">  methods: {
+<pre><code class="language-javascript">  methods: {
     submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
       <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">1000</span>));
       <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-string">'Sample Error'</span>));
     }
-  }
-</code></pre>
+  }</code></pre>
 <p>Vue would bubble up the error as an uncaught exception. This is noteworthy
 because many other frameworks silently ignore errors in async functions.
 Ending up as an uncaught exception is much better because then an error handling
 tool like <a href="http://getsentry.com/">Sentry</a> can at least track the error, rather
 than losing it forever.</p>
-<p><img src="https://i.imgur.com/BFNibFa.png"></p>
+<img src="https://i.imgur.com/BFNibFa.png">
+
 <p>Below is an example of using an async method to submit an HTTP request to the <a href="https://httpbin.org/#/HTTP_Methods/post_post">httpbin API</a>.</p>
-<pre><code class="lang-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
+<pre><code class="language-javascript">Vue.component(<span class="hljs-string">'name-form'</span>, {
   template: <span class="hljs-string">`
     &lt;div&gt;
       &lt;div&gt;
@@ -195,8 +189,7 @@ than losing it forever.</p>
       <span class="hljs-keyword">this</span>.lastName = <span class="hljs-string">''</span>;
     }
   }
-});
-</code></pre>
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Overall, I&#39;m very impressed with how much Vue. Vue takes the best parts of Angular 1 and React, and avoids the worst parts of both. In particular, Vue
 makes forms much easier than <a href="http://thecodebarbarian.com/building-a-form-with-preact.html">React-style apps</a>. Give Vue a shot
