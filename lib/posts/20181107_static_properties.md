@@ -1,6 +1,6 @@
 Since ES6, JavaScript enjoys support for classes and [static functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static) akin to static functions in other object-oriented languages. Unfortunately, JavaScript lacks support for static properties, and [recommended solutions on Google](https://esdiscuss.org/topic/define-static-properties-and-prototype-properties-with-the-class-syntax) fail to take into account inheritance. I ran into this problem when [implementing a new Mongoose feature](https://github.com/Automattic/mongoose/issues/6912) that requires a more robust notion of static properties. Specifically, I need static properties that support inheritance via setting `prototype` or via [`extends`](https://medium.com/beginners-guide-to-mobile-web-development/super-and-extends-in-javascript-es6-understanding-the-tough-parts-6120372d3420). In this article, I'll describe a pattern for implementing static properties in ES6.
 
-Static Methods and Inheritance
+[Static Methods](https://masteringjs.io/tutorials/fundamentals/static) and Inheritance
 ------------------------------
 
 Suppose you have a simple ES6 class with a static method.
