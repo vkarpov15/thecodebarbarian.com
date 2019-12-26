@@ -1,32 +1,35 @@
 [WebAssembly](http://webassembly.org/) is an exciting new language that many JavaScript engines have added support for. WebAssembly promises to make it much easier to compile languages like C and C++ to something that runs in the browser. However, I'm most excited about the ability to write optimized custom arithmetic and buffer manipulations, like, say, [fast decimal floating point arithmetic in JavaScript](http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html) without having to [wait for TC39 to get around to it](https://mail.mozilla.org/pipermail/es-discuss/2008-February/005446.html). In this article, I'll show you how to get a couple rudimentary WebAssembly examples running in Node.js, and run a couple trivial benchmarks to show the performance impact.
 
-**Note:** The code in this article was only tested on Node 7.2.1 with the `--expose-wasm` flag. The code will **not** work on Node 6.x or Node 7.6.0, and will **not** work without the `--expose-wasm` flag.
+Note that the code in this article is intended to be run with Node.js 12.14.0.
 
 What is WebAssembly Anyway?
 ---------------------------
 
-The `--expose-wasm` flag gives you access to a global object `Wasm` which has several helper functions for creating WebAssembly _modules_. For the purposes of this article, a WebAssembly module is just a collection of functions written in WebAssembly.
+Node.js 12 has a [global `WebAssembly` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly) which has several helper functions for creating WebAssembly _modules_. For the purposes of this article, a WebAssembly module is just a collection of functions written in WebAssembly.
 
 ```
-$ ~/Workspace/node-v7.2.1-linux-x64/bin/node --expose-wasm
-> Wasm
-{ verifyModule: [Function],
-  verifyFunction: [Function],
-  instantiateModule: [Function],
-  experimentalVersion: 11 }
+$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node 
+Welcome to Node.js v12.14.0.
+Type ".help" for more information.
+> WebAssembly
+Object [WebAssembly] {
+  compile: [Function: compile],
+  validate: [Function: validate],
+  instantiate: [Function: instantiate]
+}
+> 
+```
+
+To create a WebAssembly module, you need to call `WebAssembly.instantiate()` with a [Uint8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) that represents the module. Below is an example of instantiating an empty WebAssembly module.
+
+```
+$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node
+> WebAssembly.instantiate(new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]));
+Promise { <pending> }
 >
 ```
 
-To create a WebAssembly module, you need to call `Wasm.instantiateModule()` with a [Uint8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) that represents the module. Below is an example of instantiating an empty WebAssembly module.
-
-```
-$ ~/Workspace/node-v7.2.1-linux-x64/bin/node --expose-wasm
-> Wasm.instantiateModule(new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x0b, 0x00, 0x00, 0x00]));
-{}
->
-```
-
-So at the basic level, creating a WebAssembly module consists of putting the correct hex digits into the `instantiateModule()` function. What do these hex numbers mean? These hex numbers are the [preamble](http://webassembly.org/docs/binary-encoding/#module-structure) that every `.wasm` file starts with (`.wasm` is the canonical extension for WebAssembly files). Every WebAssembly file must have these bytes, so this is the minimum viable WebAssembly module.
+So at the basic level, creating a WebAssembly module consists of putting the correct hex digits into the `instantiate()` function. What do these hex numbers mean? These hex numbers are the [preamble](http://webassembly.org/docs/binary-encoding/#module-structure) that every `.wasm` file starts with (`.wasm` is the canonical extension for WebAssembly files). Every WebAssembly file must have these bytes, so this is the minimum viable WebAssembly module.
 
 Adding Two Numbers
 ------------------
@@ -35,21 +38,21 @@ Thankfully, you don't have to write the bytes yourself. There's plenty of compil
 
 ```
 (module
-  (func $addTwo (param i32 i32) (result i32)
-    (i32.add
-      (get_local 0)
-      (get_local 1)))
-  (export "addTwo" $addTwo))
+  (func (export "addTwo") (param i32 i32) (result i32)
+    local.get 0
+    local.get 1
+    i32.add))
 ```
 
-You can use [this online tool](https://cdn.rawgit.com/WebAssembly/sexpr-wasm-prototype/2bb13aa785be9908b95d0e2e09950b39a26004fa/demo/index.html) to compile wast code down into the `wasm` binary, or you can just download the [compiled `.wasm` from me](http://thecodebarbarian.com/sample/20170228/addTwo.wasm).
+You can use [this online tool](https://webassembly.github.io/wabt/demo/wat2wasm/) to compile wast code down into the `wasm` binary, or you can just download the [compiled `.wasm` from me](http://thecodebarbarian.com/sample/20170228/addTwo.wasm).
 
-Next, how do you use a `.wasm` file in Node.js? In order to use the `.wasm`, you need to load the file and convert the [Node.js buffer](https://nodejs.org/api/buffer.html) that node's `fs` library returns into an ArrayBuffer.
+Next, how do you use a `.wasm` file in Node.js? In order to use the `.wasm`, you need to load the file and convert the [Node.js buffer](https://nodejs.org/api/buffer.html) that node's `fs` library returns into an Uint8Array.
 
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./addTwo.wasm');
-const lib = Wasm.instantiateModule(new Uint8Array(buf)).exports;
+const lib = await WebAssembly.instantiate(new Uint8Array(buf)).
+  then(res => res.instance.exports);
 
 console.log(lib.addTwo(2, 2)); // Prints '4'
 console.log(lib.addTwo.toString()); // Prints 'function addTwo() { [native code] }'
@@ -60,7 +63,8 @@ How fast is `addTwo` in WebAssembly versus a plain old JavaScript implementation
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./addTwo.wasm');
-const lib = Wasm.instantiateModule(new Uint8Array(buf)).exports;
+const lib = await WebAssembly.instantiate(new Uint8Array(buf)).
+  then(res => res.instance.exports);
 
 const Benchmark = require('benchmark');
 
@@ -87,11 +91,11 @@ function addTwo(a, b) {
 ```
 
 ```
-$ ~/Workspace/node-v7.2.1-linux-x64/bin/node --expose-wasm ./addTwo.js
-4
-wasm x 43,497,742 ops/sec ±0.77% (88 runs sampled)
-js x 66,021,200 ops/sec ±1.28% (83 runs sampled)
+$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node ./test
+wasm x 91,797,305 ops/sec ±1.26% (88 runs sampled)
+js x 763,373,634 ops/sec ±2.28% (89 runs sampled)
 Fastest is js
+$ 
 ```
 
 Factorial
@@ -101,27 +105,28 @@ WebAssembly doesn't have any performance benefit over plain old JS in the above 
 
 ```
 (module
-  (func $fac (param i32) (result i32)
+  (func $_factorial (param i32) (result i32)
     (if (i32.lt_s (get_local 0) (i32.const 1))
-      (then (i32.const 1))
+      (then (return (i32.const 1)))
       (else
-        (i32.mul
-          (get_local 0)
-          (call $fac
-            (i32.sub
-              (get_local 0)
-              (i32.const 1)))))))
-  (export "fac" $fac))
+      	(return (i32.mul (get_local 0) (call $_factorial (i32.sub (get_local 0) (i32.const 1))))))  
+      )
+    (return (i32.const 1))
+  )
+  (func (export "factorial") (param i32) (result i32)
+    (return (call $_factorial (get_local 0)))
+  ))
 ```
 
-You can use [this tool](https://cdn.rawgit.com/WebAssembly/sexpr-wasm-prototype/2bb13aa785be9908b95d0e2e09950b39a26004fa/demo/index.html)) to compile the `.wasm` or just [download it here](http://thecodebarbarian.com/sample/20170228/factorial.wasm).
+You can use [this tool](https://webassembly.github.io/wabt/demo/wat2wasm/) to compile the `.wasm` or just [download it here](http://thecodebarbarian.com/sample/20170228/factorial.wasm).
 
 Below is another trivial benchmark comparing computing `100!` with WebAssembly versus with JavaScript:
 
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./factorial.wasm');
-const lib = Wasm.instantiateModule(new Uint8Array(buf).buffer).exports;
+const lib = await WebAssembly.instantiate(new Uint8Array(buf)).
+  then(res => res.instance.exports);
 
 const Benchmark = require('benchmark');
 
@@ -129,7 +134,7 @@ const suite = new Benchmark.Suite;
 
 suite.
   add('wasm', function() {
-    lib.fac(100);
+    lib.factorial(100);
   }).
   add('js', function() {
     fac(100);
@@ -152,9 +157,9 @@ function fac(n) {
 ```
 
 ```
-$ ~/Workspace/node-v7.2.1-linux-x64/bin/node --expose-wasm ./factorial.js
-wasm x 2,484,967 ops/sec ±2.09% (87 runs sampled)
-js x 1,088,426 ops/sec ±2.63% (80 runs sampled)
+$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node ./test
+wasm x 2,214,005 ops/sec ±5.45% (84 runs sampled)
+js x 1,019,134 ops/sec ±3.60% (84 runs sampled)
 Fastest is wasm
 $
 ```
