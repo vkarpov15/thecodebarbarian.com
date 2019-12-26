@@ -105,27 +105,28 @@ WebAssembly doesn't have any performance benefit over plain old JS in the above 
 
 ```
 (module
-  (func $fac (param i32) (result i32)
+  (func $_factorial (param i32) (result i32)
     (if (i32.lt_s (get_local 0) (i32.const 1))
-      (then (i32.const 1))
+      (then (return (i32.const 1)))
       (else
-        (i32.mul
-          (get_local 0)
-          (call $fac
-            (i32.sub
-              (get_local 0)
-              (i32.const 1)))))))
-  (export "fac" $fac))
+      	(return (i32.mul (get_local 0) (call $_factorial (i32.sub (get_local 0) (i32.const 1))))))  
+      )
+    (return (i32.const 1))
+  )
+  (func (export "factorial") (param i32) (result i32)
+    (return (call $_factorial (get_local 0)))
+  ))
 ```
 
-You can use [this tool](https://cdn.rawgit.com/WebAssembly/sexpr-wasm-prototype/2bb13aa785be9908b95d0e2e09950b39a26004fa/demo/index.html)) to compile the `.wasm` or just [download it here](http://thecodebarbarian.com/sample/20170228/factorial.wasm).
+You can use [this tool](https://webassembly.github.io/wabt/demo/wat2wasm/) to compile the `.wasm` or just [download it here](http://thecodebarbarian.com/sample/20170228/factorial.wasm).
 
 Below is another trivial benchmark comparing computing `100!` with WebAssembly versus with JavaScript:
 
 ```javascript
 const fs = require('fs');
 const buf = fs.readFileSync('./factorial.wasm');
-const lib = Wasm.instantiateModule(new Uint8Array(buf).buffer).exports;
+const lib = await WebAssembly.instantiate(new Uint8Array(buf)).
+  then(res => res.instance.exports);
 
 const Benchmark = require('benchmark');
 
@@ -133,7 +134,7 @@ const suite = new Benchmark.Suite;
 
 suite.
   add('wasm', function() {
-    lib.fac(100);
+    lib.factorial(100);
   }).
   add('js', function() {
     fac(100);
@@ -156,9 +157,9 @@ function fac(n) {
 ```
 
 ```
-$ ~/Workspace/node-v7.2.1-linux-x64/bin/node --expose-wasm ./factorial.js
-wasm x 2,484,967 ops/sec ±2.09% (87 runs sampled)
-js x 1,088,426 ops/sec ±2.63% (80 runs sampled)
+$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node ./test
+wasm x 2,214,005 ops/sec ±5.45% (84 runs sampled)
+js x 1,019,134 ops/sec ±3.60% (84 runs sampled)
 Fastest is wasm
 $
 ```
