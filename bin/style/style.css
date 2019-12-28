@@ -471,6 +471,7 @@ a.social {
 	right: 0px;
 	top: 35px;
 	width: 240px !important;
+	z-index: 1000000;
 }
 
 #carbonads a:hover {
@@ -526,6 +527,16 @@ a.social {
 @media (max-width: 1200px) {
 	#desktop-right-bar {
 		display: none;
+	}
+
+	#carbonads-fixed {
+		display: none !important;
+	}
+}
+
+@media (max-width: 1400px) {
+	#carbonads-fixed {
+		display: none !important;
 	}
 }
 
