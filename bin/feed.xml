@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 24 Dec 2019 15:43:20 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 07 Jan 2020 17:35:46 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Why I Work Remotely]]></title>
+            <link>http://www.thecodebarbarian.com/why-i-work-remotely.html</link>
+            <guid>http://www.thecodebarbarian.com/why-i-work-remotely.html</guid>
+            <pubDate>Mon, 07 Jan 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.8: `Schema#pick()` and Better Stack Traces]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-58-schema-pick-and-better-stack-traces.html</link>

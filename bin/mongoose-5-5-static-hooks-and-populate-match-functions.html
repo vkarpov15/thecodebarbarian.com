@@ -14,7 +14,7 @@
 </div>
 </div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#550--2019-04-08">Mongoose 5.5</a> was released earlier this week. This release includes 12 new features and a <a href="https://twitter.com/mongoosejs/status/1116360293981069312">performance improvement</a>. The two features I&#39;m most excited about are hooks for <a href="https://mongoosejs.com/docs/guide.html#statics">user-defined static functions</a> and the ability to pass a function to <a href="https://mongoosejs.com/docs/api.html#query_Query-populate">populate&#39;s <code>match</code> option</a>. In this article, I&#39;ll introduce these two new features and show how they can save you some design headache.</p>
 <h2 id="hooks-for-custom-statics">Hooks for Custom Statics</h2>
-<p><a href="https://mongoosejs.com/docs/guide.html#statics">Statics</a> are Mongoose&#39;s implementation of <a href="https://docs.mql4.com/basis/oop/staticmembers">OOP static functions</a>.
+<p><a href="https://mongoosejs.com/docs/guide.html#statics">Statics</a> are Mongoose&#39;s implementation of <a href="https://masteringjs.io/tutorials/fundamentals/static">OOP static functions</a>.
 You add a static function to your schema, and Mongoose attaches it to any model you compile with that schema.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 

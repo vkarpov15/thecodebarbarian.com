@@ -13,7 +13,7 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>Since ES6, JavaScript enjoys support for classes and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static">static functions</a> akin to static functions in other object-oriented languages. Unfortunately, JavaScript lacks support for static properties, and <a href="https://esdiscuss.org/topic/define-static-properties-and-prototype-properties-with-the-class-syntax">recommended solutions on Google</a> fail to take into account inheritance. I ran into this problem when <a href="https://github.com/Automattic/mongoose/issues/6912">implementing a new Mongoose feature</a> that requires a more robust notion of static properties. Specifically, I need static properties that support inheritance via setting <code>prototype</code> or via <a href="https://medium.com/beginners-guide-to-mobile-web-development/super-and-extends-in-javascript-es6-understanding-the-tough-parts-6120372d3420"><code>extends</code></a>. In this article, I&#39;ll describe a pattern for implementing static properties in ES6.</p>
-<h2 id="static-methods-and-inheritance">Static Methods and Inheritance</h2>
+<h2 id="static-methods-and-inheritance"><a href="https://masteringjs.io/tutorials/fundamentals/static">Static Methods</a> and Inheritance</h2>
 <p>Suppose you have a simple ES6 class with a static method.</p>
 <pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>{
   static foo() {
