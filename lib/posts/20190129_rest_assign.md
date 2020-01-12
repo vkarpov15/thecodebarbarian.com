@@ -86,6 +86,34 @@ Object.assign(obj, { val: 42 }); // Prints "Setter called 42"
 
 In other words, `Object.assign()` modifies an object in place, and so it can trigger [ES6 setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set). If you prefer using [immutable](https://facebook.github.io/immutable-js/) techniques, the object spread operator is a clear winner. With `Object.assign()`, you would have to ensure you always pass an empty object `{}` as the first argument.
 
+Another related difference is that [spread defines new properties, whereas `Object.assign()` sets them](https://2ality.com/2016/10/rest-spread-properties.html#spread-defines-properties%2C-object.assign()-sets-them). For example, `Object.assign()` calls [setters](https://thecodebarbarian.com/an-overview-of-es6-classes#statics-methods-getters-setters) that are defined on `Object.prototype`, whereas the spread operator does not.
+
+```javascript
+Object.defineProperty(Object.prototype, 'myProp', {
+  set: () => console.log('Setter called');
+});
+
+const obj = { myProp: 42 };
+
+Object.assign({}, obj); // Prints "Setter called"
+
+const newObj = { ..obj }; // Does **not** print "Setter called"
+```
+
+This is a fairly minor difference, because it is generally bad practice to
+define a custom setter on `Object.prototype`. But, you should note that 
+`Object.assign()` calls setters on the target object.
+
+```javascript
+const obj = {};
+
+Object.defineProperty(obj, 'myProp', {
+  set: () => console.log('Setter called');
+});
+
+Object.assign(obj, { myProp: 42 }); // Prints "Setter called"
+```
+
 What about performance? Here's a couple simple benchmarks. It looks like object spread is faster if you pass an empty object as the first parameter to `Object.assign()`, but otherwise they're interchangeable.
 
 Here's a [benchmark](https://www.npmjs.com/package/benchmark) using `Object.assign()` with in-place assignment:
