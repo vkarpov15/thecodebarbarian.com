@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 07 Jan 2020 22:22:13 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jan 2020 19:51:44 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Implementing an OAuth Server With Node.js and Express]]></title>
+            <link>http://www.thecodebarbarian.com/oauth-with-node-js-and-express.html</link>
+            <guid>http://www.thecodebarbarian.com/oauth-with-node-js-and-express.html</guid>
+            <pubDate>Tue, 15 Jan 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Why I Work Remotely]]></title>
             <link>http://www.thecodebarbarian.com/why-i-work-remotely.html</link>
