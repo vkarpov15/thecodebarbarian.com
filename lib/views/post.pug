@@ -5,11 +5,11 @@ block title
 
 block opengraphTags
   meta( property="og:title",
-        content="#{post.title}")
+        content=post.title)
   meta( property="og:url",
-        content="http://www.thecodebarbarian.com#{post.dest.directory.substr('./bin'.length)}/#{post.dest.name}")
+        content='http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)
   meta( property="og:image",
-        content="#{post.image || '/images/Barbarian_Head.png'}")
+        content=post.image || '/images/Barbarian_Head.png')
   meta( property="og:site_name",
         content="The Code Barbarian")
 
