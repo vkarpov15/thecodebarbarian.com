@@ -98,7 +98,10 @@ article doesn&#39;t require a compiler.</p>
 <li>A route to exchange an auth code for an access token.</li>
 <li>A &quot;secure&quot; endpoint that only responds if it is given a valid access token via the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization"><code>Authorization</code> HTTP header</a>.</li>
 </ol>
-<p>Since the auth server will run on a different domain than the client app, it also needs <a href="https://masteringjs.io/tutorials/fundamentals/cors">CORS</a> in order to avoid the browser throwing errors about cross-origin requests.</p>
+<p>Since the auth server will run on a different domain than the client app, it also needs <a href="https://masteringjs.io/tutorials/fundamentals/cors">CORS</a> for the
+access token and secure endpoints in order to avoid the browser throwing errors about cross-origin requests. However, it is important to protect the endpoint
+for getting an auth code secure from cross-origin requests because of
+<a href="https://www.twilio.com/blog/2018/01/protect-your-node-js-app-from-cross-site-request-forgery.html">CSRF attacks</a>.</p>
 <p>The flow starts when the user opens the OAuth dialog. In this example,
 the authorization server has a static <code>oauth-dialog.html</code> file that
 shows a single button the user can click to authorize the client app.
@@ -107,13 +110,10 @@ for generating an auth code and redirecting to the client app.</p>
 <pre><code class="language-html">&lt;html&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Authorize OAuth Test App?<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>OK<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
-      <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'button'</span>).addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-        <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">'/code'</span>;
-      });
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"/code"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>OK<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
 <p>Below is the full <code>auth-server.js</code> file:</p>
@@ -132,12 +132,11 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
   <span class="hljs-keyword">const</span> authCodes = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
   <span class="hljs-keyword">const</span> accessTokens = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
 
-  app.use(cors());
   app.use(express.json());
 
   <span class="hljs-comment">// Generate an auth code and redirect to your app client's</span>
   <span class="hljs-comment">// domain with the auth code</span>
-  app.get(<span class="hljs-string">'/code'</span>, (req, res) =&gt; {
+  app.post(<span class="hljs-string">'/code'</span>, (req, res) =&gt; {
     <span class="hljs-comment">// Generate a string of 10 random digits</span>
     <span class="hljs-keyword">const</span> authCode = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">10</span>).fill(<span class="hljs-literal">null</span>).map(() =&gt; <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">10</span>)).join(<span class="hljs-string">''</span>);
 
@@ -148,8 +147,11 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
     res.redirect(<span class="hljs-string">`http://localhost:3000/oauth-callback.html?code=<span class="hljs-subst">${authCode}</span>`</span>);
   });
 
+  app.options(<span class="hljs-string">'/token'</span>, cors(), (req, res) =&gt; res.end());
+  app.options(<span class="hljs-string">'/secure'</span>, cors(), (req, res) =&gt; res.end());
+
   <span class="hljs-comment">// Verify an auth code and exchange it for an access token</span>
-  app.post(<span class="hljs-string">'/token'</span>, (req, res) =&gt; {
+  app.post(<span class="hljs-string">'/token'</span>, cors(), (req, res) =&gt; {
     <span class="hljs-keyword">if</span> (authCodes.has(req.body.code)) {
       <span class="hljs-comment">// Generate a string of 50 random digits</span>
       <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">50</span>).fill(<span class="hljs-literal">null</span>).map(() =&gt; <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">10</span>)).join(<span class="hljs-string">''</span>);
@@ -159,11 +161,11 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
       res.json({ <span class="hljs-string">'access_token'</span>: token, <span class="hljs-string">'expires_in'</span>: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> });
     } <span class="hljs-keyword">else</span> {
       res.status(<span class="hljs-number">400</span>).json({ message: <span class="hljs-string">'Invalid auth token'</span> });
-    } 
+    }
   });
 
     <span class="hljs-comment">// Endpoint secured by auth token</span>
-  app.get(<span class="hljs-string">'/secure'</span>, (req, res) =&gt; {
+  app.get(<span class="hljs-string">'/secure'</span>, cors(), (req, res) =&gt; {
     <span class="hljs-keyword">const</span> authorization = req.get(<span class="hljs-string">'authorization'</span>);
     <span class="hljs-keyword">if</span> (!accessTokens.has(authorization)) {
       <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">403</span>).json({ message: <span class="hljs-string">'Unauthorized'</span> });
@@ -178,6 +180,10 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
   <span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3001</span>);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Listening on port 3001'</span>);
 }</code></pre>
+<p>Note that the <code>/code</code> endpoint, as written, is vulnerable to <a href="https://www.twilio.com/blog/2018/01/protect-your-node-js-app-from-cross-site-request-forgery.html">cross-site request forgery attacks</a>. A malicious
+website could POST a form to the <code>/code</code> endpoint and that would trigger the
+OAuth flow without the user&#39;s knowledge. You can use a module like
+<a href="https://github.com/expressjs/csurf">csurf</a> to generate CSRF tokens.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>OAuth may seem baffling to beginners, but the process of implementing an
 OAuth server is simple once you understand the OAuth flow. All you
