@@ -28,6 +28,7 @@ that the below script won't work on Node.js versions before 10.x.
 'use strict';
 
 async function* run() {
+  // Sleep for 100ms, see: https://masteringjs.io/tutorials/fundamentals/sleep
   await new Promise(resolve => setTimeout(resolve, 100));
   yield 'Hello';
   console.log('World');

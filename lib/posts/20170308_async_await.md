@@ -17,7 +17,9 @@ test();
 ```
 
 You can run this node script like any other, without any transpilers, and it
-will print out "Hello, World!" after approximately 1 second.
+will print out "Hello, World!" after approximately 1 second. This is how
+you can implement [JavaScript sleep](https://masteringjs.io/tutorials/fundamentals/sleep)
+with async/await.
 
 ```javascript
 $ ~/Workspace/node-v7.6.0-linux-x64/bin/node async.js
