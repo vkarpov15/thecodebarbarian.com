@@ -36,6 +36,7 @@ that the below script won&#39;t work on Node.js versions before 10.x.</p>
 <pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Sleep for 100ms, see: https://masteringjs.io/tutorials/fundamentals/sleep</span>
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(resolve, <span class="hljs-number">100</span>));
   <span class="hljs-keyword">yield</span> <span class="hljs-string">'Hello'</span>;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'World'</span>);

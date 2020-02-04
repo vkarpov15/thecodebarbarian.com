@@ -1,0 +1,260 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Passport-Free Facebook Login with Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Passport-Free Facebook Login with Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/passport-free-facebook-login-with-node-js"/><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/sb.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"/><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Passport-Free Facebook Login with Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 04, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/package/passport">Passport</a> is the de facto standard for
+<a href="http://thecodebarbarian.com/oauth-with-node-js-and-express.html">OAuth in Node.js</a>.
+Most <a href="https://scotch.io/tutorials/easy-node-authentication-facebook">Facebook login tutorials for Node.js</a> use Passport. However, you don&#39;t
+necessarily need to use Passport: it&#39;s a great framework, but using
+a framework robs you of the opportunity to learn how to do it yourself.
+Plus Passport might be overkill if you don&#39;t want to support multiple
+OAuth providers.</p>
+<p>With that in mind, here&#39;s how you can build a basic Facebook OAuth flow
+with Express, but without Passport or any dedicated OAuth libraries.</p>
+<h2 id="high-level-overview">High Level Overview</h2>
+<p>Your standard web <a href="/oauth-with-node-js-and-express.html#the-oauth-flow">OAuth 2.0 flow</a> has 3 steps:</p>
+<ol>
+<li>Your app client opens a <a href="https://developers.facebook.com/docs/facebook-login/web/">Facebook login dialog</a> with your app&#39;s id and a URL to redirect the user to when they successfully authorize your app.</li>
+<li>The dialog redirects back to your app client&#39;s domain with an <em>auth code</em> in the query string. An auth code is a short-lived code that you can exchange for a long-lived <em>access token</em>.</li>
+<li>Your app pulls the <code>code</code> parameter from the query string, and makes a POST request to the Facebook with the access code. Facebook verifies the access code and sends back an <em>access token</em> your app can use for authorization going forward. Your app is responsible for storing the access token.</li>
+</ol>
+<p>That means, to implement Facebook login, your Express app needs 3 routes:</p>
+<ol>
+<li>A route that displays a UI which can open Facebook&#39;s login dialog.</li>
+<li>A route that exchanges an auth code for an access token and stores the access token.</li>
+<li>A route that does something with the access token.</li>
+</ol>
+<p>In this article, you&#39;ll see how to implement these 3 routes, and how to
+store access tokens in MongoDB using <a href="https://www.npmjs.com/package/mongoose">Mongoose</a>.</p>
+<h2 id="in-memory-implementation">In-Memory Implementation</h2>
+<p>First, let&#39;s create a route that links the user to Facebook&#39;s login dialog.
+In the interest of keeping this example lean, no need for any templating
+languages. Just plain old HTML strings.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Route 1: UI to redirect the user to Facebook's login dialog</span>
+app.get(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
+  res.send(<span class="hljs-string">`
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;a href="https://www.facebook.com/v6.0/dialog/oauth?client_id=<span class="hljs-subst">${appId}</span>&amp;r
+edirect_uri=<span class="hljs-subst">${encodeURIComponent('http://localhost:3000/oauth-redirect')}</span>"&gt;
+          Log In With Facebook
+        &lt;/a&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  `</span>);
+});</code></pre>
+<p>The above route just displays some HTML with a single link. The only detail
+worth noting is the <code>appId</code> variable in the URL. In order to do Facebook login, you need
+to register an app on <a href="https://developers.facebook.com/">developers.facebook.com</a> and take the &quot;App ID&quot; and
+&quot;App Secret&quot; from your app&#39;s details page.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/fblogin.jpg" class="inline-image">
+
+<p>For the purposes of this article, I&#39;ll assume that your &quot;App ID&quot; is in the
+<code>appId</code> variable, and your &quot;App Secret&quot; is in the <code>appSecret</code> variable.</p>
+<p>The Facebook dialog URL also includes a <code>redirect_uri</code> parameter. That tells
+Facebook where to redirect with the auth code when the user has authorized
+your app. So you need to implement a <code>/oauth-redirect</code> endpoint that
+exchanges the auth code for an access token. To exchange an auth code
+for an access token, you need to <a href="https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/#exchangecode">make an API request to the <code>/access_token</code> endpoint</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> accessTokens = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+
+<span class="hljs-comment">// Route 2: Exchange auth code for access token</span>
+app.get(<span class="hljs-string">'/oauth-redirect'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> authCode = req.query.code;
+
+    <span class="hljs-comment">// Build up the URL for the API request. `client_id`, `client_secret`,</span>
+    <span class="hljs-comment">// `code`, **and** `redirect_uri` are all required. And `redirect_uri`</span>
+    <span class="hljs-comment">// must match the `redirect_uri` in the dialog URL from Route 1.</span>
+    <span class="hljs-keyword">const</span> accessTokenUrl = <span class="hljs-string">'https://graph.facebook.com/v6.0/oauth/access_token?'</span> +
+      <span class="hljs-string">`client_id=<span class="hljs-subst">${appId}</span>&amp;`</span> +
+      <span class="hljs-string">`client_secret=<span class="hljs-subst">${appSecret}</span>&amp;`</span> +
+      <span class="hljs-string">`redirect_uri=<span class="hljs-subst">${encodeURIComponent('http://localhost:3000/oauth-redirect')}</span>&amp;`</span> +
+      <span class="hljs-string">`code=<span class="hljs-subst">${encodeURIComponent(authCode)}</span>`</span>;
+
+    <span class="hljs-comment">// Make an API request to exchange `authCode` for an access token</span>
+    <span class="hljs-keyword">const</span> accessToken = <span class="hljs-keyword">await</span> axios.get(accessTokenUrl).then(res =&gt; res.data[<span class="hljs-string">'access_token'</span>]);
+    <span class="hljs-comment">// Store the token in memory for now. Later we'll store it in the database.</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Access token is'</span>, accessToken);
+    accessTokens.add(accessToken);
+
+    res.redirect(<span class="hljs-string">`/me?accessToken=<span class="hljs-subst">${encodeURIComponent(accessToken)}</span>`</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});</code></pre>
+<p>At this point, the user is already logged in. Your app now has an
+access token that it can use to make requests to Facebook on behalf of the
+user. All that&#39;s left is to make a request to Facebook. The <a href="https://developers.facebook.com/docs/graph-api/using-graph-api/#reading"><code>/me</code> endpoint</a> returns the name of the logged in user:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Route 3: Make requests to FB on behalf of the user</span>
+app.get(<span class="hljs-string">'/me'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> accessToken = req.query.accessToken;
+    <span class="hljs-keyword">if</span> (!accessTokens.has(accessToken)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Invalid access token "<span class="hljs-subst">${accessToken}</span>"`</span>);
+    }
+
+    <span class="hljs-comment">// Get the name and user id of the Facebook user associated with the</span>
+    <span class="hljs-comment">// access token.</span>
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`https://graph.facebook.com/me?access_token=<span class="hljs-subst">${encodeURIComponent(accessToken)}</span>`</span>).
+      then(res =&gt; res.data);
+
+    <span class="hljs-keyword">return</span> res.send(<span class="hljs-string">`
+      &lt;html&gt;
+        &lt;body&gt;Your name is <span class="hljs-subst">${data.name}</span>&lt;/body&gt;
+      &lt;/html&gt;
+    `</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});</code></pre>
+<h2 id="storing-access-tokens-in-mongoose">Storing Access Tokens in Mongoose</h2>
+<p>The above example skips over several important steps. Instead of storing
+the access token in a <code>Set</code>, you&#39;ll want to store the token in a database
+like MongoDB. Also, instead of passing around the access token in the
+query string, you should store the access token in <code>window.localStorage</code>
+for a single page app, or in a cookie for a more traditional webapp.</p>
+<p>Using Mongoose, you can create an <code>AccessToken</code> <a href="https://mongoosejs.com/docs/models.html">model</a>
+that you can use to store access tokens in MongoDB.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  <span class="hljs-comment">// Use the `accessToken` string itself as `_id` so you get an</span>
+  <span class="hljs-comment">// index for fast queries.</span>
+  _id: <span class="hljs-built_in">String</span>,
+  userId: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-keyword">const</span> AccessToken = mongoose.model(<span class="hljs-string">'AccessToken'</span>, schema);</code></pre>
+<p>Below are the new Route 2 and Route 3 implementations that use Mongoose
+to store access tokens:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Route 2: Exchange auth code for access token</span>
+app.get(<span class="hljs-string">'/oauth-redirect'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> authCode = req.query.code;
+
+    <span class="hljs-keyword">const</span> accessTokenUrl = <span class="hljs-string">'https://graph.facebook.com/v6.0/oauth/access_token?'</span> +
+      <span class="hljs-string">`client_id=<span class="hljs-subst">${appId}</span>&amp;`</span> +
+      <span class="hljs-string">`client_secret=<span class="hljs-subst">${appSecret}</span>&amp;`</span> +
+      <span class="hljs-string">`redirect_uri=<span class="hljs-subst">${encodeURIComponent('http://localhost:3000/oauth-redirect')}</span>&amp;`</span> +
+      <span class="hljs-string">`code=<span class="hljs-subst">${encodeURIComponent(authCode)}</span>`</span>;
+
+    <span class="hljs-keyword">const</span> accessToken = <span class="hljs-keyword">await</span> axios.get(accessTokenUrl).then(res =&gt; res.data[<span class="hljs-string">'access_token'</span>]);
+
+    <span class="hljs-comment">// Store the access token in MongoDB, skip the userId for now</span>
+    <span class="hljs-keyword">await</span> AccessToken.create({ _id: accessToken });
+
+    res.cookie(<span class="hljs-string">'accessToken'</span>, accessToken, { maxAge: <span class="hljs-number">900000</span>, httpOnly: <span class="hljs-literal">true</span> });
+    res.redirect(<span class="hljs-string">`/me?accessToken=<span class="hljs-subst">${encodeURIComponent(accessToken)}</span>`</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});
+
+<span class="hljs-comment">// Route 3: Make requests to FB on behalf of the user</span>
+app.get(<span class="hljs-string">'/me'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> accessToken = <span class="hljs-built_in">String</span>(req.cookies.accessToken);
+    <span class="hljs-comment">// Make sure the token is in the database</span>
+    <span class="hljs-keyword">const</span> tokenFromDb = <span class="hljs-keyword">await</span> AccessToken.findOne({ _id: accessToken });
+    <span class="hljs-keyword">if</span> (tokenFromDb == <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Invalid access token "<span class="hljs-subst">${accessToken}</span>"`</span>);
+    }
+
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`https://graph.facebook.com/me?access_token=<span class="hljs-subst">${encodeURIComponent(accessToken)}</span>`</span>).
+      then(res =&gt; res.data);
+
+    <span class="hljs-keyword">return</span> res.send(<span class="hljs-string">`
+      &lt;html&gt;
+        &lt;body&gt;Your name is <span class="hljs-subst">${data.name}</span>&lt;/body&gt;
+      &lt;/html&gt;
+    `</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});</code></pre>
+<p>To store the access token in a cookie, you should install <a href="https://expressjs.com/en/resources/middleware/cookie-parser.html">Express&#39; cookie-parser middleware</a>. You can set a cookie using <code>res.cookie()</code> - here&#39;s how Route 2 can set the access token as a cookie.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Route 2: Exchange auth code for access token</span>
+app.get(<span class="hljs-string">'/oauth-redirect'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> authCode = req.query.code;
+
+    <span class="hljs-keyword">const</span> accessTokenUrl = <span class="hljs-string">'https://graph.facebook.com/v6.0/oauth/access_token?'</span> +
+      <span class="hljs-string">`client_id=<span class="hljs-subst">${appId}</span>&amp;`</span> +
+      <span class="hljs-string">`client_secret=<span class="hljs-subst">${appSecret}</span>&amp;`</span> +
+      <span class="hljs-string">`redirect_uri=<span class="hljs-subst">${encodeURIComponent('http://localhost:3000/oauth-redirect')}</span>&amp;`</span> +
+      <span class="hljs-string">`code=<span class="hljs-subst">${encodeURIComponent(authCode)}</span>`</span>;
+
+    <span class="hljs-keyword">const</span> accessToken = <span class="hljs-keyword">await</span> axios.get(accessTokenUrl).then(res =&gt; res.data[<span class="hljs-string">'access_token'</span>]);
+    <span class="hljs-keyword">await</span> AccessToken.create({ _id: accessToken });
+
+    <span class="hljs-comment">// Set a cookie. Handy when working with a traditional web app.</span>
+    res.cookie(<span class="hljs-string">'accessToken'</span>, accessToken, { maxAge: <span class="hljs-number">900000</span>, httpOnly: <span class="hljs-literal">true</span> });
+    res.redirect(<span class="hljs-string">'/me'</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});</code></pre>
+<p>And here&#39;s how Route 3 can read the cookie using the cookie parser middleware:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Route 3: Make requests to FB on behalf of the user</span>
+app.get(<span class="hljs-string">'/me'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Pull the access token from cookies, and validate it.</span>
+    <span class="hljs-keyword">const</span> accessToken = <span class="hljs-built_in">String</span>(req.cookies.accessToken);
+    <span class="hljs-keyword">const</span> tokenFromDb = <span class="hljs-keyword">await</span> AccessToken.findOne({ _id: accessToken });
+    <span class="hljs-keyword">if</span> (tokenFromDb == <span class="hljs-literal">null</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Invalid access token "<span class="hljs-subst">${accessToken}</span>"`</span>);
+    }
+
+    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`https://graph.facebook.com/me?access_token=<span class="hljs-subst">${encodeURIComponent(accessToken)}</span>`</span>).
+      then(res =&gt; res.data);
+
+    <span class="hljs-keyword">return</span> res.send(<span class="hljs-string">`
+      &lt;html&gt;
+        &lt;body&gt;Your name is <span class="hljs-subst">${data.name}</span>&lt;/body&gt;
+      &lt;/html&gt;
+    `</span>);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(err);
+    <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json({ message: err.response.data || err.message });
+  }
+});</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Passport is a great framework that gives you a lot of great features out
+of the box. But sometimes, trying it out yourself is the best way
+to learn. Once you understand the core OAuth flow, implementing OAuth
+is just about filling out a couple of routes, and you can replicate
+a lot of Passport&#39;s features with just a few lines of code.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
