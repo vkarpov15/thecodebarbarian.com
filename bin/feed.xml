@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 04 Feb 2020 20:48:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Feb 2020 17:09:29 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Practical Introduction to GeoJSON with Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/a-practical-introduction-to-geojson-with-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/a-practical-introduction-to-geojson-with-node-js.html</guid>
+            <pubDate>Sun, 17 Feb 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Passport-Free Facebook Login with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/passport-free-facebook-login-with-node-js.html</link>

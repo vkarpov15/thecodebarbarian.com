@@ -1,0 +1,283 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>A Practical Introduction to GeoJSON with Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="A Practical Introduction to GeoJSON with Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/a-practical-introduction-to-geojson-with-node-js"/><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/cascades.JPG"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"/><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">A Practical Introduction to GeoJSON with Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 17, 2019</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://tools.ietf.org/html/rfc7946">GeoJSON</a> is a standardized format
+for representing geographic data in JSON. There&#39;s a lot of <a href="http://geojson.io/">great tooling</a> out there for visualizing GeoJSON data. And GeoJSON is good for
+more than just storing points: it can represent points, lines, polygons, and
+collections.</p>
+<h2 id="points">Points</h2>
+<p>A <a href="https://docs.mongodb.com/manual/reference/geojson/#point">GeoJSON point</a> looks like this:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+  <span class="hljs-string">"coordinates"</span>: [<span class="hljs-number">-80.1347334</span>, <span class="hljs-number">25.7663562</span>]
+}</code></pre>
+<p>This point represents <a href="https://www.miamiandbeaches.com/thing-to-do/parks-recreation/south-pointe-park/2966">a park in Miami Beach, FL</a>. One easy way to visualize
+this point on a map is using <a href="http://geojson.io">geojson.io</a>.</p>
+<img class="inline-image" src="https://codebarbarian-images.s3.amazonaws.com/southpointe.png">
+
+<p>It is important to note that <code>coordinates</code> is in the format <code>[lng, lat]</code>. <a href="https://en.wikipedia.org/wiki/Longitude">Longitude</a> comes <strong>before</strong> <a href="https://en.wikipedia.org/wiki/Latitude">latitude</a> in GeoJSON. That is because longitude represents east-west position (x axis on a typical map), and latitude represents north-south position (y axis on a typical map), and the authors of the GeoJSON spec wanted to <a href="https://tools.ietf.org/html/rfc7946#appendix-A.1">keep <code>x, y</code> coordinate order</a>.</p>
+<p>A common use case for GeoJSON points is <a href="https://geocode.xyz/api">geocoding</a>: converting an address like &quot;429 Lenox Ave, Miami Beach, FL&quot; to latitude and longitude coordinates. For example, suppose you use the <a href="https://docs.mapbox.com/api/search/">Mapbox geocoding API</a>. You would make an HTTP request to the below endpoint:</p>
+<pre><code>https:<span class="hljs-comment">//api.mapbox.com/geocoding/v5/mapbox.places/429%20lenox%20ave%20miami.json?access_token=pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g&amp;cachebuster=1581993735895&amp;autocomplete=true</span></code></pre><p>And get the below result:</p>
+<pre><code>{<span class="hljs-string">"type"</span>:<span class="hljs-string">"FeatureCollection"</span>,<span class="hljs-string">"query"</span>:[<span class="hljs-string">"429"</span>,<span class="hljs-string">"lenox"</span>,<span class="hljs-string">"ave"</span>,<span class="hljs-string">"miami"</span>],<span class="hljs-string">"features"</span>:[{<span class="hljs-string">"id"</span>:<span class="hljs-string">"address.8052276751051244"</span>,<span class="hljs-string">"type"</span>:<span class="hljs-string">"Feature"</span>,<span class="hljs-string">"place_type"</span>:[<span class="hljs-string">"address"</span>],<span class="hljs-string">"relevance"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"properties"</span>:{<span class="hljs-string">"accuracy"</span>:<span class="hljs-string">"rooftop"</span>},<span class="hljs-string">"text"</span>:<span class="hljs-string">"Lenox Avenue"</span>,<span class="hljs-string">"place_name"</span>:<span class="hljs-string">"429 Lenox Avenue, Miami Beach, Florida 33139, United States"</span>,<span class="hljs-string">"center"</span>:[<span class="hljs-number">-80.139145</span>,<span class="hljs-number">25.77409</span>],<span class="hljs-string">"geometry"</span>:{<span class="hljs-string">"type"</span>:<span class="hljs-string">"Point"</span>,<span class="hljs-string">"coordinates"</span>:[<span class="hljs-number">-80.139145</span>,<span class="hljs-number">25.77409</span>]}, ...}</code></pre><p>If you look closely, <code>features[0].geometry</code> in the above JSON output
+is a GeoJSON Point:</p>
+<pre><code>{<span class="hljs-string">"type"</span>:<span class="hljs-string">"Point"</span>,<span class="hljs-string">"coordinates"</span>:[<span class="hljs-number">-80.139145</span>,<span class="hljs-number">25.77409</span>]}</code></pre><img src="https://codebarbarian-images.s3.amazonaws.com/miami-wework.png" class="inline-image">
+
+<p><a href="https://docs.mapbox.com/api/maps/#static-images">Mapbox&#39;s static maps API</a> is a great way to render points on a map. Below is a script that geocodes a given string, and returns a URL to an image that displays the first search result.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">str</span>) </span>{
+  <span class="hljs-keyword">const</span> geocoderUrl = <span class="hljs-string">'https://api.mapbox.com/geocoding/v5/mapbox.places/'</span> +
+    <span class="hljs-built_in">encodeURIComponent</span>(str) +
+    <span class="hljs-string">'.json?access_token='</span> +
+    <span class="hljs-string">'pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g'</span>;
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(geocoderUrl).then(res =&gt; res.data);
+  <span class="hljs-keyword">const</span> point = res.features[<span class="hljs-number">0</span>].geometry;
+
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/'</span> +
+    <span class="hljs-string">'pin-l-1+333('</span> + point.coordinates[<span class="hljs-number">0</span>] + <span class="hljs-string">','</span> + point.coordinates[<span class="hljs-number">1</span>] + <span class="hljs-string">')/'</span> +
+    point.coordinates[<span class="hljs-number">0</span>] + <span class="hljs-string">','</span> + point.coordinates[<span class="hljs-number">1</span>] +
+    <span class="hljs-string">',14.25,0,0/600x600/'</span> +
+    <span class="hljs-string">'?access_token=pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g'</span>;
+}
+
+search(<span class="hljs-string">'429 Lenox Ave, Miami Beach'</span>).then(res =&gt; <span class="hljs-built_in">console</span>.log(res));</code></pre>
+<img src="https://codebarbarian-images.s3.amazonaws.com/wework-southbeach-result.png" class="inline-image">
+
+<h2 id="linestrings">LineStrings</h2>
+<p>A GeoJSON line string is an array of coordinates representing a line on a map.
+Below is a GeoJSON line string that represents the approximate border between
+the US states of California and Oregon:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"LineString"</span>,
+  <span class="hljs-string">"coordinates"</span>: [[<span class="hljs-number">-124.2</span>, <span class="hljs-number">42</span>], [<span class="hljs-number">-120</span>, <span class="hljs-number">42</span>]]
+}</code></pre>
+<img src="https://codebarbarian-images.s3.amazonaws.com/california-oregon.png" class="inline-image" style="width: 400px">
+
+<p>Line strings pop up when you use a <a href="https://docs.mapbox.com/api/navigation/">navigation API like Mapbox&#39;s</a> to get turn-by-turn directions between
+two points. One way to represent the driving directions from <code>[-80.139145,25.77409]</code> (a WeWork in Miami Beach) to <code>[-80.2752743,25.7938434]</code> (Miami International Airport) is with a GeoJSON line string:</p>
+<pre><code>{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"LineString"</span>,
+  <span class="hljs-string">"coordinates"</span>: [
+    [<span class="hljs-number">-80.139153</span>, <span class="hljs-number">25.774281</span>],
+    [<span class="hljs-number">-80.13829</span>, <span class="hljs-number">25.774307</span>],
+    [<span class="hljs-number">-80.142029</span>, <span class="hljs-number">25.774479</span>],
+    [<span class="hljs-number">-80.148438</span>, <span class="hljs-number">25.772148</span>],
+    [<span class="hljs-number">-80.151237</span>, <span class="hljs-number">25.772232</span>],
+    [<span class="hljs-number">-80.172043</span>, <span class="hljs-number">25.78116</span>],
+    [<span class="hljs-number">-80.177322</span>, <span class="hljs-number">25.787195</span>],
+    [<span class="hljs-number">-80.185326</span>, <span class="hljs-number">25.787212</span>],
+    [<span class="hljs-number">-80.189804</span>, <span class="hljs-number">25.785891</span>],
+    [<span class="hljs-number">-80.19268</span>, <span class="hljs-number">25.785954</span>],
+    [<span class="hljs-number">-80.202301</span>, <span class="hljs-number">25.789175</span>],
+    [<span class="hljs-number">-80.207954</span>, <span class="hljs-number">25.788721</span>],
+    [<span class="hljs-number">-80.223</span>, <span class="hljs-number">25.782646</span>],
+    [<span class="hljs-number">-80.231026</span>, <span class="hljs-number">25.78261</span>],
+    [<span class="hljs-number">-80.238007</span>, <span class="hljs-number">25.784889</span>],
+    [<span class="hljs-number">-80.246025</span>, <span class="hljs-number">25.784403</span>],
+    [<span class="hljs-number">-80.249611</span>, <span class="hljs-number">25.785175</span>],
+    [<span class="hljs-number">-80.253166</span>, <span class="hljs-number">25.786049</span>],
+    [<span class="hljs-number">-80.259262</span>, <span class="hljs-number">25.786324</span>],
+    [<span class="hljs-number">-80.264038</span>, <span class="hljs-number">25.786186</span>],
+    [<span class="hljs-number">-80.264221</span>, <span class="hljs-number">25.787256</span>],
+    [<span class="hljs-number">-80.264214</span>, <span class="hljs-number">25.791618</span>],
+    [<span class="hljs-number">-80.264221</span>, <span class="hljs-number">25.792633</span>],
+    [<span class="hljs-number">-80.264069</span>, <span class="hljs-number">25.795443</span>],
+    [<span class="hljs-number">-80.263397</span>, <span class="hljs-number">25.795652</span>],
+    [<span class="hljs-number">-80.263786</span>, <span class="hljs-number">25.794928</span>],
+    [<span class="hljs-number">-80.267723</span>, <span class="hljs-number">25.794926</span>],
+    [<span class="hljs-number">-80.271141</span>, <span class="hljs-number">25.794859</span>],
+    [<span class="hljs-number">-80.273163</span>, <span class="hljs-number">25.795704</span>],
+    [<span class="hljs-number">-80.275009</span>, <span class="hljs-number">25.796482</span>],
+    [<span class="hljs-number">-80.277481</span>, <span class="hljs-number">25.796461</span>],
+    [<span class="hljs-number">-80.278435</span>, <span class="hljs-number">25.795622</span>],
+    [<span class="hljs-number">-80.278061</span>, <span class="hljs-number">25.794088</span>],
+    [<span class="hljs-number">-80.275276</span>, <span class="hljs-number">25.793804</span>]
+  ]
+}</code></pre><p>Routing LineStrings can be pretty complex. The above line string
+represents an easy 15 minute drive! Here&#39;s what the above line string
+looks like on a map:</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/wework-to-mia.png" class="inline-image">
+
+<p>Below is a simple script that returns a GeoJSON line string representing
+the directions between 2 points using Mapbox&#39;s directions API:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">directions</span>(<span class="hljs-params">fromPt, toPt</span>) </span>{
+  <span class="hljs-keyword">const</span> fromCoords = fromPt.coordinates.join(<span class="hljs-string">','</span>);
+  <span class="hljs-keyword">const</span> toCoords = toPt.coordinates.join(<span class="hljs-string">','</span>);
+  <span class="hljs-keyword">const</span> directionsUrl = <span class="hljs-string">'https://api.mapbox.com/directions/v5/mapbox/driving/'</span> +
+    fromCoords + <span class="hljs-string">';'</span> + toCoords + <span class="hljs-string">'?'</span> +
+    <span class="hljs-string">'geometries=geojson&amp;'</span> +
+    <span class="hljs-string">'access_token=pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g'</span>;
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(directionsUrl).then(res =&gt; res.data);
+  <span class="hljs-keyword">return</span> res.routes[<span class="hljs-number">0</span>].geometry;
+}
+
+<span class="hljs-keyword">const</span> wework = { type: <span class="hljs-string">'Point'</span>, coordinates: [<span class="hljs-number">-80.139145</span>,<span class="hljs-number">25.77409</span>] };
+<span class="hljs-keyword">const</span> airport = { type: <span class="hljs-string">'Point'</span>, coordinates: [<span class="hljs-number">-80.2752743</span>,<span class="hljs-number">25.7938434</span>] };
+
+directions(wework, airport).then(res =&gt; {
+  <span class="hljs-built_in">console</span>.log(res);
+});</code></pre>
+<h2 id="polygons">Polygons</h2>
+<p>GeoJSON polygons represent closed shapes on a map, like triangles,
+squares, <a href="https://en.wikipedia.org/wiki/Dodecagon">dodecagons</a>, or
+any shape with a fixed number of sides. For example, the below
+GeoJSON polygon represents (approximately) the US state of Colorado:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
+  <span class="hljs-string">"coordinates"</span>: [[
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+  ]]
+}</code></pre>
+<img src="https://codebarbarian-images.s3.amazonaws.com/colorado.png" class="inline-image">
+
+<p>GeoJSON polygons can be pretty complex. For example, for a while
+Uber was using a single GeoJSON polygon to capture all 3 major
+San Francisco Bay Area airports:</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/uberfail.png" class="inline-image">
+
+<p>However, note that GeoJSON polygons <strong>cannot</strong> represent a circle or
+ellipse.</p>
+<p>What are GeoJSON polygons used for? Usually for <a href="https://en.wikipedia.org/wiki/Geo-fence">geofences</a>. For example, suppose you&#39;re working
+for Uber or Lyft, and you want to show a special screen to customers
+requesting a ride from the airport. To do that, you need to check
+whether the GeoJSON point representing where the customer requested
+a ride from is within the GeoJSON polygon representing the airport
+(or airports, as was the case in the previous image).</p>
+<p>One way to check whether a GeoJSON point is within a polygon is
+using <a href="/wrangling-geojson-with-turf.html#which-points-are-within-a-polygon">the Turf npm module</a>.
+The <a href="https://www.npmjs.com/package/@turf/boolean-point-in-polygon"><code>@turf/boolean-point-in-polygon</code> module</a> checks whether a given point is in a given polygon.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> pointInPolygon = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@turf/boolean-point-in-polygon'</span>).default;
+
+<span class="hljs-keyword">const</span> colorado = {
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
+  <span class="hljs-string">"coordinates"</span>: [[
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+  ]]
+};
+
+<span class="hljs-keyword">const</span> denver = {
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+  <span class="hljs-string">"coordinates"</span>: [<span class="hljs-number">-104.9951943</span>, <span class="hljs-number">39.7645187</span>]
+};
+
+<span class="hljs-keyword">const</span> sanFrancisco = {
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+  <span class="hljs-string">"coordinates"</span>: [<span class="hljs-number">-122.4726194</span>, <span class="hljs-number">37.7577627</span>]
+};
+
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(pointInPolygon(denver, colorado));
+
+<span class="hljs-comment">// false</span>
+<span class="hljs-built_in">console</span>.log(pointInPolygon(sanFrancisco, colorado));</code></pre>
+<p>Turf lets you check whether a point is in a polygon from Node.js. But
+what about database queries?
+<a href="/80-20-guide-to-mongodb-geospatial-queries#which-documents-are-in-a-given-polygon">MongoDB&#39;s built-in <code>$geoIntersects</code> operator handles GeoJSON</a>,
+so you can write a single query to check what US state a given point is in.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> mongoose.connect(<span class="hljs-string">'mongodb://localhost:27017/geotest'</span>, {
+    useNewUrlParser: <span class="hljs-literal">true</span>,
+    useUnifiedTopology: <span class="hljs-literal">true</span>
+  });
+  <span class="hljs-keyword">await</span> mongoose.connection.dropDatabase();
+
+  <span class="hljs-keyword">const</span> State = mongoose.model(<span class="hljs-string">'State'</span>, mongoose.Schema({
+    name: <span class="hljs-built_in">String</span>,
+    location: mongoose.Schema({
+      type: <span class="hljs-built_in">String</span>,
+      coordinates: [[[<span class="hljs-built_in">Number</span>]]]
+    })
+  }));
+
+  <span class="hljs-keyword">const</span> colorado = <span class="hljs-keyword">await</span> State.create({
+    name: <span class="hljs-string">'Colorado'</span>,
+    location: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
+      <span class="hljs-string">"coordinates"</span>: [[
+        [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
+        [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
+        [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
+        [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
+        [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+      ]]
+    }
+  });
+
+    <span class="hljs-keyword">const</span> denver = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+    <span class="hljs-string">"coordinates"</span>: [<span class="hljs-number">-104.9951943</span>, <span class="hljs-number">39.7645187</span>]
+  };
+
+  <span class="hljs-keyword">const</span> sanFrancisco = {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+    <span class="hljs-string">"coordinates"</span>: [<span class="hljs-number">-122.4726194</span>, <span class="hljs-number">37.7577627</span>]
+  };
+
+  <span class="hljs-comment">// What state is Denver in?</span>
+  <span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> State.findOne({
+    location: {
+      $geoIntersects: { $geometry: denver }
+    }
+  });
+  res.name; <span class="hljs-comment">// 'Colorado'</span>
+
+  <span class="hljs-comment">// What state is San Francisco in?</span>
+  res = <span class="hljs-keyword">await</span> State.findOne({
+    location: {
+      $geoIntersects: { $geometry: sanFrancisco }
+    }
+  });
+  res; <span class="hljs-comment">// null</span>
+}</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>GeoJSON lets you go much further with geo data than storing simple points.
+You can store navigation directions, check when users enter a geofence,
+and even <a href="https://docs.mapbox.com/help/tutorials/get-started-isochrone-api/">generate isochrones</a>. There&#39;s some great tooling around
+GeoJSON: <a href="http://geojson.io/">geojson.io</a> for simple visualizations,
+<a href="https://www.mapbox.com/">Mapbox</a> for sophisticated APIs, <a href="https://turfjs.org/">Turf</a> for in-memory geospatial calculations, and <a href="/80-20-guide-to-mongodb-geospatial-queries">MongoDB for geospatial queries</a>.
+If you&#39;re storing points as coordinate pairs, you&#39;re missing out on
+some excellent developer tools.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
