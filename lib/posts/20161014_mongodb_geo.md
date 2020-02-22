@@ -9,7 +9,7 @@ several common geospatial queries in MongoDB.
 Which documents are in a given polygon?
 ---------------------------------------
 
-The simplest geospatial operator is [`$geoIntersects`](https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/). Given a GeoJSON polygon, `$geoIntersects` will give you all
+The simplest geospatial operator is [`$geoIntersects`](https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/). Given a [GeoJSON polygon](/a-practical-introduction-to-geojson-with-node-js.html#polygons), `$geoIntersects` will give you all
 documents whose GeoJSON geometries intersect with the polygon. Suppose you have
 a list of ski resorts in a `locations` collection:
 
