@@ -20,7 +20,7 @@ a breath of fresh air. However, the MongoDB geospatial querying docs often miss
 the forest for the trees. In this article, I&#39;ll focus specifically on <a href="http://geojson.org/">GeoJSON</a> queries in the MongoDB shell and how to implement
 several common geospatial queries in MongoDB.</p>
 <h2 id="which-documents-are-in-a-given-polygon">Which documents are in a given polygon?</h2>
-<p>The simplest geospatial operator is <a href="https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/"><code>$geoIntersects</code></a>. Given a GeoJSON polygon, <code>$geoIntersects</code> will give you all
+<p>The simplest geospatial operator is <a href="https://docs.mongodb.com/manual/reference/operator/query/geoIntersects/"><code>$geoIntersects</code></a>. Given a <a href="/a-practical-introduction-to-geojson-with-node-js.html#polygons">GeoJSON polygon</a>, <code>$geoIntersects</code> will give you all
 documents whose GeoJSON geometries intersect with the polygon. Suppose you have
 a list of ski resorts in a <code>locations</code> collection:</p>
 <pre><code>&gt; db.locations.find().pretty()
