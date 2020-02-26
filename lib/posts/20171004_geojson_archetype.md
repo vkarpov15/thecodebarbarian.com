@@ -1,6 +1,6 @@
 [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) is a powerful standard for
 expressing points, lines, polygons, and other shapes on a map. Node.js has
-particularly good support for geospatial analysis with GeoJSON because of
+particularly good support for geospatial analysis with [GeoJSON](/a-practical-introduction-to-geojson-with-node-js.html) because of
 the [turf library](https://www.npmjs.com/package/@turf/turf). GeoJSON
 objects are deeply nested objects. For example, below is a polygon that
 roughly approximates the state of Colorado.

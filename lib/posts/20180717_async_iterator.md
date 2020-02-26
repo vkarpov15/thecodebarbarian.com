@@ -49,7 +49,7 @@ const iterator = {
     if (index >= nums.length) {
       return { done: true };
     }
-    const value = iterator[index++];
+    const value = nums[index++];
     return { value, done: false };
   }
 };
