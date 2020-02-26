@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 18 Feb 2020 17:09:29 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 26 Feb 2020 16:32:59 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[When Should You Use MongoDB Indexes?]]></title>
+            <link>http://www.thecodebarbarian.com/when-should-you-use-mongodb-indexes.html</link>
+            <guid>http://www.thecodebarbarian.com/when-should-you-use-mongodb-indexes.html</guid>
+            <pubDate>Tue, 26 Feb 2019 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[A Practical Introduction to GeoJSON with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/a-practical-introduction-to-geojson-with-node-js.html</link>
