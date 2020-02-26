@@ -56,7 +56,7 @@ First, install Turf. Over the last year Turf has been going overboard on micro-m
 <p>Now, the goal is to cluster these points using single link clustering. The general idea of the algorithm is this:</p>
 <ul>
 <li>Start out with 8 clusters, each with one location</li>
-<li>Pick the two closest clusters. In this case, &quot;closest&quot; is defined by minimum distance between the center of all points in cluster 1 and the center of all points in cluster 2.</li>
+<li>Pick the two closest clusters. In this case, &quot;closest&quot; is defined by minimum distance between the center of all points in cluster 1 and the center of all points in cluster 2. Turf can compute the center of a set of <a href="/a-practical-introduction-to-geojson-with-node-js.html">GeoJSON</a> points and the distance between two points for you.</li>
 <li>Repeat until there are 4 clusters left.</li>
 </ul>
 <p>Below is the actual implementation of the clustering algorithm:</p>

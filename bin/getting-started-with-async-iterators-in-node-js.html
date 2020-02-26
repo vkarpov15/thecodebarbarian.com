@@ -53,7 +53,7 @@ that loops over the values in an array.</p>
     <span class="hljs-keyword">if</span> (index &gt;= nums.length) {
       <span class="hljs-keyword">return</span> { done: <span class="hljs-literal">true</span> };
     }
-    <span class="hljs-keyword">const</span> value = iterator[index++];
+    <span class="hljs-keyword">const</span> value = nums[index++];
     <span class="hljs-keyword">return</span> { value, done: <span class="hljs-literal">false</span> };
   }
 };</code></pre>
