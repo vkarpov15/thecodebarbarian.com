@@ -165,7 +165,8 @@ Done</code></pre><h2 id="screenshots-and-devices">Screenshots and Devices</h2>
 <p>Puppeteer also lets you take <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagescreenshotoptions">png, jpg, </a> or <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pagepdfoptions">pdf</a> screenshots of the current page. Puppeteer also lets you <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageemulateoptions"><code>emulate()</code> a device</a> like an iPhone by setting the viewport and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent">User-Agent header</a>. This means you can automatically generate screenshots of what a page would look like on a given device.</p>
 <p>For example, here&#39;s how you can take a png screenshot of what
 <a href="https://masteringjs.io/">the Mastering JS homepage</a> looks like on
-an iPhone X. </p>
+an iPhone X. Puppeteer&#39;s <code>screenshot()</code> function returns a promise
+that resolves to a <a href="https://masteringjs.io/tutorials/node/buffer">Node.js buffer</a>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);
 

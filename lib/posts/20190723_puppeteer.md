@@ -188,7 +188,8 @@ Puppeteer also lets you take [png, jpg, ](https://github.com/GoogleChrome/puppet
 
 For example, here's how you can take a png screenshot of what
 [the Mastering JS homepage](https://masteringjs.io/) looks like on
-an iPhone X. 
+an iPhone X. Puppeteer's `screenshot()` function returns a promise
+that resolves to a [Node.js buffer](https://masteringjs.io/tutorials/node/buffer).
 
 ```javascript
 const fs = require('fs');
