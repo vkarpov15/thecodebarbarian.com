@@ -1,0 +1,341 @@
+<html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a GitHub App With Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"/><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"/><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/><link href="/style/style.css" rel="stylesheet" type="text/css"/><link href="/style/github.css" rel="stylesheet" type="text/css"/><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a GitHub App With Node.js"/><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-github-app-with-node-js"/><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/cascades2.jpg"/><meta property="og:site_name" content="The Code Barbarian"/></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"/><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"/></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"/><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a GitHub App With Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 04, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://developer.github.com/apps/">GitHub Apps</a> are a
+GitHub&#39;s preferred way to build more sophissticated functionality
+on top of GitHub. GitHub apps are a separate concept from
+<a href="https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/">GitHub OAuth Apps</a>, which causes
+a lot of confusion.</p>
+<p>Here&#39;s how you can think of the difference:
+GitHub OAuth Apps can act on behalf of a user, but GitHub Apps
+are distinct &quot;users&quot; that can act on their own. If you authorize
+a GitHub <a href="/oauth-with-node-js-and-express.html">OAuth</a> App and that app posts on an issue, it looks as
+if you posted it. But if you install a GitHub App and that
+app posts on an issue, the post comes from a distinct user.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>Let&#39;s build a GitHub app that enforces pinning exact dependencies
+in <code>package.json</code>: no <code>^</code>, <code>&gt;=</code>, or <code>*</code>.</p>
+<p>Go to your GitHub developer settings and create a new GitHub App.
+Make sure to note your GitHub App ID, Client ID, and Client secret.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-1.png" class="inline-image">
+
+<p>You should also set up your webhook URL. Another key difference
+between apps and OAuth apps is that GitHub lets you configure
+a <a href="https://masteringjs.io/tutorials/express/webhook">webhook</a> that GitHub posts to every time an event occurs. This lets your app
+react to GitHub activity, like checking <code>package.json</code> whenever
+there&#39;s a push to master.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-2.png" class="inline-image">
+
+<p>You can set up a minimal <a href="https://masteringjs.io/express">Express</a>
+server on an EC2 instance and point the GitHub webhook to it.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(express.json());
+
+app.post(<span class="hljs-string">'/github'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Github post'</span>, req.body);
+  res.json({ ok: <span class="hljs-number">1</span> }); <span class="hljs-comment">// Doesn't matter, can be any response</span>
+});
+
+app.listen(<span class="hljs-number">80</span>);</code></pre>
+<p>Once you&#39;ve created the app, go to Developer Settings &gt; Install App, and install the app on your personal account.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-3.png" class="inline-image">
+
+<p>Once you click install, you should see the below screen. To
+avoid getting hooks for all of your GitHub activity, just
+install the app with access to a test repo as shown below.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-4.png" class="inline-image" style="width: 400px">
+
+<p>When you make a commit and <code>git push origin master</code> to your
+test repo, GitHub will send an HTTP post to your endpoint,
+and you&#39;ll get the below request body. For brevity, I excluded
+a bunch of irrelevant information from the request body.</p>
+<pre><code>{
+  ref: <span class="hljs-string">'refs/heads/master'</span>,
+  before: <span class="hljs-string">'74368a8c700c1632c8e3a79f87f4bfa5eabc8348'</span>,
+  after: <span class="hljs-string">'ff3b2d88adcacf6f632664c665a55c525cadf5f7'</span>,
+  repository: {
+    id: <span class="hljs-number">242404484</span>,
+    node_id: <span class="hljs-string">'MDEwOlJlcG9zaXRvcnkyNDI0MDQ0ODQ='</span>,
+    name: <span class="hljs-string">'serverless-test-2'</span>,
+    full_name: <span class="hljs-string">'vkarpov15/serverless-test-2'</span>,
+    private: <span class="hljs-literal">false</span>,
+    owner: {
+      name: <span class="hljs-string">'vkarpov15'</span>,
+      email: <span class="hljs-string">'val@karpov.io'</span>,
+      login: <span class="hljs-string">'vkarpov15'</span>,
+      id: <span class="hljs-number">1620265</span>,
+      <span class="hljs-comment">// ...</span>
+    },
+    <span class="hljs-comment">// ...</span>
+  },
+  pusher: { name: <span class="hljs-string">'vkarpov15'</span>, email: <span class="hljs-string">'val@karpov.io'</span> },
+  sender: {
+    login: <span class="hljs-string">'vkarpov15'</span>,
+    id: <span class="hljs-number">1620265</span>,
+    <span class="hljs-comment">// ...</span>
+  },
+  installation: {
+    id: <span class="hljs-number">7128926</span>,
+    node_id: <span class="hljs-string">'MDIzOkludGVncmF0aW9uSW5zdGFsbGF0aW9uNzEyODkyNg=='</span>
+  },
+  <span class="hljs-comment">// ...</span>
+  commits: [
+    {
+      id: <span class="hljs-string">'ff3b2d88adcacf6f632664c665a55c525cadf5f7'</span>,
+      tree_id: <span class="hljs-string">'cb7043ef1c4701984e9bfd843745bd75fed9b51c'</span>,
+      distinct: <span class="hljs-literal">true</span>,
+      message: <span class="hljs-string">'test webhooks!'</span>,
+      timestamp: <span class="hljs-string">'2020-03-03T21:40:25-06:00'</span>,
+      <span class="hljs-comment">// ...</span>
+    }
+  ],
+  head_commit: <span class="hljs-comment">// ...</span>
+}</code></pre><h2 id="making-your-first-request">Making Your First Request</h2>
+<p>Making a request to GitHub&#39;s API as an app is slightly trickier
+than making a request after <a href="/passport-free-facebook-login-with-node-js.html">logging in with OAuth</a>. There are
+two things you need besides just your client id and client secret:</p>
+<ol>
+<li>Your <em>installation id</em>. Note that the webhook request body has a <code>installation.id</code> property. An installation represents a user installing your app: in order to make a request to the GitHub API, you need to reference an installation.</li>
+<li>A private key for your app.</li>
+</ol>
+<p>To generate a private key, go to Developer Settings &gt; GitHub Apps &gt; Your App Name &gt; General, and click on &quot;Generate Private Key&quot; at the bottom of the page.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-5.png" class="inline-image">
+
+<p>Creating a JWT for authenticating as your GitHub app is tricky
+on your own. I recommend using <a href="https://www.npmjs.com/package/@octokit/auth-app">GitHub&#39;s official <code>auth-app</code> npm module</a>, which handles all that for you. Once you have a JWT, you can use any
+HTTP client, like <a href="https://masteringjs.io/axios">axios</a>, to
+make requests to the GitHub API.</p>
+<p>First, use the <code>@octokit/auth-app</code> npm package to create an
+auth object:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { createAppAuth } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@octokit/auth-app'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-comment">// Replace with the path to your private key file</span>
+<span class="hljs-keyword">const</span> pem = fs.readFileSync(<span class="hljs-string">'./key.pem'</span>, <span class="hljs-string">'utf8'</span>);
+
+<span class="hljs-comment">// This function creates a JWT that you can use with</span>
+<span class="hljs-comment">// Axios or any other HTTP client to make requests to</span>
+<span class="hljs-comment">// GitHub as your app.</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createJWT</span>(<span class="hljs-params">installationId</span>) </span>{
+  <span class="hljs-keyword">const</span> auth = createAppAuth({
+    id: <span class="hljs-comment">/* Your app id */</span>,
+    privateKey: pem,
+    installationId,
+    clientId: <span class="hljs-comment">/* Your client id */</span>,
+    clientSecret: <span class="hljs-comment">/* Your client secret */</span>
+  });
+
+  <span class="hljs-keyword">const</span> { token } = <span class="hljs-keyword">await</span> auth({ type: <span class="hljs-string">'installation'</span> });
+  <span class="hljs-keyword">return</span> token;
+}</code></pre>
+<p>Now that you can create a JWT, you can make a request to
+GitHub using the JWT. To use the JWT, you need to set the
+authorization header to &#39;bearer&#39; followed by the JWT.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">githubRequest</span>(<span class="hljs-params">url, installationId</span>) </span>{
+  <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> createJWT(installationId);
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`https://api.github.com<span class="hljs-subst">${url}</span>`</span>, {
+    headers: {
+      authorization: <span class="hljs-string">`bearer <span class="hljs-subst">${token}</span>`</span>,
+      <span class="hljs-comment">// Because the GitHub API is in some sort of preview stage</span>
+      accept: <span class="hljs-string">'application/vnd.github.machine-man-preview+json'</span>
+    }
+  });
+
+  <span class="hljs-keyword">return</span> res.data;
+}</code></pre>
+<p>Below is the full code for a server that listens to
+a GitHub webhook and makes an HTTP request to load the
+<code>package.json</code> file from the GitHub repo whenever
+there is a new push to the <code>master</code> branch using the
+<a href="https://developer.github.com/v3/repos/contents/">GitHub contents API</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> { createAppAuth } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@octokit/auth-app'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-keyword">const</span> pem = fs.readFileSync(<span class="hljs-string">'./key.pem'</span>, <span class="hljs-string">'utf8'</span>);
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> app = express();
+  app.use(express.json());
+
+  app.post(<span class="hljs-string">'/github'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Github post'</span>, req.body);
+
+    <span class="hljs-keyword">if</span> (req.body != <span class="hljs-literal">null</span> &amp;&amp; req.body.ref === <span class="hljs-string">'refs/heads/master'</span>) {
+      <span class="hljs-keyword">const</span> installationId = req.body.installation.id;
+      getPackageJSON(req.body.repository.full_name, installationId);
+    }
+  });
+
+  app.listen(<span class="hljs-number">80</span>);
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getPackageJSON</span>(<span class="hljs-params">repo, installationId</span>) </span>{
+  <span class="hljs-keyword">const</span> pkg = <span class="hljs-keyword">await</span> githubRequest(<span class="hljs-string">`/repos/<span class="hljs-subst">${repo}</span>/contents/package.json`</span>, installationId).
+    then(res =&gt; res.content).
+    then(content =&gt; Buffer.from(content, <span class="hljs-string">'base64'</span>).toString(<span class="hljs-string">'utf8'</span>));
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'package.json:'</span>, pkg);
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createJWT</span>(<span class="hljs-params">installationId</span>) </span>{
+  <span class="hljs-keyword">const</span> auth = createAppAuth({
+    id: <span class="hljs-comment">/* your id */</span>,
+    privateKey: pem,
+    installationId,
+    clientId: <span class="hljs-comment">/* your client id */</span>,
+    clientSecret: <span class="hljs-comment">/* your client secret */</span>
+  });
+
+  <span class="hljs-keyword">const</span> { token } = <span class="hljs-keyword">await</span> auth({ type: <span class="hljs-string">'installation'</span> });
+  <span class="hljs-keyword">return</span> token;
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">githubRequest</span>(<span class="hljs-params">url, installationId</span>) </span>{
+  <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> createJWT(installationId);
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">`https://api.github.com<span class="hljs-subst">${url}</span>`</span>, {
+    headers: {
+      authorization: <span class="hljs-string">`bearer <span class="hljs-subst">${token}</span>`</span>,
+      accept: <span class="hljs-string">'application/vnd.github.machine-man-preview+json'</span>
+    }
+  });
+
+  <span class="hljs-keyword">return</span> res.data;
+}</code></pre>
+<h2 id="creating-a-check-run">Creating a Check Run</h2>
+<p>A <a href="https://developer.github.com/v3/checks/runs/">check run</a> is one of those fancy checkmarks that shows
+up when you use a CD tool like <a href="/setting-up-circle-ci-with-node-js.html">CircleCI</a> that shows whether your tests succeeded or failed on an individual commit. </p>
+<img src="https://developer.github.com/assets/images/check_runs.png" class="inline-image">
+
+<p>Now that the GitHub webhook server can make requests to the
+GitHub API, the webhook server should be able to check
+the <code>dependencies</code> and <code>devDependencies</code> in <code>package.json</code>,
+and show a red &quot;X&quot; on commits that use semver ranges.</p>
+<p>First, let&#39;s write a function that checks for semver ranges
+in a JavaScript object:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Given an object, return true if all the values</span>
+<span class="hljs-comment">// are semver version strings. `1.2.3` is OK, `&gt;=1.2.3`</span>
+<span class="hljs-comment">// is not.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStrictDependencies</span>(<span class="hljs-params">deps</span>) </span>{
+  <span class="hljs-keyword">return</span> !<span class="hljs-built_in">Object</span>.keys(deps).find(key =&gt; {
+    <span class="hljs-keyword">return</span> !<span class="hljs-regexp">/^\d+\.\d+\.\d+$/</span>.test(deps[key]);
+  });
+}</code></pre>
+<p>Next, the app needs to send a POST request to create a nice
+green checkmark on the commit when there are no semver ranges,
+or a red &quot;X&quot; when there are semver ranges.</p>
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-6.png" class="inline-image">
+
+<img src="https://codebarbarian-images.s3.amazonaws.com/github-app-7.png" class="inline-image">
+
+<p>The check runs API requires you to specify the SHA of the
+commit you&#39;re adding a check run to. GitHub sends the commit
+SHA to your webhook in the <code>after</code> property:</p>
+<pre><code class="language-javascript">  app.post(<span class="hljs-string">'/github'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Github post'</span>, req.body);
+
+    <span class="hljs-keyword">if</span> (req.body != <span class="hljs-literal">null</span> &amp;&amp; req.body.ref === <span class="hljs-string">'refs/heads/master'</span>) {
+      <span class="hljs-keyword">const</span> installationId = req.body.installation.id;
+      <span class="hljs-keyword">const</span> sha = req.body.after;
+      checkPackageJSON(req.body.repository.full_name, installationId, sha);
+    }
+  });</code></pre>
+<p>Next, the app needs a function that checks the <code>package.json</code>
+dependencies for semver ranges, and sends an HTTP POST to
+the <code>/check-runs</code> endpoint:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkPackageJSON</span>(<span class="hljs-params">repo, installationId, sha</span>) </span>{
+  <span class="hljs-keyword">let</span> pkg = <span class="hljs-keyword">await</span> githubRequest(<span class="hljs-string">`/repos/<span class="hljs-subst">${repo}</span>/contents/package.json`</span>, installationId).
+    then(res =&gt; res.content).
+    then(content =&gt; Buffer.from(content, <span class="hljs-string">'base64'</span>).toString(<span class="hljs-string">'utf8'</span>));
+
+  <span class="hljs-keyword">try</span> {
+    pkg = <span class="hljs-built_in">JSON</span>.parse(pkg);
+  } <span class="hljs-keyword">catch</span> (err) { <span class="hljs-keyword">return</span>; }
+
+  <span class="hljs-keyword">const</span> ok = isStrictDependencies(pkg.dependencies);
+  <span class="hljs-keyword">await</span> githubRequest(<span class="hljs-string">`/repos/<span class="hljs-subst">${repo}</span>/check-runs`</span>, installationId, <span class="hljs-string">'POST'</span>, {
+    name: <span class="hljs-string">'strict-dependencies'</span>,
+    head_sha: sha,
+    status: <span class="hljs-string">'completed'</span>,
+    conclusion: ok ? <span class="hljs-string">'success'</span> : <span class="hljs-string">'failure'</span>,
+    output: {
+      title: ok ? <span class="hljs-string">'No semver ranges found'</span> : <span class="hljs-string">'Semver ranges found!'</span>,
+      summary: ok ? <span class="hljs-string">'Good job!'</span> : <span class="hljs-string">'Found a semver range in `dependencies`'</span>
+    }
+  });
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">githubRequest</span>(<span class="hljs-params">url, installationId, method, data</span>) </span>{
+  <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> createJWT(installationId);
+  <span class="hljs-keyword">if</span> (method == <span class="hljs-literal">null</span>) {
+    method = <span class="hljs-string">'get'</span>;
+  } <span class="hljs-keyword">else</span> {
+    method = method.toLowerCase();
+  }
+
+  <span class="hljs-keyword">const</span> accept = url.includes(<span class="hljs-string">'/check-runs'</span>) ?
+    <span class="hljs-string">'application/vnd.github.antiope-preview+json'</span> :
+    <span class="hljs-string">'application/vnd.github.machine-man-preview+json'</span>;
+
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios({
+    method,
+    url: <span class="hljs-string">`https://api.github.com<span class="hljs-subst">${url}</span>`</span>,
+    data,
+    headers: {
+      authorization: <span class="hljs-string">`bearer <span class="hljs-subst">${token}</span>`</span>,
+      accept
+    }
+  });
+
+  <span class="hljs-keyword">return</span> res.data;
+}
+
+<span class="hljs-comment">// Given an object, return true if all the values</span>
+<span class="hljs-comment">// are semver version strings. `1.2.3` is OK, `&gt;=1.2.3`</span>
+<span class="hljs-comment">// is not.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isStrictDependencies</span>(<span class="hljs-params">deps</span>) </span>{
+  <span class="hljs-keyword">return</span> !<span class="hljs-built_in">Object</span>.keys(deps).find(key =&gt; {
+    <span class="hljs-keyword">return</span> !<span class="hljs-regexp">/^\d+\.\d+\.\d+$/</span>.test(deps[key]);
+  });
+}</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Building a GitHub app sounds intimidating, but it mostly comes
+down to building an Express server that makes some HTTP requests.
+Once you get past the tricky part of figuring out how to
+authenticate against the GitHub API, building your own
+code checks is fun and easy. I&#39;m looking forward to building
+some GitHub apps to automate repetitive tasks.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"/></body></html>
