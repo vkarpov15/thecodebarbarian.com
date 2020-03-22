@@ -7,7 +7,8 @@
     "compile": "node .",
     "deploy": "git subtree push --prefix bin . gh-pages && git push origin gh-pages",
     "test": "mocha test/*.test.js",
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "serve": "serve ./bin"
   },
   "engines": {
     "node": ">= 8.0.0"
@@ -51,7 +52,7 @@
     "react-dom": "16.x",
     "redux": "4.0.0",
     "redux-thunk": "2.3.0",
-    "serve": "11.2.0",
+    "serve": "^11.2.0",
     "superagent": "3.8.3"
   },
   "homepage": "https://github.com/vkarpov15/thecodebarbarian.com"
