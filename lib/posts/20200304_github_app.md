@@ -1,5 +1,5 @@
 [GitHub Apps](https://developer.github.com/apps/) are a
-GitHub's preferred way to build more sophissticated functionality
+GitHub's preferred way to build more sophisticated functionality
 on top of GitHub. GitHub apps are a separate concept from
 [GitHub OAuth Apps](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/), which causes
 a lot of confusion.
