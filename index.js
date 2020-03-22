@@ -59,6 +59,9 @@ async function getCompiledPosts() {
   const postTemplate = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   for (const post of posts) {
+    post.rawPreview = post.md.substr(0, post.md.indexOf('\n'));
+    post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
+
     const output = postTemplate({
       post: post,
       content: markdown(post.md.toString()),
@@ -66,7 +69,6 @@ async function getCompiledPosts() {
     });
 
     post.compiled = output;
-    post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
   }
 
   return posts;
