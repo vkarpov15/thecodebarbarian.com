@@ -12,7 +12,7 @@ block opengraphTags
         content=post.image || '/images/Barbarian_Head.png')
   meta( property="og:site_name",
         content="The Code Barbarian")
-  meta( property="description", content=post.rawPreview)
+  meta( property="description", content=post.previewText || post.rawPreview)
 
 append analytics
   link(rel="stylesheet", href="/style/inlinecpc.css")
