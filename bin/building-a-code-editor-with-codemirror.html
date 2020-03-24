@@ -1,0 +1,381 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a Code Editor with CodeMirror | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a Code Editor with CodeMirror"><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-code-editor-with-codemirror"><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/dubrovnik.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="[CodeMirror](https://codemirror.net/) is a popular text editor library for"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a Code Editor with CodeMirror</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 24, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://codemirror.net/">CodeMirror</a> is a popular text editor library for
+the browser. It has some neat features that make it easy to build online
+code editors, like syntax highlighting, <a href="https://codemirror.net/demo/marker.html">gutters</a>,
+and keyboard shortcuts. Here&#39;s how you can get started with CodeMirror.</p>
+<h2 id="setup">Setup</h2>
+<p>The easiest way to set up CodeMirror is via <code>&lt;script&gt;</code> tag from a CDN.
+You can also bundle the <a href="https://www.npmjs.com/package/codemirror">CodeMirror npm module</a>,
+but for the sake of example let&#39;s just use a CDN. Just make sure you include
+both the JavaScript and CSS files, otherwise your editor won&#39;t look right.</p>
+<pre><code class="language-html">&lt;link rel=<span class="hljs-string">"stylesheet"</span>
+  href=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css"</span>&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
+  <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"</span>&gt;</span><span class="undefined">
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<p>Once you import CodeMirror via <code>&lt;script&gt;</code> tag, you get a <code>CodeMirror</code> global
+that you can use to create a new CodeMirror instance. Just point it at a <code>&lt;div&gt;</code>
+and CodeMirror does the rest.</p>
+<pre><code class="language-javascript">CodeMirror(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#my-div'</span>), {
+  lineNumbers: <span class="hljs-literal">true</span>,
+  tabSize: <span class="hljs-number">2</span>,
+  value: <span class="hljs-string">'console.log("Hello, World");'</span>
+});</code></pre>
+<p>Below is what the above CodeMirror looks like when you run it. It&#39;s a live
+example so please tinker with it. Note that CodeMirror automatically supports
+shortcuts like &quot;undo&quot;, so if you type and then hit <code>Ctrl + Z</code>, it will undo
+your changes.</p>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
+
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js">
+</script>
+
+<div id="my-div" style="border: 1px solid #ddd;"></div>
+
+<script type="text/javascript">
+  CodeMirror(document.querySelector('#my-div'), {
+    lineNumbers: true,
+    tabSize: 2,
+    value: 'console.log("Hello, World");'
+  });
+</script>
+
+<h2 id="themes-and-syntax-highlighting">Themes and Syntax Highlighting</h2>
+<p>The above CodeMirror works, but it is a little ugly. Let&#39;s add JavaScript
+syntax highlighting so CodeMirror doesn&#39;t render the JavaScript code as plain text.
+To enable JavaScript syntax highlighting, first you need to import the
+JavaScript language mode, which is a separate file:</p>
+<pre><code class="language-html">&lt;script type=<span class="hljs-string">"text/javascript"</span>
+  src=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js"</span>&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<p>You also need to set the <code>mode</code> option to <code>&#39;JavaScript&#39;</code> in your constructor.</p>
+<pre><code class="language-javascript">CodeMirror(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#my-js'</span>), {
+  lineNumbers: <span class="hljs-literal">true</span>,
+  tabSize: <span class="hljs-number">2</span>,
+  value: <span class="hljs-string">'console.log("Hello, World");'</span>,
+  mode: <span class="hljs-string">'javascript'</span>
+});</code></pre>
+<p>Below is a live example of a CodeMirror instance with JavaScript syntax highlighting:</p>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js">
+</script>
+<div id="my-js" style="border: 1px solid #ddd;"></div>
+
+<script type="text/javascript">
+  CodeMirror(document.querySelector('#my-js'), {
+    lineNumbers: true,
+    tabSize: 2,
+    value: 'console.log("Hello, World");',
+    mode: 'javascript'
+  });
+</script>
+
+<p>Next, let&#39;s add a CodeMirror theme. Here&#39;s a <a href="https://codemirror.net/demo/theme.html">full list of built-in themes</a>
+for CodeMirror. For example, using the <a href="https://packagecontrol.io/packages/Theme%20-%20Monokai%20Pro">Monokai</a>
+theme you can make your CodeMirror look like Sublime Text.</p>
+<p>To include the Monokai theme, you first need to pull in the Monokai CSS file:</p>
+<pre><code class="language-html">&lt;link rel=<span class="hljs-string">"stylesheet"</span>
+  href=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css"</span>&gt;</code></pre>
+<p>Next, just set the <code>theme</code> option to the CodeMirror constructor to the
+theme name.</p>
+<pre><code class="language-javascript">CodeMirror(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#monokai'</span>), {
+  lineNumbers: <span class="hljs-literal">true</span>,
+  tabSize: <span class="hljs-number">2</span>,
+  value: <span class="hljs-string">'console.log("Hello, World");'</span>,
+  mode: <span class="hljs-string">'javascript'</span>,
+  theme: <span class="hljs-string">'monokai'</span>
+});</code></pre>
+<p>Below is a live example of a Monokai CodeMirror.</p>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css">
+<div id="monokai" style="border: 1px solid #ddd;"></div>
+
+<script type="text/javascript">
+  CodeMirror(document.querySelector('#monokai'), {
+    lineNumbers: true,
+    tabSize: 2,
+    value: 'console.log("Hello, World");',
+    mode: 'javascript',
+    theme: 'monokai'
+  });
+</script>
+
+<h2 id="integrating-with-vue">Integrating with <a href="https://masteringjs.io/vue">Vue</a></h2>
+<p>CodeMirror by itself is great, but for building an app you&#39;ll likely
+want to integrate it with a framework like <a href="https://vuejs.org/">Vue</a>.
+Here&#39;s the basic best practices:</p>
+<ol>
+<li>Put the <code>&lt;div&gt;</code> you will attach your CodeMirror to in your <a href="https://masteringjs.io/tutorials/vue/templates">Vue template</a>.</li>
+<li>Create the CodeMirror instance in the <a href="https://masteringjs.io/tutorials/vue/lifecycle#mounted"><code>mounted</code> lifecycle hook</a>.</li>
+<li>Use <a href="https://masteringjs.io/tutorials/vue/refs"><code>$refs</code></a> to get a reference to the <code>&lt;div&gt;</code> in the component&#39;s template.</li>
+<li>Listen for changes to your CodeMirror instance by listening to CodeMirror&#39;s <code>&#39;changes&#39;</code> event.</li>
+<li>If necessary, modify the CodeMirror&#39;s contents by <a href="https://stackoverflow.com/questions/8378971/how-to-set-a-value-of-codemirror-editor-by-javascript">calling <code>setValue()</code></a>.</li>
+</ol>
+<p>Here&#39;s an example Vue component that creates a CodeMirror and tracks changes.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
+  data: () =&gt; ({
+    value: <span class="hljs-string">'console.log("Hello, World");'</span>
+  }),
+  mounted: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>._editor = <span class="hljs-keyword">new</span> CodeMirror(<span class="hljs-keyword">this</span>.$refs.codemirror, {
+      lineNumbers: <span class="hljs-literal">true</span>,
+      tabSize: <span class="hljs-number">2</span>,
+      value: <span class="hljs-keyword">this</span>.value,
+      mode: <span class="hljs-string">'javascript'</span>,
+      theme: <span class="hljs-string">'monokai'</span>
+    });
+
+    <span class="hljs-keyword">this</span>._editor.on(<span class="hljs-string">'changes'</span>, () =&gt; {
+      <span class="hljs-keyword">this</span>.value = <span class="hljs-keyword">this</span>._editor.getValue();
+    });
+  },
+  template: <span class="hljs-string">`
+    &lt;div&gt;
+      &lt;div ref="codemirror"&gt;&lt;/div&gt;
+      &lt;div&gt;Number of Characters: {{value.length}}&lt;/div&gt;
+    &lt;/div&gt;
+  `</span>
+});
+
+app.$mount(<span class="hljs-string">'#my-vue-app'</span>);</code></pre>
+<p>Here&#39;s how this Vue app looks live:</p>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<div id="my-vue-app" style="border: 1px solid #ddd"></div>
+
+<script type="text/javascript">
+  const app = new Vue({
+    data: () => ({
+      value: 'console.log("Hello, World");'
+    }),
+    mounted: function() {
+      this._editor = new CodeMirror(this.$refs.codemirror, {
+        lineNumbers: true,
+        tabSize: 2,
+        value: this.value,
+        mode: 'javascript',
+        theme: 'monokai'
+      });
+
+      this._editor.on('changes', () => {
+        this.value = this._editor.getValue();
+      });
+    },
+    template: `
+      <div>
+        <div ref="codemirror"></div>
+        <div>Number of Characters: {{value.length}}</div>
+      </div>
+    `
+  });
+
+  app.$mount('#my-vue-app');
+</script>
+
+
+<h2 id="gutters-and-linter-integration">Gutters and Linter Integration</h2>
+<p>&quot;Gutters&quot; are markers that appear on individual line numbers.
+<a href="https://codemirror.net/demo/marker.html">Gutters are often used to display breakpoints</a>,
+but they can also be used to display linter errors. Since ESLint
+doesn&#39;t work in the browser, let&#39;s use <a href="https://jshint.com/install/">JSHint</a>
+to display linter errors.</p>
+<p>First, load JSHint via <code>&lt;script&gt;</code> tag:</p>
+<pre><code class="language-html">&lt;script type=<span class="hljs-string">"text/javascript"</span>
+  src=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/jshint/2.11.0/jshint.js"</span>&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<p>Next, add some CSS to make error messages show up as red rectangles
+next to the line number:</p>
+<pre><code class="language-css">.error-marker {
+  color: black;
+  width: 10px !important;
+  background-color: #ff0000;
+}
+
+.error-marker .error-message {
+  display: none;
+  position: absolute;
+  background-color: #ddd;
+  border: 1px solid #999;
+  padding: 6px;
+  width: 140px;
+  left: 15px;
+  top: -1em;
+}
+
+.error-marker:hover .error-message {
+  display: block;
+}</code></pre>
+<p>Finally, here&#39;s the Vue app that runs JSHint with default settings every
+time the CodeMirror input changes.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> linter = <span class="hljs-keyword">new</span> Vue({
+  data: () =&gt; ({
+    value: <span class="hljs-string">'console.log("Hello, World")'</span>
+  }),
+  mounted: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>._editor = <span class="hljs-keyword">new</span> CodeMirror(<span class="hljs-keyword">this</span>.$refs.codemirror, {
+      lineNumbers: <span class="hljs-literal">true</span>,
+      tabSize: <span class="hljs-number">2</span>,
+      value: <span class="hljs-keyword">this</span>.value,
+      mode: <span class="hljs-string">'javascript'</span>,
+      theme: <span class="hljs-string">'monokai'</span>,
+      gutters: [<span class="hljs-string">'error'</span>]
+    });
+
+    <span class="hljs-keyword">this</span>._editor.on(<span class="hljs-string">'changes'</span>, () =&gt; {
+      <span class="hljs-keyword">this</span>.value = <span class="hljs-keyword">this</span>._editor.getValue();
+
+      JSHINT(<span class="hljs-keyword">this</span>.value);
+      <span class="hljs-keyword">const</span> errors = <span class="hljs-built_in">Array</span>.isArray(JSHINT.errors) ? JSHINT.errors : [];
+      <span class="hljs-keyword">this</span>._editor.clearGutter(<span class="hljs-string">'error'</span>);
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> error <span class="hljs-keyword">of</span> errors) {
+        <span class="hljs-keyword">this</span>._editor.setGutterMarker(error.line - <span class="hljs-number">1</span>, <span class="hljs-string">'error'</span>, makeMarker(error.reason));
+      }
+    });
+  },
+  template: <span class="hljs-string">`
+    &lt;div&gt;
+      &lt;div ref="codemirror"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  `</span>
+});
+
+<span class="hljs-comment">// Create an HTML element that CodeMirror is responsible for positioning</span>
+<span class="hljs-comment">// properly.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeMarker</span>(<span class="hljs-params">msg</span>) </span>{
+  <span class="hljs-keyword">const</span> marker = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+  marker.classList.add(<span class="hljs-string">'error-marker'</span>);
+  marker.innerHTML = <span class="hljs-string">'&amp;nbsp;'</span>;
+
+  <span class="hljs-keyword">const</span> error = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
+  error.innerHTML = msg;
+  error.classList.add(<span class="hljs-string">'error-message'</span>);
+  marker.appendChild(error);
+
+  <span class="hljs-keyword">return</span> marker;
+}
+
+linter.$mount(<span class="hljs-string">'#my-linter'</span>);</code></pre>
+<p>Below is a live demo of the CodeMirror instance. Note the red error
+near line 1 because of the missing semicolon.</p>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.11.0/jshint.js">
+</script>
+<div id="my-linter" style="border: 1px solid #ddd"></div>
+
+<style>
+.error-marker {
+  width: 10px !important;
+  background-color: #ff0000;
+  color: black;
+}
+
+.error-marker .error-message {
+  display: none;
+  position: absolute;
+  background-color: #ddd;
+  border: 1px solid #999;
+  padding: 6px;
+  width: 140px;
+  left: 15px;
+  top: -1em;
+}
+
+.error-marker:hover .error-message {
+  display: block;
+}
+</style>
+
+<script type="text/javascript">
+  const linter = new Vue({
+    data: () => ({
+      value: 'console.log("Hello, World")'
+    }),
+    mounted: function() {
+      this._editor = new CodeMirror(this.$refs.codemirror, {
+        lineNumbers: true,
+        tabSize: 2,
+        value: this.value,
+        mode: 'javascript',
+        theme: 'monokai',
+        gutters: ['error']
+      });
+
+      JSHINT(this.value);
+      const errors = Array.isArray(JSHINT.errors) ? JSHINT.errors : [];
+      this._editor.clearGutter('error');
+      for (const error of errors) {
+        this._editor.setGutterMarker(error.line - 1, 'error', makeMarker(error.reason));
+      }
+
+      this._editor.on('changes', () => {
+        this.value = this._editor.getValue();
+
+        JSHINT(this.value);
+        const errors = Array.isArray(JSHINT.errors) ? JSHINT.errors : [];
+        this._editor.clearGutter('error');
+        for (const error of errors) {
+          this._editor.setGutterMarker(error.line - 1, 'error', makeMarker(error.reason));
+        }
+      });
+    },
+    template: `
+      <div>
+        <div ref="codemirror"></div>
+      </div>
+    `
+  });
+
+  function makeMarker(msg) {
+    var marker = document.createElement('div');
+    marker.classList.add('error-marker');
+    marker.innerHTML = '&nbsp;';
+
+    var error = document.createElement('div');
+    error.innerHTML = msg;
+    error.classList.add('error-message');
+    marker.appendChild(error);
+
+    return marker;
+  }
+
+  linter.$mount('#my-linter');
+</script>
+
+<h2 id="moving-on">Moving On</h2>
+<p>CodeMirror is an amazing tool for building minimal editors in your browser.
+CodeMirror gives you a lot out of the box: themes, syntax highlighting, and
+basic keyboard shortcuts like &quot;undo&quot;. You can also build more advanced
+functionality using customizable features like gutters.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>

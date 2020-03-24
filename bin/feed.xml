@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Sun, 22 Mar 2020 21:15:24 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Mar 2020 16:33:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building a Code Editor with CodeMirror]]></title>
+            <link>http://www.thecodebarbarian.com/building-a-code-editor-with-codemirror.html</link>
+            <guid>http://www.thecodebarbarian.com/building-a-code-editor-with-codemirror.html</guid>
+            <pubDate>Tue, 24 Mar 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Tips and Tricks for Working From Home]]></title>
             <link>http://www.thecodebarbarian.com/tips-and-tricks-for-working-from-home.html</link>
