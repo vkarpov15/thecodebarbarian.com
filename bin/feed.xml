@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 26 Mar 2020 17:53:24 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 31 Mar 2020 01:49:44 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[GitHub OAuth Login with Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/github-oauth-login-with-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/github-oauth-login-with-node-js.html</guid>
+            <pubDate>Tue, 31 Mar 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a Code Editor with CodeMirror]]></title>
             <link>http://www.thecodebarbarian.com/building-a-code-editor-with-codemirror.html</link>
