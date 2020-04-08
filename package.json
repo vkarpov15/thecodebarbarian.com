@@ -38,6 +38,7 @@
     "moment": "2.11.2",
     "mongodb-topology-manager": "^2.1.0",
     "node-static": "0.7.3",
+    "pdf-lib": "^1.4.1",
     "pug": "2.0.4",
     "puppeteer": "1.19.0",
     "semver": "^7.1.3",
