@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 07 Apr 2020 22:12:15 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 15 Apr 2020 14:47:19 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Working With AWS Route 53 in Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/working-aws-route-53-in-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/working-aws-route-53-in-node-js.html</guid>
+            <pubDate>Wed, 15 Apr 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Working With PDFs in Node.js Using pdf-lib]]></title>
             <link>http://www.thecodebarbarian.com/working-with-pdfs-in-node-js.html</link>

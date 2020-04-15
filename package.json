@@ -28,6 +28,7 @@
     "acquit": "1.x",
     "acquit-ignore": "0.1.x",
     "acquit-require": "0.1.x",
+    "aws-sdk": "^2.656.0",
     "axios": "^0.19.2",
     "commander": "2.3.0",
     "feed": "0.2.6",
