@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 22 Apr 2020 20:11:12 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 28 Apr 2020 14:52:21 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Understand JavaScript Reduce With 5 Examples]]></title>
+            <link>http://www.thecodebarbarian.com/javascript-reduce-in-5-examples.html</link>
+            <guid>http://www.thecodebarbarian.com/javascript-reduce-in-5-examples.html</guid>
+            <pubDate>Tue, 28 Apr 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What is the `toJSON()` Function in JavaScript?]]></title>
             <link>http://www.thecodebarbarian.com/what-is-the-tojson-function-in-javascript.html</link>
