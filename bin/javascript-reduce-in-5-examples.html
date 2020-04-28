@@ -1,0 +1,174 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Understand JavaScript Reduce With 5 Examples | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Understand JavaScript Reduce With 5 Examples"><meta property="og:url" content="http://www.thecodebarbarian.com/javascript-reduce-in-5-examples"><meta property="og:image" content="/images/tahoe.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Here's 5 examples to help you understand how to use `Array#reduce()` in JavaScript, including 4 common use cases and one not-so-common use case."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Understand JavaScript Reduce With 5 Examples</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">April 28, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"><code>reduce()</code> method on JavaScript arrays</a> executes a &quot;reducer&quot; function on every
+element of the array in order, passing the return value from the previous reducer
+call to the next reducer call. The <code>reduce()</code> function is a common cause
+of confusion, but it can also make your code much more readable when combined with other <a href="https://eloquentjavascript.net/1st_edition/chapter6.html">functional programming abstractions</a>.
+Here are 4 common examples and 1 not-so-common example that demonstrate how to use <code>reduce()</code>.</p>
+<h2 id="summing-an-array-of-numbers">Summing an Array of Numbers</h2>
+<p>Most <code>reduce()</code> tutorials start with this example: given an array of numbers <code>[1, 3, 5, 7]</code>, calculate the sum. Here&#39;s how you might sum up an array with a plain old <a href="/for-vs-for-each-vs-for-in-vs-for-of-in-javascript"><code>for</code> loop</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params">arr</span>) </span>{
+  <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> arr) {
+    sum += val;
+  }
+  <span class="hljs-keyword">return</span> sum;
+}
+
+sum([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]); <span class="hljs-comment">// 16</span></code></pre>
+<p>Here&#39;s an equivalent example using <code>reduce()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-params">arr</span>) </span>{
+  <span class="hljs-keyword">const</span> reducer = (sum, val) =&gt; sum + val;
+  <span class="hljs-keyword">const</span> initialValue = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> arr.reduce(reducer, initialValue);
+}
+
+sum([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>]); <span class="hljs-comment">// 16</span></code></pre>
+<p>The <code>reduce()</code> function&#39;s first 2 parameters are a function <code>reducer()</code> and
+an arbitrary <code>initialValue</code>. JavaScript then calls the <code>reducer()</code> on each
+element of the array with the <em>accumulator</em> value as the first parameter.
+The accumulator starts as <code>initialValue</code>, and then JavaScript uses the return
+value of each <code>reduce()</code> call as the new accumulator.</p>
+<p>Talk is cheap, show me the code. So here&#39;s a quick example of how you might
+implement a simplified <code>reduce()</code> function using <code>for</code> loops.</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reduce</span>(<span class="hljs-params">arr, reducer, initialValue</span>) </span>{
+  <span class="hljs-keyword">let</span> accumulator = initialValue;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> val <span class="hljs-keyword">of</span> array) {
+    accumulator = reducer(accumulator, val);
+  }
+  <span class="hljs-keyword">return</span> accumulator;
+}</code></pre>
+<h2 id="summing-an-array-of-numeric-properties">Summing an Array of Numeric Properties</h2>
+<p>The <code>reduce()</code> function by itself is often more confusing than helpful.
+If all you need to do is sum an array of numbers, you might be better
+off using a <code>for</code> loop. But, when combined with other array methods like
+<a href="https://masteringjs.io/tutorials/fundamentals/filter"><code>filter()</code></a> and <code>map()</code>,
+<code>reduce()</code> starts looking more appealing.</p>
+<p>For example, suppose you have an array of line items, and you want to calculate
+the sum of each line item&#39;s <code>total</code> property.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> lineItems = [
+  { description: <span class="hljs-string">'Eggs (Dozen)'</span>, quantity: <span class="hljs-number">1</span>, price: <span class="hljs-number">3</span>, total: <span class="hljs-number">3</span> },
+  { description: <span class="hljs-string">'Cheese'</span>, quantity: <span class="hljs-number">0.5</span>, price: <span class="hljs-number">5</span>, total: <span class="hljs-number">2.5</span> },
+  { description: <span class="hljs-string">'Butter'</span>, quantity: <span class="hljs-number">2</span>, price: <span class="hljs-number">6</span>, total: <span class="hljs-number">12</span> }
+];</code></pre>
+<p>Here&#39;s one way to add up the line items <code>total</code> using <code>reduce()</code>:</p>
+<pre><code class="language-javascript">lineItems.reduce((sum, li) =&gt; sum + li.total, <span class="hljs-number">0</span>); <span class="hljs-comment">// 17.5</span></code></pre>
+<p>This works, but is less composable. A better alternative is to first
+<code>map()</code> to get the <code>total</code>.</p>
+<pre><code class="language-javascript">lineItems.map(li =&gt; li.total).reduce((sum, val) =&gt; sum + val, <span class="hljs-number">0</span>);</code></pre>
+<p>Why is this second approach better? Because you can abstract out the
+reducer into a function <code>sum()</code>, and reuse it wherever you need to sum
+up an array.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Sum the totals</span>
+lineItems.map(li =&gt; li.total).reduce(sumReducer, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// Sum the quantities using the same reducer</span>
+lineItems.map(li =&gt; li.quantity).reduce(sumReducer, <span class="hljs-number">0</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sumReducer</span>(<span class="hljs-params">sum, val</span>) </span>{
+  <span class="hljs-keyword">return</span> sum + val;
+}</code></pre>
+<p>This is important because, while you think <code>sumReducer()</code> will never
+change, it will. For example, the above code doesn&#39;t account for the fact that
+<code>0.1 + 0.2 !== 0.3</code> in JavaScript. This is a common mistake when calculating
+prices in an interpretted language. <a href="/a-nodejs-perspective-on-mongodb-34-decimal.html#whats-wrong-with-binary-floating-points">Binary floating points are weird</a>.
+So you actually need to round:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { round } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sumReducer</span>(<span class="hljs-params">sum, val</span>) </span>{
+  <span class="hljs-comment">// Round to 2 decimal places.</span>
+  <span class="hljs-keyword">return</span> _.round(sum + val, <span class="hljs-number">2</span>);
+}</code></pre>
+<p><code>reduce()</code> makes it easy to reuse logic like <code>sumReducer()</code> throughout your app
+using function chaining. So you can change your logic once rather than searching
+through every <code>for</code> loop in your app.</p>
+<h2 id="find-the-maximum-value">Find the Maximum Value</h2>
+<p>While <code>reduce()</code> is often used for summing, it doesn&#39;t have to be.
+The <code>accumulator</code> can be any value: number, <code>null</code>, <code>undefined</code>,
+array, <a href="https://masteringjs.io/tutorials/fundamentals/pojo">POJO</a>, even a <a href="https://masteringjs.io/tutorials/fundamentals/promise">promise</a>.</p>
+<p>For example, suppose you have an array of JavaScript dates, and you want
+to find the most recent date.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> dates = [
+  <span class="hljs-string">'2019/06/01'</span>,
+  <span class="hljs-string">'2018/06/01'</span>,
+  <span class="hljs-string">'2019/09/01'</span>, <span class="hljs-comment">// This is the most recent date, but how to find it?</span>
+  <span class="hljs-string">'2018/09/01'</span>
+].map(v =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(v));</code></pre>
+<p>One approach is to sort the array and take the last element in the sorted
+array. That works, but isn&#39;t as efficient as it could be, and <a href="https://masteringjs.io/tutorials/fundamentals/compare-dates#sorting">sorting an array of dates in JavaScript is non-trivial</a>.</p>
+<p>Instead, you can use <code>reduce()</code> and make your reducer return the most
+recent date found so far.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// This works because you can compare JavaScript dates using `&gt;` and `&lt;`.</span>
+<span class="hljs-comment">// So `a &gt; b` if and only if `a` is after `b`.</span>
+<span class="hljs-keyword">const</span> maxDate = dates.reduce((max, d) =&gt; d &gt; max ? d : max, dates[<span class="hljs-number">0</span>]);</code></pre>
+<h2 id="grouping-values">Grouping Values</h2>
+<p>Given an array of objects with an <code>age</code> property:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> characters = [
+  { name: <span class="hljs-string">'Jean-Luc Picard'</span>, age: <span class="hljs-number">59</span> },
+  { name: <span class="hljs-string">'Will Riker'</span>, age: <span class="hljs-number">29</span> },
+  { name: <span class="hljs-string">'Deanna Troi'</span>, age: <span class="hljs-number">29</span> }
+];</code></pre>
+<p>How do you return a map that contains how many characters have a given
+<code>age</code>? For example, the correct output on the above array would be
+<code>{ 29: 2, 59: 1 }</code>.</p>
+<p>Here&#39;s how you can do that with <code>reduce()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Start with an empty object, increment `map[age]` for each element</span>
+<span class="hljs-comment">// of the array.</span>
+<span class="hljs-keyword">const</span> reducer = (map, val) =&gt; {
+  <span class="hljs-keyword">if</span> (map[val] == <span class="hljs-literal">null</span>) {
+    map[val] = <span class="hljs-number">1</span>;
+  } <span class="hljs-keyword">else</span> {
+    ++map[val];
+  }
+  <span class="hljs-keyword">return</span> map;
+};
+characters.map(char =&gt; char.age).reduce(reducer, {});</code></pre>
+<h2 id="bonus-promise-chaining">Bonus: <a href="https://masteringjs.io/tutorials/fundamentals/promise-chaining">Promise Chaining</a></h2>
+<p>Suppose you have an array of <a href="https://thecodebarbarian.com/async-functions-in-javascript.html">async functions</a> that you want to execute in series.
+There is a non-standard <a href="https://www.npmjs.com/package/promise.series"><code>promise.series</code> function</a>
+for this, but you can also do this with <code>reduce()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> functions = [
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>; },
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>; },
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>; }
+];
+
+<span class="hljs-comment">// Chain the function calls in order, starting with an empty promise.</span>
+<span class="hljs-comment">// In the end, `res` is equivalent to</span>
+<span class="hljs-comment">// `Promise.resolve().then(fn1).then(fn2).then(fn3)`</span>
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> functions.
+  reduce((promise, fn) =&gt; promise.then(fn), <span class="hljs-built_in">Promise</span>.resolve());
+res; <span class="hljs-comment">// 3</span></code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>reduce()</code> function is a powerful tool. By abstracting out filters
+and reducers, you can consolidate common tasks like &quot;summing an array of numbers&quot;
+into a separate function for easier refactoring and DRY-er code.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
