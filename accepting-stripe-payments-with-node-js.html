@@ -1,0 +1,194 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Accepting Stripe Payments with Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Accepting Stripe Payments with Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/accepting-stripe-payments-with-node-js"><meta property="og:image" content="/images/misson-peak.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Accepting payments with Stripe is easy with Node.js. Here's how you can accept payment, verify the payment, and send a confirmation."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Accepting Stripe Payments with Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 19, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://stripe.com/docs/stripe-js">Stripe Elements</a> make it easy to collect
+a customer&#39;s credit card information securely, but what happens after that? You still need to use <a href="https://stripe.com/docs/api/authentication">Stripe&#39;s Node.js API</a> to actually accept a payment from a user. In this tutorial, you&#39;ll learn how to 
+build a basic full stack checkout flow with Stripe and Node.js.</p>
+<h2 id="stripe-client">Stripe Client</h2>
+<p>Stripe Elements automatically creates a secure credit card form for you by
+creating an <code>iframe</code> on your page and a JavaScript API to interact with
+the credit card form. This tutorial will use Vue, but here&#39;s a <a href="/accepting-credit-cards-with-stripe-elements-and-preact.html">guide to setting up Stripe Elements with React</a>.</p>
+<p>Below is a simple Stripe Elements checkout form using Vue. When you submit the
+form, it creates a payment token from the card and prints it to the console.
+Try entering in the <a href="https://stripe.com/docs/testing">Stripe test card</a> <code>4242 4242 4242 4242</code> with any CVV, expiration date, and zip code to see it in action.</p>
+<div class="inline-image">
+  <div id="stripe-example-1"></div>
+</div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  .stripe-form-input {
+    width: 50%;
+    padding: 8px;
+  }
+</style>
+<script>
+const stripe = Stripe('pk_test_CY6HxyQkOolO1B3h43MvkJE5');
+
+new Vue({
+  methods: {
+    submit: async function(ev) {
+      ev.preventDefault();
+
+      const res = await stripe.createToken(this._card);
+      console.log('Payment token is ', res.token.id);
+    }
+  },
+  template: `
+    <form @submit="submit($event)">
+      <div class="stripe-form-input">
+        <div ref="stripe">
+        </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  `,
+  mounted: function() {
+    this._card = stripe.elements().create('card');
+    this._card.mount(this.$refs.stripe);
+  }
+}).$mount('#stripe-example-1');
+</script>
+
+<p>Below is the code for the above form. The key thing to note is that, when
+the component is mounted, the below code creates a Stripe card element, and
+then uses that Stripe element to pull a secure token representing the
+credit card information when the user submits the form.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stripe = Stripe(<span class="hljs-string">'pk_test_CY6HxyQkOolO1B3h43MvkJE5'</span>);
+
+<span class="hljs-keyword">new</span> Vue({
+  methods: {
+    submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) </span>{
+      ev.preventDefault();
+
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> stripe.createToken(<span class="hljs-keyword">this</span>._card);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Payment token is '</span>, res.token.id);
+    }
+  },
+  template: <span class="hljs-string">`
+    &lt;form @submit="submit($event)"&gt;
+      &lt;div class="stripe-form-input"&gt;
+        &lt;div ref="stripe"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  `</span>,
+  mounted: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>._card = stripe.elements().create(<span class="hljs-string">'card'</span>);
+    <span class="hljs-keyword">this</span>._card.mount(<span class="hljs-keyword">this</span>.$refs.stripe);
+  }
+}).$mount(<span class="hljs-string">'#stripe-example-1'</span>);</code></pre>
+<p>This form collects credit card information, but doesn&#39;t do anything with it.
+In order to actually charge the customer, you need to call the <code>stripe.confirmCardPayment()</code> function, which requires you to create a
+<a href="https://stripe.com/docs/payments/accept-a-payment#web-setup">secret on the server side</a>.</p>
+<h2 id="creating-a-server-side-secret">Creating a Server Side Secret</h2>
+<p>In order to charge the customer, you need to create a payment intent on the
+server side, and send the payment intent&#39;s <em>secret</em> to the client. This ensures
+that the customer can&#39;t change what you expect them to pay. Below is an Express
+app that sends back a secret for a $2 charge.</p>
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-comment">// Set your stripe private key here</span>
+<span class="hljs-keyword">const</span> stripe = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stripe'</span>)(process.env.STRIPE_PRIVATE_KEY);
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(express.static(<span class="hljs-string">'./public'</span>));
+
+app.get(<span class="hljs-string">'/stripeSecret'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
+  <span class="hljs-keyword">const</span> amount = <span class="hljs-number">2</span> * <span class="hljs-number">100</span>;
+  <span class="hljs-keyword">const</span> currency = <span class="hljs-string">'usd'</span>;
+
+  stripe.paymentIntents.create({ amount, currency }).
+    then(intent =&gt; res.json({ secret: intent[<span class="hljs-string">'client_secret'</span>] })).
+    <span class="hljs-keyword">catch</span>(next);
+});
+
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) </span>{
+  res.status(err.status || <span class="hljs-number">500</span>).json({ message: err.message });
+});
+
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
+<p>In order to get the Stripe secret, your Vue payment form needs to make a
+request to the <code>/stripeSecret</code> endpoint in the <code>mounted()</code> hook.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// ...</span>
+data: () =&gt; ({ secret: <span class="hljs-literal">null</span> }),
+mounted: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>._card = stripe.elements()..create(<span class="hljs-string">'card'</span>);
+  <span class="hljs-keyword">this</span>._card.mount(<span class="hljs-keyword">this</span>.$refs.stripe);
+  <span class="hljs-keyword">this</span>.secret = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'/stripeSecret'</span>).
+    then(res =&gt; res.data.secret);
+}
+<span class="hljs-comment">// ...</span></code></pre>
+<p>Once you get the <code>secret</code> and the user entered in their credit card information,
+you can make a request to <code>stripe.confirmCardPayment()</code> as shown below.</p>
+<pre><code class="language-javascript">submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) </span>{
+  ev.preventDefault();
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> stripe.confirmCardPayment(<span class="hljs-keyword">this</span>.secret, {
+    payment_method: { card: <span class="hljs-keyword">this</span>._card }
+  });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Payment result is'</span>, res);
+}</code></pre>
+<p>Below is the complete Vue component that integrates with the Stripe secret
+endpoint.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">new</span> Vue({
+  data: () =&gt; ({ secret: <span class="hljs-literal">null</span> }),
+  methods: {
+    submit: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>) </span>{
+      ev.preventDefault();
+      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> stripe.confirmCardPayment(<span class="hljs-keyword">this</span>.secret, {
+        payment_method: { card: <span class="hljs-keyword">this</span>._card }
+      });
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Payment result is'</span>, res);
+    }
+  },
+  template: <span class="hljs-string">`
+    &lt;form @submit="submit($event)"&gt;
+      &lt;div class="stripe-form-input"&gt;
+        &lt;div ref="stripe"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  `</span>,
+  mounted: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>._card = stripe.elements()..create(<span class="hljs-string">'card'</span>);
+    <span class="hljs-keyword">this</span>._card.mount(<span class="hljs-keyword">this</span>.$refs.stripe);
+    <span class="hljs-keyword">this</span>.secret = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'/stripeSecret'</span>).
+      then(res =&gt; res.data.secret);
+  }
+}).$mount(<span class="hljs-string">'#stripe-example-1'</span>);</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Stripe&#39;s APIs are very developer friendly, and building a checkout flow is
+straightforward. You need a little bit of help from the server side, but
+with that you can collect payments directly on your site, without redirecting
+users out to PayPal.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
