@@ -13,6 +13,13 @@
         </image>
         <generator>Feed for Node.js</generator>
         <item>
+            <title><![CDATA[Accepting Stripe Payments with Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/accepting-stripe-payments-with-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/accepting-stripe-payments-with-node-js.html</guid>
+            <pubDate>Tue, 19 May 2020 04:00:00 GMT</pubDate>
+            
+        </item>
+        <item>
             <title><![CDATA[Creating ePub Files with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/creating-epub-files-with-node-js.html</link>
             <guid>http://www.thecodebarbarian.com/creating-epub-files-with-node-js.html</guid>
