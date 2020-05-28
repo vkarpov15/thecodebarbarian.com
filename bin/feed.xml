@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 21 May 2020 14:01:58 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 28 May 2020 19:37:02 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[New eBook: Mastering Mongoose]]></title>
+            <link>http://www.thecodebarbarian.com/new-ebook-mastering-mongoose.html</link>
+            <guid>http://www.thecodebarbarian.com/new-ebook-mastering-mongoose.html</guid>
+            <pubDate>Thu, 28 May 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Accepting Stripe Payments with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/accepting-stripe-payments-with-node-js.html</link>
