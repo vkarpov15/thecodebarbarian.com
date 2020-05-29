@@ -128,7 +128,7 @@ async function run() {
     err.message; // 'Oops'
   }
 
-  err = await noError().
+  [err, res] = await noError().
     then(v => [null, v], err => [err, null]);
   err; // null
   res; // 42
