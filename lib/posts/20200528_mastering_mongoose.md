@@ -15,7 +15,7 @@ and experience levels. Unfortunately, that approach leaves a gap for a
 more opinionated guide that explains Mongoose fundamentals from
 base principles.
 
-Introducting [_Mastering Mongoose_](https://masteringjs.io/ebooks/mastering-mongoose)
+Introducing [_Mastering Mongoose_](https://masteringjs.io/ebooks/mastering-mongoose)
 ---------------------------------
 
 [_Mastering Mongoose_](https://masteringjs.io/ebooks/mastering-mongoose) is a carefully curated guide that explains the
