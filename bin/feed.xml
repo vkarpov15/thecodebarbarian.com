@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 28 May 2020 19:37:02 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 09 Jun 2020 16:01:48 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[A Practical Guide to moment-timezone]]></title>
+            <link>http://www.thecodebarbarian.com/a-practical-guide-to-moment-timezone.html</link>
+            <guid>http://www.thecodebarbarian.com/a-practical-guide-to-moment-timezone.html</guid>
+            <pubDate>Tue, 09 Jun 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[New eBook: Mastering Mongoose]]></title>
             <link>http://www.thecodebarbarian.com/new-ebook-mastering-mongoose.html</link>
