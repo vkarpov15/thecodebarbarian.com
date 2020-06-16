@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 16 Jun 2020 15:38:45 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 16 Jun 2020 16:32:14 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Rubber Duck Debugging For JavaScript Developers]]></title>
+            <link>http://www.thecodebarbarian.com/rubber-duck-debugging-for-javascript-developers.html</link>
+            <guid>http://www.thecodebarbarian.com/rubber-duck-debugging-for-javascript-developers.html</guid>
+            <pubDate>Tue, 23 Jun 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What JavaScript Developers Should Know About Curl]]></title>
             <link>http://www.thecodebarbarian.com/what-javascript-developers-should-know-about-curl.html</link>
