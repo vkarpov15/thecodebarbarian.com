@@ -15,30 +15,30 @@
 </div><div class="post-body-text-container"><p>Stripe&#39;s v3 API introduced a controversial change: you can no longer use Stripe with custom payment forms, you <a href="https://github.com/stripe/react-stripe-elements/issues/19">must use the new Stripe Elements interface</a>. This change is brutal from a developer experience perspective, because you need to figure out how to rewrite your app to use the new API, and the <a href="https://stripe.com/docs">existing docs</a> are written for vanilla JavaScript. There is a <a href="https://www.npmjs.com/package/react-stripe-elements">React library</a>, but it is <a href="https://github.com/stripe/react-stripe-elements/issues/19#issue-233402236">heavy</a> and there&#39;s no information as to whether it actually works with <a href="http://npmjs.com/package/preact">Preact</a>. In this article, I&#39;ll present a basic proof of concept of using the vanilla Stripe Elements library and Preact.</p>
 <h2 id="setting-up-preact-and-stripe-elements">Setting Up Preact and Stripe Elements</h2>
 <p>Preact bundles might be lightweight, but the dev setup certainly isn&#39;t. To get started, you&#39;ll need to install Preact itself, Webpack as a compiler, Babel to transform JSX, and <a href="https://www.npmjs.com/package/serve">serve</a> to start an HTTP server.</p>
-<pre><code>npm install preact babel-loader@<span class="hljs-number">8.</span>x @babel/core@<span class="hljs-number">7.</span>x @babel/plugin-transform-react-jsx@<span class="hljs-number">7.</span>x webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x</code></pre><p>Next, let&#39;s set up a basic <code>index.html</code> that loads the Stripe.js file. <a href="https://stripe.com/docs/stripe-js/elements/quickstart#setup">Stripe suggests that you load the client-side <code>stripe.js</code> library via <code>script</code> tag</a> rather than via <code>require()</code>.</p>
+<pre><code>npm install preact babel-loader@8.x @babel/core@7.x @babel/plugin-transform-react-jsx@7.x webpack@4.x webpack-cli@3.x serve@10.x</code></pre><p>Next, let&#39;s set up a basic <code>index.html</code> that loads the Stripe.js file. <a href="https://stripe.com/docs/stripe-js/elements/quickstart#setup">Stripe suggests that you load the client-side <code>stripe.js</code> library via <code>script</code> tag</a> rather than via <code>require()</code>.</p>
 <pre><code>&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Preact/Stripe Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  &lt;head&gt;
+    &lt;title&gt;Preact/Stripe Test&lt;/title&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://js.stripe.com/v3/"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
-      <span class="hljs-selector-id">#content</span> {
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
-        <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#e3e3e3</span>;
+    &lt;script src=&quot;https://js.stripe.com/v3/&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+      #content {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #e3e3e3;
       }
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    &lt;/style&gt;
+  &lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"cc-form"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;
+      &lt;div id=&quot;cc-form&quot;&gt;&lt;/div&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
+    &lt;/div&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bin/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Now, let&#39;s create a basic <code>index.js</code> file that will set up Stripe Elements. For now, this file won&#39;t use Preact at all, it&#39;ll be a proof of concept for getting a payment token from a Stripe Element.</p>
+    &lt;script src=&quot;bin/index.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Now, let&#39;s create a basic <code>index.js</code> file that will set up Stripe Elements. For now, this file won&#39;t use Preact at all, it&#39;ll be a proof of concept for getting a payment token from a Stripe Element.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { h, Component } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'preact'</span>);
 
 <span class="hljs-keyword">const</span> stripe = Stripe(<span class="hljs-string">'pk_test_CY6HxyQkOolO1B3h43MvkJE5'</span>);
@@ -79,7 +79,7 @@ card.mount(<span class="hljs-string">'#cc-form'</span>); <span class="hljs-comme
 };</code></pre>
 <p>Let&#39;s also add a <code>.babelrc</code> file to tell Babel to use the JSX loader:</p>
 <pre><code>{
-  <span class="hljs-string">"plugins"</span>: [<span class="hljs-string">"@babel/plugin-transform-react-jsx"</span>]
+  &quot;plugins&quot;: [&quot;@babel/plugin-transform-react-jsx&quot;]
 }</code></pre><p>Run <code>./node_modules/.bin/webpack</code> to compile, and then visit <code>http://localhost:5000</code> and you should be able to enter in payment info. Just use one of the fake credit cards from <a href="https://stripe.com/docs/testing#cards">Stripe&#39;s list of test cards</a>.</p>
 <div style="position: relative; padding-bottom: 62.5%; height: 0;"><iframe src="https://www.useloom.com/embed/4c5b634b9139483db4dece654765685b" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 

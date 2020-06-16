@@ -1,0 +1,279 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What JavaScript Developers Should Know About Curl | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What JavaScript Developers Should Know About Curl"><meta property="og:url" content="http://www.thecodebarbarian.com/what-javascript-developers-should-know-about-curl"><meta property="og:image" content="/images/aspen2.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Curl is a popular command-line HTTP client that comes bundled with OSX and most common Linux distros. Here's what you need to know about curl as a Node.js developer."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What JavaScript Developers Should Know About Curl</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">June 16, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://curl.haxx.se/">Curl</a> is a popular command line tool often used for
+making HTTP requests. Curl supports a wide variety of other protocols,
+but, as a Node.js developer, you&#39;ll most likely use it to make HTTP
+requests to RESTful APIs.</p>
+<p>Unfortunately, the <a href="https://curl.haxx.se/docs/manpage.html">curl docs list 383 supported command-line flags</a>, which makes it difficult to find what you&#39;re looking for. In this article,
+I&#39;ll list out the patterns that I find myself using most often with
+curl, using the excellent <a href="http://httpbin.org/">httpbin.org service</a> as an example.</p>
+<h2 id="making-an-http-get-request">Making an HTTP GET Request</h2>
+<p>First, double-check that you have curl installed by running <code>curl --version</code>.</p>
+<pre><code>$ curl --version
+curl 7.58.0 (x86_64-pc-linux-gnu) libcurl/7.58.0 OpenSSL/1.1.1 zlib/1.2.11 libidn2/2.0.4 libpsl/0.19.1 (+libidn2/2.0.4) nghttp2/1.30.0 librtmp/2.3
+Release-Date: 2018-01-24
+Protocols: dict file ftp ftps gopher http https imap imaps ldap ldaps pop3 pop3s rtmp rtsp smb smbs smtp smtps telnet tftp 
+Features: AsynchDNS IDN IPv6 Largefile GSS-API Kerberos SPNEGO NTLM NTLM_WB SSL libz TLS-SRP HTTP2 UnixSockets HTTPS-proxy PSL </code></pre><p>To make an HTTP GET request, you just need to run <code>curl &lt;url&gt;</code>. For example,
+to make an HTTP GET request to <code>https://httpbin.org/get?answer=42</code>, you
+can run <code>curl https://httpbin.org/get?answer=42</code>.</p>
+<pre><code>$ curl https://httpbin.org/get?answer=42
+{
+  &quot;args&quot;: {
+    &quot;answer&quot;: &quot;42&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8d737-b39c6a466892725bbb52b916&quot;
+  }, 
+  &quot;origin&quot;: &quot;69.84.111.39&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/get?answer=42&quot;
+}
+$</code></pre><p>When the HTTP request succeeds, curl prints out the HTTP response body.
+To make curl print the entire response, <a href="https://catonmat.net/cookbooks/curl/print-response-headers">including response headers</a>, use the <code>-i</code> flag.</p>
+<pre><code>$ curl -i https://httpbin.org/get?answer=42
+HTTP/2 200 
+date: Tue, 16 Jun 2020 14:30:57 GMT
+content-type: application/json
+content-length: 801
+server: istio-envoy
+access-control-allow-origin: *
+access-control-allow-credentials: true
+x-envoy-upstream-service-time: 2
+
+{
+  &quot;args&quot;: {
+    &quot;answer&quot;: &quot;42&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Content-Length&quot;: &quot;0&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8d7a1-cb3954c09299eb9e0dff70a6&quot;, 
+    &quot;X-B3-Parentspanid&quot;: &quot;dffc55451e64b5fc&quot;, 
+    &quot;X-B3-Sampled&quot;: &quot;0&quot;, 
+    &quot;X-B3-Spanid&quot;: &quot;8e233a863fb18b6c&quot;, 
+    &quot;X-B3-Traceid&quot;: &quot;45bd12a9067fb5c0dffc55451e64b5fc&quot;, 
+    &quot;X-Envoy-External-Address&quot;: &quot;10.100.91.201&quot;, 
+    &quot;X-Forwarded-Client-Cert&quot;: &quot;By=spiffe://cluster.local/ns/httpbin-istio/sa/httpbin;Hash=c1ff14671b3e24ee794f9a486570abf8ccc9d622846611d3f91a322db4d480cd;Subject=\&quot;\&quot;;URI=spiffe://cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account&quot;
+  }, 
+  &quot;origin&quot;: &quot;69.84.111.39,10.100.91.201&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/get?answer=42&quot;
+}</code></pre><p>The above output is a raw HTTP response. The response headers are the lines from
+<code>date:</code> to <code>x-envoy-upstream-service-time:</code>.</p>
+<h2 id="downloading-a-file">Downloading a File</h2>
+<p><a href="https://en.wikipedia.org/wiki/Wget">Wget</a> is a common tool for downloading
+files via the command line. Most Linux distros come with wget built in, but,
+conspicuously, <a href="https://www.maketecheasier.com/install-wget-mac/">OSX does not come with wget</a>.</p>
+<p>Practically speaking, <code>wget url</code> is equivalent to <code>curl -OL url</code>. The <code>-O</code>
+option is the <code>--remote-name</code> option, which tells curl to store the response
+body in a local file. The <code>-L</code> option tells curl to follow redirects.</p>
+<p>For example, below is an image from <a href="https://unsplash.com">Unsplash</a>, the
+URL is <code>https://images.unsplash.com/photo-1506812574058-fc75fa93fead</code>.</p>
+<img src="https://images.unsplash.com/photo-1506812574058-fc75fa93fead">
+
+<p>To download this image using curl, you can run:</p>
+<pre><code>$ curl -OL https://images.unsplash.com/photo-1506812574058-fc75fa93fead
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 12.1M  100 12.1M    0     0  3927k      0  0:00:03  0:00:03 --:--:-- 3927k
+$</code></pre><p>The <code>-O</code> option tells curl to use everything after the last <code>/</code> in the URL
+as the file name. So, in the above example, the image will be stored in
+the current directory with the file name <code>photo-1506812574058-fc75fa93fead</code>.
+To specify the file name, use the <code>-o</code> option (lowercase &#39;o&#39;).</p>
+<pre><code>$ curl -o miami-beach.jpg https://images.unsplash.com/photo-1506812574058-fc75fa93fead
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 12.1M  100 12.1M    0     0  6083k      0  0:00:02  0:00:02 --:--:-- 6083k
+$ ls -l miami-beach-jpg
+-rw-rw-r-- 1 val val 12788445 Jun 16 11:03 miami-beach.jpg
+$</code></pre><h2 id="making-a-request-with-authorization">Making a Request with Authorization</h2>
+<p>The <a href="https://masteringjs.io/tutorials/axios/authorization">authorization header</a> is
+where you usually need to put auth credentials when talking to a RESTful API.
+To set the authorization header manually, you need to use the <code>-H</code> flag, which
+sets a custom request header. For example, if your API key is <code>my-secret-token</code>,
+you can attach it to your curl HTTP request as shown below.</p>
+<pre><code>$ curl -H &quot;Authorization: my-secret-token&quot; https://httpbin.org/get
+{
+  &quot;args&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Authorization&quot;: &quot;my-secret-token&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8e1a5-a3aa30e0765a7980b04ca4a0&quot;
+  }, 
+  &quot;origin&quot;: &quot;69.84.111.39&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/get&quot;
+}
+$</code></pre><p>Note that <code>httpbin.org/get</code> sends back the HTTP request headers in
+the response body under the <code>headers</code> property.</p>
+<p>Curl also supports <a href="https://masteringjs.io/tutorials/axios/basic_auth">basic auth</a>
+using the <code>-u</code> flag. For example, below is how you send a request with
+username <code>user</code> and password <code>pass</code>:</p>
+<pre><code>$ curl -i -u &quot;user:pass&quot; https://httpbin.org/basic-auth/user/pass
+HTTP/2 200 
+date: Tue, 16 Jun 2020 15:18:45 GMT
+content-type: application/json
+content-length: 47
+server: istio-envoy
+access-control-allow-origin: *
+access-control-allow-credentials: true
+x-envoy-upstream-service-time: 1
+
+{
+  &quot;authenticated&quot;: true, 
+  &quot;user&quot;: &quot;user&quot;
+}
+$</code></pre><p>Here&#39;s what happens when you send the wrong username and password.</p>
+<pre><code>$ curl -i -u &quot;user:wrongpass&quot; https://httpbin.org/basic-auth/user/pass
+HTTP/2 401 
+date: Tue, 16 Jun 2020 15:18:51 GMT
+content-length: 0
+server: istio-envoy
+www-authenticate: Basic realm=&quot;Fake Realm&quot;
+access-control-allow-origin: *
+access-control-allow-credentials: true
+x-envoy-upstream-service-time: 12
+
+$</code></pre><h2 id="making-a-post-request-with-json">Making a POST Request With JSON</h2>
+<p>The <code>-X</code> flag tells curl what HTTP method to use: PUT, POST, etc.
+By default, curl uses GET, so you never need to do <code>curl -X GET</code>.</p>
+<p>The <code>-X</code> flag is often used with the <code>-d</code> flag, which lets you
+set the request body.
+Below is how you can send a POST request with some JSON.</p>
+<pre><code>$ curl -X POST -d &#39;{&quot;answer&quot;:42}&#39; https://httpbin.org/post
+{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {
+    &quot;{\&quot;answer\&quot;:42}&quot;: &quot;&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Content-Length&quot;: &quot;13&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8e3fd-8437029087be44707bd15320&quot;, 
+    &quot;X-B3-Parentspanid&quot;: &quot;2a739cfc42d28236&quot;, 
+    &quot;X-B3-Sampled&quot;: &quot;0&quot;, 
+    &quot;X-B3-Spanid&quot;: &quot;8bdf030613bb9c8d&quot;, 
+    &quot;X-B3-Traceid&quot;: &quot;75d84f317abad5232a739cfc42d28236&quot;, 
+    &quot;X-Envoy-External-Address&quot;: &quot;10.100.91.201&quot;, 
+    &quot;X-Forwarded-Client-Cert&quot;: &quot;By=spiffe://cluster.local/ns/httpbin-istio/sa/httpbin;Hash=ea8c3d70befa0d73aa0f07fdb74ec4700d42a72889a04630741193548f1a7ae1;Subject=\&quot;\&quot;;URI=spiffe://cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account&quot;
+  }, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;69.84.111.39,10.100.91.201&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+}
+$ </code></pre><p>Notice that, by default, curl sets the request&#39;s &#39;Content-Type&#39; header to
+<code>application/x-www-form-urlencoded</code>. That&#39;s incorrect for JSON, so
+for JSON requests you also need to set the &#39;Content-Type&#39; header
+using the <code>-H</code> flag.</p>
+<pre><code>$ curl -X POST -d &#39;{&quot;answer&quot;:42}&#39; -H &quot;Content-Type: application/json&quot; https://httpbin.org/post
+{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;{\&quot;answer\&quot;:42}&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Content-Length&quot;: &quot;13&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8e45e-ad875af4f83efd4379b86c34&quot;, 
+    &quot;X-B3-Parentspanid&quot;: &quot;5f4f33d1c5ea13aa&quot;, 
+    &quot;X-B3-Sampled&quot;: &quot;0&quot;, 
+    &quot;X-B3-Spanid&quot;: &quot;a062c9bf2ebfd4bd&quot;, 
+    &quot;X-B3-Traceid&quot;: &quot;44aa8d62412ae34d5f4f33d1c5ea13aa&quot;, 
+    &quot;X-Envoy-External-Address&quot;: &quot;10.100.86.47&quot;, 
+    &quot;X-Forwarded-Client-Cert&quot;: &quot;By=spiffe://cluster.local/ns/httpbin-istio/sa/httpbin;Hash=2f0b3331fe4d512975b4b82583a55dd5d1196023d0dfce9e0abed246991c5b67;Subject=\&quot;\&quot;;URI=spiffe://cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account&quot;
+  }, 
+  &quot;json&quot;: {
+    &quot;answer&quot;: 42
+  }, 
+  &quot;origin&quot;: &quot;69.84.111.39,10.100.86.47&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+}</code></pre><h2 id="making-a-put-request-with-a-json-file">Making a PUT Request With a JSON File</h2>
+<p>The <code>-d</code> flag by itself is convenient for small requests, but it can get
+cumbersome to deal with huge JSON payloads. Thankfully, the <code>-d</code> flag
+supports pulling data from a local file.</p>
+<p>For example, suppose you have a <code>data.json</code> file that has the below content:</p>
+<pre><code>{&quot;answer&quot;:42}</code></pre><p>To make an HTTP PUT request with that file as the request body, you
+can set the <code>-d</code> flag to <code>&#39;@data.json&#39;</code>. The <code>@</code> prefix tells curl
+to load the request body from the &#39;data.json&#39; file.</p>
+<pre><code>$ curl -X PUT -d &#39;@data.json&#39; -H &quot;Content-Type: application/json&quot; https://httpbin.org/put
+{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;{\&quot;answer\&quot;:42}&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Content-Length&quot;: &quot;13&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;curl/7.58.0&quot;, 
+    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-5ee8e745-37c4ef06326b7b4354a16b94&quot;, 
+    &quot;X-B3-Parentspanid&quot;: &quot;a4f8f91f4f1b051e&quot;, 
+    &quot;X-B3-Sampled&quot;: &quot;0&quot;, 
+    &quot;X-B3-Spanid&quot;: &quot;a018b1a3fcebdc68&quot;, 
+    &quot;X-B3-Traceid&quot;: &quot;7b48b01dc3f632eea4f8f91f4f1b051e&quot;, 
+    &quot;X-Envoy-External-Address&quot;: &quot;10.100.91.201&quot;, 
+    &quot;X-Forwarded-Client-Cert&quot;: &quot;By=spiffe://cluster.local/ns/httpbin-istio/sa/httpbin;Hash=6035260d9d551af6c1907270653214e8d3195abbdd19078c1c84fd9a4106f260;Subject=\&quot;\&quot;;URI=spiffe://cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account&quot;
+  }, 
+  &quot;json&quot;: {
+    &quot;answer&quot;: 42
+  }, 
+  &quot;origin&quot;: &quot;69.84.111.39,10.100.91.201&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/put&quot;
+}
+$ </code></pre><h2 id="moving-on">Moving On</h2>
+<p>To recap, here are the curl options that I find most useful.</p>
+<ul>
+<li><code>-X</code>: set the HTTP method, for example <code>curl -X POST url</code></li>
+<li><code>-d</code>: set the request body, as a string, for PUT and POST requests</li>
+<li><code>-H</code>: set a request header, for example <code>curl -H &quot;Authorization: my-secret-token&quot; url</code></li>
+<li><code>-u</code>: Auth credentials for basic auth</li>
+<li><code>-O</code>: store the response body in a file</li>
+<li><code>-i</code>: show the raw response, including response headers</li>
+</ul>
+<p>Curl is a useful tool for tinkering with APIs from the command line,
+whether it&#39;s an API you signed up for or one you&#39;re developing locally.
+For quick tests, curl can be easier than writing an <a href="https://masteringjs.io/axios">Axios</a>
+request in Node.js or setting up a request in <a href="https://www.postman.com/">Postman</a>,
+as long as you&#39;re familiar with the syntax.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>

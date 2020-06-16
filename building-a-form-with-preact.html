@@ -15,17 +15,17 @@
 </div><div class="post-body-text-container"><p><a href="https://www.npmjs.com/package/preact">Preact</a> is a simplified alternative to React that focuses on bundle size. A minified bundle with Preact and a minimal <a href="https://webpack.js.org/">Webpack</a> config ends up being around 10KB. A minimal unbundled React bundle ends up being around 100KB because of <a href="https://www.npmjs.com/package/react-dom">react-dom</a>. Because Preact bundles are comparatively tiny, Preact is a great choice for making sure your app feels snappy.</p>
 <pre><code>$ ./node_modules/.bin/webpack
 Hash: a1fc672a4a8c9742be78
-Version: webpack <span class="hljs-number">4.23</span><span class="hljs-number">.1</span>
-Time: <span class="hljs-number">1769</span>ms
-Built at: <span class="hljs-number">2018</span><span class="hljs-number">-11</span><span class="hljs-number">-01</span> <span class="hljs-number">13</span>:<span class="hljs-number">00</span>:<span class="hljs-number">14</span>
+Version: webpack 4.23.1
+Time: 1769ms
+Built at: 2018-11-01 13:00:14
     Asset      Size  Chunks             Chunk Names
-preact.js  <span class="hljs-number">9.64</span> KiB       <span class="hljs-number">0</span>  [emitted]  preact
- react.js   <span class="hljs-number">109</span> KiB       <span class="hljs-number">1</span>  [emitted]  react
+preact.js  9.64 KiB       0  [emitted]  preact
+ react.js   109 KiB       1  [emitted]  react
 Entrypoint preact = preact.js
 Entrypoint react = react.js
-[<span class="hljs-number">2</span>] ./preact.js <span class="hljs-number">33</span> bytes {<span class="hljs-number">0</span>} [built]
-[<span class="hljs-number">4</span>] ./react.js <span class="hljs-number">71</span> bytes {<span class="hljs-number">1</span>} [built]
-    + <span class="hljs-number">8</span> hidden modules</code></pre><p>I used the below Webpack config to get the above result.</p>
+[2] ./preact.js 33 bytes {0} [built]
+[4] ./react.js 71 bytes {1} [built]
+    + 8 hidden modules</code></pre><p>I used the below Webpack config to get the above result.</p>
 <pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
   entry: {
     preact: <span class="hljs-string">'./preact.js'</span>,
@@ -46,20 +46,20 @@ building a basic form using Preact.</p>
 <h2 id="setting-up-preact">Setting Up Preact</h2>
 <p>Like React, Preact is much easier with JSX, so you&#39;ll need to install Webpack, <a href="https://www.npmjs.com/package/@babel/core">Babel</a>, and a <a href="https://www.npmjs.com/package/@babel/plugin-transform-react-jsx">Babel transform for JSX</a>. You should
 also install a static HTTP server like <a href="https://www.npmjs.com/package/serve">serve</a>.</p>
-<pre><code>npm install preact babel-loader@<span class="hljs-number">8.</span>x @babel/core@<span class="hljs-number">7.</span>x @babel/plugin-transform-react-jsx@<span class="hljs-number">7.</span>x webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x</code></pre><p>This may seem like a lot to install for a simple app, but Babel and Webpack don&#39;t
+<pre><code>npm install preact babel-loader@8.x @babel/core@7.x @babel/plugin-transform-react-jsx@7.x webpack@4.x webpack-cli@3.x serve@10.x</code></pre><p>This may seem like a lot to install for a simple app, but Babel and Webpack don&#39;t
 end up in the end bundle, so your app size will still be small.</p>
 <p>First, let&#39;s set up a basic <code>index.html</code> file that will serve as the entry point for the
 app.</p>
 <pre><code>&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Preact Test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  &lt;head&gt;
+    &lt;title&gt;Preact Test&lt;/title&gt;
+  &lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bin/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Next, let&#39;s create an <code>index.js</code> file that will render some basic JSX:</p>
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;bin/index.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Next, let&#39;s create an <code>index.js</code> file that will render some basic JSX:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'preact'</span>);
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
@@ -90,23 +90,23 @@ React.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name
 };</code></pre>
 <p>And to configure Babel, we&#39;ll need a <code>.babelrc</code> file as well:</p>
 <pre><code>{
-  <span class="hljs-string">"plugins"</span>: [<span class="hljs-string">"@babel/plugin-transform-react-jsx"</span>]
+  &quot;plugins&quot;: [&quot;@babel/plugin-transform-react-jsx&quot;]
 }</code></pre><p>To compile, run <code>./node_modules/.bin/webpack</code></p>
 <pre><code>$ ./node_modules/.bin/webpack
 Hash: a4ff19ba7c622174cb97
-Version: webpack <span class="hljs-number">4.23</span><span class="hljs-number">.1</span>
-Time: <span class="hljs-number">578</span>ms
-Built at: <span class="hljs-number">2018</span><span class="hljs-number">-11</span><span class="hljs-number">-01</span> <span class="hljs-number">13</span>:<span class="hljs-number">20</span>:<span class="hljs-number">32</span>
+Version: webpack 4.23.1
+Time: 578ms
+Built at: 2018-11-01 13:20:32
    Asset      Size  Chunks             Chunk Names
-index.js  <span class="hljs-number">9.85</span> KiB       <span class="hljs-number">0</span>  [emitted]  index
+index.js  9.85 KiB       0  [emitted]  index
 Entrypoint index = index.js
-[<span class="hljs-number">0</span>] ./index.js <span class="hljs-number">288</span> bytes {<span class="hljs-number">0</span>} [built]
-    + <span class="hljs-number">1</span> hidden <span class="hljs-built_in">module</span></code></pre><p>Finally, run <code>serve</code> using <code>./node_modules/.bin/serve</code> and visit <code>http://localhost:5000</code>. You should see &quot;Hello, World&quot; show up.</p>
+[0] ./index.js 288 bytes {0} [built]
+    + 1 hidden module</code></pre><p>Finally, run <code>serve</code> using <code>./node_modules/.bin/serve</code> and visit <code>http://localhost:5000</code>. You should see &quot;Hello, World&quot; show up.</p>
 <h2 id="a-basic-form">A Basic Form</h2>
 <p>Forms in Preact are much easier with the <a href="https://www.npmjs.com/package/linkstate">linkstate</a>
 module, which was split off from core Preact. The linkstate module is tiny relative to Preact
 itself, so don&#39;t worry about it adding bloat.</p>
-<pre><code>npm install linkstate@<span class="hljs-number">1.</span>x</code></pre><p>Like <a href="https://stackoverflow.com/questions/52531081/how-to-use-componentdidmount-to-render-values-to-form-in-react">in React</a>, the standard pattern for a form with <a href="https://reactjs.org/docs/forms.html">controlled inputs</a> in Preact is:</p>
+<pre><code>npm install linkstate@1.x</code></pre><p>Like <a href="https://stackoverflow.com/questions/52531081/how-to-use-componentdidmount-to-render-values-to-form-in-react">in React</a>, the standard pattern for a form with <a href="https://reactjs.org/docs/forms.html">controlled inputs</a> in Preact is:</p>
 <p>1) Load form data in <code>componentDidMount()</code>
 2) Display the inputs with the input value bound to <code>state</code> and update <code>state</code> when the user modifies the form
 3) Call a <code>save()</code> function when the user submits the form</p>

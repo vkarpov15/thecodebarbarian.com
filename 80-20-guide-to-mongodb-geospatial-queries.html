@@ -25,58 +25,58 @@ documents whose GeoJSON geometries intersect with the polygon. Suppose you have
 a list of ski resorts in a <code>locations</code> collection:</p>
 <pre><code>&gt; db.locations.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>,
-    <span class="hljs-string">"location"</span> : {
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>,
-        <span class="hljs-string">"coordinates"</span> : [
-            <span class="hljs-number">-120.24</span>,
-            <span class="hljs-number">39.21</span>
+    &quot;_id&quot; : ObjectId(&quot;5801594c4067070bfcb01293&quot;),
+    &quot;name&quot; : &quot;Squaw Valley&quot;,
+    &quot;location&quot; : {
+        &quot;type&quot; : &quot;Point&quot;,
+        &quot;coordinates&quot; : [
+            -120.24,
+            39.21
         ]
     }
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>,
-    <span class="hljs-string">"location"</span> : {
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>,
-        <span class="hljs-string">"coordinates"</span> : [
-            <span class="hljs-number">-118.9</span>,
-            <span class="hljs-number">37.61</span>
+    &quot;_id&quot; : ObjectId(&quot;580159634067070bfcb01294&quot;),
+    &quot;name&quot; : &quot;Mammoth Lakes&quot;,
+    &quot;location&quot; : {
+        &quot;type&quot; : &quot;Point&quot;,
+        &quot;coordinates&quot; : [
+            -118.9,
+            37.61
         ]
     }
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>,
-    <span class="hljs-string">"location"</span> : {
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>,
-        <span class="hljs-string">"coordinates"</span> : [
-            <span class="hljs-number">-106.82</span>,
-            <span class="hljs-number">39.18</span>
+    &quot;_id&quot; : ObjectId(&quot;580159d94067070bfcb01295&quot;),
+    &quot;name&quot; : &quot;Aspen&quot;,
+    &quot;location&quot; : {
+        &quot;type&quot; : &quot;Point&quot;,
+        &quot;coordinates&quot; : [
+            -106.82,
+            39.18
         ]
     }
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58015a704067070bfcb01296"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Whistler"</span>,
-    <span class="hljs-string">"location"</span> : {
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>,
-        <span class="hljs-string">"coordinates"</span> : [
-            <span class="hljs-number">-122.95</span>,
-            <span class="hljs-number">50.12</span>
+    &quot;_id&quot; : ObjectId(&quot;58015a704067070bfcb01296&quot;),
+    &quot;name&quot; : &quot;Whistler&quot;,
+    &quot;location&quot; : {
+        &quot;type&quot; : &quot;Point&quot;,
+        &quot;coordinates&quot; : [
+            -122.95,
+            50.12
         ]
     }
 }</code></pre><p>How many of these locations are in the state of Colorado? Let&#39;s approximate
 Colorado as the below GeoJSON square.</p>
 <pre><code>{
-  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Polygon"</span>,
-  <span class="hljs-string">"coordinates"</span>: [[
-    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
-    [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
-    [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
-    [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
-    [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+  &quot;type&quot;: &quot;Polygon&quot;,
+  &quot;coordinates&quot;: [[
+    [-109, 41],
+    [-102, 41],
+    [-102, 37],
+    [-109, 37],
+    [-109, 41]
   ]]
 }</code></pre><p>Here&#39;s how these geometries look on a map. Click on the map for an interactive
 view.</p>
@@ -89,19 +89,19 @@ view.</p>
 ...   location: {
 ...     $geoIntersects: {
 ...       $geometry: {
-...         type: <span class="hljs-string">"Polygon"</span>,
+...         type: &quot;Polygon&quot;,
 ...         coordinates: [[
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
-...           [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
-...           [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+...           [-109, 41],
+...           [-102, 41],
+...           [-102, 37],
+...           [-109, 37],
+...           [-109, 41]
 ...         ]]
 ...       }
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }
+{ &quot;_id&quot; : ObjectId(&quot;580159d94067070bfcb01295&quot;), &quot;name&quot; : &quot;Aspen&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -106.82, 39.18 ] } }
 &gt;</code></pre><p>As expected, MongoDB managed to figure out that Aspen is in Colorado, and
 Squaw Valley, Mammoth Lakes, and Whistler are not. This query is not terribly
 enlightening, but if you start importing data like <a href="https://github.com/jgoodall/us-maps">US zip codes and counties</a> MongoDB can start looking like
@@ -120,19 +120,19 @@ and get the same result.</p>
 ...   location: {
 ...     $geoWithin: {
 ...       $geometry: {
-...         type: <span class="hljs-string">"Polygon"</span>,
+...         type: &quot;Polygon&quot;,
 ...         coordinates: [[
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>],
-...           [<span class="hljs-number">-102</span>, <span class="hljs-number">41</span>],
-...           [<span class="hljs-number">-102</span>, <span class="hljs-number">37</span>],
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">37</span>],
-...           [<span class="hljs-number">-109</span>, <span class="hljs-number">41</span>]
+...           [-109, 41],
+...           [-102, 41],
+...           [-102, 37],
+...           [-109, 37],
+...           [-109, 41]
 ...         ]]
 ...       }
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }</code></pre><p>The <code>$geoWithin</code> operator and the <code>$geoIntersects</code> operator have 2 key
+{ &quot;_id&quot; : ObjectId(&quot;580159d94067070bfcb01295&quot;), &quot;name&quot; : &quot;Aspen&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -106.82, 39.18 ] } }</code></pre><p>The <code>$geoWithin</code> operator and the <code>$geoIntersects</code> operator have 2 key
 differences:</p>
 <ul>
 <li><code>$geoWithin</code> searches for geometries that are contained entirely within a given geometry, whereas <code>$geoIntersects</code> looks for geometries that intersect. If the property you&#39;re searching for contains points, these are the same, but the results may differ if your documents contain polygons. More on this later.</li>
@@ -149,12 +149,12 @@ Here&#39;s how the MongoDB query with <code>$geoWithin</code> and <code>$centerS
 <pre><code>&gt; db.locations.find({
 ...   location: {
 ...     $geoWithin: {
-...       $centerSphere: [[<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.7</span>], <span class="hljs-number">300</span> / <span class="hljs-number">3963.2</span>]
+...       $centerSphere: [[-122.5, 37.7], 300 / 3963.2]
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] } }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] } }
+{ &quot;_id&quot; : ObjectId(&quot;5801594c4067070bfcb01293&quot;), &quot;name&quot; : &quot;Squaw Valley&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -120.24, 39.21 ] } }
+{ &quot;_id&quot; : ObjectId(&quot;580159634067070bfcb01294&quot;), &quot;name&quot; : &quot;Mammoth Lakes&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -118.9, 37.61 ] } }
 &gt;</code></pre><p>What&#39;s with the crazy 3963.2 magic number? <code>$centerSphere</code> takes the distance
 in radians, so you need to divide by the radius of the Earth, which is
 about <a href="https://en.wikipedia.org/wiki/Earth_radius#Fixed_radius">3963.2 miles at the equator</a>. This estimate
@@ -167,37 +167,37 @@ Using Node.js and the <a href="https://www.npmjs.com/package/turf">turf</a> modu
 miles away from the point we&#39;ve chosen to represent San Francisco, and Aspen
 is just under 900 miles away:</p>
 <pre><code>$ node
-&gt; <span class="hljs-keyword">var</span> turf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'turf'</span>)
-<span class="hljs-literal">undefined</span>
-&gt; turf.distance(turf.point([<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]), turf.point([<span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span>]), <span class="hljs-string">'miles'</span>)
-<span class="hljs-number">863.2551069982414</span>
-&gt; turf.distance(turf.point([<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]), turf.point([<span class="hljs-number">-122.95</span>, <span class="hljs-number">50.12</span>]), <span class="hljs-string">'miles'</span>)
-<span class="hljs-number">900.1549979044975</span>
+&gt; var turf = require(&#39;turf&#39;)
+undefined
+&gt; turf.distance(turf.point([-122.5, 37.1]), turf.point([-106.82, 39.18]), &#39;miles&#39;)
+863.2551069982414
+&gt; turf.distance(turf.point([-122.5, 37.1]), turf.point([-122.95, 50.12]), &#39;miles&#39;)
+900.1549979044975
 &gt;</code></pre><p>The way to run this query in MongoDB is the
 <a href="https://docs.mongodb.com/manual/reference/operator/query/nearSphere/"><code>$nearSphere</code> operator</a>.
 The <code>$nearSphere</code> operator requires you to create a <a href="https://docs.mongodb.com/manual/core/2dsphere/">2dsphere index</a>. Here&#39;s how that looks
 in the MongoDB shell:</p>
-<pre><code>&gt; db.locations.ensureIndex({ location: <span class="hljs-string">'2dsphere'</span> })
+<pre><code>&gt; db.locations.ensureIndex({ location: &#39;2dsphere&#39; })
 {
-    <span class="hljs-string">"createdCollectionAutomatically"</span> : <span class="hljs-literal">false</span>,
-    <span class="hljs-string">"numIndexesBefore"</span> : <span class="hljs-number">1</span>,
-    <span class="hljs-string">"numIndexesAfter"</span> : <span class="hljs-number">2</span>,
-    <span class="hljs-string">"ok"</span> : <span class="hljs-number">1</span>
+    &quot;createdCollectionAutomatically&quot; : false,
+    &quot;numIndexesBefore&quot; : 1,
+    &quot;numIndexesAfter&quot; : 2,
+    &quot;ok&quot; : 1
 }</code></pre><p>The <code>$nearSphere</code> operator takes a <code>$geometry</code> property that&#39;s a GeoJSON point, and <code>$minDistance</code> and <code>$maxDistance</code> properties that are in <strong>meters</strong>.</p>
 <pre><code>&gt; db.locations.find({
 ...   location: {
 ...     $nearSphere: {
 ...       $geometry: {
-...         type: <span class="hljs-string">'Point'</span>,
-...         coordinates: [<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]
+...         type: &#39;Point&#39;,
+...         coordinates: [-122.5, 37.1]
 ...       },
-...       $maxDistance: <span class="hljs-number">900</span> * <span class="hljs-number">1609.34</span>
+...       $maxDistance: 900 * 1609.34
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] } }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] } }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] } }
+{ &quot;_id&quot; : ObjectId(&quot;5801594c4067070bfcb01293&quot;), &quot;name&quot; : &quot;Squaw Valley&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -120.24, 39.21 ] } }
+{ &quot;_id&quot; : ObjectId(&quot;580159634067070bfcb01294&quot;), &quot;name&quot; : &quot;Mammoth Lakes&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -118.9, 37.61 ] } }
+{ &quot;_id&quot; : ObjectId(&quot;580159d94067070bfcb01295&quot;), &quot;name&quot; : &quot;Aspen&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -106.82, 39.18 ] } }
 &gt;</code></pre><p>The 1609.34 multiplier converts from <a href="http://www.metric-conversions.org/length/miles-to-meters-table.htm">miles to meters</a>.
 You can also specify <code>$minDistance</code>.</p>
 <p>What if, in addition to sorting by distance, you want MongoDB to compute the
@@ -217,18 +217,18 @@ computed <code>distanceFromSF</code> is in miles.</p>
 <pre><code>&gt; db.locations.aggregate([{
 ...   $geoNear: {
 ...     near: {
-...       type: <span class="hljs-string">'Point'</span>,
-...       coordinates: [<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]
+...       type: &#39;Point&#39;,
+...       coordinates: [-122.5, 37.1]
 ...     },
-...     spherical: <span class="hljs-literal">true</span>,
-...     maxDistance: <span class="hljs-number">900</span> * <span class="hljs-number">1609.34</span>,
-...     distanceMultiplier: <span class="hljs-number">1</span> / <span class="hljs-number">1609.34</span>,
-...     distanceField: <span class="hljs-string">'distanceFromSF'</span>
+...     spherical: true,
+...     maxDistance: 900 * 1609.34,
+...     distanceMultiplier: 1 / 1609.34,
+...     distanceField: &#39;distanceFromSF&#39;
 ...   }
 ... }])
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801594c4067070bfcb01293"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Squaw Valley"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-120.24</span>, <span class="hljs-number">39.21</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">190.80440056422898</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159634067070bfcb01294"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Mammoth Lakes"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-118.9</span>, <span class="hljs-number">37.61</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">201.0443259531628</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"580159d94067070bfcb01295"</span>), <span class="hljs-string">"name"</span> : <span class="hljs-string">"Aspen"</span>, <span class="hljs-string">"location"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, <span class="hljs-string">"coordinates"</span> : [ <span class="hljs-number">-106.82</span>, <span class="hljs-number">39.18</span> ] }, <span class="hljs-string">"distanceFromSF"</span> : <span class="hljs-number">863.9477714789235</span> }</code></pre><p><strong>Protip:</strong> Always test your queries carefully, don&#39;t just define a big polygon
+{ &quot;_id&quot; : ObjectId(&quot;5801594c4067070bfcb01293&quot;), &quot;name&quot; : &quot;Squaw Valley&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -120.24, 39.21 ] }, &quot;distanceFromSF&quot; : 190.80440056422898 }
+{ &quot;_id&quot; : ObjectId(&quot;580159634067070bfcb01294&quot;), &quot;name&quot; : &quot;Mammoth Lakes&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -118.9, 37.61 ] }, &quot;distanceFromSF&quot; : 201.0443259531628 }
+{ &quot;_id&quot; : ObjectId(&quot;580159d94067070bfcb01295&quot;), &quot;name&quot; : &quot;Aspen&quot;, &quot;location&quot; : { &quot;type&quot; : &quot;Point&quot;, &quot;coordinates&quot; : [ -106.82, 39.18 ] }, &quot;distanceFromSF&quot; : 863.9477714789235 }</code></pre><p><strong>Protip:</strong> Always test your queries carefully, don&#39;t just define a big polygon
 and check if your geospatial query returns all documents. I&#39;ve been using
 geospatial queries for years and I still forget which units the various
 geospatial operators use in which versions of MongoDB. This data set would make
@@ -242,30 +242,30 @@ or feature collections. To stick with our current data set, let&#39;s create a
 &#39;states&#39; collection that contains the minimal polygon for Colorado:</p>
 <pre><code>&gt; db.states.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801739adefd3a67cca15eae"</span>),
-    <span class="hljs-string">"geometry"</span> : {
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"Polygon"</span>,
-        <span class="hljs-string">"coordinates"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;5801739adefd3a67cca15eae&quot;),
+    &quot;geometry&quot; : {
+        &quot;type&quot; : &quot;Polygon&quot;,
+        &quot;coordinates&quot; : [
             [
                 [
-                    <span class="hljs-number">-109</span>,
-                    <span class="hljs-number">41</span>
+                    -109,
+                    41
                 ],
                 [
-                    <span class="hljs-number">-102</span>,
-                    <span class="hljs-number">41</span>
+                    -102,
+                    41
                 ],
                 [
-                    <span class="hljs-number">-102</span>,
-                    <span class="hljs-number">37</span>
+                    -102,
+                    37
                 ],
                 [
-                    <span class="hljs-number">-109</span>,
-                    <span class="hljs-number">37</span>
+                    -109,
+                    37
                 ],
                 [
-                    <span class="hljs-number">-109</span>,
-                    <span class="hljs-number">41</span>
+                    -109,
+                    41
                 ]
             ]
         ]
@@ -279,24 +279,24 @@ centered at San Francisco, you need to use the <code>$nearSphere</code> operator
 ...   geometry: {
 ...     $nearSphere: {
 ...       $geometry: {
-...         type: <span class="hljs-string">'Point'</span>,
-...         coordinates: [<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]
+...         type: &#39;Point&#39;,
+...         coordinates: [-122.5, 37.1]
 ...       },
-...       $maxDistance: <span class="hljs-number">900</span> * <span class="hljs-number">1609.34</span>
+...       $maxDistance: 900 * 1609.34
 ...     }
 ...   }
 ... })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5801739adefd3a67cca15eae"</span>), <span class="hljs-string">"geometry"</span> : { <span class="hljs-string">"type"</span> : <span class="hljs-string">"Polygon"</span>, <span class="hljs-string">"coordinates"</span> : [ [ [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ], [ <span class="hljs-number">-102</span>, <span class="hljs-number">41</span> ], [ <span class="hljs-number">-102</span>, <span class="hljs-number">37</span> ], [ <span class="hljs-number">-109</span>, <span class="hljs-number">37</span> ], [ <span class="hljs-number">-109</span>, <span class="hljs-number">41</span> ] ] ] } }
+{ &quot;_id&quot; : ObjectId(&quot;5801739adefd3a67cca15eae&quot;), &quot;geometry&quot; : { &quot;type&quot; : &quot;Polygon&quot;, &quot;coordinates&quot; : [ [ [ -109, 41 ], [ -102, 41 ], [ -102, 37 ], [ -109, 37 ], [ -109, 41 ] ] ] } }
 &gt;</code></pre><p>To double check, try running the query with 500 miles and see that you get
 no results:</p>
 <pre><code>&gt; db.states.find({
 ...   geometry: {
 ...     $nearSphere: {
 ...       $geometry: {
-...         type: <span class="hljs-string">'Point'</span>,
-...         coordinates: [<span class="hljs-number">-122.5</span>, <span class="hljs-number">37.1</span>]
+...         type: &#39;Point&#39;,
+...         coordinates: [-122.5, 37.1]
 ...       },
-...       $maxDistance: <span class="hljs-number">500</span> * <span class="hljs-number">1609.34</span>
+...       $maxDistance: 500 * 1609.34
 ...     }
 ...   }
 ... })

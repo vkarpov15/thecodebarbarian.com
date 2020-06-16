@@ -89,17 +89,17 @@ Thankfully, there&#39;s an <a href="https://www.npmjs.com/package/acquit-ignore"
 
 ```javascript
 setTimeout(() =&gt; {
-console.log('This is async');
+console.log(&#39;This is async&#39;);
 }, 50);
 ```</code></pre><h2 id="using-acquit-for-existing-content">Using Acquit For Existing Content</h2>
 <p>Another way to run Acquit is to use the <a href="https://www.npmjs.com/package/acquit-require"><code>acquit-require</code></a> plugin.
 This plugin operates on a string and replaces instances of <code>[require:foo]</code> with the first test that matches the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> &#39;foo&#39;.</p>
 <p>For example, suppose you have the below <code>sample.md</code> file:</p>
-<pre><code>Printing <span class="hljs-string">"Hello, World"</span> <span class="hljs-keyword">in</span> JavaScript is easy:
+<pre><code>Printing &quot;Hello, World&quot; in JavaScript is easy:
 
-<span class="hljs-string">``</span><span class="hljs-string">`
+```
 [require:bar]
-`</span><span class="hljs-string">``</span></code></pre><p>And a test file <code>example.js</code>:</p>
+```</code></pre><p>And a test file <code>example.js</code>:</p>
 <pre><code class="language-javascript">describe(<span class="hljs-string">'foo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   it(<span class="hljs-string">'bar'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
@@ -107,12 +107,12 @@ This plugin operates on a string and replaces instances of <code>[require:foo]</
 });</code></pre>
 <p>You can use <code>acquit-require</code> to pull in the first test whose
 description matches &#39;bar&#39;.</p>
-<pre><code>$ ./node_modules/.bin/acquit-<span class="hljs-built_in">require</span> -p sample.md -t example.js
-Printing <span class="hljs-string">"Hello, World"</span> <span class="hljs-keyword">in</span> JavaScript is easy:
+<pre><code>$ ./node_modules/.bin/acquit-require -p sample.md -t example.js
+Printing &quot;Hello, World&quot; in JavaScript is easy:
 
-<span class="hljs-string">``</span><span class="hljs-string">`
-console.log('Hello, World!');
-`</span><span class="hljs-string">``</span></code></pre><p>You can also use <code>acquit-require</code> <a href="http://acquit.mongoosejs.io/docs/examples.html">programmatically from Node.js</a>.</p>
+```
+console.log(&#39;Hello, World!&#39;);
+```</code></pre><p>You can also use <code>acquit-require</code> <a href="http://acquit.mongoosejs.io/docs/examples.html">programmatically from Node.js</a>.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Acquit has become a key part of my workflow as a module maintainer,
 API developer, and writer. Acquit saves you time by letting you

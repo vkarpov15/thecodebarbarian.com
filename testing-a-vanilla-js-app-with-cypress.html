@@ -29,18 +29,18 @@ but it is enough for a meaningful demo of Cypress&#39; features.</p>
 
 <p>Below is the HTML for the autocomplete page, the <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.html"><code>index.html</code> file</a>:</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search-wrapper"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Press enter to search npm"</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content-wrapper"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"results"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/index.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;
+      &lt;div id=&quot;search-wrapper&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;search&quot; placeholder=&quot;Press enter to search npm&quot;&gt;
+      &lt;/div&gt;
+      &lt;div id=&quot;content-wrapper&quot;&gt;
+        &lt;ul id=&quot;results&quot;&gt;&lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/index.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>The HTML isn&#39;t particularly interesting. The real functionality is in the
 <a href="https://github.com/vkarpov15/cypress-autocomplete/blob/master/index.js"><code>index.js</code> file</a>. This file is responsible for instrumenting the HTML to send out
 an HTTP request to npm using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch()</code></a> and
@@ -92,14 +92,14 @@ to compile the apps they test with Cypress, but this example just uses a
 <p>Installing <a href="http://npmjs.com/package/cypress">Cypress</a> is easy via npm:</p>
 <pre><code>npm install cypress</code></pre><p>In order to easily run Cypress, <a href="https://docs.cypress.io/guides/getting-started/installing-cypress.html#Opening-Cypress">add <code>cypress:open</code> script to your <code>package.json</code> file</a>.</p>
 <pre><code>{
-  <span class="hljs-string">"name"</span>: <span class="hljs-string">"cypress-autocomplete"</span>,
-  <span class="hljs-string">"devDependencies"</span>: {
-    <span class="hljs-string">"cypress"</span>: <span class="hljs-string">"3.0.2"</span>,
-    <span class="hljs-string">"serve"</span>: <span class="hljs-string">"9.2.0"</span>
+  &quot;name&quot;: &quot;cypress-autocomplete&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;cypress&quot;: &quot;3.0.2&quot;,
+    &quot;serve&quot;: &quot;9.2.0&quot;
   },
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"cypress:open"</span>: <span class="hljs-string">"cypress open"</span>,
-    <span class="hljs-string">"serve"</span>: <span class="hljs-string">"serve ./"</span>
+  &quot;scripts&quot;: {
+    &quot;cypress:open&quot;: &quot;cypress open&quot;,
+    &quot;serve&quot;: &quot;serve ./&quot;
   }
 }</code></pre><p>In one terminal tab, run <code>npm run serve</code> to start an <a href="http://npmjs.com/package/serve">HTTP server that serves files from your file system</a>. In another tab,
 run <code>npm run cypress:open</code> to start Cypress. When you run Cypress, you should

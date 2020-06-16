@@ -72,24 +72,24 @@ response object. The above example modifies the <code>res</code> object and retu
 it, but you can return a completely new object if you need to. Here&#39;s what
 the <code>JSON.stringify()</code> output looks like for a sample HTTP request:</p>
 <pre><code>{
-  <span class="hljs-string">"data"</span>: {
-    <span class="hljs-string">"success"</span>: <span class="hljs-literal">true</span>
+  &quot;data&quot;: {
+    &quot;success&quot;: true
   },
-  <span class="hljs-string">"status"</span>: <span class="hljs-number">200</span>,
-  <span class="hljs-string">"config"</span>: {
-    <span class="hljs-string">"method"</span>: <span class="hljs-string">"GET"</span>,
-    <span class="hljs-string">"transformRequest"</span>: [
-      <span class="hljs-literal">null</span>
+  &quot;status&quot;: 200,
+  &quot;config&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;transformRequest&quot;: [
+      null
     ],
-    <span class="hljs-string">"transformResponse"</span>: [
-      <span class="hljs-literal">null</span>
+    &quot;transformResponse&quot;: [
+      null
     ],
-    <span class="hljs-string">"url"</span>: <span class="hljs-string">"/sample"</span>,
-    <span class="hljs-string">"headers"</span>: {
-      <span class="hljs-string">"Accept"</span>: <span class="hljs-string">"application/json, text/plain, */*"</span>
+    &quot;url&quot;: &quot;/sample&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;
     }
   },
-  <span class="hljs-string">"statusText"</span>: <span class="hljs-string">"OK"</span>
+  &quot;statusText&quot;: &quot;OK&quot;
 }</code></pre><p>Your <code>response</code> function can modify this object in any way it sees fit. In
 this particular example, the underlying API changed its output format.
 However, the response interceptor abstracts out the API change so your

@@ -18,202 +18,202 @@
 <h2 id="digging-into-the-data">Digging into the Data</h2>
 <p>First off, lets take a look at the structure of the data. There have been 31,686 NBA regular season games since 1985-86. Each individual document represents a game. Here is the high level metadata for the 1985-86 season opener between the Washington Bullets and the Atlanta Hawks:</p>
 <pre><code>{
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"52f29f91ddbd75540aba6dae"</span>),
-    <span class="hljs-string">"box"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;52f29f91ddbd75540aba6dae&quot;),
+    &quot;box&quot; : [
         {
-            <span class="hljs-string">"players"</span> : [ ... ],
-            <span class="hljs-string">"team"</span> : { ... },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;players&quot; : [ ... ],
+            &quot;team&quot; : { ... },
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"players"</span> : [ ... ],
-            <span class="hljs-string">"team"</span> : { ... },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;players&quot; : [ ... ],
+            &quot;team&quot; : { ... },
+            &quot;won&quot; : 0
         }
     ],
-    <span class="hljs-string">"date"</span> : ISODate(<span class="hljs-string">"1985-10-25T04:00:00Z"</span>),
-    <span class="hljs-string">"teams"</span> : [
+    &quot;date&quot; : ISODate(&quot;1985-10-25T04:00:00Z&quot;),
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Washington Bullets"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"WSB"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">100</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">false</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;name&quot; : &quot;Washington Bullets&quot;,
+            &quot;abbreviation&quot; : &quot;WSB&quot;,
+            &quot;score&quot; : 100,
+            &quot;home&quot; : false,
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Atlanta Hawks"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"ATL"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">91</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">true</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;name&quot; : &quot;Atlanta Hawks&quot;,
+            &quot;abbreviation&quot; : &quot;ATL&quot;,
+            &quot;score&quot; : 91,
+            &quot;home&quot; : true,
+            &quot;won&quot; : 0
         }
     ]
 }</code></pre><p>The document contains a rich box score subdocument, a date field, and information on the teams that played. We can see that the Bullets won 100-91 as the road team. The box score data is similarly broken down by team in an array, with the winning team first. Note that the won flag is a member of the top level <code>box</code> object, along with team and players.</p>
 <pre><code>{
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"52f29f91ddbd75540aba6dae"</span>),
-    <span class="hljs-string">"box"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;52f29f91ddbd75540aba6dae&quot;),
+    &quot;box&quot; : [
         {
-            <span class="hljs-string">"players"</span> : [ ... ],
-            <span class="hljs-string">"team"</span> : {
-        <span class="hljs-string">"ast"</span> : <span class="hljs-number">21</span>,
-                <span class="hljs-string">"blk"</span> : <span class="hljs-number">7</span>,
-                <span class="hljs-string">"drb"</span> : <span class="hljs-number">29</span>,
-                <span class="hljs-string">"fg"</span> : <span class="hljs-number">40</span>,
-                <span class="hljs-string">"fg3"</span> : <span class="hljs-number">0</span>,
-                <span class="hljs-string">"fg3_pct"</span> : <span class="hljs-string">".000"</span>,
-                <span class="hljs-string">"fg3a"</span> : <span class="hljs-number">2</span>,
-                <span class="hljs-string">"fg_pct"</span> : <span class="hljs-string">".513"</span>,
-                <span class="hljs-string">"fga"</span> : <span class="hljs-number">78</span>,
-                <span class="hljs-string">"ft"</span> : <span class="hljs-number">20</span>,
-                <span class="hljs-string">"ft_pct"</span> : <span class="hljs-string">".769"</span>,
-                <span class="hljs-string">"fta"</span> : <span class="hljs-number">26</span>,
-                <span class="hljs-string">"mp"</span> : <span class="hljs-number">240</span>,
-                <span class="hljs-string">"orb"</span> : <span class="hljs-number">11</span>,
-                <span class="hljs-string">"pf"</span> : <span class="hljs-number">19</span>,
-                <span class="hljs-string">"pts"</span> : <span class="hljs-number">100</span>,
-                <span class="hljs-string">"stl"</span> : <span class="hljs-number">11</span>,
-                <span class="hljs-string">"tov"</span> : <span class="hljs-number">17</span>,
-                <span class="hljs-string">"trb"</span> : <span class="hljs-number">40</span>
+            &quot;players&quot; : [ ... ],
+            &quot;team&quot; : {
+        &quot;ast&quot; : 21,
+                &quot;blk&quot; : 7,
+                &quot;drb&quot; : 29,
+                &quot;fg&quot; : 40,
+                &quot;fg3&quot; : 0,
+                &quot;fg3_pct&quot; : &quot;.000&quot;,
+                &quot;fg3a&quot; : 2,
+                &quot;fg_pct&quot; : &quot;.513&quot;,
+                &quot;fga&quot; : 78,
+                &quot;ft&quot; : 20,
+                &quot;ft_pct&quot; : &quot;.769&quot;,
+                &quot;fta&quot; : 26,
+                &quot;mp&quot; : 240,
+                &quot;orb&quot; : 11,
+                &quot;pf&quot; : 19,
+                &quot;pts&quot; : 100,
+                &quot;stl&quot; : 11,
+                &quot;tov&quot; : 17,
+                &quot;trb&quot; : 40
       },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"players"</span> : [ ... ],
-            <span class="hljs-string">"team"</span> : {
-        <span class="hljs-string">"ast"</span> : <span class="hljs-number">25</span>,
-                <span class="hljs-string">"blk"</span> : <span class="hljs-number">5</span>,
-                <span class="hljs-string">"drb"</span> : <span class="hljs-number">28</span>,
-                <span class="hljs-string">"fg"</span> : <span class="hljs-number">41</span>,
-                <span class="hljs-string">"fg3"</span> : <span class="hljs-number">0</span>,
-                <span class="hljs-string">"fg3_pct"</span> : <span class="hljs-string">".000"</span>,
-                <span class="hljs-string">"fg3a"</span> : <span class="hljs-number">3</span>,
-                <span class="hljs-string">"fg_pct"</span> : <span class="hljs-string">".446"</span>,
-                <span class="hljs-string">"fga"</span> : <span class="hljs-number">92</span>,
-                <span class="hljs-string">"ft"</span> : <span class="hljs-number">9</span>,
-                <span class="hljs-string">"ft_pct"</span> : <span class="hljs-string">".500"</span>,
-                <span class="hljs-string">"fta"</span> : <span class="hljs-number">18</span>,
-                <span class="hljs-string">"mp"</span> : <span class="hljs-number">240</span>,
-                <span class="hljs-string">"orb"</span> : <span class="hljs-number">16</span>,
-                <span class="hljs-string">"pf"</span> : <span class="hljs-number">23</span>,
-                <span class="hljs-string">"pts"</span> : <span class="hljs-number">91</span>,
-                <span class="hljs-string">"stl"</span> : <span class="hljs-number">8</span>,
-                <span class="hljs-string">"tov"</span> : <span class="hljs-number">16</span>,
-                <span class="hljs-string">"trb"</span> : <span class="hljs-number">44</span>
+            &quot;players&quot; : [ ... ],
+            &quot;team&quot; : {
+        &quot;ast&quot; : 25,
+                &quot;blk&quot; : 5,
+                &quot;drb&quot; : 28,
+                &quot;fg&quot; : 41,
+                &quot;fg3&quot; : 0,
+                &quot;fg3_pct&quot; : &quot;.000&quot;,
+                &quot;fg3a&quot; : 3,
+                &quot;fg_pct&quot; : &quot;.446&quot;,
+                &quot;fga&quot; : 92,
+                &quot;ft&quot; : 9,
+                &quot;ft_pct&quot; : &quot;.500&quot;,
+                &quot;fta&quot; : 18,
+                &quot;mp&quot; : 240,
+                &quot;orb&quot; : 16,
+                &quot;pf&quot; : 23,
+                &quot;pts&quot; : 91,
+                &quot;stl&quot; : 8,
+                &quot;tov&quot; : 16,
+                &quot;trb&quot; : 44
       },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;won&quot; : 0
         }
     ],
-    <span class="hljs-string">"date"</span> : ISODate(<span class="hljs-string">"1985-10-25T04:00:00Z"</span>),
-    <span class="hljs-string">"teams"</span> : [
+    &quot;date&quot; : ISODate(&quot;1985-10-25T04:00:00Z&quot;),
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Washington Bullets"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"WSB"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">100</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">false</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;name&quot; : &quot;Washington Bullets&quot;,
+            &quot;abbreviation&quot; : &quot;WSB&quot;,
+            &quot;score&quot; : 100,
+            &quot;home&quot; : false,
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Atlanta Hawks"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"ATL"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">91</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">true</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;name&quot; : &quot;Atlanta Hawks&quot;,
+            &quot;abbreviation&quot; : &quot;ATL&quot;,
+            &quot;score&quot; : 91,
+            &quot;home&quot; : true,
+            &quot;won&quot; : 0
         }
     ]
 }</code></pre><p>The box score for each team is further broken down by team statistics and player statistics. The team stats above show the cumulative statistics for the Atlanta Hawks, showing that they shot 41-92 from the field and an atrocious 9-18 from the line. The players array shows the same statistics, but broken down for an individual player. For example, below you&#39;ll see that the Hawks&#39; star Dominique Wilkins scored 32 points on 15-29 shooting and recorded 3 steals.</p>
 <pre><code>{
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"52f29f91ddbd75540aba6dae"</span>),
-    <span class="hljs-string">"box"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;52f29f91ddbd75540aba6dae&quot;),
+    &quot;box&quot; : [
         {
-            <span class="hljs-string">"players"</span> : [ ... ],
-            <span class="hljs-string">"team"</span> : {
-        <span class="hljs-string">"ast"</span> : <span class="hljs-number">21</span>,
-                <span class="hljs-string">"blk"</span> : <span class="hljs-number">7</span>,
-                <span class="hljs-string">"drb"</span> : <span class="hljs-number">29</span>,
-                <span class="hljs-string">"fg"</span> : <span class="hljs-number">40</span>,
-                <span class="hljs-string">"fg3"</span> : <span class="hljs-number">0</span>,
-                <span class="hljs-string">"fg3_pct"</span> : <span class="hljs-string">".000"</span>,
-                <span class="hljs-string">"fg3a"</span> : <span class="hljs-number">2</span>,
-                <span class="hljs-string">"fg_pct"</span> : <span class="hljs-string">".513"</span>,
-                <span class="hljs-string">"fga"</span> : <span class="hljs-number">78</span>,
-                <span class="hljs-string">"ft"</span> : <span class="hljs-number">20</span>,
-                <span class="hljs-string">"ft_pct"</span> : <span class="hljs-string">".769"</span>,
-                <span class="hljs-string">"fta"</span> : <span class="hljs-number">26</span>,
-                <span class="hljs-string">"mp"</span> : <span class="hljs-number">240</span>,
-                <span class="hljs-string">"orb"</span> : <span class="hljs-number">11</span>,
-                <span class="hljs-string">"pf"</span> : <span class="hljs-number">19</span>,
-                <span class="hljs-string">"pts"</span> : <span class="hljs-number">100</span>,
-                <span class="hljs-string">"stl"</span> : <span class="hljs-number">11</span>,
-                <span class="hljs-string">"tov"</span> : <span class="hljs-number">17</span>,
-                <span class="hljs-string">"trb"</span> : <span class="hljs-number">40</span>
+            &quot;players&quot; : [ ... ],
+            &quot;team&quot; : {
+        &quot;ast&quot; : 21,
+                &quot;blk&quot; : 7,
+                &quot;drb&quot; : 29,
+                &quot;fg&quot; : 40,
+                &quot;fg3&quot; : 0,
+                &quot;fg3_pct&quot; : &quot;.000&quot;,
+                &quot;fg3a&quot; : 2,
+                &quot;fg_pct&quot; : &quot;.513&quot;,
+                &quot;fga&quot; : 78,
+                &quot;ft&quot; : 20,
+                &quot;ft_pct&quot; : &quot;.769&quot;,
+                &quot;fta&quot; : 26,
+                &quot;mp&quot; : 240,
+                &quot;orb&quot; : 11,
+                &quot;pf&quot; : 19,
+                &quot;pts&quot; : 100,
+                &quot;stl&quot; : 11,
+                &quot;tov&quot; : 17,
+                &quot;trb&quot; : 40
       },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"players"</span> : [
+            &quot;players&quot; : [
         {
-                    <span class="hljs-string">"ast"</span> : <span class="hljs-number">4</span>,
-                    <span class="hljs-string">"blk"</span> : <span class="hljs-number">0</span>,
-                    <span class="hljs-string">"drb"</span> : <span class="hljs-number">1</span>,
-                    <span class="hljs-string">"fg"</span> : <span class="hljs-number">15</span>,
-                    <span class="hljs-string">"fg3"</span> : <span class="hljs-number">0</span>,
-                    <span class="hljs-string">"fg3_pct"</span> : <span class="hljs-string">".000"</span>,
-                    <span class="hljs-string">"fg3a"</span> : <span class="hljs-number">2</span>,
-                    <span class="hljs-string">"fg_pct"</span> : <span class="hljs-string">".517"</span>,
-                    <span class="hljs-string">"fga"</span> : <span class="hljs-number">29</span>,
-                    <span class="hljs-string">"ft"</span> : <span class="hljs-number">2</span>,
-                    <span class="hljs-string">"ft_pct"</span> : <span class="hljs-string">".400"</span>,
-                    <span class="hljs-string">"fta"</span> : <span class="hljs-number">5</span>,
-                    <span class="hljs-string">"mp"</span> : <span class="hljs-string">"42:00"</span>,
-                    <span class="hljs-string">"orb"</span> : <span class="hljs-number">5</span>,
-                    <span class="hljs-string">"pf"</span> : <span class="hljs-number">2</span>,
-                    <span class="hljs-string">"player"</span> : <span class="hljs-string">"Dominique Wilkins"</span>,
-                    <span class="hljs-string">"pts"</span> : <span class="hljs-number">32</span>,
-                    <span class="hljs-string">"stl"</span> : <span class="hljs-number">3</span>,
-                    <span class="hljs-string">"tov"</span> : <span class="hljs-number">5</span>,
-                    <span class="hljs-string">"trb"</span> : <span class="hljs-number">6</span>
+                    &quot;ast&quot; : 4,
+                    &quot;blk&quot; : 0,
+                    &quot;drb&quot; : 1,
+                    &quot;fg&quot; : 15,
+                    &quot;fg3&quot; : 0,
+                    &quot;fg3_pct&quot; : &quot;.000&quot;,
+                    &quot;fg3a&quot; : 2,
+                    &quot;fg_pct&quot; : &quot;.517&quot;,
+                    &quot;fga&quot; : 29,
+                    &quot;ft&quot; : 2,
+                    &quot;ft_pct&quot; : &quot;.400&quot;,
+                    &quot;fta&quot; : 5,
+                    &quot;mp&quot; : &quot;42:00&quot;,
+                    &quot;orb&quot; : 5,
+                    &quot;pf&quot; : 2,
+                    &quot;player&quot; : &quot;Dominique Wilkins&quot;,
+                    &quot;pts&quot; : 32,
+                    &quot;stl&quot; : 3,
+                    &quot;tov&quot; : 5,
+                    &quot;trb&quot; : 6
                 },
         ...
       ],
-            <span class="hljs-string">"team"</span> : {
-        <span class="hljs-string">"ast"</span> : <span class="hljs-number">25</span>,
-                <span class="hljs-string">"blk"</span> : <span class="hljs-number">5</span>,
-                <span class="hljs-string">"drb"</span> : <span class="hljs-number">28</span>,
-                <span class="hljs-string">"fg"</span> : <span class="hljs-number">41</span>,
-                <span class="hljs-string">"fg3"</span> : <span class="hljs-number">0</span>,
-                <span class="hljs-string">"fg3_pct"</span> : <span class="hljs-string">".000"</span>,
-                <span class="hljs-string">"fg3a"</span> : <span class="hljs-number">3</span>,
-                <span class="hljs-string">"fg_pct"</span> : <span class="hljs-string">".446"</span>,
-                <span class="hljs-string">"fga"</span> : <span class="hljs-number">92</span>,
-                <span class="hljs-string">"ft"</span> : <span class="hljs-number">9</span>,
-                <span class="hljs-string">"ft_pct"</span> : <span class="hljs-string">".500"</span>,
-                <span class="hljs-string">"fta"</span> : <span class="hljs-number">18</span>,
-                <span class="hljs-string">"mp"</span> : <span class="hljs-number">240</span>,
-                <span class="hljs-string">"orb"</span> : <span class="hljs-number">16</span>,
-                <span class="hljs-string">"pf"</span> : <span class="hljs-number">23</span>,
-                <span class="hljs-string">"pts"</span> : <span class="hljs-number">91</span>,
-                <span class="hljs-string">"stl"</span> : <span class="hljs-number">8</span>,
-                <span class="hljs-string">"tov"</span> : <span class="hljs-number">16</span>,
-                <span class="hljs-string">"trb"</span> : <span class="hljs-number">44</span>
+            &quot;team&quot; : {
+        &quot;ast&quot; : 25,
+                &quot;blk&quot; : 5,
+                &quot;drb&quot; : 28,
+                &quot;fg&quot; : 41,
+                &quot;fg3&quot; : 0,
+                &quot;fg3_pct&quot; : &quot;.000&quot;,
+                &quot;fg3a&quot; : 3,
+                &quot;fg_pct&quot; : &quot;.446&quot;,
+                &quot;fga&quot; : 92,
+                &quot;ft&quot; : 9,
+                &quot;ft_pct&quot; : &quot;.500&quot;,
+                &quot;fta&quot; : 18,
+                &quot;mp&quot; : 240,
+                &quot;orb&quot; : 16,
+                &quot;pf&quot; : 23,
+                &quot;pts&quot; : 91,
+                &quot;stl&quot; : 8,
+                &quot;tov&quot; : 16,
+                &quot;trb&quot; : 44
       },
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;won&quot; : 0
         }
     ],
-    <span class="hljs-string">"date"</span> : ISODate(<span class="hljs-string">"1985-10-25T04:00:00Z"</span>),
-    <span class="hljs-string">"teams"</span> : [
+    &quot;date&quot; : ISODate(&quot;1985-10-25T04:00:00Z&quot;),
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Washington Bullets"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"WSB"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">100</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">false</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">1</span>
+            &quot;name&quot; : &quot;Washington Bullets&quot;,
+            &quot;abbreviation&quot; : &quot;WSB&quot;,
+            &quot;score&quot; : 100,
+            &quot;home&quot; : false,
+            &quot;won&quot; : 1
         },
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Atlanta Hawks"</span>,
-            <span class="hljs-string">"abbreviation"</span> : <span class="hljs-string">"ATL"</span>,
-            <span class="hljs-string">"score"</span> : <span class="hljs-number">91</span>,
-            <span class="hljs-string">"home"</span> : <span class="hljs-literal">true</span>,
-            <span class="hljs-string">"won"</span> : <span class="hljs-number">0</span>
+            &quot;name&quot; : &quot;Atlanta Hawks&quot;,
+            &quot;abbreviation&quot; : &quot;ATL&quot;,
+            &quot;score&quot; : 91,
+            &quot;home&quot; : true,
+            &quot;won&quot; : 0
         }
     ]
 }</code></pre><h2 id="running-some-aggregations">Running Some Aggregations</h2>
@@ -232,72 +232,72 @@
   {
     $match : {
       date : {
-        $gt : ISODate(<span class="hljs-string">"1999-08-01T00:00:00Z"</span>),
-        $lt : ISODate(<span class="hljs-string">"2000-08-01T00:00:00Z"</span>)
+        $gt : ISODate(&quot;1999-08-01T00:00:00Z&quot;),
+        $lt : ISODate(&quot;2000-08-01T00:00:00Z&quot;)
       }
     }
   },
   {
-    $unwind : <span class="hljs-string">'$teams'</span>
+    $unwind : &#39;$teams&#39;
   },
   {
     $match : {
-      <span class="hljs-string">'teams.won'</span> : <span class="hljs-number">1</span>
+      &#39;teams.won&#39; : 1
     }
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$teams.name'</span>,
-      wins : { $sum : <span class="hljs-number">1</span> }
+      _id : &#39;$teams.name&#39;,
+      wins : { $sum : 1 }
     }
   },
   {
-    $sort : { wins : <span class="hljs-number">-1</span> }
+    $sort : { wins : -1 }
   },
   {
-    $limit : <span class="hljs-number">5</span>
+    $limit : 5
   }
 ]);</code></pre><p>Below is the output:</p>
-<pre><code>{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">67</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Portland Trail Blazers"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">59</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Indiana Pacers"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">56</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Utah Jazz"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">55</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"San Antonio Spurs"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">53</span> }</code></pre><p>We can expand on this simple example to answer the question of which team won the most games between the 2000-2001 season and the 2009-2010 season, by changing the $match step to limit ourselves to games that took place between August 1, 2000 and August 1, 2010. Turns out, the San Antonio Spurs won 579 games in that time period, narrowly beating the Dallas Mavericks&#39; 568.</p>
+<pre><code>{ &quot;_id&quot; : &quot;Los Angeles Lakers&quot;, &quot;wins&quot; : 67 }
+{ &quot;_id&quot; : &quot;Portland Trail Blazers&quot;, &quot;wins&quot; : 59 }
+{ &quot;_id&quot; : &quot;Indiana Pacers&quot;, &quot;wins&quot; : 56 }
+{ &quot;_id&quot; : &quot;Utah Jazz&quot;, &quot;wins&quot; : 55 }
+{ &quot;_id&quot; : &quot;San Antonio Spurs&quot;, &quot;wins&quot; : 53 }</code></pre><p>We can expand on this simple example to answer the question of which team won the most games between the 2000-2001 season and the 2009-2010 season, by changing the $match step to limit ourselves to games that took place between August 1, 2000 and August 1, 2010. Turns out, the San Antonio Spurs won 579 games in that time period, narrowly beating the Dallas Mavericks&#39; 568.</p>
 <pre><code>db.games.aggregate([
   {
     $match : {
       date : {
-        $gt : ISODate(<span class="hljs-string">"2000-08-01T00:00:00Z"</span>),
-        $lt : ISODate(<span class="hljs-string">"2010-08-01T00:00:00Z"</span>)
+        $gt : ISODate(&quot;2000-08-01T00:00:00Z&quot;),
+        $lt : ISODate(&quot;2010-08-01T00:00:00Z&quot;)
       }
     }
   },
   {
-    $unwind : <span class="hljs-string">'$teams'</span>
+    $unwind : &#39;$teams&#39;
   },
   {
     $match : {
-      <span class="hljs-string">'teams.won'</span> : <span class="hljs-number">1</span>
+      &#39;teams.won&#39; : 1
     }
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$teams.name'</span>,
-      wins : { $sum : <span class="hljs-number">1</span> }
+      _id : &#39;$teams.name&#39;,
+      wins : { $sum : 1 }
     }
   },
   {
-    $sort : { wins : <span class="hljs-number">-1</span> }
+    $sort : { wins : -1 }
   },
   {
-    $limit : <span class="hljs-number">5</span>
+    $limit : 5
   }
 ]);</code></pre><p>Below is the aggregation output:</p>
-<pre><code>{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"San Antonio Spurs"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">579</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Dallas Mavericks"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">568</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">524</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Phoenix Suns"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">495</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Detroit Pistons"</span>, <span class="hljs-string">"wins"</span> : <span class="hljs-number">489</span> }</code></pre><h2 id="correlating-stats-with-wins">Correlating Stats With Wins</h2>
+<pre><code>{ &quot;_id&quot; : &quot;San Antonio Spurs&quot;, &quot;wins&quot; : 579 }
+{ &quot;_id&quot; : &quot;Dallas Mavericks&quot;, &quot;wins&quot; : 568 }
+{ &quot;_id&quot; : &quot;Los Angeles Lakers&quot;, &quot;wins&quot; : 524 }
+{ &quot;_id&quot; : &quot;Phoenix Suns&quot;, &quot;wins&quot; : 495 }
+{ &quot;_id&quot; : &quot;Detroit Pistons&quot;, &quot;wins&quot; : 489 }</code></pre><h2 id="correlating-stats-with-wins">Correlating Stats With Wins</h2>
 <p>Lets do something a bit more interesting using a couple of aggregation operators that you don&#39;t often see when analyzing the zip codes data set: the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/gte/"><code>$gte</code> operator</a> and the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/cond/"><code>$cond</code> operator</a> in the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/project/"><code>$project stage</code></a>. Lets use these to compute how often a team wins when they record more defensive rebounds than their opponent across the entire data set.</p>
 <p>The tricky bit here is getting a notion of the difference between the winning team&#39;s defensive rebounding total and the losing team&#39;s defensive rebounding total. The aggregation framework makes computing the difference a bit tricky, but using <code>$cond</code>, we can transform the document so that the defensive rebounding total is negative if the team lost. We can then use <code>$group</code> to compute the defensive rebounding difference for each game. Lets walk through this step by step:</p>
 <ol>
@@ -309,56 +309,56 @@
 </ol>
 <pre><code>db.games.aggregate([
   {
-    $unwind : <span class="hljs-string">'$box'</span>
+    $unwind : &#39;$box&#39;
   },
   {
     $project : {
-      _id : <span class="hljs-string">'$_id'</span>,
+      _id : &#39;$_id&#39;,
       stat : {
         $cond : [
-          { $gt : [<span class="hljs-string">'$box.won'</span>, <span class="hljs-number">0</span>] },
-          <span class="hljs-string">'$box.team.drb'</span>,
-          { $multiply : [<span class="hljs-string">'$box.team.drb'</span>, <span class="hljs-number">-1</span>] }
+          { $gt : [&#39;$box.won&#39;, 0] },
+          &#39;$box.team.drb&#39;,
+          { $multiply : [&#39;$box.team.drb&#39;, -1] }
         ]
       }
     }
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$_id'</span>,
-      stat : { $sum : <span class="hljs-string">'$stat'</span> }
+      _id : &#39;$_id&#39;,
+      stat : { $sum : &#39;$stat&#39; }
     }
   },
   {
     $project : {
-      _id : <span class="hljs-string">'$_id'</span>,
-      winningTeamHigher : { $gte : [<span class="hljs-string">'$stat'</span>, <span class="hljs-number">0</span>] }
+      _id : &#39;$_id&#39;,
+      winningTeamHigher : { $gte : [&#39;$stat&#39;, 0] }
     }
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$winningTeamHigher'</span>,
-      count : { $sum : <span class="hljs-number">1</span> }
+      _id : &#39;$winningTeamHigher&#39;,
+      count : { $sum : 1 }
     }
   }
 ]);</code></pre><p>Below is the output:</p>
-<pre><code>{ <span class="hljs-string">"_id"</span> : <span class="hljs-literal">false</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">7693</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-literal">true</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">23993</span> }</code></pre><p>In other words, the team that recorded more defensive rebounds won 23,993 times and lost 7,693 times in this data set.</p>
+<pre><code>{ &quot;_id&quot; : false, &quot;count&quot; : 7693 }
+{ &quot;_id&quot; : true, &quot;count&quot; : 23993 }</code></pre><p>In other words, the team that recorded more defensive rebounds won 23,993 times and lost 7,693 times in this data set.</p>
 <p>This result is pretty interesting: the team which recorded more defensive rebounds won about 75% of the time. To put this in perspective, the team that recorded more field goals than the other team only wins 78.8% of the time! Try rewriting the above aggregation for other statistics, such as field goals, 3 pointers, turnovers, etc. You&#39;ll find some rather interesting results. Offensive rebounds turn out to be a very bad predictor of which team won, as the team which recorded more offensive rebounds only won 51% of the time. 3 pointers turn out to be a very good predictor of which team won: the team which recorded more 3 pointers won about 64% of the time.</p>
 <h2 id="defensive-rebounds-and-total-rebounds-versus-win-percentage">Defensive Rebounds and Total Rebounds Versus Win Percentage</h2>
 <p>Lets compute some data related to this that will be fun to graph. We&#39;re going to compute what percentage of the time a team wins as a function of the number of defensive rebounds they recorded. This aggregation is pretty simple, all we need to do is <code>$unwind</code> the box score, and use <code>$group</code> to compute the average value of the won flag across each different defensive rebounding total.</p>
 <pre><code>db.games.aggregate([
   {
-    $unwind : <span class="hljs-string">'$box'</span>
+    $unwind : &#39;$box&#39;
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$box.team.drb'</span>,
-      winPercentage : { $avg : <span class="hljs-string">'$box.won'</span> }
+      _id : &#39;$box.team.drb&#39;,
+      winPercentage : { $avg : &#39;$box.won&#39; }
     }
   },
   {
-    $sort : { _id : <span class="hljs-number">1</span> }
+    $sort : { _id : 1 }
   }
 ]);</code></pre><p>And when we graph out the results of this aggregation, we can create a nice graph which neatly shows a pretty solid correlation between defensive rebounds and win percentage. An interesting factoid: the team that recorded the fewest defensive rebounds in a win was the 1995-96 Toronto Raptors, who beat the Milwaukee Bucks 93-87 on 12/26/1995 despite recording only 14 defensive rebounds.</p>
 <p><canvas id="drb-chart" style="border: 1px solid #ddd; height: 300px"></canvas></p>
@@ -429,16 +429,16 @@
 <p>We can pretty easily modify the above aggregation to compute the same breakdown for total rebounds (TRB) versus defensive rebounds, and see if we get a different result.</p>
 <pre><code>db.games.aggregate([
   {
-    $unwind : <span class="hljs-string">'$box'</span>
+    $unwind : &#39;$box&#39;
   },
   {
     $group : {
-      _id : <span class="hljs-string">'$box.team.trb'</span>,
-      winPercentage : { $avg : <span class="hljs-string">'$box.won'</span> }
+      _id : &#39;$box.team.trb&#39;,
+      winPercentage : { $avg : &#39;$box.won&#39; }
     }
   },
   {
-    $sort : { _id : <span class="hljs-number">1</span> }
+    $sort : { _id : 1 }
   }
 ]);</code></pre><p>And in fact we do! After about 53 total rebounds, the positive correlation between total rebounds and win percentage vanishes completely! The correlation is definitely not as strong here as it was for defensive rebounds. As an aside, the Cleveland Cavaliers beat the New York Knicks 101-97 on April 11, 1996, despite recording only 21 total rebounds. Inversely, the San Antonio Spurs lost to the Houston Rockets, 112-110, on January 4, 1992 despite recording 75 total rebounds.</p>
 <p><canvas id="trb-chart" style="border: 1px solid #ddd; height: 300px"></canvas></p>

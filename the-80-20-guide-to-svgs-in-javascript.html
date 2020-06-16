@@ -19,12 +19,12 @@ very similar to HTML, so much so that you can define SVGs inline in HTML files a
 JavaScript frameworks.</p>
 <h2 id="basic-svg-in-html">Basic SVG in HTML</h2>
 <p>Below is an SVG version of the yin and yang symbol from <a href="https://commons.wikimedia.org/wiki/File:Yin_yang.svg">Wikimedia commons</a>.</p>
-<pre><code>&lt;svg xmlns=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> width=<span class="hljs-string">"200"</span> height=<span class="hljs-string">"200"</span> viewBox=<span class="hljs-string">"-40 -40 80 80"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"39"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"-19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span>/&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span></code></pre><p>Here&#39;s what it looks like in the browser. </p>
+<pre><code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;200&quot; height=&quot;200&quot; viewBox=&quot;-40 -40 80 80&quot;&gt;
+  &lt;circle r=&quot;39&quot;/&gt;
+  &lt;path d=&quot;M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38&quot; fill=&quot;#fff&quot;/&gt;
+  &lt;circle cy=&quot;19&quot; r=&quot;5&quot; fill=&quot;#fff&quot;/&gt;
+  &lt;circle cy=&quot;-19&quot; r=&quot;5&quot;/&gt;
+&lt;/svg&gt;</code></pre><p>Here&#39;s what it looks like in the browser. </p>
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
   <circle r="39"/>
   <path d="M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38" fill="#fff"/>
@@ -38,12 +38,12 @@ JavaScript frameworks.</p>
 text editor like VS Code, or an <a href="https://www.rapidtables.com/web/tools/svg-viewer-editor.html">online viewer</a>.
 There is also an <a href="https://atom.io/packages/svg-preview">atom plugin that previews SVGs</a>. For example, if you
 comment out the last <code>circle</code> tag from the above image, you remove the top black dot.</p>
-<pre><code>&lt;svg xmlns=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> width=<span class="hljs-string">"200"</span> height=<span class="hljs-string">"200"</span> viewBox=<span class="hljs-string">"-40 -40 80 80"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"39"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">"19"</span> <span class="hljs-attr">r</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"#fff"</span>/&gt;</span>
-  <span class="hljs-comment">&lt;!-- &lt;circle cy="-19" r="5"/&gt; --&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span></code></pre><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
+<pre><code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;200&quot; height=&quot;200&quot; viewBox=&quot;-40 -40 80 80&quot;&gt;
+  &lt;circle r=&quot;39&quot;/&gt;
+  &lt;path d=&quot;M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38&quot; fill=&quot;#fff&quot;/&gt;
+  &lt;circle cy=&quot;19&quot; r=&quot;5&quot; fill=&quot;#fff&quot;/&gt;
+  &lt;!-- &lt;circle cy=&quot;-19&quot; r=&quot;5&quot;/&gt; --&gt;
+&lt;/svg&gt;</code></pre><svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-40 -40 80 80">
   <circle r="39"/>
   <path d="M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38" fill="#fff"/>
   <circle cy="19" r="5" fill="#fff"/>
@@ -55,7 +55,7 @@ comment out the last <code>circle</code> tag from the above image, you remove th
 <p>SVGs support comments. There is an <a href="https://www.npmjs.com/package/svgo">extremely popular npm module for optimizing SVGs called <code>svgo</code></a> that minifies SVGs by removing comments and other non-functional elements.</p>
 <p>Scaling an SVG is as easy as increasing the <code>width</code> and <code>height</code> properties of the <code>svg</code> tag. No need to modify
 any of the SVG internals. Below is how you double the height and width of the yin yang symbol to 400x400.</p>
-<pre><code>&lt;svg xmlns=<span class="hljs-string">"http://www.w3.org/2000/svg"</span> width=<span class="hljs-string">"400"</span> height=<span class="hljs-string">"400"</span> viewBox=<span class="hljs-string">"-40 -40 80 80"</span>&gt;...&lt;<span class="hljs-regexp">/svg&gt;</span></code></pre><h2 id="svg-with-vue">SVG With Vue</h2>
+<pre><code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;400&quot; height=&quot;400&quot; viewBox=&quot;-40 -40 80 80&quot;&gt;...&lt;/svg&gt;</code></pre><h2 id="svg-with-vue">SVG With Vue</h2>
 <p>Because you can embed SVGs into the browser, you can also create and manipulate SVGs using component-based
 frameworks like <a href="https://thecodebarbarian.com/building-a-form-with-vue">Vue</a>. For example, below is a Vue
 app that renders the yin yang symbol:</p>

@@ -36,34 +36,34 @@ your <code>package.json</code> file&#39;s <code>devDependencies</code>.</p>
 <p>Next, run run-rs with the <code>--version</code> flag. Run-rs will download MongoDB
 v4.0.0 for you. Don&#39;t worry, it won&#39;t overwrite your existing MongoDB
 install.</p>
-<pre><code>run-rs -v <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> --shell</code></pre><p>You should see the below output. Please be patient since MongoDB 4.0.0 is
+<pre><code>run-rs -v 4.0.0 --shell</code></pre><p>You should see the below output. Please be patient since MongoDB 4.0.0 is
 about 70MB.</p>
-<pre><code>$ run-rs -v <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> --shell
-Downloading MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.0</span>
-Copied MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.0</span> to <span class="hljs-string">'/home/node/lib/node_modules/run-rs/4.0.0'</span>
+<pre><code>$ run-rs -v 4.0.0 --shell
+Downloading MongoDB 4.0.0
+Copied MongoDB 4.0.0 to &#39;/home/node/lib/node_modules/run-rs/4.0.0&#39;
 Purging database...
-Running <span class="hljs-string">'/home/node/lib/node_modules/run-rs/4.0.0/mongod'</span>
+Running &#39;/home/node/lib/node_modules/run-rs/4.0.0/mongod&#39;
 Starting replica set...
-Started replica set on <span class="hljs-string">"mongodb://localhost:27017,localhost:27018,localhost:27019"</span>
-Running mongo shell: <span class="hljs-regexp">/home/</span>node/lib/node_modules/run-rs/<span class="hljs-number">4.0</span><span class="hljs-number">.0</span>/mongo
+Started replica set on &quot;mongodb://localhost:27017,localhost:27018,localhost:27019&quot;
+Running mongo shell: /home/node/lib/node_modules/run-rs/4.0.0/mongo
 rs:PRIMARY&gt;</code></pre><p>You now have a replica set running MongoDB 4.0.0 locally. Run <a href="https://docs.mongodb.com/manual/reference/method/rs.status/"><code>rs.status()</code></a> to verify the replica set is running. Then, you can <a href="https://docs.mongodb.com/master/reference/method/Session.abortTransaction/#Session.abortTransaction">execute a transaction from the MongoDB shell</a> as shown below.</p>
-<pre><code>rs:PRIMARY&gt; db.Answer.insertOne({ answer: <span class="hljs-number">42</span> })
+<pre><code>rs:PRIMARY&gt; db.Answer.insertOne({ answer: 42 })
 {
-    <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>,
-    <span class="hljs-string">"insertedId"</span> : ObjectId(<span class="hljs-string">"5b365814e1610ca91ad0bdc4"</span>)
+    &quot;acknowledged&quot; : true,
+    &quot;insertedId&quot; : ObjectId(&quot;5b365814e1610ca91ad0bdc4&quot;)
 }
 rs:PRIMARY&gt; session = db.getMongo().startSession()
-session { <span class="hljs-string">"id"</span> : UUID(<span class="hljs-string">"688305ae-afd2-490e-baca-28aa754c01f4"</span>) }
-@(shell):<span class="hljs-number">1</span>:<span class="hljs-number">13</span>
-rs:PRIMARY&gt; sessionDb = session.getDatabase(<span class="hljs-string">'test'</span>)
+session { &quot;id&quot; : UUID(&quot;688305ae-afd2-490e-baca-28aa754c01f4&quot;) }
+@(shell):1:13
+rs:PRIMARY&gt; sessionDb = session.getDatabase(&#39;test&#39;)
 rs:PRIMARY&gt; session.startTransaction()
-rs:PRIMARY&gt; sessionDb.Answer.deleteOne({ answer: <span class="hljs-number">42</span> })
-{ <span class="hljs-string">"acknowledged"</span> : <span class="hljs-literal">true</span>, <span class="hljs-string">"deletedCount"</span> : <span class="hljs-number">1</span> }
+rs:PRIMARY&gt; sessionDb.Answer.deleteOne({ answer: 42 })
+{ &quot;acknowledged&quot; : true, &quot;deletedCount&quot; : 1 }
 rs:PRIMARY&gt; sessionDb.Answer.find()
 rs:PRIMARY&gt; sessionDb.abortTransaction()
 rs:PRIMARY&gt;
 rs:PRIMARY&gt; sessionDb.Answer.find()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b365814e1610ca91ad0bdc4"</span>), <span class="hljs-string">"answer"</span> : <span class="hljs-number">42</span> }</code></pre><h2 id="running-a-transaction-in-nodejs">Running a Transaction in Node.js</h2>
+{ &quot;_id&quot; : ObjectId(&quot;5b365814e1610ca91ad0bdc4&quot;), &quot;answer&quot; : 42 }</code></pre><h2 id="running-a-transaction-in-nodejs">Running a Transaction in Node.js</h2>
 <p><a href="https://github.com/mongodb/node-mongodb-native/blob/master/HISTORY.md#310-2018-06-27">v3.1.0 of the official MongoDB Node.js driver</a> has full support for transactions. Below is a simple example of
 executing a transaction in Node.js using <a href="http://asyncawait.net/">async/await</a>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);

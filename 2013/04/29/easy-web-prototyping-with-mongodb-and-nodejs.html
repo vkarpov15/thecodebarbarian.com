@@ -18,42 +18,42 @@
 <p>Another big reason to go with MongoDB is that you can use it in the same way you would a MySQL database (at least at a high level).  My team likes to describe Mongo as a &quot;gateway drug&quot; for NoSQL databases because it is so easy to make the transition from SQL to MongoDB.  I wish someone had told me this when I first starting looking into NoSQL databases, because it would have saved me a lot of headaches.  Like many people, I was under the impression that CouchDB would be easier to use, while the performance improvements from Mongo were something I could take advantage only once I had gotten my feet wet with CouchDB.  Instead CouchDB ended up being much more difficult to work with than I anticipated, largely because it uses custom map-reduce functions to query data, rather than the more traditional SQL queries I was used to.  When I finally switched I was surprised to find that with MongoDB I could still write queries and build indices; the only difference is that the queries are written in JSON and query a flexible NoSQL database.</p>
 <p>As a NoSQL database, MongoDB also allows us to define our schema entirely on the code side.  With an SQL database you&#39;re faced with the inescapable fact that the objects in your database are stored in a format that is unusable by your front-end and vice versa.  This wastes precious time and mental energy when you inevitably run into a data issue or need to do some database administration.  For example, if you change your ActiveRecord schema in Ruby on Rails, you have to run the “rake” command to make sure your SQL columns stay in sync with your schemas.  This is a clear violation of the age-old programming principle D.R.Y.- Don&#39;t Repeat Yourself.  In contrast, Mongo doesn&#39;t care what format the documents in your collections take (for the most part anyway).  This means that you spend a lot less time worrying about schema migrations, because adding or removing data items from your schema doesn&#39;t really require you to do anything on the database side.</p>
 <p>At this point I should note that to get the most out of MongoDB in your MEAN stack, you&#39;re going to want to take advantage of <a href="http://mongoosejs.com/">MongooseJS</a>.  Mongoose is a schema and general usability tool for Node that lets you use MongoDB while being as lazy as you want.  For example, with Mongoose we can define a schema in JSON:</p>
-<pre><code><span class="hljs-keyword">var</span> UserSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
-  username : { type : <span class="hljs-built_in">String</span>, validate: <span class="hljs-regexp">/\S+/</span>, index : { unique : <span class="hljs-literal">true</span> } },
+<pre><code>var UserSchema = new Mongoose.Schema({
+  username : { type : String, validate: /\S+/, index : { unique : true } },
   profile : {
     name : {
-      first : { type : <span class="hljs-built_in">String</span>, <span class="hljs-keyword">default</span> : <span class="hljs-string">""</span> }
-      last : { type : <span class="hljs-built_in">String</span>, <span class="hljs-keyword">default</span> : <span class="hljs-string">""</span> }
+      first : { type : String, default : &quot;&quot; }
+      last : { type : String, default : &quot;&quot; }
     }
   }
 });</code></pre><p>We can then create a model by mapping our schema to our MongoDB collection:</p>
-<pre><code><span class="hljs-keyword">var</span> User = db.model(<span class="hljs-string">'users'</span>, UserSchema);</code></pre><p>For all of the Ruby on Rails + ActiveRecord fans out there, note that this User object we&#39;ve created above now allows us easy access to the basic features you would normally associate with ActiveRecord.  For example, we can do thing like:</p>
-<pre><code>User.findOne({ username : <span class="hljs-string">'vkarpov'</span> },
-    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-      <span class="hljs-comment">/* user is either undefined or a user with username vkarpov */</span>
+<pre><code>var User = db.model(&#39;users&#39;, UserSchema);</code></pre><p>For all of the Ruby on Rails + ActiveRecord fans out there, note that this User object we&#39;ve created above now allows us easy access to the basic features you would normally associate with ActiveRecord.  For example, we can do thing like:</p>
+<pre><code>User.findOne({ username : &#39;vkarpov&#39; },
+    function(error, user) {
+      /* user is either undefined or a user with username vkarpov */
     });
 User.findOne({ _id : req.params.id },
-    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-      <span class="hljs-comment">/* user with ID defined by the hex string in req.params.id */</span>
+    function(error, user) {
+      /* user with ID defined by the hex string in req.params.id */
      });
-User.find({ <span class="hljs-string">'profile.name.first'</span> : <span class="hljs-string">'Valeri'</span> },
-     <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, users</span>) </span>{
-       <span class="hljs-comment">/* users is a list with users with first name Valeri  */</span>
+User.find({ &#39;profile.name.first&#39; : &#39;Valeri&#39; },
+     function(error, users) {
+       /* users is a list with users with first name Valeri  */
      });
 
-<span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> User({ username : <span class="hljs-string">'vkarpov'</span> });
-user.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-  <span class="hljs-comment">/* Saves user with default values for profile.name.first and .last into 'users' collection */</span>
+var user = new User({ username : &#39;vkarpov&#39; });
+user.save(function(error, user) {
+  /* Saves user with default values for profile.name.first and .last into &#39;users&#39; collection */
 });
 
-<span class="hljs-keyword">var</span> user2 = <span class="hljs-keyword">new</span> User({ username : <span class="hljs-string">'v karpov'</span> });
-user2.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-  <span class="hljs-comment">/* Error – regular expression validation for username failed */</span>
+var user2 = new User({ username : &#39;v karpov&#39; });
+user2.save(function(error, user) {
+  /* Error – regular expression validation for username failed */
 });</code></pre><p>Another powerful tool that MongoDB and MongooseJS provide is the ability to nest schemas.  You&#39;ll notice that in the User schema above we have “profile” and “name” objects that are part of a nested schema.  This is a simple and useful design choice that illustrates how powerful nested schemas can be.  Suppose that we want to give our user the ability to edit their first and last name, but not their username.  Assuming the website has a /profile route where our user can the change first and last names, the Javascript front-end will get a JSON object as the result of a call to User.findOne on the backend.  After the user modifies their profile, the front-end makes a POST request to /profile.json with the user object in JSON as the body.  Now on the backend (using ExpressJS syntax) we can simply use:</p>
-<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+<pre><code>function(req, res) {
   user.profile = req.body.profile;
-  user.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, user</span>) </span>{
-    res.redirect(<span class="hljs-string">'/profile'</span>);
+  user.save(function(error, user) {
+    res.redirect(&#39;/profile&#39;);
   });
 }</code></pre><p>That&#39;s it.  Mongoose takes care of validating of the profile information, so we don&#39;t have to change the POST /user.json route if we change the User schema, and there is no way the username field can be modified.  We could do the same thing when using Ruby on Rails and ActiveRecord, but this would require having a separate Profile schema in a separate table, meaning that among other things we&#39;d incur a performance penalty because of the extra underlying join operation.</p>
 <p>MongoDB is the bedrock of our MEAN stack, and you should strongly consider using it for your next project.  You can write your entire stack in one language, have schemas for ease of use on top of a flexible and performant NoSQL database, and nest schemas when you don&#39;t truly need to have separate collections.  All of this adds up to you spending more of your precious hackathon hours building the other cool aspects of your product and less time figuring out how your objects translate between different levels of the stack.  By the way, MongoDB and MEAN are useful well beyond hackathons- we use this approach for all of our commercial products, most recently <a href="http://www.ascotproject.com">The Ascot Project</a>.</p>

@@ -60,21 +60,21 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
   };
 }</code></pre>
 <p>With <a href="https://en.wikipedia.org/wiki/CURL">curl</a>, you&#39;ll see that the above server properly detects duplicates so long as they&#39;re sufficiently far apart.</p>
-<pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
-{<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e4c7721b1c606283d90d"</span>}}
-$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
-{<span class="hljs-string">"message"</span>:<span class="hljs-string">"User already exists with email val@karpov.io"</span>}
+<pre><code>$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
+{&quot;user&quot;:{&quot;email&quot;:&quot;val@karpov.io&quot;,&quot;_id&quot;:&quot;59b1e4c7721b1c606283d90d&quot;}}
+$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
+{&quot;message&quot;:&quot;User already exists with email val@karpov.io&quot;}
 $</code></pre><p>But if you execute both curl commands in parallel using <code>&amp;</code>, both commands successfully insert a user with the same email!</p>
-<pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user &amp; curl -H "Content-Type: application/json" -X POST -d '{"email":"val@karpov.io"}' http://localhost:3000/user</span>
-[<span class="hljs-number">1</span>] <span class="hljs-number">25046</span>
-{<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e624721b1c606283d90e"</span>}}{<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e624721b1c606283d90f"</span>}}[<span class="hljs-number">1</span>]+  Done                    curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
+<pre><code>$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user &amp; curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
+[1] 25046
+{&quot;user&quot;:{&quot;email&quot;:&quot;val@karpov.io&quot;,&quot;_id&quot;:&quot;59b1e624721b1c606283d90e&quot;}}{&quot;user&quot;:{&quot;email&quot;:&quot;val@karpov.io&quot;,&quot;_id&quot;:&quot;59b1e624721b1c606283d90f&quot;}}[1]+  Done                    curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
 $ mongo test
-MongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
-connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/test</span>
-MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-number">.1</span>
+MongoDB shell version v3.4.1
+connecting to: mongodb://127.0.0.1:27017/test
+MongoDB server version: 3.4.1
 &gt; db.User.find().pretty()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e624721b1c606283d90e"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e624721b1c606283d90f"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
+{ &quot;_id&quot; : ObjectId(&quot;59b1e624721b1c606283d90e&quot;), &quot;email&quot; : &quot;val@karpov.io&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;59b1e624721b1c606283d90f&quot;), &quot;email&quot; : &quot;val@karpov.io&quot; }
 &gt;</code></pre><p>As expected, the naive approach doesn&#39;t quite work. This case is surprisingly common in practice: if a user manages to double-click on a register button, you&#39;ll get two registration requests at the same time. Distributed locking is the right approach if you have multiple processes, but you can do something much easier if you only have one process: promise chaining. In other words, have a <code>lastPromise</code> variable and chain all <code>register</code> function calls onto the <code>lastPromise</code> variable with <code>.then()</code> in the order they are received.</p>
 <pre><code class="language-javascript">app.post(<span class="hljs-string">'/user'</span>, wrap(queue(register)));
 
@@ -109,15 +109,15 @@ app.listen(<span class="hljs-number">3000</span>);
   };
 }</code></pre>
 <p>As long as you only run one server, this approach works. Note that I haven&#39;t looked into any potential memory leaks or performance implications, so be careful if you want to use something like this in production.</p>
-<pre><code>$ curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user &amp; curl -H "Content-Type: application/json" -X POST -d '{"email":"val@karpov.io"}' http://localhost:3000/user</span>
-[<span class="hljs-number">1</span>] <span class="hljs-number">25535</span>
-{<span class="hljs-string">"user"</span>:{<span class="hljs-string">"email"</span>:<span class="hljs-string">"val@karpov.io"</span>,<span class="hljs-string">"_id"</span>:<span class="hljs-string">"59b1e8ed899e8063a0bb0b35"</span>}}{<span class="hljs-string">"message"</span>:<span class="hljs-string">"User already exists with email val@karpov.io"</span>}[<span class="hljs-number">1</span>]+  Done                    curl -H <span class="hljs-string">"Content-Type: application/json"</span> -X POST -d <span class="hljs-string">'{"email":"val@karpov.io"}'</span> http:<span class="hljs-comment">//localhost:3000/user</span>
+<pre><code>$ curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user &amp; curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
+[1] 25535
+{&quot;user&quot;:{&quot;email&quot;:&quot;val@karpov.io&quot;,&quot;_id&quot;:&quot;59b1e8ed899e8063a0bb0b35&quot;}}{&quot;message&quot;:&quot;User already exists with email val@karpov.io&quot;}[1]+  Done                    curl -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;email&quot;:&quot;val@karpov.io&quot;}&#39; http://localhost:3000/user
 $ mongo test
-MongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
-connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/test</span>
-MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-number">.1</span>
+MongoDB shell version v3.4.1
+connecting to: mongodb://127.0.0.1:27017/test
+MongoDB server version: 3.4.1
 &gt; db.User.find().pretty()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"59b1e8ed899e8063a0bb0b35"</span>), <span class="hljs-string">"email"</span> : <span class="hljs-string">"val@karpov.io"</span> }
+{ &quot;_id&quot; : ObjectId(&quot;59b1e8ed899e8063a0bb0b35&quot;), &quot;email&quot; : &quot;val@karpov.io&quot; }
 &gt; ^C
 bye
 $</code></pre><p>Queueing is one potential method for dealing with concurrency in JavaScript. Queueing plays especially nicely with <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js">async functions</a>, because async functions return promises and promises are objects that you can pass around.</p>

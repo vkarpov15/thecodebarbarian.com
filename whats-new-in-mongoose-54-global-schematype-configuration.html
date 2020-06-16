@@ -91,26 +91,26 @@ doc.validateSync(); <span class="hljs-comment">// CastError for path `test`</spa
 <h2 id="schematype-getters">SchemaType Getters</h2>
 <p>The <code>SchemaType.get()</code> function lets you define a custom getter for all instances of a given SchemaType. For example, many people have requested <a href="https://github.com/Automattic/mongoose/issues/6996">Mongoose automatically convert MongoDB ObjectIds to hex strings</a>. Because a MongoDB ObjectId is an object, comparing ObjectIds using built-in JavaScript functions is cumbersome:</p>
 <pre><code>$ node -v
-v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
+v8.9.4
 $ node
-&gt; <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>)
-<span class="hljs-literal">undefined</span>
-&gt; <span class="hljs-keyword">const</span> oid1 = <span class="hljs-keyword">new</span> mongoose.Types.ObjectId()
-<span class="hljs-literal">undefined</span>
-&gt; <span class="hljs-keyword">const</span> oid2 = <span class="hljs-keyword">new</span> mongoose.Types.ObjectId(oid1.toString())
-<span class="hljs-literal">undefined</span>
+&gt; const mongoose = require(&#39;mongoose&#39;)
+undefined
+&gt; const oid1 = new mongoose.Types.ObjectId()
+undefined
+&gt; const oid2 = new mongoose.Types.ObjectId(oid1.toString())
+undefined
 &gt; oid1
-<span class="hljs-number">5</span>c2e35400844102978e69f8c
+5c2e35400844102978e69f8c
 &gt; oid2
-<span class="hljs-number">5</span>c2e35400844102978e69f8c
+5c2e35400844102978e69f8c
 &gt; oid1 == oid2
-<span class="hljs-literal">false</span>
+false
 &gt; oid1.toString() === oid2.toString()
-<span class="hljs-literal">true</span>
+true
 &gt; [oid1].indexOf(oid2)
-<span class="hljs-number">-1</span>
+-1
 &gt; [oid1].includes(oid2)
-<span class="hljs-literal">false</span></code></pre><p>Before Mongoose 5.4, you could define a custom getter on each individual ObjectId path that would convert ObjectIds to strings for you:</p>
+false</code></pre><p>Before Mongoose 5.4, you could define a custom getter on each individual ObjectId path that would convert ObjectIds to strings for you:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
 

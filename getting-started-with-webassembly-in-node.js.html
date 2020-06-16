@@ -16,26 +16,26 @@
 <p>Note that the code in this article is intended to be run with Node.js 12.14.0.</p>
 <h2 id="what-is-webassembly-anyway">What is WebAssembly Anyway?</h2>
 <p>Node.js 12 has a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly">global <code>WebAssembly</code> object</a> which has several helper functions for creating WebAssembly <em>modules</em>. For the purposes of this article, a WebAssembly module is just a collection of functions written in WebAssembly.</p>
-<pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v12<span class="hljs-number">.14</span><span class="hljs-number">.0</span>-darwin-x64/bin/node 
-Welcome to Node.js v12<span class="hljs-number">.14</span><span class="hljs-number">.0</span>.
-Type <span class="hljs-string">".help"</span> <span class="hljs-keyword">for</span> more information.
+<pre><code>$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node 
+Welcome to Node.js v12.14.0.
+Type &quot;.help&quot; for more information.
 &gt; WebAssembly
-<span class="hljs-built_in">Object</span> [WebAssembly] {
-  compile: [<span class="hljs-built_in">Function</span>: compile],
-  validate: [<span class="hljs-built_in">Function</span>: validate],
-  instantiate: [<span class="hljs-built_in">Function</span>: instantiate]
+Object [WebAssembly] {
+  compile: [Function: compile],
+  validate: [Function: validate],
+  instantiate: [Function: instantiate]
 }
 &gt; </code></pre><p>To create a WebAssembly module, you need to call <code>WebAssembly.instantiate()</code> with a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a> that represents the module. Below is an example of instantiating an empty WebAssembly module.</p>
-<pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v12<span class="hljs-number">.14</span><span class="hljs-number">.0</span>-darwin-x64/bin/node
-&gt; WebAssembly.instantiate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>([<span class="hljs-number">0x00</span>, <span class="hljs-number">0x61</span>, <span class="hljs-number">0x73</span>, <span class="hljs-number">0x6d</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>]));
-<span class="hljs-built_in">Promise</span> { <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">pending</span>&gt;</span> }
-&gt;</span></code></pre><p>So at the basic level, creating a WebAssembly module consists of putting the correct hex digits into the <code>instantiate()</code> function. What do these hex numbers mean? These hex numbers are the <a href="http://webassembly.org/docs/binary-encoding/#module-structure">preamble</a> that every <code>.wasm</code> file starts with (<code>.wasm</code> is the canonical extension for WebAssembly files). Every WebAssembly file must have these bytes, so this is the minimum viable WebAssembly module.</p>
+<pre><code>$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node
+&gt; WebAssembly.instantiate(new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]));
+Promise { &lt;pending&gt; }
+&gt;</code></pre><p>So at the basic level, creating a WebAssembly module consists of putting the correct hex digits into the <code>instantiate()</code> function. What do these hex numbers mean? These hex numbers are the <a href="http://webassembly.org/docs/binary-encoding/#module-structure">preamble</a> that every <code>.wasm</code> file starts with (<code>.wasm</code> is the canonical extension for WebAssembly files). Every WebAssembly file must have these bytes, so this is the minimum viable WebAssembly module.</p>
 <h2 id="adding-two-numbers">Adding Two Numbers</h2>
 <p>Thankfully, you don&#39;t have to write the bytes yourself. There&#39;s plenty of compilers out there for compiling C, C++, and even <a href="https://github.com/brson/mir2wasm">Rust</a> to WebAssembly. There&#39;s also an <a href="https://en.wikipedia.org/wiki/WebAssembly#Representation">intermediate format</a> called &quot;WebAssembly AST&quot;, or &quot;wast&quot; for short. Here&#39;s what a function that returns the sum of its 2 parameters looks like in wast:</p>
-<pre><code>(<span class="hljs-built_in">module</span>
-  (func (<span class="hljs-keyword">export</span> <span class="hljs-string">"addTwo"</span>) (param i32 i32) (result i32)
-    local.get <span class="hljs-number">0</span>
-    local.get <span class="hljs-number">1</span>
+<pre><code>(module
+  (func (export &quot;addTwo&quot;) (param i32 i32) (result i32)
+    local.get 0
+    local.get 1
     i32.add))</code></pre><p>You can use <a href="https://webassembly.github.io/wabt/demo/wat2wasm/">this online tool</a> to compile wast code down into the <code>wasm</code> binary, or you can just download the <a href="http://thecodebarbarian.com/sample/20170228/addTwo.wasm">compiled <code>.wasm</code> from me</a>.</p>
 <p>Next, how do you use a <code>.wasm</code> file in Node.js? In order to use the <code>.wasm</code>, you need to load the file and convert the <a href="https://nodejs.org/api/buffer.html">Node.js buffer</a> that node&#39;s <code>fs</code> library returns into an Uint8Array.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
@@ -73,23 +73,23 @@ suite.
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTwo</span>(<span class="hljs-params">a, b</span>) </span>{
   <span class="hljs-keyword">return</span> a + b;
 }</code></pre>
-<pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v12<span class="hljs-number">.14</span><span class="hljs-number">.0</span>-darwin-x64/bin/node ./test
-wasm x <span class="hljs-number">91</span>,<span class="hljs-number">797</span>,<span class="hljs-number">305</span> ops/sec ±<span class="hljs-number">1.26</span>% (<span class="hljs-number">88</span> runs sampled)
-js x <span class="hljs-number">763</span>,<span class="hljs-number">373</span>,<span class="hljs-number">634</span> ops/sec ±<span class="hljs-number">2.28</span>% (<span class="hljs-number">89</span> runs sampled)
+<pre><code>$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node ./test
+wasm x 91,797,305 ops/sec ±1.26% (88 runs sampled)
+js x 763,373,634 ops/sec ±2.28% (89 runs sampled)
 Fastest is js
 $ </code></pre><h2 id="factorial">Factorial</h2>
 <p>WebAssembly doesn&#39;t have any performance benefit over plain old JS in the above example. Let&#39;s do something a little more complex: computing factorials recursively. Here&#39;s a <code>.wast</code> file that exposes a <code>fac()</code> function which computes factorial recursively.</p>
-<pre><code>(<span class="hljs-built_in">module</span>
+<pre><code>(module
   (func $_factorial (param i32) (result i32)
-    (<span class="hljs-keyword">if</span> (i32.lt_s (get_local <span class="hljs-number">0</span>) (i32.const <span class="hljs-number">1</span>))
-      (then (<span class="hljs-keyword">return</span> (i32.const <span class="hljs-number">1</span>)))
-      (<span class="hljs-keyword">else</span>
-          (<span class="hljs-keyword">return</span> (i32.mul (get_local <span class="hljs-number">0</span>) (call $_factorial (i32.sub (get_local <span class="hljs-number">0</span>) (i32.const <span class="hljs-number">1</span>))))))  
+    (if (i32.lt_s (get_local 0) (i32.const 1))
+      (then (return (i32.const 1)))
+      (else
+          (return (i32.mul (get_local 0) (call $_factorial (i32.sub (get_local 0) (i32.const 1))))))  
       )
-    (<span class="hljs-keyword">return</span> (i32.const <span class="hljs-number">1</span>))
+    (return (i32.const 1))
   )
-  (func (<span class="hljs-keyword">export</span> <span class="hljs-string">"factorial"</span>) (param i32) (result i32)
-    (<span class="hljs-keyword">return</span> (call $_factorial (get_local <span class="hljs-number">0</span>)))
+  (func (export &quot;factorial&quot;) (param i32) (result i32)
+    (return (call $_factorial (get_local 0)))
   ))</code></pre><p>You can use <a href="https://webassembly.github.io/wabt/demo/wat2wasm/">this tool</a> to compile the <code>.wasm</code> or just <a href="http://thecodebarbarian.com/sample/20170228/factorial.wasm">download it here</a>.</p>
 <p>Below is another trivial benchmark comparing computing <code>100!</code> with WebAssembly versus with JavaScript:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
@@ -123,9 +123,9 @@ suite.
   <span class="hljs-comment">// `x | 0` rounds down, so `2.0001 | 0 === 2`. This helps deal with floating point precision issues like `0.1 + 0.2 !== 0.3`</span>
   <span class="hljs-keyword">return</span> (n * fac(n - <span class="hljs-number">1</span>)) | <span class="hljs-number">0</span>;
 }</code></pre>
-<pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v12<span class="hljs-number">.14</span><span class="hljs-number">.0</span>-darwin-x64/bin/node ./test
-wasm x <span class="hljs-number">2</span>,<span class="hljs-number">214</span>,<span class="hljs-number">005</span> ops/sec ±<span class="hljs-number">5.45</span>% (<span class="hljs-number">84</span> runs sampled)
-js x <span class="hljs-number">1</span>,<span class="hljs-number">019</span>,<span class="hljs-number">134</span> ops/sec ±<span class="hljs-number">3.60</span>% (<span class="hljs-number">84</span> runs sampled)
+<pre><code>$ ~/Workspace/libs/node-v12.14.0-darwin-x64/bin/node ./test
+wasm x 2,214,005 ops/sec ±5.45% (84 runs sampled)
+js x 1,019,134 ops/sec ±3.60% (84 runs sampled)
 Fastest is wasm
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>In these rudimentary examples, WebAssembly shows promise in terms of allowing you to really optimize JS code. My benchmarks are quite rudimentary and WebAssembly is still unstable and not well adopted, so don&#39;t rush to try to write your next web app in wast. However, now&#39;s the time to play with WebAssembly, especially since it is available in Node.js.</p>

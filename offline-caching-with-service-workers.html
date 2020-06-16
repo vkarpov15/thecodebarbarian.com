@@ -42,8 +42,8 @@ secure, but any <code>http://</code> domain is not. To use service workers in pr
 you <strong>must</strong> use HTTPS.</p>
 <p>Let&#39;s create a <code>sw.js</code> file that prints out &quot;Hello, World!&quot; and put it in
 the top level of the directory the static server uses, so you can access your service worker from <code>http://localhost:5000/sw.js</code>.</p>
-<pre><code>$ curl http:<span class="hljs-comment">//localhost:5000/sw.js</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>);
+<pre><code>$ curl http://localhost:5000/sw.js
+console.log(&#39;Hello, World!&#39;);
 $</code></pre><p>Next, run <code>navigator.serviceWorker.register(&#39;./sw.js&#39;)</code> from your Chrome console.
 You should see &quot;Hello, World!&quot; pop up.</p>
 <img class="inline-image" src="https://i.imgur.com/iW5jxVe.png">

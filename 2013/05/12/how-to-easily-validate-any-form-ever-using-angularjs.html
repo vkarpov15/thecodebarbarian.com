@@ -38,145 +38,145 @@
 <p>So Rails isn&#39;t quite perfect because it fails to address Pain Point #3. Is there something out there that can successfully address all three Pain Points?  Yes, and as you&#39;ve probably guessed already, this is where the MEAN stack in general and AngularJS in particular come into the fray.</p>
 <p>The &quot;A&quot; in MEAN stands for &quot;AngularJS,&quot; and the AngularJS frontend is our star player when it comes to displaying validation results.  To illustrate this, let&#39;s walk through an example.  Say that we are building a page where a user can input a list of stocks they bought, how many shares they bought, and at what price they bought them.  We have a form allowing the user to input a stock symbol, quantity, price, and currency, and below that we have a list of the stocks the user has already entered.  In this situation, there are several reasons to require form validation, such as making sure the stock symbols entered actually exist.  But we also want to make sure that this validation happens without reloading the page.  In addition to the usual reasons why reloads are bad, chances are this user is will be playing around with portfolio data dynamically and doesn&#39;t want to sit and wait for a refresh every time.</p>
 <p>Below we will build a simple backend for our stocks list.  If you want to see what this looks like without sifting through all of my code, feel free to check out the git repo at <a href="https://github.com/vkarpov15/mean-stock-list-js">https://github.com/vkarpov15/mean-stock-list-js</a> and run it yourself.</p>
-<pre><code><span class="hljs-keyword">var</span> StockSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
+<pre><code>var StockSchema = new Mongoose.Schema({
   symbol : {
-    type : <span class="hljs-built_in">String</span>,
-    required : <span class="hljs-literal">true</span>,
+    type : String,
+    required : true,
     validate : [
-      <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-keyword">return</span> VALID_SYMBOLS.indexOf(v) != <span class="hljs-number">-1</span>; },
-      <span class="hljs-string">'Invalid symbol, valid stocks are '</span> + VALID_SYMBOLS
+      function(v) { return VALID_SYMBOLS.indexOf(v) != -1; },
+      &#39;Invalid symbol, valid stocks are &#39; + VALID_SYMBOLS
     ]
   },
   price : {
     price : {
-      type : <span class="hljs-built_in">Number</span>,
-      required : <span class="hljs-literal">true</span>,
+      type : Number,
+      required : true,
       validate : [
-        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-keyword">return</span> v &gt;= <span class="hljs-number">0</span>; },
-        <span class="hljs-string">'Price must be positive'</span>
+        function(v) { return v &gt;= 0; },
+        &#39;Price must be positive&#39;
       ]
     },
     currency : {
-      type : <span class="hljs-built_in">String</span>,
-      required : <span class="hljs-literal">true</span>,
+      type : String,
+      required : true,
       validate : [
-        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-keyword">return</span> CURRENCIES.indexOf(v) != <span class="hljs-number">-1</span>; },
-        <span class="hljs-string">"Invalid currency, valid currencies are "</span> + CURRENCIES
+        function(v) { return CURRENCIES.indexOf(v) != -1; },
+        &quot;Invalid currency, valid currencies are &quot; + CURRENCIES
       ]
     }
   },
   quantity : {
-    type : <span class="hljs-built_in">Number</span>,
-    required : <span class="hljs-literal">true</span>,
+    type : Number,
+    required : true,
     validate : [
-      <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{ <span class="hljs-keyword">return</span> v &gt;= <span class="hljs-number">0</span>; },
-      <span class="hljs-string">'Quantity must be positive'</span>
+      function(v) { return v &gt;= 0; },
+      &#39;Quantity must be positive&#39;
     ]
   }
 });
 
-<span class="hljs-keyword">var</span> StockListSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
+var StockListSchema = new Mongoose.Schema({
   stocks : [StockSchema]
 });
 
-<span class="hljs-keyword">var</span> Stock = db.model(<span class="hljs-string">'stocks'</span>, StockSchema);
-<span class="hljs-keyword">var</span> StocksList = db.model(<span class="hljs-string">'stockslists'</span>, StockListSchema);
-<span class="hljs-keyword">var</span> stocksList = <span class="hljs-keyword">new</span> StocksList();
+var Stock = db.model(&#39;stocks&#39;, StockSchema);
+var StocksList = db.model(&#39;stockslists&#39;, StockListSchema);
+var stocksList = new StocksList();
 
-app.get(<span class="hljs-string">'/stocks'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-  res.render(<span class="hljs-string">'list_view'</span>, {
+app.get(&#39;/stocks&#39;, function(req, res) {
+  res.render(&#39;list_view&#39;, {
     stocksList : stocksList,
     currencies : CURRENCIES
   });
 });
 
-app.post(<span class="hljs-string">'/stocks.json'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-  <span class="hljs-keyword">var</span> stock = <span class="hljs-keyword">new</span> Stock(req.body.stock);
+app.post(&#39;/stocks.json&#39;, function(req, res) {
+  var stock = new Stock(req.body.stock);
 
-  stock.validate(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>{
-    <span class="hljs-keyword">if</span> (error) {
+  stock.validate(function(error) {
+    if (error) {
       res.json({ error : error });
-    } <span class="hljs-keyword">else</span> {
+    } else {
       stocksList.stocks.push(stock);
-      stocksList.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, stocksList</span>) </span>{
-        <span class="hljs-comment">// Should never fail</span>
+      stocksList.save(function(error, stocksList) {
+        // Should never fail
         res.json({ stocksList : stocksList });
       });
     }
   });
 });</code></pre><p>Now the interesting part, <code>list_view.jade</code>. Lets declare an AngularJS controller:</p>
-<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">StocksListController</span>(<span class="hljs-params">$scope, $http, $window</span>) </span>{
+<pre><code>function StocksListController($scope, $http, $window) {
   $scope.stocksList = [];
   $scope.newStock = {};
-  $scope.init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stocksList</span>) </span>{
+  $scope.init = function(stocksList) {
     $scope.stocksList = stocksList;
   }
 
-  $scope.save = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">form</span>) </span>{
+  $scope.save = function(form) {
     $http.
-      post(<span class="hljs-string">'/stocks.json'</span>, { stock : $scope.newStock }).
-      success(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{
-        <span class="hljs-comment">// Remove all error markers</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> form) {
-          <span class="hljs-keyword">if</span> (form[key].$error) {
-            form[key].$error.mongoose = <span class="hljs-literal">null</span>;
+      post(&#39;/stocks.json&#39;, { stock : $scope.newStock }).
+      success(function(response) {
+        // Remove all error markers
+        for (var key in form) {
+          if (form[key].$error) {
+            form[key].$error.mongoose = null;
           }
         }
 
-        <span class="hljs-keyword">if</span> (response.error) {
-          <span class="hljs-comment">// We got some errors, put them into angular</span>
-          <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> response.error.errors) {
+        if (response.error) {
+          // We got some errors, put them into angular
+          for (key in response.error.errors) {
             form[key].$error.mongoose = response.error.errors[key].type;
           }
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (response.stocksList) {
+        } else if (response.stocksList) {
           $scope.stocksList = response.stocksList;
           $scope.newStock = {};
         }
       });
   };
 }</code></pre><p>And finally our view, in <a href="http://jade-lang.com/">Jade</a>:</p>
-<pre><code>div(ng-controller=<span class="hljs-string">"StocksListController"</span>,
-    ng-init=<span class="hljs-string">"init( #{JSON.stringify(stocksList)} );"</span>)
+<pre><code>div(ng-controller=&quot;StocksListController&quot;,
+    ng-init=&quot;init( #{JSON.stringify(stocksList)} );&quot;)
   | Add a stock:
   br
-  form(name=<span class="hljs-string">"stocksForm"</span>,
-       ng-submit=<span class="hljs-string">"save(stocksForm)"</span>)
-    input(type=<span class="hljs-string">"text"</span>,
-          ng-model=<span class="hljs-string">"newStock.symbol"</span>,
-          name=<span class="hljs-string">"symbol"</span>,
-          placeholder=<span class="hljs-string">"Symbol"</span>)
-    div(ng-show=<span class="hljs-string">"stocksForm.symbol.$error.mongoose"</span>,
-        style=<span class="hljs-string">"color: red"</span>)
+  form(name=&quot;stocksForm&quot;,
+       ng-submit=&quot;save(stocksForm)&quot;)
+    input(type=&quot;text&quot;,
+          ng-model=&quot;newStock.symbol&quot;,
+          name=&quot;symbol&quot;,
+          placeholder=&quot;Symbol&quot;)
+    div(ng-show=&quot;stocksForm.symbol.$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
       {{stocksForm.symbol.$error.mongoose}}
     br
-    select(ng-model=<span class="hljs-string">"newStock.price.currency"</span>,
-           name=<span class="hljs-string">"price.currency"</span>,
-           ng-options=<span class="hljs-string">"currency for currency in #{JSON.stringify(currencies)}"</span>)
-    input(type=<span class="hljs-string">"number"</span>,
-          ng-model=<span class="hljs-string">"newStock.price.price"</span>,
-          name=<span class="hljs-string">"price.price"</span>,
-          placeholder=<span class="hljs-string">"Price"</span>)
-    div(ng-show=<span class="hljs-string">"stocksForm['price.currency'].$error.mongoose"</span>,
-        style=<span class="hljs-string">"color: red"</span>)
-      {{stocksForm[<span class="hljs-string">'price.currency'</span>].$error.mongoose}}
-    div(ng-show=<span class="hljs-string">"stocksForm['price.price'].$error.mongoose"</span>,
-        style=<span class="hljs-string">"color: red"</span>)
-      {{stocksForm[<span class="hljs-string">'price.price'</span>].$error.mongoose}}
+    select(ng-model=&quot;newStock.price.currency&quot;,
+           name=&quot;price.currency&quot;,
+           ng-options=&quot;currency for currency in #{JSON.stringify(currencies)}&quot;)
+    input(type=&quot;number&quot;,
+          ng-model=&quot;newStock.price.price&quot;,
+          name=&quot;price.price&quot;,
+          placeholder=&quot;Price&quot;)
+    div(ng-show=&quot;stocksForm[&#39;price.currency&#39;].$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm[&#39;price.currency&#39;].$error.mongoose}}
+    div(ng-show=&quot;stocksForm[&#39;price.price&#39;].$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
+      {{stocksForm[&#39;price.price&#39;].$error.mongoose}}
     br
-    input(type=<span class="hljs-string">"number"</span>,
-          ng-model=<span class="hljs-string">"newStock.quantity"</span>,
-          name=<span class="hljs-string">"quantity"</span>,
-          placeholder=<span class="hljs-string">"Quantity"</span>)
-    div(ng-show=<span class="hljs-string">"stocksForm.quantity.$error.mongoose"</span>,
-        style=<span class="hljs-string">"color: red"</span>)
+    input(type=&quot;number&quot;,
+          ng-model=&quot;newStock.quantity&quot;,
+          name=&quot;quantity&quot;,
+          placeholder=&quot;Quantity&quot;)
+    div(ng-show=&quot;stocksForm.quantity.$error.mongoose&quot;,
+        style=&quot;color: red&quot;)
       {{stocksForm.quantity.$error.mongoose}}
     br
-    input(type=<span class="hljs-string">"submit"</span>)
+    input(type=&quot;submit&quot;)
   br
   hr
   br
-  div(ng-repeat=<span class="hljs-string">"stock in stocksList.stocks"</span>)
-    | <span class="hljs-built_in">Symbol</span> : {{stock.symbol}}, Price : {{stock.price}}, Quantity : {{stock.quantity}}</code></pre><p>You might not realize it, but we&#39;re already done!  Is the UI ugly?  Absolutely.  In the words of Han Solo, &quot;she may not look like much, but she&#39;s got it where it counts, kid.&quot;  Lets do a brief walkthrough of what happens when the user tries to enter a stock:</p>
+  div(ng-repeat=&quot;stock in stocksList.stocks&quot;)
+    | Symbol : {{stock.symbol}}, Price : {{stock.price}}, Quantity : {{stock.quantity}}</code></pre><p>You might not realize it, but we&#39;re already done!  Is the UI ugly?  Absolutely.  In the words of Han Solo, &quot;she may not look like much, but she&#39;s got it where it counts, kid.&quot;  Lets do a brief walkthrough of what happens when the user tries to enter a stock:</p>
 <ol>
 <li>User goes to <code>/stocks</code>.  ExpressJS renders <code>list_view.jade</code> with the current list of stocks.</li>
 <li>User enters in some data into our input fields and selects a currency, clicks submit.</li>

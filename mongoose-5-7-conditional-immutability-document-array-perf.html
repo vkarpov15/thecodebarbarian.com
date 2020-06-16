@@ -81,24 +81,24 @@ user2.numCredits; <span class="hljs-comment">// 25</span></code></pre>
   model.init(data);
 }</code></pre>
 <p>Mongoose 5.7 is about 35% faster than Mongoose 5.6 on the above script.</p>
-<pre><code>$ npm install mongoose@<span class="hljs-number">5.6</span>
-+ mongoose@<span class="hljs-number">5.6</span><span class="hljs-number">.13</span>
-added <span class="hljs-number">26</span> packages <span class="hljs-keyword">in</span> <span class="hljs-number">3.167</span>s
+<pre><code>$ npm install mongoose@5.6
++ mongoose@5.6.13
+added 26 packages in 3.167s
 $ time node test.js 
 
-real    <span class="hljs-number">0</span>m10<span class="hljs-number">.878</span>s
-user    <span class="hljs-number">0</span>m11<span class="hljs-number">.444</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.293</span>s
+real    0m10.878s
+user    0m11.444s
+sys    0m0.293s
 $ 
-$ npm install mongoose@<span class="hljs-number">5.7</span>
-+ mongoose@<span class="hljs-number">5.7</span><span class="hljs-number">.0</span>
-added <span class="hljs-number">1</span> package, removed <span class="hljs-number">1</span> package and updated <span class="hljs-number">1</span> package <span class="hljs-keyword">in</span> <span class="hljs-number">0.648</span>s
+$ npm install mongoose@5.7
++ mongoose@5.7.0
+added 1 package, removed 1 package and updated 1 package in 0.648s
 $
 $ time node test.js 
 
-real    <span class="hljs-number">0</span>m6<span class="hljs-number">.940</span>s
-user    <span class="hljs-number">0</span>m7<span class="hljs-number">.087</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.053</span>s
+real    0m6.940s
+user    0m7.087s
+sys    0m0.053s
 $ </code></pre><h2 id="moving-on">Moving On</h2>
 <p>Conditionally immutable properties and faster document arrays are just 2 of the
 9 new improvements and features in Mongoose 5.7.0. We also introduced MongoDB

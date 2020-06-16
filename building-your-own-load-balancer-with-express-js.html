@@ -17,7 +17,7 @@
 <h2 id="building-a-load-balancer">Building a Load Balancer</h2>
 <p>A load balancer is a process that takes in HTTP requests and forwards these HTTP requests to one of a collection of servers. Load balancers are usually used for performance purposes: if a server needs to do a lot of work for each request, one server might not be enough, but 2 servers alternating handling incoming requests might.</p>
 <p>First off, let&#39;s install <a href="https://www.npmjs.com/package/express">express</a> and <a href="https://www.npmjs.com/package/request">request</a>. The request package is an HTTP client with good support for streams, using it will make writing the load balancer very easy.</p>
-<pre><code>npm install express@<span class="hljs-number">4.15</span><span class="hljs-number">.2</span> body-parser@<span class="hljs-number">1.17</span><span class="hljs-number">.1</span> request@<span class="hljs-number">2.81</span><span class="hljs-number">.0</span></code></pre><p>To make things easy, let&#39;s write a single process that starts 2 Express apps, one on port 3000 and one on port 3001. The separate load balancer process should alternate between these two, sending one request to port 3000, the next request to port 3001, and the next one back to port 3000.</p>
+<pre><code>npm install express@4.15.2 body-parser@1.17.1 request@2.81.0</code></pre><p>To make things easy, let&#39;s write a single process that starts 2 Express apps, one on port 3000 and one on port 3001. The separate load balancer process should alternate between these two, sending one request to port 3000, the next request to port 3001, and the next one back to port 3000.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> body = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
@@ -41,9 +41,9 @@ app1.listen(<span class="hljs-number">3000</span>);
 app2.listen(<span class="hljs-number">3001</span>);</code></pre>
 <p>If load balancing works properly, the console output should look like this:</p>
 <pre><code>$ node server.js
-server <span class="hljs-number">1</span> GET /test3 {}
-server <span class="hljs-number">2</span> GET /favicon.ico {}
-server <span class="hljs-number">1</span> POST /test3 { hello: <span class="hljs-string">'world'</span> }</code></pre><p>The key idea for load balancing is that Node&#39;s core HTTP <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> and <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> classes, as well as <a href="https://www.npmjs.com/package/request#streaming">the request package&#39;s representation of HTTP requests</a>, implement <a href="https://github.com/substack/stream-handbook">Node&#39;s streams interface</a>. Proxying an HTTP request is as easy as calling <code>pipe()</code> twice:</p>
+server 1 GET /test3 {}
+server 2 GET /favicon.ico {}
+server 1 POST /test3 { hello: &#39;world&#39; }</code></pre><p>The key idea for load balancing is that Node&#39;s core HTTP <a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">IncomingMessage</a> and <a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">ServerResponse</a> classes, as well as <a href="https://www.npmjs.com/package/request#streaming">the request package&#39;s representation of HTTP requests</a>, implement <a href="https://github.com/substack/stream-handbook">Node&#39;s streams interface</a>. Proxying an HTTP request is as easy as calling <code>pipe()</code> twice:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 
@@ -68,18 +68,18 @@ server.listen(<span class="hljs-number">8080</span>);</code></pre>
 };</code></pre>
 <p>If the underlying server shuts down in the middle of a request, the load balancer server will also crash:</p>
 <pre><code>$ node lb.js
-internal/streams/legacy.js:<span class="hljs-number">59</span>
-      <span class="hljs-keyword">throw</span> er; <span class="hljs-comment">// Unhandled stream error in pipe.</span>
+internal/streams/legacy.js:59
+      throw er; // Unhandled stream error in pipe.
       ^
 
-<span class="hljs-built_in">Error</span>: socket hang up
-    at createHangUpError (_http_client.js:<span class="hljs-number">302</span>:<span class="hljs-number">15</span>)
-    at Socket.socketOnEnd (_http_client.js:<span class="hljs-number">394</span>:<span class="hljs-number">23</span>)
-    at emitNone (events.js:<span class="hljs-number">91</span>:<span class="hljs-number">20</span>)
-    at Socket.emit (events.js:<span class="hljs-number">186</span>:<span class="hljs-number">7</span>)
-    at endReadableNT (_stream_readable.js:<span class="hljs-number">974</span>:<span class="hljs-number">12</span>)
-    at _combinedTickCallback (internal/process/next_tick.js:<span class="hljs-number">74</span>:<span class="hljs-number">11</span>)
-    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">98</span>:<span class="hljs-number">9</span>)
+Error: socket hang up
+    at createHangUpError (_http_client.js:302:15)
+    at Socket.socketOnEnd (_http_client.js:394:23)
+    at emitNone (events.js:91:20)
+    at Socket.emit (events.js:186:7)
+    at endReadableNT (_stream_readable.js:974:12)
+    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+    at process._tickCallback (internal/process/next_tick.js:98:9)
 $</code></pre><p>Adding an error handler to the <code>request</code> object lets you handle this error gracefully:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> handler = (req, res) =&gt; {
   <span class="hljs-comment">// Add an error handler for the proxied request</span>

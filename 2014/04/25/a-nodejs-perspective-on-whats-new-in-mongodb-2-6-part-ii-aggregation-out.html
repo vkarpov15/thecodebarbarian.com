@@ -17,80 +17,80 @@
 <p>However, before MongoDB 2.6, shipping the results of an aggregation into a separate collection required pulling the aggregation results in through the NodeJS driver and inserting them back into MongoDB. Furthermore, aggregation results were limited to 16MB in size, which made doing aggregations that would output one document per user impossible. MongoDB 2.6, however, introduced a <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/out/#pipe._S_out"><code>$out</code> aggregation pipeline stage</a>, which writes the output of the aggregation to a separate collection, and removed the 16MB aggregation limit.</p>
 <h2 id="getting-transformed-data-out-of-aggregation">Getting transformed data <code>$out</code> of aggregation</h2>
 <p>Let&#39;s take a look at how this can be used in practice in NodeJS. Recall the <a href="https://github.com/vkarpov15/lean-mean-nutrition">food journal app</a> from the <a href="http://thecodebarbarian.com/2014/04/10/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search/">first part of this series</a>: let&#39;s add a route that will display the user&#39;s average calories per day broken down on a per-week basis. This involves a slow and complex aggregation, so we&#39;ll schedule this aggregation to run once per day and dump its data to a <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/out/#pipe._S_out">new collection using <code>$out</code></a>. The data for this route will get recomputed for all users using one aggregation, and each time the user hits the API endpoint all the server will do is read one document. Here&#39;s what the aggregation looks like in NodeJS (you can also copy/paste this aggregation pipeline into a mongo shell and get the same result). You can also find this code on <a href="https://github.com/vkarpov15/lean-mean-nutrition/blob/master/dependencies/aggregate_weekly_calories.js#L15-79">Github</a>.</p>
-<pre><code>mongodb.connection().collection(<span class="hljs-string">'days'</span>).aggregate([
-  <span class="hljs-comment">// Pull out week of the year and day of the week from the date</span>
+<pre><code>mongodb.connection().collection(&#39;days&#39;).aggregate([
+  // Pull out week of the year and day of the week from the date
   {
     $project : {
-      week : { $week : <span class="hljs-string">"$date"</span> },
-      dayOfWeek : { $dayOfWeek : <span class="hljs-string">"$date"</span> },
-      year : { $year : <span class="hljs-string">"$date"</span> },
-      user : <span class="hljs-string">"$user"</span>,
-      foods : <span class="hljs-string">"$foods"</span>
+      week : { $week : &quot;$date&quot; },
+      dayOfWeek : { $dayOfWeek : &quot;$date&quot; },
+      year : { $year : &quot;$date&quot; },
+      user : &quot;$user&quot;,
+      foods : &quot;$foods&quot;
     }
   },
-  <span class="hljs-comment">// Generate a document for each food item</span>
+  // Generate a document for each food item
   {
-    $unwind : <span class="hljs-string">"$foods"</span>
+    $unwind : &quot;$foods&quot;
   },
-  <span class="hljs-comment">// And for each nutrient</span>
+  // And for each nutrient
   {
-    $unwind : <span class="hljs-string">"$foods.nutrients"</span>
+    $unwind : &quot;$foods.nutrients&quot;
   },
-  <span class="hljs-comment">// Only care about calories</span>
+  // Only care about calories
   {
     $match : {
-     <span class="hljs-string">'foods.nutrients.tagname'</span> : <span class="hljs-string">'ENERC_KCAL'</span>
+     &#39;foods.nutrients.tagname&#39; : &#39;ENERC_KCAL&#39;
     }
   },
-  <span class="hljs-comment">// Add up calories for each week, keeping track of how many days in that</span>
-  <span class="hljs-comment">// week the user recorded eating something. Output one document per</span>
-  <span class="hljs-comment">// user and week.</span>
+  // Add up calories for each week, keeping track of how many days in that
+  // week the user recorded eating something. Output one document per
+  // user and week.
   {
     $group : {
       _id : {
-        week : <span class="hljs-string">"$week"</span>,
-        user : <span class="hljs-string">"$user"</span>,
-        year : <span class="hljs-string">"$year"</span>
+        week : &quot;$week&quot;,
+        user : &quot;$user&quot;,
+        year : &quot;$year&quot;
       },
-      days : { $addToSet : <span class="hljs-string">'$dayOfWeek'</span> },
+      days : { $addToSet : &#39;$dayOfWeek&#39; },
       calories : {
         $sum : {
           $multiply : [
-            <span class="hljs-string">'$foods.nutrients.amountPer100G'</span>,
-            { $divide : [<span class="hljs-string">'$foods.selectedWeight.grams'</span>, <span class="hljs-number">100</span>] }
+            &#39;$foods.nutrients.amountPer100G&#39;,
+            { $divide : [&#39;$foods.selectedWeight.grams&#39;, 100] }
           ]
         }
       }
     }
   },
-  <span class="hljs-comment">// Aggregate all the documents on a per-user basis.</span>
+  // Aggregate all the documents on a per-user basis.
   {
     $group : {
-      _id : <span class="hljs-string">"$_id.user"</span>,
-      weeks : { $push : <span class="hljs-string">"$_id.week"</span> },
-      yearForWeek : { $push : <span class="hljs-string">"$_id.year"</span> },
-      daysPerWeek : { $push : <span class="hljs-string">"$days"</span> },
-      caloriesPerWeek : { $push : <span class="hljs-string">"$calories"</span> }
+      _id : &quot;$_id.user&quot;,
+      weeks : { $push : &quot;$_id.week&quot; },
+      yearForWeek : { $push : &quot;$_id.year&quot; },
+      daysPerWeek : { $push : &quot;$days&quot; },
+      caloriesPerWeek : { $push : &quot;$calories&quot; }
     }
   },
-  <span class="hljs-comment">// Output to the 'weekly_calories' collection</span>
+  // Output to the &#39;weekly_calories&#39; collection
   {
-    <span class="hljs-comment">// Hardcode string here so can copy/paste this aggregation into shell</span>
-    <span class="hljs-comment">// for instructional purposes.</span>
-    $out : <span class="hljs-string">'weekly_calories'</span>
+    // Hardcode string here so can copy/paste this aggregation into shell
+    // for instructional purposes.
+    $out : &#39;weekly_calories&#39;
   }
 ], callback);</code></pre><p>The particular details of the aggregation aren&#39;t that important, what really matters is the <code>$out</code> stage at the end. The <code>$out</code> stage does something very cool: not only will the resulting documents get inserted into a new collection called <code>weekly_calories</code>, <code>$out</code> will overwrite the existing collection once the aggregation completes. In other words, if this aggregation runs for an hour, the <code>weekly_calories</code> collection will remain unchanged until the aggregation is done. After the aggregation finishes, the <code>weekly_calories</code> collection will be <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/out/#replace-existing-collection">atomically replaced by the result of the aggregation</a>. Note that, right now, <code>$out</code> doesn&#39;t have any way of appending to the output collection, it can only overwrite the output collection. Design your aggregations accordingly.</p>
 <h2 id="taking-a-look-at-the-results">Taking a look at the results</h2>
 <p>Using a bit of NodeJS magic, we can wrap this aggregation in a service that uses <a href="https://github.com/ncb000gt/node-cron">node-cron</a> to schedule itself to run once per day at 0030 (12:30 am) server time:</p>
 <p><a href="http://thecodebarbarian.files.wordpress.com/2014/04/image00.png"><img src="http://thecodebarbarian.files.wordpress.com/2014/04/image00.png" style="width: 100%"></a></p>
 <p>We can then inject this service into an ExpressJS route and expose the route as a <code>GET /api/weekly</code> JSON API endpoint:</p>
-<pre><code><span class="hljs-comment">// app.js</span>
-app.get(<span class="hljs-string">'/api/weekly'</span>, checkLogin, api.byWeek.inject(di));
+<pre><code>// app.js
+app.get(&#39;/api/weekly&#39;, checkLogin, api.byWeek.inject(di));
 
-<span class="hljs-comment">// api.js</span>
-exports.byWeek = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">weeklyCalorieAggregator</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-    weeklyCalorieAggregator.get(req.user.username, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, doc</span>) </span>{
+// api.js
+exports.byWeek = function(weeklyCalorieAggregator) {
+  return function(req, res) {
+    weeklyCalorieAggregator.get(req.user.username, function(error, doc) {
       res.json(doc);
     });
   }

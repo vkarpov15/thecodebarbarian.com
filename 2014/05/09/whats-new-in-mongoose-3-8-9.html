@@ -17,22 +17,22 @@
 <p>On that note, Mongoose 3.8.9 was (finally) released yesterday. This was primarily a maintenance release, the major priority was to clean up several test failures against the new stable version of the MongoDB server, 2.6.x, without any backward-breaking API changes. I&#39;m proud to say that 3.8.9 should be compatible with MongoDB 2.2.x, 2.4.x, and 2.6.x. In addition, I added improved support for a couple of key MongoDB 2.6 features:</p>
 <h3 id="support-for-text-search-in-mongodb-26x">Support for Text Search in MongoDB 2.6.x</h3>
 <p>As I mentioned in my post on <a href="http://thecodebarbarian.com/2014/04/10/a-nodejs-perspective-on-whats-new-in-mongodb-2-6-part-i-text-search/">text search</a>, mongoose 3.8.8 didn&#39;t quite support text search yet: mongoose prevented you from sorting by text score. <a href="https://github.com/aheckmann/mquery/commit/86a054aef1eec3701359e18bfcf24d12a320cace">This commit</a>, which went into mquery 0.6.0, allows you to use the new <a href="http://docs.mongodb.org/manual/reference/operator/projection/meta/"><code>$meta</code> operator</a> in <code>sort()</code> calls. Here&#39;s an example of how you would use text search with sorting in mongoose:</p>
-<pre><code><span class="hljs-comment">/* Blog post collection with two documents:
- * { title : 'text search in mongoose' }
- * { title : 'searching in mongoose' }
- * and a text index on the 'title' field */</span>
+<pre><code>/* Blog post collection with two documents:
+ * { title : &#39;text search in mongoose&#39; }
+ * { title : &#39;searching in mongoose&#39; }
+ * and a text index on the &#39;title&#39; field */
 BlogPost.
   find(
-    { $text : { $search : <span class="hljs-string">'text search'</span> } },
-    { score : { $meta: <span class="hljs-string">"textScore"</span> } }
+    { $text : { $search : &#39;text search&#39; } },
+    { score : { $meta: &quot;textScore&quot; } }
   ).
-  sort({ score : { $meta : <span class="hljs-string">'textScore'</span> } }).
-  limit(<span class="hljs-number">2</span>).
-  exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, documents</span>) </span>{
+  sort({ score : { $meta : &#39;textScore&#39; } }).
+  limit(2).
+  exec(function(error, documents) {
     assert.ifError(error);
-    assert.equal(<span class="hljs-number">2</span>, documents.length);
-    assert.equal(<span class="hljs-string">'text search in mongoose'</span>, documents[<span class="hljs-number">0</span>].title);
-    assert.equal(<span class="hljs-string">'searching in mongoose'</span>, documents[<span class="hljs-number">1</span>].title);
+    assert.equal(2, documents.length);
+    assert.equal(&#39;text search in mongoose&#39;, documents[0].title);
+    assert.equal(&#39;searching in mongoose&#39;, documents[1].title);
     db.close();
     done();
   });</code></pre><p>The relevant test case can be found <a href="https://github.com/LearnBoost/mongoose/blob/4a812b535382527b771e85c4cf2cc72eab2814ff/test/model.querying.test.js#L1567-1589">here</a> (there&#39;s also <a href="https://github.com/LearnBoost/mongoose/blob/4a812b535382527b771e85c4cf2cc72eab2814ff/test/model.querying.test.js#L1452-1478">test coverage</a> for text search without sorting). Please note that you&#39;re responsible for making sure you&#39;re running &gt;= MongoDB 2.6.0, running text queries against older versions of MongoDB will not give you the expected behavior. MongoDB&#39;s docs about text search can be found <a href="http://docs.mongodb.org/manual/core/index-text/">here</a>.</p>
@@ -41,22 +41,22 @@ BlogPost.
 <pre><code>MyModel.aggregate()
   .group(group.$group)
   .project(project.$project)
-  .exec(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, res</span>) </span>{
+  .exec(function (err, res) {
   });</code></pre><p><a href="https://github.com/LearnBoost/mongoose/commit/c228c734e899f7f82a944e7cee545bf47c5cab6e">This commit</a> adds a <code>.out()</code> helper function that you can use to add a <code>$out</code> stage to your pipeline. Note that you&#39;re responsible for making sure that the <code>.out()</code> function is the last stage of your pipeline, because the MongoDB server will return an error if it isn&#39;t. The relevant test case can be found here. Here&#39;s how the new helper function looks in action:</p>
-<pre><code><span class="hljs-keyword">var</span> outputCollection = <span class="hljs-string">'my_output_collection'</span>;
+<pre><code>var outputCollection = &#39;my_output_collection&#39;;
 
 MyModel.aggregate()
   .group(group.$group)
   .project(project.$project)
   .out(outputCollection)
-  .exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, result</span>) </span>{
+  .exec(function(error, result) {
   });</code></pre><h3 id="a-minor-caveat-for-26x-compatibility">A Minor Caveat For 2.6.x Compatibility</h3>
 <p>There is still one unfortunate edge case remaining in 3.8.9 which only affects MongoDB 2.6.x. MongoDB 2.6.x unfortunately no longer allows <a href="https://jira.mongodb.org/browse/SERVER-12266">empty <code>$set</code> operators</a> to be passed to <code>update()</code> and <code>findAndModify()</code>. This change only affects mongoose in the case where you set the <code>upsert</code> flag to true. <a href="https://github.com/LearnBoost/mongoose/commit/c1efafb2b05bf3ed455ad6ce9631d69240c76498">This commit</a> attempts to mitigate this API inconsistency, but there is still one case where you will get an error on MongoDB 2.6.x but not in 2.4.x: if the query passed to your <code>findAndModify()</code> only includes an <code>_id</code> field. For example,</p>
 <pre><code>MyModel.findOneAndUpdate(
-  { _id: <span class="hljs-string">'MY_ID'</span> },
+  { _id: &#39;MY_ID&#39; },
   {},
-  { upsert: <span class="hljs-literal">true</span> },
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, document</span>) </span>{
+  { upsert: true },
+  function(error, document) {
   });</code></pre><p>Will return a server error on MongoDB 2.6.1 but not 2.4.10. Right now, there is no good way to handle this case in both 2.4 and 2.6 without either doing an if-statement on the version or breaking the existing API. You can track the progress of this issue on <a href="https://github.com/LearnBoost/mongoose/issues/2065">Github</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Hope y&#39;all are as excited about mongoose&#39;s future as I am. There&#39;s lots of exciting ideas that I&#39;m looking forward to getting into mongoose 4.0. You&#39;re more than welcome to add suggestions for new features or behavior changes on <a href="https://github.com/LearnBoost/mongoose/issues">Github issues</a>. I&#39;m looking forward to seeing what y&#39;all can come up with for improving mongoose and what y&#39;all will be able to do with future versions.</p>

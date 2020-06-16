@@ -21,102 +21,102 @@
 <p><em>Alternative example: Convert hashtags to Github issue URLs.</em></p>
 <p>When building out a UI, you will inevitably run into a place where your UI / UX / design guy decides that the way that data is stored isn&#39;t quite conducive to how it should be displayed. Perhaps you have separate fields for first name and last name, but your designer&#39;s copy/pasting something like this all over the place:</p>
 <pre><code>{{user.name.first}} {{user.name.last}}</code></pre><p>Naturally, as developers, we want to avoid copy/paste as much as possible - what happens when a decision is made to only display the first initial of the last name? Or when a decision is made to only store the first name? Either of these decisions will become a nightmare scenario that could lead to the worst of all programming sins: editing your code using <code>sed</code>. Another simple alternative would be to wrap the rule for how a name should be displayed in a function, but where would the function live? I know you weren&#39;t thinking of attaching a <code>formatName()</code> function to <code>Object.prototype</code>. A naive approach would put this function in every single controller that needs it. However, then you have to remember to put this function in every single controller. A much better solution would be to simply use a filter:</p>
-<pre><code>app.filter(<span class="hljs-string">'displayName'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
-    <span class="hljs-keyword">return</span> name.first + <span class="hljs-string">" "</span> + name.last;
+<pre><code>app.filter(&#39;displayName&#39;, function() {
+  return function(name) {
+    return name.first + &quot; &quot; + name.last;
   }
 });</code></pre><p>Now your designer can display the username as</p>
 <pre><code>{{user.name | displayName}}</code></pre><p>In addition, your designer can use this functionality to chain filters together to perform simple tasks, like limiting the length of the displayed string to 40 characters, without disrupting two-way data-binding:</p>
-<pre><code>{{user.name | displayName | limitTo:<span class="hljs-number">40</span>}}</code></pre><p>Lets build a slightly more useful example. Displaying units for a number is very helpful, but displaying text like &quot;today I have performed 1 bench press rep(s)&quot; in your app seems unprofessional. Lets write a filter that will take care of our pluralization needs, appropriately called &#39;pluralize&#39;. Check it out on <a href="http://jsfiddle.net/vkarpov15/mC7pd/">JSFiddle</a>.</p>
+<pre><code>{{user.name | displayName | limitTo:40}}</code></pre><p>Lets build a slightly more useful example. Displaying units for a number is very helpful, but displaying text like &quot;today I have performed 1 bench press rep(s)&quot; in your app seems unprofessional. Lets write a filter that will take care of our pluralization needs, appropriately called &#39;pluralize&#39;. Check it out on <a href="http://jsfiddle.net/vkarpov15/mC7pd/">JSFiddle</a>.</p>
 <pre><code>angular.
-  <span class="hljs-built_in">module</span>(<span class="hljs-string">'myApp'</span>, []).
-  filter(<span class="hljs-string">'pluralize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ordinal, noun</span>) </span>{
-      <span class="hljs-keyword">if</span> (ordinal == <span class="hljs-number">1</span>) {
-        <span class="hljs-keyword">return</span> ordinal + <span class="hljs-string">' '</span> + noun;
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">var</span> plural = noun;
-        <span class="hljs-keyword">if</span> (noun.substr(noun.length - <span class="hljs-number">2</span>) == <span class="hljs-string">'us'</span>) {
-          plural = plural.substr(<span class="hljs-number">0</span>, plural.length - <span class="hljs-number">2</span>) + <span class="hljs-string">'i'</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (noun.substr(noun.length - <span class="hljs-number">2</span>) == <span class="hljs-string">'ch'</span> || noun.charAt(noun.length - <span class="hljs-number">1</span>) == <span class="hljs-string">'x'</span> || noun.charAt(noun.length - <span class="hljs-number">1</span>) == <span class="hljs-string">'s'</span>) {
-          plural += <span class="hljs-string">'es'</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (noun.charAt(noun.length - <span class="hljs-number">1</span>) == <span class="hljs-string">'y'</span> &amp;&amp; [<span class="hljs-string">'a'</span>,<span class="hljs-string">'e'</span>,<span class="hljs-string">'i'</span>,<span class="hljs-string">'o'</span>,<span class="hljs-string">'u'</span>].indexOf(noun.charAt(noun.length - <span class="hljs-number">2</span>)) == <span class="hljs-number">-1</span>) {
-          plural = plural.substr(<span class="hljs-number">0</span>, plural.length - <span class="hljs-number">1</span>) + <span class="hljs-string">'ies'</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (noun.substr(noun.length - <span class="hljs-number">2</span>) == <span class="hljs-string">'is'</span>) {
-          plural = plural.substr(<span class="hljs-number">0</span>, plural.length - <span class="hljs-number">2</span>) + <span class="hljs-string">'es'</span>;
-        } <span class="hljs-keyword">else</span> {
-          plural += <span class="hljs-string">'s'</span>;
+  module(&#39;myApp&#39;, []).
+  filter(&#39;pluralize&#39;, function() {
+    return function(ordinal, noun) {
+      if (ordinal == 1) {
+        return ordinal + &#39; &#39; + noun;
+      } else {
+        var plural = noun;
+        if (noun.substr(noun.length - 2) == &#39;us&#39;) {
+          plural = plural.substr(0, plural.length - 2) + &#39;i&#39;;
+        } else if (noun.substr(noun.length - 2) == &#39;ch&#39; || noun.charAt(noun.length - 1) == &#39;x&#39; || noun.charAt(noun.length - 1) == &#39;s&#39;) {
+          plural += &#39;es&#39;;
+        } else if (noun.charAt(noun.length - 1) == &#39;y&#39; &amp;&amp; [&#39;a&#39;,&#39;e&#39;,&#39;i&#39;,&#39;o&#39;,&#39;u&#39;].indexOf(noun.charAt(noun.length - 2)) == -1) {
+          plural = plural.substr(0, plural.length - 1) + &#39;ies&#39;;
+        } else if (noun.substr(noun.length - 2) == &#39;is&#39;) {
+          plural = plural.substr(0, plural.length - 2) + &#39;es&#39;;
+        } else {
+          plural += &#39;s&#39;;
         }
-        <span class="hljs-keyword">return</span> ordinal + <span class="hljs-string">' '</span> + plural;
+        return ordinal + &#39; &#39; + plural;
       }
     };
   });</code></pre><p>Of course, English has some pretty labyrinthine grammar rules, so this filter isn&#39;t 100% accurate, but in most cases it will get close enough. This filter will allow us to do things like:</p>
-<pre><code>All I Need is {{<span class="hljs-number">1</span> | pluralize:<span class="hljs-string">'mic'</span>}} <span class="hljs-comment">// All I need is 1 mic</span>
-I<span class="hljs-string">'ve visited {{3 | pluralize:'</span>city<span class="hljs-string">'}} // I'</span>ve visited <span class="hljs-number">3</span> cities</code></pre><p><strong>Pitfall:</strong></p>
+<pre><code>All I Need is {{1 | pluralize:&#39;mic&#39;}} // All I need is 1 mic
+I&#39;ve visited {{3 | pluralize:&#39;city&#39;}} // I&#39;ve visited 3 cities</code></pre><p><strong>Pitfall:</strong></p>
 <p>AngularJS escapes HTML in <code>{{}}</code>. If you want to modify your string to have any HTML, such as converting hashtags in a git commit to github URLs, you can use the <a href="http://docs.angularjs.org/api/ng.directive:ngBindHtml"><code>ng-bind-html</code></a> or the <a href="http://code.angularjs.org/1.0.8/docs/api/ng.directive:ngBindHtmlUnsafe"><code>ng-bind-html-unsafe</code></a> directive, or the <a href="http://docs.angularjs.org/api/ng.$compile"><code>$compile</code></a> service. There is a minor complication: <code>ng-bind-html-unsafe</code> is available in AngularJS 1.0.x, was deprecated somewhere in 1.1.x, and removed completely in 1.2.x, so you have to roll your own <code>ng-bind-html-unsafe</code> directive (don&#39;t worry, its a simple application of design pattern 1 from the <a href="http://thecodebarbarian.com/2013/09/23/the-8020-guide-to-writing-angularjs-directives/">80/20 Guide to Directives</a>) if you&#39;re using a more recent version and <code>ng-bind-html</code> doesn&#39;t satisfy your needs.</p>
 <h2 id="2-quick-hacks-for-functions-that-are-not-accessible-from-angularjs-expressions">2) Quick hacks for functions that are not accessible from AngularJS expressions</h2>
 <p><em>Example: encodeURIComponent</em></p>
 <p><em>Example: conditional filter for AngularJS pre-1.1.5</em></p>
 <p>One strength of AngularJS that sometimes ends up being a weakness is its <a href="http://docs.angularjs.org/guide/dev_guide.services.creating_services#services-as-singletons">extremely dogmatic opposition to all global state</a>. As such, everybody who is new to AngularJS inevitably spends some time trying to figure out why the hell you can&#39;t do something like:</p>
-<pre><code>&lt;a ng-href=<span class="hljs-string">"/product/{{product.id}}?from={{encodeURIComponent('/products')}}"</span>&gt;
+<pre><code>&lt;a ng-href=&quot;/product/{{product.id}}?from={{encodeURIComponent(&#39;/products&#39;)}}&quot;&gt;
   Go To Individual Product Page
-&lt;<span class="hljs-regexp">/a&gt;</span></code></pre><p>This is because AngularJS expressions don&#39;t by default have access to the <code>window</code> object, i.e. the global scope of the page where <code>encodeURIComponent</code> lives, unless you inject <code>$window</code> into your controller and explicitly make it accessible from the controller&#39;s scope. However, doing this for every single controller is a really bad idea, so the slightly more correct way of making <code>encodeURIComponent</code> accessible from an expression is a filter:</p>
-<pre><code>filter(<span class="hljs-string">'encodeUri'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">encodeURIComponent</span>(x);
+&lt;/a&gt;</code></pre><p>This is because AngularJS expressions don&#39;t by default have access to the <code>window</code> object, i.e. the global scope of the page where <code>encodeURIComponent</code> lives, unless you inject <code>$window</code> into your controller and explicitly make it accessible from the controller&#39;s scope. However, doing this for every single controller is a really bad idea, so the slightly more correct way of making <code>encodeURIComponent</code> accessible from an expression is a filter:</p>
+<pre><code>filter(&#39;encodeUri&#39;, function() {
+  return function(x) {
+    return encodeURIComponent(x);
   };
 });</code></pre><p>You can then access this filter using:</p>
-<pre><code>&lt;a ng-href=<span class="hljs-string">"/product/{{product.id}}?from={{'/products' | encodeUri}}"</span>&gt;
+<pre><code>&lt;a ng-href=&quot;/product/{{product.id}}?from={{&#39;/products&#39; | encodeUri}}&quot;&gt;
   Go To Individual Product Page
-&lt;<span class="hljs-regexp">/a&gt;</span></code></pre><p><strong>Pitfall:</strong></p>
+&lt;/a&gt;</code></pre><p><strong>Pitfall:</strong></p>
 <p>AngularJS&#39; docs specify an <a href="http://docs.angularjs.org/api/ng.directive:ngIf">ngIf</a> directive, however, this directive is not available in versions before AngularJS 1.1.5, which are still in heavy use. Futhermore, AngularJS expressions don&#39;t support if statements or the <a href="http://en.wikipedia.org/wiki/%3F:">ternary operator</a>, i.e. <code>bool ? t : f</code>. So what do we do if we want to display a certain bit of text if one condition is true and another bit of text if the condition is false? We could use <code>ngShow</code>, but this seems a bit hacky.</p>
 <p>The lack of conditional logic in expressions has been the bane of every AngularJS programmers&#39; existence from the very beginning. There is a pretty lively debate in the development community as to whether conditional logic belongs in templates or not. In a random aside, I stumbled across an entertaining flame war on the <a href="https://groups.google.com/forum/#!topic/golang-nuts/OEdSDgEC7js">Golang google group</a> a few weeks ago. In response, I&#39;m going to stand up on my soapbox and give my two cents:</p>
 <p><em>Conditional logic is a necessary and fundamental part of any templating language. Your template should have the final say on how your data is displayed. If you have to write imperative code to tell a template whether or not a div should be displayed or what color a header should be, your templating engine sucks.</em></p>
 <p>Rant aside, in AngularJS we can tie the ternary operator into two-way data-binding using a filter:</p>
-<pre><code>filter(<span class="hljs-string">'conditional'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">b, t, f</span>) </span>{
-    <span class="hljs-keyword">return</span> b ? t : f;
+<pre><code>filter(&#39;conditional&#39;, function() {
+  return function(b, t, f) {
+    return b ? t : f;
   };
 });</code></pre><p>With this filter, you can do things like this in your HTML:</p>
-<pre><code>&lt;a ng-href=<span class="hljs-string">"{{ isProduct | conditional:'/product/':'/user/'}}{{object.id}}"</span>&gt;
-  My <span class="hljs-built_in">Object</span>
-&lt;<span class="hljs-regexp">/a&gt;</span></code></pre><h2 id="3-array-manipulation-searching-sorting-limiting">3) Array manipulation: searching, sorting, limiting</h2>
+<pre><code>&lt;a ng-href=&quot;{{ isProduct | conditional:&#39;/product/&#39;:&#39;/user/&#39;}}{{object.id}}&quot;&gt;
+  My Object
+&lt;/a&gt;</code></pre><h2 id="3-array-manipulation-searching-sorting-limiting">3) Array manipulation: searching, sorting, limiting</h2>
 <p><em>AngularJS Example: The wonderfully-named <a href="http://docs.angularjs.org/api/ng.filter:filter"><code>filter</code> filter</a></em></p>
 <p><em>AngularJS Example: The <a href="http://docs.angularjs.org/api/ng.filter:orderBy"><code>orderBy</code> filter</a></em></p>
 <p><em>Our Example: Partially hardcoding the order of an array</em></p>
 <p><em>Alternative Example: Merge two arrays</em></p>
 <p>If you&#39;re a resident of the US and have ordered something online from a site that isn&#39;t Amazon, likely you&#39;ve experienced some minor annoyance having to scroll to the bottom of a country dropdown to find &#39;United States&#39; when entering your shipping information. Lets say that you want to streamline your checkout for US customers, and put your country select in alphabetical order except for &#39;United States&#39; being first. Obviously, there are more than a few ways of doing this, but for the sake of example, lets use a filter.</p>
 <p>First off, lets assume that we have a list of countries as an array of objects with have a <code>name</code> field, and we&#39;re displaying this list as so:</p>
-<pre><code>&lt;select ng-model=<span class="hljs-string">"shipToCountry"</span>
-        ng-options=<span class="hljs-string">"country.name for country in countries"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span></code></pre><p>To order the countries alphabetically, we can use the built-in <a href="http://docs.angularjs.org/api/ng.filter:orderBy"><code>orderBy</code> filter</a>:</p>
-<pre><code>&lt;select ng-model=<span class="hljs-string">"shipToCountry"</span>
-        ng-options=<span class="hljs-string">"country.name for country in countries | orderBy:'name'"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span></code></pre><p>And now, lets write a quick filter that will move the specified country to first in our array:</p>
-<pre><code>filter(<span class="hljs-string">'hardcodeFirst'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arr, field, val</span>) </span>{
-    <span class="hljs-keyword">var</span> first = <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; ++i) {
-      <span class="hljs-keyword">if</span> (arr[i][field] == val) {
+<pre><code>&lt;select ng-model=&quot;shipToCountry&quot;
+        ng-options=&quot;country.name for country in countries&quot;&gt;
+&lt;/select&gt;</code></pre><p>To order the countries alphabetically, we can use the built-in <a href="http://docs.angularjs.org/api/ng.filter:orderBy"><code>orderBy</code> filter</a>:</p>
+<pre><code>&lt;select ng-model=&quot;shipToCountry&quot;
+        ng-options=&quot;country.name for country in countries | orderBy:&#39;name&#39;&quot;&gt;
+&lt;/select&gt;</code></pre><p>And now, lets write a quick filter that will move the specified country to first in our array:</p>
+<pre><code>filter(&#39;hardcodeFirst&#39;, function() {
+  return function(arr, field, val) {
+    var first = null;
+    for (var i = 0; i &lt; arr.length; ++i) {
+      if (arr[i][field] == val) {
         first = i;
-        <span class="hljs-keyword">break</span>;
+        break;
       }
     }
 
-    <span class="hljs-keyword">if</span> (!first) {
-      <span class="hljs-keyword">return</span> arr;
+    if (!first) {
+      return arr;
     }
 
-    <span class="hljs-keyword">var</span> firstEl = arr[first];
-    arr.splice(first, <span class="hljs-number">0</span>);
+    var firstEl = arr[first];
+    arr.splice(first, 0);
     arr.unshift(firstEl);
 
-    <span class="hljs-keyword">return</span> arr;
+    return arr;
   }
 });</code></pre><p>And now we can pipe the result of our <code>orderBy</code> into this filter to make sure &#39;United States&#39; comes first:</p>
-<pre><code>&lt;select ng-model=<span class="hljs-string">"countryToShip"</span>
-        ng-options=<span class="hljs-string">"country.name for country in countries | orderBy:'name' | hardcodeFirst:'name':'United States'"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></span></code></pre><p>You can see this in action on this <a href="http://jsfiddle.net/vkarpov15/R9PJL/">JSFiddle</a>.</p>
+<pre><code>&lt;select ng-model=&quot;countryToShip&quot;
+        ng-options=&quot;country.name for country in countries | orderBy:&#39;name&#39; | hardcodeFirst:&#39;name&#39;:&#39;United States&#39;&quot;&gt;
+&lt;/select&gt;</code></pre><p>You can see this in action on this <a href="http://jsfiddle.net/vkarpov15/R9PJL/">JSFiddle</a>.</p>
 <p><strong>Pitfall:</strong></p>
 <p>You may be tempted to use the <a href="http://docs.angularjs.org/api/ng.directive:ngInit"><code>ng-init</code> directive</a> to initialize a variable within an <code>ng-repeat</code> loop where you&#39;re repeating over a filtered array. Try to avoid this temptation, or be very careful if you choose to do it anyway. If you use <code>ng-init</code>, you may force AngularJS to re-render, which will cause it to do <code>ng-init</code> again, and force an infinite re-rendering loop. This will manifest as the well-known &quot;10 $digest() iterations reached. Aborting!&quot; error, as described <a href="http://stackoverflow.com/questions/14376879/error-10-digest-iterations-reached-aborting-with-dynamic-sortby-predicate">here</a>.</p>
 <h2 id="the-end">The End</h2>

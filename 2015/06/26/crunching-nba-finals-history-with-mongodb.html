@@ -25,44 +25,44 @@ investigating this data, you&#39;ll learn about the MongoDB aggregation framewor
 figure out some fun NBA finals minutae, and answer the question about LeBron
 James&#39; prolific losing.</p>
 <pre><code>{
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>),
-    <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>,
-    <span class="hljs-string">"winner"</span> : <span class="hljs-string">"Golden State Warriors"</span>,
-    <span class="hljs-string">"loser"</span> : <span class="hljs-string">"Cleveland Cavaliers"</span>,
-    <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"A. Iguodala"</span>,
-    <span class="hljs-string">"winnerRoster"</span> : [
-        <span class="hljs-string">"Andrew Bogut"</span>,
-        <span class="hljs-string">"David Lee"</span>,
-        <span class="hljs-string">"Stephen Curry"</span>,
-        <span class="hljs-string">"Brandon Rush"</span>,
-        <span class="hljs-string">"Harrison Barnes"</span>,
-        <span class="hljs-string">"Klay Thompson"</span>,
-        <span class="hljs-string">"Festus Ezeli"</span>,
-        <span class="hljs-string">"Draymond Green"</span>,
-        <span class="hljs-string">"Justin Holiday"</span>,
-        <span class="hljs-string">"Andre Iguodala"</span>,
-        <span class="hljs-string">"Shaun Livingston"</span>,
-        <span class="hljs-string">"Marreese Speights"</span>,
-        <span class="hljs-string">"Ognjen Kuzmic"</span>,
-        <span class="hljs-string">"Leandro Barbosa"</span>,
-        <span class="hljs-string">"James Michael McAdoo"</span>
+    &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b87939324592&quot;),
+    &quot;year&quot; : &quot;2015&quot;,
+    &quot;winner&quot; : &quot;Golden State Warriors&quot;,
+    &quot;loser&quot; : &quot;Cleveland Cavaliers&quot;,
+    &quot;mvp&quot; : &quot;A. Iguodala&quot;,
+    &quot;winnerRoster&quot; : [
+        &quot;Andrew Bogut&quot;,
+        &quot;David Lee&quot;,
+        &quot;Stephen Curry&quot;,
+        &quot;Brandon Rush&quot;,
+        &quot;Harrison Barnes&quot;,
+        &quot;Klay Thompson&quot;,
+        &quot;Festus Ezeli&quot;,
+        &quot;Draymond Green&quot;,
+        &quot;Justin Holiday&quot;,
+        &quot;Andre Iguodala&quot;,
+        &quot;Shaun Livingston&quot;,
+        &quot;Marreese Speights&quot;,
+        &quot;Ognjen Kuzmic&quot;,
+        &quot;Leandro Barbosa&quot;,
+        &quot;James Michael McAdoo&quot;
     ],
-    <span class="hljs-string">"loserRoster"</span> : [
-        <span class="hljs-string">"Brendan Haywood"</span>,
-        <span class="hljs-string">"Anderson Varejao"</span>,
-        <span class="hljs-string">"Kyrie Irving"</span>,
-        <span class="hljs-string">"Tristan Thompson"</span>,
-        <span class="hljs-string">"Shawn Marion"</span>,
-        <span class="hljs-string">"LeBron James"</span>,
-        <span class="hljs-string">"Mike Miller"</span>,
-        <span class="hljs-string">"James Jones"</span>,
-        <span class="hljs-string">"Kevin Love"</span>,
-        <span class="hljs-string">"Iman Shumpert"</span>,
-        <span class="hljs-string">"J.R. Smith"</span>,
-        <span class="hljs-string">"Timofey Mozgov"</span>,
-        <span class="hljs-string">"Matthew Dellavedova"</span>,
-        <span class="hljs-string">"Joe Harris"</span>,
-        <span class="hljs-string">"Kendrick Perkins"</span>
+    &quot;loserRoster&quot; : [
+        &quot;Brendan Haywood&quot;,
+        &quot;Anderson Varejao&quot;,
+        &quot;Kyrie Irving&quot;,
+        &quot;Tristan Thompson&quot;,
+        &quot;Shawn Marion&quot;,
+        &quot;LeBron James&quot;,
+        &quot;Mike Miller&quot;,
+        &quot;James Jones&quot;,
+        &quot;Kevin Love&quot;,
+        &quot;Iman Shumpert&quot;,
+        &quot;J.R. Smith&quot;,
+        &quot;Timofey Mozgov&quot;,
+        &quot;Matthew Dellavedova&quot;,
+        &quot;Joe Harris&quot;,
+        &quot;Kendrick Perkins&quot;
     ]
 }</code></pre><p>The preferred way to import a JSON array into MongoDB is
 <a href="http://docs.mongodb.org/manual/reference/program/mongoimport/">mongoimport</a>,
@@ -72,154 +72,154 @@ which comes packaged with MongoDB. The command I used to import this data is
 <p>Let&#39;s take a look at some basic examples to get the hang of this data set.
 The most basic query: when&#39;s the last year the Golden State Warriors won the
 NBA Finals?</p>
-<pre><code>&gt; db.finals.find({ winner: <span class="hljs-string">'Golden State Warriors'</span> }, { year: <span class="hljs-number">1</span> });
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245c1"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"1975"</span> }</code></pre><p>The answer is 1975. I feel vindicated because as recently as 2 years ago I
+<pre><code>&gt; db.finals.find({ winner: &#39;Golden State Warriors&#39; }, { year: 1 });
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b87939324592&quot;), &quot;year&quot; : &quot;2015&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b879393245c1&quot;), &quot;year&quot; : &quot;1975&quot; }</code></pre><p>The answer is 1975. I feel vindicated because as recently as 2 years ago I
 thought I&#39;d never live to see the day the Warriors won the Finals.</p>
 <p>As recently as 2 weeks ago, I thought I&#39;d never live to see the day that
 Andre Iguodala would win the Finals MVP. He must be
 <a href="http://ftw.usatoday.com/2015/06/steve-kerr-andre-iguodala-steph-curry-augusta">really love golf</a>.
 Turns out, if you order Finals MVPs by first name, he comes first.</p>
-<pre><code>&gt; db.finals.find({ mvp: { $ne: <span class="hljs-string">''</span> } }, { year: <span class="hljs-number">1</span>, mvp: <span class="hljs-number">1</span> }).sort({ mvp: <span class="hljs-number">1</span> }).limit(<span class="hljs-number">3</span>);
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"A. Iguodala"</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245b8"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"1977"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"B. Walton"</span> }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b8793932459c"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2004"</span>, <span class="hljs-string">"mvp"</span> : <span class="hljs-string">"C. Billups"</span> }</code></pre><p>The Warriors&#39; Stephen Curry is from a prolific basketball family. His father
+<pre><code>&gt; db.finals.find({ mvp: { $ne: &#39;&#39; } }, { year: 1, mvp: 1 }).sort({ mvp: 1 }).limit(3);
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b87939324592&quot;), &quot;year&quot; : &quot;2015&quot;, &quot;mvp&quot; : &quot;A. Iguodala&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b879393245b8&quot;), &quot;year&quot; : &quot;1977&quot;, &quot;mvp&quot; : &quot;B. Walton&quot; }
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b8793932459c&quot;), &quot;year&quot; : &quot;2004&quot;, &quot;mvp&quot; : &quot;C. Billups&quot; }</code></pre><p>The Warriors&#39; Stephen Curry is from a prolific basketball family. His father
 played in the NBA and his younger brother is in the NBA Development League.
 While he is the first member of his family to win an NBA Championship, he&#39;s
 not the first Curry:</p>
-<pre><code>&gt; db.finals.find({ winnerRoster: <span class="hljs-regexp">/Curry/</span> }, { year: <span class="hljs-number">1</span>, team: <span class="hljs-number">1</span>, <span class="hljs-string">'winnerRoster.$'</span>: <span class="hljs-number">1</span> })
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b87939324592"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2015"</span>, <span class="hljs-string">"winnerRoster"</span> : [ <span class="hljs-string">"Stephen Curry"</span> ] }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"558c6b8b8262b879393245a2"</span>), <span class="hljs-string">"year"</span> : <span class="hljs-string">"2012"</span>, <span class="hljs-string">"winnerRoster"</span> : [ <span class="hljs-string">"Eddy Curry"</span> ] }</code></pre><h2 id="whos-lost-the-most-nba-finals">Who&#39;s Lost the Most NBA Finals?</h2>
+<pre><code>&gt; db.finals.find({ winnerRoster: /Curry/ }, { year: 1, team: 1, &#39;winnerRoster.$&#39;: 1 })
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b87939324592&quot;), &quot;year&quot; : &quot;2015&quot;, &quot;winnerRoster&quot; : [ &quot;Stephen Curry&quot; ] }
+{ &quot;_id&quot; : ObjectId(&quot;558c6b8b8262b879393245a2&quot;), &quot;year&quot; : &quot;2012&quot;, &quot;winnerRoster&quot; : [ &quot;Eddy Curry&quot; ] }</code></pre><h2 id="whos-lost-the-most-nba-finals">Who&#39;s Lost the Most NBA Finals?</h2>
 <p>I mentioned previously that LeBron James&#39; 4 NBA finals loses puts him tied for
 5th all-time. Who are the players that have lost the NBA Finals more? Much to
 my shame as a lifelong Lakers fan, Lakers greats Elgin Baylor and Jerry West
 each were part of 8 Finals-losing Lakers teams in the 50&#39;s, 60&#39;s, and 70&#39;s.</p>
-<pre><code>&gt; db.finals.aggregate([{ $unwind: <span class="hljs-string">'$loserRoster'</span> }, { $group: { _id: <span class="hljs-string">'$loserRoster'</span>, count: { $sum: <span class="hljs-number">1</span> }, teams: { $push: { team: <span class="hljs-string">'$loser'</span>, year: <span class="hljs-string">'$year'</span> } } } }, { $sort: { count: <span class="hljs-number">-1</span> } }, { $limit: <span class="hljs-number">4</span> }]).pretty();
+<pre><code>&gt; db.finals.aggregate([{ $unwind: &#39;$loserRoster&#39; }, { $group: { _id: &#39;$loserRoster&#39;, count: { $sum: 1 }, teams: { $push: { team: &#39;$loser&#39;, year: &#39;$year&#39; } } } }, { $sort: { count: -1 } }, { $limit: 4 }]).pretty();
 {
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Elgin Baylor"</span>,
-    <span class="hljs-string">"count"</span> : <span class="hljs-number">8</span>,
-    <span class="hljs-string">"teams"</span> : [
+    &quot;_id&quot; : &quot;Elgin Baylor&quot;,
+    &quot;count&quot; : 8,
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1968"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1968&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1970"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1970&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1969"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1969&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1966"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1966&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1963"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1963&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Minneapolis Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1959"</span>
+            &quot;team&quot; : &quot;Minneapolis Lakers&quot;,
+            &quot;year&quot; : &quot;1959&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1965"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1965&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1962"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1962&quot;
         }
     ]
 }
 {
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Jerry West"</span>,
-    <span class="hljs-string">"count"</span> : <span class="hljs-number">8</span>,
-    <span class="hljs-string">"teams"</span> : [
+    &quot;_id&quot; : &quot;Jerry West&quot;,
+    &quot;count&quot; : 8,
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1973"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1973&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1968"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1968&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1970"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1970&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1969"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1969&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1966"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1966&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1963"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1963&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1965"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1965&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Los Angeles Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1962"</span>
+            &quot;team&quot; : &quot;Los Angeles Lakers&quot;,
+            &quot;year&quot; : &quot;1962&quot;
         }
     ]
 }
 {
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Larry Foust"</span>,
-    <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>,
-    <span class="hljs-string">"teams"</span> : [
+    &quot;_id&quot; : &quot;Larry Foust&quot;,
+    &quot;count&quot; : 5,
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"St. Louis Hawks"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1960"</span>
+            &quot;team&quot; : &quot;St. Louis Hawks&quot;,
+            &quot;year&quot; : &quot;1960&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Fort Wayne Pistons"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1955"</span>
+            &quot;team&quot; : &quot;Fort Wayne Pistons&quot;,
+            &quot;year&quot; : &quot;1955&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Minneapolis Lakers"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1959"</span>
+            &quot;team&quot; : &quot;Minneapolis Lakers&quot;,
+            &quot;year&quot; : &quot;1959&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Fort Wayne Pistons"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1956"</span>
+            &quot;team&quot; : &quot;Fort Wayne Pistons&quot;,
+            &quot;year&quot; : &quot;1956&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"St. Louis Hawks"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1961"</span>
+            &quot;team&quot; : &quot;St. Louis Hawks&quot;,
+            &quot;year&quot; : &quot;1961&quot;
         }
     ]
 }
 {
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Max Zaslofsky"</span>,
-    <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>,
-    <span class="hljs-string">"teams"</span> : [
+    &quot;_id&quot; : &quot;Max Zaslofsky&quot;,
+    &quot;count&quot; : 5,
+    &quot;teams&quot; : [
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Fort Wayne Pistons"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1955"</span>
+            &quot;team&quot; : &quot;Fort Wayne Pistons&quot;,
+            &quot;year&quot; : &quot;1955&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"New York Knicks"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1953"</span>
+            &quot;team&quot; : &quot;New York Knicks&quot;,
+            &quot;year&quot; : &quot;1953&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"Fort Wayne Pistons"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1956"</span>
+            &quot;team&quot; : &quot;Fort Wayne Pistons&quot;,
+            &quot;year&quot; : &quot;1956&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"New York Knicks"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1952"</span>
+            &quot;team&quot; : &quot;New York Knicks&quot;,
+            &quot;year&quot; : &quot;1952&quot;
         },
         {
-            <span class="hljs-string">"team"</span> : <span class="hljs-string">"New York Knicks"</span>,
-            <span class="hljs-string">"year"</span> : <span class="hljs-string">"1951"</span>
+            &quot;team&quot; : &quot;New York Knicks&quot;,
+            &quot;year&quot; : &quot;1951&quot;
         }
     ]
 }</code></pre><p>Let&#39;s take a closer look at the aggregation pipeline.</p>
@@ -256,13 +256,13 @@ named to the All-NBA First Team until LeBron James in 2005-06.</p>
 the only player whose name ends in &#39;sky&#39; to play for teams that made it to
 the Finals. There were a few &#39;ski&#39; last names, the latest being Jim Rowinski,
 who played 6 games and scored 4 points for the 1989 &#39;Bad Boys&#39; Detroit Pistons.</p>
-<pre><code>&gt; db.finals.aggregate([{ $project: { year: <span class="hljs-number">1</span>, players: { $setUnion: [<span class="hljs-string">'$winnerRoster'</span>, <span class="hljs-string">'$loserRoster'</span>] } } }, { $unwind: <span class="hljs-string">'$players'</span> }, { $group: { _id: <span class="hljs-string">'$players'</span>, years: { $push: <span class="hljs-string">'$year'</span> } } }, { $match: { _id: <span class="hljs-regexp">/sk[iy]$/ig</span> } }]);
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Johnny Macknowski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1950"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Joe Graboski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1956"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Max Zaslofsky"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1955"</span>, <span class="hljs-string">"1953"</span>, <span class="hljs-string">"1956"</span>, <span class="hljs-string">"1952"</span>, <span class="hljs-string">"1951"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Steve Kuberski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1976"</span>, <span class="hljs-string">"1974"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Jim Rowinski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1989"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Frank Brickowski"</span>, <span class="hljs-string">"years"</span> : [ <span class="hljs-string">"1996"</span>, <span class="hljs-string">"1987"</span> ] }</code></pre><p>This is another interesting aggregation worth taking a closer look at.</p>
+<pre><code>&gt; db.finals.aggregate([{ $project: { year: 1, players: { $setUnion: [&#39;$winnerRoster&#39;, &#39;$loserRoster&#39;] } } }, { $unwind: &#39;$players&#39; }, { $group: { _id: &#39;$players&#39;, years: { $push: &#39;$year&#39; } } }, { $match: { _id: /sk[iy]$/ig } }]);
+{ &quot;_id&quot; : &quot;Johnny Macknowski&quot;, &quot;years&quot; : [ &quot;1950&quot; ] }
+{ &quot;_id&quot; : &quot;Joe Graboski&quot;, &quot;years&quot; : [ &quot;1956&quot; ] }
+{ &quot;_id&quot; : &quot;Max Zaslofsky&quot;, &quot;years&quot; : [ &quot;1955&quot;, &quot;1953&quot;, &quot;1956&quot;, &quot;1952&quot;, &quot;1951&quot; ] }
+{ &quot;_id&quot; : &quot;Steve Kuberski&quot;, &quot;years&quot; : [ &quot;1976&quot;, &quot;1974&quot; ] }
+{ &quot;_id&quot; : &quot;Jim Rowinski&quot;, &quot;years&quot; : [ &quot;1989&quot; ] }
+{ &quot;_id&quot; : &quot;Frank Brickowski&quot;, &quot;years&quot; : [ &quot;1996&quot;, &quot;1987&quot; ] }</code></pre><p>This is another interesting aggregation worth taking a closer look at.</p>
 <pre><code class="language-javascript">[
     {
         $project: {
@@ -289,13 +289,13 @@ Hawks, and another one with the Minneapolis Lakers to boot.</p>
 <p>This begs 2 questions. First, are these the only 3? Second, how many other
 players have been on the losing end of the NBA Finals for 3 different teams?
 Turns out, just 4 others:</p>
-<pre><code>&gt; db.finals.aggregate([{ $unwind: <span class="hljs-string">'$loserRoster'</span> }, { $group: { _id: { player: <span class="hljs-string">'$loserRoster'</span>, team: <span class="hljs-string">'$loser'</span> } } }, { $group: { _id: <span class="hljs-string">'$_id.player'</span>, count: { $sum: <span class="hljs-number">1</span> } } }, { $sort: { count: <span class="hljs-number">-1</span> } }, { $limit: <span class="hljs-number">6</span> }]).pretty();
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Eric Snow"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Danny Ainge"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Larry Foust"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Sam Perkins"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Kendrick Perkins"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">3</span> }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Erick Dampier"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span> }</code></pre><h2 id="back-to-the-original-question">Back to the Original Question</h2>
+<pre><code>&gt; db.finals.aggregate([{ $unwind: &#39;$loserRoster&#39; }, { $group: { _id: { player: &#39;$loserRoster&#39;, team: &#39;$loser&#39; } } }, { $group: { _id: &#39;$_id.player&#39;, count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 6 }]).pretty();
+{ &quot;_id&quot; : &quot;Eric Snow&quot;, &quot;count&quot; : 3 }
+{ &quot;_id&quot; : &quot;Danny Ainge&quot;, &quot;count&quot; : 3 }
+{ &quot;_id&quot; : &quot;Larry Foust&quot;, &quot;count&quot; : 3 }
+{ &quot;_id&quot; : &quot;Sam Perkins&quot;, &quot;count&quot; : 3 }
+{ &quot;_id&quot; : &quot;Kendrick Perkins&quot;, &quot;count&quot; : 3 }
+{ &quot;_id&quot; : &quot;Erick Dampier&quot;, &quot;count&quot; : 2 }</code></pre><h2 id="back-to-the-original-question">Back to the Original Question</h2>
 <p>The original question of &#39;which players in NBA history have lost the NBA Finals
 at least twice with at least two teams?&#39; involves a trickier aggregation. It
 involves two separate <code>$group</code> stages, but its quite doable. You&#39;ll need 5
@@ -337,9 +337,9 @@ they have at least 2 NBA Finals losses with.</li>
 ]</code></pre>
 <p>The result is what you might expect - its just LeBron James, Max Zaslofsky,
 and Larry Foust, no others.</p>
-<pre><code>{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Max Zaslofsky"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"New York Knicks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"LeBron James"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"Cleveland Cavaliers"</span>, <span class="hljs-string">"Miami Heat"</span> ] }
-{ <span class="hljs-string">"_id"</span> : <span class="hljs-string">"Larry Foust"</span>, <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, <span class="hljs-string">"teams"</span> : [ <span class="hljs-string">"St. Louis Hawks"</span>, <span class="hljs-string">"Fort Wayne Pistons"</span> ] }</code></pre><h2 id="conclusion">Conclusion</h2>
+<pre><code>{ &quot;_id&quot; : &quot;Max Zaslofsky&quot;, &quot;count&quot; : 2, &quot;teams&quot; : [ &quot;New York Knicks&quot;, &quot;Fort Wayne Pistons&quot; ] }
+{ &quot;_id&quot; : &quot;LeBron James&quot;, &quot;count&quot; : 2, &quot;teams&quot; : [ &quot;Cleveland Cavaliers&quot;, &quot;Miami Heat&quot; ] }
+{ &quot;_id&quot; : &quot;Larry Foust&quot;, &quot;count&quot; : 2, &quot;teams&quot; : [ &quot;St. Louis Hawks&quot;, &quot;Fort Wayne Pistons&quot; ] }</code></pre><h2 id="conclusion">Conclusion</h2>
 <p>That&#39;s a lot of aggregations! Hopefully you&#39;ve seen some of the interesting
 and powerful things you can do with the MongoDB aggregation framework. In
 particular, the ability to group, match, and then re-group gives you the

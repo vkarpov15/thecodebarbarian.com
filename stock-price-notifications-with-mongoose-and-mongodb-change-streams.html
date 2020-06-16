@@ -89,23 +89,23 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error))
 }</code></pre>
 <p>The output from running the above script looks like this:</p>
 <pre><code>$ node change.js
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">22.355</span>Z <span class="hljs-string">'mongoose version: 5.1.0'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.367</span>Z <span class="hljs-string">'Replica set started...'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.467</span>Z <span class="hljs-string">'Inserting doc'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.487</span>Z <span class="hljs-string">'Inserted doc'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T15:<span class="hljs-number">05</span>:<span class="hljs-number">35.491</span>Z { _id:
+2018-05-11T15:05:22.355Z &#39;mongoose version: 5.1.0&#39;
+2018-05-11T15:05:35.367Z &#39;Replica set started...&#39;
+2018-05-11T15:05:35.467Z &#39;Inserting doc&#39;
+2018-05-11T15:05:35.487Z &#39;Inserted doc&#39;
+2018-05-11T15:05:35.491Z { _id:
    { _data:
       Binary {
-        _bsontype: <span class="hljs-string">'Binary'</span>,
-        sub_type: <span class="hljs-number">0</span>,
-        position: <span class="hljs-number">49</span>,
-        buffer: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Buffer</span> <span class="hljs-attr">82</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">f5</span> <span class="hljs-attr">b1</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">00</span> <span class="hljs-attr">07</span> <span class="hljs-attr">46</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5f</span> <span class="hljs-attr">69</span> <span class="hljs-attr">64</span> <span class="hljs-attr">00</span> <span class="hljs-attr">64</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">f5</span> <span class="hljs-attr">b1</span> <span class="hljs-attr">3f</span> <span class="hljs-attr">e5</span> <span class="hljs-attr">26</span> <span class="hljs-attr">02</span> <span class="hljs-attr">76</span> <span class="hljs-attr">66</span> <span class="hljs-attr">c6</span> <span class="hljs-attr">bf</span> <span class="hljs-attr">83</span> <span class="hljs-attr">00</span> <span class="hljs-attr">5a</span> <span class="hljs-attr">10</span> <span class="hljs-attr">04</span> <span class="hljs-attr">f6</span> <span class="hljs-attr">71</span> <span class="hljs-attr">b9</span> <span class="hljs-attr">00</span> <span class="hljs-attr">09</span> <span class="hljs-attr">b2</span> <span class="hljs-attr">48</span> <span class="hljs-attr">4e</span> <span class="hljs-attr">af</span> <span class="hljs-attr">dc</span> <span class="hljs-attr">41</span> <span class="hljs-attr">42</span> <span class="hljs-attr">b9</span> <span class="hljs-attr">94</span> <span class="hljs-attr">a0</span> <span class="hljs-attr">77</span> <span class="hljs-attr">04</span>&gt;</span> } },
-  operationType: 'insert',
-  fullDocument: { _id: 5af5b13fe526027666c6bf83, name: 'Axl Rose', __v: 0 },
-  ns: { db: 'test', coll: 'Person' },
+        _bsontype: &#39;Binary&#39;,
+        sub_type: 0,
+        position: 49,
+        buffer: &lt;Buffer 82 5a f5 b1 3f 00 00 00 07 46 64 5f 69 64 00 64 5a f5 b1 3f e5 26 02 76 66 c6 bf 83 00 5a 10 04 f6 71 b9 00 09 b2 48 4e af dc 41 42 b9 94 a0 77 04&gt; } },
+  operationType: &#39;insert&#39;,
+  fullDocument: { _id: 5af5b13fe526027666c6bf83, name: &#39;Axl Rose&#39;, __v: 0 },
+  ns: { db: &#39;test&#39;, coll: &#39;Person&#39; },
   documentKey: { _id: 5af5b13fe526027666c6bf83 } }
 ^C
-$</span></code></pre><p>In particular, notice the <code>operationType</code>, <code>fullDocument</code>, and <code>ns</code> properties.
+$</code></pre><p>In particular, notice the <code>operationType</code>, <code>fullDocument</code>, and <code>ns</code> properties.
 The <code>operationType</code> property tells you the type of change that occurred,
 it will be either &#39;insert&#39;, &#39;update&#39;, &#39;replace&#39;, &#39;delete&#39;, or &#39;invalidate&#39;.
 Each <code>operationType</code> has slightly different properties. The <code>fullDocument</code>
@@ -230,26 +230,26 @@ would let the app&#39;s users manage their thresholds.</p>
 <p>Run these two scripts in two separate terminal windows, The <code>ingestData.js</code>
 script will print out the stock prices it inserted:</p>
 <pre><code>$ node ingestData.js
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">04.596</span>Z <span class="hljs-string">'mongoose version: 5.1.1-pre'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">18.658</span>Z <span class="hljs-string">'Replica set started...'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">18.733</span>Z <span class="hljs-string">'Insert MDB price 44.5'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">19.747</span>Z <span class="hljs-string">'Insert MDB price 44.51'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">20.756</span>Z <span class="hljs-string">'Insert MDB price 44.67'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">21.763</span>Z <span class="hljs-string">'Insert MDB price 44.79'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">22.769</span>Z <span class="hljs-string">'Insert MDB price 44.52'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">23.775</span>Z <span class="hljs-string">'Insert MDB price 43.97'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">24.786</span>Z <span class="hljs-string">'Insert MDB price 44.55'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">25.794</span>Z <span class="hljs-string">'Insert MDB price 44.22'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">26.802</span>Z <span class="hljs-string">'Insert MDB price 44.11'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">27.809</span>Z <span class="hljs-string">'Insert MDB price 44.86'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.817</span>Z <span class="hljs-string">'Insert MDB price 45.1'</span>
+2018-05-11T16:03:04.596Z &#39;mongoose version: 5.1.1-pre&#39;
+2018-05-11T16:03:18.658Z &#39;Replica set started...&#39;
+2018-05-11T16:03:18.733Z &#39;Insert MDB price 44.5&#39;
+2018-05-11T16:03:19.747Z &#39;Insert MDB price 44.51&#39;
+2018-05-11T16:03:20.756Z &#39;Insert MDB price 44.67&#39;
+2018-05-11T16:03:21.763Z &#39;Insert MDB price 44.79&#39;
+2018-05-11T16:03:22.769Z &#39;Insert MDB price 44.52&#39;
+2018-05-11T16:03:23.775Z &#39;Insert MDB price 43.97&#39;
+2018-05-11T16:03:24.786Z &#39;Insert MDB price 44.55&#39;
+2018-05-11T16:03:25.794Z &#39;Insert MDB price 44.22&#39;
+2018-05-11T16:03:26.802Z &#39;Insert MDB price 44.11&#39;
+2018-05-11T16:03:27.809Z &#39;Insert MDB price 44.86&#39;
+2018-05-11T16:03:28.817Z &#39;Insert MDB price 45.1&#39;
 ...
 ^C
 $</code></pre><p>The <code>watchData.js</code> script will print out the times the stock price crossed 45:</p>
 <pre><code>$ node watchData.js
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">28.841</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">38.905</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.5, 45.02'</span>
-<span class="hljs-number">2018</span><span class="hljs-number">-05</span><span class="hljs-number">-11</span>T16:<span class="hljs-number">03</span>:<span class="hljs-number">48.979</span>Z <span class="hljs-string">'Threshold for MDB 45 crossed: 44.86, 45.1'</span>
+2018-05-11T16:03:28.841Z &#39;Threshold for MDB 45 crossed: 44.86, 45.1&#39;
+2018-05-11T16:03:38.905Z &#39;Threshold for MDB 45 crossed: 44.5, 45.02&#39;
+2018-05-11T16:03:48.979Z &#39;Threshold for MDB 45 crossed: 44.86, 45.1&#39;
 ^C
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>MongoDB change streams enable you to use MongoDB for pubsub, which is great

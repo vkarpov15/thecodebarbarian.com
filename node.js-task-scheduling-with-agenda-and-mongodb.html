@@ -53,20 +53,20 @@ run().catch(error =&gt; {
 });</code></pre>
 <p>Take a look at the <code>agendatest.jobs</code> collection in MongoDB after the above script has finished running, you should see a document that looks like what you see below.</p>
 <pre><code>$ mongo agendatest
-dMongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
-connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/agendatest</span>
-MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-number">.1</span>
+dMongoDB shell version v3.4.1
+connecting to: mongodb://127.0.0.1:27017/agendatest
+MongoDB server version: 3.4.1
 &gt; db.jobs.findOne()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58dd6f70b8d1c221b9d16c12"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"hello"</span>,
-    <span class="hljs-string">"data"</span> : <span class="hljs-literal">null</span>,
-    <span class="hljs-string">"type"</span> : <span class="hljs-string">"normal"</span>,
-    <span class="hljs-string">"priority"</span> : <span class="hljs-number">0</span>,
-    <span class="hljs-string">"nextRunAt"</span> : <span class="hljs-literal">null</span>,
-    <span class="hljs-string">"lastModifiedBy"</span> : <span class="hljs-literal">null</span>,
-    <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:52.919Z"</span>),
-    <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T20:49:53.825Z"</span>)
+    &quot;_id&quot; : ObjectId(&quot;58dd6f70b8d1c221b9d16c12&quot;),
+    &quot;name&quot; : &quot;hello&quot;,
+    &quot;data&quot; : null,
+    &quot;type&quot; : &quot;normal&quot;,
+    &quot;priority&quot; : 0,
+    &quot;nextRunAt&quot; : null,
+    &quot;lastModifiedBy&quot; : null,
+    &quot;lockedAt&quot; : ISODate(&quot;2017-03-30T20:49:52.919Z&quot;),
+    &quot;lastRunAt&quot; : ISODate(&quot;2017-03-30T20:49:53.825Z&quot;)
 }
 &gt;</code></pre><p>Agenda created a new document that represents the job. Because the job lives in MongoDB, agenda can pick up where it left off even if you kill the script before the job runs. For example, let&#39;s change the job to run in 10 seconds and kill the process before the job runs.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Schedule a job for 1 second from now and persist it to mongodb.</span>
@@ -76,16 +76,16 @@ agenda.start();</code></pre>
 <pre><code>$ time node agenda.js
 ^C
 
-real    <span class="hljs-number">0</span>m1<span class="hljs-number">.036</span>s
-user    <span class="hljs-number">0</span>m0<span class="hljs-number">.311</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.031</span>s
-$ sleep <span class="hljs-number">10</span>
+real    0m1.036s
+user    0m0.311s
+sys    0m0.031s
+$ sleep 10
 $ time node agenda.js
 Hello, World!
 
-real    <span class="hljs-number">0</span>m0<span class="hljs-number">.325</span>s
-user    <span class="hljs-number">0</span>m0<span class="hljs-number">.317</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.024</span>s
+real    0m0.325s
+user    0m0.317s
+sys    0m0.024s
 $</code></pre><h2 id="separate-processes-and-pubsub">Separate Processes And Pub/Sub</h2>
 <p>You can have a single process that handles both scheduling and running your jobs, but agenda also makes it easy to have a producer process that schedules jobs, and a consumer process that runs jobs. You just need to ensure that both processes have an agenda instance that look at the same collection in MongoDB. Here&#39;s an example <code>producer.js</code>:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);
@@ -161,17 +161,17 @@ run().catch(error =&gt; {
 <p>When you schedule this job, here&#39;s how it will look in MongoDB:</p>
 <pre><code>&gt; db.jobs.findOne()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"58dd7464187100248acfc231"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"print"</span>,
-    <span class="hljs-string">"data"</span> : {
-        <span class="hljs-string">"message"</span> : <span class="hljs-string">"Hello!"</span>
+    &quot;_id&quot; : ObjectId(&quot;58dd7464187100248acfc231&quot;),
+    &quot;name&quot; : &quot;print&quot;,
+    &quot;data&quot; : {
+        &quot;message&quot; : &quot;Hello!&quot;
     },
-    <span class="hljs-string">"type"</span> : <span class="hljs-string">"normal"</span>,
-    <span class="hljs-string">"priority"</span> : <span class="hljs-number">0</span>,
-    <span class="hljs-string">"nextRunAt"</span> : <span class="hljs-literal">null</span>,
-    <span class="hljs-string">"lastModifiedBy"</span> : <span class="hljs-literal">null</span>,
-    <span class="hljs-string">"lockedAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.172Z"</span>),
-    <span class="hljs-string">"lastRunAt"</span> : ISODate(<span class="hljs-string">"2017-03-30T21:11:04.180Z"</span>)
+    &quot;type&quot; : &quot;normal&quot;,
+    &quot;priority&quot; : 0,
+    &quot;nextRunAt&quot; : null,
+    &quot;lastModifiedBy&quot; : null,
+    &quot;lockedAt&quot; : ISODate(&quot;2017-03-30T21:11:04.172Z&quot;),
+    &quot;lastRunAt&quot; : ISODate(&quot;2017-03-30T21:11:04.180Z&quot;)
 }
 &gt;</code></pre><p>And here&#39;s the <code>consumer.js</code> whose &#39;print&#39; job pulls the <code>message</code> parameter passed in to <code>schedule()</code>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> Agenda = <span class="hljs-built_in">require</span>(<span class="hljs-string">'agenda'</span>);

@@ -20,26 +20,26 @@
 
 <p>The first 11 columns are various chemical properties of a given wine, and the 12th and final column is a &quot;quality&quot; score that represents how good this wine tastes according to the person who recorded this data.</p>
 <p>&quot;Training&quot; is how you build a neural network. Given some training data, Brain.js builds a mathematical model for predicting the quality rating of a wine based on the chemical properties. Below is an example from the Brain.js docs about how to train and then use a neural network.</p>
-<pre><code><span class="hljs-keyword">var</span> net = <span class="hljs-keyword">new</span> brain.NeuralNetwork();
+<pre><code>var net = new brain.NeuralNetwork();
 
-net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="hljs-number">0.7</span>, b: <span class="hljs-number">0.5</span> }, output: { black: <span class="hljs-number">1</span> }},
-           {input: { r: <span class="hljs-number">0.16</span>, g: <span class="hljs-number">0.09</span>, b: <span class="hljs-number">0.2</span> }, output: { white: <span class="hljs-number">1</span> }},
-           {input: { r: <span class="hljs-number">0.5</span>, g: <span class="hljs-number">0.5</span>, b: <span class="hljs-number">1.0</span> }, output: { white: <span class="hljs-number">1</span> }}]);
+net.train([{input: { r: 0.03, g: 0.7, b: 0.5 }, output: { black: 1 }},
+           {input: { r: 0.16, g: 0.09, b: 0.2 }, output: { white: 1 }},
+           {input: { r: 0.5, g: 0.5, b: 1.0 }, output: { white: 1 }}]);
 
-<span class="hljs-keyword">var</span> output = net.run({ r: <span class="hljs-number">1</span>, g: <span class="hljs-number">0.4</span>, b: <span class="hljs-number">0</span> });  <span class="hljs-comment">// { white: 0.99, black: 0.002 }</span></code></pre><p>For the wine data, the input will be an object representing the chemical properties, and the output will contain one property, the quality. One key detail about Brain.js is that all inputs <strong>must</strong> be between 0 and 1, so you need to scale some of the inputs. Below is the first wine from the CSV converted into a format that Brain.js can use for training a neural network.</p>
+var output = net.run({ r: 1, g: 0.4, b: 0 });  // { white: 0.99, black: 0.002 }</code></pre><p>For the wine data, the input will be an object representing the chemical properties, and the output will contain one property, the quality. One key detail about Brain.js is that all inputs <strong>must</strong> be between 0 and 1, so you need to scale some of the inputs. Below is the first wine from the CSV converted into a format that Brain.js can use for training a neural network.</p>
 <pre><code>{ input:
-   { <span class="hljs-string">'fixed acidity'</span>: <span class="hljs-number">0.7</span>,
-     <span class="hljs-string">'volatile acidity'</span>: <span class="hljs-number">0.027000000000000003</span>,
-     <span class="hljs-string">'citric acid'</span>: <span class="hljs-number">0.036</span>,
-     <span class="hljs-string">'residual sugar'</span>: <span class="hljs-number">0.0207</span>,
-     chlorides: <span class="hljs-number">0.0045</span>,
-     <span class="hljs-string">'free sulfur dioxide'</span>: <span class="hljs-number">0.045</span>,
-     <span class="hljs-string">'total sulfur dioxide'</span>: <span class="hljs-number">0.17</span>,
-     density: <span class="hljs-number">0.1001</span>,
-     pH: <span class="hljs-number">0.3</span>,
-     sulphates: <span class="hljs-number">0.045</span>,
-     alcohol: <span class="hljs-number">0.08800000000000001</span> },
-  output: { quality: <span class="hljs-number">0.6</span> } }</code></pre><p>Below is the code for training a neural network on the first 1000 wines in the CSV.</p>
+   { &#39;fixed acidity&#39;: 0.7,
+     &#39;volatile acidity&#39;: 0.027000000000000003,
+     &#39;citric acid&#39;: 0.036,
+     &#39;residual sugar&#39;: 0.0207,
+     chlorides: 0.0045,
+     &#39;free sulfur dioxide&#39;: 0.045,
+     &#39;total sulfur dioxide&#39;: 0.17,
+     density: 0.1001,
+     pH: 0.3,
+     sulphates: 0.045,
+     alcohol: 0.08800000000000001 },
+  output: { quality: 0.6 } }</code></pre><p>Below is the code for training a neural network on the first 1000 wines in the CSV.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { NeuralNetwork } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'brain.js'</span>);
 <span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
@@ -91,30 +91,30 @@ net.train([{input: { r: <span class="hljs-number">0.03</span>, g: <span class="h
 
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done'</span>);</code></pre>
 <p>Below is the truncated output. This rudimentary neural network gets within about 0.6 of the actual quality rating on average.</p>
-<pre><code><span class="hljs-number">45</span> <span class="hljs-number">0.602045476436615</span> <span class="hljs-number">0.5</span>
-<span class="hljs-number">46</span> <span class="hljs-number">0.5928407311439514</span> <span class="hljs-number">0.5</span>
-<span class="hljs-number">47</span> <span class="hljs-number">0.4441471993923187</span> <span class="hljs-number">0.5</span>
-<span class="hljs-number">48</span> <span class="hljs-number">0.449766606092453</span> <span class="hljs-number">0.5</span>
-<span class="hljs-number">49</span> <span class="hljs-number">0.7137854695320129</span> <span class="hljs-number">0.6</span>
-Average error <span class="hljs-number">0.06042885661125182</span></code></pre><h2 id="serializing-the-neural-network">Serializing the Neural Network</h2>
+<pre><code>45 0.602045476436615 0.5
+46 0.5928407311439514 0.5
+47 0.4441471993923187 0.5
+48 0.449766606092453 0.5
+49 0.7137854695320129 0.6
+Average error 0.06042885661125182</code></pre><h2 id="serializing-the-neural-network">Serializing the Neural Network</h2>
 <p>In practice you don&#39;t want to recompute the neural network every time, because even in this simple example training the neural network takes approximately 20 seconds. You can serialize the neural network using the <code>toJSON()</code> function:</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Serialize the neural network as JSON to a file</span>
 fs.writeFileSync(<span class="hljs-string">'./net.json'</span>, <span class="hljs-built_in">JSON</span>.stringify(net.toJSON(), <span class="hljs-literal">null</span>, <span class="hljs-string">'  '</span>));</code></pre>
 <p>Open up the <code>net.json</code> file to see what the neural network looks like. Neural networks consist of &quot;nodes&quot; or &quot;neurons&quot; that <a href="https://ujjwalkarn.me/2016/08/09/quick-intro-neural-networks/">assign a weight to each input</a>. When you train a neural network, brain.js searches to try to come up with weights that match the training data as closely as possible. Here&#39;s a sample node from the <code>net.json</code> file that shows the weights for each parameter.</p>
 <pre><code>{
-  <span class="hljs-string">"bias"</span>: <span class="hljs-number">-5.532558917999268</span>,
-  <span class="hljs-string">"weights"</span>: {
-    <span class="hljs-string">"fixed acidity"</span>: <span class="hljs-number">1.0129427909851074</span>,
-    <span class="hljs-string">"volatile acidity"</span>: <span class="hljs-number">-3.8902039527893066</span>,
-    <span class="hljs-string">"citric acid"</span>: <span class="hljs-number">-0.4018211364746094</span>,
-    <span class="hljs-string">"residual sugar"</span>: <span class="hljs-number">-0.5149407386779785</span>,
-    <span class="hljs-string">"chlorides"</span>: <span class="hljs-number">-3.0765116214752197</span>,
-    <span class="hljs-string">"free sulfur dioxide"</span>: <span class="hljs-number">2.4955267906188965</span>,
-    <span class="hljs-string">"total sulfur dioxide"</span>: <span class="hljs-number">-0.5537568926811218</span>,
-    <span class="hljs-string">"density"</span>: <span class="hljs-number">-1.1998544931411743</span>,
-    <span class="hljs-string">"pH"</span>: <span class="hljs-number">3.0909314155578613</span>,
-    <span class="hljs-string">"sulphates"</span>: <span class="hljs-number">2.17152738571167</span>,
-    <span class="hljs-string">"alcohol"</span>: <span class="hljs-number">9.936287879943848</span>
+  &quot;bias&quot;: -5.532558917999268,
+  &quot;weights&quot;: {
+    &quot;fixed acidity&quot;: 1.0129427909851074,
+    &quot;volatile acidity&quot;: -3.8902039527893066,
+    &quot;citric acid&quot;: -0.4018211364746094,
+    &quot;residual sugar&quot;: -0.5149407386779785,
+    &quot;chlorides&quot;: -3.0765116214752197,
+    &quot;free sulfur dioxide&quot;: 2.4955267906188965,
+    &quot;total sulfur dioxide&quot;: -0.5537568926811218,
+    &quot;density&quot;: -1.1998544931411743,
+    &quot;pH&quot;: 3.0909314155578613,
+    &quot;sulphates&quot;: 2.17152738571167,
+    &quot;alcohol&quot;: 9.936287879943848
   }
 }</code></pre><p>You can then load the neural network from the JSON file and re-use it.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> net = <span class="hljs-keyword">new</span> NeuralNetwork();

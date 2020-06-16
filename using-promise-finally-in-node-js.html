@@ -98,10 +98,10 @@ promiseFinally.shim();
 });
 
 promiseThatRejects.finally(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejected'</span>));</code></pre>
-<pre><code>$ node <span class="hljs-keyword">finally</span>.js
+<pre><code>$ node finally.js
 rejected
-(node:<span class="hljs-number">5342</span>) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: <span class="hljs-number">2</span>): <span class="hljs-built_in">Error</span>: whoops!
-(node:<span class="hljs-number">5342</span>) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.
+(node:5342) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): Error: whoops!
+(node:5342) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 $</code></pre><p>Like with <a href="https://www.w3schools.com/jsref/jsref_try_catch.asp"><code>try/catch/finally</code></a>, you typically want to chain <code>.finally()</code> after a <code>.catch()</code>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> promiseFinally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'promise.prototype.finally'</span>);
 

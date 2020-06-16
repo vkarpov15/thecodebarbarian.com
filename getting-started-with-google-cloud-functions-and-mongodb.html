@@ -46,8 +46,8 @@ Once your function is deployed, click on it to display the function&#39;s detail
 <img src="https://i.imgur.com/r3rvHUy.png">
 
 <p>Copy the URL and use <a href="https://en.wikipedia.org/wiki/CURL">curl</a> to run your cloud function.</p>
-<pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
-Hello <span class="hljs-keyword">from</span> Node.js v6<span class="hljs-number">.11</span><span class="hljs-number">.5</span>
+<pre><code>$ curl https://us-central1-test21-201718.cloudfunctions.net/hello-world
+Hello from Node.js v6.11.5
 $  </code></pre><p>Google Cloud Functions don&#39;t give you any control over what version of Node.js you run,
 they run Node.js v6.11.5 currently. You can&#39;t use async/await natively on Google
 Cloud Functions at the time of this writing.</p>
@@ -56,11 +56,11 @@ Cloud Functions at the time of this writing.</p>
 You&#39;ll notice there&#39;s 2 files in your source code, one of which is <code>package.json</code>.
 Edit <code>package.json</code> to match the below code.</p>
 <pre><code>{
-  <span class="hljs-string">"name"</span>: <span class="hljs-string">"sample-http"</span>,
-  <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.0.1"</span>,
-  <span class="hljs-string">"dependencies"</span>: {
-    <span class="hljs-string">"co"</span>: <span class="hljs-string">"4.6.0"</span>,
-    <span class="hljs-string">"mongodb"</span>: <span class="hljs-string">"3.x"</span>
+  &quot;name&quot;: &quot;sample-http&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;dependencies&quot;: {
+    &quot;co&quot;: &quot;4.6.0&quot;,
+    &quot;mongodb&quot;: &quot;3.x&quot;
   }
 }</code></pre><img src="https://i.imgur.com/E4uBqOf.png">
 
@@ -86,8 +86,8 @@ exports.helloWorld = (req, res) =&gt; {
 
 <p>Click &quot;Save&quot; to deploy your function. Once it is deployed, you should be able
 to curl your cloud function and get a document from <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> back.</p>
-<pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
-Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}]
+<pre><code>$ curl https://us-central1-test21-201718.cloudfunctions.net/hello-world
+Result: [{&quot;_id&quot;:&quot;5a7b7df69d07887542605888&quot;,&quot;name&quot;:&quot;Hello!&quot;,&quot;__v&quot;:0}]
 $</code></pre><p>At this point, you would try re-using the database connection using the same
 global state trick that works in AWS Lambda and other cloud function providers.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> co = <span class="hljs-built_in">require</span>(<span class="hljs-string">'co'</span>);
@@ -112,11 +112,11 @@ exports.helloWorld = (req, res) =&gt; {
   })
 };</code></pre>
 <p>Unfortunately, the global state trick doesn&#39;t seem to work in Google Cloud.</p>
-<pre><code>$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
-Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}], Reused: <span class="hljs-literal">false</span>
+<pre><code>$ curl https://us-central1-test21-201718.cloudfunctions.net/hello-world
+Result: [{&quot;_id&quot;:&quot;5a7b7df69d07887542605888&quot;,&quot;name&quot;:&quot;Hello!&quot;,&quot;__v&quot;:0}], Reused: false
 $
-$ curl https:<span class="hljs-comment">//us-central1-test21-201718.cloudfunctions.net/hello-world</span>
-Result: [{<span class="hljs-string">"_id"</span>:<span class="hljs-string">"5a7b7df69d07887542605888"</span>,<span class="hljs-string">"name"</span>:<span class="hljs-string">"Hello!"</span>,<span class="hljs-string">"__v"</span>:<span class="hljs-number">0</span>}], Reused: <span class="hljs-literal">false</span>
+$ curl https://us-central1-test21-201718.cloudfunctions.net/hello-world
+Result: [{&quot;_id&quot;:&quot;5a7b7df69d07887542605888&quot;,&quot;name&quot;:&quot;Hello!&quot;,&quot;__v&quot;:0}], Reused: false
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>FaaS is a powerful paradigm, but purely stateless functions suffer from performance
 limitations when dealing with databases because establishing a new database

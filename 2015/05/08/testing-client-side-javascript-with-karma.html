@@ -124,11 +124,11 @@ karma configs.</p>
 command. You should see a Chrome browser pop up and output similar 
 to what you see below in the shell:</p>
 <pre><code>$ ./node_modules/karma/bin/karma start ./test/karma.mocha.conf.js 
-WARN [karma]: Port <span class="hljs-number">8080</span> <span class="hljs-keyword">in</span> use
-INFO [karma]: Karma v0<span class="hljs-number">.12</span><span class="hljs-number">.31</span> server started at http:<span class="hljs-comment">//localhost:8081/__karma__/</span>
+WARN [karma]: Port 8080 in use
+INFO [karma]: Karma v0.12.31 server started at http://localhost:8081/__karma__/
 INFO [launcher]: Starting browser Chrome
-INFO [Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>)]: Connected on socket NE7VtfIGgPAVbIB8nBIA <span class="hljs-keyword">with</span> id <span class="hljs-number">416059</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.001</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.012</span> secs / <span class="hljs-number">0.001</span> secs)</code></pre><h2 id="testing-dom-interactions-with-ngscenario">Testing DOM Interactions with ngScenario</h2>
+INFO [Chrome 42.0.2311 (Mac OS X 10.10.3)]: Connected on socket NE7VtfIGgPAVbIB8nBIA with id 416059
+Chrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 SUCCESS (0 secs / 0.001 secChrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 SUCCESS (0.012 secs / 0.001 secs)</code></pre><h2 id="testing-dom-interactions-with-ngscenario">Testing DOM Interactions with ngScenario</h2>
 <p>Karma isn&#39;t just useful for testing isolated JavaScript. With
 <a href="https://code.angularjs.org/1.2.16/docs/guide/e2e-testing">ngScenario</a>
 and the
@@ -144,18 +144,18 @@ page apps too.</p>
 which uses the <code>sample.js</code> file from the previous section to
 display the number &quot;42&quot; on the page.</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/sample.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
-      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onLoad</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'content'</span>).innerHTML = theAnswer();
+  &lt;head&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/sample.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      function onLoad() {
+        document.getElementById(&#39;content&#39;).innerHTML = theAnswer();
       }
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">"onLoad()"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body onload=&quot;onLoad()&quot;&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>In order to serve this page and the <code>sample.js</code> file, you need
 an HTTP server. You can put together a simple one using
 <a href="https://www.npmjs.com/package/express">express</a>
@@ -226,12 +226,12 @@ The <code>git diff</code> between this file and the previous section&#39;s confi
 <code>node index.js</code> (your web server needs to be running for
 ngScenario to work) and run <code>karma start</code> to execute your tests.</p>
 <pre><code>$ ./node_modules/karma/bin/karma start test/karma.ng-scenario.conf.js 
-WARN [proxy]: proxy <span class="hljs-string">"http://localhost:3000"</span> normalized to <span class="hljs-string">"http://localhost:3000/"</span>
-WARN [karma]: Port <span class="hljs-number">8080</span> <span class="hljs-keyword">in</span> use
-INFO [karma]: Karma v0<span class="hljs-number">.12</span><span class="hljs-number">.31</span> server started at http:<span class="hljs-comment">//localhost:8081/__karma__/</span>
+WARN [proxy]: proxy &quot;http://localhost:3000&quot; normalized to &quot;http://localhost:3000/&quot;
+WARN [karma]: Port 8080 in use
+INFO [karma]: Karma v0.12.31 server started at http://localhost:8081/__karma__/
 INFO [launcher]: Starting browser Chrome
-INFO [Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>)]: Connected on socket pyFsC9jnnhcbkTXT5y3t <span class="hljs-keyword">with</span> id <span class="hljs-number">7382597</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.137</span> secChrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.152</span> secs / <span class="hljs-number">0.137</span> secs)</code></pre><p>The <code>karma.ng-scenario.conf.js</code> file is configured for karma to
+INFO [Chrome 42.0.2311 (Mac OS X 10.10.3)]: Connected on socket pyFsC9jnnhcbkTXT5y3t with id 7382597
+Chrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 SUCCESS (0 secs / 0.137 secChrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 SUCCESS (0.152 secs / 0.137 secs)</code></pre><p>The <code>karma.ng-scenario.conf.js</code> file is configured for karma to
 automatically re-run tests if any of the loaded files change.
 Suppose you changed the test file <code>scenario.test.js</code> to break:</p>
 <pre><code class="language-javascript">describe(<span class="hljs-string">'sample.html'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -243,11 +243,11 @@ Suppose you changed the test file <code>scenario.test.js</code> to break:</p>
 });</code></pre>
 <p>Karma will automatically re-run tests and show you the following
 output.</p>
-<pre><code>INFO [watcher]: Changed file <span class="hljs-string">"/Users/vkarpov/Workspace/karma-demo/test/scenario.test.js"</span>.
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>) sample.html displays <span class="hljs-number">42</span> FAILED
-  expect element <span class="hljs-string">'#content'</span> text toBe <span class="hljs-string">"43"</span>
-  /Users/vkarpov/Workspace/karma-demo/test/scenario.test.js:<span class="hljs-number">4</span>:<span class="hljs-number">32</span>: expected <span class="hljs-string">"43"</span> but was <span class="hljs-string">"42"</span>
-Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) (<span class="hljs-number">0</span> secs / <span class="hljs-number">0.121</span> Chrome <span class="hljs-number">42.0</span><span class="hljs-number">.2311</span> (Mac OS X <span class="hljs-number">10.10</span><span class="hljs-number">.3</span>): Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> (<span class="hljs-number">1</span> FAILED) ERROR (<span class="hljs-number">0.136</span> secs / <span class="hljs-number">0.121</span> secs)</code></pre><p><strong>Note</strong> the AngularJS team considers <code>ngScenario</code> to be
+<pre><code>INFO [watcher]: Changed file &quot;/Users/vkarpov/Workspace/karma-demo/test/scenario.test.js&quot;.
+Chrome 42.0.2311 (Mac OS X 10.10.3) sample.html displays 42 FAILED
+  expect element &#39;#content&#39; text toBe &quot;43&quot;
+  /Users/vkarpov/Workspace/karma-demo/test/scenario.test.js:4:32: expected &quot;43&quot; but was &quot;42&quot;
+Chrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 (1 FAILED) (0 secs / 0.121 Chrome 42.0.2311 (Mac OS X 10.10.3): Executed 1 of 1 (1 FAILED) ERROR (0.136 secs / 0.121 secs)</code></pre><p><strong>Note</strong> the AngularJS team considers <code>ngScenario</code> to be
 deprecated in favor of
 <a href="https://www.npmjs.com/package/protractor">protractor</a>. However,
 I still think ngScenario and karma have a key niche to fill in
@@ -348,8 +348,8 @@ The <code>git diff</code> between this new file and the previous section&#39;s c
 <p>This is all you need to do. Karma handles setting up an SSH
 tunnel for you, so the Sauce browser can make real requests to
 your local server.</p>
-<pre><code>$ env SAUCE_USERNAME=<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">username</span> <span class="hljs-attr">here</span>&gt;</span> env SAUCE_ACCESS_KEY=<span class="hljs-tag">&lt;<span class="hljs-name">API</span> <span class="hljs-attr">key</span> <span class="hljs-attr">here</span>&gt;</span> ./node_modules/karma/bin/karma start test/karma.sauce.conf.js 
-WARN [proxy]: proxy "http://localhost:3000" normalized to "http://localhost:3000/"
+<pre><code>$ env SAUCE_USERNAME=&lt;username here&gt; env SAUCE_ACCESS_KEY=&lt;API key here&gt; ./node_modules/karma/bin/karma start test/karma.sauce.conf.js 
+WARN [proxy]: proxy &quot;http://localhost:3000&quot; normalized to &quot;http://localhost:3000/&quot;
 WARN [karma]: Port 8080 in use
 INFO [karma]: Karma v0.12.31 server started at http://localhost:8081/__karma__/
 INFO [launcher]: Starting browser safari 5 (OS X 10.6) on SauceLabs
@@ -359,7 +359,7 @@ INFO [launcher.sauce]: safari 5 (OS X 10.6) session at https://saucelabs.com/tes
 INFO [IE 9.0.0 (Windows 7)]: Connected on socket vGbX2IuqZHZEP6rj9Ltx with id 56376293
 INFO [Safari 5.1.9 (Mac OS X 10.6.8)]: Connected on socket K7Nfu1zw5yhVOozy9Lty with id 49486594
 TOTAL: 2 SUCCESS
-INFO [launcher.sauce]: Shutting down Sauce Connect</span></code></pre><p><strong>Note</strong> the above example does not use autowatch. This is because,
+INFO [launcher.sauce]: Shutting down Sauce Connect</code></pre><p><strong>Note</strong> the above example does not use autowatch. This is because,
 in my experience, end-to-end tests run on Sauce labs are too slow 
 for the type of fast feedback I&#39;d like from the &#39;test on save&#39;
 paradigm. These heavy end-to-end tests are

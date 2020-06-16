@@ -151,19 +151,19 @@ particular, documents that are instances of <code>ClickedLinkEvent</code> and
 after running the above code, you&#39;d see:</p>
 <pre><code>&gt; db.events.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"55afdeeb3b91d05562821ab4"</span>),
-    <span class="hljs-string">"from"</span> : <span class="hljs-string">"abc"</span>,
-    <span class="hljs-string">"to"</span> : <span class="hljs-string">"123"</span>,
-    <span class="hljs-string">"kind"</span> : <span class="hljs-string">"ClickedLink"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-07-22T18:20:27.248Z"</span>),
-    <span class="hljs-string">"__v"</span> : <span class="hljs-number">0</span>
+    &quot;_id&quot; : ObjectId(&quot;55afdeeb3b91d05562821ab4&quot;),
+    &quot;from&quot; : &quot;abc&quot;,
+    &quot;to&quot; : &quot;123&quot;,
+    &quot;kind&quot; : &quot;ClickedLink&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-07-22T18:20:27.248Z&quot;),
+    &quot;__v&quot; : 0
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"55afdeeb3b91d05562821ab5"</span>),
-    <span class="hljs-string">"product"</span> : ObjectId(<span class="hljs-string">"00000000000000000000000c"</span>),
-    <span class="hljs-string">"kind"</span> : <span class="hljs-string">"Purchased"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-07-22T18:20:27.378Z"</span>),
-    <span class="hljs-string">"__v"</span> : <span class="hljs-number">0</span>
+    &quot;_id&quot; : ObjectId(&quot;55afdeeb3b91d05562821ab5&quot;),
+    &quot;product&quot; : ObjectId(&quot;00000000000000000000000c&quot;),
+    &quot;kind&quot; : &quot;Purchased&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-07-22T18:20:27.378Z&quot;),
+    &quot;__v&quot; : 0
 }</code></pre><p>However, if you use the <code>ClickedLinkEvent</code> discriminator to query, you&#39;ll get
 back just the documents that have <code>kind === &#39;ClickedLink&#39;</code>.</p>
 <pre><code class="language-javascript">ClickedLinkEvent.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, events</span>) </span>{

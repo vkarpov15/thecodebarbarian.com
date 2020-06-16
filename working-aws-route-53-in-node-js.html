@@ -51,13 +51,13 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
 <p>The output from the above script looks something like what you see below.
 My account has exactly one domain registered, <code>mongoosejs.link</code>.</p>
 <pre><code>{ HostedZones:
-   [ { Id: <span class="hljs-string">'/hostedzone/OMITTED'</span>,
-       Name: <span class="hljs-string">'mongoosejs.link.'</span>,
-       CallerReference: <span class="hljs-string">'RISWorkflow-RD:abc-123-456'</span>,
-       Config: [<span class="hljs-built_in">Object</span>],
-       ResourceRecordSetCount: <span class="hljs-number">2</span> } ],
-  IsTruncated: <span class="hljs-literal">false</span>,
-  MaxItems: <span class="hljs-string">'100'</span> }</code></pre><h2 id="creating-a-new-subdomain">Creating a New Subdomain</h2>
+   [ { Id: &#39;/hostedzone/OMITTED&#39;,
+       Name: &#39;mongoosejs.link.&#39;,
+       CallerReference: &#39;RISWorkflow-RD:abc-123-456&#39;,
+       Config: [Object],
+       ResourceRecordSetCount: 2 } ],
+  IsTruncated: false,
+  MaxItems: &#39;100&#39; }</code></pre><h2 id="creating-a-new-subdomain">Creating a New Subdomain</h2>
 <p>Suppose you want to create a new subdomain under <code>mongoosejs.link</code>.
 To create a subdomain <code>test-subdomain.mongoosejs.link</code>, you need to
 add a new record to the <code>mongoosejs.link</code> zone&#39;s <em>record set</em>. A record
@@ -81,9 +81,9 @@ set is just a list of DNS records.</p>
 <span class="hljs-built_in">console</span>.log(res);</code></pre>
 <p>If the request succeeds, the output looks like this:</p>
 <pre><code>{ ChangeInfo:
-   { Id: <span class="hljs-string">'/change/OMITTED'</span>,
-     Status: <span class="hljs-string">'PENDING'</span>,
-     SubmittedAt: <span class="hljs-number">2020</span><span class="hljs-number">-04</span><span class="hljs-number">-15</span>T14:<span class="hljs-number">39</span>:<span class="hljs-number">59.496</span>Z } }</code></pre><h2 id="deleting-a-subdomain">Deleting a Subdomain</h2>
+   { Id: &#39;/change/OMITTED&#39;,
+     Status: &#39;PENDING&#39;,
+     SubmittedAt: 2020-04-15T14:39:59.496Z } }</code></pre><h2 id="deleting-a-subdomain">Deleting a Subdomain</h2>
 <p>Deleting a subdomain is easy: just change the <code>Action</code> parameter from
 &#39;CREATE&#39; to &#39;DELETE&#39;.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> promisify(route53.changeResourceRecordSets).call(route53, {

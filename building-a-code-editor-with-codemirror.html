@@ -21,13 +21,13 @@ and keyboard shortcuts. Here&#39;s how you can get started with CodeMirror.</p>
 You can also bundle the <a href="https://www.npmjs.com/package/codemirror">CodeMirror npm module</a>,
 but for the sake of example let&#39;s just use a CDN. Just make sure you include
 both the JavaScript and CSS files, otherwise your editor won&#39;t look right.</p>
-<pre><code class="language-html">&lt;link rel=<span class="hljs-string">"stylesheet"</span>
-  href=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot;
+  href=&quot;https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css&quot;&gt;
+&lt;/link&gt;
 
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-  <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js"</span>&gt;</span><span class="undefined">
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+&lt;script type=&quot;text/javascript&quot;
+  src=&quot;https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js&quot;&gt;
+&lt;/script&gt;</code></pre>
 <p>Once you import CodeMirror via <code>&lt;script&gt;</code> tag, you get a <code>CodeMirror</code> global
 that you can use to create a new CodeMirror instance. Just point it at a <code>&lt;div&gt;</code>
 and CodeMirror does the rest.</p>
@@ -62,9 +62,9 @@ your changes.</p>
 syntax highlighting so CodeMirror doesn&#39;t render the JavaScript code as plain text.
 To enable JavaScript syntax highlighting, first you need to import the
 JavaScript language mode, which is a separate file:</p>
-<pre><code class="language-html">&lt;script type=<span class="hljs-string">"text/javascript"</span>
-  src=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;
+  src=&quot;https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js&quot;&gt;
+&lt;/script&gt;</code></pre>
 <p>You also need to set the <code>mode</code> option to <code>&#39;JavaScript&#39;</code> in your constructor.</p>
 <pre><code class="language-javascript">CodeMirror(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#my-js'</span>), {
   lineNumbers: <span class="hljs-literal">true</span>,
@@ -91,8 +91,8 @@ JavaScript language mode, which is a separate file:</p>
 for CodeMirror. For example, using the <a href="https://packagecontrol.io/packages/Theme%20-%20Monokai%20Pro">Monokai</a>
 theme you can make your CodeMirror look like Sublime Text.</p>
 <p>To include the Monokai theme, you first need to pull in the Monokai CSS file:</p>
-<pre><code class="language-html">&lt;link rel=<span class="hljs-string">"stylesheet"</span>
-  href=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css"</span>&gt;</code></pre>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot;
+  href=&quot;https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/monokai.min.css&quot;&gt;</code></pre>
 <p>Next, just set the <code>theme</code> option to the CodeMirror constructor to the
 theme name.</p>
 <pre><code class="language-javascript">CodeMirror(<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#monokai'</span>), {
@@ -196,9 +196,9 @@ but they can also be used to display linter errors. Since ESLint
 doesn&#39;t work in the browser, let&#39;s use <a href="https://jshint.com/install/">JSHint</a>
 to display linter errors.</p>
 <p>First, load JSHint via <code>&lt;script&gt;</code> tag:</p>
-<pre><code class="language-html">&lt;script type=<span class="hljs-string">"text/javascript"</span>
-  src=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/jshint/2.11.0/jshint.js"</span>&gt;
-<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;
+  src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jshint/2.11.0/jshint.js&quot;&gt;
+&lt;/script&gt;</code></pre>
 <p>Next, add some CSS to make error messages show up as red rectangles
 next to the line number:</p>
 <pre><code class="language-css">.error-marker {

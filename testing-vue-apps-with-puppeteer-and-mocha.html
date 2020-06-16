@@ -99,38 +99,38 @@ describe(<span class="hljs-string">'my app'</span>, <span class="hljs-function">
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/0d346dcb826c4a75acf1cead82571be7" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/vue-router/dist/vue-router.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  &lt;body&gt;
+    &lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="handlebars"><span class="xml">
+    &lt;script type=&quot;text/javascript&quot;&gt;
       const router = new VueRouter({
         routes: [
-          { path: '/home', component: { template: '<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>' } },
-          { path: '/about', component: { template: '<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>About Us<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>' } }
+          { path: &#39;/home&#39;, component: { template: &#39;&lt;h1&gt;Home&lt;/h1&gt;&#39; } },
+          { path: &#39;/about&#39;, component: { template: &#39;&lt;h1&gt;About Us&lt;/h1&gt;&#39; } }
         ]
       });
 
       new Vue({
-        el: '#content',
+        el: &#39;#content&#39;,
         router,
         template: `
-          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/home"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/about"</span>&gt;</span>About Us<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"route"</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          &lt;div&gt;
+            &lt;div&gt;
+              &lt;router-link to=&quot;/home&quot;&gt;Home&lt;/router-link&gt;
+              &lt;router-link to=&quot;/about&quot;&gt;About Us&lt;/router-link&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;route&quot;&gt;
+              &lt;router-view&gt;&lt;/router-view&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
         `
       });
-    </span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>Here&#39;s how you would test that clicking on &quot;Home&quot; displays &quot;Home&quot; and clicking on &quot;About&quot; displays &quot;About Us&quot; using Mocha and Puppeteer:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
 <span class="hljs-keyword">const</span> puppeteer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'puppeteer'</span>);

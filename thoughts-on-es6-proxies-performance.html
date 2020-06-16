@@ -61,18 +61,18 @@ suite.
   run();</code></pre>
 <p>Here are the results:</p>
 <pre><code>$ node proxy.js
-vanilla x <span class="hljs-number">74</span>,<span class="hljs-number">288</span>,<span class="hljs-number">023</span> ops/sec ±<span class="hljs-number">0.78</span>% (<span class="hljs-number">86</span> runs sampled)
-proxy x <span class="hljs-number">3</span>,<span class="hljs-number">625</span>,<span class="hljs-number">152</span> ops/sec ±<span class="hljs-number">2.51</span>% (<span class="hljs-number">86</span> runs sampled)
-defineProperty x <span class="hljs-number">74</span>,<span class="hljs-number">815</span>,<span class="hljs-number">513</span> ops/sec ±<span class="hljs-number">0.80</span>% (<span class="hljs-number">85</span> runs sampled)
+vanilla x 74,288,023 ops/sec ±0.78% (86 runs sampled)
+proxy x 3,625,152 ops/sec ±2.51% (86 runs sampled)
+defineProperty x 74,815,513 ops/sec ±0.80% (85 runs sampled)
 Fastest is defineProperty,vanilla
 $</code></pre><p>In this simple benchmark, setting on a proxy object is an order of magnitude
 slower than setting a property on a vanilla POJO or a property with a custom
 setter.</p>
 <p>In case you&#39;re curious, here&#39;s the results with an empty <code>Object.observe()</code> function in node 4.2.1, back when we had <code>Object.observe()</code>.</p>
 <pre><code>$ node proxy.js
-vanilla x <span class="hljs-number">78</span>,<span class="hljs-number">615</span>,<span class="hljs-number">272</span> ops/sec ±<span class="hljs-number">1.55</span>% (<span class="hljs-number">84</span> runs sampled)
-defineProperty x <span class="hljs-number">79</span>,<span class="hljs-number">882</span>,<span class="hljs-number">188</span> ops/sec ±<span class="hljs-number">1.31</span>% (<span class="hljs-number">85</span> runs sampled)
-<span class="hljs-built_in">Object</span>.observe() x <span class="hljs-number">5</span>,<span class="hljs-number">234</span>,<span class="hljs-number">672</span> ops/sec ±<span class="hljs-number">0.86</span>% (<span class="hljs-number">89</span> runs sampled)
+vanilla x 78,615,272 ops/sec ±1.55% (84 runs sampled)
+defineProperty x 79,882,188 ops/sec ±1.31% (85 runs sampled)
+Object.observe() x 5,234,672 ops/sec ±0.86% (89 runs sampled)
 Fastest is defineProperty,vanilla</code></pre><p>Some <a href="http://www.2ality.com/2014/12/es6-proxies.html">reading</a> might lead you to believe proxies are faster if you bypass the get/set traps and just define your own
 <code>getOwnPropertyDescriptor()</code> trap.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};
@@ -85,9 +85,9 @@ Fastest is defineProperty,vanilla</code></pre><p>Some <a href="http://www.2ality
 });</code></pre>
 <p>Unfortunately, the <code>getOwnPropertyDescriptor()</code> trick actually makes this benchmark even slower.</p>
 <pre><code>$ node proxy.js
-vanilla x <span class="hljs-number">73</span>,<span class="hljs-number">695</span>,<span class="hljs-number">484</span> ops/sec ±<span class="hljs-number">1.04</span>% (<span class="hljs-number">88</span> runs sampled)
-proxy x <span class="hljs-number">2</span>,<span class="hljs-number">026</span>,<span class="hljs-number">006</span> ops/sec ±<span class="hljs-number">0.74</span>% (<span class="hljs-number">90</span> runs sampled)
-defineProperty x <span class="hljs-number">74</span>,<span class="hljs-number">137</span>,<span class="hljs-number">733</span> ops/sec ±<span class="hljs-number">1.25</span>% (<span class="hljs-number">88</span> runs sampled)
+vanilla x 73,695,484 ops/sec ±1.04% (88 runs sampled)
+proxy x 2,026,006 ops/sec ±0.74% (90 runs sampled)
+defineProperty x 74,137,733 ops/sec ±1.25% (88 runs sampled)
 Fastest is defineProperty,vanilla
 $</code></pre><p>In case you were wondering, using proxies to wrap function calls is also
 an order of magnitude less performant than just wrapping the function call.</p>
@@ -121,9 +121,9 @@ suite.
   }).
   run();</code></pre>
 <pre><code>$ node proxy2.js
-vanilla x <span class="hljs-number">78</span>,<span class="hljs-number">426</span>,<span class="hljs-number">813</span> ops/sec ±<span class="hljs-number">0.93</span>% (<span class="hljs-number">88</span> runs sampled)
-proxy x <span class="hljs-number">5</span>,<span class="hljs-number">244</span>,<span class="hljs-number">789</span> ops/sec ±<span class="hljs-number">2.17</span>% (<span class="hljs-number">87</span> runs sampled)
-wrap x <span class="hljs-number">75</span>,<span class="hljs-number">350</span>,<span class="hljs-number">773</span> ops/sec ±<span class="hljs-number">0.85</span>% (<span class="hljs-number">85</span> runs sampled)
+vanilla x 78,426,813 ops/sec ±0.93% (88 runs sampled)
+proxy x 5,244,789 ops/sec ±2.17% (87 runs sampled)
+wrap x 75,350,773 ops/sec ±0.85% (85 runs sampled)
 Fastest is vanilla</code></pre><h2 id="tricks-for-improving-proxy-performance">Tricks for Improving Proxy Performance</h2>
 <p>So far the biggest impact I&#39;ve seen on proxy performance comes from making the property being modified not <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty#Description">configurable</a>:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};
@@ -137,9 +137,9 @@ Fastest is vanilla</code></pre><h2 id="tricks-for-improving-proxy-performance">T
   getOwnPropertyDescriptor: (target, prop) =&gt; propertyDescriptor
 });</code></pre>
 <pre><code>$ node proxy.js
-vanilla x <span class="hljs-number">74</span>,<span class="hljs-number">622</span>,<span class="hljs-number">163</span> ops/sec ±<span class="hljs-number">0.95</span>% (<span class="hljs-number">85</span> runs sampled)
-proxy x <span class="hljs-number">4</span>,<span class="hljs-number">649</span>,<span class="hljs-number">544</span> ops/sec ±<span class="hljs-number">0.47</span>% (<span class="hljs-number">85</span> runs sampled)
-defineProperty x <span class="hljs-number">77</span>,<span class="hljs-number">048</span>,<span class="hljs-number">878</span> ops/sec ±<span class="hljs-number">0.60</span>% (<span class="hljs-number">88</span> runs sampled)
+vanilla x 74,622,163 ops/sec ±0.95% (85 runs sampled)
+proxy x 4,649,544 ops/sec ±0.47% (85 runs sampled)
+defineProperty x 77,048,878 ops/sec ±0.60% (88 runs sampled)
 Fastest is defineProperty
 $</code></pre><p>Unfortunately, if you&#39;re going to take this approach, you might as well just use <code>Object.defineProperty()</code> for getters/setters. The reason is that you&#39;d have to make every property you want to access on the proxy non-configurable. Otherwise V8 will crash, because your proxy can&#39;t return a property descriptor that V8 doesn&#39;t think is compatible with the underlying object.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">var</span> _obj = {};

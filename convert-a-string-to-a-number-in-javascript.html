@@ -93,12 +93,12 @@ archetype.to(<span class="hljs-string">''</span>, <span class="hljs-string">'num
 <pre><code>rules:
   no-restricted-globals:
     - error
-    - name: <span class="hljs-built_in">isNaN</span>
-      message: Use <span class="hljs-string">`Number.isNaN()`</span> instead
+    - name: isNaN
+      message: Use `Number.isNaN()` instead
   no-restricted-syntax:
     - error
-    - selector: CallExpression[callee.name=<span class="hljs-string">'Number'</span>]
-      message: Do not use <span class="hljs-string">`Number()`</span>, use <span class="hljs-string">`parseFloat()`</span> instead</code></pre><h2 id="moving-on">Moving On</h2>
+    - selector: CallExpression[callee.name=&#39;Number&#39;]
+      message: Do not use `Number()`, use `parseFloat()` instead</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Converting a value to a number in JavaScript is filled with odd edge cases. If you don&#39;t want to think about edge cases, you&#39;re best off just using <code>parseFloat()</code> and <code>Number.isNaN()</code>. If you want to be more flexible, you can use <code>Number()</code>. Personally, I just use <a href="https://www.npmjs.com/package/archetype">archetype</a> for this because I don&#39;t want to worry about checking for <code>NaN</code>.</p>
 <p><em>Can&#39;t keep up with what&#39;s going on in your <code>node_modules</code>? Check out <a href="https://js.report/slack">JSReport&#39;s Slack integration</a>. JSReport posts to a Slack channel whenever an npm package you&#39;re watching, like <a href="http://npmjs.com/package/lodash">lodash</a> or <a href="https://www.npmjs.com/package/webpack">webpack</a>, publishes a new release.</em></p>
 <p><a href="https://js.report/slack" class="async-await-banner"><img src="https://s3.amazonaws.com/codebarbarian-images/jserport.png"></a></p>

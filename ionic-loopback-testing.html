@@ -101,12 +101,12 @@ Let&#39;s write a basic mocha test and run it.</p>
 <p>Now, once you run <code>npm test</code>, you should see output that looks like this:</p>
 <pre><code>$ npm test
 
-&gt; stopwatch-example@<span class="hljs-number">1.0</span><span class="hljs-number">.0</span> test
+&gt; stopwatch-example@1.0.0 test
 &gt; karma start test/karma.phantom.conf.js
 
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.691</span>:INFO [karma]: Karma v0<span class="hljs-number">.13</span><span class="hljs-number">.15</span> server started at http:<span class="hljs-comment">//localhost:9876/</span>
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">30.699</span>:INFO [launcher]: Starting browser PhantomJS
-<span class="hljs-number">05</span> <span class="hljs-number">11</span> <span class="hljs-number">2015</span> <span class="hljs-number">18</span>:<span class="hljs-number">43</span>:<span class="hljs-number">31.357</span>:INFO [PhantomJS <span class="hljs-number">1.9</span><span class="hljs-number">.8</span> (Linux <span class="hljs-number">0.0</span><span class="hljs-number">.0</span>)]: Executed <span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">1</span> SUCCESS (<span class="hljs-number">0.038</span> secs / <span class="hljs-number">0</span> secs)</code></pre><h2 id="testing-angularjs-directives">Testing AngularJS Directives</h2>
+05 11 2015 18:43:30.691:INFO [karma]: Karma v0.13.15 server started at http://localhost:9876/
+05 11 2015 18:43:30.699:INFO [launcher]: Starting browser PhantomJS
+05 11 2015 18:43:31.357:INFO [PhantomJS 1.9.8 (Linux 0.0.0)]: Executed 1 of 1 SUCCESS (0.038 secs / 0 secs)</code></pre><h2 id="testing-angularjs-directives">Testing AngularJS Directives</h2>
 <p><em>TLDR; <a href="https://github.com/vkarpov15/stopwatch-example/commit/e6c278b3d5a9cf612e112bea38fc1f4874fcac9b">See a diff for this step on GitHub</a></em></p>
 <p>No offense to Aristotle, but a test that asserts that
 <a href="http://www.importanceofphilosophy.com/Metaphysics_Identity.html">A is A</a>
@@ -209,8 +209,8 @@ on Travis, add your Ionic app&#39;s GitHub repo, and add the below <code>.travis
 file to your repo.</p>
 <pre><code>language: node_js
 node_js:
-  - <span class="hljs-string">"4"</span>
-script: <span class="hljs-string">"npm test"</span></code></pre><p>Easy, right? If you need extra help setting up Travis, there&#39;s a
+  - &quot;4&quot;
+script: &quot;npm test&quot;</code></pre><p>Easy, right? If you need extra help setting up Travis, there&#39;s a
 <a href="https://strongloop.com/strongblog/npm-modules-travis-coveralls/">detailed guide to setting up Travis for Node.js on the StrongLoop blog</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>That&#39;s a wrap! You&#39;ve now built a LoopBack REST API, a desktop web client, and

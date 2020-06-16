@@ -77,26 +77,26 @@ you&#39;ll build is a user menu; if the user is not logged in, it will show
 a log-in button, otherwise it&#39;ll show a welcome message.</p>
 <p>First, you should create the entry point to your web app
 in the <code>client/index.html</code> file. The HTML looks like this.</p>
-<pre><code class="language-html">&lt;html ng-app=<span class="hljs-string">"core"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"//code.angularjs.org/1.4.3/angular.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"//code.angularjs.org/1.4.3/angular-resource.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"js/services.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"js/index.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<pre><code class="language-html">&lt;html ng-app=&quot;core&quot;&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;//code.angularjs.org/1.4.3/angular.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;//code.angularjs.org/1.4.3/angular-resource.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;js/services.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;js/index.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">user-menu</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">user-menu</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+  &lt;body&gt;
+    &lt;user-menu&gt;&lt;/user-menu&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>If you&#39;ve seen HTML before, this shouldn&#39;t look too complicated. The
 above HTML includes 4 JavaScript files: the AngularJS core, the &#39;ngResource&#39;
 module that the LoopBack AngularJS module depends on, the <code>services.js</code>
@@ -156,17 +156,17 @@ and other related AngularJS best practices in
 <p>Now, let&#39;s take a look at the user menu&#39;s template, in
 <code>templates/user_menu.html</code>. The HTML looks like this:</p>
 <pre><code class="language-html">&lt;div&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"user-data"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"user.data"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  &lt;div class=&quot;user-data&quot; ng-show=&quot;user.data&quot;&gt;
+    &lt;div&gt;
       Welcome, {{user.data.username}}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"login"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"!user.data"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/auth/facebook"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//i.stack.imgur.com/LKMP7.png"</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;login&quot; ng-show=&quot;!user.data&quot;&gt;
+    &lt;a href=&quot;/auth/facebook&quot;&gt;
+      &lt;img src=&quot;//i.stack.imgur.com/LKMP7.png&quot;&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 <p>This HTML defines two smaller components. The first shows a welcome message
 when the user is actually logged in. The second shows a Facebook login button
 if the user is not logged in.</p>
@@ -294,40 +294,40 @@ state transitions. In particular, the <code>save()</code> function uses the Loop
 <a href="https://thinkster.io/egghead/isolate-scope-am">brief overview of AngularJS <code>&amp;</code> syntax</a>
 if you&#39;re not familiar with it.</p>
 <p>Now, let&#39;s take a look at the template in <code>templates/timer.html</code>.</p>
-<pre><code class="language-html">&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"timer"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"timer-display"</span>&gt;</span>
-    {{display || '00:00:00'}}
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">" state === 'INIT' ||
-                      state === 'STOPPED' ||
-                      state === 'SUCCESS'"</span>
-            <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"startTimer()"</span>&gt;</span>
+<pre><code class="language-html">&lt;div class=&quot;timer&quot;&gt;
+  &lt;div class=&quot;timer-display&quot;&gt;
+    {{display || &#39;00:00:00&#39;}}
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;button ng-show=&quot; state === &#39;INIT&#39; ||
+                      state === &#39;STOPPED&#39; ||
+                      state === &#39;SUCCESS&#39;&quot;
+            ng-click=&quot;startTimer()&quot;&gt;
       Start
-    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"state === 'RUNNING'"</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"stopTimer()"</span>&gt;</span>
+    &lt;/button&gt;
+    &lt;button ng-show=&quot;state === &#39;RUNNING&#39;&quot; ng-click=&quot;stopTimer()&quot;&gt;
       Stop
-    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"reset-button"</span>
-            <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"state === 'STOPPED'"</span>
-            <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"resetTimer()"</span>&gt;</span>
+    &lt;/button&gt;
+    &lt;button class=&quot;reset-button&quot;
+            ng-show=&quot;state === &#39;STOPPED&#39;&quot;
+            ng-click=&quot;resetTimer()&quot;&gt;
       Reset
-    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"save-time"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"state === 'STOPPED'"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">input</span>  <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>
-              <span class="hljs-attr">ng-model</span>=<span class="hljs-string">"time.tag"</span>
-              <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Time tag (e.g. '200m')"</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"save()"</span>&gt;</span>
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;save-time&quot; ng-show=&quot;state === &#39;STOPPED&#39;&quot;&gt;
+    &lt;div&gt;
+      &lt;input  type=&quot;text&quot;
+              ng-model=&quot;time.tag&quot;
+              placeholder=&quot;Time tag (e.g. &#39;200m&#39;)&quot;&gt;
+    &lt;/div&gt;
+    &lt;button ng-click=&quot;save()&quot;&gt;
       Save
-    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"success-message"</span> <span class="hljs-attr">ng-show</span>=<span class="hljs-string">"state === 'SUCCESS'"</span>&gt;</span>
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;success-message&quot; ng-show=&quot;state === &#39;SUCCESS&#39;&quot;&gt;
     Saved Successfully!
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 <p>The template has various UI elements corresponding to the different states
 the directive can be in. The start button lets you start the timer,
 the stop button stops the timer if you&#39;re in the &#39;RUNNING&#39; state, and
@@ -406,18 +406,18 @@ contrasting colors to use as backgrounds for your tag badges. Speaking of
 the tag badges, let&#39;s take a look at the directive&#39;s template HTML,
 <code>templates/time_list.html</code>.</p>
 <pre><code class="language-html">&lt;div&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"time"</span> <span class="hljs-attr">ng-repeat</span>=<span class="hljs-string">"time in times"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"time-delete"</span> <span class="hljs-attr">ng-click</span>=<span class="hljs-string">"delete(time)"</span>&gt;</span>
+  &lt;div class=&quot;time&quot; ng-repeat=&quot;time in times&quot;&gt;
+    &lt;span class=&quot;time-delete&quot; ng-click=&quot;delete(time)&quot;&gt;
       X
-    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    &lt;/span&gt;
     {{display(time.time)}}
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">ng-if</span>=<span class="hljs-string">"time.tag"</span>
-          <span class="hljs-attr">class</span>=<span class="hljs-string">"time-tag"</span>
-          <span class="hljs-attr">ng-style</span>=<span class="hljs-string">"{ 'background-color': tagToColor[time.tag] }"</span>&gt;</span>
+    &lt;span ng-if=&quot;time.tag&quot;
+          class=&quot;time-tag&quot;
+          ng-style=&quot;{ &#39;background-color&#39;: tagToColor[time.tag] }&quot;&gt;
       {{time.tag}}
-    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 <p>The template includes 3 simple elements. The first is a delete button that
 calls the <code>delete()</code> function. The second renders the time&#39;s value in
 the app&#39;s standard <code>HH:mm:ss</code> format. The third displays the time&#39;s tag,
@@ -431,13 +431,13 @@ sure the <code>timer</code> directive communicates with the <code>timeList</code
 That&#39;s what the <code>onTimeSaved</code> property that you added to the <code>timer</code>
 directive is for.</p>
 <pre><code class="language-html">&lt;body&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">user-menu</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">user-menu</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">timer</span> <span class="hljs-attr">on-time-saved</span>=<span class="hljs-string">"$emit('NEW_TIME', time)"</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">timer</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">hr</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">time-list</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">time-list</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span></code></pre>
+  &lt;user-menu&gt;&lt;/user-menu&gt;
+  &lt;hr&gt;
+  &lt;timer on-time-saved=&quot;$emit(&#39;NEW_TIME&#39;, time)&quot;&gt;
+  &lt;/timer&gt;
+  &lt;hr&gt;
+  &lt;time-list&gt;&lt;/time-list&gt;
+&lt;/body&gt;</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>Congratulations, you&#39;ve just used the LoopBack AngularJS SDK to build
 an AngularJS client on top of your REST API! In particular, the LoopBack
