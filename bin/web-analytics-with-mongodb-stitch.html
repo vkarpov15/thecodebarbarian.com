@@ -48,26 +48,26 @@ disallow reads, you need to convert your rules to &quot;Advanced Mode&quot;. Cli
 <p>Modify your roles to look like what you see below. Now, your Stitch client can
 write to the database but not read.</p>
 <pre><code>{
-  <span class="hljs-string">"roles"</span>: [
+  &quot;roles&quot;: [
     {
-      <span class="hljs-string">"name"</span>: <span class="hljs-string">"owner"</span>,
-      <span class="hljs-string">"apply_when"</span>: {},
-      <span class="hljs-string">"insert"</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-string">"delete"</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-string">"read"</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-string">"write"</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-string">"fields"</span>: {},
-      <span class="hljs-string">"additional_fields"</span>: {}
+      &quot;name&quot;: &quot;owner&quot;,
+      &quot;apply_when&quot;: {},
+      &quot;insert&quot;: true,
+      &quot;delete&quot;: false,
+      &quot;read&quot;: false,
+      &quot;write&quot;: true,
+      &quot;fields&quot;: {},
+      &quot;additional_fields&quot;: {}
     }
   ],
-  <span class="hljs-string">"filters"</span>: [],
-  <span class="hljs-string">"schema"</span>: {
-    <span class="hljs-string">"properties"</span>: {
-      <span class="hljs-string">"_id"</span>: {
-        <span class="hljs-string">"bsonType"</span>: <span class="hljs-string">"objectId"</span>
+  &quot;filters&quot;: [],
+  &quot;schema&quot;: {
+    &quot;properties&quot;: {
+      &quot;_id&quot;: {
+        &quot;bsonType&quot;: &quot;objectId&quot;
       },
-      <span class="hljs-string">"owner_id"</span>: {
-        <span class="hljs-string">"bsonType"</span>: <span class="hljs-string">"string"</span>
+      &quot;owner_id&quot;: {
+        &quot;bsonType&quot;: &quot;string&quot;
       }
     }
   }
@@ -76,19 +76,19 @@ write to the database but not read.</p>
 recommends building the browser SDK with <a href="https://www.npmjs.com/package/webpack">webpack</a>, so make sure to install webpack
 and webpack-cli. Also,
 install <a href="https://www.npmjs.com/package/serve">serve</a> for serving static HTML.</p>
-<pre><code>npm install mongodb-stitch-browser-sdk@<span class="hljs-number">4.</span>x serve@<span class="hljs-number">9.</span>x webpack@<span class="hljs-number">4.16</span><span class="hljs-number">.2</span> webpack-cli@<span class="hljs-number">3.1</span><span class="hljs-number">.0</span> --save</code></pre><p>Next, create a trivial static site <code>index.html</code>. This page will load the
+<pre><code>npm install mongodb-stitch-browser-sdk@4.x serve@9.x webpack@4.16.2 webpack-cli@3.1.0 --save</code></pre><p>Next, create a trivial static site <code>index.html</code>. This page will load the
 <code>main.js</code> file, which will be responsible for writing to MongoDB Atlas using
 the Stitch SDK.</p>
 <pre><code>&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My Site<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  &lt;head&gt;
+    &lt;title&gt;My Site&lt;/title&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My site<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Below is the content of <code>index.js</code>, the entry point for the compiled bundle
+    &lt;script type=&quot;text/javascript&quot; src=&quot;dist/main.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My site&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Below is the content of <code>index.js</code>, the entry point for the compiled bundle
 that webpack will produce. The below file just writes the current <code>pathname</code>
 and the current time to the <code>analytics.events</code> collection.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Stitch, AnonymousCredential, RemoteMongoClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'mongodb-stitch-browser-sdk'</span>;
@@ -123,26 +123,26 @@ you want your code to work with older browsers.</p>
 <p>Run <code>./node_modules/.bin/webpack</code> to compile the bundle and then run
 <code>./node_modules/.bin/serve</code> to start a web server.</p>
 <pre><code>$ ./node_modules/.bin/webpack
-Hash: <span class="hljs-number">7905753</span>ffa4597e049ea
-Version: webpack <span class="hljs-number">4.16</span><span class="hljs-number">.2</span>
-Time: <span class="hljs-number">3080</span>ms
-Built at: <span class="hljs-number">2018</span><span class="hljs-number">-07</span><span class="hljs-number">-24</span> <span class="hljs-number">15</span>:<span class="hljs-number">36</span>:<span class="hljs-number">53</span>
+Hash: 7905753ffa4597e049ea
+Version: webpack 4.16.2
+Time: 3080ms
+Built at: 2018-07-24 15:36:53
   Asset     Size  Chunks             Chunk Names
-main.js  <span class="hljs-number">223</span> KiB       <span class="hljs-number">0</span>  [emitted]  main
+main.js  223 KiB       0  [emitted]  main
 Entrypoint main = main.js
- [<span class="hljs-number">3</span>] (webpack)/buildin/global.js <span class="hljs-number">489</span> bytes {<span class="hljs-number">0</span>} [built]
- [<span class="hljs-number">8</span>] multi ./index.js <span class="hljs-number">28</span> bytes {<span class="hljs-number">0</span>} [built]
-[<span class="hljs-number">12</span>] ./index.js + <span class="hljs-number">103</span> modules <span class="hljs-number">169</span> KiB {<span class="hljs-number">0</span>} [built]
-     | ./index.js <span class="hljs-number">521</span> bytes [built]
-     |     + <span class="hljs-number">103</span> hidden modules
-    + <span class="hljs-number">10</span> hidden modules
+ [3] (webpack)/buildin/global.js 489 bytes {0} [built]
+ [8] multi ./index.js 28 bytes {0} [built]
+[12] ./index.js + 103 modules 169 KiB {0} [built]
+     | ./index.js 521 bytes [built]
+     |     + 103 hidden modules
+    + 10 hidden modules
 $
 $ ./node_modules/.bin/serve
 
  Serving!
 
- - Local:            http:<span class="hljs-comment">//localhost:5000</span>
- - On Your Network:  http:<span class="hljs-comment">//127.0.1.1:5000</span></code></pre><p>Now, if you visit <code>http://localhost:5000/</code>, you should see a <code>call</code> to
+ - Local:            http://localhost:5000
+ - On Your Network:  http://127.0.1.1:5000</code></pre><p>Now, if you visit <code>http://localhost:5000/</code>, you should see a <code>call</code> to
 <code>stitch.mongodb.com</code> in your Chrome Network console that contains the id
 of an inserted document. Congratulations, you just wrote a document into
 your MongoDB Atlas cluster from your browser!</p>
@@ -159,18 +159,18 @@ instructions for how to connect to your Atlas cluster.</p>
 <p>Connect to your MongoDB Atlas cluster using the MongoDB shell, switch to the
 &#39;analytics&#39; database using <code>use analytics;</code> and print out
 a document.</p>
-<pre><code>mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
-MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>
+<pre><code>mongo &quot;mongodb+srv://cluster0-OMITTED.mongodb.net/test&quot; --username OMITTED
+MongoDB shell version v4.0.0
 Enter password:
-connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
+connecting to: mongodb+srv://cluster0-OMITTED.mongodb.net/test
 PRIMARY&gt;
 PRIMARY&gt; use analytics
 switched to db analytics
 PRIMARY&gt; db.events.findOne()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b5780681c9d4400000d6643"</span>),
-    <span class="hljs-string">"path"</span> : <span class="hljs-string">"/"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-07-24T19:39:20.253Z"</span>)
+    &quot;_id&quot; : ObjectId(&quot;5b5780681c9d4400000d6643&quot;),
+    &quot;path&quot; : &quot;/&quot;,
+    &quot;time&quot; : ISODate(&quot;2018-07-24T19:39:20.253Z&quot;)
 }
 PRIMARY&gt;</code></pre><p>In order to make this example more realistic, insert several more documents
 into the collection using the below command:</p>
@@ -203,9 +203,9 @@ key is to group events by the day, month, and year they occurred using
 ]);</code></pre>
 <p>Running this aggregation query gets you how many events occurred on a given
 day.</p>
-<pre><code>{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">24</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2018</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">2</span> }
-{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">23</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2018</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">1</span> }
-{ <span class="hljs-string">"_id"</span> : { <span class="hljs-string">"day"</span> : <span class="hljs-number">24</span>, <span class="hljs-string">"month"</span> : <span class="hljs-number">7</span>, <span class="hljs-string">"year"</span> : <span class="hljs-number">2017</span> }, <span class="hljs-string">"num"</span> : <span class="hljs-number">1</span> }</code></pre><h2 id="moving-on">Moving On</h2>
+<pre><code>{ &quot;_id&quot; : { &quot;day&quot; : 24, &quot;month&quot; : 7, &quot;year&quot; : 2018 }, &quot;num&quot; : 2 }
+{ &quot;_id&quot; : { &quot;day&quot; : 23, &quot;month&quot; : 7, &quot;year&quot; : 2018 }, &quot;num&quot; : 1 }
+{ &quot;_id&quot; : { &quot;day&quot; : 24, &quot;month&quot; : 7, &quot;year&quot; : 2017 }, &quot;num&quot; : 1 }</code></pre><h2 id="moving-on">Moving On</h2>
 <p>MongoDB Stitch allows you to access your MongoDB Atlas cluster directly from
 the browser, without needing to go through your own API. One potential use case
 for this is analytics: instead of going through <a href="https://mixpanel.com/">Mixpanel</a> or <a href="https://marketingplatform.google.com/about/">Google Analytics</a> UI, you can

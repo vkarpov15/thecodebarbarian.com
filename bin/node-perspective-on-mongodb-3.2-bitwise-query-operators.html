@@ -89,25 +89,25 @@ db.users.find({ booked: { $bitsAnyClear: [<span class="hljs-number">7</span>, <s
 <p>You could use the <code>$where</code> operator to run a similar query in MongoDB 3.0.
 However, <code>$where</code> can&#39;t take advantage of MongoDB indexes, so its performance
 is limited. The bitwise query operators, on the other hand, can use indexes.</p>
-<pre><code><span class="hljs-comment">// Create an index on `booked`</span>
-db.users.ensureIndex({ booked: <span class="hljs-number">1</span> });
-<span class="hljs-comment">// And now `.explain()` returns an index scan rather than a</span>
-<span class="hljs-comment">// collection scan.</span>
-db.users.find({ booked: { $bitsAllSet: [<span class="hljs-number">7</span>] } }).hint({ booked: <span class="hljs-number">1</span> }).explain()
-<span class="hljs-comment">/** Outputs something like below:
+<pre><code>// Create an index on `booked`
+db.users.ensureIndex({ booked: 1 });
+// And now `.explain()` returns an index scan rather than a
+// collection scan.
+db.users.find({ booked: { $bitsAllSet: [7] } }).hint({ booked: 1 }).explain()
+/** Outputs something like below:
  *  {
- *    "queryPlanner" : {
+ *    &quot;queryPlanner&quot; : {
  *        //...
- *      "winningPlan" : {
+ *      &quot;winningPlan&quot; : {
  *            // ...
- *            "inputStage" : {
- *                "stage" : "IXSCAN",
+ *            &quot;inputStage&quot; : {
+ *                &quot;stage&quot; : &quot;IXSCAN&quot;,
  *                // ...
  *            }
  *        }
  *    }
  *  }
-*/</span></code></pre><h1 id="bitwise-query-operators-in-nodejs">Bitwise Query Operators in Node.js</h1>
+*/</code></pre><h1 id="bitwise-query-operators-in-nodejs">Bitwise Query Operators in Node.js</h1>
 <p>In order to use bitwise query operators, you should use
 <a href="https://www.npmjs.com/package/mongodb">mongodb driver</a> <code>&gt;= 2.1.0</code> or
 <a href="https://www.npmjs.com/package/mongoose">mongoose</a> <code>&gt;= 4.3.1</code>. Here&#39;s

@@ -18,24 +18,24 @@
 <pre><code># Now `./baz` is a symlink to /foo/bar
 # If `/foo/bar` is an executable, you can run it with `./baz`
 ln -s /foo/bar baz</code></pre><p>To download and &quot;install&quot; node v7.6.0 and the corresponding npm version 4.1.2, first you need to download and untar it:</p>
-<pre><code>wget https:<span class="hljs-comment">//nodejs.org/download/release/v7.6.0/node-v7.6.0-linux-x64.tar.gz</span>
-tar -zxvf node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64.tar.gz</code></pre><p>And then you need to symlink <code>node</code> and <code>npm</code> into a folder that&#39;s on your PATH. I like <code>/usr/bin</code> for Linux. I used <code>/usr/local/bin</code> for OSX but I haven&#39;t used OSX regularly in many years, so OSX is <a href="http://uncyclopedia.wikia.com/wiki/Proof#Proof_by_Delegation">left as an exercise to the reader</a>.</p>
-<pre><code>ln -s <span class="hljs-string">`pwd`</span>/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/node /usr/bin/node
-ln -s <span class="hljs-string">`pwd`</span>/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/npm /usr/bin/npm</code></pre><p>Want to switch back to node v6.9.1?</p>
+<pre><code>wget https://nodejs.org/download/release/v7.6.0/node-v7.6.0-linux-x64.tar.gz
+tar -zxvf node-v7.6.0-linux-x64.tar.gz</code></pre><p>And then you need to symlink <code>node</code> and <code>npm</code> into a folder that&#39;s on your PATH. I like <code>/usr/bin</code> for Linux. I used <code>/usr/local/bin</code> for OSX but I haven&#39;t used OSX regularly in many years, so OSX is <a href="http://uncyclopedia.wikia.com/wiki/Proof#Proof_by_Delegation">left as an exercise to the reader</a>.</p>
+<pre><code>ln -s `pwd`/node-v7.6.0-linux-x64/bin/node /usr/bin/node
+ln -s `pwd`/node-v7.6.0-linux-x64/bin/npm /usr/bin/npm</code></pre><p>Want to switch back to node v6.9.1?</p>
 <pre><code>rm /usr/bin/node
 rm /usr/bin/npm
-ln -s <span class="hljs-string">`pwd`</span>/node-v6<span class="hljs-number">.9</span><span class="hljs-number">.1</span>-linux-x64/bin/node /usr/bin/node
-ln -s <span class="hljs-string">`pwd`</span>/node-v6<span class="hljs-number">.9</span><span class="hljs-number">.1</span>-linux-x64/bin/npm /usr/bin/npm</code></pre><h2 id="what-happens-with-the--g-flag">What Happens With The -g Flag?</h2>
+ln -s `pwd`/node-v6.9.1-linux-x64/bin/node /usr/bin/node
+ln -s `pwd`/node-v6.9.1-linux-x64/bin/npm /usr/bin/npm</code></pre><h2 id="what-happens-with-the--g-flag">What Happens With The -g Flag?</h2>
 <p>It&#39;s no secret that I <a href="http://thecodebarbarian.com/2015/02/27/npm-install--g">think <code>npm install -g</code> is a blight on society</a>. One great feature of this version management paradigm is that <code>npm install -g</code> no longer works by default.</p>
 <pre><code>$ npm install gulp -g
-/home/val/Workspace/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/gulp -&gt; <span class="hljs-regexp">/home/</span>val/Workspace/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/lib/node_modules/gulp/bin/gulp.js
-/home/val/Workspace/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/lib
+/home/val/Workspace/node-v7.6.0-linux-x64/bin/gulp -&gt; /home/val/Workspace/node-v7.6.0-linux-x64/lib/node_modules/gulp/bin/gulp.js
+/home/val/Workspace/node-v7.6.0-linux-x64/lib
 $ gulp
 gulp: command not found
 $</code></pre><p>If you need <code>npm install -g</code> for some reason, don&#39;t worry, you can make it work. Everything you <code>npm install -g</code> ends up in the <code>node-v7.6.0-linux-x64/bin/</code> directory, so you can either add that directory to your PATH, or symlink the individual executables.</p>
-<pre><code>$ ln -s <span class="hljs-string">`pwd`</span>/node-v7<span class="hljs-number">.6</span><span class="hljs-number">.0</span>-linux-x64/bin/gulp /usr/bin/gulp
+<pre><code>$ ln -s `pwd`/node-v7.6.0-linux-x64/bin/gulp /usr/bin/gulp
 $ gulp -v
-[<span class="hljs-number">17</span>:<span class="hljs-number">03</span>:<span class="hljs-number">53</span>] CLI version <span class="hljs-number">3.9</span><span class="hljs-number">.1</span>
+[17:03:53] CLI version 3.9.1
 $</code></pre><p>Note also that your executables are all stored underneath the <code>node-v7.6.0-linux-x64</code> directory. This means that removing old versions of node is as simple as deleting the whole directory. This will even clean up modules installed with <code>-g</code>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This is the paradigm I&#39;ve used to manage node versions since early 2015. I&#39;m sure this approach has limitations, but I&#39;ve found it to be the simplest and cleanest approach to node version management. Unless you find yourself forgetting the order of parameters to <code>ln -s</code>, you don&#39;t need any docs or APIs or README&#39;s, just solid Linux/OSX fundamentals. Give it a shot next time you need to install a new version of node!</p>

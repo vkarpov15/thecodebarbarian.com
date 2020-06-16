@@ -52,13 +52,13 @@ Below is an example of some commits to the <a href="https://github.com/angular/a
 <p>Standard-changelog ignores any commit whose message starts with <code>chore</code>. It also
 ignores any commit message that doesn&#39;t have a type, so it ignores the commit with
 the &#39;Initial commit&#39; message. So when you run <code>./node_modules/.bin/standard-changelog</code>, you get the <a href="https://github.com/vkarpov15/changelog-example/commit/cf39305263610727f70f6c46f77bfa3d0b67d612">below changelog</a>:</p>
-<pre><code>&lt;a name=<span class="hljs-string">"0.2.0"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<pre><code>&lt;a name=&quot;0.2.0&quot;&gt;&lt;/a&gt;
 # 0.2.0 (2018-09-18)
 
 
 ### Bug Fixes
 
-* **index:** remove unnecessary exclamation ([d148e12](https://github.com/vkarpov15/changelog-example/commit/d148e12))</span></code></pre><p>Generally, you should run <code>standard-changelog</code> from a release script in your <code>package.json</code>. This release script should encapsulate everything you need to do to create a new release for your project:</p>
+* **index:** remove unnecessary exclamation ([d148e12](https://github.com/vkarpov15/changelog-example/commit/d148e12))</code></pre><p>Generally, you should run <code>standard-changelog</code> from a release script in your <code>package.json</code>. This release script should encapsulate everything you need to do to create a new release for your project:</p>
 <ul>
 <li>Create a <code>chore: release X.Y.Z</code> commit</li>
 <li>Create a git tag for the release</li>
@@ -68,14 +68,14 @@ the &#39;Initial commit&#39; message. So when you run <code>./node_modules/.bin/
 </ul>
 <p>For the changelog-example project, I added a <code>release</code> script that does all these tasks from the command line:</p>
 <pre><code>{
-  <span class="hljs-string">"name"</span>: <span class="hljs-string">"changelog-example"</span>,
-  <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.2.0"</span>,
-  <span class="hljs-string">"devDependencies"</span>: {
-    <span class="hljs-string">"print-pkg-version"</span>: <span class="hljs-string">"0.2.1"</span>,
-    <span class="hljs-string">"standard-changelog"</span>: <span class="hljs-string">"2.0.1"</span>
+  &quot;name&quot;: &quot;changelog-example&quot;,
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;print-pkg-version&quot;: &quot;0.2.1&quot;,
+    &quot;standard-changelog&quot;: &quot;2.0.1&quot;
   },
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"release"</span>: <span class="hljs-string">"standard-changelog &amp;&amp; git commit -a -m \"chore: release `./node_modules/.bin/print-pkg-version`\" &amp;&amp; git tag `./node_modules/.bin/print-pkg-version` &amp;&amp; git push origin master --tags"</span>
+  &quot;scripts&quot;: {
+    &quot;release&quot;: &quot;standard-changelog &amp;&amp; git commit -a -m \&quot;chore: release `./node_modules/.bin/print-pkg-version`\&quot; &amp;&amp; git tag `./node_modules/.bin/print-pkg-version` &amp;&amp; git push origin master --tags&quot;
   }
 }</code></pre><p>With this release script, you still need to bump the <code>package.json</code> version manually.</p>
 <h2 id="moving-on">Moving On</h2>

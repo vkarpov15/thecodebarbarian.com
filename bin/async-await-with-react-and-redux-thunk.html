@@ -178,15 +178,15 @@ $ npm install react react-dom redux-thunk redux --save</code></pre><p>Minimal <c
 };</code></pre>
 <p>Minimal <code>.babelrc</code>:</p>
 <pre><code>{
-  <span class="hljs-string">"presets"</span>: [<span class="hljs-string">"react"</span>]
+  &quot;presets&quot;: [&quot;react&quot;]
 }</code></pre><p>Minimal <code>index.html</code>:</p>
 <pre><code>&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"container"</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Below is the <code>index.js</code> file. This example uses <code>wrap()</code> to handle errors
+  &lt;body&gt;
+    &lt;div id=&quot;container&quot;&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;dist/main.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Below is the <code>index.js</code> file. This example uses <code>wrap()</code> to handle errors
 in async action creators. The below example uses a long-lived action creator
 that dispatches an &#39;INCREMENT&#39; action after 5 seconds and then throws an
 error after another 5 seconds. The <code>wrap()</code> function handles the error and

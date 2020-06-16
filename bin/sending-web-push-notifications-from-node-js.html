@@ -24,13 +24,13 @@ see below. The full source for this project is available on <a href="https://git
 <p>In order to set up web push, you need to create a set of <a href="https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/">VAPID keys</a>. VAPID keys identify who is sending the push notification. The <code>web-push</code> npm
 module can <a href="https://www.npmjs.com/package/web-push#command-line">generate VAPID keys for you</a>, so let&#39;s install <code>web-push</code> along with some other dependencies and use <code>web-push generate-vapid-keys</code>
 to create the keys.</p>
-<pre><code>$ npm install express@<span class="hljs-number">4.16</span><span class="hljs-number">.3</span> web-push@<span class="hljs-number">3.3</span><span class="hljs-number">.0</span> body-parser@<span class="hljs-number">1.18</span><span class="hljs-number">.2</span> express-static@<span class="hljs-number">1.2</span><span class="hljs-number">.5</span>
+<pre><code>$ npm install express@4.16.3 web-push@3.3.0 body-parser@1.18.2 express-static@1.2.5
 
-+ express@<span class="hljs-number">4.16</span><span class="hljs-number">.3</span>
-+ web-push@<span class="hljs-number">3.3</span><span class="hljs-number">.0</span>
-+ body-parser@<span class="hljs-number">1.18</span><span class="hljs-number">.2</span>
-+ express-static@<span class="hljs-number">1.2</span><span class="hljs-number">.5</span>
-added <span class="hljs-number">62</span> packages <span class="hljs-keyword">in</span> <span class="hljs-number">1.42</span>s
++ express@4.16.3
++ web-push@3.3.0
++ body-parser@1.18.2
++ express-static@1.2.5
+added 62 packages in 1.42s
 $
 $ ./node_modules/.bin/web-push generate-vapid-keys
 
@@ -40,11 +40,11 @@ Public Key:
 BOynOrGhgkj8Bfk4hsFENAQYbnqqLSigUUkCNaBsAmNuH6U9EWywR1JIdxBVQOPDbIuTaj0tVAQbczNLkC5zftw
 
 Private Key:
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">OMITTED</span>&gt;</span>
+&lt;OMITTED&gt;
 
 =======================================
 
-$</span></code></pre><p>In order to support older browsers you may need to also get a <a href="https://medium.com/@jasminejacquelin/integrating-push-notifications-in-your-node-react-web-app-4e8d8190a52c#9a53">GCM API key</a>, but you don&#39;t need this in desktop Chrome 63 or higher.</p>
+$</code></pre><p>In order to support older browsers you may need to also get a <a href="https://medium.com/@jasminejacquelin/integrating-push-notifications-in-your-node-react-web-app-4e8d8190a52c#9a53">GCM API key</a>, but you don&#39;t need this in desktop Chrome 63 or higher.</p>
 <p>Next, create a file called <code>index.js</code> that will contain your server. You&#39;ll
 need to <code>require()</code> and configure the web-push module with your VAPID keys.
 In the interest of simplicity, put the VAPID keys in the <code>PUBLIC_VAPID_KEY</code>
@@ -87,15 +87,15 @@ using your route handler.</p>
 application. The only part of this file that really matters is the <code>&lt;script&gt;</code> tag
 that pulls in the client-side JavaScript, the rest is a placeholder.</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Push Demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"application/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/client.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  &lt;head&gt;
+    &lt;title&gt;Push Demo&lt;/title&gt;
+    &lt;script type=&quot;application/javascript&quot; src=&quot;/client.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  &lt;body&gt;
     Service Worker Demo
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>Now that you have an entry point, create a JavaScript file called <code>client.js</code>.
 <a href="https://github.com/vkarpov15/web-push-demo/blob/b356e53c1468c5611b9c4722411af3839bafc360/client.js">This file</a> will be responsible for telling the browser to initialize
 your service worker and making the HTTP request to <code>/subscribe</code>. The below
@@ -150,7 +150,7 @@ self.addEventListener(<span class="hljs-string">'push'</span>, ev =&gt; {
   });
 });</code></pre>
 <p>And that&#39;s it! Start your server with the correct environment variables:</p>
-<pre><code>$ env PUBLIC_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> env PRIVATE_VAPID_KEY=<span class="hljs-string">'OMITTED'</span> node .</code></pre><p>Navigate to <code>http://localhost:3000</code> in Chrome, and you should see the below
+<pre><code>$ env PUBLIC_VAPID_KEY=&#39;OMITTED&#39; env PRIVATE_VAPID_KEY=&#39;OMITTED&#39; node .</code></pre><p>Navigate to <code>http://localhost:3000</code> in Chrome, and you should see the below
 push notification!</p>
 <img src="https://i.imgur.com/bGyKuaW.png">
 

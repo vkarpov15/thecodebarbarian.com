@@ -43,20 +43,20 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 above script will show you the state of your test Ripple address, including
 the fact that you now have 10000 fake XRP to play with.</p>
 <pre><code>$ env RIPPLE_ADDRESS=raJsStZf83aRh5Q92A1CVFchZjruxnnJNS node info.js
-Done { sequence: <span class="hljs-number">1</span>,
-  xrpBalance: <span class="hljs-string">'10000'</span>,
-  ownerCount: <span class="hljs-number">0</span>,
-  previousAffectingTransactionID: <span class="hljs-string">'9910B28EE8D6671EFE7460B092AD084466DEB2790DF0B9E9BE8BF5C93655A6FC'</span>,
-  previousAffectingTransactionLedgerVersion: <span class="hljs-number">9410953</span> }
+Done { sequence: 1,
+  xrpBalance: &#39;10000&#39;,
+  ownerCount: 0,
+  previousAffectingTransactionID: &#39;9910B28EE8D6671EFE7460B092AD084466DEB2790DF0B9E9BE8BF5C93655A6FC&#39;,
+  previousAffectingTransactionLedgerVersion: 9410953 }
 $</code></pre><h2 id="transferring-xrp">Transferring XRP</h2>
 <p>Generate a second Ripple address on the XRP Test Net site. Run the <code>info.js</code>
 script to verify the 2nd account also has 10000 fake XRP.</p>
 <pre><code>$ env RIPPLE_ADDRESS=re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM node info.js
-Done { sequence: <span class="hljs-number">1</span>,
-  xrpBalance: <span class="hljs-string">'10000'</span>,
-  ownerCount: <span class="hljs-number">0</span>,
-  previousAffectingTransactionID: <span class="hljs-string">'C060DB82373EF9111B7F2DBA1F341BC4E4299007B76DA784E85C424D7A8DDA06'</span>,
-  previousAffectingTransactionLedgerVersion: <span class="hljs-number">9411702</span> }
+Done { sequence: 1,
+  xrpBalance: &#39;10000&#39;,
+  ownerCount: 0,
+  previousAffectingTransactionID: &#39;C060DB82373EF9111B7F2DBA1F341BC4E4299007B76DA784E85C424D7A8DDA06&#39;,
+  previousAffectingTransactionLedgerVersion: 9411702 }
 $</code></pre><p>Creating a Ripple payment in JavaScript is easy, payment objects look
 like the below JavaScript object. Here are <a href="https://developers.ripple.com/rippleapi-reference.html#payment">the full docs on what properties a Ripple payment object has</a>.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Ripple payments are represented as JavaScript objects</span>
@@ -131,26 +131,26 @@ run().catch(error =&gt; <span class="hljs-built_in">console</span>.error(error.s
 }</code></pre>
 <p>Below is the output of running this script with 2 accounts on the XRP
 Test Net:</p>
-<pre><code>$ env RIPPLE_FROM_ADDRESS=<span class="hljs-string">"raJsStZf83aRh5Q92A1CVFchZjruxnnJNS"</span> env RIPPLE_TO_ADDRESS=<span class="hljs-string">"re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM"</span> env RIPPLE_FROM_SECRET=<span class="hljs-string">"OMITTED"</span> node transfer.js
-Signed <span class="hljs-number">12000022800000002400000001201</span>B008F9E3761400000000098968068400000000000000C7321038A271B6430679F6E39990E64A34D1C5D1774E32F667DEDBE9D60147814FDD2C174463044022029DA0502EFE4E630E71C2B7A4E47574BD79080BB3636B97FD215E0EB7E586A40022010F58C5BBED24C41C55631B5E960B9CECCA8C6E9430A537028C7A910383B6D4181143A11BE0D1AF2A02DAD1437B43D8B6109410DD1158314071B2D8758FAD2840A8582A345A44275427FA951
-Done { resultCode: <span class="hljs-string">'tesSUCCESS'</span>,
-  resultMessage: <span class="hljs-string">'The transaction was applied. Only final in a validated ledger.'</span> }
+<pre><code>$ env RIPPLE_FROM_ADDRESS=&quot;raJsStZf83aRh5Q92A1CVFchZjruxnnJNS&quot; env RIPPLE_TO_ADDRESS=&quot;re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM&quot; env RIPPLE_FROM_SECRET=&quot;OMITTED&quot; node transfer.js
+Signed 12000022800000002400000001201B008F9E3761400000000098968068400000000000000C7321038A271B6430679F6E39990E64A34D1C5D1774E32F667DEDBE9D60147814FDD2C174463044022029DA0502EFE4E630E71C2B7A4E47574BD79080BB3636B97FD215E0EB7E586A40022010F58C5BBED24C41C55631B5E960B9CECCA8C6E9430A537028C7A910383B6D4181143A11BE0D1AF2A02DAD1437B43D8B6109410DD1158314071B2D8758FAD2840A8582A345A44275427FA951
+Done { resultCode: &#39;tesSUCCESS&#39;,
+  resultMessage: &#39;The transaction was applied. Only final in a validated ledger.&#39; }
 $</code></pre><p>Technically you need to wait for the <a href="https://ripple.com/build/xrp-ledger-consensus-process/#validation">Ripple ledger to validate</a> before you can consider this payment complete, but in this case
 the validation is very fast. Run the <code>info.js</code> script again and you
 should see the &quot;to&quot; account now has 10010 XRP, and the &quot;from&quot; account
 now has approximately 9989 XRP as shown below.</p>
 <pre><code>$ env RIPPLE_ADDRESS=re2H6BDYpbJEh1rGZHGD77F7WCBsS1LMM node info.js
-Done { sequence: <span class="hljs-number">1</span>,
-  xrpBalance: <span class="hljs-string">'10010'</span>,
-  ownerCount: <span class="hljs-number">0</span>,
-  previousAffectingTransactionID: <span class="hljs-string">'99042EF14E9FD6352E8C3BB6C64DC4BCB452A33FE999F00F9D17F8F127CCBDA8'</span>,
-  previousAffectingTransactionLedgerVersion: <span class="hljs-number">9412148</span> }
+Done { sequence: 1,
+  xrpBalance: &#39;10010&#39;,
+  ownerCount: 0,
+  previousAffectingTransactionID: &#39;99042EF14E9FD6352E8C3BB6C64DC4BCB452A33FE999F00F9D17F8F127CCBDA8&#39;,
+  previousAffectingTransactionLedgerVersion: 9412148 }
 $ env RIPPLE_ADDRESS=raJsStZf83aRh5Q92A1CVFchZjruxnnJNS node info.js
-Done { sequence: <span class="hljs-number">2</span>,
-  xrpBalance: <span class="hljs-string">'9989.999988'</span>,
-  ownerCount: <span class="hljs-number">0</span>,
-  previousAffectingTransactionID: <span class="hljs-string">'99042EF14E9FD6352E8C3BB6C64DC4BCB452A33FE999F00F9D17F8F127CCBDA8'</span>,
-  previousAffectingTransactionLedgerVersion: <span class="hljs-number">9412148</span> }
+Done { sequence: 2,
+  xrpBalance: &#39;9989.999988&#39;,
+  ownerCount: 0,
+  previousAffectingTransactionID: &#39;99042EF14E9FD6352E8C3BB6C64DC4BCB452A33FE999F00F9D17F8F127CCBDA8&#39;,
+  previousAffectingTransactionLedgerVersion: 9412148 }
 $</code></pre><p>Why does the from account have less than 9990 XRP? The Ripple protocol
 has a variable <a href="https://developers.ripple.com/transaction-cost.html">transaction fee</a> built in to defend against denial-of-service attacks and spam. The sender of a
 payment is <a href="https://developers.ripple.com/transaction-cost.html#transaction-costs-and-failed-transactions">responsible for paying the transaction cost</a>.</p>

@@ -31,25 +31,25 @@ operations like <code>.find()</code>, <code>.findOne()</code>, etc.</p>
 Suppose you have a collection of users like you see below.</p>
 <pre><code>&gt; db.users.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-    <span class="hljs-string">"likes"</span> : [
-        <span class="hljs-string">"bacon"</span>
+    &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+    &quot;name&quot; : &quot;Val&quot;,
+    &quot;likes&quot; : [
+        &quot;bacon&quot;
     ]
 }</code></pre><p>Suppose you also have a collection of related events. Note that each event
 has a <code>user</code> field, which contains the ObjectId of the associated user.</p>
 <pre><code>&gt; db.events.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c87f418925185babf09"</span>),
-    <span class="hljs-string">"user"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"registered"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:07.487Z"</span>)
+    &quot;_id&quot; : ObjectId(&quot;56743c87f418925185babf09&quot;),
+    &quot;user&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+    &quot;action&quot; : &quot;registered&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:07.487Z&quot;)
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c8ef418925185babf0a"</span>),
-    <span class="hljs-string">"user"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
+    &quot;_id&quot; : ObjectId(&quot;56743c8ef418925185babf0a&quot;),
+    &quot;user&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+    &quot;action&quot; : &quot;logged in&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:14.799Z&quot;)
 }</code></pre><p>You can use the <code>$lookup</code> operator to get the user associated with each
 event. The <code>$lookup</code> operator takes an object with 4 properties:</p>
 <ul>
@@ -62,34 +62,34 @@ event. The <code>$lookup</code> operator takes an object with 4 properties:</p>
 collection that found documents in the &#39;users&#39; collection whose <code>_id</code>
 field was equal to the event&#39;s <code>user</code> field. Here&#39;s how that works
 in the shell.</p>
-<pre><code>&gt; db.events.aggregate([{ $lookup: { <span class="hljs-keyword">from</span>: <span class="hljs-string">'users'</span>, localField: <span class="hljs-string">'user'</span>, foreignField: <span class="hljs-string">'_id'</span>, <span class="hljs-keyword">as</span>: <span class="hljs-string">'user'</span> } }]).pretty();
+<pre><code>&gt; db.events.aggregate([{ $lookup: { from: &#39;users&#39;, localField: &#39;user&#39;, foreignField: &#39;_id&#39;, as: &#39;user&#39; } }]).pretty();
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c87f418925185babf09"</span>),
-    <span class="hljs-string">"user"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;56743c87f418925185babf09&quot;),
+    &quot;user&quot; : [
         {
-            <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-            <span class="hljs-string">"likes"</span> : [
-                <span class="hljs-string">"bacon"</span>
+            &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+            &quot;name&quot; : &quot;Val&quot;,
+            &quot;likes&quot; : [
+                &quot;bacon&quot;
             ]
         }
     ],
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"registered"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:07.487Z"</span>)
+    &quot;action&quot; : &quot;registered&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:07.487Z&quot;)
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c8ef418925185babf0a"</span>),
-    <span class="hljs-string">"user"</span> : [
+    &quot;_id&quot; : ObjectId(&quot;56743c8ef418925185babf0a&quot;),
+    &quot;user&quot; : [
         {
-            <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-            <span class="hljs-string">"likes"</span> : [
-                <span class="hljs-string">"bacon"</span>
+            &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+            &quot;name&quot; : &quot;Val&quot;,
+            &quot;likes&quot; : [
+                &quot;bacon&quot;
             ]
         }
     ],
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
+    &quot;action&quot; : &quot;logged in&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:14.799Z&quot;)
 }</code></pre><p>One case where <code>$lookup</code> is particularly useful is for data migrations.
 Suppose you realized that only storing the user&#39;s id is not terribly helpful.
 You can use the
@@ -118,28 +118,28 @@ To do this, you need a 3-stage aggregation pipeline:</p>
 contain all the events with embedded user data.</p>
 <pre><code>&gt; db.new_events.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c87f418925185babf09"</span>),
-    <span class="hljs-string">"user"</span> : {
-        <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-        <span class="hljs-string">"likes"</span> : [
-            <span class="hljs-string">"bacon"</span>
+    &quot;_id&quot; : ObjectId(&quot;56743c87f418925185babf09&quot;),
+    &quot;user&quot; : {
+        &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+        &quot;name&quot; : &quot;Val&quot;,
+        &quot;likes&quot; : [
+            &quot;bacon&quot;
         ]
     },
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"registered"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:07.487Z"</span>)
+    &quot;action&quot; : &quot;registered&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:07.487Z&quot;)
 }
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c8ef418925185babf0a"</span>),
-    <span class="hljs-string">"user"</span> : {
-        <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-        <span class="hljs-string">"likes"</span> : [
-            <span class="hljs-string">"bacon"</span>
+    &quot;_id&quot; : ObjectId(&quot;56743c8ef418925185babf0a&quot;),
+    &quot;user&quot; : {
+        &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+        &quot;name&quot; : &quot;Val&quot;,
+        &quot;likes&quot; : [
+            &quot;bacon&quot;
         ]
     },
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
+    &quot;action&quot; : &quot;logged in&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:14.799Z&quot;)
 }</code></pre><p>Using the <code>$lookup</code> operator in Node.js is easy. If you&#39;re going to
 use the <code>$lookup</code> operator, you should use version &gt;= 2.1.0 of the
 <a href="https://www.npmjs.com/package/mongodb">MongoDB driver</a> or version &gt;= 4.3.0
@@ -178,31 +178,31 @@ in an object with a single property, <code>size</code>, that defines the number 
 documents you want. For instance, here&#39;s how you would get a random
 event from the &#39;new_events&#39; collection using the <code>$sample</code> operator in
 the shell.</p>
-<pre><code>&gt; db.new_events.aggregate([{ $sample: { size: <span class="hljs-number">1</span> } }]).pretty();
+<pre><code>&gt; db.new_events.aggregate([{ $sample: { size: 1 } }]).pretty();
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c8ef418925185babf0a"</span>),
-    <span class="hljs-string">"user"</span> : {
-        <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-        <span class="hljs-string">"likes"</span> : [
-            <span class="hljs-string">"bacon"</span>
+    &quot;_id&quot; : ObjectId(&quot;56743c8ef418925185babf0a&quot;),
+    &quot;user&quot; : {
+        &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+        &quot;name&quot; : &quot;Val&quot;,
+        &quot;likes&quot; : [
+            &quot;bacon&quot;
         ]
     },
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"logged in"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:14.799Z"</span>)
+    &quot;action&quot; : &quot;logged in&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:14.799Z&quot;)
 }
-&gt; db.new_events.aggregate([{ $sample: { size: <span class="hljs-number">1</span> } }]).pretty();
+&gt; db.new_events.aggregate([{ $sample: { size: 1 } }]).pretty();
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c87f418925185babf09"</span>),
-    <span class="hljs-string">"user"</span> : {
-        <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"56743c5af418925185babf08"</span>),
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Val"</span>,
-        <span class="hljs-string">"likes"</span> : [
-            <span class="hljs-string">"bacon"</span>
+    &quot;_id&quot; : ObjectId(&quot;56743c87f418925185babf09&quot;),
+    &quot;user&quot; : {
+        &quot;_id&quot; : ObjectId(&quot;56743c5af418925185babf08&quot;),
+        &quot;name&quot; : &quot;Val&quot;,
+        &quot;likes&quot; : [
+            &quot;bacon&quot;
         ]
     },
-    <span class="hljs-string">"action"</span> : <span class="hljs-string">"registered"</span>,
-    <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2015-12-18T17:04:07.487Z"</span>)
+    &quot;action&quot; : &quot;registered&quot;,
+    &quot;time&quot; : ISODate(&quot;2015-12-18T17:04:07.487Z&quot;)
 }</code></pre><p>If the <code>size</code> you specified is larger than the number of documents in
 the collection, you get all the documents back.</p>
 <p>Like <code>$lookup</code>, you should use version &gt;= 2.1.0 of the

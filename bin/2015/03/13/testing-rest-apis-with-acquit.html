@@ -175,40 +175,40 @@ well-tested documentation for your REST API.</p>
 <p>All the work necessary to integrate acquit for docs generation
 is in <a href="https://github.com/vkarpov15/acquit-example/commit/a476384ce5d030361e9cfb0f6a75bc4754dfdab5">this GitHub commit</a>.
 The key work is in the <code>docs.js</code> file:</p>
-<pre><code><span class="hljs-keyword">var</span> acquit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'acquit'</span>);
+<pre><code>var acquit = require(&#39;acquit&#39;);
 
-<span class="hljs-keyword">var</span> content = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).
-  readFileSync(<span class="hljs-string">'test/api-integration.test.js'</span>).toString();
-<span class="hljs-comment">// Parse the contents of the test file into acquit 'blocks'</span>
-<span class="hljs-keyword">var</span> blocks = acquit.parse(content);
-<span class="hljs-keyword">var</span> header = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).readFileSync(<span class="hljs-string">'./header.md'</span>).toString();
+var content = require(&#39;fs&#39;).
+  readFileSync(&#39;test/api-integration.test.js&#39;).toString();
+// Parse the contents of the test file into acquit &#39;blocks&#39;
+var blocks = acquit.parse(content);
+var header = require(&#39;fs&#39;).readFileSync(&#39;./header.md&#39;).toString();
 
-<span class="hljs-keyword">var</span> mdOutput = header + <span class="hljs-string">'\n\n'</span>;
+var mdOutput = header + &#39;\n\n&#39;;
 
-<span class="hljs-comment">// For each describe() block</span>
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; blocks.length; ++i) {
-  <span class="hljs-keyword">var</span> describe = blocks[i];
-  mdOutput += <span class="hljs-string">'## '</span> + describe.contents + <span class="hljs-string">'\n\n'</span>;
-  mdOutput += describe.comments[<span class="hljs-number">0</span>] ?
-    acquit.trimEachLine(describe.comments[<span class="hljs-number">0</span>]) + <span class="hljs-string">'\n\n'</span> :
-    <span class="hljs-string">''</span>;
+// For each describe() block
+for (var i = 0; i &lt; blocks.length; ++i) {
+  var describe = blocks[i];
+  mdOutput += &#39;## &#39; + describe.contents + &#39;\n\n&#39;;
+  mdOutput += describe.comments[0] ?
+    acquit.trimEachLine(describe.comments[0]) + &#39;\n\n&#39; :
+    &#39;&#39;;
 
-  <span class="hljs-comment">// This test file only has it() blocks underneath a</span>
-  <span class="hljs-comment">// describe() block, so just loop through all the</span>
-  <span class="hljs-comment">// it() calls.</span>
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; describe.blocks.length; ++j) {
-    <span class="hljs-keyword">var</span> it = describe.blocks[j];
-    mdOutput += <span class="hljs-string">'#### It '</span> + it.contents + <span class="hljs-string">'\n\n'</span>;
-    mdOutput += it.comments[<span class="hljs-number">0</span>] ?
-      acquit.trimEachLine(it.comments[<span class="hljs-number">0</span>]) + <span class="hljs-string">'\n\n'</span> :
-      <span class="hljs-string">''</span>;
-    mdOutput += <span class="hljs-string">'```javascript\n'</span>;
-    mdOutput += <span class="hljs-string">'    '</span> + it.code + <span class="hljs-string">'\n'</span>;
-    mdOutput += <span class="hljs-string">'```\n\n'</span>;
+  // This test file only has it() blocks underneath a
+  // describe() block, so just loop through all the
+  // it() calls.
+  for (var j = 0; j &lt; describe.blocks.length; ++j) {
+    var it = describe.blocks[j];
+    mdOutput += &#39;#### It &#39; + it.contents + &#39;\n\n&#39;;
+    mdOutput += it.comments[0] ?
+      acquit.trimEachLine(it.comments[0]) + &#39;\n\n&#39; :
+      &#39;&#39;;
+    mdOutput += &#39;```javascript\n&#39;;
+    mdOutput += &#39;    &#39; + it.code + &#39;\n&#39;;
+    mdOutput += &#39;```\n\n&#39;;
   }
 }
 
-<span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).writeFileSync(<span class="hljs-string">'README.md'</span>, mdOutput);</code></pre><p>Similar to <a href="https://www.npmjs.com/package/dox">dox</a>, acquit
+require(&#39;fs&#39;).writeFileSync(&#39;README.md&#39;, mdOutput);</code></pre><p>Similar to <a href="https://www.npmjs.com/package/dox">dox</a>, acquit
 doesn&#39;t limit you to a particular output format. All acquit
 provides you is the <code>parse()</code> function, which parses your
 tests into a handy format for documentation generation, and

@@ -12,8 +12,11 @@ require('acquit-ignore')();
 
 const highlight = require('highlight.js');
 markdown.setOptions({
-  highlight: function(code) {
-    return highlight.highlight('JavaScript', code).value;
+  highlight: function(code, language) {
+    if (language && language.toLowerCase() === 'javascript') {
+      return highlight.highlight('JavaScript', code).value;
+    }
+    return code;
   }
 });
 

@@ -21,20 +21,20 @@ However, for educational purposes, this article will <code>npm install</code> th
 <p>The first step is to <code>npm install</code> a couple packages. In addition to vue and
 webpack, install <a href="https://www.npmjs.com/package/serve">serve</a> to spin up a
 lightweight web server.</p>
-<pre><code>npm install vue@<span class="hljs-number">2.6</span> webpack@<span class="hljs-number">4.</span>x webpack-cli@<span class="hljs-number">3.</span>x serve@<span class="hljs-number">10.</span>x</code></pre><p>Create an <code>index.html</code> file that loads a <code>main.js</code> bundle. The <code>#content</code> div
+<pre><code>npm install vue@2.6 webpack@4.x webpack-cli@3.x serve@10.x</code></pre><p>Create an <code>index.html</code> file that loads a <code>main.js</code> bundle. The <code>#content</code> div
 is the element Vue will render into, and <code>name-form</code> is a <a href="https://vuejs.org/v2/guide/components.html">custom component</a> that
 we&#39;ll add to Vue.</p>
 <pre><code>&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Vue Form Example<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  &lt;head&gt;&lt;title&gt;Vue Form Example&lt;/title&gt;&lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">name-form</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">name-form</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;
+      &lt;name-form&gt;&lt;/name-form&gt;
+    &lt;/div&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"dist/main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre><p>Here&#39;s a minimal <a href="https://webpack.js.org/configuration/">Webpack config file</a> <code>webpack.config.js</code> that will take a
+    &lt;script type=&quot;text/javascript&quot; src=&quot;dist/main.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>Here&#39;s a minimal <a href="https://webpack.js.org/configuration/">Webpack config file</a> <code>webpack.config.js</code> that will take a
 <code>main.js</code> file, which contains the definition of the <code>name-form</code> component,
 and create a standalone bundle <code>dist/main.js</code>.</p>
 <pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
@@ -64,15 +64,15 @@ Vue.component(<span class="hljs-string">'name-form'</span>, {
 <p>Run <code>./node_modules/.bin/webpack</code> to compile <code>main.js</code>, and <code>./node_modules/.bin/serve</code> to start an HTTP server on port 5000.</p>
 <pre><code>$ ./node_modules/.bin/webpack
 Hash: d3f433b3f83a66e3b75c
-Version: webpack <span class="hljs-number">4.29</span><span class="hljs-number">.6</span>
-Time: <span class="hljs-number">2217</span>ms
-Built at: <span class="hljs-number">2019</span><span class="hljs-number">-03</span><span class="hljs-number">-10</span> <span class="hljs-number">12</span>:<span class="hljs-number">56</span>:<span class="hljs-number">40</span>
+Version: webpack 4.29.6
+Time: 2217ms
+Built at: 2019-03-10 12:56:40
   Asset      Size  Chunks             Chunk Names
-main.js  <span class="hljs-number">96.7</span> KiB       <span class="hljs-number">0</span>  [emitted]  main
+main.js  96.7 KiB       0  [emitted]  main
 Entrypoint main = main.js
-[<span class="hljs-number">0</span>] (webpack)/buildin/global.js <span class="hljs-number">472</span> bytes {<span class="hljs-number">0</span>} [built]
-[<span class="hljs-number">1</span>] ./main.js <span class="hljs-number">158</span> bytes {<span class="hljs-number">0</span>} [built]
-    + <span class="hljs-number">4</span> hidden modules
+[0] (webpack)/buildin/global.js 472 bytes {0} [built]
+[1] ./main.js 158 bytes {0} [built]
+    + 4 hidden modules
 $ ./node_modules/.bin/serve</code></pre><p>Visit <code>http://localhost:5000</code>, and you should see &#39;Hello, World&#39; show up.</p>
 <img src="https://i.imgur.com/sAX0ZUh.png">
 

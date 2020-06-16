@@ -198,13 +198,13 @@ p.
 }</code></pre>
 <p>Note the <code>.catch()</code> call above. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch"><code>catch()</code> function</a> is a core part of the ES6 promise spec. This article won&#39;t cover it in much detail because <code>.catch(f)</code> is equivalent to <code>.then(null, f)</code>, so there isn&#39;t much to it.</p>
 <p>Below is the output. Notice that await calls <code>.then()</code> implicitly with <code>onFulfilled()</code> and <code>onRejected()</code> functions that dive into the C++ internals of V8. Also, <code>await</code> always waits until the next tick before calling <code>.then()</code>.</p>
-<pre><code>Then <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ [native code] } <span class="hljs-built_in">Error</span>
-    at MyPromise.then (<span class="hljs-regexp">/home/</span>val/test/promise.js:<span class="hljs-number">63</span>:<span class="hljs-number">50</span>)
-    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">188</span>:<span class="hljs-number">7</span>)
-    at <span class="hljs-built_in">Function</span>.Module.runMain (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">686</span>:<span class="hljs-number">11</span>)
-    at startup (bootstrap_node.js:<span class="hljs-number">187</span>:<span class="hljs-number">16</span>)
-    at bootstrap_node.js:<span class="hljs-number">608</span>:<span class="hljs-number">3</span>
-Elapsed time <span class="hljs-number">102</span></code></pre><h2 id="moving-on">Moving On</h2>
+<pre><code>Then function () { [native code] } function () { [native code] } Error
+    at MyPromise.then (/home/val/test/promise.js:63:50)
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+    at Function.Module.runMain (module.js:686:11)
+    at startup (bootstrap_node.js:187:16)
+    at bootstrap_node.js:608:3
+Elapsed time 102</code></pre><h2 id="moving-on">Moving On</h2>
 <p><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Async/await</a> is powerful, but hard to master unless you understand the fundamentals of promises. Promises have a lot of nuances, like the fact that synchronous errors in the executor function are caught and the fact that a promise can&#39;t change state once it is settled, that make async/await possible. Once you have a solid understanding of promises, async/await becomes much easier.</p>
 <p><em>Looking for a more detailed guide that walks you through building a <a href="https://promisesaplus.com/">standards compliant</a> promise library from scratch? My new ebook, Mastering Async/Await, shows you how to build a Promises/A+ compliant promise implementation and demonstrates how it works with async/await. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>

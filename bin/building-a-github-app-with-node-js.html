@@ -63,46 +63,46 @@ test repo, GitHub will send an HTTP post to your endpoint,
 and you&#39;ll get the below request body. For brevity, I excluded
 a bunch of irrelevant information from the request body.</p>
 <pre><code>{
-  ref: <span class="hljs-string">'refs/heads/master'</span>,
-  before: <span class="hljs-string">'74368a8c700c1632c8e3a79f87f4bfa5eabc8348'</span>,
-  after: <span class="hljs-string">'ff3b2d88adcacf6f632664c665a55c525cadf5f7'</span>,
+  ref: &#39;refs/heads/master&#39;,
+  before: &#39;74368a8c700c1632c8e3a79f87f4bfa5eabc8348&#39;,
+  after: &#39;ff3b2d88adcacf6f632664c665a55c525cadf5f7&#39;,
   repository: {
-    id: <span class="hljs-number">242404484</span>,
-    node_id: <span class="hljs-string">'MDEwOlJlcG9zaXRvcnkyNDI0MDQ0ODQ='</span>,
-    name: <span class="hljs-string">'serverless-test-2'</span>,
-    full_name: <span class="hljs-string">'vkarpov15/serverless-test-2'</span>,
-    private: <span class="hljs-literal">false</span>,
+    id: 242404484,
+    node_id: &#39;MDEwOlJlcG9zaXRvcnkyNDI0MDQ0ODQ=&#39;,
+    name: &#39;serverless-test-2&#39;,
+    full_name: &#39;vkarpov15/serverless-test-2&#39;,
+    private: false,
     owner: {
-      name: <span class="hljs-string">'vkarpov15'</span>,
-      email: <span class="hljs-string">'val@karpov.io'</span>,
-      login: <span class="hljs-string">'vkarpov15'</span>,
-      id: <span class="hljs-number">1620265</span>,
-      <span class="hljs-comment">// ...</span>
+      name: &#39;vkarpov15&#39;,
+      email: &#39;val@karpov.io&#39;,
+      login: &#39;vkarpov15&#39;,
+      id: 1620265,
+      // ...
     },
-    <span class="hljs-comment">// ...</span>
+    // ...
   },
-  pusher: { name: <span class="hljs-string">'vkarpov15'</span>, email: <span class="hljs-string">'val@karpov.io'</span> },
+  pusher: { name: &#39;vkarpov15&#39;, email: &#39;val@karpov.io&#39; },
   sender: {
-    login: <span class="hljs-string">'vkarpov15'</span>,
-    id: <span class="hljs-number">1620265</span>,
-    <span class="hljs-comment">// ...</span>
+    login: &#39;vkarpov15&#39;,
+    id: 1620265,
+    // ...
   },
   installation: {
-    id: <span class="hljs-number">7128926</span>,
-    node_id: <span class="hljs-string">'MDIzOkludGVncmF0aW9uSW5zdGFsbGF0aW9uNzEyODkyNg=='</span>
+    id: 7128926,
+    node_id: &#39;MDIzOkludGVncmF0aW9uSW5zdGFsbGF0aW9uNzEyODkyNg==&#39;
   },
-  <span class="hljs-comment">// ...</span>
+  // ...
   commits: [
     {
-      id: <span class="hljs-string">'ff3b2d88adcacf6f632664c665a55c525cadf5f7'</span>,
-      tree_id: <span class="hljs-string">'cb7043ef1c4701984e9bfd843745bd75fed9b51c'</span>,
-      distinct: <span class="hljs-literal">true</span>,
-      message: <span class="hljs-string">'test webhooks!'</span>,
-      timestamp: <span class="hljs-string">'2020-03-03T21:40:25-06:00'</span>,
-      <span class="hljs-comment">// ...</span>
+      id: &#39;ff3b2d88adcacf6f632664c665a55c525cadf5f7&#39;,
+      tree_id: &#39;cb7043ef1c4701984e9bfd843745bd75fed9b51c&#39;,
+      distinct: true,
+      message: &#39;test webhooks!&#39;,
+      timestamp: &#39;2020-03-03T21:40:25-06:00&#39;,
+      // ...
     }
   ],
-  head_commit: <span class="hljs-comment">// ...</span>
+  head_commit: // ...
 }</code></pre><h2 id="making-your-first-request">Making Your First Request</h2>
 <p>Making a request to GitHub&#39;s API as an app is slightly trickier
 than making a request after <a href="/passport-free-facebook-login-with-node-js.html">logging in with OAuth</a>. There are

@@ -115,25 +115,25 @@ distinct types, &#39;Book&#39; and &#39;Computer&#39;, that have slightly
 different properties. This model will express &#39;Book&#39; and &#39;Computer&#39;
 as top-level discriminators, so you will have a &#39;products&#39; collection
 that contains both books and computers.</p>
-<pre><code><span class="hljs-keyword">const</span> productSchema = <span class="hljs-keyword">new</span> Schema({
-  imageURL: <span class="hljs-built_in">String</span>,
-  name: <span class="hljs-built_in">String</span>
-}, { discriminatorKey: <span class="hljs-string">'kind'</span> });
+<pre><code>const productSchema = new Schema({
+  imageURL: String,
+  name: String
+}, { discriminatorKey: &#39;kind&#39; });
 
-<span class="hljs-keyword">const</span> bookSchema = <span class="hljs-keyword">new</span> Schema({
-  author: <span class="hljs-built_in">String</span>
+const bookSchema = new Schema({
+  author: String
 });
 
-<span class="hljs-keyword">const</span> computerSchema = <span class="hljs-keyword">new</span> Schema({
-  ramGB: <span class="hljs-built_in">Number</span>
+const computerSchema = new Schema({
+  ramGB: Number
 });
 
-<span class="hljs-comment">// This is a top-level discriminator. Products will be saved</span>
-<span class="hljs-comment">// in the 'products' collection, but have variable schema based</span>
-<span class="hljs-comment">// on the value of the discriminator key (the `kind` property)</span>
-<span class="hljs-keyword">const</span> Product = mongoose.model(<span class="hljs-string">'Product'</span>, productSchema);
-<span class="hljs-keyword">const</span> Book = Product.discriminator(<span class="hljs-string">'Book'</span>, bookSchema);
-<span class="hljs-keyword">const</span> Computer = Product.discriminator(<span class="hljs-string">'Computer'</span>, computerSchema);</code></pre><p>Now, let&#39;s say you have an &#39;Order&#39; model that has a one-to-one
+// This is a top-level discriminator. Products will be saved
+// in the &#39;products&#39; collection, but have variable schema based
+// on the value of the discriminator key (the `kind` property)
+const Product = mongoose.model(&#39;Product&#39;, productSchema);
+const Book = Product.discriminator(&#39;Book&#39;, bookSchema);
+const Computer = Product.discriminator(&#39;Computer&#39;, computerSchema);</code></pre><p>Now, let&#39;s say you have an &#39;Order&#39; model that has a one-to-one
 relationship with products. In other words, for the sake of this
 example, assume that an order always has exactly one product.
 You can do 3NF and have order only track

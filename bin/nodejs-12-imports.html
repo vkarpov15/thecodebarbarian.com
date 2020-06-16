@@ -27,25 +27,25 @@ for <a href="http://2ality.com/2019/04/nodejs-esm-impl.html#es-module-specifiers
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Hello, World!'</span>); 
 }</code></pre>
 <p>And, finally, <code>package.json</code>. This <code>package.json</code> is very important. The <code>type: &quot;module&quot;</code> property tells Node.js to treat <code>.js</code> files as <a href="https://nodejs.org/api/esm.html#esm_code_package_json_code_code_type_code_field">ESM modules</a>. In other words, <code>{&quot;type&quot;:&quot;module&quot;}</code> tells Node.js to expect <code>import</code> and <code>export</code> statements in <code>.js</code> files.</p>
-<pre><code>{ <span class="hljs-string">"type"</span>: <span class="hljs-string">"module"</span> }</code></pre><p>These files are also available on <a href="https://gist.github.com/vkarpov15/dbac89019245b10b7fb78d3530a1fed3">this GitHub gist</a>.</p>
+<pre><code>{ &quot;type&quot;: &quot;module&quot; }</code></pre><p>These files are also available on <a href="https://gist.github.com/vkarpov15/dbac89019245b10b7fb78d3530a1fed3">this GitHub gist</a>.</p>
 <p>Run <code>index.js</code> with Node.js 12 and you should see the below output. Don&#39;t forget the <code>--experimental-modules</code> flag. You need both.</p>
 <pre><code>node --experimental-modules index.js 
-(node:<span class="hljs-number">7289</span>) ExperimentalWarning: The ESM <span class="hljs-built_in">module</span> loader is experimental.
+(node:7289) ExperimentalWarning: The ESM module loader is experimental.
 Hello, world!</code></pre><p>If you forget the <code>--experimental-modules</code> flag, you&#39;ll get the below error.</p>
 <pre><code>$ node index.js 
-/index.js:<span class="hljs-number">1</span>
-<span class="hljs-keyword">import</span> test <span class="hljs-keyword">from</span> <span class="hljs-string">'./test.js'</span>;
+/index.js:1
+import test from &#39;./test.js&#39;;
        ^^^^
 
-<span class="hljs-built_in">SyntaxError</span>: Unexpected identifier</code></pre><p>You&#39;ll get a similar error if your <code>package.json</code> file doesn&#39;t contain <code>{&quot;type&quot;:&quot;module&quot;}</code>.</p>
+SyntaxError: Unexpected identifier</code></pre><p>You&#39;ll get a similar error if your <code>package.json</code> file doesn&#39;t contain <code>{&quot;type&quot;:&quot;module&quot;}</code>.</p>
 <pre><code>$ rm package.json
 $ node --experimental-modules index.js 
-(node:<span class="hljs-number">9089</span>) ExperimentalWarning: The ESM <span class="hljs-built_in">module</span> loader is experimental.
-/index.js:<span class="hljs-number">1</span>
-<span class="hljs-keyword">import</span> test <span class="hljs-keyword">from</span> <span class="hljs-string">'./test.js'</span>;
+(node:9089) ExperimentalWarning: The ESM module loader is experimental.
+/index.js:1
+import test from &#39;./test.js&#39;;
        ^^^^
 
-<span class="hljs-built_in">SyntaxError</span>: Unexpected identifier</code></pre><h2 id="using-mjs">Using <code>.mjs</code></h2>
+SyntaxError: Unexpected identifier</code></pre><h2 id="using-mjs">Using <code>.mjs</code></h2>
 <p>You can avoid the need for <code>{&quot;type&quot;:&quot;module&quot;}</code> by using the <code>.mjs</code> extension, instead of <code>.js</code>. For example, here&#39;s <code>index.mjs</code>:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">import</span> test <span class="hljs-keyword">from</span> <span class="hljs-string">'./test.mjs'</span>;
 
@@ -57,15 +57,15 @@ test();</code></pre>
 }</code></pre>
 <p>Running <code>index.mjs</code> will give you the below output.</p>
 <pre><code>$ node --experimental-modules index.mjs
-(node:<span class="hljs-number">10191</span>) ExperimentalWarning: The ESM <span class="hljs-built_in">module</span> loader is experimental.
+(node:10191) ExperimentalWarning: The ESM module loader is experimental.
 Hello, world!</code></pre><p>Note that, unlike <code>index.js</code>, Node.js doesn&#39;t resolve <code>index.mjs</code> if you run <code>node index</code> or <code>node .</code>.</p>
 <pre><code>$ node --experimental-modules .
-(node:<span class="hljs-number">10296</span>) ExperimentalWarning: The ESM <span class="hljs-built_in">module</span> loader is experimental.
-internal/modules/esm/default_resolve.js:<span class="hljs-number">69</span>
-  <span class="hljs-keyword">let</span> url = moduleWrapResolve(specifier, parentURL);
+(node:10296) ExperimentalWarning: The ESM module loader is experimental.
+internal/modules/esm/default_resolve.js:69
+  let url = moduleWrapResolve(specifier, parentURL);
             ^
 
-<span class="hljs-built_in">Error</span>: Cannot find <span class="hljs-built_in">module</span> <span class="hljs-string">'/'</span> imported <span class="hljs-keyword">from</span> /</code></pre><h2 id="importing-commonjs-npm-modules">Importing CommonJS npm Modules</h2>
+Error: Cannot find module &#39;/&#39; imported from /</code></pre><h2 id="importing-commonjs-npm-modules">Importing CommonJS npm Modules</h2>
 <p>The <code>import</code> and <code>export</code> keywords are part of the ECMAScript Modules spec, or ESM for short. Most Node.js projects are written using CommonJS, using <a href="https://nodejs.org/api/modules.html#modules_require_id">the <code>require()</code> function</a> to import other files.</p>
 <p>Node.js&#39; ESM loader supports CommonJS modules. That means npm packages that are written in CommonJS, like <a href="https://www.npmjs.com/package/mongoose">Mongoose</a>, work fine in <code>.mjs</code> files or with <code>{&quot;type&quot;:&quot;module&quot;}</code> in your <code>package.json</code>.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Works even though Mongoose uses CommonJS</span>

@@ -75,11 +75,11 @@ which is the format Shippable prefers for code coverage output.</li>
 Travis-based <code>fizzbuzz-coverage</code> repo, except for the fact that
 the <code>coveralls</code> module is no longer necessary for code coverage,
 and the slightly modified scripts:</p>
-<pre><code>  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"shippable-cobertura"</span>: <span class="hljs-string">"istanbul report cobertura --dir shippable/codecoverage/"</span>,
-    <span class="hljs-string">"test"</span>: <span class="hljs-string">"mocha ./test/*"</span>,
-    <span class="hljs-string">"test-shippable"</span>: <span class="hljs-string">"mkdir -p shippable/testresults &amp;&amp; mocha --reporter xunit ./test/* &gt; shippable/testresults/result.xml"</span>,
-    <span class="hljs-string">"test-coverage"</span>: <span class="hljs-string">"istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"</span>
+<pre><code>  &quot;scripts&quot;: {
+    &quot;shippable-cobertura&quot;: &quot;istanbul report cobertura --dir shippable/codecoverage/&quot;,
+    &quot;test&quot;: &quot;mocha ./test/*&quot;,
+    &quot;test-shippable&quot;: &quot;mkdir -p shippable/testresults &amp;&amp; mocha --reporter xunit ./test/* &gt; shippable/testresults/result.xml&quot;,
+    &quot;test-coverage&quot;: &quot;istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*&quot;
   }</code></pre><ul>
 <li>The <code>shippable-cobertura</code> script converts the output from
 <code>test-coverage</code> into <a href="https://github.com/gotwarlost/istanbul/issues/17">cobertura format</a> for Shippable&#39;s built-in

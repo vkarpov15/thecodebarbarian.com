@@ -58,15 +58,15 @@
 <p>Also, building with pkg is relatively fast and produces a 38 MB executable. Nothing to write home about, but certainly better than docker&#39;s famously slow builds and minimum ~643MB for the officially supported Node.js image.</p>
 <pre><code>$ time npm run build-prod
 
-&gt; pkgtest@<span class="hljs-number">1.0</span><span class="hljs-number">.0</span> build-prod
+&gt; pkgtest@1.0.0 build-prod
 &gt; pkg -t latest-linux-x64 -o ./app ./.prod/app.js
 
 
-real    <span class="hljs-number">0</span>m3<span class="hljs-number">.466</span>s
-user    <span class="hljs-number">0</span>m2<span class="hljs-number">.938</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.506</span>s
-$ ls -al | grep <span class="hljs-string">"app"</span>
--rwxrwxr-x   <span class="hljs-number">1</span> val val <span class="hljs-number">38674432</span> May  <span class="hljs-number">3</span> <span class="hljs-number">16</span>:<span class="hljs-number">16</span> app
+real    0m3.466s
+user    0m2.938s
+sys    0m0.506s
+$ ls -al | grep &quot;app&quot;
+-rwxrwxr-x   1 val val 38674432 May  3 16:16 app
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>I&#39;m not switching wholesale off of Docker for all my prod use cases anytime soon, but I like what I see so far with pkg. At the very least, I&#39;m eager to start using it for dev use cases, because I&#39;m not nearly good enough with Docker to teach junior devs how to use it well. Pkg even has support for <a href="https://github.com/zeit/pkg#config">bundling assets</a>, so instead of sharing a docker container with MongoDB, I can use tools like <a href="https://www.npmjs.com/package/mongodb-topology-manager">mongodb-version-manager</a> to send standalone executables that start and manage MongoDB replica sets and sharded clusters with no configuration. Give pkg a shot and see what new ideas you can come up with!</p>
 <p><em>As you saw in this blog post, async/await is powerful, but <a href="http://thecodebarbarian.com/80-20-guide-to-async-await-in-node.js.html">limited to Node.js &gt;= 7.6.0</a>. If you&#39;re stuck using Node.js 4.x or 6.x because of LTS (especially since <a href="https://github.com/nodejs/CTC/issues/99">Node.js 8 is delayed</a>), you can still use similar patterns with ES6 generators and <a href="http://npmjs.org/package/co">co</a>. If you&#39;re looking for a much deeper dive into co, including how to write your own co replacement from scratch, check out my ebook, <a href="http://es2015generators.com/">The 80/20 Guide to ES2015 Generators</a></em></p>

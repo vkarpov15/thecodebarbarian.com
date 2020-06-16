@@ -99,12 +99,12 @@ hard it is to figure out what caused the error. With JavaScript, the problem
 is even worse unless you have <a href="/async-stack-traces-in-node-js-12">async stack traces</a>.
 For example, by default this is the error message and stack trace you get
 when server selection times out:</p>
-<pre><code>MongoTimeoutError: Server selection timed out after <span class="hljs-number">250</span> ms
-    at Timeout.setTimeout [<span class="hljs-keyword">as</span> _onTimeout] (<span class="hljs-regexp">/mongoose/</span>node_modules/mongodb/lib/core/sdam/server_selection.js:<span class="hljs-number">309</span>:<span class="hljs-number">9</span>)
-    at ontimeout (timers.js:<span class="hljs-number">436</span>:<span class="hljs-number">11</span>)
-    at tryOnTimeout (timers.js:<span class="hljs-number">300</span>:<span class="hljs-number">5</span>)
-    at listOnTimeout (timers.js:<span class="hljs-number">263</span>:<span class="hljs-number">5</span>)
-    at Timer.processTimers (timers.js:<span class="hljs-number">223</span>:<span class="hljs-number">10</span>)</code></pre><p>You get the same message and stack regardless of whether this error occurred due
+<pre><code>MongoTimeoutError: Server selection timed out after 250 ms
+    at Timeout.setTimeout [as _onTimeout] (/mongoose/node_modules/mongodb/lib/core/sdam/server_selection.js:309:9)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)</code></pre><p>You get the same message and stack regardless of whether this error occurred due
 to <code>mongoose.connect()</code> or <code>Model.find()</code> or <code>Model.syncIndexes()</code>. For example,
 below is one script that prints the above error message:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
@@ -149,15 +149,15 @@ stack trace when a <code>MongoTimeoutError</code> occurs. Assuming the above scr
 is contained in a file <code>script.js</code>, below is the stack trace you&#39;ll see.
 The first entry in the stack trace is the line in <code>script.js</code> that calls
 <code>exec()</code>.</p>
-<pre><code>MongoTimeoutError: Server selection timed out after <span class="hljs-number">250</span> ms
-    at <span class="hljs-keyword">new</span> MongooseTimeoutError (node_modules/mongoose/lib/error/timeout.js:<span class="hljs-number">22</span>:<span class="hljs-number">11</span>)
-    at <span class="hljs-built_in">Function</span>.Model.$wrapCallback (<span class="hljs-regexp">/node_modules/m</span>ongoose/lib/model.js:<span class="hljs-number">4778</span>:<span class="hljs-number">19</span>)
-    at utils.promiseOrCallback (<span class="hljs-regexp">/node_modules/m</span>ongoose/lib/query.js:<span class="hljs-number">4358</span>:<span class="hljs-number">21</span>)
-    at <span class="hljs-built_in">Promise</span> (<span class="hljs-regexp">/node_modules/m</span>ongoose/lib/utils.js:<span class="hljs-number">283</span>:<span class="hljs-number">5</span>)
-    at <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">anonymous</span>&gt;</span>)</span>
-    at <span class="hljs-built_in">Object</span>.promiseOrCallback (<span class="hljs-regexp">/node_modules/m</span>ongoose/lib/utils.js:<span class="hljs-number">282</span>:<span class="hljs-number">10</span>)
-    at model.Query.exec (<span class="hljs-regexp">/node_modules/m</span>ongoose/lib/query.js:<span class="hljs-number">4357</span>:<span class="hljs-number">16</span>)
-    at run (<span class="hljs-regexp">/script.js:26:25)</span></code></pre><p>Note that you <strong>must</strong> explicitly call <a href="https://mongoosejs.com/docs/api/query.html#query_Query-exec">the <code>Query#exec()</code> function</a>,
+<pre><code>MongoTimeoutError: Server selection timed out after 250 ms
+    at new MongooseTimeoutError (node_modules/mongoose/lib/error/timeout.js:22:11)
+    at Function.Model.$wrapCallback (/node_modules/mongoose/lib/model.js:4778:19)
+    at utils.promiseOrCallback (/node_modules/mongoose/lib/query.js:4358:21)
+    at Promise (/node_modules/mongoose/lib/utils.js:283:5)
+    at new Promise (&lt;anonymous&gt;)
+    at Object.promiseOrCallback (/node_modules/mongoose/lib/utils.js:282:10)
+    at model.Query.exec (/node_modules/mongoose/lib/query.js:4357:16)
+    at run (/script.js:26:25)</code></pre><p>Note that you <strong>must</strong> explicitly call <a href="https://mongoosejs.com/docs/api/query.html#query_Query-exec">the <code>Query#exec()</code> function</a>,
 using <code>await Model.findOne()</code> isn&#39;t enough to get the full stack trace.</p>
 <h2 id="moving-on">Moving On</h2>
 <p><code>Schema#pick()</code> and better server selection timeout errors are just 2 of

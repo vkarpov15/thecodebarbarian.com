@@ -14,12 +14,12 @@
 </div>
 </div><div class="post-body-text-container"><p>The <a href="https://github.com/tc39/proposal-object-rest-spread">Object Rest/Spread Proposal</a> reached <a href="https://tc39.github.io/process-document/">stage 4</a> in 2018, which means it will be included in a future iteration of the ECMAScript spec. It&#39;s also been included in Node.js LTS since Node.js 8, so you can safely start using it today.</p>
 <pre><code>$ node -v
-v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
+v8.9.4
 $ node
-&gt; <span class="hljs-keyword">const</span> obj = { foo: <span class="hljs-number">1</span>, bar: <span class="hljs-number">1</span> };
-<span class="hljs-literal">undefined</span>
-&gt; { ...obj, baz: <span class="hljs-number">1</span> };
-{ foo: <span class="hljs-number">1</span>, bar: <span class="hljs-number">1</span>, baz: <span class="hljs-number">1</span> }</code></pre><p>The Object spread operator <code>{...obj}</code> is similar to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"><code>Object.assign()</code></a>, so which one should you use? Turns out the answer is a bit more nuanced than you might expect.</p>
+&gt; const obj = { foo: 1, bar: 1 };
+undefined
+&gt; { ...obj, baz: 1 };
+{ foo: 1, bar: 1, baz: 1 }</code></pre><p>The Object spread operator <code>{...obj}</code> is similar to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"><code>Object.assign()</code></a>, so which one should you use? Turns out the answer is a bit more nuanced than you might expect.</p>
 <h2 id="quick-overview-of-object-spread">Quick Overview of Object Spread</h2>
 <p>The fundamental idea of the object spread operator is to create a new plain object using the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">own properties</a> of an existing object. So <code>{...obj}</code> creates a new object with the same properties and values as <code>obj</code>. For <a href="http://g-liu.com/blog/2015/08/object-oriented-programming-javascript-using-pojos-for-good/">plain old JavaScript objects</a>, you&#39;re essentially creating a copy of <code>obj</code>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> obj = { foo: <span class="hljs-string">'bar'</span> };
@@ -112,9 +112,9 @@ suite.
   }).
   run({ <span class="hljs-string">'async'</span>: <span class="hljs-literal">true</span> });</code></pre>
 <p>In this case, the two are similar:</p>
-<pre><code><span class="hljs-built_in">Object</span> spread x <span class="hljs-number">3</span>,<span class="hljs-number">170</span>,<span class="hljs-number">111</span> ops/sec +<span class="hljs-number">-1.50</span>% (<span class="hljs-number">90</span> runs sampled)
-<span class="hljs-built_in">Object</span>.assign() x <span class="hljs-number">3</span>,<span class="hljs-number">290</span>,<span class="hljs-number">165</span> ops/sec +<span class="hljs-number">-1.86</span>% (<span class="hljs-number">88</span> runs sampled)
-Fastest is <span class="hljs-built_in">Object</span>.assign()</code></pre><p>However, once you throw in an empty object parameter to <code>Object.assign()</code>, the object spread operator is consistently faster:</p>
+<pre><code>Object spread x 3,170,111 ops/sec +-1.50% (90 runs sampled)
+Object.assign() x 3,290,165 ops/sec +-1.86% (88 runs sampled)
+Fastest is Object.assign()</code></pre><p>However, once you throw in an empty object parameter to <code>Object.assign()</code>, the object spread operator is consistently faster:</p>
 <pre><code class="language-javascript">suite.
   add(<span class="hljs-string">'Object spread'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     ({ baz: <span class="hljs-number">3</span>, ...obj });
@@ -123,18 +123,18 @@ Fastest is <span class="hljs-built_in">Object</span>.assign()</code></pre><p>How
     <span class="hljs-built_in">Object</span>.assign({}, obj, { baz: <span class="hljs-number">3</span> });
   })</code></pre>
 <p>Here&#39;s the output:</p>
-<pre><code><span class="hljs-built_in">Object</span> spread x <span class="hljs-number">3</span>,<span class="hljs-number">065</span>,<span class="hljs-number">831</span> ops/sec +<span class="hljs-number">-2.12</span>% (<span class="hljs-number">85</span> runs sampled)
-<span class="hljs-built_in">Object</span>.assign() x <span class="hljs-number">2</span>,<span class="hljs-number">461</span>,<span class="hljs-number">926</span> ops/sec +<span class="hljs-number">-1.52</span>% (<span class="hljs-number">88</span> runs sampled)
-Fastest is <span class="hljs-built_in">Object</span> spread</code></pre><h2 id="eslint-configuration">ESLint Configuration</h2>
+<pre><code>Object spread x 3,065,831 ops/sec +-2.12% (85 runs sampled)
+Object.assign() x 2,461,926 ops/sec +-1.52% (88 runs sampled)
+Fastest is Object spread</code></pre><h2 id="eslint-configuration">ESLint Configuration</h2>
 <p>By default, ESLint <a href="https://github.com/eslint/eslint/issues/10307">disallows the object rest/spread operator</a> at the parser level. You need to set <code>parserOptions.ecmaVersion</code> option to at least <code>9</code> in <code>.eslintrc.yml</code>, otherwise you&#39;ll get a parsing error.</p>
 <pre><code>parserOptions:
   # Otherwise object spread causes &#39;Parsing error: Unexpected token ..&#39;
   ecmaVersion: 9</code></pre><p>ESLint <a href="https://github.com/eslint/eslint/pull/9955">added a new rule <code>prefer-object-spread</code></a> that allows you to enforce using object spread instead of <code>Object.assign()</code>. To enable this rule, use:</p>
 <pre><code>parserOptions:
-  ecmaVersion: <span class="hljs-number">9</span>
+  ecmaVersion: 9
 rules:
   prefer-object-spread: error</code></pre><p>Now ESLint will report an error if you use <code>Object.assign()</code> instead of object spread.</p>
-<pre><code>Use an object spread instead <span class="hljs-keyword">of</span> <span class="hljs-string">`Object.assign`</span> eg: <span class="hljs-string">`{ ...foo }`</span>  prefer-object-spread</code></pre><h2 id="moving-on">Moving On</h2>
+<pre><code>Use an object spread instead of `Object.assign` eg: `{ ...foo }`  prefer-object-spread</code></pre><h2 id="moving-on">Moving On</h2>
 <p>The object rest/spread operators are both syntactically neat and offer performance benefits over <code>Object.assign()</code>. If you&#39;re running Node.js 8 or higher, try these new operators out and make your code more concise.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

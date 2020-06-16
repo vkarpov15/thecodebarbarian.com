@@ -39,25 +39,25 @@ version 4.2.4 in your package.json:</p>
 just change <code>4.2.4</code> to <code>4.2.7</code> and run <code>npm install</code> normally. Also, you&#39;re
 not limited to just version numbers. You can list any git tag, git hash, or
 even branch after the <code>#</code> above.</p>
-<pre><code>└─┬ mongoose@<span class="hljs-number">4.2</span><span class="hljs-number">.4</span>  (git+ssh:<span class="hljs-comment">//git@github.com/Automattic/mongoose.git#6eac35f8e6ac591c9de327f496a35ca42a596c6f)</span>
-  ├── <span class="hljs-keyword">async</span>@<span class="hljs-number">0.9</span><span class="hljs-number">.0</span>
-  ├── bson@<span class="hljs-number">0.4</span><span class="hljs-number">.22</span>
-  ├── hooks-fixed@<span class="hljs-number">1.1</span><span class="hljs-number">.0</span>
-  ├── kareem@<span class="hljs-number">1.0</span><span class="hljs-number">.1</span>
-  ├─┬ mongodb@<span class="hljs-number">2.0</span><span class="hljs-number">.46</span>
-  │ ├── es6-promise@<span class="hljs-number">2.1</span><span class="hljs-number">.1</span>
-  │ ├─┬ mongodb-core@<span class="hljs-number">1.2</span><span class="hljs-number">.19</span>
-  │ │ └─┬ kerberos@<span class="hljs-number">0.0</span><span class="hljs-number">.19</span>
-  │ │   └── nan@<span class="hljs-number">2.0</span><span class="hljs-number">.9</span>
-  │ └── readable-stream@<span class="hljs-number">1.0</span><span class="hljs-number">.31</span>
-  ├── mpath@<span class="hljs-number">0.1</span><span class="hljs-number">.1</span>
-  ├── mpromise@<span class="hljs-number">0.5</span><span class="hljs-number">.4</span>
-  ├─┬ mquery@<span class="hljs-number">1.6</span><span class="hljs-number">.3</span>
-  │ └── bluebird@<span class="hljs-number">2.9</span><span class="hljs-number">.26</span>
-  ├── muri@<span class="hljs-number">1.0</span><span class="hljs-number">.0</span>
-  ├── regexp-clone@<span class="hljs-number">0.0</span><span class="hljs-number">.1</span>
-  └── sliced@<span class="hljs-number">0.0</span><span class="hljs-number">.5</span></code></pre><p>To install from the command line, use the below command.</p>
-<pre><code>npm install git+ssh:<span class="hljs-comment">//git@github.com/Automattic/mongoose.git#4.2.4</span></code></pre><p>This also works with private repos. As long as you can clone a repo, you can
+<pre><code>└─┬ mongoose@4.2.4  (git+ssh://git@github.com/Automattic/mongoose.git#6eac35f8e6ac591c9de327f496a35ca42a596c6f)
+  ├── async@0.9.0
+  ├── bson@0.4.22
+  ├── hooks-fixed@1.1.0
+  ├── kareem@1.0.1
+  ├─┬ mongodb@2.0.46
+  │ ├── es6-promise@2.1.1
+  │ ├─┬ mongodb-core@1.2.19
+  │ │ └─┬ kerberos@0.0.19
+  │ │   └── nan@2.0.9
+  │ └── readable-stream@1.0.31
+  ├── mpath@0.1.1
+  ├── mpromise@0.5.4
+  ├─┬ mquery@1.6.3
+  │ └── bluebird@2.9.26
+  ├── muri@1.0.0
+  ├── regexp-clone@0.0.1
+  └── sliced@0.0.5</code></pre><p>To install from the command line, use the below command.</p>
+<pre><code>npm install git+ssh://git@github.com/Automattic/mongoose.git#4.2.4</code></pre><p>This also works with private repos. As long as you can clone a repo, you can
 put it in your <code>package.json</code> dependencies. The big advantage is that, instead
 of having 2 tools to manage access to your internal GitHub repos (GitHub and
 your private npm registry), you have only 1.</p>

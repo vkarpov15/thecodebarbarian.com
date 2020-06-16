@@ -103,12 +103,12 @@ stockSchema.virtual(<span class="hljs-string">'latestPrice'</span>, {
 }</code></pre>
 <p>You&#39;ll see Mongoose executes one <code>find()</code> to get the cursor, and then a separate <code>find()</code> to populate each stock&#39;s <code>latestPrice</code>:</p>
 <pre><code>Mongoose: stocks.find({}, { projection: {} })
-Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'MDB'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
-MDB <span class="hljs-number">70</span>
-Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'F'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
-F <span class="hljs-number">9</span>
-Mongoose: prices.find({ symbol: { <span class="hljs-string">'$in'</span>: [ <span class="hljs-string">'T'</span> ] } }, { sort: { createdAt: <span class="hljs-number">-1</span> }, projection: {} })
-T <span class="hljs-number">33</span></code></pre><h2 id="common-pitfalls">Common Pitfalls</h2>
+Mongoose: prices.find({ symbol: { &#39;$in&#39;: [ &#39;MDB&#39; ] } }, { sort: { createdAt: -1 }, projection: {} })
+MDB 70
+Mongoose: prices.find({ symbol: { &#39;$in&#39;: [ &#39;F&#39; ] } }, { sort: { createdAt: -1 }, projection: {} })
+F 9
+Mongoose: prices.find({ symbol: { &#39;$in&#39;: [ &#39;T&#39; ] } }, { sort: { createdAt: -1 }, projection: {} })
+T 33</code></pre><h2 id="common-pitfalls">Common Pitfalls</h2>
 <p>A Mongoose cursor does <strong>not</strong> conform to the <a href="https://github.com/tc39/proposal-async-iteration#async-iterators-and-async-iterables">async iterable spec</a>. If you use <code>for/await/of</code> with a Mongoose cursor you created yourself, you will get an error.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Throws "TypeError: Stock.find(...).cursor(...) is not async iterable"</span>
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> stock <span class="hljs-keyword">of</span> Stock.find().cursor()) {

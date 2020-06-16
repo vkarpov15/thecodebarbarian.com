@@ -75,65 +75,65 @@ mkdir js
 
 <p>Rant aside, tying <code>services.js</code> into an AngularJS client is pleasantly trivial. First, you need to tweak LoopBack&#39;s middleware configuration, <code>server/middleware.json</code>, to look like this:</p>
 <pre><code>{
-  <span class="hljs-string">"initial:before"</span>: {
-    <span class="hljs-string">"loopback#favicon"</span>: {}
+  &quot;initial:before&quot;: {
+    &quot;loopback#favicon&quot;: {}
   },
-  <span class="hljs-string">"initial"</span>: {
-    <span class="hljs-string">"compression"</span>: {}
+  &quot;initial&quot;: {
+    &quot;compression&quot;: {}
   },
-  <span class="hljs-string">"session"</span>: {
+  &quot;session&quot;: {
   },
-  <span class="hljs-string">"auth"</span>: {
+  &quot;auth&quot;: {
   },
-  <span class="hljs-string">"parse"</span>: {
+  &quot;parse&quot;: {
   },
-  <span class="hljs-string">"routes"</span>: {
-    <span class="hljs-string">"loopback#status"</span>: {
-      <span class="hljs-string">"paths"</span>: <span class="hljs-string">"/status"</span>
+  &quot;routes&quot;: {
+    &quot;loopback#status&quot;: {
+      &quot;paths&quot;: &quot;/status&quot;
     }
   },
-  <span class="hljs-string">"files"</span>: {
-    <span class="hljs-string">"loopback#static"</span>: {
-      <span class="hljs-string">"params"</span>: <span class="hljs-string">"$!../client"</span>
+  &quot;files&quot;: {
+    &quot;loopback#static&quot;: {
+      &quot;params&quot;: &quot;$!../client&quot;
     }
   },
-  <span class="hljs-string">"final"</span>: {
-    <span class="hljs-string">"loopback#urlNotFound"</span>: {}
+  &quot;final&quot;: {
+    &quot;loopback#urlNotFound&quot;: {}
   },
-  <span class="hljs-string">"final:after"</span>: {
-    <span class="hljs-string">"errorhandler"</span>: {}
+  &quot;final:after&quot;: {
+    &quot;errorhandler&quot;: {}
   }
 }</code></pre><p>The <code>files</code> key above is the most important part. This setting tells the LoopBack server to serve static files from the <code>client</code> directory. Once you&#39;ve tweaked this configuration, you can create an <code>index.html</code> file that displays a list of all <code>BreakfastSpots</code>.</p>
-<pre><code class="language-html">&lt;html ng-app=<span class="hljs-string">"myApp"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"//code.angularjs.org/1.2.16/angular.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"//code.angularjs.org/1.2.16/angular-resource.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>
-            <span class="hljs-attr">src</span>=<span class="hljs-string">"js/services.js"</span>&gt;</span><span class="undefined">
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="actionscript">
-      angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'lbServices'</span>]);
+<pre><code class="language-html">&lt;html ng-app=&quot;myApp&quot;&gt;
+  &lt;head&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;//code.angularjs.org/1.2.16/angular.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;//code.angularjs.org/1.2.16/angular-resource.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;
+            src=&quot;js/services.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      angular.module(&#39;myApp&#39;, [&#39;lbServices&#39;]);
 
-      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TestController</span><span class="hljs-params">($scope, Breakfast)</span> </span>{
+      function TestController($scope, Breakfast) {
         $scope.allBreakfastSpots = Breakfast.find();
       }
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    &lt;/script&gt;
+  &lt;/head&gt;
 
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">"TestController"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">ng-repeat</span>=<span class="hljs-string">"spot in allBreakfastSpots"</span>&gt;</span>
+  &lt;body&gt;
+    &lt;div ng-controller=&quot;TestController&quot;&gt;
+      &lt;ul&gt;
+        &lt;li ng-repeat=&quot;spot in allBreakfastSpots&quot;&gt;
           {{spot.name}} ({{spot.address}})
-        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>LoopBack&#39;s services have a very nice property: <code>find()</code> returns an array that gets populated whenever the HTTP call returns. Thanks to AngularJS two-way data binding, you don&#39;t even need to pass a callback to <code>find()</code>.</p>
 <img src="//i.imgur.com/ddQPrDM.png" style="border: 2px dashed #777">
 

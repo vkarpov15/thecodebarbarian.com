@@ -58,38 +58,38 @@ run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
 <p>The client app has one file, <code>index.html</code>. This file is responsible for opening an OAuth dialog, exchanging the auth code for an access token, and making an HTTP request to a secure endpoint using the access token as authorization. The
 auth server will run on <code>http://localhost:3001</code>.</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://codebarbarian-images.s3.amazonaws.com/open.dist.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
-      <span class="hljs-comment">// Step 1: open an OAuth dialog</span>
-      oauthOpen(<span class="hljs-string">'http://localhost:3001/oauth-dialog.html'</span>, <span class="hljs-keyword">async</span> (err, code) =&gt; {
-        <span class="hljs-comment">// Step 2: exchange the code for an access token</span>
-        <span class="hljs-keyword">const</span> resToken = <span class="hljs-keyword">await</span> axios.post(<span class="hljs-string">'http://localhost:3001/token'</span>, { code: code.code });
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://codebarbarian-images.s3.amazonaws.com/open.dist.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      // Step 1: open an OAuth dialog
+      oauthOpen(&#39;http://localhost:3001/oauth-dialog.html&#39;, async (err, code) =&gt; {
+        // Step 2: exchange the code for an access token
+        const resToken = await axios.post(&#39;http://localhost:3001/token&#39;, { code: code.code });
 
-        <span class="hljs-comment">// Step 3: use the access token to make a request to a secure</span>
-        <span class="hljs-comment">// endpoint and display some data</span>
-        <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3001/secure'</span>, {
-          headers: { authorization: resToken.data[<span class="hljs-string">'access_token'</span>] }
+        // Step 3: use the access token to make a request to a secure
+        // endpoint and display some data
+        const res = await axios.get(&#39;http://localhost:3001/secure&#39;, {
+          headers: { authorization: resToken.data[&#39;access_token&#39;] }
         });
 
-        <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#content'</span>).innerHTML =
-          <span class="hljs-string">`The secret answer is <span class="hljs-subst">${res.data.answer}</span>`</span>;
+        document.querySelector(&#39;#content&#39;).innerHTML =
+          `The secret answer is ${res.data.answer}`;
       });
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>The <code>https://codebarbarian-images.s3.amazonaws.com/open.dist.js</code> file
 in the above example is a <a href="https://webpack.js.org/">Webpack</a> bundle of the below script. I pre-compiled that script for convenience so the code in this
 article doesn&#39;t require a compiler.</p>
-<pre><code><span class="hljs-built_in">window</span>.oauthOpen = <span class="hljs-built_in">require</span>(<span class="hljs-string">'oauth-open'</span>);</code></pre><p>The client also needs an <code>oauth-callback.html</code> file. The <code>oauth-callback.html</code> file doesn&#39;t need to do anything, the <code>oauthOpen()</code> function takes care of pulling out the auth code. Here&#39;s a minimal <code>oauth-callback.html</code>:</p>
+<pre><code>window.oauthOpen = require(&#39;oauth-open&#39;);</code></pre><p>The client also needs an <code>oauth-callback.html</code> file. The <code>oauth-callback.html</code> file doesn&#39;t need to do anything, the <code>oauthOpen()</code> function takes care of pulling out the auth code. Here&#39;s a minimal <code>oauth-callback.html</code>:</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Authorized<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+  &lt;body&gt;
+    &lt;div&gt;Authorized&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <h2 id="auth-server-implementation">Auth Server Implementation</h2>
 <p>The auth server needs 4 endpoints:</p>
 <ol>
@@ -108,14 +108,14 @@ shows a single button the user can click to authorize the client app.
 Clicking the button redirects to a <code>/code</code> route that is responsible
 for generating an auth code and redirecting to the client app.</p>
 <pre><code class="language-html">&lt;html&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Authorize OAuth Test App?<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  &lt;body&gt;
+    &lt;div&gt;Authorize OAuth Test App?&lt;/div&gt;
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"/code"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>OK<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></code></pre>
+    &lt;form action=&quot;/code&quot; method=&quot;POST&quot;&gt;
+      &lt;button type=&quot;submit&quot;&gt;OK&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>Below is the full <code>auth-server.js</code> file:</p>
 <pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 

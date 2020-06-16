@@ -250,9 +250,9 @@ app.listen(<span class="hljs-number">3000</span>);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; setTimeout(() =&gt; resolve(), ms));
 }</code></pre>
 <p>Express will hang forever, the server won&#39;t crash, and the only indication of an error would be an unhandled promise rejection warning.</p>
-<pre><code>$ node <span class="hljs-keyword">async</span>.js
-(node:<span class="hljs-number">17661</span>) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: <span class="hljs-number">1</span>): <span class="hljs-built_in">Error</span>: Hang!
-(node:<span class="hljs-number">17661</span>) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process <span class="hljs-keyword">with</span> a non-zero exit code.</code></pre><p>Since <code>await</code> treats promise rejections as exceptions, unless you <code>try/catch</code> around <code>await</code> the rejection will cause the entire function to stop executing. The below <code>handler</code> function will also hang with an unhandled promise rejection warning.</p>
+<pre><code>$ node async.js
+(node:17661) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): Error: Hang!
+(node:17661) DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.</code></pre><p>Since <code>await</code> treats promise rejections as exceptions, unless you <code>try/catch</code> around <code>await</code> the rejection will cause the entire function to stop executing. The below <code>handler</code> function will also hang with an unhandled promise rejection warning.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">req, res</span>) </span>{
   <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Hang!'</span>)));
   res.send(<span class="hljs-string">'Hello, World!'</span>);
@@ -319,30 +319,30 @@ app.listen(<span class="hljs-number">3000</span>);
   res.send(<span class="hljs-string">'Hello, World!'</span>);
 }</code></pre>
 <p>Async:</p>
-<pre><code>$ node <span class="hljs-keyword">async</span>.js
-<span class="hljs-built_in">Error</span>: Hang!
-    at <span class="hljs-built_in">Promise</span> (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">16</span>:<span class="hljs-number">49</span>)
-    at handler (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">16</span>:<span class="hljs-number">9</span>)
-    at /home/val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">11</span>:<span class="hljs-number">5</span>
-    at Layer.handle [<span class="hljs-keyword">as</span> handle_request] (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/layer.js:<span class="hljs-number">95</span>:<span class="hljs-number">5</span>)
-    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/route.js:<span class="hljs-number">137</span>:<span class="hljs-number">13</span>)
-    at Route.dispatch (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/route.js:<span class="hljs-number">112</span>:<span class="hljs-number">3</span>)
-    at Layer.handle [<span class="hljs-keyword">as</span> handle_request] (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/layer.js:<span class="hljs-number">95</span>:<span class="hljs-number">5</span>)
-    at /home/val/node_modules/express/lib/router/index.js:<span class="hljs-number">281</span>:<span class="hljs-number">22</span>
-    at <span class="hljs-built_in">Function</span>.process_params (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/index.js:<span class="hljs-number">335</span>:<span class="hljs-number">12</span>)
-    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/index.js:<span class="hljs-number">275</span>:<span class="hljs-number">10</span>)</code></pre><p>Co:</p>
-<pre><code>$ node <span class="hljs-keyword">async</span>.js
-<span class="hljs-built_in">Error</span>: Hang!
-    at <span class="hljs-built_in">Promise</span> (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">18</span>:<span class="hljs-number">51</span>)
-    at /home/val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">18</span>:<span class="hljs-number">11</span>
-    at Generator.next (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">anonymous</span>&gt;</span>)</span>
-    at onFulfilled (<span class="hljs-regexp">/home/</span>val/node_modules/co/index.js:<span class="hljs-number">65</span>:<span class="hljs-number">19</span>)
-    at /home/val/node_modules/co/index.js:<span class="hljs-number">54</span>:<span class="hljs-number">5</span>
-    at co (<span class="hljs-regexp">/home/</span>val/node_modules/co/index.js:<span class="hljs-number">50</span>:<span class="hljs-number">10</span>)
-    at handler (<span class="hljs-regexp">/home/</span>val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">17</span>:<span class="hljs-number">10</span>)
-    at /home/val/<span class="hljs-keyword">async</span>.js:<span class="hljs-number">12</span>:<span class="hljs-number">5</span>
-    at Layer.handle [<span class="hljs-keyword">as</span> handle_request] (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/layer.js:<span class="hljs-number">95</span>:<span class="hljs-number">5</span>)
-    at next (<span class="hljs-regexp">/home/</span>val/node_modules/express/lib/router/route.js:<span class="hljs-number">137</span>:<span class="hljs-number">13</span>)</code></pre><p>So async/await has better stack traces and lets you construct promises using the built-in loops and conditionals that you already know, so download Node.js 7.6 and give it a shot!</p>
+<pre><code>$ node async.js
+Error: Hang!
+    at Promise (/home/val/async.js:16:49)
+    at handler (/home/val/async.js:16:9)
+    at /home/val/async.js:11:5
+    at Layer.handle [as handle_request] (/home/val/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/val/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/val/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/val/node_modules/express/lib/router/layer.js:95:5)
+    at /home/val/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/val/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/val/node_modules/express/lib/router/index.js:275:10)</code></pre><p>Co:</p>
+<pre><code>$ node async.js
+Error: Hang!
+    at Promise (/home/val/async.js:18:51)
+    at /home/val/async.js:18:11
+    at Generator.next (&lt;anonymous&gt;)
+    at onFulfilled (/home/val/node_modules/co/index.js:65:19)
+    at /home/val/node_modules/co/index.js:54:5
+    at co (/home/val/node_modules/co/index.js:50:10)
+    at handler (/home/val/async.js:17:10)
+    at /home/val/async.js:12:5
+    at Layer.handle [as handle_request] (/home/val/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/val/node_modules/express/lib/router/route.js:137:13)</code></pre><p>So async/await has better stack traces and lets you construct promises using the built-in loops and conditionals that you already know, so download Node.js 7.6 and give it a shot!</p>
 <p><em>Looking to become fluent in async/await? My new ebook, Mastering Async/Await, is designed to give you an integrated understanding of
 async/await fundamentals and how async/await fits in the JavaScript ecosystem in a few hours. <a href="http://asyncawait.net/">Get your copy!</a></em></p>
 <p><a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a></p>

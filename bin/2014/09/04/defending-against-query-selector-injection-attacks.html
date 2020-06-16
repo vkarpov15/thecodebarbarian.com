@@ -16,40 +16,40 @@
 <p>The general idea behind Petko&#39;s exploit is that, typically, when you want to get all documents where username is equal to the user-provided username, you may do something like this:</p>
 <pre><code>User.findOne(
   { username: req.body.username },
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, user</span>) </span>{
-    <span class="hljs-comment">// Handler code here</span>
+  function(err, user) {
+    // Handler code here
   });</code></pre><p>However, let&#39;s say you&#39;ve exposed a JSON-based API and I&#39;m a malicious user that sends you the following body JSON:</p>
-<pre><code>{ username: { $gt: <span class="hljs-string">""</span> } }</code></pre><p>The query that will get sent to MongoDB then looks like this:</p>
-<pre><code>{ username: { $gt: <span class="hljs-string">""</span> } }</code></pre><p>Assuming your usernames are strings, that query will return a random user!</p>
+<pre><code>{ username: { $gt: &quot;&quot; } }</code></pre><p>The query that will get sent to MongoDB then looks like this:</p>
+<pre><code>{ username: { $gt: &quot;&quot; } }</code></pre><p>Assuming your usernames are strings, that query will return a random user!</p>
 <p>Even if you&#39;re using URL encoding instead of JSON for your API, you may not be safe. ExpressJS&#39; body parser middleware, by default, uses the <a href="https://www.npmjs.org/package/qs#readme">qs</a> module to parse URL-encoded HTTP request bodies. The qs module is designed to parse URL-encoded strings in a way that makes decoding objects easier, so parsing the string <code>username[$gt]=</code> gives you a nested object <code>{ username: { $gt: undefined } }</code>. This is really bad news bears.</p>
 <p>Thankfully, query selector injection attacks are pretty easy to defend against, so no need to throw your Express JSON API out the window. Here are two strategies to make sure you&#39;re not vulnerable.</p>
 <h2 id="remove-keys-that-start-with--from-user-input">Remove keys that start with <code>$</code> from user input</h2>
 <p>One of the cruxes of Petko&#39;s exploit is that, in the above example, MongoDB determines the query selector by scanning the <code>req.body.username</code> object for a key that matches a <a href="http://docs.mongodb.org/manual/reference/operator/query/#query-selectors">query selector</a>. There are two ways you can avoid this. The first, and probably most obvious, is to make sure <code>req.body.username</code> is a string rather than an object. JavaScript&#39;s <code>toString()</code> function should be sufficient:</p>
-<pre><code><span class="hljs-keyword">var</span> username = (req.body.username || <span class="hljs-string">""</span>);
+<pre><code>var username = (req.body.username || &quot;&quot;);
 username = username.toString();
 User.findOne(
   { username: username },
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, user</span>) </span>{
-    <span class="hljs-comment">// Handler code here</span>
+  function(err, user) {
+    // Handler code here
   });</code></pre><p>However, in some cases, you may want to query on user-provided objects, and so casting to a string isn&#39;t sufficient. Since all MongoDB query selectors start with <code>$</code>, you can check if <code>req.body.username</code> is an object, and, if so, remove any keys from the object that start with <code>$</code>. I put together a really simple npm module called <a href="https://www.npmjs.org/package/mongo-sanitize">mongo-sanitize</a> (see it on <a href="https://github.com/vkarpov15/mongo-sanitize">Github</a>) does this for you, in case you don&#39;t want to implement this yourself.</p>
-<pre><code><span class="hljs-keyword">var</span> sanitize = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongo-sanitize'</span>);
+<pre><code>var sanitize = require(&#39;mongo-sanitize&#39;);
 
-<span class="hljs-comment">// The sanitize function will strip out any keys that start with '$' in the</span>
-<span class="hljs-comment">// input, so you can pass it to MongoDB without worrying about malicious users</span>
-<span class="hljs-comment">// overwriting query selectors.</span>
-<span class="hljs-keyword">var</span> clean = sanitize(req.params.username);
+// The sanitize function will strip out any keys that start with &#39;$&#39; in the
+// input, so you can pass it to MongoDB without worrying about malicious users
+// overwriting query selectors.
+var clean = sanitize(req.params.username);
 
-Users.findOne({ name: clean }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, doc</span>) </span>{
-  <span class="hljs-comment">// ...</span>
+Users.findOne({ name: clean }, function(err, doc) {
+  // ...
 });</code></pre><p>If this approach doesn&#39;t work for you for whatever reason, don&#39;t worry, there&#39;s another way.</p>
 <h2 id="explicitly-specify-the-query-selector-when-querying-with-untrusted-data">Explicitly specify the query selector when querying with untrusted data</h2>
 <p>The other crux of Petko&#39;s exploit is that, typically, you don&#39;t specify a query selector when you want to find a document where username is exactly equal to the user input. As a matter of fact, MongoDB doesn&#39;t have a fully supported <code>$eq</code> query selector just yet (although the core server team is <a href="https://jira.mongodb.org/browse/SERVER-14973">working on it</a>). In lieu of <code>$eq</code>, however, you can use the <code>$in</code> selector:</p>
 <pre><code>User.findOne(
-  { username: { $<span class="hljs-keyword">in</span>: [req.body.username] } },
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, user</span>) </span>{
-    <span class="hljs-comment">// Handler code here</span>
+  { username: { $in: [req.body.username] } },
+  function(err, user) {
+    // Handler code here
   });</code></pre><p>This is slightly more verbose, but if a malicious user tried a query selector injection attack, the query passed would look like this:</p>
-<pre><code>{ username: { $<span class="hljs-keyword">in</span>: [{ $gt: <span class="hljs-string">""</span> }] } }</code></pre><p>Assuming that your usernames were all strings, this query would return no results, as expected.</p>
+<pre><code>{ username: { $in: [{ $gt: &quot;&quot; }] } }</code></pre><p>Assuming that your usernames were all strings, this query would return no results, as expected.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Query selector injection attacks are pretty insidious and its easy to be vulnerable, especially if you&#39;ve been happily implementing JSON REST APIs. Thankfully, using one of the above principles, either by using mongo-sanitize or by explicitly specifying a query selector for untrusted data, you can avoid the query selector injection pitfall without having to give up the ease-of-use of JSON APIs. If you want more details on securing your MongoDB application, check out the <a href="http://docs.mongodb.org/manual/administration/security-checklist/">security checklist</a> and MongoDB&#39;s blog post on <a href="http://blog.mongodb.org/post/86408399868/mongodb-security-part-1-design-and-configuration">security design and configuration</a>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

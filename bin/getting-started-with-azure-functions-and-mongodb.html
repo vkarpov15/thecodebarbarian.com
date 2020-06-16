@@ -55,8 +55,8 @@ respond with XML by default.</p>
 <img src="https://i.imgur.com/5MnVcNS.png">
 
 <p>You should now be able to curl your function with this URL.</p>
-<pre><code>$ curl https:<span class="hljs-comment">//vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED</span>
-{<span class="hljs-string">"res"</span>:<span class="hljs-string">"Hello, World"</span>}
+<pre><code>$ curl https://vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED
+{&quot;res&quot;:&quot;Hello, World&quot;}
 $</code></pre><h2 id="installing-the-mongodb-driver-on-azure">Installing the MongoDB Driver on Azure</h2>
 <p>Now that you&#39;ve set up your first function, let&#39;s make the function connect to a database. Adding npm modules to your Azure Function is very different from <a href="http://mongoosejs.com/docs/lambda.html">the bundling process that AWS Lambda requires</a>. With Azure Functions, you <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-node#node-version-and-package-management">have to log in to a server, create a <code>package.json</code>, and run <code>npm install</code></a>. This seems odd for a &quot;serverless&quot; architecture, but the benefit is you don&#39;t have to bundle the same dependencies over and over again or worry about <a href="https://docs.aws.amazon.com/lambda/latest/dg/limits.html"><code>node_modules</code> running over Lambda&#39;s onerous limits on function size</a>.</p>
 <p>To install the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js driver</a>, first go to <code>&lt;your-function-name&gt;.scm.azurewebsites.net</code>, and click on &#39;Debug Console&#39; -&gt; &#39;PowerShell&#39;.</p>
@@ -171,20 +171,20 @@ Azure cleans it up.</p>
 <p>The first time you hit the API endpoint, the function will create a new database
 connection. The second time, the function will re-use an existing database
 connection and run considerably faster.</p>
-<pre><code>$ time curl https:<span class="hljs-comment">//vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED</span>
-<span class="hljs-string">"Num docs 1, reused connection false"</span>
-real    <span class="hljs-number">0</span>m3<span class="hljs-number">.070</span>s
-user    <span class="hljs-number">0</span>m0<span class="hljs-number">.097</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.017</span>s
+<pre><code>$ time curl https://vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED
+&quot;Num docs 1, reused connection false&quot;
+real    0m3.070s
+user    0m0.097s
+sys    0m0.017s
 $
 $
 $
 $
-$ time curl https:<span class="hljs-comment">//vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED</span>
-<span class="hljs-string">"Num docs 1, reused connection true"</span>
-real    <span class="hljs-number">0</span>m0<span class="hljs-number">.981</span>s
-user    <span class="hljs-number">0</span>m0<span class="hljs-number">.104</span>s
-sys    <span class="hljs-number">0</span>m0<span class="hljs-number">.021</span>s
+$ time curl https://vkarpov15-test.azurewebsites.net/api/HttpTriggerJS1?code=OMITTED
+&quot;Num docs 1, reused connection true&quot;
+real    0m0.981s
+user    0m0.104s
+sys    0m0.021s
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Azure Functions are an interesting alternative to AWS Lambda. Azure Functions don&#39;t require you to bundle <code>node_modules</code>, instead letting you share <code>node_modules</code> across multiple functions in a function app. Also, <a href="https://assist-software.net/blog/pros-and-cons-serverless-computing-faas-comparison-aws-lambda-vs-azure-functions-vs-google">Azure charges you based on memory usage</a> rather than setting a hard limit on memory usage like Lambda does. I have yet to use Azure Functions for a production application, but so far Azure Functions look promising and I look forward to trying them out for a real app.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is

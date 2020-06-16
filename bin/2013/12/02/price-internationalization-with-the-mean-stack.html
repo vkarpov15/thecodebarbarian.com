@@ -36,89 +36,89 @@
 <p>In this section, we&#39;re going to walk through internationalizing the prices for our example online watch store. The finished code for is located <a href="https://github.com/vkarpov15/mean-exchange-rates">here</a>, in case you prefer to dig right in to the code. This repo started as a <a href="https://help.github.com/articles/duplicating-a-repository">bare clone</a> of <a href="https://github.com/vkarpov15/mean-stack-skeleton">mean-stack-skeleton</a>.</p>
 <h2 id="1-querying-and-storing-foreign-exchange-rates-snapshots">1) Querying and storing foreign exchange rates snapshots</h2>
 <p>First things first, lets write a MongooseJS model for our FX data <a href="https://github.com/vkarpov15/mean-exchange-rates/blob/master/models/FxSnapshot.js#L10-18">(github)</a>:</p>
-<pre><code><span class="hljs-keyword">var</span> Mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<pre><code>var Mongoose = require(&#39;mongoose&#39;);
 
-exports.FxSnapshotSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
-<span class="hljs-comment">// The time that the snapshot was taken</span>
-  time : { type : <span class="hljs-built_in">Date</span>, <span class="hljs-keyword">default</span> : <span class="hljs-built_in">Date</span>.now },
-  <span class="hljs-comment">// Means that 'rates' can be anything</span>
+exports.FxSnapshotSchema = new Mongoose.Schema({
+// The time that the snapshot was taken
+  time : { type : Date, default : Date.now },
+  // Means that &#39;rates&#39; can be anything
   rates : Mongoose.Schema.Types.Mixed
 });
 
-<span class="hljs-comment">// Make sure we have an index on the time of the snapshot</span>
-exports.FxSnapshotSchema.index({ <span class="hljs-string">'time'</span> : <span class="hljs-number">-1</span> });</code></pre><p>And a simple NodeJS function which uses the request module to ping the Open Exchange Rates API and saves an FxSnapshot to the database <a href="https://github.com/vkarpov15/mean-exchange-rates/blob/master/fx_rates.js#L4-21">(github)</a>:</p>
-<pre><code><span class="hljs-keyword">var</span> refresh = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Refreshing exchange rates'</span>);
-  request(<span class="hljs-string">'http://openexchangerates.org/api/latest.json?app_id='</span> + key,
-    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response, body</span>) </span>{
-      <span class="hljs-keyword">if</span> (error) {
-        <span class="hljs-keyword">return</span> callback(error);
+// Make sure we have an index on the time of the snapshot
+exports.FxSnapshotSchema.index({ &#39;time&#39; : -1 });</code></pre><p>And a simple NodeJS function which uses the request module to ping the Open Exchange Rates API and saves an FxSnapshot to the database <a href="https://github.com/vkarpov15/mean-exchange-rates/blob/master/fx_rates.js#L4-21">(github)</a>:</p>
+<pre><code>var refresh = function(callback) {
+  console.log(&#39;Refreshing exchange rates&#39;);
+  request(&#39;http://openexchangerates.org/api/latest.json?app_id=&#39; + key,
+    function(error, response, body) {
+      if (error) {
+        return callback(error);
       }
 
-      rates = <span class="hljs-built_in">JSON</span>.parse(body).rates;
+      rates = JSON.parse(body).rates;
 
-      <span class="hljs-keyword">var</span> snapshot = <span class="hljs-keyword">new</span> FxSnapshot({ rates : rates });
-      snapshot.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, snapshot</span>) </span>{
-        <span class="hljs-comment">// Should never fail</span>
+      var snapshot = new FxSnapshot({ rates : rates });
+      snapshot.save(function(error, snapshot) {
+        // Should never fail
       });
 
-      <span class="hljs-keyword">return</span> callback(<span class="hljs-literal">null</span>, rates);
+      return callback(null, rates);
     });
 };</code></pre><h2 id="2-set-up-rules-for-when-to-query-for-new-rates">2) Set up rules for when to query for new rates</h2>
 <p>Now that we have a function to load data, the question is, how do we use it? The start of the FX trading day is 5:30 pm New York time Sunday-Thursday, with the exception of New Zealand Dollar markets, so querying once a day at 6pm is a reasonable approximation to getting the market open. We can do this using node-cron. Note that this example presumes that you are in EST - if you want to query at 6pm EST from a server in a different time zone, you need to adjust the below code accordingly. If you are not familiar with cron job syntax, the <a href="https://github.com/ncb000gt/node-cron">node-cron Github repo</a> has a few examples.</p>
-<pre><code><span class="hljs-keyword">var</span> job = <span class="hljs-keyword">new</span> cron.CronJob(<span class="hljs-string">'00 00 18 * * 0-6'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  refresh(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{});
+<pre><code>var job = new cron.CronJob(&#39;00 00 18 * * 0-6&#39;, function() {
+  refresh(function(){});
 });
 job.start();</code></pre><p>But what happens on server restart? Our exchange rates are stored in memory and persisted to MongoDB, so if our application server crashes, we need to get the exchange rates back on restart. In addition, if our server was down at 6pm and thus didn&#39;t query for new rates, we don&#39;t want to be showing rates that are excessively stale. To take care of these issues, lets add an initialization function that will load the latest snapshot from MongoDB, and refresh if the snapshot is more than a day old:</p>
-<pre><code><span class="hljs-keyword">var</span> init = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
-  <span class="hljs-comment">// Find the latest snapshot</span>
-  FxSnapshot.findOne({}).sort({ time : <span class="hljs-number">-1</span> }).exec(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, snapshot</span>) </span>{
-    <span class="hljs-keyword">if</span> (error || !snapshot) {
+<pre><code>var init = function(callback) {
+  // Find the latest snapshot
+  FxSnapshot.findOne({}).sort({ time : -1 }).exec(function(error, snapshot) {
+    if (error || !snapshot) {
       refresh(callback);
-    } <span class="hljs-keyword">else</span> {
-    <span class="hljs-comment">// If data is more than 1 day stale</span>
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(snapshot.time).getTime() + <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1000</span> &lt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime()) {
+    } else {
+    // If data is more than 1 day stale
+      if (new Date(snapshot.time).getTime() + 24 * 60 * 60 * 1000 &lt; new Date().getTime()) {
         refresh(callback);
-      } <span class="hljs-keyword">else</span> {
+      } else {
         rates = snapshot.rates;
-        callback(<span class="hljs-literal">null</span>, snapshot.rates);
+        callback(null, snapshot.rates);
       }
     }
   });
 };</code></pre><p>Finally, lets wrap the entire <code>FxRates</code> module in a pretty bow and make a convenient interface available to the rest of our code:</p>
-<pre><code><span class="hljs-keyword">return</span> {
+<pre><code>return {
   refresh : refresh,
   init : init,
-  get : <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> rates;
+  get : function() {
+    return rates;
   }
 };</code></pre><p>Note that the <code>get()</code> function just returns the rates object as-is. Those not familiar with NodeJS may wonder how this can possibly be thread-safe. Conveniently, NodeJS is event-driven, so there are no threads. Without getting into too much detail about event-driven concurrency, just know that there is no way that <code>get()</code> will return a partially written version of rates, because the following code in the <code>refresh()</code> function is guaranteed to execute sequentially without any other code executing in the meantime:</p>
-<pre><code><span class="hljs-keyword">if</span> (error) {
-  <span class="hljs-keyword">return</span> callback(error);
+<pre><code>if (error) {
+  return callback(error);
 }
 
-rates = <span class="hljs-built_in">JSON</span>.parse(body).rates;
+rates = JSON.parse(body).rates;
 
-<span class="hljs-keyword">var</span> snapshot = <span class="hljs-keyword">new</span> FxSnapshot({ rates : rates });</code></pre><h2 id="3-displaying-this-information-to-the-user">3) Displaying this information to the user</h2>
+var snapshot = new FxSnapshot({ rates : rates });</code></pre><h2 id="3-displaying-this-information-to-the-user">3) Displaying this information to the user</h2>
 <p>Now that we have a tool to pull exchange rates regularly, lets create a schema for the products that we&#39;re going to display <a href="https://github.com/vkarpov15/mean-exchange-rates/blob/master/models/Product.js#L10-17">(Github)</a>. In particular, we want to keep track of the currency&#39;s list price, so we&#39;re not tied to US Dollars.</p>
-<pre><code>exports.ProductSchema = <span class="hljs-keyword">new</span> Mongoose.Schema({
-  name : <span class="hljs-built_in">String</span>,
+<pre><code>exports.ProductSchema = new Mongoose.Schema({
+  name : String,
   price : {
-    price : <span class="hljs-built_in">Number</span>,
-    currency : <span class="hljs-built_in">String</span>
+    price : Number,
+    currency : String
   },
-  picture : <span class="hljs-built_in">String</span>
+  picture : String
 });</code></pre><p>Lets also define a route that depends on this model and our <code>FxRates</code> module:</p>
-<pre><code>app.get(<span class="hljs-string">'/'</span>, routes.index(FxRates, Product));
+<pre><code>app.get(&#39;/&#39;, routes.index(FxRates, Product));
 
-<span class="hljs-comment">/*
+/*
  * GET home page
- */</span>
-exports.index = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">FxRates, Product</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-    <span class="hljs-comment">// Load all products</span>
-    Product.find({}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, products</span>) </span>{
-      res.render(<span class="hljs-string">'index'</span>, { products : products, rates : FxRates.get() });
+ */
+exports.index = function(FxRates, Product) {
+  return function(req, res) {
+    // Load all products
+    Product.find({}, function(error, products) {
+      res.render(&#39;index&#39;, { products : products, rates : FxRates.get() });
     });
   };
 };</code></pre><p>And now that we&#39;ve done the hard part, we can put together the <a href="https://github.com/vkarpov15/mean-exchange-rates/blob/master/views/index.jade">index.jade view</a>, which will have a drop-down where the user can select their preferred currency. At this point, I&#39;d recommend you play with the code yourself - you can set up NodeJS and MongoDB as described <a href="http://thecodebarbarian.com/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/">here</a>, get yourself an Open Exchange Rates API key, and run the server with</p>

@@ -27,12 +27,12 @@ Mocha from this directory:</p>
 <code>./node_modules/.bin</code> every time. The second approach is better, but has a
 gotcha when you need to use command line arguments. Suppose you only wanted to
 run tests that have &#39;foo&#39; in the title. You can run the below command.</p>
-<pre><code>./node_modules/.bin/mocha -g <span class="hljs-string">"foo"</span></code></pre><p>To pass the <code>-g</code> command line argument to Mocha through an npm script, you need
+<pre><code>./node_modules/.bin/mocha -g &quot;foo&quot;</code></pre><p>To pass the <code>-g</code> command line argument to Mocha through an npm script, you need
 to <a href="https://stackoverflow.com/questions/31171684/passing-a-command-line-argument-or-flag-to-npm-package-json-scripts">add <code>--</code> before the command line argument</a>. To experienced Node.js developers from the pre-npx days,
 using <code>--</code> is second nature, but this is a common pain point for beginners.</p>
-<pre><code>npm test -- -g <span class="hljs-string">"foo"</span></code></pre><p>npx passes command line arguments transparently to the executable, so you don&#39;t need 
+<pre><code>npm test -- -g &quot;foo&quot;</code></pre><p>npx passes command line arguments transparently to the executable, so you don&#39;t need 
 <code>--</code> anymore.</p>
-<pre><code>npx mocha -g <span class="hljs-string">"foo"</span></code></pre><h2 id="install-and-run">Install and Run</h2>
+<pre><code>npx mocha -g &quot;foo&quot;</code></pre><h2 id="install-and-run">Install and Run</h2>
 <p>Another great use case for npx is scaffolding tools, like <a href="https://github.com/yeoman/yo">yo</a> or <a href="https://www.npmjs.com/package/create-react-app">create-react-app</a>.
 Before npx, I <a href="https://thecodebarbarian.com/2015/02/27/npm-install--g#when-g-is-useful">was ok with installing scaffolding tools with <code>-g</code></a>. Now,
 there is no need because npx also automatically installs for you.</p>
@@ -41,47 +41,47 @@ can still run <code>npx create-react-app@2.x my-new-project</code> to scaffold a
 in the <code>my-new-project</code> directory. As an added bonus, npx won&#39;t put create-react-app
 in your <code>./node_modules</code> or install it globally. This means you don&#39;t have to worry
 about dangling old versions of create-react-app.</p>
-<pre><code>$ npx create-react-app@<span class="hljs-number">2.</span>x my-<span class="hljs-keyword">new</span>-project
-npx: installed <span class="hljs-number">63</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1.395</span>s
+<pre><code>$ npx create-react-app@2.x my-new-project
+npx: installed 63 in 1.395s
 
-Creating a <span class="hljs-keyword">new</span> React app <span class="hljs-keyword">in</span> /home/test/my-<span class="hljs-keyword">new</span>-project.
+Creating a new React app in /home/test/my-new-project.
 
-Installing packages. This might take a couple <span class="hljs-keyword">of</span> minutes.
+Installing packages. This might take a couple of minutes.
 Installing react, react-dom, and react-scripts...
 
-+ react@<span class="hljs-number">16.8</span><span class="hljs-number">.6</span>
-+ react-dom@<span class="hljs-number">16.8</span><span class="hljs-number">.6</span>
-+ react-scripts@<span class="hljs-number">2.1</span><span class="hljs-number">.8</span>
-added <span class="hljs-number">1842</span> packages <span class="hljs-keyword">in</span> <span class="hljs-number">22.348</span>s
-You are running Node v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>.
++ react@16.8.6
++ react-dom@16.8.6
++ react-scripts@2.1.8
+added 1842 packages in 22.348s
+You are running Node v8.9.4.
 $ 
-$ npm list -g | grep <span class="hljs-string">"create-react-app"</span>
+$ npm list -g | grep &quot;create-react-app&quot;
 $
-$ ls node_modules | grep <span class="hljs-string">"create-react-app"</span>
+$ ls node_modules | grep &quot;create-react-app&quot;
 $ </code></pre><p>Another neat use case is starting a MongoDB replica set with one command using
 <a href="https://www.npmjs.com/package/run-rs">run-rs</a>.</p>
-<pre><code>$ npx run-rs --version <span class="hljs-number">4.0</span><span class="hljs-number">.4</span> --shell
-Downloading MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.4</span>
+<pre><code>$ npx run-rs --version 4.0.4 --shell
+Downloading MongoDB 4.0.4
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-<span class="hljs-number">100</span> <span class="hljs-number">68.1</span>M  <span class="hljs-number">100</span> <span class="hljs-number">68.1</span>M    <span class="hljs-number">0</span>     <span class="hljs-number">0</span>  <span class="hljs-number">10.9</span>M      <span class="hljs-number">0</span>  <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">06</span>  <span class="hljs-number">0</span>:<span class="hljs-number">00</span>:<span class="hljs-number">06</span> --:--:-- <span class="hljs-number">11.8</span>M
-Copied MongoDB <span class="hljs-number">4.0</span><span class="hljs-number">.4</span> to <span class="hljs-string">'/home/val/.npm/_npx/9123/lib/node_modules/run-rs/4.0.4'</span>
+100 68.1M  100 68.1M    0     0  10.9M      0  0:00:06  0:00:06 --:--:-- 11.8M
+Copied MongoDB 4.0.4 to &#39;/home/val/.npm/_npx/9123/lib/node_modules/run-rs/4.0.4&#39;
 Purging database...
-Running <span class="hljs-string">'/home/val/.npm/_npx/9123/lib/node_modules/run-rs/4.0.4/mongod'</span> [ <span class="hljs-number">27017</span>, <span class="hljs-number">27018</span>, <span class="hljs-number">27019</span> ]
+Running &#39;/home/val/.npm/_npx/9123/lib/node_modules/run-rs/4.0.4/mongod&#39; [ 27017, 27018, 27019 ]
 Starting replica set...
-Started replica set on <span class="hljs-string">"mongodb://localhost:27017,localhost:27018,localhost:27019?replicaSet=rs"</span>
-Running mongo shell: <span class="hljs-regexp">/home/</span>val/.npm/_npx/<span class="hljs-number">9123</span>/lib/node_modules/run-rs/<span class="hljs-number">4.0</span><span class="hljs-number">.4</span>/mongo
+Started replica set on &quot;mongodb://localhost:27017,localhost:27018,localhost:27019?replicaSet=rs&quot;
+Running mongo shell: /home/val/.npm/_npx/9123/lib/node_modules/run-rs/4.0.4/mongo
 rs:PRIMARY&gt; db.version()
-<span class="hljs-number">4.0</span><span class="hljs-number">.4</span>
+4.0.4
 rs:PRIMARY&gt; </code></pre><h2 id="running-a-github-repo">Running a GitHub Repo</h2>
 <p>npx can run anything that has a <a href="https://docs.npmjs.com/files/package.json#bin"><code>bin</code> in its <code>package.json</code></a>. That means it can run <a href="https://gist.github.com/zkat/4bc19503fe9e9309e2bfaa2c58074d32">GitHub gists</a>. It can also
 install and run an entire GitHub repo, just like <a href="http://thecodebarbarian.com/github-is-my-favorite-private-npm-registry">how npm can install from GitHub</a>.
 For example, this <a href="https://github.com/vkarpov15/sample-server">sample-server GitHub repo</a> starts a web server on port 8081 that always prints &quot;Hello, World&quot;. You can use npx to run this GitHub repo:</p>
-<pre><code>$ npx https:<span class="hljs-comment">//github.com/vkarpov15/sample-server</span>
-npx: installed <span class="hljs-number">1</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1.619</span>s
+<pre><code>$ npx https://github.com/vkarpov15/sample-server
+npx: installed 1 in 1.619s
 </code></pre><p>npx can run this repo because there&#39;s <a href="https://github.com/vkarpov15/sample-server/blob/master/package.json#L4">a <code>bin</code> property in the <code>package.json</code></a>. npx will look for this property and run the file specified in the <code>bin</code> property.</p>
 <p>You can then hit the web server with curl:</p>
-<pre><code>$ curl http:<span class="hljs-comment">//localhost:8081</span>
+<pre><code>$ curl http://localhost:8081
 Hello World!
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>npx can save you a lot of time and effort. It can do much more than running

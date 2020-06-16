@@ -20,21 +20,21 @@ for mature JS dev teams with a lot of unavoidable complexity in their business
 logic. For most JavaScript apps, runtime type casting is all you need.</p>
 <h2 id="whats-wrong-with-typescript">What&#39;s Wrong With TypeScript?</h2>
 <p>Here&#39;s a simple server in TypeScript:</p>
-<pre><code><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
-<span class="hljs-keyword">import</span> { json } <span class="hljs-keyword">from</span> <span class="hljs-string">'body-parser'</span>;
+<pre><code>import * as express from &#39;express&#39;;
+import { json } from &#39;body-parser&#39;;
 
-<span class="hljs-keyword">const</span> app = express();
+const app = express();
 app.use(json());
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>{
+class Test {
   public a: string;
 }
 
-app.post(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
-  res.send((<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Test</span>&gt;</span> req.body).a.substr(0, 1)); // <span class="hljs-tag">&lt;<span class="hljs-name">--</span> <span class="hljs-attr">Danger</span>!
+app.post(&#39;/&#39;, (req, res) =&gt; {
+  res.send((&lt;Test&gt; req.body).a.substr(0, 1)); // &lt;-- Danger!
 });
 
-<span class="hljs-attr">app.listen</span>(<span class="hljs-attr">3000</span>);</span></span></code></pre><p>Look carefully at the POST route. Let&#39;s say you hit the POST route with an
+app.listen(3000);</code></pre><p>Look carefully at the POST route. Let&#39;s say you hit the POST route with an
 HTTP request where the body has a string property &#39;a&#39;:</p>
 <img src="http://i.imgur.com/UHRx9FJ.png">
 

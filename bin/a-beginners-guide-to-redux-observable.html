@@ -19,7 +19,7 @@ I&#39;ll show you how to get started with redux-observable using scripts you can
 <p>In redux-observable, an <a href="https://redux-observable.js.org/docs/basics/Epics.html">&quot;epic&quot;</a> is a function that takes a stream of actions and returns a modified stream of actions. You can think of an epic as a description of what additional actions redux-observable should dispatch. An epic is analogous to the concept of a <a href="http://thecodebarbarian.com/redux-saga-vs-async-await.html">&quot;saga&quot; in redux-saga</a>.</p>
 <p>Before you write your first epic, you need to <a href="https://www.npmjs.com/package/redux-observable#install">install redux-observable</a>. This
 article assumes you already have Node.js and npm installed. To install redux-observable along with <a href="https://www.npmjs.com/package/redux">redux</a> and RxJS, run the below command.</p>
-<pre><code>npm install redux@<span class="hljs-number">4.</span>x redux-observable@<span class="hljs-number">1.</span>x rxjs@<span class="hljs-number">6.</span>x</code></pre><p>The most fundamental function in the redux-observable API is the <a href="https://redux-observable.js.org/docs/api/createEpicMiddleware.html"><code>createEpicMiddleware()</code> function</a>. This function creates the actual Redux middleware you should pass to <a href="https://redux.js.org/api/applymiddleware">Redux&#39;s <code>applyMiddleware()</code> function</a>. Below is an example of creating a middleware that transforms actions with type &#39;CLICK_INCREMENT&#39; into actions with type &#39;INCREMENT&#39;.</p>
+<pre><code>npm install redux@4.x redux-observable@1.x rxjs@6.x</code></pre><p>The most fundamental function in the redux-observable API is the <a href="https://redux-observable.js.org/docs/api/createEpicMiddleware.html"><code>createEpicMiddleware()</code> function</a>. This function creates the actual Redux middleware you should pass to <a href="https://redux.js.org/api/applymiddleware">Redux&#39;s <code>applyMiddleware()</code> function</a>. Below is an example of creating a middleware that transforms actions with type &#39;CLICK_INCREMENT&#39; into actions with type &#39;INCREMENT&#39;.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { createEpicMiddleware } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux-observable'</span>);
 <span class="hljs-keyword">const</span> { filter, map } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rxjs/operators'</span>);
 <span class="hljs-keyword">const</span> redux = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux'</span>);
@@ -58,9 +58,9 @@ below.</p>
 <pre><code class="language-javascript">store.dispatch({ type: <span class="hljs-string">'CLICK_INCREMENT'</span> });</code></pre>
 <p>Your <code>filter()</code> and <code>map()</code> calls will run, and redux-observable will dispatch
 an additional action of type &#39;INCREMENT&#39;. Below is the output from the <code>console.log()</code> statement in the <code>reducer()</code> function.</p>
-<pre><code>Action { type: <span class="hljs-string">'@@redux/INIT7.2.m.z.p.l'</span> }
-Action { type: <span class="hljs-string">'CLICK_INCREMENT'</span> }
-Action { type: <span class="hljs-string">'INCREMENT'</span>, amount: <span class="hljs-number">1</span> }</code></pre><p>Note that redux-observable dispatches an additional action: the &#39;CLICK_INCREMENT&#39; action still gets through to the reducer. Epics add actions to the stream by default.</p>
+<pre><code>Action { type: &#39;@@redux/INIT7.2.m.z.p.l&#39; }
+Action { type: &#39;CLICK_INCREMENT&#39; }
+Action { type: &#39;INCREMENT&#39;, amount: 1 }</code></pre><p>Note that redux-observable dispatches an additional action: the &#39;CLICK_INCREMENT&#39; action still gets through to the reducer. Epics add actions to the stream by default.</p>
 <h2 id="asynchronous-dispatch">Asynchronous Dispatch</h2>
 <p>The above example serves as a simple introduction but doesn&#39;t capture why you would want to use redux-observable in the first place. What makes redux-observable so interesting is the ability to use <a href="https://www.learnrxjs.io/operators/transformation/mergemap.html">RxJS&#39; <code>mergeMap()</code> function</a> to handle asynchronous functions. In other words, redux-observable is a viable alternative to <a href="http://thecodebarbarian.com/redux-saga-vs-async-await.html">redux-saga</a> and <a href="http://thecodebarbarian.com/async-await-with-react-and-redux-thunk.html">redux-thunk</a>. Below is an example of using redux-observable with a simple <a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">async function</a>.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { createEpicMiddleware } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redux-observable'</span>);
@@ -97,9 +97,9 @@ observableMiddleware.run(countEpic);
 
 store.dispatch({ type: <span class="hljs-string">'CLICK_INCREMENT'</span> });</code></pre>
 <p>The <code>countEpic()</code> will now wait about 1 second before dispatching the &#39;INCREMENT&#39; action.</p>
-<pre><code>+<span class="hljs-number">1</span>ms { type: <span class="hljs-string">'@@redux/INIT7.i.8.v.i.t'</span> }
-+<span class="hljs-number">7</span>ms { type: <span class="hljs-string">'CLICK_INCREMENT'</span> }
-+<span class="hljs-number">1012</span>ms { type: <span class="hljs-string">'INCREMENT'</span>, amount: <span class="hljs-number">1</span> }</code></pre><p>If you&#39;ve read <a href="http://thecodebarbarian.com/new-ebook-mastering-async-await"><em>Mastering Async/Await</em></a>, you know that this isn&#39;t the whole story with supporting async/await. What happens if your async function errors out? The below <code>countEpic()</code> will crash.</p>
+<pre><code>+1ms { type: &#39;@@redux/INIT7.i.8.v.i.t&#39; }
++7ms { type: &#39;CLICK_INCREMENT&#39; }
++1012ms { type: &#39;INCREMENT&#39;, amount: 1 }</code></pre><p>If you&#39;ve read <a href="http://thecodebarbarian.com/new-ebook-mastering-async-await"><em>Mastering Async/Await</em></a>, you know that this isn&#39;t the whole story with supporting async/await. What happens if your async function errors out? The below <code>countEpic()</code> will crash.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> countEpic = action$ =&gt; action$.pipe(
   filter(action =&gt; action.type === <span class="hljs-string">'CLICK_INCREMENT'</span>),
   mergeMap(<span class="hljs-keyword">async</span> () =&gt; {
@@ -121,12 +121,12 @@ store.dispatch({ type: <span class="hljs-string">'CLICK_INCREMENT'</span> });</c
   catchError(err =&gt; <span class="hljs-built_in">Promise</span>.resolve({ type: <span class="hljs-string">'Error'</span>, message: err.message }))
 );</code></pre>
 <p>The <code>countEpic()</code> will now dispatch an action of type &#39;ERROR&#39; with the error message.</p>
-<pre><code>+<span class="hljs-number">1</span>ms { type: <span class="hljs-string">'@@redux/INIT0.a.g.q.3.o'</span> }
-+<span class="hljs-number">6</span>ms { type: <span class="hljs-string">'CLICK_INCREMENT'</span> }
-+<span class="hljs-number">8</span>ms { type: <span class="hljs-string">'Error'</span>, message: <span class="hljs-string">'Oops!'</span> }</code></pre><h2 id="making-an-http-request">Making an HTTP Request</h2>
+<pre><code>+1ms { type: &#39;@@redux/INIT0.a.g.q.3.o&#39; }
++6ms { type: &#39;CLICK_INCREMENT&#39; }
++8ms { type: &#39;Error&#39;, message: &#39;Oops!&#39; }</code></pre><h2 id="making-an-http-request">Making an HTTP Request</h2>
 <p>The above examples are simple but not very realistic. Let&#39;s use redux-observable for a more realistic use case: making an
 HTTP request using <a href="https://www.npmjs.com/package/node-fetch">node-fetch</a> to get the current MongoDB stock price from the <a href="https://iextrading.com/developer/">IEX API</a>. To get the stock price, you need to make a GET request to the following URL.</p>
-<pre><code>https:<span class="hljs-comment">//api.iextrading.com/1.0/stock/MDB/price</span></code></pre><p>Since you can use async/await with <code>mergeMap()</code>, making an HTTP request with redux-observable is similar to the asynchronous dispatch example. <a href="https://www.npmjs.com/package/node-fetch#usage">Node-fetch returns a promise</a>, so you can <code>await</code> on an
+<pre><code>https://api.iextrading.com/1.0/stock/MDB/price</code></pre><p>Since you can use async/await with <code>mergeMap()</code>, making an HTTP request with redux-observable is similar to the asynchronous dispatch example. <a href="https://www.npmjs.com/package/node-fetch#usage">Node-fetch returns a promise</a>, so you can <code>await</code> on an
 HTTP request and then dispatch a new action with the result of the request.</p>
 <p>In the below code, <code>fetchEpic()</code> fires off a GET request to the IEX API every time an action of type &#39;FETCH_STOCK_PRICE&#39;
 comes through the system. If the request succeeds, <code>fetchEpic()</code> dispatches a new action of type &#39;FETCH_STOCK_PRICE_SUCCESS&#39;
@@ -165,12 +165,12 @@ store.dispatch({ type: <span class="hljs-string">'FETCH_STOCK_PRICE'</span>, sym
 <p>Below is the sample output from running a &#39;FETCH_STOCK_PRICE&#39; action through a Redux store with <code>fetchEpic()</code> and <code>reducer()</code>. The &#39;FETCH_STOCK_PRICE&#39; action goes through, <code>fetchEpic()</code> sees this action and sends off an HTTP request.
 When <code>fetchEpic()</code> gets a response from the IEX API, it sends out a &#39;FETCH_STOCK_PRICE_SUCCESS&#39; action, and then the reducer
 updates the state.</p>
-<pre><code>+<span class="hljs-number">1</span>ms { type: <span class="hljs-string">'@@redux/INITg.3.m.s.8.f.i'</span> }
-+<span class="hljs-number">5</span>ms { type: <span class="hljs-string">'FETCH_STOCK_PRICE'</span>, symbol: <span class="hljs-string">'MDB'</span> }
-+<span class="hljs-number">198</span>ms { type: <span class="hljs-string">'FETCH_STOCK_PRICE_SUCCESS'</span>,
-  symbol: <span class="hljs-string">'MDB'</span>,
-  price: <span class="hljs-string">'79.94'</span> }
-New state { prices: { MDB: <span class="hljs-string">'79.94'</span> } }</code></pre><h2 id="moving-on">Moving On</h2>
+<pre><code>+1ms { type: &#39;@@redux/INITg.3.m.s.8.f.i&#39; }
++5ms { type: &#39;FETCH_STOCK_PRICE&#39;, symbol: &#39;MDB&#39; }
++198ms { type: &#39;FETCH_STOCK_PRICE_SUCCESS&#39;,
+  symbol: &#39;MDB&#39;,
+  price: &#39;79.94&#39; }
+New state { prices: { MDB: &#39;79.94&#39; } }</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Redux-observable is a tool for handling <a href="http://thecodebarbarian.com/async-await-with-react-and-redux-thunk.html">async logic with React and Redux</a>.
 This is important because React doesn&#39;t generally support async functions. Redux-observable is an interesting alternative to redux-saga and redux-thunk, particularly if you&#39;re already experienced with RxJS. So next time you find
 yourself wanting to <a href="https://www.codementor.io/vkarpov/beginner-s-guide-to-redux-middleware-du107uyud">write your own promise middleware</a>, give redux-observable a shot.</p>

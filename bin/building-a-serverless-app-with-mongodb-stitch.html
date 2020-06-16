@@ -79,13 +79,13 @@ click &quot;Run Function As&quot; to execute your function. You should get the b
 
 <p>Now, connect to your MongoDB Atlas application with the MongoDB shell and query the <code>prices</code> collection, you should
 see an entry that contains the current price of MongoDB stock.</p>
-<pre><code>$ /mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
-MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-rc2
+<pre><code>$ /mongo &quot;mongodb+srv://cluster0-OMITTED.mongodb.net/test&quot; --username OMITTED
+MongoDB shell version v4.0.0-rc2
 Enter password:
-connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
-shard<span class="hljs-number">-0</span>:PRIMARY&gt; db.prices.find()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">49.12</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T17:58:54.155Z"</span>) }
-shard<span class="hljs-number">-0</span>:PRIMARY&gt;</code></pre><p>MongoDB Stitch <a href="https://mongodb.canny.io/mongodb-stitch/p/cronjob-support-for-functions">currently does not support running functions on a timer</a>, so you&#39;ll have to expose the function via HTTP and trigger the function by sending an HTTP request
+connecting to: mongodb+srv://cluster0-OMITTED.mongodb.net/test
+shard-0:PRIMARY&gt; db.prices.find()
+{ &quot;_id&quot; : ObjectId(&quot;5b19725eb8b9985731acddb3&quot;), &quot;symbol&quot; : &quot;MDB&quot;, &quot;price&quot; : 49.12, &quot;time&quot; : ISODate(&quot;2018-06-07T17:58:54.155Z&quot;) }
+shard-0:PRIMARY&gt;</code></pre><p>MongoDB Stitch <a href="https://mongodb.canny.io/mongodb-stitch/p/cronjob-support-for-functions">currently does not support running functions on a timer</a>, so you&#39;ll have to expose the function via HTTP and trigger the function by sending an HTTP request
 every minute. But first, let&#39;s write the function that gets the latest stock price and then create webhooks for both
 functions.</p>
 <h2 id="stock-price-rest-api">Stock Price REST API</h2>
@@ -126,8 +126,8 @@ custom function logic, but you can <a href="https://docs.mongodb.com/stitch/func
 <p>You should now be able to use access your webhook using an HTTP client like <a href="https://en.wikipedia.org/wiki/CURL">curl</a>.
 Make sure you add <code>secret</code> as a query parameter as shown below, otherwise you&#39;ll get an authentication error. Unlike Lambda,
 Stitch functions require authentication.</p>
-<pre><code>$ curl https:<span class="hljs-comment">//webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/read?secret=OMITTED</span>
-{<span class="hljs-string">"_id"</span>:{<span class="hljs-string">"$oid"</span>:<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>},<span class="hljs-string">"symbol"</span>:<span class="hljs-string">"MDB"</span>,<span class="hljs-string">"price"</span>:{<span class="hljs-string">"$numberDouble"</span>:<span class="hljs-string">"49.12"</span>},<span class="hljs-string">"time"</span>:{<span class="hljs-string">"$date"</span>:{<span class="hljs-string">"$numberLong"</span>:<span class="hljs-string">"1528394334155"</span>}}}
+<pre><code>$ curl https://webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/read?secret=OMITTED
+{&quot;_id&quot;:{&quot;$oid&quot;:&quot;5b19725eb8b9985731acddb3&quot;},&quot;symbol&quot;:&quot;MDB&quot;,&quot;price&quot;:{&quot;$numberDouble&quot;:&quot;49.12&quot;},&quot;time&quot;:{&quot;$date&quot;:{&quot;$numberLong&quot;:&quot;1528394334155&quot;}}}
 $</code></pre><p>You still need one more webhook for the <code>ingest()</code> function, so go back to the &quot;Services&quot; view, click on &quot;HTTP&quot;, and
 click &quot;Add Incoming Webhook&quot; to create another webhook.</p>
 <img class="inline-image" src="https://i.imgur.com/ovvE4VK.png">
@@ -142,18 +142,18 @@ click &quot;Add Incoming Webhook&quot; to create another webhook.</p>
   <span class="hljs-keyword">return</span> context.functions.execute(<span class="hljs-string">'ingest'</span>, symbol);
 };</code></pre>
 <p>Once you click &quot;Save&quot;, you should be able to access the <code>ingest()</code> function using an HTTP client like curl.</p>
-<pre><code>$ curl -X POST https:<span class="hljs-comment">//webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/ingest?secret=OMITTED</span>
-{<span class="hljs-string">"insertedId"</span>:{<span class="hljs-string">"$oid"</span>:<span class="hljs-string">"5b1983cdb8b9985731e9623e"</span>}}
+<pre><code>$ curl -X POST https://webhooks.mongodb-stitch.com/api/client/v2.0/app/stocks-OMITTED/service/http/incoming_webhook/ingest?secret=OMITTED
+{&quot;insertedId&quot;:{&quot;$oid&quot;:&quot;5b1983cdb8b9985731e9623e&quot;}}
 $</code></pre><p>Connect to your MongoDB Atlas cluster and you should see a new document in the <code>prices</code> collection. You would have to
 use a service like Lambda or <a href="https://github.com/dcos/metronome">Metronome</a> to call your Stitch webhook on a timer.</p>
-<pre><code>$ /mongo <span class="hljs-string">"mongodb+srv://cluster0-OMITTED.mongodb.net/test"</span> --username OMITTED
-MongoDB shell version v4<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-rc2
+<pre><code>$ /mongo &quot;mongodb+srv://cluster0-OMITTED.mongodb.net/test&quot; --username OMITTED
+MongoDB shell version v4.0.0-rc2
 Enter password:
-connecting to: mongodb+srv:<span class="hljs-comment">//cluster0-OMITTED.mongodb.net/test</span>
-shard<span class="hljs-number">-0</span>:PRIMARY&gt; db.prices.find()
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b19725eb8b9985731acddb3"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">49.12</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T17:58:54.155Z"</span>) }
-{ <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5b1983cdb8b9985731e9623e"</span>), <span class="hljs-string">"symbol"</span> : <span class="hljs-string">"MDB"</span>, <span class="hljs-string">"price"</span> : <span class="hljs-number">50.225</span>, <span class="hljs-string">"time"</span> : ISODate(<span class="hljs-string">"2018-06-07T19:13:17.198Z"</span>) }
-shard<span class="hljs-number">-0</span>:PRIMARY&gt;</code></pre><p>That&#39;s all you need to set up a backend application with MongoDB Stitch. Stitch has a few limitations, like no support
+connecting to: mongodb+srv://cluster0-OMITTED.mongodb.net/test
+shard-0:PRIMARY&gt; db.prices.find()
+{ &quot;_id&quot; : ObjectId(&quot;5b19725eb8b9985731acddb3&quot;), &quot;symbol&quot; : &quot;MDB&quot;, &quot;price&quot; : 49.12, &quot;time&quot; : ISODate(&quot;2018-06-07T17:58:54.155Z&quot;) }
+{ &quot;_id&quot; : ObjectId(&quot;5b1983cdb8b9985731e9623e&quot;), &quot;symbol&quot; : &quot;MDB&quot;, &quot;price&quot; : 50.225, &quot;time&quot; : ISODate(&quot;2018-06-07T19:13:17.198Z&quot;) }
+shard-0:PRIMARY&gt;</code></pre><p>That&#39;s all you need to set up a backend application with MongoDB Stitch. Stitch has a few limitations, like no support
 for automatically running a function every minute, but the JavaScript code is concise and you don&#39;t have to worry about
 managing a database connection. Once you get familiar with the Stitch UI, writing custom JavaScript functions is easy.</p>
 <h2 id="moving-on">Moving On</h2>

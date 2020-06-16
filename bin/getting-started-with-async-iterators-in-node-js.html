@@ -18,23 +18,23 @@
 using Node.js 8.x or 9.x, you need to use Node.js&#39; <a href="https://github.com/tc39/proposal-async-iteration/issues/117#issuecomment-346695187"><code>--harmony_async_iteration</code> flag</a>. Async iterators are not supported in Node.js
 6.x or 7.x, so if you&#39;re on an older version you need to <a href="/managing-node.js-versions-without-external-tools.html">upgrade Node.js</a> to use async iterators.</p>
 <pre><code>$ node --version
-v9<span class="hljs-number">.9</span><span class="hljs-number">.0</span>
+v9.9.0
 $ node test.js
-/home/node/test.js:<span class="hljs-number">7</span>
-  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> x <span class="hljs-keyword">of</span> gen()) {
+/home/node/test.js:7
+  for await (const x of gen()) {
       ^^^^^
 
-<span class="hljs-built_in">SyntaxError</span>: Unexpected reserved word
-    at <span class="hljs-keyword">new</span> Script (vm.js:<span class="hljs-number">51</span>:<span class="hljs-number">7</span>)
-    at createScript (vm.js:<span class="hljs-number">136</span>:<span class="hljs-number">10</span>)
-    at <span class="hljs-built_in">Object</span>.runInThisContext (vm.js:<span class="hljs-number">197</span>:<span class="hljs-number">10</span>)
-    at Module._compile (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">613</span>:<span class="hljs-number">28</span>)
-    at <span class="hljs-built_in">Object</span>.Module._extensions..js (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">660</span>:<span class="hljs-number">10</span>)
-    at Module.load (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">561</span>:<span class="hljs-number">32</span>)
-    at tryModuleLoad (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">501</span>:<span class="hljs-number">12</span>)
-    at <span class="hljs-built_in">Function</span>.Module._load (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">493</span>:<span class="hljs-number">3</span>)
-    at <span class="hljs-built_in">Function</span>.Module.runMain (<span class="hljs-built_in">module</span>.js:<span class="hljs-number">690</span>:<span class="hljs-number">10</span>)
-    at startup (bootstrap_node.js:<span class="hljs-number">194</span>:<span class="hljs-number">16</span>)
+SyntaxError: Unexpected reserved word
+    at new Script (vm.js:51:7)
+    at createScript (vm.js:136:10)
+    at Object.runInThisContext (vm.js:197:10)
+    at Module._compile (module.js:613:28)
+    at Object.Module._extensions..js (module.js:660:10)
+    at Module.load (module.js:561:32)
+    at tryModuleLoad (module.js:501:12)
+    at Function.Module._load (module.js:493:3)
+    at Function.Module.runMain (module.js:690:10)
+    at startup (bootstrap_node.js:194:16)
 $
 $ node --harmony_async_iteration test.js
 works!

@@ -19,15 +19,15 @@
 
 <p>Here&#39;s what the data looks like in MongoDB. Each book is a document in the <code>Book</code> collection, and has a title, author, and <code>createdAt</code> timestamp.</p>
 <pre><code>$ mongo test
-MongoDB shell version v3<span class="hljs-number">.4</span><span class="hljs-number">.1</span>
-connecting to: mongodb:<span class="hljs-comment">//127.0.0.1:27017/test</span>
-MongoDB server version: <span class="hljs-number">3.4</span><span class="hljs-number">.1</span>
+MongoDB shell version v3.4.1
+connecting to: mongodb://127.0.0.1:27017/test
+MongoDB server version: 3.4.1
 &gt; db.Book.find().pretty()
 {
-    <span class="hljs-string">"_id"</span> : ObjectId(<span class="hljs-string">"5900e3a30294b115c21cdd05"</span>),
-    <span class="hljs-string">"author"</span> : <span class="hljs-string">"Valeri Karpov"</span>,
-    <span class="hljs-string">"title"</span> : <span class="hljs-string">"Professional AngularJS"</span>,
-    <span class="hljs-string">"createdAt"</span> : ISODate(<span class="hljs-string">"2017-04-26T18:14:17.276Z"</span>)
+    &quot;_id&quot; : ObjectId(&quot;5900e3a30294b115c21cdd05&quot;),
+    &quot;author&quot; : &quot;Valeri Karpov&quot;,
+    &quot;title&quot; : &quot;Professional AngularJS&quot;,
+    &quot;createdAt&quot; : ISODate(&quot;2017-04-26T18:14:17.276Z&quot;)
 }
 &gt;</code></pre><p>The key to server-side rendering is being able to load the initial data necessary to render the page on both the client and the server. In order to load the initial data on the server side you need to execute a query against MongoDB, and to load the initial data on the client side you need to hit an API. So to start a Next.js app, you need a <a href="https://github.com/vkarpov15/reading-list/blob/master/index.js"><code>index.js</code> file</a> that creates an express app configured to handle Next.js.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoClient } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongodb'</span>)

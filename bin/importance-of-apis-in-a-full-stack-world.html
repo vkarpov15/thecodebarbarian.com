@@ -21,9 +21,9 @@
   <span class="hljs-keyword">var</span> ref = firebase.database().ref();
   $scope.data = $firebaseObject(ref);
 });</code></pre>
-<pre><code class="language-html">&lt;div controller=<span class="hljs-string">"MyController"</span>&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{data.title}}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+<pre><code class="language-html">&lt;div controller=&quot;MyController&quot;&gt;
+  &lt;h1&gt;{{data.title}}&lt;/h1&gt;
+&lt;/div&gt;</code></pre>
 <p>Unfortunately, it also became clear that Angular 1 was difficult to optimize and extend beyond building simple forms. Cordova&#39;s proving to have similar issues. Sophisticated clients require developers to specialize.</p>
 <p>With the assumption that you need disparate clients, like an iOS app, an Android app, an Electron desktop app, and a web client, you need a centralized logic layer. If you use a realtime database directly and your Android app&#39;s logic doesn&#39;t keep up with your iOS app&#39;s logic, you&#39;ve got a problem. That&#39;s where APIs come in.</p>
 <h2 id="what-should-apis-do">What Should APIs Do?</h2>

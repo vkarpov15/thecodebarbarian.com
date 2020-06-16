@@ -128,13 +128,13 @@ array indexes are always interpretted as strings.</p>
 <code>require(&#39;util&#39;).inspect()</code> on the proxy <code>p</code> in the previous example? If you
 guessed &quot;node crashes horribly with a baffling error message&quot;, you&#39;d be
 right.</p>
-<pre><code>util.js:<span class="hljs-number">236</span>
-  <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(value);
+<pre><code>util.js:236
+  var keys = Object.keys(value);
                     ^
-<span class="hljs-built_in">TypeError</span>: <span class="hljs-literal">undefined</span> is not a <span class="hljs-function"><span class="hljs-keyword">function</span>
-    <span class="hljs-title">at</span> <span class="hljs-title">Function</span>.<span class="hljs-title">keys</span> (<span class="hljs-params">native</span>)
-    <span class="hljs-title">at</span> <span class="hljs-title">formatValue</span> (<span class="hljs-params">util.js:236:21</span>)
-    <span class="hljs-title">at</span> <span class="hljs-title">Object</span>.<span class="hljs-title">inspect</span> (<span class="hljs-params">util.js:147:10</span>)</span></code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is
+TypeError: undefined is not a function
+    at Function.keys (native)
+    at formatValue (util.js:236:21)
+    at Object.inspect (util.js:147:10)</code></pre><p><code>Object.keys(p)</code> crashes out with a very strange error - <code>Object.keys</code> is
 definitely not undefined. This is a problem with how the proxy was implemented.
 Because a proxy has full control over property accesses, there&#39;s no way for
 node to figure out what properties the proxy has other than trying every

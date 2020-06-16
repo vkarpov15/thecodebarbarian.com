@@ -13,11 +13,11 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>Support for arbitrarily large integers (BigInts) is a <a href="https://github.com/tc39/proposal-bigint">stage 3 TC39 proposal</a>. Stage 3 means the proposal is <a href="https://tc39.github.io/process-document/">ready and for browsers to start implementing</a>. Earlier this year, the <a href="https://v8project.blogspot.com/2018/05/bigint.html">V8 team added support for BigInts</a>, which means <a href="https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V10.md#2018-06-06-version-1040-current-mylesborins">Node.js 10.4.0</a> has BigInt support. You can use BigInts in Node.js 10.x without any flags, as long as you&#39;re on at least 10.4.</p>
-<pre><code>$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v10<span class="hljs-number">.4</span><span class="hljs-number">.0</span>-linux-x64/bin/node --version
-v10<span class="hljs-number">.4</span><span class="hljs-number">.0</span>
-$ ~<span class="hljs-regexp">/Workspace/</span>libs/node-v10<span class="hljs-number">.4</span><span class="hljs-number">.0</span>-linux-x64/bin/node
-&gt; <span class="hljs-number">10000000000</span>n * <span class="hljs-number">10000000000</span>n
-<span class="hljs-number">100000000000000000000</span>n
+<pre><code>$ ~/Workspace/libs/node-v10.4.0-linux-x64/bin/node --version
+v10.4.0
+$ ~/Workspace/libs/node-v10.4.0-linux-x64/bin/node
+&gt; 10000000000n * 10000000000n
+100000000000000000000n
 &gt;</code></pre><h2 id="what-are-bigints">What Are BigInts?</h2>
 <p>BigInt is a new JavaScript primitive type that can store arbitrarily large integers, like the <a href="https://en.wikipedia.org/wiki/Busy_beaver#Exact_values_and_lower_bounds">Busy Beaver sequence</a> or values of the <a href="https://en.wikipedia.org/wiki/Ackermann_function">Ackermann sequence</a>. You can store arbitrarily large numbers as strings, but BigInts have the benefit of supporting <a href="https://github.com/tc39/proposal-bigint#operators">arithmetic operators</a>. In other words, you can add and multiply BigInts like you would normal numbers.</p>
 <p>There are 2 ways to create a BigInt: either by appending &#39;n&#39; at the end of an integer literal, or by using the <code>BigInt()</code> constructor:</p>

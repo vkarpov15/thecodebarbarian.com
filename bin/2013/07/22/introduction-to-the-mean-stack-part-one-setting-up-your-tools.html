@@ -19,10 +19,10 @@
 <p>First, we&#39;re going to install MongoDB.</p>
 <p><strong>OSX:</strong> Open up your Terminal window and run</p>
 <pre><code>sudo brew install mongodb</code></pre><p><strong>Ubuntu:</strong> Open up your shell and run:</p>
-<pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv <span class="hljs-number">7</span>F0CEB10
-echo <span class="hljs-string">'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'</span> | sudo tee /etc/apt/sources.list.d/<span class="hljs-number">10</span>gen.list
+<pre><code>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+echo &#39;deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen&#39; | sudo tee /etc/apt/sources.list.d/10gen.list
 sudo apt-get update
-sudo apt-get install mongodb<span class="hljs-number">-10</span>gen</code></pre><p><strong>Windows:</strong> Go to <a href="http://www.mongodb.org/downloads">http://www.mongodb.org/downloads</a> and download the latest version of MongoDB for Windows, which should be a plain zip file. Once the download is done, extract the contents of the zip file to a memorable directory, such as &#39;c:\mongodb&#39;.</p>
+sudo apt-get install mongodb-10gen</code></pre><p><strong>Windows:</strong> Go to <a href="http://www.mongodb.org/downloads">http://www.mongodb.org/downloads</a> and download the latest version of MongoDB for Windows, which should be a plain zip file. Once the download is done, extract the contents of the zip file to a memorable directory, such as &#39;c:\mongodb&#39;.</p>
 <p>That&#39;s it! After the installation process is done, you should be able to run the command</p>
 <pre><code>mongod</code></pre><p>directly from your command line on Mac and Ubuntu. On Windows, you&#39;ll need to run it as</p>
 <pre><code>/c/mongodb/bin/mongod</code></pre><p>Think of mongod as your local MongoDB server- you need to have a mongod process running in order to be able to use MongoDB. You can now leave mongod running, open up another terminal, and run <code>mongo test</code> (or <code>/c/mongodb/bin/mongo test</code> on Windows). This should open up the MongoDB shell. Hit ctrl-c to close the MongoDB shell.</p>
@@ -30,7 +30,7 @@ sudo apt-get install mongodb<span class="hljs-number">-10</span>gen</code></pre>
 <p>Next we&#39;re going to install NodeJS and npm (node package manager).</p>
 <p><strong>OSX:</strong> Open your terminal and run</p>
 <pre><code>sudo brew install node
-curl http:<span class="hljs-comment">//npmjs.org/install.sh | sh</span></code></pre><p>(Instructions from <a href="http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/">http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/</a>)</p>
+curl http://npmjs.org/install.sh | sh</code></pre><p>(Instructions from <a href="http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/">http://madebyhoundstooth.com/blog/install-node-with-homebrew-on-os-x/</a>)</p>
 <p><strong>Ubuntu:</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get install python-software-properties python g++ make
@@ -63,24 +63,24 @@ npm install</code></pre><p>This should create a &quot;mytestapp&quot; folder in 
 <h2 id="5-installing-drivers-and-mongoosejs">5) Installing drivers and MongooseJS</h2>
 <p>Now we&#39;re going to install the MongoDB driver for NodeJS, as well as another useful tool called MongooseJS. MongoDB is organized with language-specific drivers that interface with the core database, so in order to use MongoDB with NodeJS, we need the NodeJS driver. MongooseJS is an ORM for NodeJS and MongoDB that is relatively similar to Ruby on Rails&#39; ActiveRecord. For more discussion of MongooseJS, see my <a href="/2013/04/29/easy-web-prototyping-with-mongodb-and-nodejs">original introductory post about the MEAN Stack</a>, as well as the MongooseJS-specific follow-up <a href="/2013/06/06/61/">Mistakes You&#39;re Probably Making With MongooseJS, And How To Fix Them</a>.</p>
 <p>Open up the package.json file in &quot;mytestapp&quot; using your text editor of choice. I prefer <a href="http://www.sublimetext.com/">SublimeText</a> on Mac and Windows, and <a href="https://projects.gnome.org/gedit/">gedit</a> or <a href="http://www.vim.org/">vim</a> on Linux, but anything like Notepad or Textmate should work fine. The <code>package.json</code> file should contain a list of dependencies which looks like this:</p>
-<pre><code><span class="hljs-string">"dependencies"</span>: {
-  <span class="hljs-string">"express"</span>: <span class="hljs-string">"3.0.3"</span>,
-  <span class="hljs-string">"jade"</span>: <span class="hljs-string">"*"</span>
+<pre><code>&quot;dependencies&quot;: {
+  &quot;express&quot;: &quot;3.0.3&quot;,
+  &quot;jade&quot;: &quot;*&quot;
 }</code></pre><p>We&#39;re going to add two more lines</p>
-<pre><code><span class="hljs-string">"dependencies"</span>: {
-  <span class="hljs-string">"express"</span>: <span class="hljs-string">"3.0.3"</span>,
-  <span class="hljs-string">"jade"</span>: <span class="hljs-string">"*"</span>,
-  <span class="hljs-string">"mongodb"</span>: <span class="hljs-string">"&gt;= 0.9.6-7"</span>,
-  <span class="hljs-string">"mongoose"</span> : <span class="hljs-string">"&gt;= 3.6"</span>
+<pre><code>&quot;dependencies&quot;: {
+  &quot;express&quot;: &quot;3.0.3&quot;,
+  &quot;jade&quot;: &quot;*&quot;,
+  &quot;mongodb&quot;: &quot;&gt;= 0.9.6-7&quot;,
+  &quot;mongoose&quot; : &quot;&gt;= 3.6&quot;
 }</code></pre><p>Next run</p>
 <pre><code>npm install</code></pre><p>If you&#39;re on OSX or Ubuntu, you may have to run <code>sudo npm install -d</code> to get it working. Now that we have both the NodeJS MongoDB driver and MongoDB, we can create a connection to MongoDB via Mongoose in our app.js file:</p>
-<pre><code><span class="hljs-keyword">var</span> Mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">var</span> db = Mongoose.createConnection(<span class="hljs-string">'localhost'</span>, <span class="hljs-string">'mytestapp'</span>);</code></pre><p>You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/2eec604f6698ee99d9d3d88070835073c0e8e0c6">here</a>. Run &quot;node app.js&quot; now -  your &quot;mongod&quot; process should output a message that looks something like &quot;[initandlisten] connection accepted from 127.0.0.1,&quot; which indicates that your app has successfully connected to your mongod process.</p>
+<pre><code>var Mongoose = require(&#39;mongoose&#39;);
+var db = Mongoose.createConnection(&#39;localhost&#39;, &#39;mytestapp&#39;);</code></pre><p>You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/2eec604f6698ee99d9d3d88070835073c0e8e0c6">here</a>. Run &quot;node app.js&quot; now -  your &quot;mongod&quot; process should output a message that looks something like &quot;[initandlisten] connection accepted from 127.0.0.1,&quot; which indicates that your app has successfully connected to your mongod process.</p>
 <h2 id="6-use-bower-for-adding-angularjs">6) Use Bower for adding AngularJS</h2>
 <p>Bower is another npm tool that we will use to add AngularJS to our app. It is essentially an npm for client-side Javascript. For example, if you want to add jQuery to your project, Bower enables you to do so from your terminal with the command &quot;bower install jquery.&quot; Install it with</p>
 <pre><code>npm install bower -g</code></pre><p>from your terminal.</p>
 <p>Bower has one minor quirk that you need to be aware of - it will install components into a &quot;bower_components&quot; directory by default, which unfortunately is not under the public directory. From your &quot;mytestapp&quot; directory, create a directory called &quot;vendor&quot; under &quot;public/javascripts.&quot; You can do this by running the command &quot;mkdir public/javascripts/vendor.&quot; Next, in the &quot;mytestapp&quot; directory, create a plain text file called &quot;.bowerrc&quot; that contains:</p>
-<pre><code>{ <span class="hljs-string">"directory"</span> : <span class="hljs-string">"public/javascripts/vendor"</span> }</code></pre><p>This configuration file will tell Bower to install tools into the &quot;public/javascripts/vendor&quot; directory. You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/35afa3e3c11bb2cf100b294eb74adf4158446755">here</a>.</p>
+<pre><code>{ &quot;directory&quot; : &quot;public/javascripts/vendor&quot; }</code></pre><p>This configuration file will tell Bower to install tools into the &quot;public/javascripts/vendor&quot; directory. You can see the diff for this step on github <a href="https://github.com/vkarpov15/mean-stack-skeleton/commit/35afa3e3c11bb2cf100b294eb74adf4158446755">here</a>.</p>
 <h2 id="7-installing-angularjs">7) Installing AngularJS</h2>
 <p>Now lets install AngularJS v1.0.6 using &quot;bower install angular#1.0.6.&quot; You should see a <em>public/javascripts/vendor/angular</em> directory that contains &quot;angular.js,&quot; &quot;angular.min.js,&quot; and &quot;bower.json&quot; once you&#39;re done.</p>
 <h2 id="to-be-continued">To be continued</h2>

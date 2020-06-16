@@ -45,8 +45,8 @@ trick as well as
 which are hidden behind the <code>--harmony_proxies</code> flag as of this writing.
 You can define a <code>start</code> script in your <code>package.json</code> file as shown below.</p>
 <pre><code>{
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"start"</span>: <span class="hljs-string">"env NODE_PATH=./ node --harmony_proxies index.js"</span>
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;env NODE_PATH=./ node --harmony_proxies index.js&quot;
   }
 }</code></pre><p>Now, if you run <code>npm start</code> (which is just short for <code>npm run start</code>), npm
 will run the <code>start</code> script for you and start your application with your special
@@ -66,14 +66,14 @@ it adds <code>./node_modules/.bin</code> to your <code>PATH</code>. In other wor
 gulp 3.8 as a <code>devDependency</code>, you can access the <code>gulp</code> executable in
 your <code>package.json</code> scripts without asking your users to <code>npm install gulp -g</code>.</p>
 <pre><code>{
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"watch"</span>: <span class="hljs-string">"gulp watch"</span>
+  &quot;scripts&quot;: {
+    &quot;watch&quot;: &quot;gulp watch&quot;
   }
 }</code></pre><p>Now, <code>npm run watch</code> is a handy shortcut for <code>./node_modules/.bin/gulp watch</code>.
 You can do the same thing with mocha.</p>
 <pre><code>{
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"test"</span>: <span class="hljs-string">"mocha -r nyan test/*.test.js"</span>
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;mocha -r nyan test/*.test.js&quot;
   }
 }</code></pre><p>Now <code>npm test</code> (which is the same as <code>npm run test</code>) is a handy shortcut for
 running all your mocha tests in your <code>test</code> directory using the nyan cat
@@ -109,8 +109,8 @@ requires babel 5.x, it won&#39;t work with babel 6.</p>
 you define a <code>compile</code> script in <code>package.json</code>, you can just achieve the
 same result with <code>npm run compile</code>.</p>
 <pre><code>{
-  <span class="hljs-string">"scripts"</span>: {
-    <span class="hljs-string">"compile"</span>: <span class="hljs-string">"browserify example.js | babel &gt; ./bin/example.js"</span>
+  &quot;scripts&quot;: {
+    &quot;compile&quot;: &quot;browserify example.js | babel &gt; ./bin/example.js&quot;
   }
 }</code></pre><h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>The <code>npm run</code> command lets npm function as a versatile task runner in addition

@@ -13,8 +13,8 @@
   <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
 </div>
 </div><div class="post-body-text-container"><p>The V8 team announced that they were <a href="https://v8.dev/blog/fast-async">making some major performance improvements to async/await</a>, including adding a <a href="https://v8.dev/blog/fast-async#improved-developer-experience"><code>--async-stack-traces</code> option</a> that will make debugging async functions easier. You can try out these new options with a <a href="https://nodejs.org/download/nightly/">nightly Node.js build</a>. For example, here&#39;s the command I ran to download the January 8, 2019 nightly build of Node.js 12:</p>
-<pre><code>wget https:<span class="hljs-comment">//nodejs.org/download/nightly/v12.0.0-nightly201901089987f1abb9/node-v12.0.0-nightly201901089987f1abb9-linux-x64.tar.gz</span>
-tar -zxvf ./v12<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-nightly201901089987f1abb9/node-v12<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-nightly201901089987f1abb9-linux-x64.tar.gz</code></pre><p>Remember that Node.js is a statically linked binary. &quot;Installing&quot; a Node.js version on Linux or OSX <a href="http://thecodebarbarian.com/managing-node.js-versions-without-external-tools">is a three-liner</a>. You just download a tarball, untar it, and you&#39;re ready to go.</p>
+<pre><code>wget https://nodejs.org/download/nightly/v12.0.0-nightly201901089987f1abb9/node-v12.0.0-nightly201901089987f1abb9-linux-x64.tar.gz
+tar -zxvf ./v12.0.0-nightly201901089987f1abb9/node-v12.0.0-nightly201901089987f1abb9-linux-x64.tar.gz</code></pre><p>Remember that Node.js is a statically linked binary. &quot;Installing&quot; a Node.js version on Linux or OSX <a href="http://thecodebarbarian.com/managing-node.js-versions-without-external-tools">is a three-liner</a>. You just download a tarball, untar it, and you&#39;re ready to go.</p>
 <h2 id="the---async-stack-traces-option">The <code>--async-stack-traces</code> Option</h2>
 <p>Consider the below code. An async function <code>run()</code> calls another async function <code>bar()</code>, and <code>bar()</code> throws an error. What does the stack trace say?</p>
 <pre><code class="language-javascript">run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>), error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
@@ -31,16 +31,16 @@ tar -zxvf ./v12<span class="hljs-number">.0</span><span class="hljs-number">.0</
 }</code></pre>
 <p>In Node.js 8.x, the stack trace isn&#39;t very helpful. Node just prints the line number in <code>bar()</code> where there was an exception. There&#39;s no way to tell from the stack trace that <code>run()</code> called <code>bar()</code>.</p>
 <pre><code>$ node -v
-v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
+v8.9.4
 $ node ./test.js
-<span class="hljs-built_in">Error</span>: Oops
-    at bar (<span class="hljs-regexp">/workspace/</span>test.js:<span class="hljs-number">11</span>:<span class="hljs-number">9</span>)
+Error: Oops
+    at bar (/workspace/test.js:11:9)
     at &lt;anonymous&gt;
 $</code></pre><p>In the Node.js 12.x nightly build, you can turn on the <code>--async-stack-traces</code> option to get a much cleaner stack trace. With this option, Node prints that <code>run()</code> called <code>bar()</code>. As a bonus, Node also won&#39;t print the unhelpful <code>at &lt;anonymous&gt;</code> line.</p>
-<pre><code>$ ./node-v12<span class="hljs-number">.0</span><span class="hljs-number">.0</span>-nightly201901089987f1abb9-linux-x64/bin/node --<span class="hljs-keyword">async</span>-stack-traces ./test.js
-<span class="hljs-built_in">Error</span>: Oops
-    at bar (<span class="hljs-regexp">/workspace/</span>test.js:<span class="hljs-number">11</span>:<span class="hljs-number">9</span>)
-    at <span class="hljs-keyword">async</span> run (<span class="hljs-regexp">/workspace/</span>test.js:<span class="hljs-number">5</span>:<span class="hljs-number">3</span>)
+<pre><code>$ ./node-v12.0.0-nightly201901089987f1abb9-linux-x64/bin/node --async-stack-traces ./test.js
+Error: Oops
+    at bar (/workspace/test.js:11:9)
+    at async run (/workspace/test.js:5:3)
 $</code></pre><p>Async stack traces handle nested async function calls too. For example, suppose <code>run()</code> calls <code>foo()</code>, which then calls <code>bar()</code>, which then calls <code>baz()</code>, and <code>baz()</code> throws. Async stack traces will print a stack trace with <code>run()</code>, <code>foo()</code>, <code>bar()</code>, and <code>baz()</code>.</p>
 <pre><code class="language-javascript">run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>), error =&gt; <span class="hljs-built_in">console</span>.error(error.stack));
 
@@ -139,12 +139,12 @@ run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="
   <span class="hljs-keyword">await</span> client.db().collection(<span class="hljs-string">'test'</span>).insertMany([{ _id: <span class="hljs-number">1</span> }, { _id: <span class="hljs-number">1</span> }]);
 }</code></pre>
 <pre><code>$ node test.js
-BulkWriteError: E11000 duplicate key error collection: test.test index: _id_ dup key: { : <span class="hljs-number">1</span> }
-    at OrderedBulkOperation.handleWriteError (<span class="hljs-regexp">/workspace/</span>node_modules/mongodb/lib/bulk/common.js:<span class="hljs-number">1048</span>:<span class="hljs-number">11</span>)
-    at resultHandler (<span class="hljs-regexp">/workspace/</span>node_modules/mongodb/lib/bulk/ordered.js:<span class="hljs-number">159</span>:<span class="hljs-number">23</span>)
-    at /workspace/node_modules/mongodb/node_modules/mongodb-core/lib/connection/pool.js:<span class="hljs-number">532</span>:<span class="hljs-number">18</span>
-    at _combinedTickCallback (internal/process/next_tick.js:<span class="hljs-number">131</span>:<span class="hljs-number">7</span>)
-    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">180</span>:<span class="hljs-number">9</span>)</code></pre><p>With <a href="https://thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs">monogram</a>, you get the original stack trace for the function that errored out in the <code>originalStack</code> property.</p>
+BulkWriteError: E11000 duplicate key error collection: test.test index: _id_ dup key: { : 1 }
+    at OrderedBulkOperation.handleWriteError (/workspace/node_modules/mongodb/lib/bulk/common.js:1048:11)
+    at resultHandler (/workspace/node_modules/mongodb/lib/bulk/ordered.js:159:23)
+    at /workspace/node_modules/mongodb/node_modules/mongodb-core/lib/connection/pool.js:532:18
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    at process._tickCallback (internal/process/next_tick.js:180:9)</code></pre><p>With <a href="https://thecodebarbarian.com/introducing-monogram-the-anti-odm-for-mongodb-nodejs">monogram</a>, you get the original stack trace for the function that errored out in the <code>originalStack</code> property.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { connect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'monogram'</span>);
 
 run().then(() =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>), error =&gt; {

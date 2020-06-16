@@ -106,12 +106,12 @@ arr.forEach(v =&gt; <span class="hljs-built_in">console</span>.log(v));
 arr[<span class="hljs-number">5</span>] = <span class="hljs-string">'e'</span>;</code></pre>
 <p><code>forEach()</code> and <code>for/in</code> skip empty elements in the array, <code>for</code> and <code>for/of</code> do not. The <code>forEach()</code> behavior may cause problems, however, holes in JavaScript arrays are generally rare because they are not supported in JSON:</p>
 <pre><code>$ node
-&gt; <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{"arr":["a","b","c"]}'</span>)
-{ arr: [ <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span> ] }
-&gt; <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{"arr":["a",null,"c"]}'</span>)
-{ arr: [ <span class="hljs-string">'a'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'c'</span> ] }
-&gt; <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">'{"arr":["a",,"c"]}'</span>)
-<span class="hljs-built_in">SyntaxError</span>: Unexpected token , <span class="hljs-keyword">in</span> <span class="hljs-built_in">JSON</span> at position <span class="hljs-number">12</span>
+&gt; JSON.parse(&#39;{&quot;arr&quot;:[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]}&#39;)
+{ arr: [ &#39;a&#39;, &#39;b&#39;, &#39;c&#39; ] }
+&gt; JSON.parse(&#39;{&quot;arr&quot;:[&quot;a&quot;,null,&quot;c&quot;]}&#39;)
+{ arr: [ &#39;a&#39;, null, &#39;c&#39; ] }
+&gt; JSON.parse(&#39;{&quot;arr&quot;:[&quot;a&quot;,,&quot;c&quot;]}&#39;)
+SyntaxError: Unexpected token , in JSON at position 12
 </code></pre><p>So you don&#39;t have to worry about holes in user data, unless you give your users access to the full JavaScript runtime.</p>
 <p><strong>Takeaway:</strong> <code>for/in</code> and <code>forEach()</code> skip empty elements, also known as
 <a href="http://2ality.com/2013/07/array-iteration-holes.html">&quot;holes&quot;</a>, in the array.
@@ -119,12 +119,12 @@ There&#39;s rarely any reason to treat holes as a special case as opposed to tre
 the index as having value <code>undefined</code>. If the special behavior with holes
 causes you concern, below is an example <code>.eslintrc.yml</code> file that disallows calling <code>forEach()</code>.</p>
 <pre><code>parserOptions:
-  ecmaVersion: <span class="hljs-number">2018</span>
+  ecmaVersion: 2018
 rules:
   no-restricted-syntax:
     - error
-    - selector: CallExpression[callee.property.name=<span class="hljs-string">"forEach"</span>]
-      message: Do not use <span class="hljs-string">`forEach()`</span>, use <span class="hljs-string">`for/of`</span> instead</code></pre><h2 id="function-context">Function Context</h2>
+    - selector: CallExpression[callee.property.name=&quot;forEach&quot;]
+      message: Do not use `forEach()`, use `for/of` instead</code></pre><h2 id="function-context">Function Context</h2>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#Function_context">Function context</a> is a fancy way of saying what <code>this</code> refers to. <code>for</code>, <code>for/in</code>, and <code>for/of</code> retain the outside scope&#39;s value of <code>this</code>, but the <code>forEach()</code> callback will have a different <code>this</code> <em>unless</em> you use an <a href="https://medium.freecodecamp.org/learn-es6-the-dope-way-part-ii-arrow-functions-and-the-this-keyword-381ac7a32881">arrow function</a>.</p>
 <pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
 

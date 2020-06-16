@@ -91,13 +91,13 @@ if the outdated API is used.</p>
 was async, Monogram would still retain the original stack trace from the initial
 function call.</p>
 <pre><code>$ node test.js
-<span class="hljs-built_in">Error</span>: MongoDB driver <span class="hljs-number">3.</span>x does not allow passing projection <span class="hljs-keyword">as</span> <span class="hljs-number">2</span>nd arg to find(). Use <span class="hljs-string">`projection`</span> instead. Got { key1: <span class="hljs-number">1</span> }
-    at <span class="hljs-built_in">Object</span>.db.collection.pre.action [<span class="hljs-keyword">as</span> fn] (<span class="hljs-regexp">/home/</span>project/test.js:<span class="hljs-number">16</span>:<span class="hljs-number">13</span>)
-    at /home/project/node_modules/monogram/lib/collection.js:<span class="hljs-number">109</span>:<span class="hljs-number">24</span>
-    at Generator.next (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">anonymous</span>&gt;</span>)</span>
-    at onFulfilled (<span class="hljs-regexp">/home/</span>project/node_modules/co/index.js:<span class="hljs-number">65</span>:<span class="hljs-number">19</span>)
+Error: MongoDB driver 3.x does not allow passing projection as 2nd arg to find(). Use `projection` instead. Got { key1: 1 }
+    at Object.db.collection.pre.action [as fn] (/home/project/test.js:16:13)
+    at /home/project/node_modules/monogram/lib/collection.js:109:24
+    at Generator.next (&lt;anonymous&gt;)
+    at onFulfilled (/home/project/node_modules/co/index.js:65:19)
     at &lt;anonymous&gt;
-    at process._tickCallback (internal/process/next_tick.js:<span class="hljs-number">188</span>:<span class="hljs-number">7</span>)</code></pre><h2 id="moving-on">Moving On</h2>
+    at process._tickCallback (internal/process/next_tick.js:188:7)</code></pre><h2 id="moving-on">Moving On</h2>
 <p><a href="https://www.npmjs.com/package/monogram">Monogram</a> provides a neat lightweight
 middleware API on top of the <a href="https://www.npmjs.com/package/mongodb">MongoDB Node.js Driver</a> for teams that find <a href="https://www.npmjs.com/package/mongoose">Mongoose</a> too heavyweight. If you&#39;re
 using the MongoDB Node.js Driver directly and are stuck on 2.x, give Monogram

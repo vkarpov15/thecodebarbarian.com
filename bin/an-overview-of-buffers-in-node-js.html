@@ -20,10 +20,10 @@ MongoDB and <a href="https://mongoosejs.com/">Mongoose</a>.</p>
 <p>The <code>Buffer</code> class is a global variable in Node.js. Here&#39;s how you create a
 Buffer with 1 byte using the Node.js shell.</p>
 <pre><code>$ node -v
-v8<span class="hljs-number">.9</span><span class="hljs-number">.4</span>
+v8.9.4
 $ node
-&gt; Buffer.alloc(<span class="hljs-number">1</span>)
-&lt;Buffer <span class="hljs-number">00</span>&gt;
+&gt; Buffer.alloc(1)
+&lt;Buffer 00&gt;
 &gt;</code></pre><p>Node.js introduced the <a href="https://nodejs.org/api/buffer.html#buffer_class_method_buffer_alloc_size_fill_encoding"><code>Buffer.alloc()</code> function</a> in v5.10.0, so the above code won&#39;t work in older versions
 of Node.js. The above buffer isn&#39;t very useful, it just contains a single &#39;0&#39;
 byte. Let&#39;s create a more interesting buffer using the <a href="https://nodejs.org/api/buffer.html#buffer_class_method_buffer_from_array"><code>Buffer.from()</code> function</a>. Note that <code>0x</code> is how you <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-literals-numeric-literals">write a hexadecimal number in JavaScript</a>, so <code>console.log(0xf)</code> prints &quot;15&quot;.</p>

@@ -118,23 +118,23 @@ Sydney
 $</code></pre><p>Single link clustering has the nice property that you specify ahead of time the number of clusters you want. Depending on your use case, this can be good or bad, because it is prone to creating clusters with objects that are too dissimilar if the desired number of clusters is small. But, if you know the number of clusters you want and don&#39;t really care about outliers, single link is excellent.</p>
 <h2 id="clustering-user-behavior">Clustering User Behavior</h2>
 <p>The above example isn&#39;t that insightful because you can cluster more easily at a glance than by writing out an algorithm. However, clustering&#39;s usefulness isn&#39;t limited to simple two dimensional cases that you can easily visualize. Recently, I found myself putting together a single link algorithm to cluster users based on the site functionality they use. For example, below is a CSV file <code>access.csv</code> that contains data on users and what endpoints they accessed.</p>
-<pre><code>User <span class="hljs-number">1</span>,GET /v2/Driver,<span class="hljs-number">2</span>
-User <span class="hljs-number">1</span>,GET /v2/Assignment,<span class="hljs-number">1</span>
-User <span class="hljs-number">1</span>,PUT /v2/Assignment,<span class="hljs-number">5</span>
-User <span class="hljs-number">1</span>,GET /v2/Region,<span class="hljs-number">1</span>
-User <span class="hljs-number">1</span>,GET /v2/Tanker,<span class="hljs-number">2</span>
-User <span class="hljs-number">2</span>,GET /v2/Promotion,<span class="hljs-number">7</span>
-User <span class="hljs-number">2</span>,GET /v2/Customer,<span class="hljs-number">7</span>
-User <span class="hljs-number">2</span>,PUT /v2/Customer,<span class="hljs-number">1</span>
-User <span class="hljs-number">2</span>,GET /v2/Region,<span class="hljs-number">5</span>
-User <span class="hljs-number">3</span>,GET /v2/Driver,<span class="hljs-number">9</span>
-User <span class="hljs-number">3</span>,GET /v2/Assignment,<span class="hljs-number">11</span>
-User <span class="hljs-number">3</span>,PUT /v2/Assignment,<span class="hljs-number">120</span>
-User <span class="hljs-number">3</span>,GET /v2/Region,<span class="hljs-number">11</span>
-User <span class="hljs-number">3</span>,GET /v2/Tanker,<span class="hljs-number">10</span>
-User <span class="hljs-number">4</span>,GET /v2/Promotion, <span class="hljs-number">34</span>
-User <span class="hljs-number">4</span>,GET /v2/Customer,<span class="hljs-number">22</span>
-User <span class="hljs-number">4</span>,GET /v2/Region,<span class="hljs-number">8</span></code></pre><p>This data set is small and relatively easy to wrap your head around, but if you had thousands of rows like this, you would have a hard time grouping users manually. For the purposes of this data, the distance metric for clustering will be the minimum between what endpoints are in cluster <code>i</code> but not cluster <code>j</code>, and what endpoints are in cluster <code>j</code> but not cluster <code>i</code>, weighted by the number of times the endpoint was hit. Intuitively, if one user used a subset of the endpoints another user used, they should be considered as part of the same group. This wouldn&#39;t work well if one user was a &quot;super user&quot; that accessed all the endpoints, but in this simple example this distance metric is sufficient to get a sensible result. Below is the implementation.</p>
+<pre><code>User 1,GET /v2/Driver,2
+User 1,GET /v2/Assignment,1
+User 1,PUT /v2/Assignment,5
+User 1,GET /v2/Region,1
+User 1,GET /v2/Tanker,2
+User 2,GET /v2/Promotion,7
+User 2,GET /v2/Customer,7
+User 2,PUT /v2/Customer,1
+User 2,GET /v2/Region,5
+User 3,GET /v2/Driver,9
+User 3,GET /v2/Assignment,11
+User 3,PUT /v2/Assignment,120
+User 3,GET /v2/Region,11
+User 3,GET /v2/Tanker,10
+User 4,GET /v2/Promotion, 34
+User 4,GET /v2/Customer,22
+User 4,GET /v2/Region,8</code></pre><p>This data set is small and relatively easy to wrap your head around, but if you had thousands of rows like this, you would have a hard time grouping users manually. For the purposes of this data, the distance metric for clustering will be the minimum between what endpoints are in cluster <code>i</code> but not cluster <code>j</code>, and what endpoints are in cluster <code>j</code> but not cluster <code>i</code>, weighted by the number of times the endpoint was hit. Intuitively, if one user used a subset of the endpoints another user used, they should be considered as part of the same group. This wouldn&#39;t work well if one user was a &quot;super user&quot; that accessed all the endpoints, but in this simple example this distance metric is sufficient to get a sensible result. Below is the implementation.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> userDataCSV = fs.readFileSync(<span class="hljs-string">'./access.csv'</span>, <span class="hljs-string">'utf8'</span>).trim();
 
 <span class="hljs-keyword">const</span> data = userDataCSV.split(<span class="hljs-string">'\n'</span>).map(line =&gt; line.split(<span class="hljs-string">','</span>)).map(cols =&gt; ({
@@ -200,11 +200,11 @@ User <span class="hljs-number">4</span>,GET /v2/Region,<span class="hljs-number"
 }</code></pre>
 <p>The output clusters users 1 and 3 together, and users 2 and 4 together, as expected.</p>
 <pre><code>$ node cluster-users.js
-User <span class="hljs-number">1</span>
-User <span class="hljs-number">3</span>
+User 1
+User 3
 -----
-User <span class="hljs-number">2</span>
-User <span class="hljs-number">4</span>
+User 2
+User 4
 -----
 $</code></pre><h2 id="moving-on">Moving On</h2>
 <p>Clustering is a very useful tool for analyzing data that you don&#39;t understand. Finding groups can help you categorize the data, and categorized data is easier to wrap your head around. The hard part is choosing a distance metric that makes sense: the above distance metric for user data isn&#39;t very robust and is prone to being rendered useless by one outlier. However, even if a distance metric provides you with a bad categorization, it can still provide you valuable insight.</p>
