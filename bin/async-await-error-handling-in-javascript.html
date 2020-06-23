@@ -114,7 +114,7 @@ to write Golang in JavaScript.</p>
     err.message; <span class="hljs-comment">// 'Oops'</span>
   }
 
-  err = <span class="hljs-keyword">await</span> noError().
+  [err, res] = <span class="hljs-keyword">await</span> noError().
     then(v =&gt; [<span class="hljs-literal">null</span>, v], err =&gt; [err, <span class="hljs-literal">null</span>]);
   err; <span class="hljs-comment">// null</span>
   res; <span class="hljs-comment">// 42</span>

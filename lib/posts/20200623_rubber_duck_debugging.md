@@ -43,7 +43,13 @@ solution. That's where the rubber duck comes in. By taking a step back
 and _explaining the problem_ rather than trying to implement your proposed
 solution, you may find new potential solutions or flaws with your solution.
 
-Even better, by trying to explain the problem, you're forced to both
+In addition to explaining the problem, it often helps to imagine the rubber
+duck is a colleague who asks you clarifying questions. "What exactly
+is the behavior you're seeing?" and "what makes you think that component X
+isn't working correctly?" are two great questions that help you take a
+step back and define the issue you're seeing.
+
+By trying to explain the problem, you're forced to both
 define the exact issue (HTTP request returns an empty result), and
 dive into why the issue is happening. This is an especially important
 skill in full-stack web development, because there's so many layers
