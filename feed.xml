@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 02 Jul 2020 15:24:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 02 Jul 2020 15:28:09 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -13,7 +13,7 @@
         </image>
         <generator>Feed for Node.js</generator>
         <item>
-            <title><![CDATA[Sending Emails Using the Mailgun API]]></title>
+            <title><![CDATA[Sending Emails from Node.js Using the Mailgun API]]></title>
             <link>http://www.thecodebarbarian.com/sending-emails-using-the-mailgun-api.html</link>
             <guid>http://www.thecodebarbarian.com/sending-emails-using-the-mailgun-api.html</guid>
             <pubDate>Thu, 02 Jul 2020 04:00:00 GMT</pubDate>
