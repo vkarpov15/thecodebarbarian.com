@@ -1,0 +1,187 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Sending Emails Using the Mailgun API | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Sending Emails Using the Mailgun API"><meta property="og:url" content="http://www.thecodebarbarian.com/sending-emails-using-the-mailgun-api"><meta property="og:image" content="/images/sobe3.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mailgun is my go-to tool for sending emails from Node.js. Here's how you can use Mailgun to send emails."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Sending Emails Using the Mailgun API</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 02, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>For the last 5 years, I&#39;ve been using <a href="https://www.mailgun.com/homepage/">Mailgun</a> to send all my transactional
+emails. Mailgun&#39;s API is easy to work with, and their UI has excellent logging that makes it easy to figure out
+whether an email was actually sent. Here&#39;s how you can get started with Mailgun and Node.js.</p>
+<h2 id="your-first-email">Your First Email</h2>
+<p>Once you sign up and <a href="https://signup.mailgun.com/new/signup">get a Mailgun API key</a>, the first thing Mailgun
+shows you is how to send a test email to yourself from the command line with <a href="/what-javascript-developers-should-know-about-curl.html">curl</a>.</p>
+<img src="/images/mailgun-curl.jpg" class="inline-image">
+
+<p>Try running the curl command and you should get a sample email that looks like what you see below. Note that
+the email is from a Mailgun sandbox domain. Mailgun makes it easy to send emails from one of your domains as
+well, but the sandbox is sufficient for testing.</p>
+<img src="/images/mailgun-sample.jpg" class="inline-image">
+
+<p>Sending emails from Node.js is easy using Mailgun&#39;s official <a href="https://www.npmjs.com/package/mailgun-js">mailgun-js npm module</a>. Run <code>npm install mailgun-js</code> and you should be able to run the below script to send a sample
+email. Just make sure to set your <code>domain</code> and <code>apiKey</code> to the correct values.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> apiKey = <span class="hljs-string">'your api key here'</span>;
+<span class="hljs-keyword">const</span> domain = <span class="hljs-string">'your domain here'</span>;
+
+<span class="hljs-keyword">const</span> mailgun = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mailgun-js'</span>)({ domain, apiKey });
+
+mailgun.
+  messages().
+  send({
+    <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+      to: <span class="hljs-string">'your email here'</span>,
+      subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+      text: <span class="hljs-string">'This is a test'</span>
+  }).
+  then(res =&gt; <span class="hljs-built_in">console</span>.log(res)).
+  <span class="hljs-keyword">catch</span>(err =&gt; <span class="hljs-built_in">console</span>.err(err));</code></pre>
+<h2 id="templating-and-styles">Templating and Styles</h2>
+<p>Plain text emails are fine for a simple test, but what about sending pretty HTML emails? There are a few nuances
+with HTML emails that you should be aware of:</p>
+<ul>
+<li>Styles must be inlined, because not all email clients support style tags. In other words, you can&#39;t use CSS classes with emails, you must do <code>&lt;div style=&quot;...&quot;&gt;</code> for all your HTML elements.</li>
+<li>Images cannot be SVGs, because many email clients don’t support SVG, including Gmail.</li>
+<li>Different clients render emails differently, so you need to test on multiple clients.</li>
+</ul>
+<p>In particular, designing emails with inlined CSS styles gets a bit cumbersome. The <a href="https://www.npmjs.com/package/inline-css">inline-css npm module</a> is great for converting <code>style</code> tags into inline styles before sending your email.
+Below is an example of using <code>inline-css</code> to compile HTML with <code>style</code> tags into something email-friendly.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> inlineCSS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inline-css'</span>);
+<span class="hljs-keyword">const</span> mailgun = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mailgun-js'</span>)({ domain, apiKey });
+
+<span class="hljs-keyword">const</span> template = <span class="hljs-string">`
+&lt;div&gt;
+  &lt;style&gt;
+    h1 { color: green; }
+  &lt;/style&gt;
+
+  &lt;h1&gt;Hello, World&lt;/h1&gt;
+&lt;/div&gt;
+`</span>;
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> html = <span class="hljs-keyword">await</span> inlineCSS(template, { url: <span class="hljs-string">'fake'</span> });
+
+  <span class="hljs-keyword">await</span> mailgun.messages().send({
+    <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+      to: <span class="hljs-string">'your email here'</span>,
+    subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+    html,
+      text: <span class="hljs-string">'Hello, World'</span>
+  });
+}</code></pre>
+<p>The <code>inline-css</code> module has a couple quirks. First, it is async, because it supports dereferencing remote
+styles defined using <code>&lt;link href=&quot;...&quot;&gt;</code>. Second, it requires a <code>url</code> option, but if you&#39;re just using it
+to process an inline <code>style</code> tag, you can put a placeholder value.</p>
+<p>There are numerous options for templating HTML emails, like <a href="https://www.npmjs.com/package/pug">Pug</a> or <a href="https://www.npmjs.com/package/handlebars">Handlebars</a>. These days I prefer <a href="https://www.getrevue.co/profile/masteringjs/issues/building-and-testing-email-templating-using-vue-257729">using Vue for email templating</a>.
+The <a href="https://www.npmjs.com/package/vue-server-renderer">vue-server-renderer npm module</a> makes it easy to convert
+a Vue app to HTML from Node, with no transpilers required. Below is an example of combining Vue and <code>inline-css</code>
+to create an HTML email with templating and inline styles.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> inlineCSS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'inline-css'</span>);
+<span class="hljs-keyword">const</span> mailgun = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mailgun-js'</span>)({ domain, apiKey });
+<span class="hljs-keyword">const</span> { renderToString } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue-server-renderer'</span>).createRenderer();
+<span class="hljs-keyword">const</span> Vue = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vue'</span>);
+
+<span class="hljs-keyword">const</span> template = <span class="hljs-string">`
+&lt;div&gt;
+  &lt;style&gt;
+    h1 { color: green; }
+  &lt;/style&gt;
+
+  &lt;h1&gt;{{message}}&lt;/h1&gt;
+&lt;/div&gt;
+`</span>;
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue({
+    data: () =&gt; ({ message: <span class="hljs-string">'Hello, World'</span> }),
+    template
+  });
+
+  <span class="hljs-keyword">let</span> html = <span class="hljs-keyword">await</span> renderToString(app);
+  html = <span class="hljs-keyword">await</span> inlineCSS(html, { url: <span class="hljs-string">'fake'</span> });
+
+  <span class="hljs-keyword">await</span> mailgun.messages().send({
+    <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+    to: <span class="hljs-string">'your email here'</span>,
+    subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+    html,
+    text: <span class="hljs-string">'Hello, World'</span>
+  });
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Sent!'</span>);
+}</code></pre>
+<h2 id="attachments">Attachments</h2>
+<p>Mailgun also makes it easy to send attachments. Easy attachments is why I use Mailgun to send confirmation
+emails for my <a href="https://masteringjs.io/ebooks/mastering-mongoose">eBooks</a>. For example, suppose you want to
+send an <a href="https://thecodebarbarian.com/creating-epub-files-with-node-js.html">epub</a> of the classic novel
+<em>Moby-Dick</em> as an email attachment. To add an attachment, all you need to do is set the <code>attachment</code> property
+to the path to the file you want to attach.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> mailgun.messages().send({
+  <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+  to: <span class="hljs-string">'your email here'</span>,
+  subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+  html,
+  text: <span class="hljs-string">'Hello, World'</span>,
+  <span class="hljs-comment">// Adding an attachment is as easy as putting a path to the file</span>
+  attachment: <span class="hljs-string">'./moby-dick.epub'</span>
+});</code></pre>
+<p>For multiple attachments, you can set the <code>attachment</code> property to be an array of file paths:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> mailgun.messages().send({
+  <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+  to: <span class="hljs-string">'your email here'</span>,
+  subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+  html,
+  text: <span class="hljs-string">'Hello, World'</span>,
+  <span class="hljs-comment">// Multiple attachments</span>
+  attachment: [<span class="hljs-string">'./moby-dick.epub'</span>, <span class="hljs-string">'./mastering-mongoose.pdf'</span>]
+});</code></pre>
+<p>For more sophisticated attachments, you can also send a <a href="/an-overview-of-buffers-in-node-js.html">Node.js buffer</a>
+as an attachment. Just make sure you create a new instance of <code>mailgun.Attachment</code> as shown below.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> mailgun.messages().send({
+  <span class="hljs-keyword">from</span>: <span class="hljs-string">`test@<span class="hljs-subst">${domain}</span>`</span>,
+  to: <span class="hljs-string">'your email here'</span>,
+  subject: <span class="hljs-string">'Hello from Mailgun'</span>,
+  html,
+  text: <span class="hljs-string">'Hello, World'</span>,
+  <span class="hljs-comment">// Custom attachment with raw data stored in a buffer</span>
+  attachment: <span class="hljs-keyword">new</span> mailgun.Attachment({
+    data: Buffer.from(<span class="hljs-string">'Hello, World'</span>),
+    filename: <span class="hljs-string">'message.txt'</span>
+  })
+});</code></pre>
+<p>From the Mailgun dashboard, you can get detailed logs about individual emails. For example, if you find the
+above email in your Mailgun logs, you can see the raw email that was sent, including the HTML content
+and the base 64 encoded attachment.</p>
+<img src="/images/mailgun-logs.jpg" class="inline-image">
+
+<h2 id="moving-on">Moving On</h2>
+<p>I&#39;ve used numerous tools for sending emails, like Amazon SES and Mailchimp. Mailgun is by far my preferred choice:
+simple API, great logging, and helpful support. Next time you find yourself needing to build out email infrastructure,
+check out Mailgun!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
