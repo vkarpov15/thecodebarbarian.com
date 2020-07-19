@@ -3,32 +3,8 @@ thecodebarbarian.com
 
 The www.thecodebarbarian.com website
 
-## Contributors
+## Sponsors
 
-### Code Contributors
+A special thanks to everyone who supports my work on [GitHub sponsors](https://github.com/sponsors/vkarpov15)!
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/vkarpov15/thecodebarbarian.com/graphs/contributors"><img src="https://opencollective.com/thecodebarbarian/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/thecodebarbarian/contribute)]
-
-#### Individuals
-
-<a href="https://opencollective.com/thecodebarbarian"><img src="https://opencollective.com/thecodebarbarian/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/thecodebarbarian/contribute)]
-
-<a href="https://opencollective.com/thecodebarbarian/organization/0/website"><img src="https://opencollective.com/thecodebarbarian/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/1/website"><img src="https://opencollective.com/thecodebarbarian/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/2/website"><img src="https://opencollective.com/thecodebarbarian/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/3/website"><img src="https://opencollective.com/thecodebarbarian/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/4/website"><img src="https://opencollective.com/thecodebarbarian/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/5/website"><img src="https://opencollective.com/thecodebarbarian/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/6/website"><img src="https://opencollective.com/thecodebarbarian/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/7/website"><img src="https://opencollective.com/thecodebarbarian/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/8/website"><img src="https://opencollective.com/thecodebarbarian/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/thecodebarbarian/organization/9/website"><img src="https://opencollective.com/thecodebarbarian/organization/9/avatar.svg"></a>
+<img class="avatar avatar-user" height="35" width="35" alt="@jdrumgoole" src="https://avatars3.githubusercontent.com/u/97294?s=88&amp;u=2dfde30b755f37337df936a48c85b883372bc414&amp;v=4">
