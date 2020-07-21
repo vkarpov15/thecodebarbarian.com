@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Working with Zip Files in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Working with Zip Files in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/working-with-zip-files-in-node-js"><meta property="og:image" content="/images/zagreb.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mailgun is my go-to tool for sending emails from Node.js. Here's how you can use Mailgun to send emails."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Working with Zip Files in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 21, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://en.wikipedia.org/wiki/Zip_(file_format)">Zip files</a> are a common format for compressed files and folders.
+Most developers end up using <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarballs</a> instead of zip files. But there are certain
+cases where you are required to use zip files, like <a href="https://thecodebarbarian.com/bundling-a-node-js-function-for-aws-lambda-with-webpack">uploading a function to AWS Lambda</a>. In this article, I&#39;ll demonstrate how to use the
+<a href="https://www.npmjs.com/package/adm-zip">adm-zip npm module</a> to create and extract zip files.</p>
+<h2 id="creating-a-zip-file">Creating a Zip File</h2>
+<p>The adm-zip npm module exports an <code>AdmZip</code> class. <a href="https://github.com/cthackers/adm-zip/wiki/ADM-ZIP">An instance of <code>AdmZip</code> corresponds to a zip file</a>. To create a new zip file, call <code>new AdmZip()</code> with no arguments:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip();</code></pre>
+<p>There are several ways you can add files and directories to <code>file</code>. You can add files and directories from your
+file system by name using <code>file.addLocalFile()</code> and <code>file.addLocalFolder()</code>. For example, below is how you can
+add a <code>package.json</code> file and a <code>node_modules</code> directory to a zip file:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip();
+
+file.addLocalFile(<span class="hljs-string">'./package.json'</span>);
+<span class="hljs-comment">// The 2nd `node_modules` param is the path to the directory in the zip.</span>
+<span class="hljs-comment">// Without the 2nd param, every dir in `./node_modules` will be a top-level</span>
+<span class="hljs-comment">// directory in the zip file.</span>
+file.addLocalFolder(<span class="hljs-string">'./node_modules'</span>, <span class="hljs-string">'node_modules'</span>);</code></pre>
+<p>You can then write the file using one of two methods: either by converting the zip file to a <a href="/an-overview-of-buffers-in-node-js">Node.js buffer</a> using <code>toBuffer()</code>, by using <code>file.writeZip()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// One way to write the zip file: convert it to a buffer and use `fs`</span>
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.writeFileSync(<span class="hljs-string">'output.zip'</span>, file.toBuffer());
+
+<span class="hljs-comment">// Another way to write the zip file: `writeZip()`</span>
+file.writeZip(<span class="hljs-string">'output.zip'</span>);</code></pre>
+<p>Once you write the <code>output.zip</code> file, you should be able to open it in your zip utility of choice. Below is what
+the file looks like in <a href="http://manpages.ubuntu.com/manpages/bionic/man1/engrampa.1.html">engrampa</a>, Xubuntu&#39;s default
+archive manager.</p>
+<img src="/images/zipfile.png" class="inline-image" />
+
+<p>The 2nd parameter to both <code>addLocalFile()</code> and <code>addLocalFolder()</code> is the path to put the file, or the directory&#39;s contents,
+in the zip. For example, if you want to put both <code>package.json</code> and <code>node_modules</code> underneath a <code>project</code> directory,
+you can run the below script:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip();
+
+file.addLocalFile(<span class="hljs-string">'./package.json'</span>, <span class="hljs-string">'project'</span>);
+file.addLocalFolder(<span class="hljs-string">'./node_modules'</span>, <span class="hljs-string">'project/node_modules'</span>);
+
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.writeFileSync(<span class="hljs-string">'output.zip'</span>, file.toBuffer());</code></pre>
+<p>You can also add a file from a raw Node.js buffer using the <code>file.addFile()</code> method. For example, here&#39;s how you
+can add a text file containing the string &#39;Hello, World&#39; to your zip file, without actually creating a file on
+your file system.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip();
+
+file.addFile(<span class="hljs-string">'hello.txt'</span>, Buffer.fromString(<span class="hljs-string">'Hello, World'</span>));
+
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+fs.writeFileSync(<span class="hljs-string">'output.zip'</span>, file.toBuffer());</code></pre>
+<h2 id="working-with-existing-files">Working with Existing Files</h2>
+<p>If you pass a parameter to the <code>AdmZip</code> constructor, adm-zip will parse the file at the given path. For example,
+below is how you can extract everything from the <code>output.zip</code> file to the directory <code>output</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip(<span class="hljs-string">'./output.zip'</span>);
+
+file.extractAllTo(<span class="hljs-string">'./output'</span>);</code></pre>
+<p>You can also extract individual files from the zip file using <code>file.extractEntryTo()</code>. For example, here&#39;s how
+you can pull out the <code>hello.txt</code> file from the zip file and write it to the current directory:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> AdmZip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'adm-zip'</span>);
+
+<span class="hljs-keyword">const</span> file = <span class="hljs-keyword">new</span> AdmZip(<span class="hljs-string">'./output.zip'</span>);
+
+file.extractEntryTo(<span class="hljs-string">'hello.txt'</span>, <span class="hljs-string">'./'</span>);</code></pre>
+<p>You can use <code>addLocalFile()</code>, <code>addLocalFolder()</code>, and <code>addFile()</code> with existing files as well.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>For better or for worse, zip files are commonly used for compression. Some services, like AWS Lambda, require you to
+work with zip files. Thankfully, the adm-zip npm module makes it easy to create and extract zip files directly from
+Node.js.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
