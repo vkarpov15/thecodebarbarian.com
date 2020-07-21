@@ -1,0 +1,175 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Working with the Slack API in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Working with the Slack API in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/working-with-the-slack-api-in-node-js"><meta property="og:image" content="/images/nyc2.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Here's how you can use Node.js to send messages to Slack."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Working with the Slack API in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 28, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>Integrating with the <a href="https://api.slack.com/">Slack API</a> is becoming an increasingly common task. Slack is the de facto
+communication platform for many companies, so there&#39;s a lot of demand for getting data from Node.js apps to Slack
+in realtime. In this article, I&#39;ll explain the basics of how to send a Slack message from Node.js.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>There are two npm modules that I recommend for working with the Slack API: the <a href="https://www.npmjs.com/package/@slack/web-api">official <code>@slack/web-api</code> module</a> and the <a href="https://www.npmjs.com/package/slack"><code>slack</code> module</a> written primarily
+by <a href="https://www.youtube.com/watch?v=et8xNAc2ic8">Brian LeRoux of WTFJS fame</a>. I&#39;ve also used <a href="https://www.npmjs.com/package/node-slack">node-slack</a> in the past, but that module is fairly out of date. However, both <code>@slack/web-api</code> and <code>slack</code> are
+fairly thin wrappers around the Slack API, so, for the purposes of this article, we&#39;ll just use <a href="https://www.npmjs.com/package/axios">axios</a>.</p>
+<p>In order to make an API request to Slack, you need a Slack token. There are <a href="https://api.slack.com/authentication/token-types">several types of Slack token</a>, each with its own permissions. For example, an <a href="/oauth-with-node-js-and-express.html">OAuth</a> token
+lets you post messages on behalf of a user. But, for the purposes of this article, I&#39;ll be using <a href="https://api.slack.com/authentication/token-types#bot">bot user tokens</a>. Bot user tokens let you post messages as a bot user, with a custom name
+and avatar, as opposed to as an existing user.</p>
+<p>In order to get a bot user token, you first need to <a href="https://api.slack.com/apps">create a new Slack app</a>. Make sure
+you set &quot;Development Slack Workspace&quot; to the Slack Workspace you want to use.</p>
+<img src="/images/slack-test-app.png" class="inline-image" />
+
+<p>Next, go through the steps to create a bot user. You&#39;ll have to add <em>scopes</em> (permissions) to your bot user, and then
+install your app. First, make sure you add the following scopes to your bot user:</p>
+<ul>
+<li><code>chat-write</code></li>
+<li><code>chat-write.customize</code></li>
+<li><code>chat-write.public</code></li>
+</ul>
+<img src="/images/slack-scopes.png" class="inline-image" />
+
+<p>Once you&#39;ve added the above scopes, click &quot;Install App&quot; to install this new Slack app to your workspace. Once you&#39;ve
+installed the app, Slack will give you a bot user token:</p>
+<img src="/images/slack-bot-token.png" class="inline-image" />
+
+<h2 id="making-your-first-request">Making Your First Request</h2>
+<p>To send a message to a Slack channel, you need to make an HTTP POST request to <a href="https://api.slack.com/methods/chat.postMessage">the <code>https://slack.com/api/chat.postMessage</code> endpoint</a> with your Slack token in the <a href="https://masteringjs.io/tutorials/axios/authorization">authorization header</a>. The POST request body must contain the <code>channel</code> you want to post to, and the <code>text</code>
+of your message.</p>
+<p>Below is how you can send a &#39;Hello, World&#39; message with Axios. Note that you must have a <code>#test</code> channel in your Slack
+workspace for the below request to work.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">const</span> slackToken = <span class="hljs-string">'xoxb-YOUR-TOKEN_HERE'</span>;
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://slack.com/api/chat.postMessage'</span>;
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+    channel: <span class="hljs-string">'#test'</span>,
+    text: <span class="hljs-string">'Hello, World!'</span>
+  }, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${slackToken}</span>`</span> } });
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>, res.data);
+}</code></pre>
+<p>If the request is successful, the response will look something like what you see below:</p>
+<pre><code>{
+  ok: true,
+  channel: &#39;C0179PL5K8E&#39;,
+  ts: &#39;1595354927.001300&#39;,
+  message: {
+    bot_id: &#39;B017GED1UEN&#39;,
+    type: &#39;message&#39;,
+    text: &#39;Hello, World!&#39;,
+    user: &#39;U0171MZ51E3&#39;,
+    ts: &#39;1595354927.001300&#39;,
+    team: &#39;T2CA1AURM&#39;,
+    bot_profile: {
+      id: &#39;B017GED1UEN&#39;,
+      deleted: false,
+      name: &#39;My Test App&#39;,
+      updated: 1595353545,
+      app_id: &#39;A017NKGAKHA&#39;,
+      icons: [Object],
+      team_id: &#39;T2CA1AURM&#39;
+    }
+  }
+}</code></pre><p>And you should see the below message show up in your <code>#test</code> channel.</p>
+<img src="/images/slack-message.png" class="inline-image">
+
+<p>Because of the <code>chat-write.customize</code> scope, this bot can customize the name and avatar associated with this message.
+For example, you can set the <code>username</code> and <code>icon_emoji</code> properties to customize the user your messages come from
+as shown below.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+  channel: <span class="hljs-string">'#test2'</span>,
+  text: <span class="hljs-string">'Hello, World!'</span>,
+  username: <span class="hljs-string">'Test App'</span>,
+  icon_emoji: <span class="hljs-string">':+1:'</span>
+}, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${slackToken}</span>`</span> } });</code></pre>
+<p>Below is how the above message looks in Slack.</p>
+<img src="/images/slack-message-2.png" class="inline-image">
+
+<h2 id="more-sophisticated-features">More Sophisticated Features</h2>
+<p>You can send plain text messages, but Slack allows you to add formatting to messages using a <a href="https://api.slack.com/reference/surfaces/formatting">custom formatting language called mrkdwn</a>. Slack&#39;s mrkdwn language is conceptually similar to <a href="https://www.markdownguide.org/">markdown</a>. Most notably, mrkdwn supports code samples in much the same way markdown supports code snippets:</p>
+<pre><code>- `foo` with backticks makes &quot;foo&quot; an inline code block.
+- Multi-line code blocks are fenced with three backticks ```</code></pre><p>But there are also several important differences:</p>
+<ul>
+<li><code>*foo*</code> makes foo <strong>bold</strong> in mrkdwn, as opposed to <em>italic</em> in markdown. To make text italic in mrkdwn, you should do <code>_foo_</code>.</li>
+<li>To make the substring &quot;Google&quot; link to <code>https://www.google.com/</code> in mrkdwn, you need to write <code>&lt;https://www.google.com/|Google&gt;</code></li>
+<li>Mrkdwn does <strong>not</strong> support custom HTML. Any HTML is valid Markdown, but not mrkdwn.</li>
+</ul>
+<p>For example, here&#39;s how you can send a message with some basic formatting, including a code block.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://slack.com/api/chat.postMessage'</span>;
+
+<span class="hljs-keyword">const</span> text = <span class="hljs-string">`
+Check out this *cool* function!
+
+\`\`\`
+<span class="hljs-subst">${hello.toString()}</span>
+\`\`\`
+`</span>;
+
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+  channel: <span class="hljs-string">'#test'</span>,
+  text,
+  username: <span class="hljs-string">'Test App'</span>,
+  icon_emoji: <span class="hljs-string">':+1:'</span>
+}, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${slackToken}</span>`</span> } });</code></pre>
+<p>Here&#39;s what the above message looks like:</p>
+<img src="/images/slack-message-3.png" class="inline-image">
+
+<p>Slack also supports more sophisticated layouts via <a href="https://api.slack.com/reference/surfaces/formatting#block-formatting">blocks</a>.
+Instead of specifying a message&#39;s <code>text</code>, you can specify a <code>blocks</code> array. There are several different <a href="https://api.slack.com/reference/block-kit/blocks#section">types of blocks</a>, including a generic <code>section</code> block and an <code>image</code> block for pictures.</p>
+<p>For example, below is a simplified example of sending a notification that a new order came in to an eCommerce platform, including
+a qr code image.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+  channel: <span class="hljs-string">'#test'</span>,
+  blocks: [
+    {
+      type: <span class="hljs-string">'section'</span>,
+      text: { type: <span class="hljs-string">'mrkdwn'</span>, text: <span class="hljs-string">'New order!'</span> },
+      fields: [
+        { type: <span class="hljs-string">'mrkdwn'</span>, text: <span class="hljs-string">'*Name*\nJohn Smith'</span> },
+        { type: <span class="hljs-string">'mrkdwn'</span>, text: <span class="hljs-string">'*Amount*\n$8.50'</span> },
+      ]
+    },
+    {
+      type: <span class="hljs-string">'image'</span>,
+      image_url: <span class="hljs-string">'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'</span>,
+      alt_text: <span class="hljs-string">'qrcode'</span>
+    }
+  ],
+  username: <span class="hljs-string">'Test App'</span>,
+  icon_emoji: <span class="hljs-string">':+1:'</span>
+}, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${slackToken}</span>`</span> } });</code></pre>
+<p>Below is what the above message looks like in Slack.</p>
+<img src="/images/slack-image-5.png" class="inline-image">
+
+<h2 id="moving-on">Moving On</h2>
+<p>Once you get a bot token, working with the Slack API from Node.js is fairly straightforward. You can send neatly formatted
+messages to Slack to notify them of events they might be interested in, whether they be coworkers at your company or
+clients using one of your products.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
