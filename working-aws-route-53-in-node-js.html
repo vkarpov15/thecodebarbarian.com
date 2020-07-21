@@ -27,7 +27,6 @@ about <a href="https://masteringjs.io/tutorials/node/s3">setting up the AWS SDK 
 all domains that you have registered on Route 53. AWS calls a domain a
 &quot;hosted zone&quot;.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> AWS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aws-sdk'</span>);
-<span class="hljs-keyword">const</span> { promisify } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 
 <span class="hljs-keyword">const</span> accessKeyId = <span class="hljs-string">'aws key here'</span>;
 <span class="hljs-keyword">const</span> secretAccessKey = <span class="hljs-string">'aws secret here'</span>;
@@ -43,9 +42,10 @@ AWS.config.update({
 run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// AWS SDK doesn't support promises as of this writing, so you need</span>
-  <span class="hljs-comment">// to explicitly promisify.</span>
-  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> promisify(route53.listHostedZones).call(route53);
+  <span class="hljs-comment">// AWS SDK methods don't return promises, but AWS requests have a</span>
+  <span class="hljs-comment">// `promise()` function. See:</span>
+  <span class="hljs-comment">// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Request.html#promise-property</span>
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> route53.listHostedZones().promise();
   <span class="hljs-built_in">console</span>.log(res);
 }</code></pre>
 <p>The output from the above script looks something like what you see below.
@@ -64,7 +64,7 @@ add a new record to the <code>mongoosejs.link</code> zone&#39;s <em>record set</
 set is just a list of DNS records.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// Create a CNAME for test-subdomain.mongoosejs.link - basically make</span>
 <span class="hljs-comment">// this subdomain redirect to mongoosejs.com.</span>
-<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> promisify(route53.changeResourceRecordSets).call(route53, {
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> route53.changeResourceRecordSets({
   HostedZoneId: <span class="hljs-string">'/hostedzone/ID for mongoosejs.link here'</span>,
   ChangeBatch: {
     Changes: [{ 
@@ -77,7 +77,7 @@ set is just a list of DNS records.</p>
       }
     }]
   }
-});
+}).promise();
 <span class="hljs-built_in">console</span>.log(res);</code></pre>
 <p>If the request succeeds, the output looks like this:</p>
 <pre><code>{ ChangeInfo:
@@ -86,7 +86,7 @@ set is just a list of DNS records.</p>
      SubmittedAt: 2020-04-15T14:39:59.496Z } }</code></pre><h2 id="deleting-a-subdomain">Deleting a Subdomain</h2>
 <p>Deleting a subdomain is easy: just change the <code>Action</code> parameter from
 &#39;CREATE&#39; to &#39;DELETE&#39;.</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> promisify(route53.changeResourceRecordSets).call(route53, {
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> route53.changeResourceRecordSets({
   HostedZoneId: <span class="hljs-string">'/hostedzone/ID for mongoosejs.link here'</span>,
   ChangeBatch: {
     Changes: [{ 
@@ -99,7 +99,7 @@ set is just a list of DNS records.</p>
       }
     }]
   }
-});
+}).promise();
 <span class="hljs-built_in">console</span>.log(res);</code></pre>
 <h2 id="moving-on">Moving On</h2>
 <p>The Route 53 API is fairly easy to work with. Once you register a domain,
