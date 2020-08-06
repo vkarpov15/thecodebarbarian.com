@@ -1,0 +1,211 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Building a CLI Tool with Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a CLI Tool with Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-cli-tool-with-node-js"><meta property="og:image" content="/images/baysunrise.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Here's how you can use Node.js to build a CLI for Slack."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a CLI Tool with Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 06, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://en.wikipedia.org/wiki/Command-line_interface">&quot;CLI&quot; stands for &quot;command-line interface&quot;</a>. CLIs are tools that
+let you be productive from the shell. Common CLI tools include <a href="/what-javascript-developers-should-know-about-curl.html">curl</a>,
+<a href="https://cli.vuejs.org/">Vue&#39;s CLI</a>, and the <a href="https://aws.amazon.com/cli/">Amazon Web Services CLI</a>.</p>
+<p>You can further break down CLIs into various types. In the JavaScript ecosystem, there are many CLIs that help you
+create new projects, like Vue&#39;s CLI, <a href="https://github.com/facebook/create-react-app">create-react-app</a>, and <a href="https://yeoman.io/">yeoman</a>.
+Some of these CLI tools take it one step further and write code for you after creating a new project, like the <a href="https://cli.angular.io/">Angular CLI</a>. Other CLIs provide a user-friendly interface for APIs, like the AWS CLI, <a href="https://kubernetes.io/docs/reference/kubectl/overview/">Kubernetes&#39; kubectl tool</a>, or <a href="https://github.com/cli/cli">GitHub&#39;s CLI</a>.</p>
+<p>In this article, I&#39;ll walk you through how to set up a basic CLI tool for the <a href="/working-with-the-slack-api-in-node-js.html">Slack API</a>,
+including how to post messages from the command line.</p>
+<h2 id="command-line-arguments">Command Line Arguments</h2>
+<p>The first thing almost every CLI needs is an argument parser, something that parses the <code>--file</code> part of
+<code>my-cli-tool --file ./package.json</code>. There are a lot of modules that parse command line arguments on npm, but
+I prefer <a href="https://www.npmjs.com/package/yargs">yargs</a>: the API is easy to work with, and the docs have pirate jokes.
+Run <code>npm install yargs</code>.</p>
+<p>The first order of business is to make a tool that can handle the command <code>slack postMessage --channel test &quot;Hello, World&quot;</code>. <code>slack</code>
+is the name of the tool, <code>postMessage</code> is a <em>command</em>, and <code>--channel test</code> and <code>&quot;Hello, World&quot;</code> are arguments. Here&#39;s how
+you can write a script that can parse this command using yargs:</p>
+<pre><code class="language-javascript"><span class="hljs-meta">'use strict'</span>;
+
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+
+yargs.command(
+  <span class="hljs-string">'postMessage [message]'</span>, <span class="hljs-comment">// Command name, plus a positional argument `message`</span>
+  <span class="hljs-string">'Send a message'</span>, <span class="hljs-comment">// Command description for `--help` output</span>
+  yargs =&gt; {
+    <span class="hljs-comment">// Add extra arguments to `postMessage`</span>
+    yargs.positional(<span class="hljs-string">'channel'</span>, { describe: <span class="hljs-string">'The channel to send the message to'</span>, <span class="hljs-keyword">default</span>: <span class="hljs-string">'test'</span> });
+  },
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-comment">// Handler function. This is where you should implement the command</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Send message to channel #<span class="hljs-subst">${argv.channel}</span>: <span class="hljs-subst">${argv.message}</span>`</span>);
+  });
+
+<span class="hljs-comment">// Need to access `yargs.argv`, otherwise yargs won't do anything.</span>
+yargs.argv;</code></pre>
+<p>That&#39;s it! If the above script is <code>index.js</code>, you can run the above script and get the below output.</p>
+<pre><code>$ node ./index.js postMessage --channel test2 &quot;Hello, World&quot;
+Send message to channel #test2: Hello, World
+$ </code></pre><p>Here are the <a href="https://github.com/yargs/yargs/blob/master/docs/advanced.md#positional-arguments">yargs command docs</a>.</p>
+<h2 id="token-storage">Token Storage</h2>
+<p>So now that you can parse command line arguments, you&#39;re almost ready to make a request to the Slack API. But, to
+do that, you need an API token. Rather than asking for the user&#39;s API token every time they want to make a request,
+it&#39;s generally better to expose a separate <code>login</code> command that asks the user to enter in their token, and then
+store it in a file.</p>
+<p>Ideally, the user could just log in using OAuth rather than entering in their token. But OAuth is a more complex
+process with CLI tools, so I&#39;ll cover that in another tutorial. Plus, the <code>login</code> command is the perfect
+opportunity to introduce one of my favorite npm modules: <a href="https://www.npmjs.com/package/enquirer">enquirer</a> (not to be confused with <a href="https://www.npmjs.com/package/inquirer">inquirer</a>).</p>
+<p>Enquirer is a tool for command line prompts. It has a <a href="https://www.npmjs.com/package/enquirer#%E2%9D%AF-usage">neat <code>prompt()</code> function</a> that lets you prompt the user for input. Here&#39;s how you can use <code>prompt()</code> to ask the user for their token when they run <code>slack login</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { prompt } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'enquirer'</span>);
+
+yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Set your bot token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-keyword">const</span> { token } = <span class="hljs-keyword">await</span> prompt({
+      type: <span class="hljs-string">'password'</span>,
+      name: <span class="hljs-string">'token'</span>,
+      message: <span class="hljs-string">'Enter your Slack bot token:'</span>
+    });
+  });</code></pre>
+<p>Once the user&#39;s entered their token, you need to store it somewhere. One common tool for this is <a href="https://www.npmjs.com/package/configstore">configstore</a>, which automatically persists a JavaScript object to the <code>~/.config/configstore</code> directory on
+Linux and OSX. Here&#39;s how you can use configstore to store the token the user enters.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Configstore = <span class="hljs-built_in">require</span>(<span class="hljs-string">'configstore'</span>);
+<span class="hljs-keyword">const</span> { prompt } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'enquirer'</span>);
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+
+<span class="hljs-comment">// `slack-cli` is the name of the file that configstore will use.</span>
+<span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> Configstore(<span class="hljs-string">'slack-cli'</span>);
+
+yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Set your bot token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-keyword">const</span> { token } = <span class="hljs-keyword">await</span> prompt({
+      type: <span class="hljs-string">'password'</span>,
+      name: <span class="hljs-string">'token'</span>,
+      message: <span class="hljs-string">'Enter your Slack bot token:'</span>
+    });
+
+    config.set({ token });
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Token stored successfully!'</span>);
+  });</code></pre>
+<h2 id="sending-the-slack-request">Sending the Slack Request</h2>
+<p>Now, back to the <code>postMessage</code> command. To send a message to Slack, this command needs to make a POST request to
+the Slack API using an HTTP client like <a href="https://masteringjs.io/axios">axios</a>. It also needs to pull the API token
+from <code>configstore</code>.</p>
+<p>You can follow <a href="/working-with-the-slack-api-in-node-js.html">this tutorial to get a Slack API token</a>. Once you have
+a Slack token, here&#39;s how you can send a &quot;Hello, World&quot; message using the Slack API and axios:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">const</span> slackToken = <span class="hljs-string">'xoxb-YOUR-TOKEN_HERE'</span>;
+
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://slack.com/api/chat.postMessage'</span>;
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+  channel: <span class="hljs-string">'#test'</span>,
+  text: <span class="hljs-string">'Hello, World!'</span>
+}, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${slackToken}</span>`</span> } });</code></pre>
+<p>Now, let&#39;s glue this code into the <code>postMessage</code> command. The <code>channel</code> and <code>test</code> arguments should come from yargs,
+and the <code>slackToken</code> should come from <code>configstore</code>. Here&#39;s how the full <code>postMessage</code> command looks:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Configstore = <span class="hljs-built_in">require</span>(<span class="hljs-string">'configstore'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> Configstore(<span class="hljs-string">'slack-cli'</span>);
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://slack.com/api/chat.postMessage'</span>;
+
+yargs.command(
+  <span class="hljs-string">'postMessage [message]'</span>,
+  <span class="hljs-string">'Send a message'</span>,
+  yargs =&gt; {
+    <span class="hljs-comment">// Add extra arguments to `postMessage`</span>
+    yargs.positional(<span class="hljs-string">'channel'</span>, { describe: <span class="hljs-string">'The channel to send the message to'</span>, <span class="hljs-keyword">default</span>: <span class="hljs-string">'test'</span> });
+  },
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-comment">// Get the token from configstore</span>
+    <span class="hljs-keyword">const</span> token = config.get(<span class="hljs-string">'token'</span>);
+    <span class="hljs-keyword">if</span> (!token) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Must be logged in!'</span>);
+    }
+
+    <span class="hljs-comment">// Send the message to the specified channel.</span>
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(url, {
+      channel: <span class="hljs-string">'#'</span> + argv.channel,
+      text: argv.message
+    }, { headers: { authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${token}</span>`</span> } });
+    <span class="hljs-keyword">if</span> (!res.data.ok) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error!'</span>, res.data.error);
+    }
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Sent message to channel #<span class="hljs-subst">${argv.channel}</span>: <span class="hljs-subst">${argv.message}</span>`</span>);
+  });</code></pre>
+<p>That&#39;s it! Here&#39;s how you can run the <code>postMessage</code> command:</p>
+<pre><code>$ node ./index.js postMessage --channel test2 &quot;Hello, World&quot;
+Sent message to channel #test2: Hello, World
+$ </code></pre><p>Here&#39;s what the above message looks like in Slack:</p>
+<img src="/images/slack-message.png" class="inline-image">
+
+<h2 id="bundling-for-npm">Bundling for npm</h2>
+<p>I published the above code to npm as the <a href="https://www.npmjs.com/package/@vkarpov15/slack-cli-test"><code>@vkarpov15/slack-cli-test</code> module</a>.
+After running <code>npm install @vkarpov15/slack-cli-test</code>, you should be able to run <code>./node_modules/.bin/slack-cli</code> as
+shown below.</p>
+<pre><code>$ npx slack-cli postMessage --channel test2 &quot;Hello, World&quot;
+Sent message to channel #test2: Hello, World
+$ </code></pre><p>There are two additions you need to make to make the <code>index.js</code> file runnable. First, the entry point to your
+executable should start with <code>#!/usr/bin/env node</code>. For example:</p>
+<pre><code class="language-javascript"><span class="hljs-meta">#!/usr/bin/env node</span>
+<span class="hljs-meta">
+'use strict'</span>;
+
+<span class="hljs-keyword">const</span> Configstore = <span class="hljs-built_in">require</span>(<span class="hljs-string">'configstore'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> { prompt } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'enquirer'</span>);
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+
+<span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> Configstore(<span class="hljs-string">'slack-cli'</span>);
+<span class="hljs-keyword">const</span> url = <span class="hljs-string">'https://slack.com/api/chat.postMessage'</span>;
+
+<span class="hljs-comment">// ...</span></code></pre>
+<p>Second, your <code>package.json</code> should contain a <code>bin</code> property that maps executable names to entry points. Below is the
+<code>package.json</code> file for the <code>slack-cli-test</code> module, notice the <code>bin</code> property defines the name of the executable
+as &quot;slack-cli&quot;.</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"@vkarpov15/slack-cli-test"</span>,
+  <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.0.1"</span>,
+  <span class="hljs-string">"bin"</span>: {
+    <span class="hljs-string">"slack-cli"</span>: <span class="hljs-string">"./index.js"</span>
+  },
+  <span class="hljs-string">"dependencies"</span>: {
+    <span class="hljs-string">"axios"</span>: <span class="hljs-string">"^0.19.2"</span>,
+    <span class="hljs-string">"configstore"</span>: <span class="hljs-string">"^5.0.1"</span>,
+    <span class="hljs-string">"enquirer"</span>: <span class="hljs-string">"^2.3.6"</span>,
+    <span class="hljs-string">"slack"</span>: <span class="hljs-string">"^11.0.2"</span>,
+    <span class="hljs-string">"yargs"</span>: <span class="hljs-string">"^15.4.1"</span>
+  }
+}</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Beside being fun to build, CLIs are exceptionally useful. A well documented CLI can make a project or API much easier
+to use. There&#39;s a wide variety of CLI tools out there in addition to yargs and enquirer: some other popular npm modules
+for CLIs include <a href="https://www.npmjs.com/package/boxen">boxen</a>, <a href="https://www.npmjs.com/package/chalk">chalk</a>, <a href="https://www.npmjs.com/package/ink">ink</a>, <a href="https://www.npmjs.com/package/ora">ora</a>, and <a href="https://oclif.io/">oclif</a>. Next time you&#39;re looking for
+a fun side project, try building a CLI!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
