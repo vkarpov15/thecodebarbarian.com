@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 28 Jul 2020 15:25:26 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Aug 2020 15:51:06 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Building a CLI Tool with Node.js]]></title>
+            <link>http://www.thecodebarbarian.com/building-a-cli-tool-with-node-js.html</link>
+            <guid>http://www.thecodebarbarian.com/building-a-cli-tool-with-node-js.html</guid>
+            <pubDate>Thu, 06 Aug 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Working with the Slack API in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/working-with-the-slack-api-in-node-js.html</link>
