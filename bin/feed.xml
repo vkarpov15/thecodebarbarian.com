@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 06 Aug 2020 15:51:06 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 26 Aug 2020 18:44:50 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.10: Improved Transactions]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-improved-transactions.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-improved-transactions.html</guid>
+            <pubDate>Wed, 26 Aug 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a CLI Tool with Node.js]]></title>
             <link>http://www.thecodebarbarian.com/building-a-cli-tool-with-node-js.html</link>

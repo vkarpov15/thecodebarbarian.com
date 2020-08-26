@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 5.10: Improved Transactions | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 5.10: Improved Transactions"><meta property="og:url" content="http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-improved-transactions"><meta property="og:image" content="/images/shore.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 5.10 introduces a new `transaction()` function that handles resetting document state if a transaction fails. Here's what you need to know."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 5.10: Improved Transactions</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 26, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#5100--2020-08-14">Mongoose 5.10.0</a> was released on August 14, 2020. Mongoose 5.10 is a <a href="https://semver.org/">semver</a> minor version that introduces several important new features. In this article, I&#39;ll describe what is arguably the most important new feature: the <a href="https://mongoosejs.com/docs/api/connection.html#connection_Connection-transaction"><code>Connection#transaction()</code> function</a>, which improves Mongoose&#39;s support for <a href="/a-node-js-perspective-on-mongodb-4-transactions.html">MongoDB transactions</a>.</p>
+<h2 id="why-mongoose-needs-a-transaction-wrapper">Why Mongoose Needs a Transaction Wrapper</h2>
+<p>The primary goal of a transaction is to let you update multiple documents in MongoDB in isolation, and potentially undo
+all the updates if some error occurs by <em>aborting</em> the transaction. For example, if you start a transaction and insert
+two documents, calling <code>abortTransaction()</code> makes it so neither of the documents end up in the database:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> Customer.startSession();
+session.startTransaction();
+
+<span class="hljs-comment">// Passing the `session` option is how you indicate that `create()` is part of a transaction</span>
+<span class="hljs-keyword">await</span> Customer.create([{ name: <span class="hljs-string">'Test'</span> }], { session: session });
+<span class="hljs-keyword">await</span> Customer.create([{ name: <span class="hljs-string">'Test2'</span> }], { session: session });
+
+<span class="hljs-keyword">await</span> session.abortTransaction();
+
+<span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> Customer.countDocuments();
+count; <span class="hljs-comment">// 0, no documents were inserted, because the transaction was aborted.</span></code></pre>
+<p>Sessions have a convenient <code>withTransaction()</code> function that handles aborting the transaction if an error occurs.
+For example, the below code shows that the <code>withTransaction()</code> function successfully undoes any changes when the
+transaction executor function throws an error.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> db.startSession();
+
+<span class="hljs-keyword">await</span> User.create({ name: <span class="hljs-string">'MongoDB 4.2'</span> });
+
+<span class="hljs-keyword">await</span> session.withTransaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({ name: <span class="hljs-string">'MongoDB 4.2'</span> }).session(session);
+
+  user.name = <span class="hljs-string">'MongoDB 4.4'</span>;
+  <span class="hljs-comment">// By default, `save()` uses the session associated with the `findOne()`</span>
+  <span class="hljs-comment">// query, so this `save()` is part of a transaction.</span>
+  <span class="hljs-keyword">await</span> user.save();
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
+}).catch(() =&gt; {});
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> Customer.findOne();
+doc.name; <span class="hljs-comment">// 'MongoDB 4.2', `withTransaction()` aborted the transaction.</span></code></pre>
+<p>The <code>withTransaction()</code> function makes working with transactions more convenient because it automatically aborts
+the transaction if the executor throws an error. Unfortunately, because <code>withTransaction()</code> is part of the <a href="https://www.npmjs.com/package/mongodb">MongoDB driver</a>, it doesn&#39;t know about Mongoose and so it doesn&#39;t reset Mongoose document state.</p>
+<p>In other words, if you create a document outside a transaction, try to <code>save()</code> the document within a transaction, and
+then abort the transaction, Mongoose will still think the document is saved!</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> db.startSession();
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({ name: <span class="hljs-string">'MongoDB 4.4'</span> });
+
+<span class="hljs-keyword">await</span> session.withTransaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> doc.save({ session });
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
+});
+
+doc.isNew; <span class="hljs-comment">// `false`, Mongoose thinks the document was saved!</span></code></pre>
+<p>This limitation is also important when you load a document outside of a transaction, modify the document within a
+transaction, and then abort the transaction.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> db.startSession();
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> User.create({ name: <span class="hljs-string">'MongoDB 4.2'</span> });
+
+<span class="hljs-keyword">await</span> session.withTransaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  doc.name = <span class="hljs-string">'MongoDB 4.4'</span>;
+
+  <span class="hljs-keyword">await</span> doc.save({ session });
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
+});
+
+doc.modifiedPaths(); <span class="hljs-comment">// []</span>
+<span class="hljs-keyword">await</span> doc.save();
+
+doc.name; <span class="hljs-comment">// 'MongoDB 4.4'</span>
+
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> User.findById(doc._id);
+<span class="hljs-comment">// 'MongoDB 4.2', Mongoose didn't persist the changes because it thinks `save()` succeeded!</span>
+fromDb.name;</code></pre>
+<h2 id="introducing-connectiontransaction">Introducing <code>Connection#transaction()</code></h2>
+<p>In Mongoose 5.10, <a href="https://mongoosejs.com/docs/api/connection.html#connection_Connection-transaction">connections have a <code>transaction()</code> function</a> that you should use as a drop-in replacement
+for <code>withTransaction()</code>. Mongoose&#39;s <code>transaction()</code> function calls <code>withTransaction()</code> under the hood, but it
+also handles resetting document state in the event of a failed transaction.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> db.startSession();
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> User.create({ name: <span class="hljs-string">'MongoDB 4.2'</span> });
+
+<span class="hljs-comment">// Use Mongoose connection's `transaction()` instead of `withTransaction()`</span>
+<span class="hljs-keyword">await</span> db.transaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  doc.name = <span class="hljs-string">'MongoDB 4.4'</span>;
+
+  <span class="hljs-keyword">await</span> doc.save({ session });
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
+});
+
+doc.modifiedPaths(); <span class="hljs-comment">// ['name']</span>
+<span class="hljs-keyword">await</span> doc.save();
+
+doc.name; <span class="hljs-comment">// 'MongoDB 4.4'</span>
+
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> User.findById(doc._id);
+<span class="hljs-comment">// 'MongoDB 4.4', the `transaction()` function makes sure `doc` knows to revert</span>
+<span class="hljs-comment">// its internal state when the transaction is aborted.</span>
+fromDb.name;</code></pre>
+<p>Specifically, the <code>transaction()</code> function resets the document&#39;s change tracking and <a href="https://mongoosejs.com/docs/api/document.html#document_Document-isNew"><code>isNew</code></a> value. If you save a new document and then abort the transaction, the <code>transaction()</code>
+function will handle resetting the value of <code>Document#isNew</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> session = <span class="hljs-keyword">await</span> db.startSession();
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({ name: <span class="hljs-string">'MongoDB 4.4'</span> });
+
+<span class="hljs-keyword">await</span> db.transaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> doc.save({ session });
+
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Oops!'</span>);
+});
+
+doc.isNew; <span class="hljs-comment">// `true`, the `transaction()` function reset `isNew`</span></code></pre>
+<p>The <code>transaction()</code> function is a method on Mongoose connections. If you&#39;re working with the <a href="https://mongoosejs.com/docs/api/mongoose.html">Mongoose global</a>, you should use <code>mongoose.connection.transaction()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+mongoose.connection.transaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+});</code></pre>
+<p>If you&#39;re working with <a href="https://mongoosejs.com/docs/connections.html#multiple_connections">multiple connections</a>, you
+can use <code>conn.transaction()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">const</span> conn = mongoose.createConnection(process.env.MONGODB_URI);
+conn.transaction(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+});</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>transaction()</code> function is just one of 16 new features in Mongoose 5.10. Mongoose 5.10 also adds an officially
+supported <a href="https://mongoosejs.com/docs/guide.html#optimisticConcurrency"><code>optimisticConcurrency</code> option</a>, improved
+support for <a href="https://www.mongodb.com/atlas/search">Atlas Text Search</a>, and the ability to disable <code>_id</code> for subdocuments
+globally. You can find the full list on the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#5100--2020-08-14">Mongoose changelog</a>. Make sure you upgrade to take advantage of all the new features!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
