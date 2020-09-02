@@ -1,0 +1,196 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 5.10: Optimistic Concurrency | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 5.10: Optimistic Concurrency"><meta property="og:url" content="http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-optimistic-concurrency"><meta property="og:image" content="/images/biltmore.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 5.10 introduces a new `optimisticConcurrency` option that enables a more strict form of document versioning. Here's what you need to know."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 5.10: Optimistic Concurrency</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 02, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#5100--2020-08-14">Mongoose 5.10.0</a> was released on August 14, 2020 and introduces several important new features. Last week, I covered the new <a href="/whats-new-in-mongoose-5-10-improved-transactions.html"><code>Connection#transaction()</code> helper</a> that improves Mongoose&#39;s support for <a href="/a-node-js-perspective-on-mongodb-4-transactions.html">MongoDB transactions</a>. This week, I&#39;ll cover another new feature: the new <a href="https://mongoosejs.com/docs/guide.html#optimisticConcurrency"><code>optimisticConcurrency</code> option for schemas</a>.</p>
+<h2 id="the-motivation-for-optimistic-concurrency">The Motivation for Optimistic Concurrency</h2>
+<p>In Mongoose, the biggest concurrency concern is what happens when application code modifies two copies of the same document
+at the same time. For example, suppose you have a <code>User</code> model with two properties: the user&#39;s approval <code>status</code>, and their
+<code>avatar</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, Schema({
+  status: <span class="hljs-built_in">String</span>,
+  avatar: <span class="hljs-built_in">String</span>
+}));
+
+<span class="hljs-keyword">const</span> { _id } = <span class="hljs-keyword">await</span> User.create({
+  status: <span class="hljs-string">'PENDING'</span>,
+  avatar: <span class="hljs-string">'http://thecodebarbarian.com/images/Barbarian_Head.png'</span>
+});</code></pre>
+<p>Because of Mongoose&#39;s change tracking, you can load two copies of the same document, modify different properties on
+each copy, and save both sets of changes to the database. The below code loads two copies of a document from MongoDB, and
+modifies different properties on each document. Mongoose lets both <code>save()</code> calls go through.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 2 copies of the same document</span>
+<span class="hljs-keyword">const</span> doc1 = <span class="hljs-keyword">await</span> User.findById(_id);
+<span class="hljs-keyword">const</span> doc2 = <span class="hljs-keyword">await</span> User.findById(_id);
+
+<span class="hljs-comment">// Set `status` and save `doc1`</span>
+doc1.status = <span class="hljs-string">'APPROVED'</span>;
+<span class="hljs-keyword">await</span> doc1.save();
+
+<span class="hljs-comment">// Set `avatar` and save `doc2`</span>
+doc2.status; <span class="hljs-comment">// 'PENDING'</span>
+doc2.avatar = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">await</span> doc2.save();
+
+<span class="hljs-comment">// Both changes get stored to the database because of Mongoose change tracking</span>
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> User.findById(_id);
+fromDb.status; <span class="hljs-comment">// 'APPROVED'</span>
+fromDb.avatar; <span class="hljs-comment">// null</span></code></pre>
+<p>In many cases, this behavior is good enough. If your <code>save()</code> calls don&#39;t conflict, then all your changes get applied.
+If there is a conflict, the last <code>save()</code> wins out, and <a href="https://docs.mongodb.com/manual/core/write-operations-atomicity/#atomicity">every <code>save()</code> call is atomic</a>.</p>
+<p>However, things can go wrong when you introduce validation logic that depends on multiple properties. In the above example,
+you might want to ensure that a user has a valid <code>avatar</code> if their profile has <code>status = &#39;APPROVED&#39;</code>. Here&#39;s how you might
+implement that check:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = Schema({
+  status: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    enum: [<span class="hljs-string">'PENDING'</span>, <span class="hljs-string">'APPROVED'</span>, <span class="hljs-string">'REJECTED'</span>]
+  },
+  avatar: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.status === <span class="hljs-string">'APPROVED'</span>;
+    },
+    validate: str =&gt; str == <span class="hljs-literal">null</span> || str.startsWith(<span class="hljs-string">'https://'</span>)
+  }
+});
+
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</code></pre>
+<p>In isolation, the <code>User</code> model will ensure that a user has an <code>avatar</code> if and only if their <code>status</code> is &#39;APPROVED&#39;.
+But, when you have two copies of the same document, you can change the <code>status</code> on one document, change the <code>avatar</code>
+on the other, and mess up your validators. Even with these custom validators, the below script succeeds and results
+in an approved user in the database with a <code>null</code> avatar.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// 2 copies of the same document</span>
+<span class="hljs-keyword">const</span> doc1 = <span class="hljs-keyword">await</span> User.findById(_id);
+<span class="hljs-keyword">const</span> doc2 = <span class="hljs-keyword">await</span> User.findById(_id);
+
+<span class="hljs-comment">// Set `status` and save `doc1`</span>
+doc1.status = <span class="hljs-string">'APPROVED'</span>;
+<span class="hljs-keyword">await</span> doc1.save();
+
+<span class="hljs-comment">// Set `avatar` and save `doc2`</span>
+doc2.status; <span class="hljs-comment">// 'PENDING'</span>
+doc2.avatar = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">await</span> doc2.save();
+
+<span class="hljs-comment">// Both changes get stored to the database because of Mongoose change tracking</span>
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> User.findById(_id);
+fromDb.status; <span class="hljs-comment">// 'APPROVED'</span>
+fromDb.avatar; <span class="hljs-comment">// null</span></code></pre>
+<h2 id="with-optimistic-concurrency">With Optimistic Concurrency</h2>
+<p>The idea behind optimistic concurrency is to track the <em>version</em> of the document and increment the version every
+time you <code>save()</code>. If the version of the document in the database changed between when you loaded the document and
+when you <code>save()</code>, Mongoose will throw an error.</p>
+<p>For example, here&#39;s how you can enable <code>optimisticConcurrency</code> for <code>userSchema</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = Schema({
+  status: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    enum: [<span class="hljs-string">'PENDING'</span>, <span class="hljs-string">'APPROVED'</span>, <span class="hljs-string">'REJECTED'</span>]
+  },
+  avatar: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.status === <span class="hljs-string">'APPROVED'</span>;
+    },
+    validate: str =&gt; str == <span class="hljs-literal">null</span> || str.startsWith(<span class="hljs-string">'https://'</span>)
+  }
+}, { optimisticConcurrency: <span class="hljs-literal">true</span> });</code></pre>
+<p>Given the above <code>userSchema</code>, <code>save()</code> will throw an error if there are concurrent changes to the same document.</p>
+<pre><code class="language-javascript">  <span class="hljs-comment">// 2 copies of the same document</span>
+<span class="hljs-keyword">const</span> doc1 = <span class="hljs-keyword">await</span> User.findById(_id);
+<span class="hljs-keyword">const</span> doc2 = <span class="hljs-keyword">await</span> User.findById(_id);
+
+<span class="hljs-comment">// Set `status` and save `doc1`</span>
+doc1.status = <span class="hljs-string">'APPROVED'</span>;
+<span class="hljs-keyword">await</span> doc1.save();
+
+<span class="hljs-comment">// Set `avatar` and save `doc2`</span>
+doc2.status; <span class="hljs-comment">// 'PENDING'</span>
+doc2.avatar = <span class="hljs-literal">null</span>;
+<span class="hljs-comment">// Throws 'VersionError: No matching document found for id "..." version 0'</span>
+<span class="hljs-keyword">await</span> doc2.save();</code></pre>
+<p>If you try to <code>save()</code> a document that changed after you loaded it, Mongoose will throw the below error:</p>
+<pre><code>VersionError: No matching document found for id &quot;5f4eb21361b7c9266ce51c98&quot; version 0 modifiedPaths &quot;avatar&quot;</code></pre><p>If you set Mongoose&#39;s debug mode using <code>mongoose.set(&#39;debug&#39;, true)</code>, you&#39;ll see that the <code>save()</code> calls end up
+as <code>updateOne()</code> calls that check for document version (the <code>__v</code> key) = 0, and increment the version key if they
+succeed.</p>
+<pre><code>Mongoose: users.updateOne({ _id: ObjectId(&quot;5f4eb3523d24c02767e8a267&quot;), __v: 0 }, { &#39;$set&#39;: { status: &#39;APPROVED&#39; }, &#39;$inc&#39;: { __v: 1 } }, { session: undefined })
+Mongoose: users.updateOne({ _id: ObjectId(&quot;5f4eb3523d24c02767e8a267&quot;), __v: 0 }, { &#39;$set&#39;: { avatar: null }, &#39;$inc&#39;: { __v: 1 } }, { session: undefined })</code></pre><p>The first <code>save()</code> succeeds and increments the document&#39;s version to 1, and then the 2nd <code>save()</code> fails because the document
+no longer has version 0.</p>
+<h2 id="optimistic-concurrency-versus-versioning">Optimistic Concurrency versus Versioning</h2>
+<p>Optimistic concurrency is a more strict form of <a href="https://mongoosejs.com/docs/guide.html#versionKey">Mongoose&#39;s default versioning</a>.
+Mongoose&#39;s default versioning scheme <strong>only</strong> checks the document&#39;s version if you <a href="http://aaronheckmann.blogspot.com/2012/06/mongoose-v3-part-1-versioning.html">modify an array in a potentially incompatible way</a>. Mongoose&#39;s default versioning will
+never throw a <code>VersionError</code> if you do not modify any arrays.</p>
+<p>For example, here is how you can cause a <code>VersionError</code> using Mongoose&#39;s default versioning scheme.</p>
+<pre><code class="language-javascript">  <span class="hljs-keyword">const</span> blogPostSchema = Schema({
+  comments: [Schema({ text: <span class="hljs-built_in">String</span> }, { _id: <span class="hljs-literal">false</span> })]
+});
+
+<span class="hljs-keyword">const</span> BlogPost = mongoose.model(<span class="hljs-string">'BlogPost'</span>, blogPostSchema);
+
+<span class="hljs-keyword">const</span> { _id } = <span class="hljs-keyword">await</span> BlogPost.create({
+  comments: [{ text: <span class="hljs-string">'Great!'</span> }, { text: <span class="hljs-string">'Awesome!'</span> }]
+});
+
+  <span class="hljs-comment">// 2 copies of the same document</span>
+<span class="hljs-keyword">const</span> doc1 = <span class="hljs-keyword">await</span> BlogPost.findById(_id);
+<span class="hljs-keyword">const</span> doc2 = <span class="hljs-keyword">await</span> BlogPost.findById(_id);
+
+<span class="hljs-comment">// Delete the 2nd comment on one copy...</span>
+doc2.comments.pull({ text: <span class="hljs-string">'Awesome!'</span> });
+<span class="hljs-keyword">await</span> doc2.save();
+
+<span class="hljs-comment">// And modify the 2nd comment on another copy</span>
+doc1.comments[<span class="hljs-number">1</span>].text = <span class="hljs-string">'Awesome'</span>;
+<span class="hljs-comment">// Throws 'VersionError: No matching document found for id "..." version 0'</span>
+<span class="hljs-keyword">await</span> doc1.save();</code></pre>
+<p>When you turn on <code>optimisticConcurrency</code>, you override Mongoose&#39;s default versioning scheme. The <code>versionKey</code> option for
+schemas is how you configure the property name that Mongoose uses to store the document version. For example, here&#39;s how
+you can make Mongoose store the document version in the <code>version</code> property, rather than the default <code>__v</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = Schema({
+  status: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    enum: [<span class="hljs-string">'PENDING'</span>, <span class="hljs-string">'APPROVED'</span>, <span class="hljs-string">'REJECTED'</span>]
+  },
+  avatar: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.status === <span class="hljs-string">'APPROVED'</span>;
+    },
+    validate: str =&gt; str == <span class="hljs-literal">null</span> || str.startsWith(<span class="hljs-string">'https://'</span>)
+  }
+}, { optimisticConcurrency: <span class="hljs-literal">true</span>, versionKey: <span class="hljs-string">'version'</span> });</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Optimistic concurrency helps validation logic that relies on multiple properties ensure it has a consistent view
+of the data. If you use in-place updates and have validation logic that spans multiple properties, you should strongly
+consider using optimistic concurrency. And optimistic concurrency is just one of 16 new features in Mongoose 5.10.
+You can find the full list on the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#5100--2020-08-14">Mongoose changelog</a>. Make sure you upgrade to take advantage of optimistic concurrency and all the other new features!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
