@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 01 Sep 2020 21:06:46 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 09 Sep 2020 22:31:14 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.10: Global Subdocument Configuration]]></title>
+            <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-global-subdocument-configs.html</link>
+            <guid>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-global-subdocument-configs.html</guid>
+            <pubDate>Thu, 10 Sep 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.10: Optimistic Concurrency]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-optimistic-concurrency.html</link>
