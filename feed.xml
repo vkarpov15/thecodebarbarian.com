@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 09 Sep 2020 22:31:14 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 15 Sep 2020 15:57:13 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[OAuth in Node.js CLI Apps]]></title>
+            <link>http://www.thecodebarbarian.com/oauth-in-nodejs-cli-apps.html</link>
+            <guid>http://www.thecodebarbarian.com/oauth-in-nodejs-cli-apps.html</guid>
+            <pubDate>Tue, 15 Sep 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.10: Global Subdocument Configuration]]></title>
             <link>http://www.thecodebarbarian.com/whats-new-in-mongoose-5-10-global-subdocument-configs.html</link>
