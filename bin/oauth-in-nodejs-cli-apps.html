@@ -1,0 +1,202 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>OAuth in Node.js CLI Apps | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="OAuth in Node.js CLI Apps"><meta property="og:url" content="http://www.thecodebarbarian.com/oauth-in-nodejs-cli-apps"><meta property="og:image" content="/images/lakej.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="OAuth is a popular tool for logging in to web apps, but Node makes it easy to use OAuth for CLI apps too. Here's how you can add OAuth support to a Slack CLI app."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">OAuth in Node.js CLI Apps</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 15, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>I recently wrote about <a href="/building-a-cli-tool-with-node-js.html">building a CLI app in Node.js</a>, which showed how to
+build a CLI app that sent Slack messages from Node.js. But it omitted a key detail: <a href="/working-with-the-slack-api-in-node-js.html">how to get a Slack OAuth token</a>. And that&#39;s a big omission, because getting auth credentials right is
+typically the hardest part of working with any API. In this article, I&#39;ll describe how you can use <a href="https://masteringjs.io/express">Express</a> and <a href="https://www.npmjs.com/package/open">open</a> to get an OAuth token for a CLI app.</p>
+<h2 id="review">Review</h2>
+<p>In the <a href="/building-a-cli-tool-with-node-js.html#token-storage">previous tutorial</a>, I explained how to add a <code>login</code>
+command to your Slack CLI that you could run using <code>node ./index.js login</code>, or as <code>slack-cli login</code> after bundling for npm.
+Below is how you can implement this command using <a href="http://npmjs.com/package/yargs">yargs</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Configstore = <span class="hljs-built_in">require</span>(<span class="hljs-string">'configstore'</span>);
+<span class="hljs-keyword">const</span> { prompt } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'enquirer'</span>);
+<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>);
+
+<span class="hljs-comment">// `slack-cli` is the name of the file that configstore will use.</span>
+<span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> Configstore(<span class="hljs-string">'slack-cli'</span>);
+
+yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Set your bot token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-comment">// Open an enquirer prompt to ask for the user's token</span>
+    <span class="hljs-keyword">const</span> { token } = <span class="hljs-keyword">await</span> prompt({
+      type: <span class="hljs-string">'password'</span>,
+      name: <span class="hljs-string">'token'</span>,
+      message: <span class="hljs-string">'Enter your Slack bot token:'</span>
+    });
+
+    <span class="hljs-comment">// Persist the token to the user's disk using configstore</span>
+    config.set({ token });
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Token stored successfully!'</span>);
+  });</code></pre>
+<p>This <code>login</code> command is simple, but it puts the responsibility of <a href="/working-with-the-slack-api-in-node-js.html#getting-started">setting up a Slack app</a> on your user, and setting up a Slack app is an intricate
+UI-based process that is hard to automate. If you want to build a CLI tool on top of an API, you&#39;re better off using
+<a href="/oauth-with-node-js-and-express.html">OAuth</a>.</p>
+<p>If you use <a href="/github-oauth-login-with-node-js.html">OAuth</a>, you can create an app once and then, when a user logs in,
+you get a token for that one Slack OAuth app.</p>
+<h2 id="oauth-from-a-cli">OAuth From a CLI</h2>
+<p>The normal workflow for authorizing a Slack app is to redirect the user to <code>https://slack.com/oauth/authorize</code>.
+For CLI apps, the go-to tool for opening a web browser is the <a href="https://www.npmjs.com/package/open">npm package <code>open</code></a>.
+For example, here&#39;s how your CLI can open Google&#39;s homepage:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> open = <span class="hljs-built_in">require</span>(<span class="hljs-string">'open'</span>);
+
+open(<span class="hljs-string">'https://google.com'</span>);</code></pre>
+<p>In order to let your user authorize your Slack app, you need your Slack app&#39;s <code>clientId</code>, a space-delimited list of
+<a href="https://api.slack.com/legacy/oauth-scopes">Slack scopes</a>, and a <code>redirectUri</code>. For example, here&#39;s how you can
+redirect the user to the Slack OAuth page from a yargs command:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> clientId = <span class="hljs-string">'OMITTED'</span>;
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-string">'OMITTED'</span>;
+<span class="hljs-keyword">const</span> scope = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'chat:write:bot channels:read chat:write:user'</span>);
+<span class="hljs-keyword">const</span> redirect = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'http://localhost:3000/oauth'</span>);
+
+yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Log in to Slack and get your token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    open(<span class="hljs-string">`https://slack.com/oauth/authorize?client_id=<span class="hljs-subst">${clientId}</span>&amp;scope=<span class="hljs-subst">${scope}</span>&amp;redirect_uri=<span class="hljs-subst">${redirect}</span>`</span>);
+  });</code></pre>
+<p>Here&#39;s what the result of running <code>node ./index.js login</code> with the above script looks like:</p>
+<img src="/images/slack-screenshot-2.png" class="inline-image">
+
+<p>Notice that <code>redirectUri</code> points to <code>localhost</code>. Remember the 3 steps of a standard web OAuth 2.0 login flow:</p>
+<ol>
+<li>Your app client opens a dialog that displays a dialog that asks the user to authorize your app. </li>
+<li>The dialog redirects back to your app client&#39;s domain with an <em>auth code</em> in the query string. An auth code is a short-lived code that you can exchange for a long-lived <em>access token</em>.</li>
+<li>Your app pulls the <code>code</code> parameter from the query string, and makes a POST request to the authorizing app&#39;s server with the access code. The authorizing app&#39;s server verifies the access code and sends back an <em>access token</em> your app can use for authorization going forward.</li>
+</ol>
+<p>So the <code>redirectUri</code> needs to point to a web server that the CLI App has access to. This is where Node really shines:
+you can plug in an Express web server into your <code>login</code> command handler, no threads or headache required.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> clientId = <span class="hljs-string">'OMITTED'</span>;
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-string">'OMITTED'</span>;
+<span class="hljs-keyword">const</span> scope = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'chat:write:bot channels:read chat:write:user'</span>);
+<span class="hljs-keyword">const</span> redirect = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'http://localhost:3000/oauth'</span>);
+
+yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Log in to Slack and get your token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-keyword">const</span> app = express();
+
+    app.get(<span class="hljs-string">'/oauth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+      <span class="hljs-comment">// Will print the OAuth auth code</span>
+      <span class="hljs-built_in">console</span>.log(req.query.code);
+      res.end(<span class="hljs-string">''</span>);
+    });
+    <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
+
+    open(<span class="hljs-string">`https://slack.com/oauth/authorize?client_id=<span class="hljs-subst">${clientId}</span>&amp;scope=<span class="hljs-subst">${scope}</span>&amp;redirect_uri=<span class="hljs-subst">${redirect}</span>`</span>);
+  });</code></pre>
+<p>That handles steps (1) and (2) of OAuth login: redirecting to Slack&#39;s OAuth page, and pulling the auth code from the
+query string when Slack redirects back to your app. That leaves step (3): making an HTTP POST request to Slack&#39;s API
+to exchange the auth code for an access token.</p>
+<p>To do that, your <code>handler()</code> needs to wait for the OAuth token, and then make an <a href="https://masteringjs.io/tutorials/axios/post">HTTP POST request using Axios</a>. Here&#39;s one way to make that work using a <a href="https://www.getrevue.co/profile/masteringjs/issues/promises-and-the-deferred-antipattern-235313">deferred promise</a>:</p>
+<pre><code class="language-javascript">yargs.command(
+  <span class="hljs-string">'login'</span>,
+  <span class="hljs-string">'Log in to Slack and get your token'</span>,
+  () =&gt; {},
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">argv</span>) </span>{
+    <span class="hljs-keyword">const</span> app = express();
+
+    <span class="hljs-keyword">let</span> resolve;
+    <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((_resolve) =&gt; {
+      resolve = _resolve;
+    });
+    app.get(<span class="hljs-string">'/oauth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+      resolve(req.query.code);
+      res.end(<span class="hljs-string">''</span>);
+    });
+    <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
+
+    open(<span class="hljs-string">`https://slack.com/oauth/authorize?client_id=<span class="hljs-subst">${clientId}</span>&amp;scope=<span class="hljs-subst">${scope}</span>&amp;redirect_uri=<span class="hljs-subst">${redirect}</span>`</span>);
+
+    <span class="hljs-comment">// Wait for the first auth code</span>
+    <span class="hljs-keyword">const</span> code = <span class="hljs-keyword">await</span> p;
+
+    <span class="hljs-comment">// Exchange the auth code for an access token. Note that the Slack API expects a form-encoded HTTP</span>
+    <span class="hljs-comment">// body, **not** JSON.</span>
+    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(<span class="hljs-string">'https://slack.com/api/oauth.access'</span>,
+      <span class="hljs-string">`client_id=<span class="hljs-subst">${clientId}</span>&amp;client_secret=<span class="hljs-subst">${clientSecret}</span>&amp;code=<span class="hljs-subst">${code}</span>&amp;redirect_uri=<span class="hljs-subst">${redirect}</span>`</span>);
+    <span class="hljs-keyword">const</span> token = res.data[<span class="hljs-string">'access_token'</span>];
+
+    <span class="hljs-keyword">await</span> server.close();
+
+    config.set({ token });
+
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Logged in successfully with token '</span> + token);
+    process.exit(<span class="hljs-number">0</span>);
+  });</code></pre>
+<h2 id="security-and-proxies">Security and Proxies</h2>
+<p>Notice that the <code>axios.post()</code> request that exchanges an auth code for an access token uses the Slack app&#39;s client
+secret (the <code>clientSecret</code> variable). That&#39;s why you shouldn&#39;t ship this CLI app as-is: you would need to publish your
+Slack App&#39;s client secret in order to make the above CLI app work.</p>
+<p>One alternative to avoid using your client secret in the above app is to have an API endpoint that sets the Slack secret
+for you. For example, you can run the below server which takes an incoming POST request and adds a client secret to the
+HTTP body:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+
+<span class="hljs-keyword">const</span> clientSecret = <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-string">'OMITTED'</span>);
+
+<span class="hljs-keyword">const</span> app = express();
+app.use(express.raw({ type: <span class="hljs-string">'*/*'</span> }));
+app.post(<span class="hljs-string">'*'</span>, (req, res) =&gt; {
+  <span class="hljs-keyword">const</span> body = req.body.toString(<span class="hljs-string">'utf8'</span>) + <span class="hljs-string">'&amp;client_secret='</span> + clientSecret;
+  <span class="hljs-keyword">const</span> options = {
+    url: req.url,
+    method: <span class="hljs-string">'post'</span>,
+    data: body,
+    headers: req.headers
+  };
+  axios(options).
+    then(response =&gt; res.json(response.data)).
+    <span class="hljs-keyword">catch</span>(err =&gt; res.status(response.status).json(response.data));
+});
+
+app.listen(<span class="hljs-number">3001</span>);</code></pre>
+<p>You can then use the <code>proxy</code> <a href="https://masteringjs.io/tutorials/axios/options">Axios option</a> to proxy your login
+request through the above server. Ideally the above server should be running on a trusted machine to hide the
+client secret.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> data = <span class="hljs-string">`client_id=<span class="hljs-subst">${clientId}</span>&amp;code=<span class="hljs-subst">${code}</span>&amp;redirect_uri=<span class="hljs-subst">${redirect}</span>`</span>;
+
+<span class="hljs-comment">// Rely on the `proxy` to set the client secret.</span>
+<span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> axios.post(<span class="hljs-string">'https://slack.com/api/oauth.access'</span>, data, { proxy: { host: <span class="hljs-string">'localhost'</span>, port: <span class="hljs-number">3001</span> } });
+<span class="hljs-keyword">const</span> token = res.data[<span class="hljs-string">'access_token'</span>];</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The basic proof of concept for OAuth login from a CLI tool is easy with Node: start an Express server and ask the
+authorizing server (Slack in this case) to redirect back to <code>localhost</code>. The tricky part is that the CLI tool needs
+to know the OAuth client secret in order to get the OAuth access token, which may be an unacceptable security risk
+depending on who has access to your CLI tool. One alternative is <a href="https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-dead">OAuth implicit flow</a>. Another alternative is to keep your client secret on a trusted server and proxy
+requests through it, or rely on the trusted server to serve as the <code>redirectUri</code> and make your CLI tool talk to the
+trusted server.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
