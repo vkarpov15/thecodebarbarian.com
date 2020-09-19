@@ -1,4 +1,4 @@
-*This is the beginning of my first subscriber-only article on [The Code Barbarian's Patreon](https://www.patreon.com/codebarbarian). The article goes into much more depth than normal tech articles and has enough content to fill an ebook, so the whole article is only available to Patreon subscribers. If you like this article, please consider [subscribing on Patreon](https://www.patreon.com/codebarbarian) to support future in-depth guides. The next article, "Building Distributed Locking with Node.js and MongoDB", ships on January 15, 2018!*
+*This is a preview of Mastering JS' premium tutorial [Write Your Own Express.js From Scratch](https://gumroad.com/l/tlcRd). If you like this article, [get the tutorial and master Express today!](https://gum.co/tlcRd).*
 
 Over the last 5 years, [Express](https://www.npmjs.com/package/express) has become the de facto web server framework
 for Node.js. I wouldn't be surprised if [the MEAN stack](https://www.mongodb.com/blog/post/the-mean-stack-mongodb-expressjs-angularjs-and)
@@ -164,4 +164,4 @@ Conclusion
 
 That's the first of 4 steps to building your own Express from scratch. The Express code base may seem baffling at first. I've been using Express for years and even then the difference between `req.url` and `req.originalUrl` never clicked for me until I wrote this article. But, once you grok the core principles, you'll be able to easily debug baffling issues and perhaps even contribute to Express itself.
 
-*If you liked this article, you can help support my efforts to synthesize the Node.js ecosystem into easily digestible chunks, and get access to this and future articles, by [subscribing on Patreon](https://www.patreon.com/codebarbarian). January 2018's article is titled "Building Distributed Locking with Node.js and MongoDB".*
+*If you liked this article, you can get the rest of the [Write Your Own Express.js From Scratch tutorial here](https://gumroad.com/l/tlcRd).*
