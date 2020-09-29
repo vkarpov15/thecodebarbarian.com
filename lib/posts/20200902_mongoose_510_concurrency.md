@@ -218,3 +218,9 @@ Optimistic concurrency helps validation logic that relies on multiple properties
 of the data. If you use in-place updates and have validation logic that spans multiple properties, you should strongly
 consider using optimistic concurrency. And optimistic concurrency is just one of 16 new features in Mongoose 5.10.
 You can find the full list on the [Mongoose changelog](https://github.com/Automattic/mongoose/blob/master/History.md#5100--2020-08-14). Make sure you upgrade to take advantage of optimistic concurrency and all the other new features!
+
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
+
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>

@@ -221,3 +221,9 @@ on anything else. By applying a couple of [schema design patterns](/mongoose-sch
 indexes, you can easily handle collections containing tens of millions
 of documents. At [Booster](https://trybooster.com/), every penny of
 our [$50M+ annual revenue](https://www.geekwire.com/2018/foot-gas-fuel-delivery-startup-booster-fuels-generating-180k-revenue-per-day/) goes through one unsharded MongoDB cluster running on modest cloud VMs - all thanks to a good indexing strategy.
+
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
+
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>

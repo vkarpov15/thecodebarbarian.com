@@ -177,3 +177,9 @@ being due to missing indexes and/or an overly complex aggregation that could be
 replaced with a single query with a couple schema tweaks. Next time you're
 scratching your head wondering why your aggregation is slow, think about what
 properties you can dereference to streamline your query needs.
+
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
+
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>

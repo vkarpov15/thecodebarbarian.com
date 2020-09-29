@@ -102,3 +102,9 @@ Moving On
 ---------
 
 Immutable properties are just one of 12 new features in Mongoose 5.6.0. Mongoose 5.6.0 also lets you use arrow functions to define [virtual getters](https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-get) and [setters](https://mongoosejs.com/docs/api/virtualtype.html#virtualtype_VirtualType-set), set a global [`maxTimeMS` for your queries](http://thecodebarbarian.com/slow-trains-in-mongodb-and-nodejs.html#the-maxtimems-option), and set [populate's `ref` option to a function](https://mongoosejs.com/docs/populate.html#saving-refs). Make sure you upgrade to take advantage of all the new features!
+
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
+
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>

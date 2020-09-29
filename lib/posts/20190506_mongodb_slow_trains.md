@@ -246,3 +246,9 @@ Moving On
 ---------
 
 Slow trains in MongoDB may seem like a major limitation, but this behavior has some benefits. Many other databases have similar limits built in, like [`max_concurrent_queries` in MySQL](https://planet.mysql.com/entry/?id=29516), because too many concurrent queries can also lead to performance issues. The guidelines in this article have helped me keep API instances running smoothly even with `poolSize = 10`, try them out and please discuss in the comments section.
+
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
+
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>

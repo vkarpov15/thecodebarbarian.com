@@ -203,6 +203,8 @@ method that lets you attach additional filters. Queries are not promises,
 but close enough for most practical uses. Remember these 3 concepts and you'll
 know enough to address most common Mongoose issues.
 
-_Mongoose supports async/await, but its common companion [Express](http://expressjs.com/) surprisingly doesn't. Want to know how to determine whether your favorite npm modules support async/await without reconciling contradictory answers on StackOverflow? Chapter 4 of [Mastering Async/Await](http://asyncawait.net/) explains the core principles for determining whether a given library or framework supports async/await, so get the ebook today!_
+_Want to become your team's MongoDB expert? "Mastering Mongoose" distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!_
 
-<a href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=trailingbanner" class="async-await-banner"><img src="/images/asyncawait.png"/></a>
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a>
