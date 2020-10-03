@@ -3,7 +3,7 @@ thecodebarbarian.com
 
 The www.thecodebarbarian.com website
 
-## Sponsors
+## Our Sponsors
 
 A special thanks to everyone who supports my work on [GitHub sponsors](https://github.com/sponsors/vkarpov15)!
 
