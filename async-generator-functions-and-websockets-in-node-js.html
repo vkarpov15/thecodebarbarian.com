@@ -1,0 +1,128 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Async Generator Functions and Websockets in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Async Generator Functions and Websockets in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/async-generator-functions-and-websockets-in-node-js"><meta property="og:image" content="/images/shore3.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="By default, `JSON.stringify()` output is hard to read: no formatting, no colors. Here's how you can make `JSON.stringify()` output more readable."></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Async Generator Functions and Websockets in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 07, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="/async-generator-functions-in-javascript.html">Async generator functions</a> were a new feature in <a href="https://2ality.com/2016/10/asynchronous-iteration.html">ES2018</a>. Node.js added support for async generator
+functions in <a href="https://medium.com/@nairihar/async-iteration-in-nodejs-v10-3c17dc00ed9f">Node.js 10</a>.
+Async generator functions may seem like a pretty niche feature, but they present a neat opportunity
+for <a href="https://masteringjs.io/tutorials/node/websockets">Node.js websocket</a> frameworks. In this article,
+I&#39;ll explain how a Node.js websocket framework might use async generator functions.</p>
+<h2 id="classifying-http-frameworks">Classifying HTTP Frameworks</h2>
+<p>First, think about HTTP server frameworks, like <a href="https://masteringjs.io/express">Express</a> or <a href="https://hapi.dev/">Hapi</a>. In general, most HTTP server frameworks fall into one of 3 classes:</p>
+<ol>
+<li><strong>Explicit response.</strong> To send an HTTP response in Express, you must call <code>res.end()</code>, <code>res.json()</code>, or some other function on the <a href="https://masteringjs.io/tutorials/express/res"><code>res</code> object</a>. In other words, you need to explicitly call a method to send a response.</li>
+<li><strong>Implicit response using <code>return</code>.</strong> On the other hand, <a href="https://auth0.com/blog/developing-restful-apis-with-hapijs/#Hapi-v17--What-s-New-">Hapi v17 explicitly removed the <code>reply()</code> function</a>. So Hapi doesn&#39;t have an equivalent to <code>res</code>: in order to send a response, you <code>return</code> a value from your request handler. Hapi then converts the <code>return</code> value into an HTTP response.</li>
+<li><strong>Modify the response in place.</strong> <a href="https://koajs.com/">Koa</a> uses a distinct approach that&#39;s a mix of the previous two. Instead of calling functions on <code>res</code>, you modify a <code>ctx</code> object to structure your response.</li>
+</ol>
+<p>In other words, some HTTP frameworks make you explicitly call a function to send the HTTP response,
+some give you an HTTP response object to modify, and some just take the <code>return</code> value of a handler 
+function.</p>
+<p>The difference between websockets and HTTP is that the server can push messages onto the socket whenever
+it wants, whether in response to a message or not. This means that low-level websocket frameworks like
+<a href="https://www.npmjs.com/package/ws">ws</a> look a lot like the &quot;explicit response&quot; pattern: you need to
+explicitly call a function to send a message.</p>
+<p>But could you do something more like implicit response with websockets, while still retaining the
+benefit of being able to send multiple messages? That&#39;s where async generators come in.</p>
+<h2 id="reading-chunks-from-the-server">Reading Chunks from the Server</h2>
+<p>Suppose you have a <a href="/cursors-in-mongoose-45">Mongoose cursor</a> that reads a bunch of documents one at a time,
+and you want to send each document out over a websocket as soon as the cursor reads it. This can be
+helpful if you want to minimize the amount of memory your server uses at any given time: the client gets
+all the data, but the server never has to hold all the data in memory at once. For example, here&#39;s how
+you might read a cursor using async/await:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, mongoose.Schema({ name: <span class="hljs-built_in">String</span> }));
+
+<span class="hljs-keyword">const</span> cursor = Model.find().cursor();
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
+  <span class="hljs-built_in">console</span>.log(doc.name); <span class="hljs-comment">// Print user names 1 by 1.</span>
+}</code></pre>
+<p>What makes generators so interesting is that <code>yield</code> is like a <code>return</code>, except a function can <code>yield</code>
+multiple times and pick up again where it left off. So an async generator function can do multiple
+implicit responses.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, mongoose.Schema({ name: <span class="hljs-built_in">String</span> }));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">streamUsers</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> cursor = Model.find().cursor();
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
+    <span class="hljs-comment">// Yielding each doc behaves like multiple implicit responses, if you have</span>
+    <span class="hljs-comment">// a framework that supports it.</span>
+    <span class="hljs-keyword">yield</span> doc;
+  }
+}</code></pre>
+<p><a href="https://masteringjs.io/tutorials/node/websocket-server">Here&#39;s how you can build a websocket server with Node.js</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> WebSocket = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ws'</span>);
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> WebSocket.Server({
+  port: <span class="hljs-number">8080</span>
+});
+
+server.on(<span class="hljs-string">'connection'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">socket</span>) </span>{
+  socket.on(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">msg</span>) </span>{
+    <span class="hljs-comment">// Handle message</span>
+  });
+});</code></pre>
+<p>So now, the trick is to glue the websocket server to the <code>streamUsers()</code> function. Assume that every
+message that comes in is valid JSON, and has properties <code>action</code> and <code>id</code>. When <code>action === &#39;streamUsers&#39;</code>,
+you can call <code>streamUsers()</code>, and send every user out on the socket as they come out of the Mongoose cursor.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> WebSocket = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ws'</span>);
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> WebSocket.Server({
+  port: <span class="hljs-number">8080</span>
+});
+
+server.on(<span class="hljs-string">'connection'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">socket</span>) </span>{
+  socket.on(<span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">msg</span>) </span>{
+    msg = <span class="hljs-built_in">JSON</span>.parse(msg);
+
+    <span class="hljs-keyword">if</span> (msg.action === <span class="hljs-string">'streamUsers'</span>) {
+      <span class="hljs-keyword">void</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Send 1 message per user, as opposed to loading all users and then</span>
+        <span class="hljs-comment">// sending them all in 1 message.</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> streamUsers()) {
+          socket.send(<span class="hljs-built_in">JSON</span>.stringify({ id: msg.id, doc }));
+        }
+      }().catch(err =&gt; socket.send(<span class="hljs-built_in">JSON</span>.stringify({ id: msg.id, error: err.message })));
+    }
+  });
+});</code></pre>
+<p>Here&#39;s how you would call <code>streamUsers()</code> via websocket client:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> WebSocket(<span class="hljs-string">'ws://localhost:8080'</span>);
+
+<span class="hljs-comment">// Will print each user doc 1 at a time.</span>
+client.on(<span class="hljs-string">'message'</span>, msg =&gt; <span class="hljs-built_in">console</span>.log(msg));
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(resolve =&gt; client.once(<span class="hljs-string">'open'</span>, resolve));
+
+client.send(<span class="hljs-built_in">JSON</span>.stringify({ action: <span class="hljs-string">'streamUsers'</span>, id: <span class="hljs-number">1</span> }));</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Async generator functions provide an opportunity to create a higher level websocket framework based
+on the implicit response pattern that HTTP frameworks like Hapi and <a href="https://www.fastify.io/">Fastify</a> use.
+The major benefit of the implicit response pattern is that your business logic doesn&#39;t have to be aware
+of whether the framework is sending the result via websocket, HTTP polling, or something else. <a href="https://www.getrevue.co/profile/masteringjs/issues/framework-free-javascript-why-it-matters-188138">Framework-free JavaScript</a> is more portable and easier to test.</p>
+<p>The <code>streamUsers()</code> function could just as easily be reused via an HTTP framework by putting all the yielded
+values into an array, or via an HTTP polling framework that lets clients make multiple requests to iterate
+through a cursor. All this wouldn&#39;t be possible without <a href="/async-generator-functions-in-javascript.html">async generator functions</a>.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
