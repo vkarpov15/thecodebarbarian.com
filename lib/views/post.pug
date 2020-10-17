@@ -13,6 +13,7 @@ block opengraphTags
   meta( property="og:site_name",
         content="The Code Barbarian")
   meta( property="description", content=post.previewText || post.rawPreview)
+  meta(name="twitter:image", content=post.image || '/images/Barbarian_Head.png')
 
 append analytics
   link(rel="stylesheet", href="/style/inlinecpc.css")
