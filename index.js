@@ -16,6 +16,9 @@ markdown.setOptions({
     if (language && language.toLowerCase() === 'javascript') {
       return highlight.highlight('JavaScript', code).value;
     }
+    if (language && language.toLowerCase() === 'typescript') {
+      return highlight.highlight('TypeScript', code).value;
+    }
     return code;
   }
 });
