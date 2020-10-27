@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 07 Oct 2020 16:43:20 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 27 Oct 2020 19:25:44 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Working with Mongoose in TypeScript]]></title>
+            <link>http://www.thecodebarbarian.com/working-with-mongoose-in-typescript.html</link>
+            <guid>http://www.thecodebarbarian.com/working-with-mongoose-in-typescript.html</guid>
+            <pubDate>Sun, 25 Oct 2020 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Async Generator Functions and Websockets in Node.js]]></title>
             <link>http://www.thecodebarbarian.com/async-generator-functions-and-websockets-in-node-js.html</link>

@@ -1,0 +1,129 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Working with Mongoose in TypeScript | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Working with Mongoose in TypeScript"><meta property="og:url" content="http://www.thecodebarbarian.com/working-with-mongoose-in-typescript"><meta property="og:image" content="/images/keybiscayne.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose is the most popular ODM for Node.js and MongoDB. Here's a survey of different patterns for using Mongoose with TypeScript."><meta name="twitter:image" content="/images/keybiscayne.jpg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Working with Mongoose in TypeScript</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">October 25, 2020</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p>Mongoose has been receiving a lot of issues related to <a href="https://www.typescriptlang.org/">TypeScript</a> support. We&#39;re currently working hard to ship officially
+supported TypeScript bindings, so users no longer have to rely on community-supported
+bindings from <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">DefinitelyTyped</a>.
+In this article, I&#39;ll present the patterns that are commonly used to build Mongoose apps with TypeScript.</p>
+<h2 id="hello-world">Hello, World</h2>
+<p>First, install the necessary packages:</p>
+<pre><code>npm install mongoose typescript @types/mongoose</code></pre><p>To get started with Mongoose, you should create a <a href="https://mongoosejs.com/docs/models.html">model</a>. In TypeScript, a <em>model</em> is an interface that provides several ways
+to access <em>documents</em>. A document is a single object stored in MongoDB.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { model, Schema, Model, Document } from <span class="hljs-string">'mongoose'</span>;
+
+<span class="hljs-keyword">interface</span> IUser <span class="hljs-keyword">extends</span> Document {
+  email: <span class="hljs-built_in">string</span>;
+  firstName: <span class="hljs-built_in">string</span>;
+  lastName: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">const</span> UserSchema: Schema = <span class="hljs-keyword">new</span> Schema({
+  email: { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
+  firstName: { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
+  lastName: { <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> }
+});
+
+<span class="hljs-keyword">const</span> User: Model&lt;IUser&gt; = model(<span class="hljs-string">'User'</span>, UserSchema);</code></pre>
+<p>Suppose the above code is in the file <code>test.ts</code>. Run <code>./node_modules/.bin/tsc test.ts</code>
+to compile the above file into a <code>test.js</code> file that you can run with <code>node ./test.js</code>.</p>
+<p>Here&#39;s how you can create a new user using the above model.</p>
+<pre><code class="language-typescript">(async <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  await connect(<span class="hljs-string">'mongodb://localhost:27017/test'</span>, {
+    useNewUrlParser: <span class="hljs-literal">true</span>,
+    useUnifiedTopology: <span class="hljs-literal">true</span>
+  });
+
+  <span class="hljs-keyword">const</span> user: IUser = await User.create({
+    email: <span class="hljs-string">'bill@microsoft.com'</span>,
+    firstName: <span class="hljs-string">'Bill'</span>,
+    lastName: <span class="hljs-string">'Gates'</span>
+  });
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Done'</span>, user.email);
+})();</code></pre>
+<p>Note that <code>IUser</code> and <code>User</code> are different. <code>User</code> is technically not a class
+according to <code>@types/mongoose</code>, because <a href="https://stackoverflow.com/questions/35314114/how-can-i-return-a-class-from-a-typescript-function">TypeScript doesn&#39;t have good support for functions that return classes</a>. Instead, <code>User</code> is an
+object that matches the <code>Model&lt;IUser&gt;</code> interface. In particular, <code>User</code> has a
+constructor that returns an instance of <code>IUser</code>, <strong>not</strong> <code>User</code>.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">const</span> user: IUser = <span class="hljs-keyword">new</span> User({
+  email: <span class="hljs-string">'bill@microsoft.com'</span>,
+  firstName: <span class="hljs-string">'Bill'</span>,
+  lastName: <span class="hljs-string">'Gates'</span>
+});
+
+await user.save();</code></pre>
+<h2 id="queries">Queries</h2>
+<p>Creating a model is somewhat tricky, but once you have a model, executing queries
+with Mongoose and TypeScript is much easier. For example, here&#39;s how you can execute
+<code>findOne()</code> and <a href="/how-find-works-in-mongoose.html"><code>find()</code></a> queries with static type checking:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user: IUser = <span class="hljs-keyword">await</span> User.findOne({ email: <span class="hljs-string">'bill@microsoft.com'</span> });
+
+<span class="hljs-keyword">const</span> users: <span class="hljs-built_in">Array</span>&lt;IUser&gt; = <span class="hljs-keyword">await</span> User.find({ email: <span class="hljs-string">'bill@microsoft.com'</span> });</code></pre>
+<p>TypeScript is smart enough to catch if you use the wrong type. For example, if
+you instead do <code>const users: IUser = await User.find(...)</code>, the TypeScript compiler
+will fail with the below error:</p>
+<pre><code>$ ./node_modules/.bin/tsc ./test.ts 
+test.ts:31:9 - error TS2740: Type &#39;IUser[]&#39; is missing the following properties from type &#39;IUser&#39;: email, firstName, lastName, increment, and 55 more.
+
+31   const users: IUser = await User.find({ email: &#39;bill@microsoft.com&#39; });
+           ~~~~~
+
+
+Found 1 error.
+
+$ </code></pre><p>One issue with <code>@types/mongoose</code> that Mongoose&#39;s TypeScript bindings will fix is
+better support for query chaining. For example, the below chaining syntax is
+perfectly valid Mongoose code, but the TypeScript compiler will fail with a
+<code>Property &#39;updateOne&#39; does not exist</code> error.</p>
+<pre><code class="language-typescript"><span class="hljs-comment">// Equivalent to `User.updateOne({ email }, { firstName })`</span>
+<span class="hljs-keyword">const</span> res: <span class="hljs-built_in">any</span> = await User.
+  find({ email: <span class="hljs-string">'bill@microsoft.com'</span> }).
+  updateOne({}, { firstName: <span class="hljs-string">'William'</span> });</code></pre>
+<h2 id="middleware">Middleware</h2>
+<p>Most Mongoose TypeScript tutorials don&#39;t discuss middleware, the only one I&#39;ve
+read is <a href="https://medium.com/@agentwhs/complete-guide-for-typescript-for-mongoose-for-node-js-8cc0a7e470c1">this detailed tutorial</a>. The general idea is that <a href="https://mongoosejs.com/docs/api/schema.html#schema_Schema-pre"><code>Schema#pre()</code></a> and <a href="https://mongoosejs.com/docs/api/schema.html#schema_Schema-post"><code>Schema#post()</code></a> take a generic parameter that determines the type of <code>this</code> within the middleware function. That&#39;s how you can take into account the <a href="https://mongoosejs.com/docs/middleware.html#types-of-middleware">different types of middleware</a> in Mongoose.</p>
+<p>For example, for document middleware, like <code>save()</code>, the generic parameter is the document type:</p>
+<pre><code class="language-typescript">UserSchema.pre&lt;IUser&gt;(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// `this` is an instance of `IUser`</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.email);
+});</code></pre>
+<p>For query middleware, like <code>findOne()</code>, the generic parameter is a <code>Query&lt;IUser&gt;</code>:</p>
+<pre><code class="language-typescript">UserSchema.pre&lt;Query&lt;IUser&gt;&gt;(<span class="hljs-string">'findOne'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Prints "{ email: 'bill@microsoft.com' }"</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.getFilter());
+});</code></pre>
+<p>However, it is up to you to make sure you pass the correct type, <code>@types/mongoose</code> doesn&#39;t always ensure you have the correct generic type for the correct middleware.
+For example, TypeScript lets the below code pass, even though <code>this</code> is actually a query in the given middleware function.</p>
+<pre><code class="language-typescript">UserSchema.pre&lt;IUser&gt;(<span class="hljs-string">'findOne'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.email);
+});</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Thus far, Mongoose works fairly well with TypeScript, but there&#39;s a lot of work to be done to make Mongoose&#39;s TypeScript bindings line up with how Mongoose is meant to be used. As a first step, we&#39;ve been working on <a href="https://github.com/Automattic/mongoose/issues/8108">officially supported TypeScript bindings</a> for Mongoose, as an alternative to <code>@types/mongoose</code>. Please fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSdblAEh09uJJiDJ8ULyXkcF3oTNiqxM_5hZe0jwReaN0VgWMg/viewform">this Google form</a> if you&#39;re interested in helping test out our TypeScript bindings!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
