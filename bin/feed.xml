@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 27 Oct 2020 19:25:44 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 10 Nov 2020 18:54:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using Vue as a Node.js Static Site Generator]]></title>
+            <link>http://www.thecodebarbarian.com/using-vue-as-a-node-js-static-site-generator.html</link>
+            <guid>http://www.thecodebarbarian.com/using-vue-as-a-node-js-static-site-generator.html</guid>
+            <pubDate>Tue, 10 Nov 2020 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Working with Mongoose in TypeScript]]></title>
             <link>http://www.thecodebarbarian.com/working-with-mongoose-in-typescript.html</link>
