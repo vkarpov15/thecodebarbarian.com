@@ -177,7 +177,7 @@ async function generateFeed() {
   for (let i = 0; i < reversed.length; ++i) {
     f.addItem({
       title: posts[i].title,
-      link: 'http://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
+      link: 'https://www.thecodebarbarian.com' + posts[i].dest.directory.substr('./bin'.length) + '/' + posts[i].dest.name + '.html',
       date: posts[i].date.toDate()
     });
   }
