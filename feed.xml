@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 10 Dec 2020 00:09:51 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 05 Jan 2021 23:24:46 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Practical Aspect Oriented Programming in JavaScript]]></title>
+            <link>https://thecodebarbarian.com/practical-aspect-oriented-programming-in-javascript.html</link>
+            <guid>https://thecodebarbarian.com/practical-aspect-oriented-programming-in-javascript.html</guid>
+            <pubDate>Tue, 05 Jan 2021 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 5.11: Custom Casting for Paths]]></title>
             <link>https://thecodebarbarian.com/whats-new-in-mongoose-5-11-custom-casting-for-paths.html</link>
