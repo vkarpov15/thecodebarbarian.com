@@ -1,0 +1,158 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Practical Aspect Oriented Programming in JavaScript | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Practical Aspect Oriented Programming in JavaScript"><meta property="og:url" content="http://www.thecodebarbarian.com/practical-aspect-oriented-programming-in-javascript"><meta property="og:image" content="/images/keybiscayne4.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Aspect oriented programming is a paradigm that a lot of JavaScript frameworks borrow from, but there's no definitive way to do aspect oriented programming in JavaScript yet. Here's an idea for how you can think of aspect oriented programming in a JavaScript-ey way."><meta name="twitter:image" content="/images/keybiscayne4.jpg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Practical Aspect Oriented Programming in JavaScript</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">January 05, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script>
+  _native.init("CK7DT53N",{
+    targetClass: 'native-inline'
+  });
+</script>
+
+<div class="native-inline">
+  <a href="#native_link#"><span class="sponsor">Sponsor</span> #native_company# - #native_desc#</a>
+</div>
+</div><div class="post-body-text-container"><p><a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect oriented programming</a> is a relatively new (early 2000s) design paradigm that makes code more modular by allowing you to add additional implicit behavior to existing functions in a controlled way. A more concrete example that Wikipedia uses
+is &quot;how do you log the parameters passed to every function whose name starts with &#39;create&#39;?&quot; Aspect oriented programming makes that easy: you can think of it as a
+more general approach to middleware as it is implemented in <a href="https://masteringjs.io/tutorials/express/middleware">Express</a> or <a href="https://mongoosejs.com/docs/middleware.html">Mongoose</a>.</p>
+<p>I got started thinking about aspect oriented programming when I found myself
+needing to paste the same <code>slack.send()</code> call in a bunch of different functions.
+There had to be a better way to share this code between functions in a more
+<a href="https://www.getrevue.co/profile/masteringjs/issues/framework-free-javascript-why-it-matters-188138">framework-free</a> way: using Express middleware
+would mean I wouldn&#39;t be able to execute the full stack of code without making
+an HTTP request.</p>
+<h2 id="a-more-concrete-example">A More Concrete Example</h2>
+<p>Suppose you have an async function <code>createUser()</code> that adds a new user to the
+database.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createUser</span>(<span class="hljs-params">params</span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> User(params);
+
+  <span class="hljs-keyword">await</span> user.save();
+
+  <span class="hljs-keyword">return</span> { user };
+}</code></pre>
+<p>Suppose you call this function with <code>await createUser({ name: &#39;Bill Gates&#39;, email: &#39;bill@microsoft.com&#39; })</code>. You can think of that function call as an object that
+looks like this:</p>
+<pre><code>{
+  _id: 777,
+  functionName: &#39;createUser&#39;,
+  params: { name: &#39;Bill Gates&#39;, email: &#39;bill@microsoft.com&#39; },
+  calledAt: &#39;2021-01-01T00:00:01.000Z&#39;
+}</code></pre><p>Now, imagine every time you call <code>createUser()</code>, that ends up as an object in
+a stream or <a href="/rest-apis-with-observables.html">observable</a> or event emitter or
+some other structure that represents a sequence of multiple events. You can add logging, transform parameters, handle errors, or even change the function being called under the hood!</p>
+<p>I wrote a highly simplified aspect oriented programming framework called <a href="https://www.npmjs.com/package/tao-js">tao</a> a couple years ago that makes aspect oriented
+programming line up with common JavaScript patterns. Here&#39;s how you can use tao to
+log every function call that starts with <code>create</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> tao = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tao-js'</span>);
+
+<span class="hljs-keyword">const</span> lib = tao({
+  createUser: () =&gt; <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createUser</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// Simple stub</span>
+    <span class="hljs-keyword">return</span> { user: <span class="hljs-literal">null</span> };
+  }
+})();
+
+<span class="hljs-comment">// Add middleware that checks the function name, and prints params</span>
+<span class="hljs-comment">// if the function name starts with 'create'</span>
+lib.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">middleware</span>(<span class="hljs-params">action</span>) </span>{
+  <span class="hljs-keyword">if</span> (action.name.startsWith(<span class="hljs-string">'create'</span>)) {
+    <span class="hljs-built_in">console</span>.log(action.params);
+  }
+});
+
+<span class="hljs-comment">// Prints "{ name: 'Bill Gates' }"</span>
+<span class="hljs-keyword">await</span> lib.createUser({ name: <span class="hljs-string">'Bill Gates'</span> });</code></pre>
+<p>The <code>use()</code> function, which intentionally looks like <a href="https://masteringjs.io/tutorials/express/app-use">Express&#39; <code>use()</code> function</a>, adds a middleware to <code>lib</code>.
+Every time you call a function in <code>lib</code>, tao will execute the middleware. In
+aspect-oriented programming terminology, <code>use()</code> adds an <em>advice</em> called <code>middleware()</code>.</p>
+<p>Advice is inherently implicit. Someone calling <code>createUser()</code> doesn&#39;t need to
+be aware of what advice is being executed. Nor does someone working on the
+<code>createUser()</code> function itself. This is interesting because a few years ago <a href="https://github.com/vercel/micro/issues/8#issuecomment-178362486">avoiding the &quot;implicit&quot; side effects of middleware</a> was a trend in the JavaScript community, but thankfully this trend was short-lived and developers realized how silly it was.</p>
+<p>Don&#39;t go overboard on making everything middleware. But, if we really want to
+avoid all &quot;implicit&quot; behavior, your web application would have to explicity move bits around in the CPU cache and tell the hard drive disk head what part of the magnetic strip to read. </p>
+<h2 id="promises-and-async-functions">Promises and Async Functions</h2>
+<p>If you read more than a few sentences about aspect oriented programming, you&#39;re
+bound to stumble across the terms &quot;pointcut&quot; and &quot;join point&quot;. Simply put, a
+<em>join point</em> is a point in your code where you can attach <em>advice</em>, and a <em>pointcut</em> is a set of join points.</p>
+<p>In tao, the only allowed join points are before a function call and after a function call, similar to <code>pre()</code> and <code>post()</code> in Mongoose. A pointcut is then a raw function,
+without any associated middleware, like <code>createUser()</code> in the previous example.</p>
+<p>How does tao allow you to add middleware without explicitly specifying <code>pre()</code>
+or <code>post()</code>? Promises! In tao, an <em>action</em> is an object representation of a
+function call. And, yes, &quot;action&quot; is a metaphor for Redux actions. Each action
+has a <code>promise</code> property that represents the eventual success or failure of this
+function call. So to add middleware that executes after the function is done,
+you use promise chaining and the <a href="https://masteringjs.io/tutorials/fundamentals/then"><code>then()</code> function</a>.</p>
+<pre><code class="language-javascript">lib.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printExecutionTime</span>(<span class="hljs-params">action</span>) </span>{
+  <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
+  action.promise = action.promise.then(res =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Elapsed time'</span>, <span class="hljs-built_in">Date</span>.now() - start);
+    <span class="hljs-keyword">return</span> res;
+  });
+});
+
+<span class="hljs-comment">// Prints "Elapsed time 1"</span>
+lib.createUser({ name: <span class="hljs-string">'Bill Gates'</span> });</code></pre>
+<p>Promises are normally &quot;hot&quot; in the sense that the underlying asyc operation starts 
+executing immediately, but tao does <a href="https://github.com/vkarpov15/tao/blob/fee1a078029c87f2715add17a875b87324554885/lib/Library.js#L166-L171">some extra work</a> to create a promise that represents the eventual result of <code>createUser()</code> without actually calling <code>createUser()</code> until all advice (middleware) is done executing.</p>
+<p>As a consequence, tao only works with async functions. If create a tao library
+with a sync function, tao will make that function return a promise.</p>
+<p>An idea for some potential followup work is supporting <a href="/async-generator-functions-in-javascript.html">async generator functions</a>. JavaScript makes it difficult to interrupt a normal function while it is executing, but generator functions make it easy. Every <code>yield</code> statement in an async generator could be a new join point!</p>
+<h2 id="versus-object-oriented-programming">Versus Object Oriented Programming</h2>
+<p>It&#39;s surprisingly common to dismiss aspect oriented programming out of hand by
+saying &quot;ugh, why do we need another alternative to OOP?&quot; And that&#39;s a fair concern:
+developers already know OOP, so introducing a new pattern can cause a lot of
+confusion.</p>
+<p>So, here&#39;s a thought exercise. How can you complete the &quot;log all function calls that start with &#39;create&#39;&quot; task using object oriented programming, assuming that going through and adding a log statement to every function call isn&#39;t an option?</p>
+<p>One approach would be to wrap every function in a class, and add a base class that
+handles logging for you.</p>
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FunctionBase</span> </span>{
+  <span class="hljs-keyword">constructor</span>(name, executor) {
+    <span class="hljs-keyword">this</span>.name = name;
+    <span class="hljs-keyword">this</span>.executor = executor;
+  }
+
+  exec() {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.name.startsWith(<span class="hljs-string">'create'</span>)) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">arguments</span>);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.executor.apply(<span class="hljs-literal">null</span>, <span class="hljs-built_in">arguments</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreateUser</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FunctionBase</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>(<span class="hljs-string">'createUser'</span>, createUser);
+  }
+}</code></pre>
+<p>This approach works. But the problem is that <code>FunctionBase</code> then becomes a 
+<a href="https://en.wikipedia.org/wiki/God_object">God class</a> that does way too much.
+Without multiple inheritance, you&#39;re left with no way to break up <code>FunctionBase</code>
+unless you create a middleware-based approach, which leads you right back to
+aspect oriented programming.</p>
+<p>The limitation of object oriented programming in JavaScript is that
+inheritance is inherently many-to-one. Aspect oriented programming provides a
+neater pattern for approaching many-to-many relationships, like &quot;add logging to
+this set of functions&quot; or &quot;add locking to this other set of functions&quot;, than
+even multiple inheritance.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Aspect oriented programming is an interesting pattern that is worth exploring
+more. I&#39;ve been reading though <a href="https://www.manning.com/books/aspectj-in-action-second-edition">AspectJ in Action</a>, which explains aspect oriented programming as it is implemented in Java. However, JavaScript is a wildly different language with its own community and its own patterns. Try <a href="https://www.npmjs.com/package/tao-js">tao</a> for a JavaScript flavored take on aspect oriented programming and let me know what you think in the comments!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
