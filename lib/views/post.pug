@@ -75,22 +75,22 @@ block content
 
         <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
 
-        <div class="native-js"></div>
+        <div class="native-banner"></div>
 
         <script>
           (function(){
             if(typeof _bsa !== 'undefined' && _bsa) {
-              _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-js', template: `
-          <a href="##link##" class="native-banner" style="background: linear-gradient(-30deg, ##backgroundColor##E5, ##backgroundColor##E5 45%, ##backgroundColor## 45%) #fff;">
-            <div class="native-main">
-              <img class="native-img" img src="##logo##">
-              <div class="native-details" style="color: ##textColor##">
-                <span class="native-company">Sponsored by ##company##</span>
-                <span class="native-desc">##description##</span>
+              _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+              <div class="native-container">
+                <a href="##link##" class="native-banner">
+                      <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+                      <div class="native-details">
+                        <span class="native-desc"><strong>##company##</strong> ##description##</span>
+                      </div>
+                  </a>
+                  <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
               </div>
-              <span class="native-cta" style="color: ##ctaTextColor##; background-color: ##ctaBackgroundColor##;">##callToAction##</span>
-            </div>
-          </a>`, }
+              `, }
               );
             }
           })();
