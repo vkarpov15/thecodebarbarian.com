@@ -77,7 +77,7 @@ $
 
 Change stream data has several important properties:
 
-* `operationType`: must be one of 'insert', 'update', 'replace', 'delete', or 'invalidate'. See [this spec](https://github.com/mongodb/specifications/blob/master/source/change-streams.rst#response-format). Other than 'invalidate', these correspond to MongoDB CRUD operations in the obvious way, `insertOne()` becomes 'insert', `updateOne()` becomes 'update', `replaceOne()` becomes 'replace', and `deleteOne()` becomes 'delete'. Likewise, `insertMany()` gets translated to multiple 'insert' events in a change stream.
+* `operationType`: must be one of 'insert', 'update', 'replace', 'delete', or 'invalidate'. See [this spec](https://github.com/mongodb/specifications/blob/c378d48de4da1a4f1438dc30c1bf464ae9f9cd7c/source/change-streams/change-streams.rst). Other than 'invalidate', these correspond to MongoDB CRUD operations in the obvious way, `insertOne()` becomes 'insert', `updateOne()` becomes 'update', `replaceOne()` becomes 'replace', and `deleteOne()` becomes 'delete'. Likewise, `insertMany()` gets translated to multiple 'insert' events in a change stream.
 * `ns`: the database name and collection this change happened on.
 * `fullDocument`: the current state of the document at the time that this operation occurred. More on this later.
 
