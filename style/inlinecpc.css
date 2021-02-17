@@ -20,6 +20,10 @@
   margin-right: 20px;
 
   line-height: 0;
+  width: 125px;
+  padding: 10px 30px;
+  border-radius: 3px;
+  box-sizing: content-box;
 }
 
 .native-banner .native-banner .native-main {
