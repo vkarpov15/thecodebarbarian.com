@@ -1,0 +1,142 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Working with Protobufs in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Working with Protobufs in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/working-with-protobufs-in-node-js"><meta property="og:image" content="/images/dv.jpeg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Kafka is a powerful distributed pub/sub platform that is popular in large organizations. Here's how you can get started with Kafka in Node.js using the KafkaJS npm module."><meta name="twitter:image" content="/images/dv.jpeg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Working with Protobufs in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 24, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+
+<script>
+  (function(){
+    if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+      <div class="native-container">
+        <a href="##link##" class="native-banner">
+              <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+              <div class="native-details">
+                <span class="native-desc"><strong>##company##</strong> ##description##</span>
+              </div>
+          </a>
+          <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
+      </div>
+      `, }
+      );
+    }
+  })();
+</script>
+</div><div class="post-body-text-container"><p><a href="https://developers.google.com/protocol-buffers">Protobuf</a> is a neat format for serializing and deserializing objects. Like <a href="/the-80-20-guide-to-json-stringify-in-javascript">JSON</a>, but with several key tradeoffs. Here&#39;s how you can use protobufs in Node.js, including how to use them with <a href="http://expressjs.com/">Express</a>.</p>
+<h2 id="hello-protobuf">Hello, Protobuf</h2>
+<p>The biggest difference between protobufs and unstructured formats like JSON and XML is that you
+must define data types with protobufs. The most common way to define the structure of your data is a
+<code>.proto</code> file. Below is a sample <code>.proto</code> file that defines a <code>User</code> as an object with two properties:
+a string <code>name</code> and an int <code>age</code>.</p>
+<pre><code>package userpackage;
+syntax = &quot;proto3&quot;;
+
+message User {
+  string name = 1;
+  int32 age = 2;
+}</code></pre><p>There are several npm packages for working with protobufs. The most downloaded one is <a href="https://www.npmjs.com/package/protobufjs">protobufjs</a>, so we&#39;ll use that one for the purposes of this tutorial. First, import <code>protobufjs</code> and use the <code>load()</code> function to tell protobufjs to load the <code>user.proto</code> file:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> protobuf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'protobufjs'</span>);
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> root = <span class="hljs-keyword">await</span> protobuf.load(<span class="hljs-string">'user.proto'</span>);
+
+  <span class="hljs-keyword">const</span> User = root.lookupType(<span class="hljs-string">'userpackage.User'</span>);
+}</code></pre>
+<p>Now that protobufjs knows about the user type, you can use <code>User</code> to validate and serialize objects.
+There&#39;s a <code>User.verify()</code> function that validates an arbitrary object to ensure that <code>name</code> and <code>age</code>
+are the correct types:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(User.verify({ name: <span class="hljs-string">'test'</span>, age: <span class="hljs-number">2</span> })); <span class="hljs-comment">// null</span>
+<span class="hljs-built_in">console</span>.log(User.verify({ propertyDoesntExist: <span class="hljs-string">'test'</span> })); <span class="hljs-comment">// null</span>
+<span class="hljs-built_in">console</span>.log(User.verify({ age: <span class="hljs-string">'not a number'</span> })); <span class="hljs-comment">// "age: integer expected"</span></code></pre>
+<p>Note that protobuf properties aren&#39;t required by default. In the above examples, <code>verify()</code> doesn&#39;t report an error if <code>name</code> isn&#39;t specified. But you can make <code>name</code> required in the <code>user.proto</code> file as shown below.</p>
+<pre><code>package userpackage;
+syntax = &quot;proto3&quot;;
+
+message User {
+  required string name = 1;
+  int32 age = 2;
+}</code></pre><h2 id="encoding-and-decoding">Encoding and Decoding</h2>
+<p>While protobufs do perform basic data validation, they&#39;re mostly used to serialize and deserialize objects. To serialize an object, you should call <code>User.encode(obj).finish()</code>, which returns a <a href="/an-overview-of-buffers-in-node-js.html">buffer</a> that contains the protobuf representation of the object.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> buf = User.encode({ name: <span class="hljs-string">'Bill'</span>, age: <span class="hljs-number">30</span> }).finish();
+
+<span class="hljs-built_in">console</span>.log(Buffer.isBuffer(buf)); <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">console</span>.log(buf.toString(<span class="hljs-string">'utf8'</span>)); <span class="hljs-comment">// Gnarly string that contains "Bill"</span>
+<span class="hljs-built_in">console</span>.log(buf.toString(<span class="hljs-string">'hex'</span>)); <span class="hljs-comment">// 0a0442696c6c101e</span></code></pre>
+<p>To deserialize the object, you should use the <code>decode()</code> function:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> buf = User.encode({ name: <span class="hljs-string">'Bill'</span>, age: <span class="hljs-number">30</span> }).finish();
+
+<span class="hljs-keyword">const</span> obj = User.decode(buf);
+<span class="hljs-built_in">console</span>.log(obj); <span class="hljs-comment">// User { name: 'Bill', age: 30 }</span></code></pre>
+<p>If you pass </p>
+<p>Protobufs are usually used for transferring data over the network as an alternative to JSON or XML. One reason why is that a serialized protobuf payload is much smaller, because it doesn&#39;t need to include property names. For example, the below example shows the difference in size between the protobuf representation and JSON representation of a small object:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> asProtobuf = User.encode({ name: <span class="hljs-string">'Joe'</span>, age: <span class="hljs-number">27</span> }).finish();
+<span class="hljs-keyword">const</span> asJSON = <span class="hljs-built_in">JSON</span>.stringify({ name: <span class="hljs-string">'Joe'</span>, age: <span class="hljs-number">27</span> });
+
+asProtobuf.length; <span class="hljs-comment">// 7</span>
+asJSON.length; <span class="hljs-comment">// 23, 3x bigger!</span></code></pre>
+<p>Because protobuf knows about the keys in the object ahead of time from the <code>.proto</code> file, protobufs are much more space efficient than JSON. You can trim down your JSON key name lengths using patterns like <a href="https://mongoosejs.com/docs/guide.html#aliases">Mongoose aliases</a>, but you&#39;ll never get quite as small as protobufs because protobufs don&#39;t serialize key names at all!</p>
+<h2 id="sending-protobufs-in-http">Sending Protobufs in HTTP</h2>
+<p>Serializing and deserializing data isn&#39;t very useful unless you&#39;re storing data in files or transferring data over the network. So let&#39;s take a look at how you can use protobufs to serialize <a href="https://masteringjs.io/tutorials/express/body">HTTP request and response bodies with Express</a>. Below is a standalone example of sending protobufs to an Express server using <a href="https://masteringjs.io/axios">Axios</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> protobuf = <span class="hljs-built_in">require</span>(<span class="hljs-string">'protobufjs'</span>);
+
+<span class="hljs-keyword">const</span> app = express();
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> root = <span class="hljs-keyword">await</span> protobuf.load(<span class="hljs-string">'user.proto'</span>);
+
+  <span class="hljs-keyword">const</span> doc = { name: <span class="hljs-string">'Bill'</span>, age: <span class="hljs-number">30</span> };
+  <span class="hljs-keyword">const</span> User = root.lookupType(<span class="hljs-string">'userpackage.User'</span>);
+
+  app.get(<span class="hljs-string">'/user'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+    res.send(User.encode(doc).finish());
+  });
+
+  app.post(<span class="hljs-string">'/user'</span>, express.text({ type: <span class="hljs-string">'*/*'</span> }), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+    <span class="hljs-comment">// Assume `req.body` contains the protobuf as a utf8-encoded string</span>
+    <span class="hljs-keyword">const</span> user = User.decode(Buffer.from(req.body));
+    <span class="hljs-built_in">Object</span>.assign(doc, user);
+    res.end();
+  });
+
+    <span class="hljs-keyword">await</span> app.listen(<span class="hljs-number">3000</span>);
+
+  <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3000/user'</span>).then(res =&gt; res.data);
+
+  <span class="hljs-comment">// "Before POST User { name: 'Bill', age: 30 }"</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Before POST'</span>, User.decode(Buffer.from(data)));
+  <span class="hljs-keyword">const</span> postBody = User.encode({ name: <span class="hljs-string">'Joe'</span>, age: <span class="hljs-number">27</span> }).finish();
+  <span class="hljs-keyword">await</span> axios.post(<span class="hljs-string">'http://localhost:3000/user'</span>, postBody).
+    then(res =&gt; res.data);
+
+  data = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'http://localhost:3000/user'</span>).then(res =&gt; res.data);
+  <span class="hljs-comment">// "After POST User { name: 'Joe', age: 27 }"</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'After POST'</span>, User.decode(Buffer.from(data)));
+} </code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Protobufs are a neat alternative for transferring data over the wire, especially when combined with <a href="https://grpc.io/">grpc</a>. Protobufs offer some minimal type checking because <code>decode()</code> throws an error if a property has an unexpected type, and protobufs are smaller than their JSON equivalents. However, the downsides are that protobufs are not human readable (they&#39;re a <em>binary format</em>, not a <em>text format</em> like JSON or XML), and you can&#39;t decode the data without the <code>.proto</code> file. Protobufs are harder to debug and harder to work with, but can be useful if you&#39;re extremely concerned about minimizing the amount of data you send over the network.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
