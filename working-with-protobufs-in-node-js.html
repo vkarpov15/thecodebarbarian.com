@@ -53,14 +53,8 @@ are the correct types:</p>
 <pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(User.verify({ name: <span class="hljs-string">'test'</span>, age: <span class="hljs-number">2</span> })); <span class="hljs-comment">// null</span>
 <span class="hljs-built_in">console</span>.log(User.verify({ propertyDoesntExist: <span class="hljs-string">'test'</span> })); <span class="hljs-comment">// null</span>
 <span class="hljs-built_in">console</span>.log(User.verify({ age: <span class="hljs-string">'not a number'</span> })); <span class="hljs-comment">// "age: integer expected"</span></code></pre>
-<p>Note that protobuf properties aren&#39;t required by default. In the above examples, <code>verify()</code> doesn&#39;t report an error if <code>name</code> isn&#39;t specified. But you can make <code>name</code> required in the <code>user.proto</code> file as shown below.</p>
-<pre><code>package userpackage;
-syntax = &quot;proto3&quot;;
-
-message User {
-  required string name = 1;
-  int32 age = 2;
-}</code></pre><h2 id="encoding-and-decoding">Encoding and Decoding</h2>
+<p>Note that protobuf properties aren&#39;t required by default. In the above examples, <code>verify()</code> doesn&#39;t report an error if <code>name</code> isn&#39;t specified.</p>
+<h2 id="encoding-and-decoding">Encoding and Decoding</h2>
 <p>While protobufs do perform basic data validation, they&#39;re mostly used to serialize and deserialize objects. To serialize an object, you should call <code>User.encode(obj).finish()</code>, which returns a <a href="/an-overview-of-buffers-in-node-js.html">buffer</a> that contains the protobuf representation of the object.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> buf = User.encode({ name: <span class="hljs-string">'Bill'</span>, age: <span class="hljs-number">30</span> }).finish();
 
