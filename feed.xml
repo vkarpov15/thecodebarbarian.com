@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 24 Feb 2021 19:23:51 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 24 Mar 2021 20:55:55 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 5.12: Populate Transform]]></title>
+            <link>https://thecodebarbarian.com/whats-new-in-mongoose-5-12-populate-transform.html</link>
+            <guid>https://thecodebarbarian.com/whats-new-in-mongoose-5-12-populate-transform.html</guid>
+            <pubDate>Wed, 24 Mar 2021 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Working with Protobufs in Node.js]]></title>
             <link>https://thecodebarbarian.com/working-with-protobufs-in-node-js.html</link>

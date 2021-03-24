@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 5.12: Populate Transform | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 5.12: Populate Transform"><meta property="og:url" content="http://www.thecodebarbarian.com/whats-new-in-mongoose-5-12-populate-transform"><meta property="og:image" content="https://images.unsplash.com/photo-1512572525676-f9b59951929e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1852&amp;q=80"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 5.12 introduces a new `transform` option for `populate()` that lets you register a function that Mongoose will call on every populated document. Here's what you need to know."><meta name="twitter:image" content="https://images.unsplash.com/photo-1512572525676-f9b59951929e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1852&amp;q=80"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 5.12: Populate Transform</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 24, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+
+<script>
+  (function(){
+    if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+      <div class="native-container">
+        <a href="##link##" class="native-banner">
+              <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+              <div class="native-details">
+                <span class="native-desc"><strong>##company##</strong> ##description##</span>
+              </div>
+          </a>
+          <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
+      </div>
+      `, }
+      );
+    }
+  })();
+</script>
+</div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/History.md#5120--2021-03-11">Mongoose 5.12.0</a> was released on March 11, 2021. This new release includes a few neat new features. In this article, I&#39;d like to highlight a particularly useful
+new feature: the new <code>transform</code> option for <a href="https://mongoosejs.com/docs/api/model.html#model_Model.populate"><code>populate()</code></a>. This option lets you register a function that Mongoose will call on every populated document, which gives you more fine-grained control over what the results of <a href="https://mongoosejs.com/docs/populate.html"><code>populate()</code></a> look like.</p>
+<h2 id="initial-motivation-null-if-not-found">Initial Motivation: <code>null</code> if Not Found</h2>
+<p>The primary motivation for this new feature is the fact that, before Mongoose 5.12, <code>populate()</code> would always set values
+to <a href="/tutorials/fundamentals/null"><code>null</code></a> if the referenced document wasn&#39;t found.</p>
+<p>In the below example, the <code>child</code> and <code>children</code> properties both
+point to an <code>_id</code> with no corresponding <code>Child</code> document. The <code>populate()</code> function replaces the <code>_id</code> with <code>null</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Child = mongoose.model(<span class="hljs-string">'Child'</span>, mongoose.Schema({ name: <span class="hljs-built_in">String</span> }));
+<span class="hljs-keyword">const</span> Parent = mongoose.model(<span class="hljs-string">'Parent'</span>, mongoose.Schema({
+  child: { type: <span class="hljs-string">'ObjectId'</span>, ref: <span class="hljs-string">'Child'</span> },
+  children: [{ type: <span class="hljs-string">'ObjectId'</span>, ref: <span class="hljs-string">'Child'</span> }]
+}));
+
+<span class="hljs-keyword">const</span> validId = <span class="hljs-keyword">await</span> Child.create({ name: <span class="hljs-string">'Luke'</span> }).then(doc =&gt; doc._id);
+<span class="hljs-comment">// No child with this `_id`</span>
+<span class="hljs-keyword">const</span> invalidId = <span class="hljs-keyword">new</span> mongoose.Types.ObjectId();
+
+<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> Parent.create({
+  child: invalidId,
+  children: [invalidId, validId]
+});
+
+doc = <span class="hljs-keyword">await</span> Parent.findById(doc).populate([
+  <span class="hljs-string">'child'</span>,
+  <span class="hljs-comment">// Mongoose will filter out `null` unless you set `retainNullValues`</span>
+  { path: <span class="hljs-string">'children'</span>, options: { retainNullValues: <span class="hljs-literal">true</span> } }
+]);
+
+doc.child; <span class="hljs-comment">// null</span>
+doc.children; <span class="hljs-comment">// [ null, { _id: 605b65ab78930836e101955a, name: 'Luke', __v: 0 } ]</span></code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/issues/3775">original motivation for the <code>transform</code> option</a> was the ability to leave the unpopulated <code>_id</code> if no document was found, instead of explicitly setting the value to <code>null</code>. With that
+in mind, Mongoose calls the <code>transform</code> function with 2 arguments: the populated doc, and the original id that was used
+to populate this doc. Mongoose then uses the return value from the <code>transform</code> function as the populated doc. Here&#39;s
+how you can tell Mongoose to leave the populated path as an ObjectId if no document was found:</p>
+<pre><code class="language-javascript">doc = <span class="hljs-keyword">await</span> Parent.findById(doc).populate([
+  {
+    path: <span class="hljs-string">'child'</span>,
+    transform: (doc, id) =&gt; doc == <span class="hljs-literal">null</span> ? id : doc 
+  },
+  {
+    path: <span class="hljs-string">'children'</span>,
+    options: { retainNullValues: <span class="hljs-literal">true</span> },
+    transform: (doc, id) =&gt; doc == <span class="hljs-literal">null</span> ? id : doc
+  }
+]);
+
+<span class="hljs-comment">// Mongoose uses the value the `transform()` function returned</span>
+doc.child; <span class="hljs-comment">// 605b681bee716b3b8d83b51b</span>
+doc.children; <span class="hljs-comment">// [ 605b681bee716b3b8d83b51b, { _id: 605b65ab78930836e101955a, name: 'Luke', __v: 0 } ]</span></code></pre>
+<h2 id="flattening-objects-in-populate">Flattening Objects in Populate</h2>
+<p>The <code>transform()</code> function can return any value: it isn&#39;t limited to just <a href="https://mongoosejs.com/docs/documents.html">documents</a>. For example, suppose you want <code>populate()</code> to give you an array of strings, rather than an array of documents with a string property <code>name</code>. You can use <code>transform()</code> to return the child&#39;s <code>name</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> children = <span class="hljs-keyword">await</span> Child.create([{ name: <span class="hljs-string">'Luke'</span> }, { name: <span class="hljs-string">'Leia'</span> }]);
+
+<span class="hljs-keyword">let</span> doc = <span class="hljs-keyword">await</span> Parent.create({ children });
+
+doc = <span class="hljs-keyword">await</span> Parent.findById(doc).populate([{
+  path: <span class="hljs-string">'children'</span>,
+  transform: doc =&gt; doc == <span class="hljs-literal">null</span> ? <span class="hljs-literal">null</span> : doc.name
+}]);
+
+<span class="hljs-comment">// `children` will be an array of strings rather than an array of documents</span>
+<span class="hljs-built_in">console</span>.log(doc.children); <span class="hljs-comment">// ["Luke","Leia"]</span></code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>transform()</code> option gives extra fine grained control over the results of <code>populate()</code>. It&#39;s just one of the 10 new features in Mongoose 5.12. There are several other neat features, including <code>Query#pre()</code> and <code>Query#post()</code>, and a <code>getPopulatedDocs()</code> method for documents that returns an array of all populated documents on a given document. You can find the
+full list on the <a href="https://github.com/Automattic/mongoose/blob/master/History.md#5120--2021-03-11">Mongoose changelog</a>. Make sure you upgrade to
+take advantage of all the new features!</p>
+<p><em>Want to become your team&#39;s MongoDB expert? &quot;Mastering Mongoose&quot; distills 8 years of hard-earned lessons building Mongoose apps at scale into 153 pages. That means you can learn what you need to know to build production-ready full-stack apps with Node.js and MongoDB in a few days. <a href="https://masteringjs.io/ebooks/mastering-mongoose">Get your copy</a>!</em></p>
+<a href="https://masteringjs.io/ebooks/mastering-mongoose" class="async-await-banner">
+  <img src="https://masteringjs.io/ebooks/mastering-mongoose-horizontal.png">
+</a></div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
