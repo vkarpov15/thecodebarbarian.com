@@ -1,0 +1,300 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Mongoose Internals: Schemas, Schema Options, and Models | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Mongoose Internals: Schemas, Schema Options, and Models"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-internals-schemas-options-models"><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/dv1.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 5.12 introduces a new `transform` option for `populate()` that lets you register a function that Mongoose will call on every populated document. Here's what you need to know."><meta name="twitter:image" content="https://codebarbarian-images.s3.amazonaws.com/dv1.jpg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mongoose Internals: Schemas, Schema Options, and Models</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">April 21, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+
+<script>
+  (function(){
+    if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+      <div class="native-container">
+        <a href="##link##" class="native-banner">
+              <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+              <div class="native-details">
+                <span class="native-desc"><strong>##company##</strong> ##description##</span>
+              </div>
+          </a>
+          <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
+      </div>
+      `, }
+      );
+    }
+  })();
+</script>
+</div><div class="post-body-text-container"><p>I&#39;ve gotten a lot of requests for a guide to Mongoose internals, because it&#39;s hard to contribute unless you have the
+time and patience to read through the codebase. In this series of tutorials, I&#39;ll provide an overview of how Mongoose
+works geared towards developers that want to contribute to the project.</p>
+<p>In this first tutorial, I&#39;ll explain how the <a href="https://mongoosejs.com/docs/guide.html">Schema class</a> works. In particular,
+how <a href="https://mongoosejs.com/docs/guide.html#options">Schema options</a> propagate to <a href="https://mongoosejs.com/docs/models.html">models</a> and <a href="https://mongoosejs.com/docs/queries.html">queries</a>, because that ends up being a common cause for bugs.</p>
+<h2 id="schemas-and-schematypes">Schemas and <a href="https://mongoosejs.com/docs/schematypes.html">SchemaTypes</a></h2>
+<p>Let&#39;s start with a simple schema definition:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });</code></pre>
+<p>This code calls the <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L92"><code>Schema</code> constructor in <code>lib/schema.js</code></a>. The first parameter to the <code>Schema</code> constructor
+is called the schema <em>definition</em>, which is an object that describes the paths in the schema. The <code>Schema</code>
+constructor then <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L124-L130">calls the <code>Schema#add()</code> method</a> to process the definition into something
+Mongoose can understand.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/schema.js L124-L130</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(obj)) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> definition <span class="hljs-keyword">of</span> obj) {
+    <span class="hljs-keyword">this</span>.add(definition);
+  }
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (obj) {
+  <span class="hljs-keyword">this</span>.add(obj);
+}</code></pre>
+<p><a href="https://mongoosejs.com/docs/api/schema.html#schema_Schema-add">The <code>Schema#add()</code> method</a> then <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L474-L476">loops through every key in the definition</a> and looks to see whether the key&#39;s value is a <a href="https://masteringjs.io/tutorials/fundamentals/pojo">POJO</a>, SchemaType instance, or something else.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/schema.js L474-L535, heavily simplified</span>
+<span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(definition);
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">of</span> keys) {
+  <span class="hljs-keyword">if</span> (utils.isPOJO(obj[key]) &amp;&amp; !obj[key].type) {
+    <span class="hljs-comment">// Recursively add nested keys</span>
+    <span class="hljs-keyword">this</span>.add(obj[key], prefix + key + <span class="hljs-string">'.'</span>);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// Add a new path in the schema otherwise</span>
+    <span class="hljs-keyword">this</span>.path(prefix + key, obj[key]);
+  }
+}</code></pre>
+<p>The <code>Schema#add()</code> function delegates actually creating a new path to the <a href="https://mongoosejs.com/docs/api/schema.html#schema_Schema-path"><code>Schema#path()</code> method</a>. For example, the two below code samples are equivalent:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+
+<span class="hljs-comment">// Equivalent:</span>
+<span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({});
+schema.path(<span class="hljs-string">'name'</span>, <span class="hljs-built_in">String</span>);</code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L618"><code>Schema#path()</code> method implementation</a> is tricky because it has to handle nested paths,
+but the core part of <code>Schema#path()</code> is the code that <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L680-L681">creates a new SchemaType using <code>Schema#interpretAsType</code></a>.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/schema.js L680-681. The core of what `Schema#path()` is responsible for</span>
+<span class="hljs-keyword">this</span>.paths[path] = <span class="hljs-keyword">this</span>.interpretAsType(path, obj, <span class="hljs-keyword">this</span>.options);
+<span class="hljs-keyword">const</span> schemaType = <span class="hljs-keyword">this</span>.paths[path];</code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L878"><code>interpretAsType()</code> method is an internal method</a> that is responsible for interpreting the various different
+declaration syntaxes that Mongoose supports:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// One way to define a schema with a path `name` that is of type string</span>
+<span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+<span class="hljs-comment">// Another equivalent way</span>
+<span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-string">'String'</span> });
+<span class="hljs-comment">// Another equivalent way</span>
+<span class="hljs-keyword">new</span> Schema({ name: { type: <span class="hljs-built_in">String</span> } });
+<span class="hljs-comment">// Another equivalent way</span>
+<span class="hljs-keyword">new</span> Schema({ name: { type: <span class="hljs-string">'string'</span> } });
+<span class="hljs-comment">// And another equivalent way</span>
+<span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-keyword">new</span> mongoose.Schema.String(<span class="hljs-string">'name'</span>) });
+<span class="hljs-comment">// And yet another one</span>
+<span class="hljs-keyword">new</span> Schema({ name: { $type: <span class="hljs-built_in">String</span> } }, { typeKey: <span class="hljs-string">'$type'</span> });</code></pre>
+<p>The <code>interpretAsType()</code> method is responsible for returning an instance of the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/schematype.js">SchemaType class</a>. A SchemaType instance represents a single path in a Mongoose schema.
+If you call <code>Schema#path()</code> with only one argument, the <code>Schema#path()</code> function will return the SchemaType instance
+at the given path.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-built_in">String</span> });
+
+<span class="hljs-comment">/*
+SchemaString {
+  enumValues: [],
+  regExp: null,
+  path: 'name',
+  instance: 'String',
+  validators: [],
+  getters: [],
+  setters: [],
+  options: SchemaStringOptions { type: [Function: String] },
+  _index: null,
+  [Symbol(mongoose#schemaType)]: true
+}
+*/</span>
+schema.path(<span class="hljs-string">'name'</span>);
+
+schema.path(<span class="hljs-string">'name'</span>) <span class="hljs-keyword">instanceof</span> mongoose.SchemaType; <span class="hljs-comment">// true</span>
+schema.path(<span class="hljs-string">'name'</span>) <span class="hljs-keyword">instanceof</span> mongoose.Schema.String; <span class="hljs-comment">// true</span></code></pre>
+<h2 id="more-on-interpretastype">More on <code>interpretAsType</code></h2>
+<p>The <a href="https://github.com/Automattic/mongoose/tree/5.12.5/lib/schema"><code>lib/schema</code> directory</a> contains one class that
+extends from <code>SchemaType</code> for each of Mongoose&#39;s built-in types. For example, <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/schema/string.js"><code>lib/schema/string.js</code></a> contains a <code>SchemaString</code> class that inherits from <code>SchemaType</code>.</p>
+<p><a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L2143">The Schema class tracks a <code>MongooseTypes</code> object that contains all these classes</a>. The <code>mongoose.Schema.Types</code> property is a pointer to this
+object.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-comment">/*
+{
+  String: [Function: SchemaString] {...},
+  Number: [Function: SchemaNumber] {...},
+  Boolean: [Function: SchemaBoolean] {...},
+  DocumentArray: [Function: DocumentArrayPath] {...},
+  Embedded: [Function: SingleNestedPath],
+  Array: [Function: SchemaArray] {...},
+  Buffer: [Function: SchemaBuffer] {...},
+  Date: [Function: SchemaDate] {...},
+  ObjectId: [Function: ObjectId] {...},
+  Mixed: [Function: Mixed] {...},
+  Decimal: [Function: Decimal128] {...},
+  Decimal128: [Function: Decimal128] {...},
+  Map: [Function: Map] {...},
+  Oid: [Function: ObjectId] {...},
+  Object: [Function: Mixed] {...},
+  Bool: [Function: SchemaBoolean] {...},
+  ObjectID: [Function: ObjectId] {...}
+}
+*/</span>
+mongoose.Schema.Types;</code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L892-L907"><code>interpretAsType()</code> method tries to infer a type <code>name</code> from the given SchemaType definition</a>. In the case of a function,
+it just <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L994">takes the function&#39;s <code>name</code></a>. Then, <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L1008-L1014"><code>interpretAsType()</code> tries to find the type in <code>mongoose.Schema.Types</code> based on the string <code>name</code></a>.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/schema.js L892-L907</span>
+<span class="hljs-keyword">if</span> (!utils.isPOJO(obj) &amp;&amp; !(obj <span class="hljs-keyword">instanceof</span> SchemaTypeOptions)) {
+  <span class="hljs-keyword">const</span> constructorName = utils.getFunctionName(obj.constructor);
+  <span class="hljs-keyword">if</span> (constructorName !== <span class="hljs-string">'Object'</span>) {
+    <span class="hljs-keyword">const</span> oldObj = obj;
+    obj = {};
+    obj[options.typeKey] = oldObj;
+  }
+}
+
+<span class="hljs-comment">// Get the type making sure to allow keys named "type"</span>
+<span class="hljs-comment">// and default to mixed if not specified.</span>
+<span class="hljs-comment">// { type: { type: String, default: 'freshcut' } }</span>
+<span class="hljs-keyword">let</span> type = obj[options.typeKey] &amp;&amp; (options.typeKey !== <span class="hljs-string">'type'</span> || !obj.type.type)
+  ? obj[options.typeKey]
+  : {};
+<span class="hljs-keyword">let</span> name;
+
+<span class="hljs-comment">// lib/schema.js L991-L1014</span>
+<span class="hljs-keyword">if</span> (Buffer.isBuffer(type)) {
+  name = <span class="hljs-string">'Buffer'</span>;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> type === <span class="hljs-string">'function'</span> || <span class="hljs-keyword">typeof</span> type === <span class="hljs-string">'object'</span>) {
+  name = type.schemaName || utils.getFunctionName(type);
+} <span class="hljs-keyword">else</span> {
+  name = type == <span class="hljs-literal">null</span> ? <span class="hljs-string">''</span> + type : type.toString();
+}
+
+<span class="hljs-keyword">if</span> (name) {
+  name = name.charAt(<span class="hljs-number">0</span>).toUpperCase() + name.substring(<span class="hljs-number">1</span>);
+}
+<span class="hljs-comment">// Special case re: gh-7049 because the bson `ObjectID` class' capitalization</span>
+<span class="hljs-comment">// doesn't line up with Mongoose's.</span>
+<span class="hljs-keyword">if</span> (name === <span class="hljs-string">'ObjectID'</span>) {
+  name = <span class="hljs-string">'ObjectId'</span>;
+}
+
+<span class="hljs-keyword">if</span> (MongooseTypes[name] == <span class="hljs-literal">null</span>) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`Invalid schema configuration: \`<span class="hljs-subst">${name}</span>\` is not `</span> +
+    <span class="hljs-string">`a valid type at path \`<span class="hljs-subst">${path}</span>\`. See `</span> +
+    <span class="hljs-string">'http://bit.ly/mongoose-schematypes for a list of valid schema types.'</span>);
+}
+
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MongooseTypes[name](path, obj);</code></pre>
+<p>This means that any function whose <code>Function#name</code> property lines up with a Mongoose type works as a SchemaType definition:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">new</span> Schema({
+  myBoolean: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Bool</span>(<span class="hljs-params"></span>) </span>{} <span class="hljs-comment">// Equivalent to `myBoolean: Boolean`</span>
+});</code></pre>
+<p>That&#39;s the basics of how a schema definition works. A Schema has a map of <em>paths</em> which are instances of the SchemaType
+class, and the SchemaType instance is responsible for storing what type a given path should be (string, number, etc.).
+The <code>interpretAsType()</code> function is responsible for converting a Schema definition into a bunch of SchemaTypes, although
+there&#39;s nothing stopping you from explicitly defining SchemaTypes yourself:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Explicitly set `name` to a SchemaType instance.</span>
+<span class="hljs-keyword">new</span> Schema({ name: <span class="hljs-keyword">new</span> mongoose.Schema.String(<span class="hljs-string">'name'</span>) });</code></pre>
+<p>But the Schema definition is only half of what schemas do. Schemas also store <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/schema.js#L92">options</a> that let you configure how models that use this Schema
+work. Let&#39;s take a closer look at models, and how models work with schemas.</p>
+<h2 id="models-and-options">Models and Options</h2>
+<p>A Schema is just a sophisticated configuration object. Schema instances don&#39;t let you do anything with MongoDB directly.
+A Model is a pseudo-class that lets you store documents and execute queries, and a Schema helps you configure a Model.</p>
+<p>The primary way to create a Mongoose model is the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/index.js#L480">global <code>model()</code> function</a>, which takes in a model name and a schema, and returns a pseudo-class that extends from
+<a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/model.js">Mongoose&#39;s model class</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/index L480-L597, with less significant details omitted</span>
+Mongoose.prototype.model = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, schema, collection, skipInit</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> connection = options.connection || _mongoose.connection;
+  model = _mongoose.Model.compile(model || name, schema, collection, connection, _mongoose);
+  <span class="hljs-comment">// ...</span>
+
+  _mongoose.models[name] = model;
+  <span class="hljs-keyword">return</span> _mongoose.models[name];
+};</code></pre>
+<p>The particulars of <code>mongoose.Model.compile()</code> will be covered in a future tutorial on change tracking, but suffice
+to say that, in the above logic, <code>model</code> is a pseudo-class that extends from <code>mongoose.Model</code>. It isn&#39;t strictly a
+<a href="https://masteringjs.io/tutorials/fundamentals/class">JavaScript class</a> because it isn&#39;t defined using the <code>class</code> keyword,
+but for all practical purposes it behaves like a JavaScript class.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> personSchema = mongoose.Schema({ name: <span class="hljs-built_in">String</span> });
+<span class="hljs-keyword">const</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, personSchema);
+
+<span class="hljs-keyword">new</span> Person() <span class="hljs-keyword">instanceof</span> mongoose.Model; <span class="hljs-comment">// true</span></code></pre>
+<p>An instance of a Model is typically called a <em>document</em>. Mongoose Models extend from the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js">Mongoose Document class</a>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> person = <span class="hljs-keyword">new</span> Person();
+
+person <span class="hljs-keyword">instanceof</span> mongoose.Model; <span class="hljs-comment">// true</span>
+person <span class="hljs-keyword">instanceof</span> mongoose.Document; <span class="hljs-comment">// true</span></code></pre>
+<p>But, to avoid confusion between Model classes and instances, we typically refer to a Model instance as a document,
+since users rarely work with the Document class directly.</p>
+<p>Model classes have private static property <code>$__schema</code> that tracks the schema associated with the model. We assume
+that each Model has exactly one Schema. The Model class uses <code>$__schema</code> to infer default options for certain operations.</p>
+<p>For example, Mongoose schemas support configuring the <a href="https://docs.mongodb.com/manual/reference/write-concern/">write concern</a> that the model will use by default for <code>save()</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> personSchema = <span class="hljs-keyword">new</span> Schema({
+  name: <span class="hljs-built_in">String</span>
+}, { writeConcern: { wtimeout: <span class="hljs-number">1000</span> } });
+<span class="hljs-keyword">const</span> Person = mongoose.model(<span class="hljs-string">'Person'</span>, personSchema);
+
+<span class="hljs-keyword">const</span> person = <span class="hljs-keyword">new</span> Person();
+<span class="hljs-keyword">await</span> person.save(); <span class="hljs-comment">// Mongoose sets `writeConcern` automatically</span>
+
+<span class="hljs-comment">// Users can overwrite the `writeConcern` option for an individual `save()` call,</span>
+<span class="hljs-comment">// but the schema-level write concern is the default</span>
+<span class="hljs-keyword">await</span> person.save({ writeConcern: { w: <span class="hljs-number">1000</span> } });</code></pre>
+<p>When the user calls <code>save()</code>, Mongoose <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/model.js#L234">calls an internal helper <code>applyWriteConcern()</code></a> that <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/helpers/schema/applyWriteConcern.js">applies the schema-level write concern to the <code>save()</code> options object</a>, if the user didn&#39;t set one.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/helpers/schema/applyWriteConcern.js</span>
+<span class="hljs-keyword">const</span> get = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../get'</span>); <span class="hljs-comment">// `get()` is similar to `lodash.get()` or the `?.` operator</span>
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">applyWriteConcern</span>(<span class="hljs-params">schema, options</span>) </span>{
+  <span class="hljs-keyword">const</span> writeConcern = get(schema, <span class="hljs-string">'options.writeConcern'</span>, {});
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-string">'w'</span> <span class="hljs-keyword">in</span> options) &amp;&amp; writeConcern.w != <span class="hljs-literal">null</span>) {
+    options.w = writeConcern.w;
+  }
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-string">'j'</span> <span class="hljs-keyword">in</span> options) &amp;&amp; writeConcern.j != <span class="hljs-literal">null</span>) {
+    options.j = writeConcern.j;
+  }
+  <span class="hljs-keyword">if</span> (!(<span class="hljs-string">'wtimeout'</span> <span class="hljs-keyword">in</span> options) &amp;&amp; writeConcern.wtimeout != <span class="hljs-literal">null</span>) {
+    options.wtimeout = writeConcern.wtimeout;
+  }
+};</code></pre>
+<p>Similar patterns appear frequently in the Mongoose codebase, because Mongoose allows setting options globally, on <a href="https://mongoosejs.com/docs/api/connection.html">connections</a>, on schemas, and on individual operations. Typically the order of priority is:</p>
+<ol>
+<li>Individual operation option</li>
+<li>Schema-level option</li>
+<li>Connection-level option</li>
+<li>Global option</li>
+</ol>
+<p>As of Mongoose 5.12, Mongoose only supports <code>writeConcern</code> as an individual operation option for certain operations, and
+as a schema-level option. Mongoose 5.12 doesn&#39;t have a global <code>writeConcern</code> option. But, for example, Mongoose allows
+configuring the <code>maxTimeMS</code> option globally or on a given connection, so here&#39;s how the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/helpers/query/applyGlobalMaxTimeMS.js"><code>lib/helpers/query/applyGlobalMaxTimeMS</code> helper</a> handles connection-level and global options:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// lib/helpers/query/applyGlobalMaxTimeMS.js</span>
+<span class="hljs-keyword">const</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../utils'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">applyGlobalMaxTimeMS</span>(<span class="hljs-params">options, model</span>) </span>{
+  <span class="hljs-keyword">if</span> (utils.hasUserDefinedProperty(options, <span class="hljs-string">'maxTimeMS'</span>)) {
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (utils.hasUserDefinedProperty(model.db.options, <span class="hljs-string">'maxTimeMS'</span>)) {
+    options.maxTimeMS = model.db.options.maxTimeMS;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (utils.hasUserDefinedProperty(model.base.options, <span class="hljs-string">'maxTimeMS'</span>)) {
+    options.maxTimeMS = model.base.options.maxTimeMS;
+  }
+};</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>So far, we&#39;ve looked at the basics of Schemas and how Schemas configure Models. But there&#39;s a lot more to how Schemas
+work that we glossed over, most notably change tracking, middleware, and subdocuments (nested schemas). Next up, we&#39;ll
+take a look at change tracking and how <code>compile()</code> transforms a Schema into a Model class that knows to watch certain paths for
+changes.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
