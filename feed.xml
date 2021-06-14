@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 21 Apr 2021 21:02:03 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 14 Jun 2021 15:22:36 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Mongoose Internals: Compiling Models and Change Tracking]]></title>
+            <link>https://thecodebarbarian.com/mongoose-internals-schemas-options-models.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-internals-schemas-options-models.html</guid>
+            <pubDate>Mon, 14 Jun 2021 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Mongoose Internals: Schemas, Schema Options, and Models]]></title>
             <link>https://thecodebarbarian.com/mongoose-internals-schemas-options-models.html</link>
