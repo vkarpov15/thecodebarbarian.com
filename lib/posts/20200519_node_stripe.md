@@ -131,7 +131,7 @@ request to the `/stripeSecret` endpoint in the `mounted()` hook.
 // ...
 data: () => ({ secret: null }),
 mounted: async function() {
-  this._card = stripe.elements()..create('card');
+  this._card = stripe.elements().create('card');
   this._card.mount(this.$refs.stripe);
   this.secret = await axios.get('/stripeSecret').
     then(res => res.data.secret);
