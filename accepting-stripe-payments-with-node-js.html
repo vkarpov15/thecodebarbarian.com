@@ -140,7 +140,7 @@ request to the <code>/stripeSecret</code> endpoint in the <code>mounted()</code>
 <pre><code class="language-javascript"><span class="hljs-comment">// ...</span>
 data: () =&gt; ({ secret: <span class="hljs-literal">null</span> }),
 mounted: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">this</span>._card = stripe.elements()..create(<span class="hljs-string">'card'</span>);
+  <span class="hljs-keyword">this</span>._card = stripe.elements().create(<span class="hljs-string">'card'</span>);
   <span class="hljs-keyword">this</span>._card.mount(<span class="hljs-keyword">this</span>.$refs.stripe);
   <span class="hljs-keyword">this</span>.secret = <span class="hljs-keyword">await</span> axios.get(<span class="hljs-string">'/stripeSecret'</span>).
     then(res =&gt; res.data.secret);
