@@ -40,7 +40,6 @@
     "mailgun-js": "^0.22.0",
     "marked": "0.8.0",
     "moment": "2.11.2",
-    "mongodb-topology-manager": "^2.1.0",
     "node-static": "0.7.3",
     "pdf-lib": "^1.4.1",
     "pug": "2.0.4",
@@ -56,7 +55,6 @@
   "devDependencies": {
     "fastify": "1.8.0",
     "mocha": "5.2.0",
-    "mongodb": "3.1.0",
     "mongoose": "^6.0.0-rc0",
     "react": "16.x",
     "react-dom": "16.x",
