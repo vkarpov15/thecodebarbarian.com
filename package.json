@@ -55,7 +55,7 @@
   "devDependencies": {
     "fastify": "1.8.0",
     "mocha": "5.2.0",
-    "mongoose": "^6.0.0-rc0",
+    "mongoose": "6.0.0",
     "react": "16.x",
     "react-dom": "16.x",
     "redux": "4.0.0",

@@ -1,0 +1,132 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>Introducing Mongoose 6.0.0 | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Introducing Mongoose 6.0.0"><meta property="og:url" content="http://www.thecodebarbarian.com/introducing-mongoose-6"><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/sobe4.jpeg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 6.0.0 was released on August 24! Here's some highlights."><meta name="twitter:image" content="https://codebarbarian-images.s3.amazonaws.com/sobe4.jpeg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Introducing Mongoose 6.0.0</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">August 25, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+
+<script>
+  (function(){
+    if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+      <div class="native-container">
+        <a href="##link##" class="native-banner">
+              <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+              <div class="native-details">
+                <span class="native-desc"><strong>##company##</strong> ##description##</span>
+              </div>
+          </a>
+          <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
+      </div>
+      `, }
+      );
+    }
+  })();
+</script>
+</div><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/blob/master/CHANGELOG.md#600--2021-08-24">Mongoose 6.0.0</a> was released on August 24, 2021.
+We&#39;ve been hard at work on the 6.0 for nearly 18 months, so we&#39;re very excited to finally share all the improvements we&#39;ve made.
+As far as high level vanity metrics go, Mongoose 6 had <a href="https://github.com/Automattic/mongoose/pull/10596">457 git commits</a> and <a href="https://github.com/Automattic/mongoose/blob/master/CHANGELOG.md#600--2021-08-24">52 backwards breaking changes</a>.
+While Mongoose 6 is a moderately larger release than <a href="https://thecodebarbarian.com/introducing-mongoose-5.html">Mongoose 5</a>, most of the changes are minor improvements that shouldn&#39;t require any massive rewrites.</p>
+<p>It&#39;s been 3.5 years since we released <a href="/introducing-mongoose-5.html">Mongoose 5</a>. We try our best to ensure Mongoose is stable, and we&#39;re hoping to avoid shipping Mongoose 7 for another few years.
+In the meantime, we&#39;ll continue to support Mongoose 5 and backport bug fixes as necessary.
+However, we will <strong>not</strong> backport any new features to Mongoose 5.
+There will only be patch releases to Mongoose 5.x going forward.</p>
+<p>Without further ado, here&#39;s some of the highlights from Mongoose 6.
+You can find the full <a href="https://mongoosejs.com/docs/migrating_to_6.html">migration guide</a> on the Mongoose docs.</p>
+<h2 id="mongodb-driver-40-mongodb-5-support">MongoDB Driver 4.0, MongoDB 5 Support</h2>
+<p>The MongoDB Node driver team released <a href="https://github.com/mongodb/node-mongodb-native/blob/4.1/HISTORY.md#400-2021-07-13"><code>mongodb@4.0.0</code> on July 13</a>.
+Mongoose 6.0.0 uses v4.1.1 of the MongoDB Node driver, which comes with a few notable changes.
+The major benefit is full support for <a href="https://www.mongodb.com/blog/post/launched-today-mongodb-5-0-serverless-atlas-evolution-application-data-platform">MongoDB 5.0</a>, including <a href="https://www.mongodb.com/cloud/atlas/serverless">MongoDB Atlas Serverless Instances</a>.</p>
+<p>Another benefit is officially supported TypeScript bindings.
+The MongoDB Node driver team <a href="https://github.com/mongodb/node-mongodb-native/blob/4.0/docs/CHANGES_4.0.0.md#typescript">migrated to TypeScript for the 4.0 release</a>, so there&#39;s no longer any need for <a href="http://npmjs.com/package/@types/mongodb"><code>@types/mongodb</code></a>.</p>
+<p>Also, the <code>useUnifiedTopology</code> and <code>useNewUrlParser</code> options are gone.
+These options only existed in Mongoose 5.x and MongoDB Node driver 3.x to opt in to new internal implementations.
+As of Mongoose 6 these options are gone because the new internal implementations are the default, and the legacy implementations are gone.
+If you used <code>useUnifiedTopology: true</code> and <code>useNewUrlParser: true</code> in Mongoose 5, you should have no problems removing them when upgrading to Mongoose 6.</p>
+<p>The result of <code>updateOne()</code> and <code>updateMany()</code> operations has changed slightly.
+The MongoDB Node driver changed several property names for consistency and readability, most notably the <code>n</code> and <code>nModified</code> options.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> res = <span class="hljs-keyword">await</span> TestModel.updateMany({}, { someProperty: <span class="hljs-string">'someValue'</span> });
+
+res.matchedCount; <span class="hljs-comment">// Number of documents that were found that match the filter. Replaces `res.n`</span>
+res.modifiedCount; <span class="hljs-comment">// Number of documents modified. Replaces `res.nModified`</span>
+res.upsertedCount; <span class="hljs-comment">// Number of documents upserted. Replaces `res.upserted`</span></code></pre>
+<h2 id="arrays-as-proxies">Arrays as Proxies</h2>
+<p>The long-standing #1 question on the <a href="https://mongoosejs.com/docs/5.x/docs/faq.html">Mongoose FAQ</a> is &quot;why don&#39;t my changes to arrays get saved when I update an element directly?&quot;</p>
+<pre><code class="language-javascript">doc.array[<span class="hljs-number">3</span>] = <span class="hljs-string">'changed'</span>;
+
+<span class="hljs-comment">// Won't save changes to `array`.</span>
+<span class="hljs-keyword">await</span> doc.save();
+
+<span class="hljs-comment">// You need to explicitly mark the array as modified </span>
+doc.markModified(<span class="hljs-string">'array'</span>);
+<span class="hljs-keyword">await</span> doc.save();</code></pre>
+<p>In Mongoose 6, the <code>markModified()</code> call is no longer necessary, because Mongoose arrays are now <a href="https://thecodebarbarian.com/2015/04/24/80-20-guide-to-ecmascript-6-proxies">ES6 proxies</a>.
+That means Mongoose can correctly track changes when you set an array element index!</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> articleSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ title: <span class="hljs-built_in">String</span>, tags: [<span class="hljs-built_in">String</span>] });
+<span class="hljs-keyword">const</span> Article = mongoose.model(<span class="hljs-string">'Article'</span>, articleSchema);
+
+<span class="hljs-keyword">const</span> article = <span class="hljs-keyword">await</span> Article.create({ title: <span class="hljs-string">'Arrays in Mongoose 6'</span>, tags: [<span class="hljs-string">'javascript'</span>] });
+
+article.tags[<span class="hljs-number">0</span>] = <span class="hljs-string">'mongodb'</span>;
+<span class="hljs-keyword">await</span> article.save();
+
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> Article.findById(article);
+<span class="hljs-built_in">console</span>.log(fromDb.tags); <span class="hljs-comment">// ['mongodb'] in Mongoose 6!</span></code></pre>
+<p>Another great benefit of arrays as proxies is that strict equality checks, like Node&#39;s native <code>assert.deepStrictEqual()</code>, will now treat Mongoose arrays as equal to vanilla <a href="/the-80-20-guide-to-javascript-arrays.html">JavaScript arrays</a>.
+In Mongoose 5, a Mongoose array could be <code>assert.deepEqual()</code> to an array, but not <code>deepStrictEqual()</code> because they were instances of different classes, and because <code>deepStrictEqual()</code> would pick up on Mongoose internals.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> article = <span class="hljs-keyword">await</span> Article.create({ title: <span class="hljs-string">'Arrays in Mongoose 6'</span>, tags: [<span class="hljs-string">'javascript'</span>] });
+
+<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<span class="hljs-comment">// This would fail in Mongoose 5, because `articles.tag` was a subclass of `Array`, not a proxy.</span>
+assert.deepStrictEqual(article.tags, [<span class="hljs-string">'javascript'</span>]);</code></pre>
+<p>We&#39;ve been wary of <a href="/thoughts-on-es6-proxies-performance">ES6 proxy performance</a> for many years.
+However, given that proxies are now more performant than ES6 promises in our basic benchmarks, and given that Vue has switched over to proxies, we think that proxies are <em>finally</em> ready for production use.
+If proxies work well for arrays in Mongoose, we will consider switching nested properties, or documents in general, over to proxies as well.</p>
+<h2 id="schema-enforced-key-order-when-saving">Schema-Enforced Key Order when Saving</h2>
+<p>An unfortunate gotcha for MongoDB beginners is that <em>object key order matters in MongoDB</em>.
+Long-time Mongoose and/or MongoDB Node driver users may remember the <a href="https://github.com/mongodb/node-mongodb-native/commit/f1d0d85aec0891e7439db889544e8c955f99ba89">push in 2015 to use entries-style syntax for sorting</a>, <code>User.find().sort([[&#39;name&#39;, 1]])</code>.
+This isn&#39;t the only case where order matters.
+For example, equality checks on nested properties:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> Schema({
+  profile: {
+    name: {
+      first: <span class="hljs-built_in">String</span>,
+      last: <span class="hljs-built_in">String</span>
+    }
+  }
+});
+<span class="hljs-keyword">const</span> Test = mongoose.model(<span class="hljs-string">'Test'</span>, schema);
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> Test({
+  profile: { name: { last: <span class="hljs-string">'Musashi'</span>, first: <span class="hljs-string">'Miyamoto'</span> } }
+});
+<span class="hljs-keyword">await</span> doc.save();
+
+<span class="hljs-comment">// Before Mongoose 6, this wouldn't find any results because 'first' and 'last' are in reverse order!</span>
+<span class="hljs-keyword">await</span> Test.findOne({ <span class="hljs-string">'profile.name'</span>: { first: <span class="hljs-string">'Miyamoto'</span>, last: <span class="hljs-string">'Musashi'</span> } });</code></pre>
+<p>In Mongoose 6, when you <code>save()</code> a new document, the order of the keys in the document is the same as the order of the keys in the <em>schema</em>, as opposed to the order of the keys in the object passed to <code>new Test()</code>.
+The above example fails in Mongoose 5 because <code>doc.save()</code> saves the keys in <code>profile.name</code> in the user-specified key order.
+In Mongoose 6, the above example will find the correct document, because the key order matches.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>These are just a few of the improvements we&#39;ve made in Mongoose 6.
+Check out the <a href="https://mongoosejs.com/docs/migrating_to_6.html">migration guide</a> for a full list of all the potentially breaking changes.
+Please upgrade and open any issues you find on <a href="https://github.com/Automattic/mongoose/issues/new">Mongoose&#39;s GitHub page</a>!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
