@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 25 Aug 2021 20:47:23 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 02 Sep 2021 16:11:04 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 6: The `sanitizeFilter` Option]]></title>
+            <link>https://thecodebarbarian.com/whats-new-in-mongoose-6-sanitizefilter.html</link>
+            <guid>https://thecodebarbarian.com/whats-new-in-mongoose-6-sanitizefilter.html</guid>
+            <pubDate>Mon, 06 Sep 2021 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing Mongoose 6.0.0]]></title>
             <link>https://thecodebarbarian.com/introducing-mongoose-6.html</link>
