@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()
+</script><title>What's New in Mongoose 6: The `sanitizeFilter` Option | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 6: The `sanitizeFilter` Option"><meta property="og:url" content="http://www.thecodebarbarian.com/whats-new-in-mongoose-6-sanitizefilter"><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/sobe5.jpeg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 6.0.0 has a new `sanitizeFilter` option that protects you against query selector injection attacks. Here's what you need to know."><meta name="twitter:image" content="https://codebarbarian-images.s3.amazonaws.com/sobe5.jpeg"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div><div><script type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=thecodebarbariancom" id="_carbonads_js"></script></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 6: The `sanitizeFilter` Option</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 06, 2021</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+
+<script>
+  (function(){
+    if(typeof _bsa !== 'undefined' && _bsa) {
+      _bsa.init('custom', 'CK7DT53N', 'placement:thecodebarbariancom', { target: '.native-banner', template: `
+      <div class="native-container">
+        <a href="##link##" class="native-banner">
+              <div class="native-img" style="background: ##backgroundColor##;"><img src="##logo##"></div>
+              <div class="native-details">
+                <span class="native-desc"><strong>##company##</strong> ##description##</span>
+              </div>
+          </a>
+          <a class="native-via" href="##adViaLink##"">Ad via BuySellAds</a>
+      </div>
+      `, }
+      );
+    }
+  })();
+</script>
+</div><div class="post-body-text-container"><p><a href="/introducing-mongoose-6.html">Mongoose 6</a> was released August 24, 2021, with over 50 (mostly minor) breaking changes.
+This release also introduces a new feature that I&#39;ve started using across my Mongoose apps: the <code>sanitizeFilter</code> option, and its corresponding <code>mongoose.trusted()</code> function.
+The <code>sanitizeFilter</code> option protects your apps against <a href="/2014/09/04/defending-against-query-selector-injection-attacks.html">query selector injection attacks</a>, which are a potentially serious security issue.
+Enabling <code>sanitizeFilter</code> allows you to use untrusted user data in query filters without risking query selector injections.</p>
+<h2 id="primer-on-query-selector-injection-attacks">Primer on Query Selector Injection Attacks</h2>
+<p>Query selector injection vulnerabilities occur when you pass user-specified data to query filters, like the first parameter to <code>findOne()</code>.
+For example, suppose you use the below logic to implement logging in with a password.
+Of course, the below code is bad for several reasons, some of which you can read about <a href="/thoughts-on-user-passwords-in-rest-apis.html">here</a>, but please consider it for the sake of an example.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({ email: req.body.email, hashedPassword: req.body.hashedPassword });</code></pre>
+<p>The above query assumes that <code>req.body.hashedPassword</code> is a string, or at least a <a href="https://masteringjs.io/tutorials/fundamentals/primitives">primitive</a>.
+In some cases, that might be safe.
+For example, <a href="https://masteringjs.io/tutorials/express/route-parameters">Express route params</a> and headers are always strings or <a href="https://masteringjs.io/tutorials/fundamentals/falsy#nullish-values">nullish</a>.
+But what happens if <code>req.body</code> is the below JavaScript object?</p>
+<pre><code>{
+  email: &#39;john@acme.com&#39;,
+  hashedPassword: { $ne: null }
+}</code></pre><p>The above <code>req.body</code> will make the <code>User.findOne()</code> query find users whose <code>email</code> is &#39;john@acme.com&#39;, and whose password is <em>any</em> non-null value.
+If you use this section&#39;s <code>User.findOne()</code> query for login, that means a malicious user can log in to any user&#39;s account <strong>without their password.</strong></p>
+<p>Why doesn&#39;t Mongoose protect against this by default?
+Because Mongoose can&#39;t tell at runtime whether you&#39;re passing it trusted data, or unsanitized user-specified data.
+For example, you may be writing a script that needs to iterate through all users that have a non-null password, and, in that case, Mongoose should let the <code>$ne: null</code> query filter through.</p>
+<p>The way to prevent query selector injections is to <em>explicitly specify a query selector</em> when the query filter property isn&#39;t always a primitive.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({
+  email: { $eq: req.body.email },
+  hashedPassword: { $eq: req.body.hashedPassword }
+});</code></pre>
+<p>There&#39;s nothing stopping you from adding <code>$eq</code> to every query filter property.
+But Mongoose 6 can make that easier for you using the <code>sanitizeFilter</code> option.</p>
+<h2 id="using-sanitizefilter">Using <code>sanitizeFilter</code></h2>
+<p>The <code>sanitizeFilter</code> option is an option for <a href="https://mongoosejs.com/docs/queries.html">queries</a>, as well as <a href="https://mongoosejs.com/docs/api/mongoose.html#mongoose_Mongoose-set"><code>mongoose.set()</code></a>.
+If <code>sanitizeFilter</code> is enabled, Mongoose will wrap any objects in the query filter with <a href="https://docs.mongodb.com/manual/reference/operator/query/eq/">MongoDB&#39;s <code>$eq</code> query operator</a>, which blocks query selector injections.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// With `sanitizeFilter`, Mongoose converts the below query to</span>
+<span class="hljs-comment">// `{ email, hashedPassword: { $eq: { $ne: null } } }`</span>
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({ email: <span class="hljs-string">'john@acme.com'</span>, hashedPassword: { $ne: <span class="hljs-literal">null</span> } }).
+  setOptions({ sanitizeFilter: <span class="hljs-literal">true</span> });</code></pre>
+<p>The <code>$eq</code> operator means the above query will find documents whose <code>email</code> is &#39;john@acme.com&#39;, and whose <code>hashedPassword</code> property is deep equal the object <code>{ $ne: null }</code>.
+By default, Mongoose will throw a <code>CastError</code> on the above query, because <code>{ $ne: null }</code> isn&#39;t something that Mongoose can convert to a string.</p>
+<p>The <code>sanitizeFilter</code> option is false by default, because making it true by default would break too many people&#39;s code.
+Thus far, I typically enable <code>sanitizeFilter</code> on individual queries.
+If a query takes parameters directly from <code>req.body</code> or <code>req.query</code>, I add <code>setOptions({ sanitizeFilter })</code>.</p>
+<p>But, like with many other Mongoose options, you can tell Mongoose to make <code>sanitizeFilter</code> true by default as shown below.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Make `sanitizeFilter` true by default</span>
+mongoose.set(<span class="hljs-string">'sanitizeFilter'</span>, <span class="hljs-literal">true</span>);</code></pre>
+<p>The above line changes the default value of <code>sanitizeFilter</code>.
+You can still turn <code>sanitizeFilter</code> off for individual queries:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Disable `sanitizeFilter` for this query if `sanitizeFilter` is true by default</span>
+<span class="hljs-keyword">const</span> users = <span class="hljs-keyword">await</span> User.find({ hashedPassword: { $ne: <span class="hljs-literal">null</span> } }).setOptions({ sanitizeFilter: <span class="hljs-literal">false</span> });</code></pre>
+<p>If you prefer explicitly calling a function rather than setting an option, Mongoose also exports a <code>sanitizeFilter()</code> function.
+The <code>sanitizeFilter()</code> function lets you sanitize input against query selector injections yourself.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> filter = mongoose.sanitizeFilter({
+  email: req.body.email,
+  hashedPassword: req.body.hashedPassword
+});
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne(filter);</code></pre>
+<h2 id="mixing-trusted-and-untrusted-filters-with-trusted">Mixing Trusted and Untrusted Filters with <code>trusted()</code></h2>
+<p>Sometimes you may want to add a couple query selectors to an otherwise untrusted query.
+For example, suppose you want to add an additional filter to the <code>User.findOne({ email, hashedPassword })</code> query that filters out deleted users.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({
+  <span class="hljs-comment">// Throws a CastError because `sanitizeFilter` will convert `{ $ne: true }` to</span>
+  <span class="hljs-comment">// `{ $eq: { $ne : true } }`</span>
+  isDeleted: { $ne: <span class="hljs-literal">true</span> },
+  email: req.body.email,
+  hashedPassword: req.body.hashedPassword
+}).setOptions({ sanitizeFilter: <span class="hljs-literal">true</span> });</code></pre>
+<p>Here the fundamental problem of query selector injections pops up again: there&#39;s no way for Mongoose to know at runtime whether <code>{ $ne: true }</code> is a safe constant hard-coded by the app developer or potentially malicious user-specified data.</p>
+<p>In order to explicitly label part of a query as trusted, you can use the <code>mongoose.trusted()</code> function as shown below.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({
+  <span class="hljs-comment">// Tell Mongoose to not sanitize `{ $ne: true }`</span>
+  isDeleted: mongoose.trusted({ $ne: <span class="hljs-literal">true</span> }),
+  email: req.body.email,
+  hashedPassword: req.body.hashedPassword
+}).setOptions({ sanitizeFilter: <span class="hljs-literal">true</span> });</code></pre>
+<p>Another alternative to using <code>trusted()</code> is using the <a href="/object-assign-vs-object-spread.html">spread operator</a> with the <code>sanitizeFilter()</code> function.
+Keep the <code>sanitizeFilter</code> option off by default, and instead mix in the sanitized data to the filter using <code>...</code> as shown below.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne({
+  isDeleted: { $ne: <span class="hljs-literal">true</span> },
+  ...mongoose.sanitizeFilter({
+    email: req.body.email,
+    hashedPassword: req.body.hashedPassword
+  })
+});</code></pre>
+<h2 id="an-alternative-pattern-eq-query-helper">An Alternative Pattern: <code>eq()</code> Query Helper</h2>
+<p>Here&#39;s an interesting idea to consider: why are there no update selector injections in MongoDB?
+The answer is that update operators are top-level properties in the update object:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> update = {
+  $set: {
+    email: <span class="hljs-string">'john@acme.com'</span>
+  }
+};</code></pre>
+<p>As opposed to nested within the properties being updated:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// This is NOT valid MongoDB syntax, but illustrates the key difference between filters and</span>
+<span class="hljs-comment">// updates in the context of security vulnerabilities.</span>
+<span class="hljs-keyword">const</span> update = {
+  email: {
+    $set: <span class="hljs-string">'john@acme.com'</span>
+  }
+};</code></pre>
+<p>This means it is safe to do <code>const update = { $set: req.body }</code> (using Mongoose to validate data of course) because you specified that you&#39;re <code>$set</code>-ing <em>all</em> the properties of <code>req.body</code>.
+There&#39;s no way for a malicious user to overwrite the <code>$set</code>.</p>
+<p>Another option we considered for defending against query selector injections in Mongoose is a chaining syntax inspired by updates.
+This syntax was <a href="https://github.com/Automattic/mongoose/pull/10430">discussed in this GitHub issue</a>.
+Below is how the proposed syntax would look on the query from the previous section.
+Please note that this syntax is <strong>not yet supported</strong> as of Mongoose 6.0.x.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findOne().
+  ne({ isDeleted: <span class="hljs-literal">true</span> }). <span class="hljs-comment">// `{ isDeleted: { $ne: true } }</span>
+  eq({
+    email: req.body.email,
+    hashedPassword: req.body.hashedPassword
+  }); <span class="hljs-comment">// `{ email: { $eq: req.body.email }, hashedPassword: { $eq: req.body.hashedPassword } }</span></code></pre>
+<p>This syntax makes it easier to ensure that <em>every</em> property in the query filter has an explicit query selector.
+Query selector injections only happen when you don&#39;t explicitly set a filter, so this syntax also blocks query selector injections.</p>
+<p>We may support this syntax in a future Mongoose version.
+But we decided against it for Mongoose 6 because the fact that such an <code>eq()</code> helper would protect against security vulnerabilities isn&#39;t as immediately obvious as we would like.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>The <code>sanitizeFilter</code> option and <code>sanitizeFilter()</code> function are just a couple of the improvements we&#39;ve made in Mongoose 6.
+Mongoose 6 is our first breaking change in over 3 years, and is packed with cool new features and improvements, like <a href="/introducing-mongoose-6.html#arrays-as-proxies">arrays as proxies</a>.
+Next in our Mongoose 6 series, I&#39;ll cover the <code>Connection#asPromise()</code> method and duplicate query detection.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
