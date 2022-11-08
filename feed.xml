@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 02 Sep 2021 16:11:04 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 08 Nov 2022 17:01:15 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 6.5: The `castObject()` and `applyDefaults()` Functions]]></title>
+            <link>https://thecodebarbarian.com/whats-new-in-mongoose-6-5-castobject-applydefaults.html</link>
+            <guid>https://thecodebarbarian.com/whats-new-in-mongoose-6-5-castobject-applydefaults.html</guid>
+            <pubDate>Tue, 08 Nov 2022 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 6: The `sanitizeFilter` Option]]></title>
             <link>https://thecodebarbarian.com/whats-new-in-mongoose-6-sanitizefilter.html</link>
