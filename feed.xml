@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 08 Nov 2022 17:01:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 15 Dec 2022 17:19:24 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 6.8: Deno Support and Document-Specific Validation Error Messages]]></title>
+            <link>https://thecodebarbarian.com/whats-new-in-mongoose-6-8-deno-and-error-messages.html</link>
+            <guid>https://thecodebarbarian.com/whats-new-in-mongoose-6-8-deno-and-error-messages.html</guid>
+            <pubDate>Thu, 15 Dec 2022 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 6.5: The `castObject()` and `applyDefaults()` Functions]]></title>
             <link>https://thecodebarbarian.com/whats-new-in-mongoose-6-5-castobject-applydefaults.html</link>
