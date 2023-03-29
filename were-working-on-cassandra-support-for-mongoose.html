@@ -44,8 +44,8 @@ There&#39;s a <a href="https://github.com/stargate/stargate-mongoose-sample-apps
 The sample app is <a href="https://github.com/stargate/stargate-mongoose-sample-apps/tree/main/netlify-functions-ecommerce">netlify-functions-ecommerce</a>: an eCommerce store built on <a href="https://www.netlify.com/">Netlify</a>, including a serverless backend built with <a href="https://www.netlify.com/products/functions/">Netlify functions</a></p>
 <p>For Cassandra developers, stargate-mongoose means you will have an effective bridge to the amazing capabilities of modern JavaScript.
 With Mongoose and the greater JavaScript ecosystem, it will be much easier to be a <em>Full Stack Cassandra Developer</em>.
-The netlify-functions-ecommerce app is an excellent example of what will be possible.
-In theory, all you need to ship that app to production will be to sign up for a Netlify account and click a few buttons.
+Check out the netlify-functions-ecommerce app for a taste of what&#39;s possible.
+To ship that app to production, all you will need to do is sign up for a Netlify account and click a few buttons.
 Netlify takes care of automatically redeploying your app on pushes to the <code>main</code> branch, SSL certificates, CDN, and API gateway for your serverless functions.</p>
 <p>The Stargate JSON API is also coming to <a href="https://astra.datastax.com/">DataStax Astra</a>, DataStax&#39;s cloud Cassandra offering.
 That means applications like netlify-functions-ecommerce can run fully in the cloud, so you can deploy new apps with a few clicks in a UI even without an existing Cassandra cluster.</p>
@@ -61,7 +61,7 @@ Stargate-mongoose is a separate project that plugs into Mongoose via Mongoose&#3
 <p>For Mongoose developers, the big news is that you&#39;ll be able to both build Mongoose apps on top of existing Cassandra deployments, and leverage Cassandra for workloads that are write and append heavy (messaging, analytics, etc.).
 This should unlock new opportunities to build Mongoose applications that would not have been feasible before.</p>
 <p>While Stargate is powerful and flexible, it is worth noting that you won&#39;t necessarily be able to access existing Cassandra tables via the Stargate JSON API.
-The Stargate JSON API stores documents in Cassandra in a <a href="https://www.cassandrasummit.org/cassandra-forward">format called &quot;super shredding&#39;</a>.
+The Stargate JSON API stores documents in Cassandra in a <a href="https://www.cassandrasummit.org/cassandra-forward">format called &quot;super shredding&quot;</a>.
 So the Stargate JSON API won&#39;t be able to access tables that aren&#39;t in this format.</p>
 <p>My hope is that MongoDB and Cassandra will be complementary tools for Mongoose developers.
 Both databases have their respective merits, and have use cases that they&#39;re uniquely suited for.
