@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 29 Mar 2023 20:34:03 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 28 Apr 2023 17:22:58 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 7.1: BigInt Support and createCollections()]]></title>
+            <link>https://thecodebarbarian.com/whats-new-in-mongoose-7-1-bigint-support-createcollections.html</link>
+            <guid>https://thecodebarbarian.com/whats-new-in-mongoose-7-1-bigint-support-createcollections.html</guid>
+            <pubDate>Fri, 28 Apr 2023 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[We're Working on Cassandra Support for Mongoose]]></title>
             <link>https://thecodebarbarian.com/were-working-on-cassandra-support-for-mongoose.html</link>
