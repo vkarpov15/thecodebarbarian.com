@@ -62,7 +62,6 @@ With Mongoose, you can store integers up to <code>2**63 - 1</code> in MongoDB, a
 If you try to insert a document into a non-existent collection, MongoDB will first create the collection for you.
 However, there are a number of newer MongoDB features that require you to be more careful about creating collections:</p>
 <ol>
-<li><a href="/a-node-js-perspective-on-mongodb-4-transactions.html">Transactions</a>. MongoDB will throw an error if you try to write to a non-existent collection in a transaction.</li>
 <li><a href="/a-nodejs-perspective-on-mongodb-34-collations">Collations</a>. You can&#39;t modify a collection&#39;s default collation after you&#39;ve created the collection.</li>
 <li>Timeseries collections and capped collections. You can&#39;t change a collection&#39;s type once it has been created.</li>
 </ol>
