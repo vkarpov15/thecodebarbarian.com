@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 28 Apr 2023 17:22:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 07 May 2023 17:54:35 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing Private Preview for Stargate-Mongoose Astra Support]]></title>
+            <link>https://thecodebarbarian.com/introducing-private-preview-for-stargate-mongoose-astra.html</link>
+            <guid>https://thecodebarbarian.com/introducing-private-preview-for-stargate-mongoose-astra.html</guid>
+            <pubDate>Sun, 07 May 2023 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 7.1: BigInt Support and createCollections()]]></title>
             <link>https://thecodebarbarian.com/whats-new-in-mongoose-7-1-bigint-support-createcollections.html</link>
