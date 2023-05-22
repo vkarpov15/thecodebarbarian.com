@@ -4,8 +4,7 @@ We've been hard at work on adding support for [Astra](https://astra.datastax.com
 This is a huge step forward for making stargate-mongoose production ready, because now you don't have to run Stargate yourself in order to use Mongoose with Cassandra.
 
 Astra support is coming along nicely, and we're now ready to accept beta testers.
-If you're interested in trying out Mongoose and JSON API on Astra, please submit a request here.
-For example, here's an instance of the [Netlify eCommerce sample app](https://github.com/stargate/stargate-mongoose-sample-apps/tree/main/netlify-functions-ecommerce) running on [Netlify](https://www.netlify.com/) and storing data in Astra.
+If you're interested in trying out Mongoose and JSON API on Astra, please send an email to <a href="mailto:json-preview@datastax.com">json-preview@datastax.com</a>. Please keep in mind that initially this will be available in only one region, and there is no SLA associated with your data. As we move out of Early Access and into General Availability, all Astra regions will be available, all Astra general SLAs will be applicable, and any specifics relative the stargate-mongoose and the JSON API will be communicated.
 
 Connecting Mongoose to Astra
 ------------------------
@@ -116,10 +115,25 @@ mongoose.connect(astraConnectionString, {
 ```
 
 Or you can try out one of our [sample apps](https://github.com/stargate/stargate-mongoose-sample-apps).
-Just follow the instructions for connecting to Astra in the sample app's `README`, like the instructions in the [Netlify eCommerce sample app](https://github.com/stargate/stargate-mongoose-sample-apps/blob/main/netlify-functions-ecommerce/README.md).
+Just follow the instructions for connecting to Astra in the sample app's `README`, like the instructions in the [Netlify ecommerce sample app](https://github.com/stargate/stargate-mongoose-sample-apps/blob/main/netlify-functions-ecommerce/README.md).
 
 Introducing create-stargate-mongoose-app
 ------------------------
+
+In order to help you get started with Mongoose and Astra, we've built [create-stargate-mongoose-app](https://www.npmjs.com/package/create-stargate-mongoose-app).
+This tool lets you create a new stargate-mongoose project based on one of our [sample apps](https://github.com/stargate/stargate-mongoose-sample-apps):
+
+1. netlify-functions-ecommerce: an ecommerce store that runs on [Netlify](https://www.netlify.com/) and uses Stripe for payments
+2. discord-bot: a basic discord bot that makes queries and inserts documents based on discord commands
+3. typescript-express-reviews: a TypeScript and [Express](https://expressjs.com/) app that stores reviews for vehicles
+
+For example, to create a `my-discord-bot` directory based on the discord-bot project, you can run the following command:
+
+```
+npx create-stargate-mongoose-app my-discord-bot --sample discord-bot
+```
+
+create-stargate-mongoose-app will copy the latest version of the discord bot sample app into the `my-discord-bot` directory and run `npm install` for you, so you'll have an Astra-backed discord bot ready to go.
 
 Moving On
 ---------
@@ -128,4 +142,4 @@ Adding Astra support is a major step forward for stargate-mongoose, because now 
 As a Cassandra developer, this means you'll be able to build modern JavaScript applications on top of Cassandra, leveraging the full suite of tools and content available to Mongoose developers.
 And as a Mongoose developer, this means you'll be able to leverage Cassandra's scalability and durability, particularly in write-heavy applications.
 Want to try it out?
-Submit a request here!
+Submit a request by emailing <a href="mailto:json-preview@datastax.com">json-preview@datastax.com</a>!
