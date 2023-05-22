@@ -3,6 +3,13 @@ html
   head
     script(type="text/javascript").
       var _sf_startpt=(new Date()).getTime()
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TE4SWRGR9E');
 
     block title
       title www.thecodebarbarian.com
