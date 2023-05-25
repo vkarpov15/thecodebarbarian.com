@@ -139,7 +139,7 @@ Moving On
 ---------
 
 Adding Astra support is a major step forward for stargate-mongoose, because now you can get a Cassandra-backed Mongoose app running with just a few clicks in a UI.
-As a Cassandra developer, this means you'll be able to build modern JavaScript applications on top of Cassandra, leveraging the full suite of tools and content available to Mongoose developers.
+This means that users no longer have to run Stargate themselves to use Mongoose with Cassandra.
 And as a Mongoose developer, this means you'll be able to leverage Cassandra's scalability and durability, particularly in write-heavy applications.
 Want to try it out?
-Submit a request by emailing <a href="mailto:json-preview@datastax.com">json-preview@datastax.com</a>!
+Astra support is currently in private preview, but you can request access by emailing <a href="mailto:json-preview@datastax.com">json-preview@datastax.com</a>.
