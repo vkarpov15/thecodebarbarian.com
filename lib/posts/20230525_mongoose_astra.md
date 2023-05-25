@@ -10,7 +10,7 @@ Connecting Mongoose to Astra
 ------------------------
 
 Keep in mind that, right now, JSON API support in Astra is in a private preview.
-In order to get access, you need to [create an Astra account](https://deploy-preview-1--amazing-cassata-75f094.netlify.app/) submit a request here.
+In order to get access, you need to [create an Astra account](https://deploy-preview-1--amazing-cassata-75f094.netlify.app/) and email <a href="mailto:json-preview@datastax.com">json-preview@datastax.com</a>.
 That being said, once you have access, log in to Astra and create a new database.
 
 ![image](https://user-images.githubusercontent.com/1620265/236689443-3a13c6fb-fe19-4f74-abc3-e9db6e6bd04f.png)
