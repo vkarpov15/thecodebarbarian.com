@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 25 May 2023 14:03:53 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 10 Jul 2023 15:00:29 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Getting Started with Vector Databases in Node.js]]></title>
+            <link>https://thecodebarbarian.com/getting-started-with-vector-databases-in-node-js.html</link>
+            <guid>https://thecodebarbarian.com/getting-started-with-vector-databases-in-node-js.html</guid>
+            <pubDate>Mon, 10 Jul 2023 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing Private Preview for Stargate-Mongoose Astra Support]]></title>
             <link>https://thecodebarbarian.com/introducing-private-preview-for-stargate-mongoose-astra.html</link>

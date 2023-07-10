@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Getting Started with Vector Databases in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Getting Started with Vector Databases in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/getting-started-with-vector-databases-in-node-js"><meta property="og:image" content="https://images.unsplash.com/photo-1604884223364-9bd06ccb3c8c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=710&amp;q=80"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="A brief introduction to vector databases in Node.js using Chroma."><meta name="twitter:image" content="https://images.unsplash.com/photo-1604884223364-9bd06ccb3c8c?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=710&amp;q=80"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Getting Started with Vector Databases in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 10, 2023</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>Vector databases are a hot topic right now, and with good reason.
+When combined with AI tools like <a href="https://openai.com/blog/chatgpt">ChatGPT</a>, vector databases enable <em>semantic similarity search</em>: find me things that are similar to this other thing.
+This form of search is more sophisticated than basic search engines or text search, because the search algorithm is able to interpret the semantics of the text, rather than just trying to match keywords.</p>
+<p>One neat application of semantic search is topic classification: given a piece of text, determine which category out of a predetermined list best matches the text.
+For example, given the sentence &quot;apple jumped 10% today&quot;, is this sentence about &quot;Food&quot; or &quot;Stocks&quot;?
+Conventional keyword search would struggle with this distinction, because there&#39;s no way to distinguish between apple (fruit) and Apple (company) without interpreting the semantics of the text.</p>
+<p>In this tutorial, I&#39;ll walk you through using Node.js and a vector database called <a href="https://www.trychroma.com/">Chroma</a> to build a toy topic classification tool.</p>
+<h2 id="getting-started-with-chroma">Getting Started with Chroma</h2>
+<p>To run Chroma locally, you should clone the <a href="https://github.com/chroma-core/chroma">Chroma GitHub repo</a> and run their docker-compose file as follows.</p>
+<pre><code>git clone https://github.com/chroma-core/chroma.git
+cd chroma
+docker-compose up -d --build</code></pre><p>Once you have Chroma running, you should also get an <a href="https://openai.com/product">OpenAI key</a> if you don&#39;t already have one.
+You can then use your OpenAI key to store an embedding for a given sentence in Chroma.
+An <em>embedding</em> is a vector that represents the features of the given text.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChromaClient, OpenAIEmbeddingFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chromadb'</span>);
+<span class="hljs-keyword">const</span> embedder = <span class="hljs-keyword">new</span> OpenAIEmbeddingFunction({ openai_api_key: <span class="hljs-string">'sk-XYZ'</span> });
+
+<span class="hljs-keyword">const</span> collection = <span class="hljs-keyword">await</span> client.createCollection({
+  name: <span class="hljs-string">"my_collection"</span>,
+  embeddingFunction: embedder
+});
+
+<span class="hljs-keyword">const</span> embeddings = <span class="hljs-keyword">await</span> embedder.generate([
+  <span class="hljs-string">'apple jumped 10% today'</span>,
+  <span class="hljs-string">'i like apple pie'</span>
+]);
+<span class="hljs-comment">// An array of 1536 numbers: [-0.016792895, -0.015178694, 0.015230765]</span>
+<span class="hljs-built_in">console</span>.log(embeddings[<span class="hljs-number">0</span>]);</code></pre>
+<h2 id="topic-classification">Topic Classification</h2>
+<p>A simple way to handle topic classification is to insert an embedding for each topic with some sample text, and, for any given text, find the closest vector to that text.
+For example, let&#39;s use &quot;apple jumped 10% today&quot; as a representative of the &quot;Stocks&quot; category, and &quot;i like apple pie&quot; as a representative of the &quot;Food&quot; category.
+The following code generates embeddings for those two sentences, and inserts them into Chroma with the associated category as <a href="https://docs.trychroma.com/usage-guide#adding-data-to-a-collection">metadata</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> embeddings = <span class="hljs-keyword">await</span> embedder.generate([
+  <span class="hljs-string">'apple jumped 10% today'</span>,
+  <span class="hljs-string">'i like apple pie'</span>
+]);
+
+<span class="hljs-keyword">await</span> collection.add({
+  ids: [<span class="hljs-string">'id1'</span>, <span class="hljs-string">'id2'</span>],
+  documents: [<span class="hljs-string">'apple jumped 10% today'</span>, <span class="hljs-string">'i like apple pie'</span>],
+  embeddings: embeddings,
+  metadatas: [{ category: <span class="hljs-string">'Stocks'</span> }, { category: <span class="hljs-string">'Food'</span> }]
+});</code></pre>
+<p>Next, in order to classify text, you&#39;ll pass the text to <a href="https://docs.trychroma.com/usage-guide#querying-a-collection">Chroma&#39;s <code>query()</code> function</a>, which automatically generates the embedding for you using OpenAI.
+The following code classifies 4 sentences that use the word &quot;apple&quot; in different contexts.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> results = <span class="hljs-keyword">await</span> collection.query({
+  nResults: <span class="hljs-number">1</span>,
+  queryTexts: [
+    <span class="hljs-string">'is apple stock a good buy?'</span>,
+    <span class="hljs-string">'i ate an apple flavored jolly rancher'</span>,
+    <span class="hljs-string">'when is Apple\'s next earnings call?'</span>,
+    <span class="hljs-string">'add 7 cups of thinly sliced apples'</span>
+  ]
+});
+<span class="hljs-comment">// Correct classification: ['Stocks', 'Food', 'Stocks', 'Food']</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Results'</span>, results.metadatas.map(res =&gt; res[<span class="hljs-number">0</span>].category));</code></pre>
+<p>Pretty amazing: with only 2 vectors, this classifier can already correctly categorize 4 sentences that have no words in common with the original sentences other than &quot;apple&quot;.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Vector databases are an amazing tool when combined with AI-generated embeddings.
+The topic classification approach described in this blog post is simple, but surprisingly powerful.
+We&#39;ve been able to build a classifier that categorizes arbitrary text into the <a href="https://www.iab.com/guidelines/content-taxonomy/">IAB Content Taxonomy</a> with 90%+ accuracy by iteratively putting vectors into <a href="https://www.pinecone.io/">Pinecone</a>, another vector database.
+And text classification is just the tip of the iceberg, you can also create embeddings for <a href="https://anttihavanko.medium.com/building-image-search-with-openai-clip-5a1deaa7a6e2">images</a> and <a href="https://github.com/harritaylor/torchvggish">audio</a>.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
