@@ -25,6 +25,8 @@ An _embedding_ is a vector that represents the features of the given text.
 
 ```javascript
 const { ChromaClient, OpenAIEmbeddingFunction } = require('chromadb');
+
+const client = new ChromaClient();
 const embedder = new OpenAIEmbeddingFunction({ openai_api_key: 'sk-XYZ' });
 
 const collection = await client.createCollection({
