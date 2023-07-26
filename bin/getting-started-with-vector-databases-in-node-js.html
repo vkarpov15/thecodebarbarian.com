@@ -25,6 +25,8 @@ docker-compose up -d --build</code></pre><p>Once you have Chroma running, you sh
 You can then use your OpenAI key to store an embedding for a given sentence in Chroma.
 An <em>embedding</em> is a vector that represents the features of the given text.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> { ChromaClient, OpenAIEmbeddingFunction } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chromadb'</span>);
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ChromaClient();
 <span class="hljs-keyword">const</span> embedder = <span class="hljs-keyword">new</span> OpenAIEmbeddingFunction({ openai_api_key: <span class="hljs-string">'sk-XYZ'</span> });
 
 <span class="hljs-keyword">const</span> collection = <span class="hljs-keyword">await</span> client.createCollection({
