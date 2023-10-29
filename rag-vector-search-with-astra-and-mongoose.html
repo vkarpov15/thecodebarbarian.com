@@ -24,8 +24,74 @@ How about if we add an example of <a href="https://twitter.com/DataStax/status/1
 
 Write using the style and tone of the following tweet:
 
-Ready to venture into the world of Generative AI? Learn the ins and outs of infrastructure and select the right LLM for your project with this how-to guide.</code></pre><p>Here&#39;s the result:</p>
-<pre><code>Ready to dive into the world of vector databases in Node.js? Discover the secrets to optimizing your data handling and supercharging your apps! Check out our latest blog post for the ultimate how-to guide.</code></pre></div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+Ready to venture into the world of Generative AI?
+Learn the ins and outs of infrastructure and select the right LLM for your project with this how-to guide.</code></pre><p>Here&#39;s the result:</p>
+<pre><code>Ready to dive into the world of vector databases in Node.js?
+Discover the secrets to optimizing your data handling and supercharging your apps!
+Check out our latest blog post for the ultimate how-to guide.</code></pre><p>The idea of RAG is to use a <a href="./getting-started-with-vector-databases-in-node-js.html">vector database</a> to find relevant examples to the user&#39;s prompt, to help guide the LLM to a better result.
+In this blog post, I&#39;ll show how to use <a href="https://docs.datastax.com/en/astra-serverless/docs/vector-search/overview.html">Astra&#39;s vector search</a> with <a href="https://mongoosejs.com/">Mongoose</a> to build a RAG chatbot that answers JavaScript programming questions using <a href="https://masteringjs.io/">Mastering JS&#39; articles</a> for context.</p>
+<p>You can see the <a href="https://github.com/mastering-js/masteringjs-backend/blob/e760d30d32eb022ad47aafd7ffcc6ee16af9ae76/chatbot.js">full source code for the Mastering JS chatbot here</a>.
+You can also access a <a href="https://deploy-preview-335--masteringjs.netlify.app/tutorials/mocha/aftereach?show-chatbot=true">live version of the Mastering JS chatbot here</a>, just be aware that this chatbot is limited to 100 queries per hour to prevent abuse.</p>
+<h2 id="getting-started-with-astra-and-mongoose">Getting Started with Astra and Mongoose</h2>
+<p>Astra&#39;s new vector search capabilities are integrated into Astra&#39;s JSON API, which means <a href="./introducing-private-preview-for-stargate-mongoose-astra.html">you can use Mongoose queries to do vector search in Astra</a>.
+To get started, install Mongoose and <a href="https://www.npmjs.com/package/stargate-mongoose">stargate-mongoose</a>.</p>
+<pre><code>npm install mongoose stargate-mongoose</code></pre><p>Next, deploy a new vector database on <a href="https://astra.datastax.com/">Astra</a>.</p>
+<img src="https://i.imgur.com/3bkaFFt.png" style="width: 50%; border: 1px solid #ddd">
+
+<p>Click into your new Astra vector database, click &quot;Connect&quot;, and find &quot;Connect with the JSON API&quot;.
+You should see the following instructions:</p>
+<img src="https://i.imgur.com/wN8GJkl.png" style="border: 1px solid #ddd">
+
+<p>Click &quot;Generate Configuration&quot; to get credentials for your Astra vector database.
+You will get a <code>ASTRA_DB_ID</code>, <code>ASTRA_DB_REGION</code>, <code>ASTRA_DB_KEYSPACE</code>, and <code>ASTRA_DB_APPLICATION_TOKEN</code>.
+Copy these values into my <a href="./introducing-private-preview-for-stargate-mongoose-astra.html#connecting-mongoose-to-astra">Astra connection string generation tool</a> to get your Astra connection string.
+It should look like the following:</p>
+<pre><code>https://3418a8ac-OMITTED-us-east-2.apps.astra.datastax.com/api/json/v1/test?applicationToken=AstraCS:OMITTED</code></pre><p>With an Astra connection string, you&#39;re now ready to connect to Astra and start querying documents.
+Import Mongoose and stargate-mongoose as follows:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+mongoose.set(<span class="hljs-string">'autoCreate'</span>, <span class="hljs-literal">false</span>);
+mongoose.set(<span class="hljs-string">'autoIndex'</span>, <span class="hljs-literal">false</span>);
+
+<span class="hljs-keyword">const</span> { driver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stargate-mongoose'</span>);
+mongoose.setDriver(driver); <span class="hljs-comment">// &lt;-- Use stargate-mongoose driver</span></code></pre>
+<p>Then, connect to Astra using <code>mongoose.connect()</code>, and create a new collection <code>tests</code> that has vector search enabled as follows.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> mongoose.connect(process.env.ASTRA_URI, { isAstra: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// Clean up any existing collection that may conflict</span>
+<span class="hljs-keyword">await</span> mongoose.connection.dropCollection(<span class="hljs-string">'tests'</span>);
+<span class="hljs-comment">// Create a new collection with vector search enabled</span>
+<span class="hljs-keyword">await</span> mongoose.connection.createCollection(<span class="hljs-string">'tests'</span>, {
+  vector: {
+    <span class="hljs-function"><span class="hljs-keyword">function</span>: '<span class="hljs-title">cosine</span>',
+    <span class="hljs-title">size</span>: 2
+  }
+});</span></code></pre>
+<p>Create a new <a href="https://mongoosejs.com/docs/models.html">Mongoose model</a> with a <code>$vector</code> property.
+The <code>$vector</code> property is an array of numbers that Astra uses to store the document&#39;s vector for vector search.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  $vector: [<span class="hljs-built_in">Number</span>],
+  name: <span class="hljs-built_in">String</span>
+});
+<span class="hljs-keyword">const</span> TestModel = mongoose.model(<span class="hljs-string">'Test'</span>, schema, <span class="hljs-string">'tests'</span>);
+<span class="hljs-keyword">await</span> TestModel.create({ name: <span class="hljs-string">'Test 1'</span>, $vector: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>] });
+<span class="hljs-keyword">await</span> TestModel.create({ name: <span class="hljs-string">'Test 2'</span>, $vector: [<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>] });</code></pre>
+<p>With JSON API, vector search is represented as a <a href="https://mongoosejs.com/docs/queries.html">Mongoose query</a> with a special <code>sort()</code> parameter on <code>$vector</code>.
+The sort parameter to <code>$vector</code> tells Astra which vector to find documents closest to.
+The following example shows how to query for which documents are closest to the vector <code>[0.1, -0.9]</code> followed by the documents closest to <code>[0.1, 0.9]</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> docs = <span class="hljs-keyword">await</span> TestModel.find()
+  .sort({ $vector: { $meta: [<span class="hljs-number">0.1</span>, <span class="hljs-number">-0.9</span>] } });
+<span class="hljs-comment">// "Test 2", "Test 1"</span>
+<span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.name));
+
+docs = <span class="hljs-keyword">await</span> TestModel.find()
+  .sort({ $vector: { $meta: [<span class="hljs-number">0.1</span>, <span class="hljs-number">0.9</span>] } });
+<span class="hljs-comment">// "Test 1", "Test 2"</span>
+<span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.name));</code></pre>
+<h2 id="importing-mastering-js-articles">Importing Mastering JS&#39; Articles</h2>
+<h2 id="retrieval-augmented-generation">Retrieval Augmented Generation</h2>
+<h2 id="moving-on">Moving On</h2>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
 
