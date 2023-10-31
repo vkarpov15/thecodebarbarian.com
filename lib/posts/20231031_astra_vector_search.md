@@ -126,6 +126,127 @@ console.log(docs.map(doc => doc.name));
 Importing Mastering JS' Articles
 -------------------------------
 
+Retrieval augmented generation generally works best when you have a large data set of content that is relevant to the sort of questions your app expects.
+For example, for JavaScript programming questions, [Mastering JS](https://masteringjs.io/) has an easily scrapable collection of approximately 500 articles on common JavaScript programming tasks.
+To import Mastering JS' articles, you can add Mastering JS as a `devDependency` in your `package.json`, along with a couple other utility packages:
+
+```
+"devDependencies": {
+  "masteringjs.io": "https://github.com/mastering-js/masteringjs.io",
+  "moment": "2.29.4",
+  "nlcst-to-string": "2.x",
+  "remark": "13.x"
+},
+```
+
+[Mastering JS' articles are stored in an array in the masteringjs.io GitHub repo's `src/tutorials.js` file](https://github.com/mastering-js/masteringjs.io/blob/013a3eb65e97bd4cf3e19f301e1f57d77b428872/src/tutorials.js).
+The idea is to pull all the tutorials, split them up into ["chunks"](https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking) by headers, and generate an embedding (vector) for each chunk using ChatGPT:
+
+```javascript
+function createEmbedding(input) {
+  return axios({
+    method: 'POST',
+    url: 'https://api.openai.com/v1/embeddings',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPEN_AI_KEY}`
+    },
+    data: {
+      model: 'text-embedding-ada-002',
+      input
+    }
+  }).then(res => res.data.data[0].embedding);
+}
+```
+
+Once the app has an embedding for a given chunk, it will store the chunk in the `Article` model:
+
+```javascript
+const mongoose = require('../mongoose');
+
+const articleSchema = new mongoose.Schema({
+  $vector: [Number],
+  title: String,
+  content: String,
+  url: String
+});
+
+module.exports = mongoose.model('Article', articleSchema, 'articles');
+```
+
+[Here's the script that chunks Mastering JS' articles and imports them into Astra](https://github.com/mastering-js/masteringjs-backend/blob/main/scripts/importArticles.js).
+The script first drops and recreates the `articles` collection to clear out any existing data:
+
+```javascript
+const Article = require('../src/db/article');
+
+await mongoose.connect(process.env.ASTRA_URI, { isAstra: true });
+
+await Article.db.dropCollection('articles');
+await Article.createCollection({
+  vector: { size: 1536, function: 'cosine' } 
+});
+```
+
+Next, the script reads all the articles, and splits them by any header tags (`h1`, `h2`, `h3`, etc.).
+
+```javascript
+const articles = require('masteringjs.io/src/tutorials');
+
+let i = 0;
+for (const { title, raw, url, tags } of articles) {
+  // Skip a few irrelevant articles
+  if (tags.includes('temporal') || tags.includes('tools')) {
+    continue;
+  }
+  console.log('Importing', title);
+  // Read the raw markdown
+  const content = fs.readFileSync(`${__dirname}/../node_modules/masteringjs.io${raw.replace(/^\./, '')}`, 'utf8');
+  
+  // Split the raw markdown by headers
+  const ast = remark.parse(content);
+  const sections = [{ heading: null, nodes: [] }];
+  let currentSection = 0;
+  ast.children.forEach(node => {
+    if (node.type === 'heading') {
+      ++currentSection;
+      // nlcstToString converts a Markdown AST into its string representation.
+      console.log(nlcstToString(node));
+      sections[currentSection] = {
+        heading: nlcstToString(node),
+        nodes: []
+      };
+    } 
+    sections[currentSection].nodes.push(node);
+  });
+}
+```
+
+Finally, the script stores each section in the database as an `Article` document:
+
+```javascript
+console.log(`Importing ${sections.length} sections`);
+for (const section of sections) {
+  const content = remark.stringify({
+    type: 'root',
+    children: section.nodes
+  });
+
+  const embedding = await createEmbedding(content);
+  // Combine the article title and header text to get the section title
+  const contentTitle = section.heading ? `${title}: ${section.heading}` : title;
+  // Make the section URL a link to the header
+  const contentUrl = section.heading ? `${url}#${toKebabCase(section.heading)}` : url;
+
+  await Article.create({
+    title: contentTitle,
+    url: contentUrl,
+    content,
+    $vector: embedding
+  });
+}
+```
+
 Retrieval Augmented Generation
 ------------------------------
 

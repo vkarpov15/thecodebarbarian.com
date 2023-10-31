@@ -3,7 +3,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 gtag('config', 'G-TE4SWRGR9E');
-</script><title>Retrieval Augmented Generation with Astra and Mongoose | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Retrieval Augmented Generation with Astra and Mongoose"><meta property="og:url" content="http://www.thecodebarbarian.com/rag-vector-search-with-astra-and-mongoose"><meta property="og:image" content="https://images.unsplash.com/photo-1465343161283-c1959138ddaa?auto=format&amp;fit=crop&amp;q=80&amp;w=710&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="A brief introduction to vector search with retrieval augmented generation using Astra DB and Mongoose, including maximal marginal relevance (MMR)."><meta name="twitter:image" content="https://images.unsplash.com/photo-1465343161283-c1959138ddaa?auto=format&amp;fit=crop&amp;q=80&amp;w=710&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+</script><title>Retrieval Augmented Generation with Astra and Mongoose | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Retrieval Augmented Generation with Astra and Mongoose"><meta property="og:url" content="http://www.thecodebarbarian.com/rag-vector-search-with-astra-and-mongoose"><meta property="og:image" content="https://images.unsplash.com/photo-1465343161283-c1959138ddaa?auto=format&amp;fit=crop&amp;q=80&amp;w=710&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="A brief introduction to vector search with retrieval augmented generation using Astra DB and Mongoose."><meta name="twitter:image" content="https://images.unsplash.com/photo-1465343161283-c1959138ddaa?auto=format&amp;fit=crop&amp;q=80&amp;w=710&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
   float: left !important;
   margin-left: 215px !important;
 }
@@ -89,6 +89,102 @@ docs = <span class="hljs-keyword">await</span> TestModel.find()
 <span class="hljs-comment">// "Test 1", "Test 2"</span>
 <span class="hljs-built_in">console</span>.log(docs.map(doc =&gt; doc.name));</code></pre>
 <h2 id="importing-mastering-js-articles">Importing Mastering JS&#39; Articles</h2>
+<p>Retrieval augmented generation generally works best when you have a large data set of content that is relevant to the sort of questions your app expects.
+For example, for JavaScript programming questions, <a href="https://masteringjs.io/">Mastering JS</a> has an easily scrapable collection of approximately 500 articles on common JavaScript programming tasks.
+To import Mastering JS&#39; articles, you can add Mastering JS as a <code>devDependency</code> in your <code>package.json</code>, along with a couple other utility packages:</p>
+<pre><code>&quot;devDependencies&quot;: {
+  &quot;masteringjs.io&quot;: &quot;https://github.com/mastering-js/masteringjs.io&quot;,
+  &quot;moment&quot;: &quot;2.29.4&quot;,
+  &quot;nlcst-to-string&quot;: &quot;2.x&quot;,
+  &quot;remark&quot;: &quot;13.x&quot;
+},</code></pre><p><a href="https://github.com/mastering-js/masteringjs.io/blob/013a3eb65e97bd4cf3e19f301e1f57d77b428872/src/tutorials.js">Mastering JS&#39; articles are stored in an array in the masteringjs.io GitHub repo&#39;s <code>src/tutorials.js</code> file</a>.
+The idea is to pull all the tutorials, split them up into <a href="https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking">&quot;chunks&quot;</a> by headers, and generate an embedding (vector) for each chunk using ChatGPT:</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEmbedding</span>(<span class="hljs-params">input</span>) </span>{
+  <span class="hljs-keyword">return</span> axios({
+    method: <span class="hljs-string">'POST'</span>,
+    url: <span class="hljs-string">'https://api.openai.com/v1/embeddings'</span>,
+    headers: {
+      <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+      Authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.OPEN_AI_KEY}</span>`</span>
+    },
+    data: {
+      model: <span class="hljs-string">'text-embedding-ada-002'</span>,
+      input
+    }
+  }).then(res =&gt; res.data.data[<span class="hljs-number">0</span>].embedding);
+}</code></pre>
+<p>Once the app has an embedding for a given chunk, it will store the chunk in the <code>Article</code> model:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../mongoose'</span>);
+
+<span class="hljs-keyword">const</span> articleSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  $vector: [<span class="hljs-built_in">Number</span>],
+  title: <span class="hljs-built_in">String</span>,
+  content: <span class="hljs-built_in">String</span>,
+  url: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-built_in">module</span>.exports = mongoose.model(<span class="hljs-string">'Article'</span>, articleSchema, <span class="hljs-string">'articles'</span>);</code></pre>
+<p><a href="https://github.com/mastering-js/masteringjs-backend/blob/main/scripts/importArticles.js">Here&#39;s the script that chunks Mastering JS&#39; articles and imports them into Astra</a>.
+The script first drops and recreates the <code>articles</code> collection to clear out any existing data:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Article = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../src/db/article'</span>);
+
+<span class="hljs-keyword">await</span> mongoose.connect(process.env.ASTRA_URI, { isAstra: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">await</span> Article.db.dropCollection(<span class="hljs-string">'articles'</span>);
+<span class="hljs-keyword">await</span> Article.createCollection({
+  vector: { size: <span class="hljs-number">1536</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>: '<span class="hljs-title">cosine</span>' } 
+});</span></code></pre>
+<p>Next, the script reads all the articles, and splits them by any header tags (<code>h1</code>, <code>h2</code>, <code>h3</code>, etc.).</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> articles = <span class="hljs-built_in">require</span>(<span class="hljs-string">'masteringjs.io/src/tutorials'</span>);
+
+<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> { title, raw, url, tags } <span class="hljs-keyword">of</span> articles) {
+  <span class="hljs-comment">// Skip a few irrelevant articles</span>
+  <span class="hljs-keyword">if</span> (tags.includes(<span class="hljs-string">'temporal'</span>) || tags.includes(<span class="hljs-string">'tools'</span>)) {
+    <span class="hljs-keyword">continue</span>;
+  }
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Importing'</span>, title);
+  <span class="hljs-comment">// Read the raw markdown</span>
+  <span class="hljs-keyword">const</span> content = fs.readFileSync(<span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/../node_modules/masteringjs.io<span class="hljs-subst">${raw.replace(/^\./, '')}</span>`</span>, <span class="hljs-string">'utf8'</span>);
+
+  <span class="hljs-comment">// Split the raw markdown by headers</span>
+  <span class="hljs-keyword">const</span> ast = remark.parse(content);
+  <span class="hljs-keyword">const</span> sections = [{ heading: <span class="hljs-literal">null</span>, nodes: [] }];
+  <span class="hljs-keyword">let</span> currentSection = <span class="hljs-number">0</span>;
+  ast.children.forEach(node =&gt; {
+    <span class="hljs-keyword">if</span> (node.type === <span class="hljs-string">'heading'</span>) {
+      ++currentSection;
+      <span class="hljs-comment">// nlcstToString converts a Markdown AST into its string representation.</span>
+      <span class="hljs-built_in">console</span>.log(nlcstToString(node));
+      sections[currentSection] = {
+        heading: nlcstToString(node),
+        nodes: []
+      };
+    } 
+    sections[currentSection].nodes.push(node);
+  });
+}</code></pre>
+<p>Finally, the script stores each section in the database as an <code>Article</code> document:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Importing <span class="hljs-subst">${sections.length}</span> sections`</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> section <span class="hljs-keyword">of</span> sections) {
+  <span class="hljs-keyword">const</span> content = remark.stringify({
+    type: <span class="hljs-string">'root'</span>,
+    children: section.nodes
+  });
+
+  <span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(content);
+  <span class="hljs-comment">// Combine the article title and header text to get the section title</span>
+  <span class="hljs-keyword">const</span> contentTitle = section.heading ? <span class="hljs-string">`<span class="hljs-subst">${title}</span>: <span class="hljs-subst">${section.heading}</span>`</span> : title;
+  <span class="hljs-comment">// Make the section URL a link to the header</span>
+  <span class="hljs-keyword">const</span> contentUrl = section.heading ? <span class="hljs-string">`<span class="hljs-subst">${url}</span>#<span class="hljs-subst">${toKebabCase(section.heading)}</span>`</span> : url;
+
+  <span class="hljs-keyword">await</span> Article.create({
+    title: contentTitle,
+    url: contentUrl,
+    content,
+    $vector: embedding
+  });
+}</code></pre>
 <h2 id="retrieval-augmented-generation">Retrieval Augmented Generation</h2>
 <h2 id="moving-on">Moving On</h2>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
