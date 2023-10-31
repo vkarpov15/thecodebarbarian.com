@@ -140,7 +140,7 @@ To import Mastering JS' articles, you can add Mastering JS as a `devDependency` 
 ```
 
 [Mastering JS' articles are stored in an array in the masteringjs.io GitHub repo's `src/tutorials.js` file](https://github.com/mastering-js/masteringjs.io/blob/013a3eb65e97bd4cf3e19f301e1f57d77b428872/src/tutorials.js).
-The idea is to pull all the tutorials, split them up into ["chunks"](https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking) by headers, and generate an embedding (vector) for each chunk using ChatGPT:
+The idea is to pull all the tutorials, split them up into ["chunks"](https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking) by headers, and generate an embedding (vector) for each chunk using ChatGPT, assuming that your OpenAI key is stored in the `OPEN_AI_KEY` environment variable:
 
 ```javascript
 function createEmbedding(input) {
@@ -250,5 +250,82 @@ for (const section of sections) {
 Retrieval Augmented Generation
 ------------------------------
 
+The script from the previous section imports approximately 1200 sections of content related to JavaScript programming.
+Given the `Article` model, here's an Express API endpoint that uses RAG to answer the given `question` using the 3 most relevant articles as context.
+
+```javascript
+const Article = require('./src/db/article');
+const { Configuration, OpenAIApi } = require('openai');
+const assert = require('assert');
+const axios = require('axios');
+
+const apiKey = process.env.OPEN_AI_KEY;
+assert.ok(apiKey, 'No OPEN_AI_KEY specified');
+
+const configuration = new Configuration({
+  apiKey
+});
+const openai = new OpenAIApi(configuration);
+
+module.exports = async function chatbot(req, res) {
+  const { question } = req.body;
+  const embedding = await createEmbedding(question);
+
+  // Find the 3 articles most relevant to the user's question
+  let articles = await Article
+    .find()
+    .sort({ $vector: { $meta: embedding } })
+    .limit(3);
+  
+  // Create a prompt based on the user's question and the content of the
+  // 3 most relevant articles
+  const prompt = `
+  Answer this question with this context:
+  
+  Question: ${question}
+  
+  Context: ${articles[0].content}
+  
+  Context: ${articles[1].content}
+  
+  Context: ${articles[2].content}`;
+  const response = await openai.createChatCompletion({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {
+        role: 'user',
+        content: prompt
+      }
+    ],
+    temperature: 0,
+    max_tokens: 2000
+  });
+
+  res.json({
+    content: response.data.choices[0].message.content,
+    link: articles[0].url,
+    title: articles[0].title,
+    sources: articles.map(article => ({
+      link: article.url,
+      title: article.title
+    }))
+  });
+}
+```
+
+With Astra, vector search is represented as a Mongoose `find()` query with a special `sort()` parameter.
+So you can use [`limit()`](https://mongoosejs.com/docs/api/query.html#Query.prototype.limit()) to limit the number of documents in the result as shown in the above example.
+You also get all the benefits of Mongoose queries, including [filtering using a subset of MongoDB query operators](https://github.com/stargate/stargate-mongoose#filter-clause), [automated query casting](https://mongoosejs.com/docs/tutorials/query_casting.html), [middleware](https://mongoosejs.com/docs/middleware.html), and [`populate()`](https://mongoosejs.com/docs/populate.html).
+
+
 Moving On
 ---------
+
+Retrieval augmented generation (RAG) is a powerful tool for improving LLM output.
+RAG means you can highlight the most relevant examples to the user's prompt, and even provide context from private sources, like internal knowledge bases or even [your app's source code](https://cursor.sh/).
+The combination of Astra and Mongoose means you can leverage Mongoose's API in RAG applications, including filtering using query operators and using `populate()` to load related data.
+
+
+The combination of Astra and Mongoose has a uniquely excellent developer experience for vector search.
+I'm currently in the process of moving my production vector search apps over to Astra and Mongoose from Pinecone.
+So whether you're just learning about vector search or already making use of vector search in production, you should try Mongoose with Astra.

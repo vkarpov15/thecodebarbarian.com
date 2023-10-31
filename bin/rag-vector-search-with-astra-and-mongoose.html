@@ -98,7 +98,7 @@ To import Mastering JS&#39; articles, you can add Mastering JS as a <code>devDep
   &quot;nlcst-to-string&quot;: &quot;2.x&quot;,
   &quot;remark&quot;: &quot;13.x&quot;
 },</code></pre><p><a href="https://github.com/mastering-js/masteringjs.io/blob/013a3eb65e97bd4cf3e19f301e1f57d77b428872/src/tutorials.js">Mastering JS&#39; articles are stored in an array in the masteringjs.io GitHub repo&#39;s <code>src/tutorials.js</code> file</a>.
-The idea is to pull all the tutorials, split them up into <a href="https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking">&quot;chunks&quot;</a> by headers, and generate an embedding (vector) for each chunk using ChatGPT:</p>
+The idea is to pull all the tutorials, split them up into <a href="https://vectara.com/grounded-generation-done-right-chunking/#h-what-is-chunking">&quot;chunks&quot;</a> by headers, and generate an embedding (vector) for each chunk using ChatGPT, assuming that your OpenAI key is stored in the <code>OPEN_AI_KEY</code> environment variable:</p>
 <pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEmbedding</span>(<span class="hljs-params">input</span>) </span>{
   <span class="hljs-keyword">return</span> axios({
     method: <span class="hljs-string">'POST'</span>,
@@ -186,7 +186,75 @@ The script first drops and recreates the <code>articles</code> collection to cle
   });
 }</code></pre>
 <h2 id="retrieval-augmented-generation">Retrieval Augmented Generation</h2>
+<p>The script from the previous section imports approximately 1200 sections of content related to JavaScript programming.
+Given the <code>Article</code> model, here&#39;s an Express API endpoint that uses RAG to answer the given <code>question</code> using the 3 most relevant articles as context.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Article = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/db/article'</span>);
+<span class="hljs-keyword">const</span> { Configuration, OpenAIApi } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'openai'</span>);
+<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">'assert'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-keyword">const</span> apiKey = process.env.OPEN_AI_KEY;
+assert.ok(apiKey, <span class="hljs-string">'No OPEN_AI_KEY specified'</span>);
+
+<span class="hljs-keyword">const</span> configuration = <span class="hljs-keyword">new</span> Configuration({
+  apiKey
+});
+<span class="hljs-keyword">const</span> openai = <span class="hljs-keyword">new</span> OpenAIApi(configuration);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">chatbot</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> { question } = req.body;
+  <span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(question);
+
+  <span class="hljs-comment">// Find the 3 articles most relevant to the user's question</span>
+  <span class="hljs-keyword">let</span> articles = <span class="hljs-keyword">await</span> Article
+    .find()
+    .sort({ $vector: { $meta: embedding } })
+    .limit(<span class="hljs-number">3</span>);
+
+  <span class="hljs-comment">// Create a prompt based on the user's question and the content of the</span>
+  <span class="hljs-comment">// 3 most relevant articles</span>
+  <span class="hljs-keyword">const</span> prompt = <span class="hljs-string">`
+  Answer this question with this context:
+
+  Question: <span class="hljs-subst">${question}</span>
+
+  Context: <span class="hljs-subst">${articles[0].content}</span>
+
+  Context: <span class="hljs-subst">${articles[1].content}</span>
+
+  Context: <span class="hljs-subst">${articles[2].content}</span>`</span>;
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> openai.createChatCompletion({
+    model: <span class="hljs-string">'gpt-3.5-turbo'</span>,
+    messages: [
+      {
+        role: <span class="hljs-string">'user'</span>,
+        content: prompt
+      }
+    ],
+    temperature: <span class="hljs-number">0</span>,
+    max_tokens: <span class="hljs-number">2000</span>
+  });
+
+  res.json({
+    content: response.data.choices[<span class="hljs-number">0</span>].message.content,
+    link: articles[<span class="hljs-number">0</span>].url,
+    title: articles[<span class="hljs-number">0</span>].title,
+    sources: articles.map(article =&gt; ({
+      link: article.url,
+      title: article.title
+    }))
+  });
+}</code></pre>
+<p>With Astra, vector search is represented as a Mongoose <code>find()</code> query with a special <code>sort()</code> parameter.
+So you can use <a href="https://mongoosejs.com/docs/api/query.html#Query.prototype.limit()"><code>limit()</code></a> to limit the number of documents in the result as shown in the above example.
+You also get all the benefits of Mongoose queries, including <a href="https://github.com/stargate/stargate-mongoose#filter-clause">filtering using a subset of MongoDB query operators</a>, <a href="https://mongoosejs.com/docs/tutorials/query_casting.html">automated query casting</a>, <a href="https://mongoosejs.com/docs/middleware.html">middleware</a>, and <a href="https://mongoosejs.com/docs/populate.html"><code>populate()</code></a>.</p>
 <h2 id="moving-on">Moving On</h2>
+<p>Retrieval augmented generation (RAG) is a powerful tool for improving LLM output.
+RAG means you can highlight the most relevant examples to the user&#39;s prompt, and even provide context from private sources, like internal knowledge bases or even <a href="https://cursor.sh/">your app&#39;s source code</a>.
+The combination of Astra and Mongoose means you can leverage Mongoose&#39;s API in RAG applications, including filtering using query operators and using <code>populate()</code> to load related data.</p>
+<p>The combination of Astra and Mongoose has a uniquely excellent developer experience for vector search.
+I&#39;m currently in the process of moving my production vector search apps over to Astra and Mongoose from Pinecone.
+So whether you&#39;re just learning about vector search or already making use of vector search in production, you should try Mongoose with Astra.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
