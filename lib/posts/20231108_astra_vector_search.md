@@ -31,7 +31,9 @@ Discover the secrets to optimizing your data handling and supercharging your app
 Check out our latest blog post for the ultimate how-to guide.
 ```
 
-The idea of RAG is to use a [vector database](./getting-started-with-vector-databases-in-node-js.html) to find relevant examples to the user's prompt, to help guide the LLM to a better result.
+RAG means using a [vector database](./getting-started-with-vector-databases-in-node-js.html) to find relevant examples to the user's prompt, to help guide the LLM to a better result.
+Instead of sending one hard-coded example along with the user's prompt to the LLM, you can search through a massive collection of content to find the content most relevant to the user's query, and send that content along with the user's prompt to the LLM.
+
 In this blog post, I'll show how to use [Astra's vector search](https://docs.datastax.com/en/astra-serverless/docs/vector-search/overview.html) with [Mongoose](https://mongoosejs.com/) to build a RAG chatbot that answers JavaScript programming questions using [Mastering JS' articles](https://masteringjs.io/) for context.
 
 You can see the [full source code for the Mastering JS chatbot here](https://github.com/mastering-js/masteringjs-backend/blob/e760d30d32eb022ad47aafd7ffcc6ee16af9ae76/chatbot.js).
@@ -94,8 +96,8 @@ await mongoose.connection.createCollection('tests', {
 });
 ```
 
-Create a new [Mongoose model](https://mongoosejs.com/docs/models.html) with a `$vector` property.
-The `$vector` property is an array of numbers that Astra uses to store the document's vector for vector search.
+Create a new [Mongoose model](https://mongoosejs.com/docs/models.html) with a`$vector` property.
+`$vector` is a special property containing an array of numbers that Astra uses to store the document's vector for vector search.
 
 ```javascript
 const schema = new mongoose.Schema({
