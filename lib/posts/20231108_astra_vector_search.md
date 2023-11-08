@@ -90,8 +90,8 @@ await mongoose.connection.dropCollection('tests');
 // Create a new collection with vector search enabled
 await mongoose.connection.createCollection('tests', {
   vector: {
-    function: 'cosine',
-    size: 2
+    metric: 'cosine',
+    dimension: 2
   }
 });
 ```
@@ -186,7 +186,7 @@ await mongoose.connect(process.env.ASTRA_URI, { isAstra: true });
 
 await Article.db.dropCollection('articles');
 await Article.createCollection({
-  vector: { size: 1536, function: 'cosine' } 
+  vector: { dimension: 1536, metric: 'cosine' } 
 });
 ```
 
