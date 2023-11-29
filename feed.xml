@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 09 Nov 2023 18:30:20 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 29 Nov 2023 22:26:36 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing Mongoose 8]]></title>
+            <link>https://thecodebarbarian.com/introducing-mongoose-8.html</link>
+            <guid>https://thecodebarbarian.com/introducing-mongoose-8.html</guid>
+            <pubDate>Wed, 29 Nov 2023 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Retrieval Augmented Generation with Astra and Mongoose]]></title>
             <link>https://thecodebarbarian.com/rag-vector-search-with-astra-and-mongoose.html</link>
