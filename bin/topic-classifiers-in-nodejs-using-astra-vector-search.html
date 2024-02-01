@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Topic Classifiers in Node.js Using Astra Vector Search | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Topic Classifiers in Node.js Using Astra Vector Search"><meta property="og:url" content="http://www.thecodebarbarian.com/topic-classifiers-in-nodejs-using-astra-vector-search"><meta property="og:image" content="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&amp;w=600&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="You can build a topic classifier using vector search by storing representative vectors for each topic. Here's how you can build a representative vector based classifier in Node.js with Astra and Mongoose."><meta name="twitter:image" content="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&amp;w=600&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Topic Classifiers in Node.js Using Astra Vector Search</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 01, 2024</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>With vector databases, <a href="https://thecodebarbarian.com/rag-vector-search-with-astra-and-mongoose.html">retrieval augmented generation</a> is the most talked about use case, but far from the only one.
+Vector databases can also be helpful with a wide variety of machine learning tasks.
+For example, in this blog post, I&#39;ll show how you can use Astra vector search for text classification: categorizing arbitrary text into one of a pre-selected list of categories.</p>
+<p>Consider <a href="https://www.kaggle.com/datasets/kashnitsky/hierarchical-text-classification/">this text classification dataset</a>, which categorizes 40,000 Amazon reviews into 6 categories: health personal care, toys games, beauty, pet supplies, baby products, and grocery gourmet food.
+A good text classifier would be able to take the following string, and output that the following string belongs to the category &quot;toys games&quot;.</p>
+<pre><code>I think that this game is fun for yet educational because you will learn where all the different countries are while having fun with your friends!</code></pre><p>One approach for text classification I&#39;ve used is by inserting a set of representative vectors into a vector database, and classifying any incoming sentence by finding the closest representative vector.
+There are many other, more sophisticated approaches for text classification; however, the representative vector approach works surprisingly well and is easy to tune to your needs.</p>
+<h2 id="loading-the-dataset-into-astra">Loading the Dataset into Astra</h2>
+<p>First, download <a href="https://www.kaggle.com/datasets/kashnitsky/hierarchical-text-classification/">this text classification dataset</a> from Kaggle, and extract the <code>train_40k.csv</code> file.
+Below is how you can read this CSV in Node.js.</p>
+<pre><code>npm install neat-csv@6</code></pre><pre><code class="language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> neatCSV = <span class="hljs-built_in">require</span>(<span class="hljs-string">'neat-csv'</span>);
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// https://www.kaggle.com/datasets/kashnitsky/hierarchical-text-classification/</span>
+  <span class="hljs-keyword">const</span> rows = <span class="hljs-keyword">await</span> neatCSV(fs.readFileSync(<span class="hljs-string">'./train_40k.csv'</span>, <span class="hljs-string">'utf8'</span>));
+}</code></pre>
+<p>The representative vector approach involves loading a certain number of representative vectors per category into a vector database.
+In this blog post, I&#39;ll use <a href="https://astra.datastax.com/">Astra</a> as the vector database, with <a href="https://www.npmjs.com/package/stargate-mongoose">stargate-mongoose</a> as the Node.js client for Astra.
+Below is how you can connect to Astra using Mongoose and stargate-mongoose.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">const</span> neatCSV = <span class="hljs-built_in">require</span>(<span class="hljs-string">'neat-csv'</span>);
+
+mongoose.set(<span class="hljs-string">'autoCreate'</span>, <span class="hljs-literal">false</span>);
+mongoose.set(<span class="hljs-string">'autoIndex'</span>, <span class="hljs-literal">false</span>);
+
+<span class="hljs-keyword">const</span> { driver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'stargate-mongoose'</span>);
+mongoose.setDriver(driver); <span class="hljs-comment">// &lt;-- Use stargate-mongoose driver</span>
+
+run().catch(err =&gt; <span class="hljs-built_in">console</span>.log(err));
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> mongoose.connect(process.env.ASTRA_URI, { isAstra: <span class="hljs-literal">true</span> });
+
+  <span class="hljs-comment">// Create a review model</span>
+  <span class="hljs-keyword">const</span> Review = mongoose.model(<span class="hljs-string">'Review'</span>, mongoose.Schema({
+    text: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
+    category: { type: <span class="hljs-built_in">String</span>, required: <span class="hljs-literal">true</span> },
+    $vector: [<span class="hljs-built_in">Number</span>]
+  }));
+
+  <span class="hljs-comment">// Drop and then create the underlying reviews collection configured for vector search</span>
+  <span class="hljs-keyword">await</span> Review.db.dropCollection(<span class="hljs-string">'reviews'</span>);
+  <span class="hljs-keyword">await</span> Review.createCollection({
+    vector: { dimension: <span class="hljs-number">1536</span>, metric: <span class="hljs-string">'cosine'</span> } 
+  }); 
+}</code></pre>
+<p>Classifying a new piece of text means you calculate the text&#39;s embedding, and then find the closest representative vector, and return that vector&#39;s category.
+The below code inserts the first 25 vectors in each category into Astra, using <a href="https://platform.openai.com/docs/guides/embeddings">OpenAI&#39;s <code>embeddings</code> endpoint</a> and <code>text-embedding-ada-002</code> model.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// First, group all rows by the category `Cat1`</span>
+<span class="hljs-keyword">const</span> rowsByCategory = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> row <span class="hljs-keyword">of</span> rows) {
+  <span class="hljs-keyword">if</span> (!rowsByCategory.has(row[<span class="hljs-string">'Cat1'</span>])) {
+    rowsByCategory.set(row[<span class="hljs-string">'Cat1'</span>], []);
+  }
+
+  rowsByCategory.get(row[<span class="hljs-string">'Cat1'</span>]).push(row);
+}
+
+<span class="hljs-comment">// Next, take the first 25 rows from each category and insert them into Astra</span>
+<span class="hljs-keyword">const</span> reviewsPerCategory = <span class="hljs-number">25</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> category <span class="hljs-keyword">of</span> rowsByCategory.keys()) {
+  <span class="hljs-keyword">const</span> rows = rowsByCategory.get(category);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; reviewsPerCategory; ++i) {
+    <span class="hljs-comment">// Get the embedding and insert the embedding into Astra</span>
+    <span class="hljs-comment">// The `$vector` property is a special property in Astra that stores the embedding for vector search</span>
+    <span class="hljs-keyword">const</span> $vector = <span class="hljs-keyword">await</span> createEmbedding(rows[i][<span class="hljs-string">'Text'</span>]);
+    <span class="hljs-keyword">await</span> Review.create({ text: rows[i][<span class="hljs-string">'Text'</span>], category: rows[i][<span class="hljs-string">'Cat1'</span>], $vector });
+  }
+}</code></pre>
+<h2 id="evaluating-the-classifier">Evaluating the Classifier</h2>
+<p>Now that you&#39;ve loaded the data into Astra, classifying text can be as simple as calculating the embedding for the text and finding the closest representative vector to the new text&#39;s embedding.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(rows[i][<span class="hljs-string">'Text'</span>]);
+
+<span class="hljs-keyword">const</span> review = <span class="hljs-keyword">await</span> Review.findOne().sort({ $vector: { $meta: embedding } });
+review.category; <span class="hljs-comment">// The category for the closest representative vector to the new text's embedding</span></code></pre>
+<p>While this approach is simple, it gets fairly good results.
+For example, let&#39;s use the following code to evaluate how this text classifier works on the next 10 reviews in each category.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> correct = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">let</span> total = <span class="hljs-number">0</span>;
+<span class="hljs-comment">// Classify the next 10 reviews in each category, and track how well this classifier works</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> category <span class="hljs-keyword">of</span> rowsByCategory.keys()) {
+  <span class="hljs-keyword">const</span> rows = rowsByCategory.get(category);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = reviewsPerCategory; i &lt; reviewsPerCategory + <span class="hljs-number">10</span>; ++i) {
+    <span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(rows[i][<span class="hljs-string">'Text'</span>]);
+    <span class="hljs-keyword">const</span> review = <span class="hljs-keyword">await</span> Review.findOne().sort({ $vector: { $meta: embedding } });
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Expected:'</span>, category, <span class="hljs-string">'got:'</span>, review.category);
+    ++total;
+    <span class="hljs-keyword">if</span> (category === review.category) {
+      ++correct;
+    }
+  }
+}
+
+<span class="hljs-comment">// 35/60 with reviewsPerCategory = 5</span>
+<span class="hljs-comment">// 41/60 with reviewsPerCategory = 10</span>
+<span class="hljs-comment">// 52/60 with reviewsPerCategory = 25</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Correct:'</span>, correct, <span class="hljs-string">'/'</span>, total);</code></pre>
+<p>This classifier does better with more representative vectors: the larger <code>reviewsPerCategory</code> is, the better the classifier does.
+The fact that you can easily add more vectors to improve the classifier&#39;s accuracy is a huge benefit.
+Below is a chart showing the classifier&#39;s accuracy with increasing <code>reviewsPerCategory</code>, which shows the classifier&#39;s accuracy asymptotically approaching 1 as <code>reviewsPerCategory</code> grows.</p>
+<p><img src="https://gist.github.com/assets/1620265/8545d650-2de8-4419-ba26-016a92822a7b" alt="image"></p>
+<h2 id="why-use-vector-search-for-classifiers">Why Use Vector Search for Classifiers?</h2>
+<p>ChatGPT and other LLMs are often used for similar classification tasks.
+For example, instead of importing sample data as shown in this blog post, you might just make a request to the ChatGPT API with the following prompt:</p>
+<pre><code>Task: You are a non-conversational classifier function whose sole capability is to parse user input strings to determine which of the following categories the user provided text falls into: health personal care, toys games, beauty, pet supplies, baby products, or grocery gourmet food.
+
+User provided text: I think that this game is fun for yet educational because you will learn where all the different countries are while having fun with your friends!</code></pre><p>ChatGPT can do a fairly good job at classifying input, even without sample data.
+For example, ChatGPT correctly classifies the first review in the data set with no additional training data.</p>
+<img src="https://i.imgur.com/ZMcSXSg_d.webp?maxwidth=760&fidelity=grand">
+
+<p>So why would you use vector search rather than using ChatGPT? Here&#39;s a few reasons.</p>
+<ol>
+<li>Cost. At the time of this writing, <a href="https://openai.com/pricing">gpt-3.5-turbo costs 10-100x as much per API request as OpenAI&#39;s embedding models</a>.</li>
+<li>Consistent output. It is tricky to get a general purpose LLM to consistently answer in the exact right format. For example, in the previous screenshot, notice that ChatGPT prefaced the output with &quot;Category: &quot; and uppercased &quot;Toys Games&quot;. While this output is good enough for end users, the inconsistent output may cause problems if you are using the classifier result elsewhere in your code.</li>
+<li>Easy to improve. If you want to improve the accuracy of your LLM based classifier, your options are to tweak your prompt or fine tune a model. Tweaking a prompt requires careful testing because small changes can cause surprising results, and <a href="https://platform.openai.com/docs/guides/fine-tuning/create-a-fine-tuned-model">fine tuning a model on OpenAI can take minutes to hours</a>. But improving a representative vector classifier is as simple as inserting a new vector.</li>
+</ol>
+<h2 id="moving-on">Moving On</h2>
+<p>Vector databases are useful for much more than retrieval augmented generation.
+Retrieval augmented generation uses vector search to find text related to the input text and plugging the related text into an LLM, but, in this representative classification case, the classifier doesn&#39;t look at the related text.
+Rather, the representative classification code presented in this blog post uses vector search to find metadata associated with the related text, in this case the pre-labeled classification, rather than the review text.
+Using this representative classification approach, you can build a data set to help classify any text into any set of categories you want.
+So sign up for a <a href="https://astra.datastax.com/signup">free Astra account</a> and start learning vector databases today!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>

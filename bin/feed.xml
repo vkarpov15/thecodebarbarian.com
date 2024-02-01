@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 29 Nov 2023 22:26:36 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 01 Feb 2024 21:29:46 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Topic Classifiers in Node.js Using Astra Vector Search]]></title>
+            <link>https://thecodebarbarian.com/topic-classifiers-in-nodejs-using-astra-vector-search.html</link>
+            <guid>https://thecodebarbarian.com/topic-classifiers-in-nodejs-using-astra-vector-search.html</guid>
+            <pubDate>Thu, 01 Feb 2024 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing Mongoose 8]]></title>
             <link>https://thecodebarbarian.com/introducing-mongoose-8.html</link>
