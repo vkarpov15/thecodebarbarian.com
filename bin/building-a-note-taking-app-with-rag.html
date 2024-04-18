@@ -1,0 +1,155 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Building a Note-Taking App With Retrieval Augmented Generation (RAG) | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Building a Note-Taking App With Retrieval Augmented Generation (RAG)"><meta property="og:url" content="http://www.thecodebarbarian.com/building-a-note-taking-app-with-rag"><meta property="og:image" content="https://images.unsplash.com/photo-1612367980327-7454a7276aa7?q=80&amp;w=870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="You can build a topic classifier using vector search by storing representative vectors for each topic. Here's how you can build a representative vector based classifier in Node.js with Astra and Mongoose."><meta name="twitter:image" content="https://images.unsplash.com/photo-1612367980327-7454a7276aa7?q=80&amp;w=870&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Building a Note-Taking App With Retrieval Augmented Generation (RAG)</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">April 18, 2024</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>Retrieval augmented generation, or RAG for short, is injects additional context into an LLM prompt in order to get better results.
+<a href="https://thecodebarbarian.com/rag-vector-search-with-astra-and-mongoose.html">Many RAG tutorials focus on loading existing data sets</a>, which is a great use case for RAG.
+But RAG can also be useful for user generated data.
+For example, you can write a note taking application that lets the user input arbitrary text, like &quot;my car is a 2020 Toyota Carolla with license plate 1234&quot;; and then allow the user to ask questions like &quot;what is my car&#39;s license plate?&quot;
+ChatGPT might not know what your car&#39;s license plate is, but, with the help of RAG, ChatGPT can answer questions like that based on your notes.</p>
+<p>The <a href="https://github.com/vkarpov15/rag-notes">full source code for this note-taking application is available on GitHub</a>.
+Or you can try a <a href="https://vkarpov15-rag-notes.1.us-1.fl0.io/">rate-limited live example hosted on FL0 here</a>.
+This app uses <a href="https://astra.datastax.com/">Astra</a> for vector search and ChatGPT to generate embeddings and answer questions.</p>
+<h2 id="creating-notes">Creating Notes</h2>
+<p>A <code>Note</code> is represented as a <a href="https://mongoosejs.com/">Mongoose</a> model as follows.
+A Note has two properties: a string <code>content</code>, which contains the raw text the user entered, and an array of numbers <code>$vector</code> that contains the embedding for vector search.
+Below is the source code for the Note model, which is also <a href="https://github.com/vkarpov15/rag-notes/blob/main/backend/db/note.js">available on GitHub</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./mongoose'</span>);
+
+<span class="hljs-keyword">const</span> noteSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  content: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  },
+  $vector: {
+    type: [<span class="hljs-built_in">Number</span>]
+  }
+}, { timestamps: <span class="hljs-literal">true</span> });
+
+<span class="hljs-keyword">const</span> Note = mongoose.model(<span class="hljs-string">'Note'</span>, noteSchema);
+<span class="hljs-built_in">module</span>.exports = Note;</code></pre>
+<p>To use the Note model with vector search, you first need to create a <code>notes</code> collection in Astra that&#39;s configured to use vector search.
+You can create the collection through the Astra UI, or by running the following JavaScript code.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">await</span> Note.createCollection({
+  vector: { dimension: <span class="hljs-number">1536</span>, metric: <span class="hljs-string">'cosine'</span> } 
+}); </code></pre>
+<p>The app has a <a href="https://github.com/vkarpov15/rag-notes/blob/main/backend/api/saveNote.js"><code>saveNote</code> API endpoint</a> that stores a new note in the database.
+The <code>saveNote</code> API endpoint takes in an arbitrary string <code>content</code>, converts it to an embedding using OpenAI&#39;s <code>text-embedding-ada-002</code> model, and stores the <code>content</code> and the 1536 length embedding in a new <code>Note</code> object.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Note = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../db/note'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">saveNote</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> content = req.body.content;
+  <span class="hljs-keyword">const</span> $vector = <span class="hljs-keyword">await</span> createEmbedding(content);
+
+  <span class="hljs-keyword">const</span> note = <span class="hljs-keyword">await</span> Note.create({ content, $vector });
+
+  <span class="hljs-keyword">const</span> count = <span class="hljs-keyword">await</span> Note.countDocuments({});
+
+  <span class="hljs-keyword">return</span> res.json({ note, count });
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEmbedding</span>(<span class="hljs-params">input</span>) </span>{
+  <span class="hljs-keyword">return</span> axios({
+    method: <span class="hljs-string">'POST'</span>,
+    url: <span class="hljs-string">'https://api.openai.com/v1/embeddings'</span>,
+    headers: {
+      <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+      Authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.OPENAI_API_KEY}</span>`</span>
+    },
+    data: {
+      model: <span class="hljs-string">'text-embedding-ada-002'</span>,
+      input
+    }
+  }).then(res =&gt; res.data.data[<span class="hljs-number">0</span>].embedding);
+}</code></pre>
+<h2 id="answering-questions">Answering Questions</h2>
+<p>The app also has a <a href="https://github.com/vkarpov15/rag-notes/blob/main/backend/api/answerQuestion.js"><code>answerQuestion</code> API endpoint</a> that takes in an arbitrary <code>question</code>, finds the 3 most relevant <code>Note</code> documents to the user&#39;s question, and asks ChatGPT to answer the user&#39;s question based on the most relevant notes.</p>
+<p>To find the 3 most relevant notes, you first need to convert the user&#39;s question into an embedding as follows.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(req.body.question);</code></pre>
+<p>Then, you need to execute a Mongoose <code>find()</code> query with a special <code>sort()</code> based on <code>$vector</code>.
+The following code tells Astra to sort <code>Note</code> documents based on their <code>$vector</code> property&#39;s cosine similarity to the given <code>embedding</code>, and return the 3 closest <code>Note</code> documents.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> notes = <span class="hljs-keyword">await</span> Note.find().limit(<span class="hljs-number">3</span>).sort({ $vector: { $meta: embedding } });</code></pre>
+<p>Below is the complete source code of the <code>answerQuestion</code> endpoint.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> Note = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../db/note'</span>);
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">answerQuestion</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> embedding = <span class="hljs-keyword">await</span> createEmbedding(req.body.question);
+
+  <span class="hljs-keyword">const</span> notes = <span class="hljs-keyword">await</span> Note.find().limit(<span class="hljs-number">3</span>).sort({ $vector: { $meta: embedding } });
+
+  <span class="hljs-keyword">const</span> prompt = systemPrompt(notes);
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> makeChatGPTRequest(prompt, req.body.question);
+
+  <span class="hljs-keyword">return</span> res.json(data);
+};
+
+<span class="hljs-keyword">const</span> systemPrompt = (notes, question) =&gt; <span class="hljs-string">`
+You are a helpful assistant that summarizes relevant notes to help answer a user's questions.
+Given the following notes, answer the user's question.
+
+<span class="hljs-subst">${notes.map(note =&gt; 'Note: ' + note.content).join('\n\n')}</span>
+`</span>.trim();
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeChatGPTRequest</span>(<span class="hljs-params">systemPrompt, question</span>) </span>{
+  <span class="hljs-keyword">const</span> options = {
+    method: <span class="hljs-string">'POST'</span>,
+    url: <span class="hljs-string">'https://api.openai.com/v1/chat/completions'</span>,
+    headers: {
+      <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+      Authorization: <span class="hljs-string">`Bearer <span class="hljs-subst">${process.env.OPENAI_API_KEY}</span>`</span>
+    },
+    data: {
+      model: <span class="hljs-string">'gpt-3.5-turbo-1106'</span>,
+      messages: [
+        { role: <span class="hljs-string">'system'</span>, content: systemPrompt },
+        { role: <span class="hljs-string">'user'</span>, content: question }
+      ]
+    }
+  };
+
+  <span class="hljs-keyword">return</span> axios(options).then(res =&gt; res.data);
+}</code></pre>
+<h2 id="what-this-pattern-does-well-and-what-it-does-poorly">What This Pattern Does Well and What It Does Poorly</h2>
+<p>The problem with storing facts like your car&#39;s license plate is searchability.
+In conventional databases, it is hard to store this sort of information in a way that is searchable because the user needs to remember exactly how the data is stored.
+With RAG, an LLM can answer unstructured text questions about unstructured text data, which makes it easier for the user to search.</p>
+<p>For example, not only can the LLM answer &quot;what is my car&#39;s license plate?&quot;, it can also answer &quot;what is my auto&#39;s tag number?&quot;.
+These two questions are semantically equivalent, but conventional keyword search would not be able to answer this question because the keywords in these two questions are all different.
+Your user doesn&#39;t have to remember the exact phrasing they used when they entered the note.</p>
+<p><img src="https://i.imgur.com/ewx9DQF.png" alt="question"></p>
+<p>One situation where this pattern does poorly is multiple time-based entries.
+For example, say you got a new car and entered &quot;my car is a 2021 Honda Civic with license plate 4567&quot;.
+This app currently doesn&#39;t have a way to indicate that the new fact overrides the old fact.
+The LLM will respond &quot;Your car&#39;s license plate is 1234 if it&#39;s a 2020 Toyota Corolla and 4567 if it&#39;s a 2021 Honda Civic.&quot;</p>
+<h2 id="moving-on">Moving On</h2>
+<p>RAG enables an LLM to answer questions that it otherwise would not have the answer to.
+And LLMs are good at inferring what the question means to ask independent of word choice: &quot;what is my car&#39;s license plate?&quot; and &quot;what is my auto&#39;s tag number?&quot; end up with equivalent answers.
+That means vector search enables LLMs to effectively summarize a user&#39;s notes, where notes are just a collection of unstructured free-form text.
+So check out the <a href="https://github.com/vkarpov15/rag-notes">RAG note taking app on GitHub</a> and start learning vector search using <a href="https://www.npmjs.com/package/stargate-mongoose">stargate-mongoose</a> today!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
