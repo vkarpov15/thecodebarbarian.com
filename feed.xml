@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 18 Apr 2024 18:34:45 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Jun 2024 16:36:20 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 8.4: transactionAsyncLocalStorage and inferRawDocType]]></title>
+            <link>https://thecodebarbarian.com/mongoose-8.4-transactionasynclocalstorage-and-inferrawdoctype.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-8.4-transactionasynclocalstorage-and-inferrawdoctype.html</guid>
+            <pubDate>Tue, 18 Jun 2024 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Building a Note-Taking App With Retrieval Augmented Generation (RAG)]]></title>
             <link>https://thecodebarbarian.com/building-a-note-taking-app-with-rag.html</link>
