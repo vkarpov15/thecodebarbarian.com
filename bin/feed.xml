@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 12 Sep 2024 18:31:15 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 13 May 2025 20:53:41 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing @datastax/astra-mongoose: The New Way to Use DataStax Astra with Mongoose]]></title>
+            <link>https://thecodebarbarian.com/introducing-astra-mongoose.html</link>
+            <guid>https://thecodebarbarian.com/introducing-astra-mongoose.html</guid>
+            <pubDate>Wed, 14 May 2025 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 8.4: transactionAsyncLocalStorage and inferRawDocType]]></title>
             <link>https://thecodebarbarian.com/mongoose-8.4-transactionasynclocalstorage-and-inferrawdoctype.html</link>
