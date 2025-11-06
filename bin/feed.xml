@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Tue, 27 May 2025 15:30:57 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Nov 2025 17:06:40 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Introducing Mongoose Studio: A Better Way to Work with MongoDB]]></title>
+            <link>https://thecodebarbarian.com/introducing-mongoose-studio-a-better-way-to-work-with-mongodb.html</link>
+            <guid>https://thecodebarbarian.com/introducing-mongoose-studio-a-better-way-to-work-with-mongodb.html</guid>
+            <pubDate>Thu, 06 Nov 2025 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing @datastax/astra-mongoose: The New Way to Use DataStax Astra with Mongoose]]></title>
             <link>https://thecodebarbarian.com/introducing-astra-mongoose.html</link>
