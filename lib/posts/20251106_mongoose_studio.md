@@ -98,7 +98,7 @@ We're adding more integrations for production deployments (like fine-grained wor
 
 👉 [Docs](https://studio.mongoosejs.io)
 
-👉 [Demo](https://studio.mongoosejs.io/demo)
+👉 [IMDb Demo](https://studio.mongoosejs.io/imdb)
 
 👉 `npm install @mongoosejs/studio`
 
