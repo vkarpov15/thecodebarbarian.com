@@ -1,6 +1,6 @@
 If you've built enough apps with MongoDB, you've probably wished for a GUI that actually understands your Mongoose configuration and schemas — one that can autocomplete field names, write queries that behave the same way your models do, and even help you build dashboards without leaving your codebase.
 
-That's why we built [Mongoose Studio](https://studio.mongoosejs.io).
+That's why we built [Mongoose Studio](https://mongoosestudio.app).
 
 It's a MongoDB UI and dashboard layer that runs alongside your Node.js app — whether that's Express, Vercel, or Netlify — using the same Mongoose connection config you already have. You log in with GitHub or Google, no connection strings to share or rotate.
 
@@ -96,9 +96,9 @@ app.use('/studio', await studio('/studio/api', mongoose));
 
 We're adding more integrations for production deployments (like fine-grained workspace permissions and SSO), but the local-dev experience is already solid. If you've been managing MongoDB through the CLI or Compass and wish you had something faster and more schema-aware — give it a try.
 
-👉 [Docs](https://studio.mongoosejs.io)
+👉 [Docs](https://mongoosestudio.app/docs)
 
-👉 [IMDb Demo](https://studio.mongoosejs.io/imdb)
+👉 [IMDb Demo](https://mongoosestudio.app/imdb)
 
 👉 `npm install @mongoosejs/studio`
 
