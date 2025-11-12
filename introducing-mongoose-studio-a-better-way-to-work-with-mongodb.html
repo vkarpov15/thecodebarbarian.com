@@ -11,7 +11,7 @@ gtag('config', 'G-TE4SWRGR9E');
 
 <div class="native-banner"></div>
 </div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>If you&#39;ve built enough apps with MongoDB, you&#39;ve probably wished for a GUI that actually understands your Mongoose configuration and schemas — one that can autocomplete field names, write queries that behave the same way your models do, and even help you build dashboards without leaving your codebase.</p>
-<p>That&#39;s why we built <a href="https://studio.mongoosejs.io">Mongoose Studio</a>.</p>
+<p>That&#39;s why we built <a href="https://mongoosestudio.app">Mongoose Studio</a>.</p>
 <p>It&#39;s a MongoDB UI and dashboard layer that runs alongside your Node.js app — whether that&#39;s Express, Vercel, or Netlify — using the same Mongoose connection config you already have. You log in with GitHub or Google, no connection strings to share or rotate.</p>
 <p>Think of it as a <a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/sidecar">sidecar</a>: give Mongoose Studio your Mongoose connection, and you get a clean UI for exploring your data, querying with schema-aware autocomplete, and generating charts using AI that already knows your data model.</p>
 <h2 id="why-we-built-it">Why We Built It</h2>
@@ -58,8 +58,8 @@ It&#39;s free for local use.</p>
 <pre><code class="language-javascript">app.use(<span class="hljs-string">'/studio'</span>, <span class="hljs-keyword">await</span> studio(<span class="hljs-string">'/studio/api'</span>, mongoose));</code></pre>
 <h2 id="whats-next">What&#39;s Next</h2>
 <p>We&#39;re adding more integrations for production deployments (like fine-grained workspace permissions and SSO), but the local-dev experience is already solid. If you&#39;ve been managing MongoDB through the CLI or Compass and wish you had something faster and more schema-aware — give it a try.</p>
-<p>👉 <a href="https://studio.mongoosejs.io">Docs</a></p>
-<p>👉 <a href="https://studio.mongoosejs.io/imdb">IMDb Demo</a></p>
+<p>👉 <a href="https://mongoosestudio.app/docs">Docs</a></p>
+<p>👉 <a href="https://mongoosestudio.app/imdb">IMDb Demo</a></p>
 <p>👉 <code>npm install @mongoosejs/studio</code></p>
 <p>Would love to hear what you think — feedback from developers has shaped every part of this so far, and we&#39;re just getting started. Let us know what you think on <a href="https://github.com/mongoosejs/studio/issues">GitHub issues</a> or <a href="https://discord.gg/P3YCfKYxpy">Discord</a>.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
