@@ -1,6 +1,6 @@
 If you've built enough apps with MongoDB, you've probably wished for a GUI that actually understands your Mongoose configuration and schemas — one that can autocomplete field names, write queries that behave the same way your models do, and even help you build dashboards without leaving your codebase.
 
-That's why we built [Mongoose Studio - a MongoDB GUI](https://mongoosestudio.app) designed for Mongoose developers.
+That's why we built [Mongoose Studio - a web based MongoDB GUI](https://mongoosestudio.app) designed for Mongoose developers.
 
 It's a MongoDB UI and dashboard layer that runs alongside your Node.js app — whether that's Express, Vercel, or Netlify — using the same Mongoose connection config you already have. You log in with GitHub or Google, no connection strings to share or rotate.
 
