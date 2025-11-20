@@ -1,0 +1,293 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Using Tries to Autocomplete MongoDB Queries in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Using Tries to Autocomplete MongoDB Queries in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/using-tries-to-autocomplete-mongodb-queries-in-nodejs"><meta property="og:image" content="https://i.imgur.com/iE6ZfGP.jpeg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="This post explains how you can use tries to autocomplete MongoDB queries in Node.js, and how you can use tries for autocomplete in Node.js in general."><meta name="twitter:image" content="https://i.imgur.com/iE6ZfGP.jpeg"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Using Tries to Autocomplete MongoDB Queries in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">November 18, 2025</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>Autocomplete seems like one of the easiest features to build.
+You take the user&#39;s input, loop through your list of options, and filter anything that starts with the same prefix:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> matches = words.filter(w =&gt; w.startsWith(prefix));</code></pre>
+<p>And that works for small lists of text.
+But once your dataset gets large, or your completions come from structured text (like <code>user.address.city</code> or <code>$gte</code>), simple loops start to fall short.</p>
+<p>That&#39;s where tries come in.
+Tries are trees built for prefix search.
+They&#39;re fast, but more importantly, they mirror the structure of the data you’re autocompleting.
+Instead of treating <code>user.address.city</code> as one long string, a trie naturally breaks it into nested levels (user → address → city), making it easier to suggest valid continuations even inside structured syntax.</p>
+<p>We used tries to implement autocomplete for MongoDB in <a href="https://mongoosestudio.app">Mongoose Studio, our web based MongoDB GUI</a>.
+But the same principles apply anywhere you need fast, contextual completions.</p>
+<p>In this post, I&#39;ll explain how tries work, build one in JavaScript, and show how to use tries to autocomplete MongoDB queries.
+MongoDB queries are just an example, this approach could work for any syntax-aware editor or API playground.</p>
+<style>
+  tr {
+    display: table-row !important;
+  }
+
+  td {
+    padding: 4px !important;
+  }
+</style>
+
+<h2 id="whats-a-trie">What&#39;s a Trie?</h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Trie">trie</a> is a tree structure optimized for prefix lookups. Each node represents a single character, and the path from the root to a node spells out a word.</p>
+<p>That means you can find all words starting with <code>user.a</code> just by walking down the characters <code>u → s → e → r → . → a</code>.
+No need to check every word in your dataset.</p>
+<p>Visually, a trie looks something like this:</p>
+<pre><code>root
+ ├── u
+ │   └── s
+ │       └── e
+ │           └── r
+ │               ├── .
+ │               │   ├── a → &quot;user.address&quot;
+ │               │   └── e → &quot;user.email&quot;
+ │               └── n → &quot;user.name&quot;</code></pre><p>This representation is perfect for nested identifiers, file paths, API routes, and MongoDB field paths.</p>
+<h2 id="step-1-building-a-basic-trie">Step 1: Building a Basic Trie</h2>
+<p>Let&#39;s start with a simple implementation that supports inserting words and fetching completions by prefix.
+A <code>Trie</code> is a tree structure that stores <code>TrieNode</code> instances.
+You can <code>insert()</code> words into the trie, and <code>suggest()</code> completions by prefix.</p>
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrieNode</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.children = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">this</span>.isEnd = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">this</span>.freq = <span class="hljs-number">0</span>;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trie</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.root = <span class="hljs-keyword">new</span> TrieNode();
+  }
+
+  insert(word, freq = <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">if</span> (!word) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">let</span> node = <span class="hljs-keyword">this</span>.root;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> ch <span class="hljs-keyword">of</span> word) {
+      <span class="hljs-keyword">if</span> (!node.children[ch]) {
+        node.children[ch] = <span class="hljs-keyword">new</span> TrieNode();
+      }
+      node = node.children[ch];
+    }
+    node.isEnd = <span class="hljs-literal">true</span>;
+    node.freq += freq;
+  }
+
+  bulkInsert(words, freq = <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(words)) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> word <span class="hljs-keyword">of</span> words) {
+      <span class="hljs-keyword">this</span>.insert(word, freq);
+    }
+  }
+
+  collect(node, prefix, out) {
+    <span class="hljs-keyword">if</span> (node.isEnd) out.push([prefix, node.freq]);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [ch, child] <span class="hljs-keyword">of</span> <span class="hljs-built_in">Object</span>.entries(node.children)) {
+      <span class="hljs-keyword">this</span>.collect(child, prefix + ch, out);
+    }
+  }
+
+  suggest(prefix, limit = <span class="hljs-number">10</span>) {
+    <span class="hljs-keyword">let</span> node = <span class="hljs-keyword">this</span>.root;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> ch <span class="hljs-keyword">of</span> prefix) {
+      <span class="hljs-keyword">if</span> (!node.children[ch]) <span class="hljs-keyword">return</span> [];
+      node = node.children[ch];
+    }
+    <span class="hljs-keyword">const</span> results = [];
+    <span class="hljs-keyword">this</span>.collect(node, prefix, results);
+    results.sort((a, b) =&gt; b[<span class="hljs-number">1</span>] - a[<span class="hljs-number">1</span>]);
+    <span class="hljs-keyword">return</span> results.slice(<span class="hljs-number">0</span>, limit).map(([word]) =&gt; word);
+  }
+}</code></pre>
+<p>Here&#39;s a basic example of using a trie to suggest fruits based on a prefix:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> t = <span class="hljs-keyword">new</span> Trie();
+t.bulkInsert([<span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'orange'</span>, <span class="hljs-string">'mango'</span>, <span class="hljs-string">'mangosteen'</span>], <span class="hljs-number">1</span>);
+<span class="hljs-built_in">console</span>.log(t.suggest(<span class="hljs-string">'a'</span>)); <span class="hljs-comment">// ['apple']</span>
+<span class="hljs-built_in">console</span>.log(t.suggest(<span class="hljs-string">'man'</span>)); <span class="hljs-comment">// ['mango', 'mangosteen']</span></code></pre>
+<p>With this structure, you can preload any set of completions, from MongoDB operators to schema paths to commands.</p>
+<h2 id="step-2-inferring-syntactic-context">Step 2: Inferring syntactic context</h2>
+<p>Now let&#39;s apply this to MongoDB queries. MongoDB queries look like this:</p>
+<pre><code>{ &quot;user.age&quot;: { &quot;$gte&quot;: 24 } }</code></pre><p>There are two distinct syntactic positions:</p>
+<ol>
+<li>Field name position (before the colon):</li>
+</ol>
+<pre><code>{ &quot;user.a|&quot; }
+           ^--- fieldName context</code></pre><ol start="2">
+<li>Operator position (after the colon, inside an object):</li>
+</ol>
+<pre><code>{ &quot;user.age&quot;: { &quot;$gte|&quot; }
+                  ^--- operator context</code></pre><p>If the user types $ in a field name position, showing <code>$gte</code>, <code>$in</code>, <code>$regex</code> is wrong.</p>
+<p>This is the primary motivation for going beyond simple filtering: you need autocomplete that understands where the cursor is.</p>
+<p>But you don&#39;t need a full parser, just regular expressions is enough for practical purposes to check whether you&#39;re before or after a colon.
+But first, we also need to add a notion of <code>roles</code> to a <code>TrieNode</code>.
+A role indicates whether a particular <code>TrieNode</code> instance valid as a field name or operator, or both.</p>
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TrieNode</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">this</span>.children = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
+    <span class="hljs-keyword">this</span>.isEnd = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">this</span>.freq = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">this</span>.roles = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(); <span class="hljs-comment">// semantic roles like 'fieldName', 'operator'</span>
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Trie</span> </span>{
+  insert(word, freq = <span class="hljs-number">1</span>, role = <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">if</span> (!word) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">let</span> node = <span class="hljs-keyword">this</span>.root;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> ch <span class="hljs-keyword">of</span> word) {
+      <span class="hljs-keyword">if</span> (!node.children[ch]) node.children[ch] = <span class="hljs-keyword">new</span> TrieNode();
+      node = node.children[ch];
+    }
+    node.isEnd = <span class="hljs-literal">true</span>;
+    node.freq += freq;
+    <span class="hljs-keyword">if</span> (role) node.roles.add(role);
+  }
+
+  bulkInsert(words, freq = <span class="hljs-number">1</span>, role = <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> w <span class="hljs-keyword">of</span> words) <span class="hljs-keyword">this</span>.insert(w, freq, role);
+  }
+}</code></pre>
+<p>Now we need to determine whether the user is typing:</p>
+<ol>
+<li>a field name (before a colon), or</li>
+<li>an operator (inside an object after a colon)</li>
+</ol>
+<p>For JSON-like structures, the following works extremely well:</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getContext</span>(<span class="hljs-params">beforeCursor</span>) </span>{
+  <span class="hljs-comment">// If we're after a colon, assume we're inside a value → operator context</span>
+  <span class="hljs-keyword">const</span> colonMatch = beforeCursor.match(<span class="hljs-regexp">/:\s*([^,\}\]]*)$/</span>);
+  <span class="hljs-keyword">return</span> colonMatch ? <span class="hljs-string">'operator'</span> : <span class="hljs-string">'fieldName'</span>;
+}</code></pre>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Input before cursor</th>
+<th>getContext()</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>{ &quot;user.</code></td>
+<td><code>fieldName</code></td>
+</tr>
+<tr>
+<td><code>{ &quot;user.age&quot;: { &quot;$</code></td>
+<td><code>operator</code></td>
+</tr>
+<tr>
+<td><code>{ us</code></td>
+<td><code>fieldName</code></td>
+</tr>
+<tr>
+<td><code>{ &quot;age&quot;: $g</code></td>
+<td><code>operator</code></td>
+</tr>
+</tbody></table>
+<p>With roles, you can create a trie for MongoDB operators as follows:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Field paths → fieldName role</span>
+trie.bulkInsert(
+  [<span class="hljs-string">'user.email'</span>, <span class="hljs-string">'user.age'</span>, <span class="hljs-string">'user.address.city'</span>, <span class="hljs-string">'metadata.updatedAt'</span>],
+  <span class="hljs-number">10</span>,
+  <span class="hljs-string">'fieldName'</span>
+);
+
+<span class="hljs-comment">// MongoDB operators → operator role</span>
+trie.bulkInsert(
+  [<span class="hljs-string">'$eq'</span>, <span class="hljs-string">'$ne'</span>, <span class="hljs-string">'$gt'</span>, <span class="hljs-string">'$gte'</span>, <span class="hljs-string">'$lt'</span>, <span class="hljs-string">'$lte'</span>, <span class="hljs-string">'$in'</span>, <span class="hljs-string">'$nin'</span>, <span class="hljs-string">'$exists'</span>, <span class="hljs-string">'$regex'</span>],
+  <span class="hljs-number">5</span>,
+  <span class="hljs-string">'operator'</span>
+);
+
+<span class="hljs-built_in">console</span>.log(trie.suggest(<span class="hljs-string">'user.'</span>, { context: <span class="hljs-string">'fieldName'</span> })); <span class="hljs-comment">// [ 'user.email', 'user.age', 'user.address.city' ]</span>
+<span class="hljs-built_in">console</span>.log(trie.suggest(<span class="hljs-string">'$g'</span>, { context: <span class="hljs-string">'operator'</span> })); <span class="hljs-comment">// [ '$gt', '$gte' ]</span></code></pre>
+<h2 id="step-3-tie-it-all-together">Step 3: Tie it all together</h2>
+<p>Now that we have a trie with semantic roles, let’s talk about how to actually use it in a query editor — because this is the part that trips people up.</p>
+<p>A trie can only autocomplete tokens:</p>
+<pre><code>user.
+user.email
+$gt
+$regex</code></pre><p>But when someone is typing a MongoDB query, the text before the cursor looks like this:</p>
+<pre><code>{ &quot;user.a&quot; }
+{ &quot;user.age&quot;: { &quot;$g&quot; } }
+{ us</code></pre><p>If you pass the entire buffer, like <code>{ us</code>, into the trie, you&#39;ll get nothing back, because the trie doesn&#39;t store those strings.
+To accomplish that, you can use a small regex that grabs the last word after a <code>{</code> or a <code>,</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extractToken</span>(<span class="hljs-params">beforeCursor</span>) </span>{
+  <span class="hljs-comment">// Find the partial token being typed where keys or operators appear</span>
+  <span class="hljs-keyword">const</span> match = beforeCursor.match(<span class="hljs-regexp">/(?:\{|,)\s*([^:\s]*)$/</span>);
+  <span class="hljs-keyword">return</span> match ? match[<span class="hljs-number">1</span>].replace(<span class="hljs-regexp">/["']/g</span>, <span class="hljs-string">''</span>) : <span class="hljs-string">''</span>;
+}</code></pre>
+<table>
+<thead>
+<tr>
+<th>Input (<code>beforeCursor</code>)</th>
+<th>extractToken()</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>{ us</code></td>
+<td><code>us</code></td>
+</tr>
+<tr>
+<td><code>{ &quot;user.a&quot;</code></td>
+<td><code>user.a</code></td>
+</tr>
+<tr>
+<td><code>{ &quot;user.age&quot;: { $g</code></td>
+<td><code>$g</code></td>
+</tr>
+<tr>
+<td><code>{}</code></td>
+<td>`` (empty)</td>
+</tr>
+</tbody></table>
+<p>Combine <code>getContext()</code> and <code>extractToken()</code> into one call to get the following:</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">suggestAt</span>(<span class="hljs-params">text, cursorPos</span>) </span>{
+  <span class="hljs-keyword">const</span> beforeCursor = text.slice(<span class="hljs-number">0</span>, cursorPos);
+
+  <span class="hljs-comment">// 1. Extract current token fragment (prefix for the trie)</span>
+  <span class="hljs-keyword">const</span> prefix = extractToken(beforeCursor);
+
+  <span class="hljs-comment">// 2. Infer semantic context</span>
+  <span class="hljs-keyword">const</span> context = getContext(beforeCursor);
+
+  <span class="hljs-keyword">if</span> (!prefix) <span class="hljs-keyword">return</span> [];
+
+  <span class="hljs-comment">// 3. Ask the trie for context-aware suggestions</span>
+  <span class="hljs-keyword">return</span> trie.suggest(prefix, { context, limit: <span class="hljs-number">10</span> });
+}</code></pre>
+<p>Now the trie behaves more intelligently:</p>
+<ol>
+<li>It sees only the meaningful part being typed (the token, not the entire buffer)</li>
+<li>It understands where the user is in the syntax (fieldName vs operator)</li>
+</ol>
+<p>And it filters completions accordingly.</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(suggestAt(<span class="hljs-string">'{ us'</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// [ 'user.email', 'user.age', 'user.address.city' ]</span>
+<span class="hljs-built_in">console</span>.log(suggestAt(<span class="hljs-string">'{ "user.age": { "$g'</span>, <span class="hljs-number">21</span>)); <span class="hljs-comment">// [ '$gt', '$gte' ]</span></code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>Tries are one of those data structures that feel almost old-fashioned.
+Something you learned once in an algorithms class and promptly forgot. But for structured autocomplete, they&#39;re a perfect fit.
+They work especially well with MongoDB queries, which look a lot like JSON.
+We were able to use this technique to power the query autocomplete in Mongoose Studio, letting users get suggestions for both schema fields and MongoDB operators in the right context.</p>
+<p>Tries are small, elegant, dependency-free, and surprisingly powerful.
+Try them out next time you want to build an autocomplete!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
