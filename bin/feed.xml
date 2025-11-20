@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Fri, 07 Nov 2025 02:02:46 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 20 Nov 2025 17:48:51 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Using Tries to Autocomplete MongoDB Queries in Node.js]]></title>
+            <link>https://thecodebarbarian.com/using-tries-to-autocomplete-mongodb-queries-in-nodejs.html</link>
+            <guid>https://thecodebarbarian.com/using-tries-to-autocomplete-mongodb-queries-in-nodejs.html</guid>
+            <pubDate>Tue, 18 Nov 2025 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Introducing Mongoose Studio: A Better Way to Work with MongoDB]]></title>
             <link>https://thecodebarbarian.com/introducing-mongoose-studio-a-better-way-to-work-with-mongodb.html</link>
