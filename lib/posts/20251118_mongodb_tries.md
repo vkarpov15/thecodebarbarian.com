@@ -44,10 +44,10 @@ root
  │   └── s
  │       └── e
  │           └── r
- │               ├── .
- │               │   ├── a → "user.address"
- │               │   └── e → "user.email"
- │               └── n → "user.name"
+ │               └── .
+ │                   ├── a → "user.address"
+ │                   ├── e → "user.email"
+ │                   └── n → "user.name"
 ```
 
 This representation is perfect for nested identifiers, file paths, API routes, and MongoDB field paths.
