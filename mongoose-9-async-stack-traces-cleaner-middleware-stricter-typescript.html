@@ -1,0 +1,127 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Mongoose 9.0: Async Stack Traces, Cleaner Middleware, Stricter TypeScript | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Mongoose 9.0: Async Stack Traces, Cleaner Middleware, Stricter TypeScript"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-9-async-stack-traces-cleaner-middleware-stricter-typescript"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1765142460/mongoose-christmas_u1sby4.png"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 9 delivers a long-awaited overhaul to async stack traces, so you finally see where errors really happen, even across awaits. Async-only middleware, safer defaults, and improved TypeScript precision."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1765142460/mongoose-christmas_u1sby4.png"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Mongoose 9.0: Async Stack Traces, Cleaner Middleware, Stricter TypeScript</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">December 12, 2025</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>For years, one of the longest-running frustrations we had with Mongoose wasn&#39;t performance, or casting, or even types.
+It was stack traces.</p>
+<p>The stack traces had a habit of pointing everywhere except the actual line in user code that caused the problem.
+Debugging validation errors often felt like a murder mystery with no detective.
+With Mongoose 9, that is finally over.</p>
+<p>This release is a big step toward a more modern, predictable, and debuggable Mongoose.
+Below are the 3 most important changes, starting with the one we&#39;re the most proud of.</p>
+<h2 id="1-true-async-stack-traces">1. True Async Stack Traces</h2>
+<p><a href="https://thecodebarbarian.com/async-stack-traces-in-node-js-12.html">We&#39;ve been keeping a close eye on async stack traces since they were first introduced in 2018</a>.
+Async stack traces mean, as long as you&#39;re using async functions and <code>await</code> all the way through, Node.js will display the async function names in the stack trace instead of <a href="https://stackoverflow.com/questions/73712512/why-processticksandrejections-task-queues-jsl67-spending-significant-time-on"><code>processTicksAndRejections</code></a>.
+For example, the following code will print a stack trace that includes the function names <code>f1()</code> and <code>f2()</code> in modern versions of Node.js.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f1</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">await</span> f2();
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test error!'</span>);
+}
+
+f1();</code></pre>
+<p>In Mongoose 9, all internals now use async functions all the way down.
+The MongoDB Node driver has also converted to using async functions, which now means Mongoose will no longer lose the call site when an async error occurss.</p>
+<p>To make real async stack traces work:</p>
+<ul>
+<li>All middleware must now be promise-based or async functions. Callback-based middleware is gone.</li>
+<li>Legacy <code>isAsync</code> middleware (<code>function(next, done)</code>) is gones.</li>
+<li>Error handling prioritizes thrown errors, not <code>next()</code> calls - because there are no more <code>next()</code> calls.s</li>
+</ul>
+<p>All of this lets Node’s async stack trace machinery finally work without interference.</p>
+<p>The result? If your app throws inside middleware like:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// We recommend naming your async middleware functions - the function name will</span>
+<span class="hljs-comment">// show up in the stack trace.</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myPreSave</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// 💥</span>
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Boom'</span>);
+});</code></pre>
+<p>Your stack trace now actually shows the function that threw:</p>
+<pre><code>Error: Boom
+    at model.myPreSave (/src/models/user.js:42:11)</code></pre><p>For debugging production issues, this alone is worth the upgrade.</p>
+<h2 id="2-middleware-is-now-fully-async--no-callbacks">2. Middleware Is Now Fully Async — No Callbacks</h2>
+<p>Supporting async stack traces meant we had to remove every callback API from Mongoose.
+The biggest culprit: <code>pre()</code> hooks.
+In Mongoose 9, <code>next()</code> is no longer supported for <code>pre()</code> hooks.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// This worked in Mongoose 8, no longer supported in Mongoose 9!</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">next</span>) </span>{
+  <span class="hljs-comment">// Do something async</span>
+  next();
+});</code></pre>
+<p>Similarly, <code>done()</code> is no longer supported for <code>pre()</code> hooks.
+We introduced support for <a href="https://thecodebarbarian.com/introducing-mongoose-5.html">promise-based middleware in Mongoose 5</a>, in Mongoose 9 that is the only supported pattern for async middleware.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Using async functions</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myPreSave</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Do something async</span>
+});
+
+<span class="hljs-comment">// Or, equivalently, using a function that returns a promise</span>
+schema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myPreSave</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
+    <span class="hljs-comment">// Do something async</span>
+  });
+});</code></pre>
+<p>Dropping support for <code>next()</code> was a necessary step for full async stack traces.
+Calling <code>next()</code> forces Node to break the async call chain, which is exactly what causes missing function names</p>
+<h2 id="3-stricter-typescript-and-better-autocomplete">3. Stricter TypeScript (and Better Autocomplete)</h2>
+<p>In Mongoose 8, query filters were typed as <code>AnyObject</code>.
+Technically could be considered accurate, but isn&#39;t helpful for autocomplete or real world TypeScript usage.</p>
+<p>For example, the following <code>find()</code> calls would pass TypeScript in Mongoose 8 (presuming <code>age</code> is a number), but throw TypeScript errors in Mongoose 9.</p>
+<pre><code class="language-ts">UserModel.find({ age: &#39;not a number&#39; }); // ❌ TS error
+TestModel.find({ age: { $gt: &#39;not a number&#39; } }); // ❌ TS error</code></pre>
+<p>In Mongoose 8, the first parameter to <code>find()</code> and <code>findOne()</code> was called <code>FilterQuery</code>; in Mongoose 9 it&#39;s <code>QueryFilter</code> to reflect the major change and better align with modern MongoDB semantics.</p>
+<p>Stricter query filters also means better autocomplete for both JavaScript and TypeScript developers.
+VSCode, Cursor, and Zed can now autocomplete:</p>
+<ol>
+<li>Top-level paths</li>
+<li>1-level deep nested paths</li>
+<li>Type information for operators</li>
+<li>Common casting patterns, like strings for ObjectIds.</li>
+</ol>
+<img src="https://i.imgur.com/LzWrdmU.png">
+
+<img src="https://i.imgur.com/YC4SlxE.png">
+
+<p><code>create()</code> and <code>insertMany()</code> also get stricter types.
+In Mongoose 8, you could pass any object to <code>create()</code> and TypeScript would allow it, which is impractical and prevents autocomplete.
+In Mongoose 9, <code>create()</code> and <code>insertMany()</code> instead take a <code>Partial&lt;&gt;</code> of the schema paths, with some basic casting support.</p>
+<pre><code class="language-ts">// TypeScript allowed the following in Mongoose 8, errors out in Mongoose 9
+TestModel.create({ age: &#39;not a number&#39; }); // ❌ TS error
+TestModel.create({ notInSchema: &#39;test&#39; }); // ❌ TS error
+
+TestModel.insertMany({ age: &#39;not a number&#39; }); // ❌ TS error
+TestModel.insertMany({ notInSchema: &#39;test&#39; }); // ❌ TS error</code></pre>
+<p>Like queries, stricter <code>create()</code> and <code>insertMany()</code> types also means better autocomplete.</p>
+<img src="https://i.imgur.com/t35PSc6.png">
+
+<h2 id="moving-on">Moving On</h2>
+<p>If Mongoose 8 was the callback-to-async transition, Mongoose 9 is the async maturity release: the version where stack traces, middleware, error handling, and TypeScript all finally align with how developers write Node today.</p>
+<p>While the new async stack traces and improved TypeScript support are the changes we&#39;re most proud of, there&#39;s 15 other major changes in Mongoose 9.
+Check out the <a href="https://github.com/Automattic/mongoose/blob/master/CHANGELOG.md#900--2025-11-21">full changelog</a> for the complete list, or check out the <a href="https://mongoosejs.com/docs/migrating_to_9.html">migration guide</a> for a more practical walkthrough.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>

@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Thu, 20 Nov 2025 17:48:51 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 12 Dec 2025 16:19:05 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Mongoose 9.0: Async Stack Traces, Cleaner Middleware, Stricter TypeScript]]></title>
+            <link>https://thecodebarbarian.com/mongoose-9-async-stack-traces-cleaner-middleware-stricter-typescript.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-9-async-stack-traces-cleaner-middleware-stricter-typescript.html</guid>
+            <pubDate>Fri, 12 Dec 2025 05:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Using Tries to Autocomplete MongoDB Queries in Node.js]]></title>
             <link>https://thecodebarbarian.com/using-tries-to-autocomplete-mongodb-queries-in-nodejs.html</link>

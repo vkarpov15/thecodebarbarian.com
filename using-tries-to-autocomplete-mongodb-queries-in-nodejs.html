@@ -43,10 +43,10 @@ No need to check every word in your dataset.</p>
  │   └── s
  │       └── e
  │           └── r
- │               ├── .
- │               │   ├── a → &quot;user.address&quot;
- │               │   └── e → &quot;user.email&quot;
- │               └── n → &quot;user.name&quot;</code></pre><p>This representation is perfect for nested identifiers, file paths, API routes, and MongoDB field paths.</p>
+ │               └── .
+ │                   ├── a → &quot;user.address&quot;
+ │                   ├── e → &quot;user.email&quot;
+ │                   └── n → &quot;user.name&quot;</code></pre><p>This representation is perfect for nested identifiers, file paths, API routes, and MongoDB field paths.</p>
 <h2 id="step-1-building-a-basic-trie">Step 1: Building a Basic Trie</h2>
 <p>Let&#39;s start with a simple implementation that supports inserting words and fetching completions by prefix.
 A <code>Trie</code> is a tree structure that stores <code>TrieNode</code> instances.
