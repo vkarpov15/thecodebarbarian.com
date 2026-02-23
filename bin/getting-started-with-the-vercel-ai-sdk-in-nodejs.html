@@ -1,0 +1,190 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Getting Started with the Vercel AI SDK in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Getting Started with the Vercel AI SDK in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/getting-started-with-the-vercel-ai-sdk-in-nodejs"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1771883888/ai-vibes-1.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Learn the Vercel AI SDK essentials in Node.js: set up providers, stream model output, use tools, and ship chat-style AI features quickly."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1771883888/ai-vibes-1.jpg"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Getting Started with the Vercel AI SDK in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">February 23, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>If you&#39;ve been building AI features in Node.js for a while, you&#39;ve probably done the &quot;raw fetch to OpenAI&quot; thing after you&#39;ve gotten tired of the <a href="https://www.npmjs.com/package/openai">OpenAI npm package</a>.</p>
+<ol>
+<li>Manually construct messages</li>
+<li><code>POST</code> to <code>/v1/chat/completions</code></li>
+<li>Parse <code>choices[0].message.content</code></li>
+</ol>
+<p>This works well until you want to support multiple providers - what if you also want to support Claude or Gemini?
+Not only do Claude and Gemini have different API structures and permissions, but they also have different formats for the <code>messages</code> array.
+Writing an integration that worked with all of them is a daunting task.</p>
+<p>That&#39;s exactly where we found ourselves with <a href="https://mongoosestudio.app/">Mongoose Studio</a>.
+We rewrote the code to use the <a href="https://vercel.com/docs/ai/sdk">Vercel AI SDK</a> instead (<a href="https://github.com/mongoosejs/studio/pull/120">PR here</a>) and the result was a much simpler, cleaner abstraction that supports OpenAI, Claude, and Gemini with minimal code.</p>
+<h2 id="introducting-the-vercel-ai-sdk">Introducting the Vercel AI SDK</h2>
+<p>Vercel&#39;s AI SDK gives you a unified interface for different LLM providers.
+They have a core <code>ai</code> package, and then separate integration packages for different LLM providers, like <code>@ai-sdk/openai</code> and <code>@ai-sdk/anthropic</code>.</p>
+<p>To install:</p>
+<pre><code>npm install ai @ai-sdk/openai @ai-sdk/anthropic</code></pre><h2 id="a-minimal-callllmwrapper">A Minimal <code>callLLMWrapper()</code></h2>
+<p>Here&#39;s the core abstraction that we came up with for our refactor (non-streaming).
+The <code>@ai-sdk/openai</code> package exports a <code>createOpenAI()</code> function you can use to create an OpenAI <em>provider</em>, and there&#39;s an analogous <code>createAnthropic()</code> for Claude.
+The core <code>ai</code> package has a <code>generateText()</code> function that takes in a model (which includes the provider), a system prompt, and an array of messages.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { createAnthropic } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/anthropic'</span>;
+<span class="hljs-keyword">import</span> { createOpenAI } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/openai'</span>;
+<span class="hljs-keyword">import</span> { generateText } <span class="hljs-keyword">from</span> <span class="hljs-string">'ai'</span>;
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callLLM</span>(<span class="hljs-params">messages, system, options</span>) </span>{
+  <span class="hljs-keyword">let</span> provider = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">let</span> model = <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey &amp;&amp; options?.anthropicAPIKey) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Cannot set both OpenAI and Anthropic API keys'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey) {
+    provider = createOpenAI({ apiKey: options.openAIAPIKey });
+    model = options?.model ?? <span class="hljs-string">'gpt-4o-mini'</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options?.anthropicAPIKey) {
+    provider = createAnthropic({ apiKey: options.anthropicAPIKey });
+    model = options?.model ?? <span class="hljs-string">'claude-haiku-4-5-20251001'</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Must set either OpenAI key or Anthropic API key'</span>);
+  }
+
+  <span class="hljs-keyword">return</span> generateText({
+    model: provider(model),
+    system,
+    messages
+  });
+};</code></pre>
+<p>You can then call <code>callLLM()</code> as follows:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> callLLM(
+  [{    
+    role: <span class="hljs-string">'user'</span>,
+    content: <span class="hljs-string">'reverse a string'</span> 
+  }],
+  <span class="hljs-string">'You are an assistant that writes JavaScript programs like a pirate'</span>,
+  { openAIAPIKey: process.env.OPENAI_API_KEY }
+);
+<span class="hljs-comment">// Outputs "Arrr, matey! Here’s a simple JavaScript function to reverse a string:..."</span>
+<span class="hljs-built_in">console</span>.log(res.text);</code></pre>
+<h2 id="streaming-responses">Streaming Responses</h2>
+<p><code>generateText()</code> is fine for small text outputs, like text summarization, but for more sophisticated cases where the LLM is expected to generate a lot of text, streaming is the way to go.
+Otherwise, your user won&#39;t see any text until the <strong>entire</strong> response is done.
+For example, in the ChatGPT UI, you don&#39;t wait for the full response, you see the text appear as the model generates it.</p>
+<p>The Vercel AI SDK exposes that via <code>streamText()</code>, which returns chunks of text as they’re produced instead of waiting for the full response.
+Specifically, <code>streamText()</code> returns an <a href="https://thecodebarbarian.com/getting-started-with-async-iterators-in-node-js">async iterator</a>.
+If you&#39;re surfacing the result of the text generation to the user, streaming makes perceived latency drop dramatically.</p>
+<p>For Mongoose Studio, I implemented a separate <code>streamLLM()</code> helper as follows. <code>streamLLM()</code> is an <a href="https://thecodebarbarian.com/async-generator-functions-in-javascript.html">async generator function</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">streamLLM</span>(<span class="hljs-params">messages, system, options</span>) </span>{
+  <span class="hljs-keyword">let</span> provider = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">let</span> model = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey &amp;&amp; options?.anthropicAPIKey) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Cannot set both OpenAI and Anthropic API keys'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey) {
+    provider = createOpenAI({ apiKey: options.openAIAPIKey });
+    model = options?.model ?? <span class="hljs-string">'gpt-4o-mini'</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options?.anthropicAPIKey) {
+    provider = createAnthropic({ apiKey: options.anthropicAPIKey });
+    model = options?.model ?? <span class="hljs-string">'claude-haiku-4-5-20251001'</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Must specify either OpenAI or Anthropic key'</span>);
+  }
+
+  <span class="hljs-keyword">const</span> { textStream } = streamText({
+    model: provider(model),
+    system,
+    messages
+  });
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> textStream) {
+    <span class="hljs-keyword">yield</span> chunk;
+  }
+  <span class="hljs-keyword">return</span>;
+}</code></pre>
+<p>Here&#39;s what using <code>streamLLM()</code> looks like. The easiest way to iterate through an async iterator is with a <a href="https://thecodebarbarian.com/async-generator-functions-in-javascript.html#your-first-async-generator-function"><code>for/await/of</code> loop</a>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stream = streamLLM(
+  [{
+    role: <span class="hljs-string">'user'</span>,
+    content: <span class="hljs-string">'reverse a string'</span>
+  }],
+  <span class="hljs-string">'You are an assistant that writes JavaScript programs like a pirate'</span>,
+  { openAIAPIKey: process.env.OPENAI_API_KEY }
+);
+<span class="hljs-comment">// Prints out "Arrr! Here be a JavaScript function to reverse a string, matey!..." chunk by chunk</span>
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> stream) {
+  process.stdout.write(chunk);
+}</code></pre>
+<h2 id="structured-outputs-with-generateobject">Structured Outputs with <code>generateObject()</code></h2>
+<p>So far we&#39;ve looked at:</p>
+<ul>
+<li><code>generateText()</code>: returns a string</li>
+<li><code>streamText()</code>: streams a string</li>
+</ul>
+<p>But in real applications, you often don&#39;t actually want text. You want structured data.
+And relying on <code>generateText()</code> to produce valid JSON or YAML that you can parse is brittle, even if you tell the LLM to &quot;please return JSON only or I&#39;ll lose my job.&quot;</p>
+<p><code>generateObject()</code> fixes this.
+Put in a <code>prompt</code> and a <code>schema</code>, and you get back an object that matches the schema.
+The schema must be defined using <a href="https://www.npmjs.com/package/zod">Zod</a> as of this writing.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { createAnthropic } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/anthropic'</span>;
+<span class="hljs-keyword">import</span> { createOpenAI } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/openai'</span>;
+<span class="hljs-keyword">import</span> { generateObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'ai'</span>;
+<span class="hljs-keyword">import</span> z <span class="hljs-keyword">from</span> <span class="hljs-string">'zod'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myGenerateObject</span>(<span class="hljs-params">prompt, schema, options</span>) </span>{
+  <span class="hljs-keyword">let</span> provider = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">let</span> model = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey &amp;&amp; options?.anthropicAPIKey) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Cannot set both OpenAI and Anthropic API keys'</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (options?.openAIAPIKey) {
+    provider = createOpenAI({ apiKey: options.openAIAPIKey });
+    model = options?.model ?? <span class="hljs-string">'gpt-4o-mini'</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options?.anthropicAPIKey) {
+    provider = createAnthropic({ apiKey: options.anthropicAPIKey });
+    model = options?.model ?? <span class="hljs-string">'claude-haiku-4-5-20251001'</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Must specify either OpenAI or Anthropic key'</span>);
+  }
+
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> generateObject({
+    model: provider(model),
+    schema,
+    prompt
+  });
+  <span class="hljs-keyword">return</span> result.object;
+}</code></pre>
+<p>You can then call <code>myGenerateObject()</code> as follows.
+Yes, modern LLMs are pretty good at getting coordinates of major cities.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Prints `{ lat: 43.615, lng: -116.2023 }` approximately</span>
+<span class="hljs-built_in">console</span>.log(
+  <span class="hljs-keyword">await</span> myGenerateObject(
+    <span class="hljs-string">'Get me the coordinates of Boise, Idaho'</span>,
+    z.object({ lat: z.number(), lng: z.number() }),
+    { openAIAPIKey: process.env.OPENAI_API_KEY }
+  )
+);</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p>The Vercel AI SDK gives you numerous neat primitives for working with different LLM providers while abstracting away the underlying provider.
+The above examples work fine with OpenAI, Anthropic, and Gemini models in my experience, and <a href="https://ai-sdk.dev/providers/ai-sdk-providers">that&#39;s far from all the providers that the AI SDK supports</a>.
+The AI SDK also has support for <a href="https://ai-sdk.dev/docs/agents">agents</a>, <a href="https://ai-sdk.dev/docs/agents">memory</a>, and all sorts of other amazing features.
+Try it out next time you find yourself wanting to add yet another LLM provider to your project.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
