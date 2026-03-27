@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 23 Feb 2026 23:07:55 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 27 Mar 2026 20:07:30 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Getting Started with the Vercel AI SDK Agents in Node.js]]></title>
+            <link>https://thecodebarbarian.com/getting-started-with-the-vercel-ai-sdk-agents-in-nodejs.html</link>
+            <guid>https://thecodebarbarian.com/getting-started-with-the-vercel-ai-sdk-agents-in-nodejs.html</guid>
+            <pubDate>Fri, 27 Mar 2026 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Getting Started with the Vercel AI SDK in Node.js]]></title>
             <link>https://thecodebarbarian.com/getting-started-with-the-vercel-ai-sdk-in-nodejs.html</link>

@@ -1,0 +1,229 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Getting Started with the Vercel AI SDK Agents in Node.js | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Getting Started with the Vercel AI SDK Agents in Node.js"><meta property="og:url" content="http://www.thecodebarbarian.com/getting-started-with-the-vercel-ai-sdk-agents-in-nodejs"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1771346730/ai-vibes-2_qa09zq.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Learn how to build a basic AI agent using the Vercel AI SDK in Node.js."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1771346730/ai-vibes-2_qa09zq.jpg"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Getting Started with the Vercel AI SDK Agents in Node.js</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">March 27, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>My previous post covered the <a href="./getting-started-with-the-vercel-ai-sdk-in-nodejs.html">basics of the Vercel AI SDK</a>: making single LLM requests to different LLM providers.
+However, the AI SDK also provides a <a href="https://ai-sdk.dev/docs/agents/overview">lightweight framework to build AI agents</a> via the <code>ToolLoopAgent</code> class.
+In this blog post, I&#39;ll show how to build an agent that plays the <a href="https://en.wikipedia.org/wiki/Twenty_questions">20 Questions game</a> using the Vercel AI SDK.</p>
+<h2 id="your-first-agent">Your First Agent</h2>
+<p>An <em>agent</em> is a loop that makes an LLM call at each step to process input and decide the next action.
+A one-step agent is equivalent to a single LLM call - for example, the following agent outputs a one sentence description of what an agent is.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { ToolLoopAgent } <span class="hljs-keyword">from</span> <span class="hljs-string">'ai'</span>;
+<span class="hljs-keyword">import</span> { openai } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/openai'</span>;
+
+<span class="hljs-keyword">const</span> prompt = <span class="hljs-string">'Write one short sentence explaining what an AI agent is.'</span>;
+
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> ToolLoopAgent({
+  model: openai(<span class="hljs-string">'gpt-4o-mini'</span>),
+  system: <span class="hljs-string">'You are a concise assistant. Answer in plain text.'</span>,
+  tools: {} <span class="hljs-comment">// More on this in the next section</span>
+});
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> agent.generate({ prompt });
+
+<span class="hljs-comment">// "An AI agent is a computer program designed to autonomously perform tasks or make decisions based on its environment and data."</span>
+<span class="hljs-built_in">console</span>.log(result.text);</code></pre>
+<p>At each step, the <code>ToolLoopAgent</code> class executes a separate tool or generates text, and if it generates text the agent completes.
+Each agent step:</p>
+<ol>
+<li>LLM decides: respond or call a tool</li>
+<li>If tool → execute it and append result</li>
+<li>Repeat until model returns text</li>
+</ol>
+<p>So in order to get a true loop, we need to add tools.</p>
+<h2 id="adding-tools">Adding Tools</h2>
+<p>A <em>tool</em> is a function the agent can call.
+Tools are just Node.js functions that have an associated <code>inputSchema</code>.
+They can read files, make API calls, write to databases, etc.</p>
+<p>They can even ask the user a question at the command line.
+For example, the following &quot;Hello, World&quot; agent will ask the user their name before greeting them via the <code>askForName</code> tool.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { createInterface } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:readline/promises'</span>;
+<span class="hljs-keyword">import</span> { stdin <span class="hljs-keyword">as</span> input, stdout <span class="hljs-keyword">as</span> output } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:process'</span>;
+
+<span class="hljs-keyword">import</span> { ToolLoopAgent, tool } <span class="hljs-keyword">from</span> <span class="hljs-string">'ai'</span>;
+<span class="hljs-keyword">import</span> { openai } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/openai'</span>;
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">'zod'</span>;
+
+<span class="hljs-keyword">const</span> prompt = <span class="hljs-string">'Greet the user based on their name.'</span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promptForName</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> rl = createInterface({ input, output });
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> name = <span class="hljs-keyword">await</span> rl.question(<span class="hljs-string">'What is your name? '</span>);
+    <span class="hljs-keyword">return</span> name.trim() || <span class="hljs-string">'friend'</span>;
+  } <span class="hljs-keyword">finally</span> {
+    rl.close();
+  }
+}
+
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> ToolLoopAgent({
+  model: openai(<span class="hljs-string">'gpt-4o-mini'</span>),
+  instructions:
+    <span class="hljs-string">'Greet the user based on their name and preferred language'</span>,
+  tools: {
+    askForName: tool({
+      description: <span class="hljs-string">'Ask the user for their name on the command line.'</span>,
+      inputSchema: z.object({}),
+      execute: <span class="hljs-keyword">async</span> () =&gt; {
+        <span class="hljs-keyword">const</span> name = <span class="hljs-keyword">await</span> promptForName();
+        <span class="hljs-keyword">return</span> { name };
+      }
+    })
+  }
+});
+
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> agent.generate({ prompt });
+
+<span class="hljs-comment">// "Hello, &lt;name response&gt;! How can I assist you today?"</span>
+<span class="hljs-built_in">console</span>.log(result.text.trim());</code></pre>
+<p>The agent result also includes an array of <code>steps</code> that contains the LLM calls the agent made at each step.
+For example, if you print out each step as follows:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">console</span>.log(
+  result.steps.map(step =&gt; ({
+    model: step.model,
+    response: step.response.body.output[<span class="hljs-number">0</span>]
+  }))
+);</code></pre>
+<p>You&#39;ll see the following output, which shows the first step called the <code>askForName</code> tool and the second step responded with a message.
+The steps output is especially useful for debugging - you can see exactly when the model chose to call a tool vs respond, and what arguments it passed.</p>
+<pre><code>[
+  {
+    model: { provider: &#39;openai.responses&#39;, modelId: &#39;gpt-4o-mini&#39; },
+    response: {
+      id: &#39;fc_0f6338b02ed6ee9d0069c6de4cbe6c8193b50492ea1c53e52a&#39;,
+      type: &#39;function_call&#39;,
+      status: &#39;completed&#39;,
+      arguments: &#39;{}&#39;,
+      call_id: &#39;call_UQzm9lz8C8sNgnv0zFeOwKSp&#39;,
+      name: &#39;askForName&#39;
+    }
+  },
+  {
+    model: { provider: &#39;openai.responses&#39;, modelId: &#39;gpt-4o-mini&#39; },
+    response: {
+      id: &#39;msg_0f6338b02ed6ee9d0069c6de4e70b88193a1a0d0a3b7067245&#39;,
+      type: &#39;message&#39;,
+      status: &#39;completed&#39;,
+      content: [Array],
+      role: &#39;assistant&#39;
+    }
+  }
+]</code></pre><h2 id="bringing-it-all-together">Bringing It All Together</h2>
+<p>Combining the prompt and instructions with a tool that can ask the user questions means you can write an agent that plays <a href="https://en.wikipedia.org/wiki/Twenty_questions">20 Questions</a> with you - a basic game where the agent asks yes/no questions to determine what person, place, or thing the user is thinking of.</p>
+<p>To play this game, all the agent needs is an <code>askUser</code> tool, instructions, and a <code>stepCountIs</code> check to enforce stopping after 20 turns.
+<code>stepCountIs(21)</code> prevents runaway loops - without it, the agent could keep asking questions indefinitely.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { createInterface } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:readline/promises'</span>;
+<span class="hljs-keyword">import</span> { stdin <span class="hljs-keyword">as</span> input, stdout <span class="hljs-keyword">as</span> output } <span class="hljs-keyword">from</span> <span class="hljs-string">'node:process'</span>;
+
+<span class="hljs-keyword">import</span> { ToolLoopAgent, stepCountIs, tool } <span class="hljs-keyword">from</span> <span class="hljs-string">'ai'</span>;
+<span class="hljs-keyword">import</span> { openai } <span class="hljs-keyword">from</span> <span class="hljs-string">'@ai-sdk/openai'</span>;
+<span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">'zod'</span>;
+
+<span class="hljs-keyword">const</span> prompt = <span class="hljs-string">'Play 20 Questions with the user. The user has already thought of a person, place, or thing.'</span>;
+
+<span class="hljs-keyword">const</span> rl = createInterface({ input, output });
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">askUser</span>(<span class="hljs-params">question</span>) </span>{
+  <span class="hljs-keyword">const</span> answer = <span class="hljs-keyword">await</span> rl.question(<span class="hljs-string">`\n<span class="hljs-subst">${question}</span>\n&gt; `</span>);
+  <span class="hljs-keyword">return</span> answer.trim() || <span class="hljs-string">'I do not know.'</span>;
+}
+
+<span class="hljs-keyword">const</span> agent = <span class="hljs-keyword">new</span> ToolLoopAgent({
+  model: openai(<span class="hljs-string">'gpt-4o-mini'</span>),
+  instructions: [
+    <span class="hljs-string">'You are playing 20 Questions.'</span>,
+    <span class="hljs-string">'The user has thought of a person, place, or thing.'</span>,
+    <span class="hljs-string">'Ask exactly one question at a time using the askQuestion tool.'</span>,
+    <span class="hljs-string">'Prefer yes/no questions, but accept any user response.'</span>,
+    <span class="hljs-string">'Ask at most 20 questions total.'</span>,
+    <span class="hljs-string">'When you are ready to guess, stop calling tools and respond with a final guess in plain text.'</span>
+  ].join(<span class="hljs-string">' '</span>),
+  stopWhen: stepCountIs(<span class="hljs-number">21</span>),
+  tools: {
+    askQuestion: tool({
+      description: <span class="hljs-string">'Ask the user one question in the terminal and return their answer.'</span>,
+      inputSchema: z.object({
+        question: z.string().min(<span class="hljs-number">1</span>)
+      }),
+      execute: <span class="hljs-keyword">async</span> ({ question }) =&gt; {
+        <span class="hljs-keyword">const</span> answer = <span class="hljs-keyword">await</span> askUser(question);
+        <span class="hljs-keyword">return</span> { answer };
+      }
+    })
+  }
+});
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Think of a person, place, or thing. The agent will now play 20 Questions.'</span>);
+
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> agent.generate({ prompt });
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`\nFinal guess: <span class="hljs-subst">${result.text.trim()}</span>`</span>);
+} <span class="hljs-keyword">finally</span> {
+  rl.close();
+}</code></pre>
+<p>Here&#39;s the output of a sample game:</p>
+<pre><code>Think of a person, place, or thing. The agent will now play 20 Questions.
+
+Is it a living being?
+&gt; No
+
+Is it something that is commonly found indoors?
+&gt; Yes
+
+Is it an electronic device?
+&gt; Yes
+
+Is it used for communication?
+&gt; Yes
+
+Is it primarily a mobile device?
+&gt; Yes
+
+Is it a smartphone?
+&gt; No
+
+Is it a tablet?
+&gt; No
+
+Is it a type of wearable technology?
+&gt; No
+
+Is it a laptop?
+&gt; Yes
+
+Is it a specific brand, like Apple or Dell?
+&gt; Yes
+
+Is it an Apple laptop?
+&gt; Yes
+
+Final guess: I guess the item you&#39;re thinking of is a MacBook!</code></pre><h2 id="moving-on">Moving On</h2>
+<p>This example is intentionally simple for the purposes of tinkering and understanding, but the same pattern works for real workflows.
+Imagine a dev tools that can automatically query logs, or a changelog generator that reads commits and summarizes changes.
+In all these cases, the pattern is the same: LLM decides, tools fetch data, repeat until done.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
