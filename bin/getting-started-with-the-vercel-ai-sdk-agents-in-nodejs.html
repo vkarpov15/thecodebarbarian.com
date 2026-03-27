@@ -29,7 +29,8 @@ A one-step agent is equivalent to a single LLM call - for example, the following
 
 <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> agent.generate({ prompt });
 
-<span class="hljs-comment">// "An AI agent is a computer program designed to autonomously perform tasks or make decisions based on its environment and data."</span>
+<span class="hljs-comment">// "An AI agent is a computer program designed to autonomously perform</span>
+<span class="hljs-comment">// tasks or make decisions based on its environment and data."</span>
 <span class="hljs-built_in">console</span>.log(result.text);</code></pre>
 <p>At each step, the <code>ToolLoopAgent</code> class executes a separate tool or generates text, and if it generates text the agent completes.
 Each agent step:</p>
