@@ -1,0 +1,246 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>What's New in Mongoose 9.6: The allowNull Option | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 9.6: The allowNull Option"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-96-allownull"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1779895179/99ae1534-5f9e-4bbe-9a8a-9bdb80394b24_expdc9.png"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 9.6 adds a new allowNull schema type option that lets you disallow null without making a path required."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1779895179/99ae1534-5f9e-4bbe-9a8a-9bdb80394b24_expdc9.png"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 9.6: The allowNull Option</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">May 27, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/releases/tag/9.6.0">Mongoose 9.6.0 was released on April 28, 2026</a> and includes several noteworthy new features.
+The biggest new feature is the new <a href="https://mongoosejs.com/docs/api/schematypeoptions.html#SchemaTypeOptions.prototype.allowNull"><code>allowNull</code> schema type option</a>, which lets you disallow <code>null</code> without making a path required.
+Mongoose has long allowed <code>null</code> for optional paths by default, which makes sense for MongoDB&#39;s flexible document model.
+But TypeScript and JSON Schema users often need a sharper distinction between &quot;missing&quot; and &quot;explicitly null&quot;.
+In this blog post, I&#39;ll cover how <code>allowNull</code> works, how it differs from <code>required</code>, and how it affects TypeScript inference and JSON Schema output.</p>
+<h2 id="disallowing-null-without-required">Disallowing <code>null</code> Without <code>required</code></h2>
+<p>By default, Mongoose allows both <code>null</code> and <code>undefined</code> (<em>nullish</em> values) for paths that are not required.
+For example, the following schema allows documents where <code>name</code> is missing, set to <code>undefined</code>, or set to <code>null</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({}).validate(); <span class="hljs-comment">// OK</span>
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({ name: <span class="hljs-literal">undefined</span> }).validate(); <span class="hljs-comment">// OK</span>
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({ name: <span class="hljs-literal">null</span> }).validate(); <span class="hljs-comment">// OK</span></code></pre>
+<p><code>allowNull: false</code> changes that behavior.
+With <code>allowNull: false</code>, <code>undefined</code> still passes validation, but <code>null</code> does not.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: {
+    type: <span class="hljs-built_in">String</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  }
+});
+
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({}).validate(); <span class="hljs-comment">// OK</span>
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({ name: <span class="hljs-literal">undefined</span> }).validate(); <span class="hljs-comment">// OK</span>
+
+<span class="hljs-keyword">const</span> err = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> User({ name: <span class="hljs-literal">null</span> }).validate().catch(err =&gt; err);
+
+err.errors[<span class="hljs-string">'name'</span>].kind; <span class="hljs-comment">// 'allowNull'</span>
+err.errors[<span class="hljs-string">'name'</span>].message; <span class="hljs-comment">// 'Path `name` does not allow null values.'</span></code></pre>
+<p>The <code>name: undefined</code> case seems a little strange, but remember that Mongoose strips out keys that are set to <code>undefined</code> since v6.
+There&#39;s no way to store a key with a value that is strictly equal to <code>undefined</code> in Mongoose - <a href="https://bsonspec.org/spec.html">MongoDB&#39;s BSON spec</a> has marked <code>undefined</code> as deprecated for over 15 years.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">new</span> User({ name: <span class="hljs-literal">undefined</span> });
+<span class="hljs-keyword">await</span> doc.save();
+
+<span class="hljs-keyword">const</span> fromDb = <span class="hljs-keyword">await</span> User.findById(doc._id).orFail();
+<span class="hljs-built_in">Object</span>.keys(fromDb); <span class="hljs-comment">// ['_id'] does **NOT** contain `name`</span></code></pre>
+<p>This is useful when your application distinguishes between &quot;not provided&quot; and &quot;explicitly null&quot;.
+Most notably, <code>allowNull</code> is to reduce friction for TypeScript developers: TypeScript developers are used to using <code>name?: string</code> for optional parameters.
+Having to add <code>name?: string | null</code> or pass in <code>name ?? undefined</code> is a source of friction.</p>
+<p>Historically, Mongoose did not distinguish between these two cases because the MongoDB Node driver would convert <code>undefined</code> values to <code>null</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// Call `insertOne()` on the raw MongoDB Node driver collection, bypassing Mongoose</span>
+<span class="hljs-keyword">await</span> User.collection.insertOne({ _id: <span class="hljs-string">'test'</span>, name: <span class="hljs-literal">undefined</span> });
+<span class="hljs-comment">// { _id: 'test', name: null }</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> User.collection.findOne({ _id: <span class="hljs-string">'test'</span> }));</code></pre>
+<p>However, given that Mongoose strips <code>undefined</code> values before they get to the MongoDB Node driver, we think <code>allowNull</code> is a reasonable addition to make TypeScript developers&#39; lives easier.</p>
+<h2 id="how-allownull-differs-from-required">How <code>allowNull</code> Differs From <code>required</code></h2>
+<p><code>required: true</code> means the path must be non-nullish: not <code>null</code> and not <code>undefined</code>.
+<code>allowNull: false</code> only disallows <code>null</code>.
+It does not make the path required.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>
+  },
+  nickname: {
+    type: <span class="hljs-built_in">String</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  }
+});
+
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
+
+<span class="hljs-keyword">const</span> err = <span class="hljs-keyword">new</span> User({
+  nickname: <span class="hljs-literal">null</span>
+}).validateSync();
+
+err.errors[<span class="hljs-string">'name'</span>].kind; <span class="hljs-comment">// 'required'</span>
+err.errors[<span class="hljs-string">'nickname'</span>].kind; <span class="hljs-comment">// 'allowNull'</span></code></pre>
+<p>Because <code>required: true</code> already disallows <code>null</code>, Mongoose does not allow you to set <code>allowNull</code> on a path with static <code>required: true</code>.
+The following schema throws an error when you create it.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: {
+    type: <span class="hljs-built_in">String</span>,
+    required: <span class="hljs-literal">true</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  }
+});
+<span class="hljs-comment">// Throws: Path "name" may not have `allowNull` specified when `required` is true</span></code></pre>
+<p>The same rule applies if you call <code>allowNull(false)</code> and <code>required(true)</code> at runtime.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span> });
+
+userSchema.path(<span class="hljs-string">'name'</span>).allowNull(<span class="hljs-literal">false</span>);
+userSchema.path(<span class="hljs-string">'name'</span>).required(<span class="hljs-literal">true</span>); <span class="hljs-comment">// Throws</span></code></pre>
+<p>However, <code>allowNull</code> can be useful with function-based <code>required</code>.
+Function-based <code>required</code> only applies when the function returns a truthy value, so <code>allowNull: false</code> lets you disallow <code>null</code> even when the path is not currently required.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> taskSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  status: <span class="hljs-built_in">String</span>,
+  endDate: {
+    type: <span class="hljs-built_in">Date</span>,
+    required: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.status === <span class="hljs-string">'completed'</span>;
+    },
+    allowNull: <span class="hljs-literal">false</span>
+  }
+});
+
+<span class="hljs-keyword">const</span> Task = mongoose.model(<span class="hljs-string">'Task'</span>, taskSchema);
+
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> Task({
+  status: <span class="hljs-string">'pending'</span>
+}).validate(); <span class="hljs-comment">// OK, endDate is undefined</span>
+
+<span class="hljs-keyword">let</span> err = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> Task({
+  status: <span class="hljs-string">'pending'</span>,
+  endDate: <span class="hljs-literal">null</span>
+}).validate().catch(err =&gt; err);
+err.errors[<span class="hljs-string">'endDate'</span>].kind; <span class="hljs-comment">// 'allowNull'</span>
+
+err = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> Task({
+  status: <span class="hljs-string">'completed'</span>,
+  endDate: <span class="hljs-literal">null</span>
+}).validate().catch(err =&gt; err);
+err.errors[<span class="hljs-string">'endDate'</span>].kind; <span class="hljs-comment">// 'required'</span></code></pre>
+<p>In the last example, <code>required</code> wins when the task is completed because <code>Date</code> paths consider <code>null</code> missing for required validation.
+When the task is pending, the path is not required, but <code>allowNull: false</code> still rejects <code>null</code>.</p>
+<h2 id="typescript-inference">TypeScript Inference</h2>
+<p>Mongoose 9.6 also updates TypeScript inference to understand <code>allowNull: false</code>.
+By default, optional paths include <code>null</code> in the inferred type.
+With <code>allowNull: false</code>, optional paths do not include <code>null</code>.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">import</span> mongoose from <span class="hljs-string">'mongoose'</span>;
+
+<span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  },
+  age: <span class="hljs-built_in">Number</span>
+});
+
+<span class="hljs-keyword">type</span> User = mongoose.InferSchemaType&lt;<span class="hljs-keyword">typeof</span> userSchema&gt;;
+
+<span class="hljs-comment">// User is roughly:</span>
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   name?: string;</span>
+<span class="hljs-comment">//   age?: number | null;</span>
+<span class="hljs-comment">// }</span></code></pre>
+<p><code>name</code> is still optional because <code>allowNull: false</code> does not make the path required.
+But <code>name</code> no longer allows <code>null</code>.
+Meanwhile, <code>age</code> still allows <code>null</code> because it uses the default Mongoose behavior for optional paths.</p>
+<p>The same logic applies to <code>InferRawDocType</code>.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">const</span> schemaDefinition = {
+  name: {
+    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">String</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  },
+  title: <span class="hljs-built_in">String</span>
+} as <span class="hljs-keyword">const</span>;
+
+<span class="hljs-keyword">type</span> RawUser = mongoose.InferRawDocType&lt;<span class="hljs-keyword">typeof</span> schemaDefinition&gt;;
+
+<span class="hljs-comment">// RawUser is roughly:</span>
+<span class="hljs-comment">// {</span>
+<span class="hljs-comment">//   name?: string;</span>
+<span class="hljs-comment">//   title?: string | null;</span>
+<span class="hljs-comment">// }</span></code></pre>
+<p>This is the part of <code>allowNull</code> that makes it especially useful in TypeScript codebases.
+Before Mongoose 9.6, if you wanted TypeScript to know that an optional path could be <code>undefined</code> but not <code>null</code>, you typically needed to define a separate document interface manually.
+Now Mongoose can infer that distinction from your schema definition.</p>
+<h2 id="json-schema-output">JSON Schema Output</h2>
+<p><code>allowNull</code> also affects <code>toJSONSchema()</code>.
+By default, optional paths include <code>null</code> in generated JSON Schema output.
+With <code>allowNull: false</code>, Mongoose omits <code>null</code> from the path&#39;s type.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  name: {
+    type: <span class="hljs-built_in">String</span>,
+    allowNull: <span class="hljs-literal">false</span>
+  },
+  age: <span class="hljs-built_in">Number</span>
+});
+
+userSchema.toJSONSchema();</code></pre>
+<p>The above schema generates the following JSON Schema for <code>name</code> and <code>age</code>.</p>
+<pre><code class="language-javascript">{
+  type: <span class="hljs-string">'object'</span>,
+  required: [<span class="hljs-string">'_id'</span>],
+  properties: {
+    _id: {
+      type: <span class="hljs-string">'string'</span>
+    },
+    name: {
+      type: <span class="hljs-string">'string'</span>
+    },
+    age: {
+      type: [<span class="hljs-string">'number'</span>, <span class="hljs-string">'null'</span>]
+    }
+  }
+}</code></pre>
+<p><code>name</code> has <code>type: &#39;string&#39;</code>, because <code>allowNull: false</code> means <code>null</code> is not allowed.
+<code>age</code> has <code>type: [&#39;number&#39;, &#39;null&#39;]</code>, because optional paths allow <code>null</code> by default.</p>
+<p>The same applies if you use BSON types.</p>
+<pre><code class="language-javascript">userSchema.toJSONSchema({ useBsonType: <span class="hljs-literal">true</span> });</code></pre>
+<pre><code class="language-javascript">{
+  required: [<span class="hljs-string">'_id'</span>],
+  properties: {
+    _id: {
+      bsonType: <span class="hljs-string">'objectId'</span>
+    },
+    name: {
+      bsonType: <span class="hljs-string">'string'</span>
+    },
+    age: {
+      bsonType: [<span class="hljs-string">'number'</span>, <span class="hljs-string">'null'</span>]
+    }
+  }
+}</code></pre>
+<p>This makes <code>allowNull</code> a good fit for apps that use Mongoose schemas to generate MongoDB collection validators or OpenAPI-compatible schema output.</p>
+<h2 id="moving-on">Moving On</h2>
+<p><code>allowNull</code> is a small option, but it fills a long-standing gap in Mongoose validation.
+You can now model &quot;optional, but not null&quot; directly in your schema without custom validators, custom TypeScript interfaces, or post-processing JSON Schema output.</p>
+<p>Mongoose 9.6 also upgrades the MongoDB Node.js driver to 7.2 and includes several TypeScript improvements, including better <code>QueryFilter</code> support for string unions and enums.
+Make sure you upgrade to take advantage of the new features!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
