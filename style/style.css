@@ -168,7 +168,7 @@ a.social {
 .hero-image {
 	width:100%;
 	height:300px;
-	background-position:center center;
+	background-position:top;
 	background-repeat:no-repeat;
 	background-size:cover;
 }
