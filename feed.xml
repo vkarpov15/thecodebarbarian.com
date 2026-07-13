@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 27 May 2026 15:22:22 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jul 2026 21:51:37 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Streaming Documents to the Frontend with SSE in Mongoose Studio]]></title>
+            <link>https://thecodebarbarian.com/mongoose-studio-sse.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-studio-sse.html</guid>
+            <pubDate>Mon, 13 Jul 2026 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[What's New in Mongoose 9.6: The allowNull Option]]></title>
             <link>https://thecodebarbarian.com/mongoose-96-allownull.html</link>
