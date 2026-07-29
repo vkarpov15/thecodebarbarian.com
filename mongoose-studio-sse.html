@@ -23,7 +23,7 @@ With pagination, you would need to wait at least 20 seconds to view even a singl
 <p>Server-Sent Events are a way to stream data from the server to the client over HTTP.
 SSE is like a standard HTTP request, but the server sends data to the client as it becomes available, rather than waiting for the entire response to be ready.
 SSE is reasonably easy to implement with Express, just requires some extra boilerplate.
-For exmaple, the below Express code sends back a hardcoded list of words over SSE, one word at a time, with a 1 second delay between each word.</p>
+For example, the below Express code sends back a hardcoded list of words over SSE, one word at a time, with a 1 second delay between each word.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
 <span class="hljs-keyword">const</span> app = express();
@@ -62,8 +62,8 @@ app.get(<span class="hljs-string">'/sse'</span>, (req, res) =&gt; {
 });</code></pre>
 <p>If this feels similar to ChatGPT or Claude&#39;s streaming responses, &quot;you&#39;re absolutely right!&quot;
 LLM chatbots frequently use SSE to stream responses back to the client.
-WebSockets are another option for streaming, but SSE often plays nicer with load balancers, reverse proxies, and other HTTP infrastructure due to the fact that SSE is just a plain old HTTP request under the hood.</p>
-<p>Run the above server and run <code>curl https://localhost:3000/sse</code>, you&#39;ll get back the following result.</p>
+WebSockets are another option for streaming, but SSE often plays nicer with load balancers, reverse proxies, and other HTTP infrastructure because SSE is just a plain old HTTP request under the hood.</p>
+<p>Run the above server and run <code>curl http://localhost:3000/sse</code>, you&#39;ll get back the following result.</p>
 <pre><code>$ curl http://localhost:3000/sse
 data: Lorem
 
@@ -83,7 +83,7 @@ For example, here&#39;s how you can use a cursor to stream words from a <code>Wo
 <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> word <span class="hljs-keyword">of</span> wordsCursor) {
   <span class="hljs-built_in">console</span>.log(word.text);
 }</code></pre>
-<p>Under the hood, MongoDB cursors use batching, which means the cursor will load 1000 documents by default under the hood, but give you the documents one at a time.
+<p>Under the hood, MongoDB cursors use batching, which means the cursor will load 1000 documents by default, but give you the documents one at a time.
 For example, consider the following code, which uses a cursor to load words from the <code>words</code> collection with the <code>sleep(1000)</code> condition to simulate a slow query.
 If you make a request to <code>/sse</code>, you&#39;ll see the words appear in one batch after a 5 second delay, <strong>not</strong> one at a time with a 1 second delay between each. </p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
@@ -98,7 +98,7 @@ If you make a request to <code>/sse</code>, you&#39;ll see the words appear in o
 
 <span class="hljs-keyword">const</span> app = express();
 
-app.get(<span class="hljs-string">'/sse'</span>, (req, res) =&gt; {
+app.get(<span class="hljs-string">'/sse'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
   res.set({
     <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/event-stream'</span>,
     <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'no-cache'</span>,
@@ -106,18 +106,15 @@ app.get(<span class="hljs-string">'/sse'</span>, (req, res) =&gt; {
   });
   res.flushHeaders();
 
-  <span class="hljs-keyword">const</span> cursor = Word.find({ $where: <span class="hljs-string">'sleep(1000) || true'</span> }).sort({ order: <span class="hljs-number">1</span> }).cursor();
+  <span class="hljs-keyword">const</span> cursor = Word.find({ $where: <span class="hljs-string">'sleep(1000) || true'</span> })
+    .sort({ order: <span class="hljs-number">1</span> })
+    .cursor();
 
-  req.on(<span class="hljs-string">'close'</span>, () =&gt; cursor.close());
-
-  cursor.on(<span class="hljs-string">'data'</span>, doc =&gt; {
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
     res.write(<span class="hljs-string">`data: <span class="hljs-subst">${doc.text}</span>\n\n`</span>);
-  });
-  cursor.on(<span class="hljs-string">'end'</span>, () =&gt; res.end());
-  cursor.on(<span class="hljs-string">'error'</span>, err =&gt; {
-    <span class="hljs-built_in">console</span>.error(err);
-    res.end();
-  });
+  }
+
+  res.end();
 });
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params"></span>) </span>{
@@ -144,8 +141,65 @@ This increases the number of requests made to the MongoDB server, but I think th
 Add <code>batchSize(1)</code> to the above code and you&#39;ll see the words appear one at a time with a 1 second delay between each.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> cursor = Word.find({ $where: <span class="hljs-string">'sleep(1000) || true'</span> }).batchSize(<span class="hljs-number">1</span>).sort({ order: <span class="hljs-number">1</span> }).cursor();</code></pre>
 <h2 id="handling-the-response-on-the-frontend">Handling the Response on the Frontend</h2>
-<p>Thankfully <code>fetch()</code> has built-in support for SSE, so no need to add any external packages to consume SSEs on the frontend.
-The following HTML shows an example of consuming an SSE stream using <code>fetch()</code> - there&#39;s a bunch of boilerplate with <code>getReader()</code> and <code>TextDecoderStream()</code> that you need to set up to read the stream and some logic to parse out the individual messages.
+<p>Browsers have a built-in <code>EventSource</code> class that supports SSE.
+EventSource makes SSE easy: create a new <code>new EventSource(url)</code> and register a message event handler.
+The following example creates an <code>EventSource</code> that listens for messages from the server and logs them to a <code>&lt;div&gt;</code>.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;SSE EventSource Test&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+    #output { border: 1px solid #ccc; padding: 12px; min-height: 120px; font-family: monospace; white-space: pre-wrap; }
+    button { padding: 8px 16px; font-size: 16px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;SSE EventSource Test&lt;/h1&gt;
+  &lt;button id=&quot;start&quot;&gt;Start streaming&lt;/button&gt;
+  &lt;div id=&quot;output&quot;&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    const output = document.getElementById(&#39;output&#39;);
+
+    function log(line) {
+      output.textContent += line + &#39;\n&#39;;
+    }
+
+    function run() {
+      output.textContent = &#39;&#39;;
+
+      // EventSource is the browser&#39;s built-in SSE client. It handles the
+      // `data: ` / `\n\n` parsing for us, so we just listen for messages.
+      const source = new EventSource(&#39;http://localhost:3000/sse&#39;);
+
+      source.onmessage = event =&gt; {
+        log(new Date().toISOString() + &#39; received: &#39; + event.data);
+      };
+
+      source.onerror = () =&gt; {
+        log(&#39;Stream closed&#39;);
+        source.close();
+      };
+    }
+
+    document.getElementById(&#39;start&#39;).addEventListener(&#39;click&#39;, run);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><code>EventSource</code> is easy to work with, but it comes with a couple of caveats:</p>
+<ol>
+<li>No custom headers support: <code>EventSource</code> doesn&#39;t support setting custom headers, you need to use <code>fetch()</code> instead.</li>
+<li>GET only. If you need to use POST for SSE, you&#39;ll need to use <code>fetch()</code> instead.</li>
+</ol>
+<p>Here&#39;s what it looks like in the browser:</p>
+<img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1783979339/Screenshot_from_2026-07-13_17-48-44_weqm6v.png">
+
+<h2 id="authorization-caveat">Authorization Caveat</h2>
+<p>Unfortunately, <code>EventSource</code> doesn&#39;t support setting custom headers, so if you&#39;re using an <code>authorization</code> header for authentication instead of a cookie, you&#39;ll need to use <code>fetch()</code> instead.
+Thankfully <code>fetch()</code> has built-in support for SSE, so no need to add any external packages to consume SSEs on the frontend.
+The following HTML shows an example of consuming an SSE stream using <code>fetch()</code> - there&#39;s a bunch of boilerplate with <code>getReader()</code> and <code>TextDecoderStream()</code>.
 The reader emits text chunks that you need to buffer and split into individual messages.</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -209,10 +263,36 @@ The reader emits text chunks that you need to buffer and split into individual m
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Here&#39;s what it looks like in the browser:</p>
-<img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1783979339/Screenshot_from_2026-07-13_17-48-44_weqm6v.png">
-
+<p>This is how Mongoose Studio parses SSE events because Mongoose Studio currently uses the <code>Authorization</code> header, and because it is more reliable for us to use POST over GET because this endpoint takes in a potentially deeply nested query object.
+We may switch to EventSource in the future - we want to switch off of <code>Authorization</code> and use cookies instead, and POST is not necessarily a requirement.</p>
+<h2 id="eventsource-error-handling">EventSource Error Handling</h2>
+<p>EventSource fires error events when the connection is lost or the server closes the stream. Any errors that occurred on the backend need to be reported as separate events.
+EventSource does not report errors via HTTP status, nor is there a notion of a distinct error event type.
+Plus, in order to send any SSE events, your server needs to return an HTTP 200 status: there&#39;s no way to change the response status if there&#39;s an error while streaming events.</p>
+<p>For example, suppose we have a <code>maxTimeMS</code> timeout on the MongoDB cursor. The following cursor will return 2 results and then throw an error.</p>
+<pre><code class="language-javascript">  <span class="hljs-keyword">const</span> cursor = Word.find({ $where: <span class="hljs-string">'sleep(1000) || true'</span> })
+    .batchSize(<span class="hljs-number">1</span>)
+    .maxTimeMS(<span class="hljs-number">2500</span>)
+    .sort({ order: <span class="hljs-number">1</span> })
+    .cursor();</code></pre>
+<p>In order to handle this error, we can wrap the cursor in a <code>try...catch</code> block and explicitly send a <code>server-error</code> event if an error occurs.</p>
+<pre><code class="language-javascript">  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> doc <span class="hljs-keyword">of</span> cursor) {
+      res.write(<span class="hljs-string">`data: <span class="hljs-subst">${doc.text}</span>\n\n`</span>);
+    }
+  } <span class="hljs-keyword">catch</span> (err) {
+    res.write(<span class="hljs-string">`event: server-error\ndata: <span class="hljs-subst">${JSON.stringify({ message: err.message }</span>)}\n\n`</span>);
+  } <span class="hljs-keyword">finally</span> {
+    res.end();
+  }</code></pre>
+<p>On the frontend, you need to listen to the <code>server-error</code> event and handle it separately.</p>
+<pre><code class="language-javascript">source.addEventListener(<span class="hljs-string">'server-error'</span>, event =&gt; {
+  <span class="hljs-keyword">const</span> { message } = <span class="hljs-built_in">JSON</span>.parse(event.data);
+  log(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toISOString() + <span class="hljs-string">' server error: '</span> + message);
+  source.close();
+});</code></pre>
 <h2 id="moving-on">Moving On</h2>
+<p>Server-Sent Events are a standard way to stream events from a server to a client over HTTP. SSEs are generally considered easier to work with and more reliable than WebSockets because SSEs are just a special kind of HTTP request. Mongoose Studio uses SSEs combined with a MongoDB cursor with <code>batchSize(1)</code> to ensure you get each individual query result as soon as it becomes available, without any buffering or batching. SSEs have saved us hours of waiting for query results to become available.</p>
 </div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
 available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname

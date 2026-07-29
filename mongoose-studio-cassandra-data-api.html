@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Using Mongoose Studio with Apache Cassandra via Data API | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Using Mongoose Studio with Apache Cassandra via Data API"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-studio-cassandra-data-api"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1761063351/images/6893649a6600d6325786740a/augmented-68dd85e39d7b5651f5e756d4-1761063349696.png"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="We built a plugin to allow Mongoose Studio to connect to Apache Cassandra via DataStax' Data API, here's how it works."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1761063351/images/6893649a6600d6325786740a/augmented-68dd85e39d7b5651f5e756d4-1761063349696.png"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Using Mongoose Studio with Apache Cassandra via Data API</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 29, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p>In 2023 we introduced <a href="https://thecodebarbarian.com/were-working-on-cassandra-support-for-mongoose.html">stargate-mongoose, now known as <code>@datastax/astra-mongoose</code></a>, which allows you to use Mongoose&#39;s familiar API for working with Cassandra through DataStax Astra&#39;s <a href="https://docs.datastax.com/en/astra-db-serverless/api-reference/dataapiclient.html">Data API</a>.
+The idea is that you can set <a href="https://npmjs.com/package/@datastax/astra-mongoose"><code>@datastax/astra-mongoose</code></a> as Mongoose&#39;s driver and reuse existing code to connect to Astra&#39;s Data API with minimal changes.</p>
+<p><a href="https://mongoosestudio.app/">Mongoose Studio</a> is a web-based MongoDB GUI built around Mongoose.
+It uses your models and schemas to provide schema-aware autocomplete, query casting, dashboards, and an AI assistant for writing queries and aggregations.</p>
+<p>Given that <a href="https://npmjs.com/package/@datastax/astra-mongoose"><code>@datastax/astra-mongoose</code></a> allows you to connect to the Data API using Mongoose, we figured it would be a neat project to make Mongoose Studio work with Astra&#39;s Data API as well.
+The new <a href="https://www.npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin">Mongoose Studio Data API plugin</a> makes it possible to browse your Data API tables and collections using Mongoose Studio with a few code changes.</p>
+<h2 id="adding-studio-to-an-datastaxastra-mongoose-app">Adding Studio to an <code>@datastax/astra-mongoose</code> App</h2>
+<p>This <a href="https://github.com/stargate/stargate-mongoose-sample-apps/pull/849">Mongoose Studio integration PR</a> adds Mongoose Studio to the <code>typescript-express-reviews</code> sample app in the stargate-mongoose sample apps repository.
+That PR shows the complete setup, including the small amount of glue needed to connect Studio to Data API tables or collections.
+You can also clone the repo and run the sample app locally.</p>
+<p>Below is a screenshot showing the same data side by side in Mongoose Studio and Astra&#39;s CQL console — with a little bit of glue code, you can interact with data in Apache Cassandra using Mongoose Studio.</p>
+<img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785282596/Screenshot_from_2026-07-28_19-49-28_o422g2.png">
+
+<p>First, install Mongoose Studio alongside the <a href="https://www.npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin"><code>@mongoosejs/mongoose-studio-data-api-plugin</code> package</a>, which is our plugin for connecting Mongoose Studio to Astra&#39;s Data API.</p>
+<pre><code class="language-bash">npm install @mongoosejs/studio @mongoosejs/mongoose-studio-data-api-plugin</code></pre>
+<p>In the file where you configure Mongoose, when using Data API tables, register the tables plugin after setting the <code>@datastax/astra-mongoose</code> driver.
+This plugin adds a couple of workarounds to make Mongoose Studio work with Astra&#39;s Data API, mostly related to support for <code>countDocuments()</code>.
+You do <strong>not</strong> need to use <code>setupMongooseStudioTablesPlugin</code> if you are using Data API collections.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">import</span> mongoose from <span class="hljs-string">'mongoose'</span>;
+<span class="hljs-keyword">import</span> { driver } from <span class="hljs-string">'@datastax/astra-mongoose'</span>;
+<span class="hljs-keyword">import</span> {
+  setupMongooseStudioTablesPlugin
+} from <span class="hljs-string">'@mongoosejs/mongoose-studio-data-api-plugin'</span>;
+
+mongoose.set(<span class="hljs-string">'autoCreate'</span>, <span class="hljs-literal">false</span>);
+mongoose.set(<span class="hljs-string">'autoIndex'</span>, <span class="hljs-literal">false</span>);
+
+<span class="hljs-keyword">const</span> configuredMongoose = mongoose.setDriver(driver);
+
+<span class="hljs-keyword">if</span> (process.env.DATA_API_TABLES) {
+  setupMongooseStudioTablesPlugin(configuredMongoose);
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> configuredMongoose;</code></pre>
+<p>It is important to call <code>setupMongooseStudioTablesPlugin()</code> as soon as possible, before doing any other Mongoose setup.</p>
+<p>Currently, <code>@datastax/astra-mongoose</code> requires you to set whether you are using tables or collections at the connection level using <code>isTable</code>, so you can apply this plugin conditionally based on the connection type.
+<a href="https://github.com/stargate/stargate-mongoose-sample-apps/blob/8edddef91eb9bfd2b89bc2de5f3210c191ef0048/typescript-express-reviews/src/models/connect.ts#L23">The Express reviews sample app uses a <code>DATA_API_TABLES</code> environment variable to switch between tables and collections</a> for demo purposes.
+Your application likely hard-codes whether you are using tables or collections.</p>
+<p>Once your Mongoose connection is configured, you can mount Mongoose Studio on your Express app.
+The important detail is that Mongoose Studio needs a separate connection configured to Data API tables for storing Mongoose Studio&#39;s own data:</p>
+<ul>
+<li>Dashboards</li>
+<li>Dashboard evaluation results</li>
+<li>Chat threads</li>
+<li>Chat messages</li>
+</ul>
+<p><code>useDb()</code> gives Mongoose Studio a table-mode connection for the current Astra namespace.
+Currently Mongoose Studio always uses tables because Astra is limited to 5 collections, so if Mongoose Studio used collections it would use up 4 of the 5 available collections.</p>
+<p>The Data API plugin&#39;s <code>mongooseStudioSetup()</code> initializes the tables that Mongoose Studio needs.</p>
+<pre><code class="language-typescript"><span class="hljs-keyword">import</span> express from <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> studio from <span class="hljs-string">'@mongoosejs/studio'</span>;
+<span class="hljs-keyword">import</span> mongoose from <span class="hljs-string">'../models/mongoose'</span>;
+<span class="hljs-keyword">import</span> {
+  mongooseStudioSetup
+} from <span class="hljs-string">'@mongoosejs/mongoose-studio-data-api-plugin'</span>;
+
+<span class="hljs-keyword">const</span> app = express();
+<span class="hljs-comment">// Create a separate connection for Mongoose Studio that always</span>
+<span class="hljs-comment">// uses tables, even if the main connection uses collections.</span>
+<span class="hljs-keyword">const</span> studioConnection = mongoose.connection.useDb(
+  mongoose.connection.keyspaceName as <span class="hljs-built_in">string</span>,
+  { isTable: <span class="hljs-literal">true</span> }
+);
+
+<span class="hljs-comment">// Mount Mongoose Studio on the Express app.</span>
+app.use(
+  <span class="hljs-string">'/studio'</span>,
+  await studio.express(<span class="hljs-literal">null</span>, mongoose.connection, {
+    changeStream: <span class="hljs-literal">false</span>,
+    studioConnection
+  })
+);
+
+await mongooseStudioSetup(studioConnection);</code></pre>
+<p>Once the app is running, open <code>/studio</code> in your browser.
+You can browse the models in your <code>@datastax/astra-mongoose</code> application, run queries, and inspect the data in your Cassandra tables.</p>
+<h2 id="how-it-works-under-the-hood">How It Works Under the Hood</h2>
+<p>While the Data API looks a lot like MongoDB, there are several caveats that Mongoose Studio needs to work around.
+Mongoose Studio is primarily meant to work with MongoDB, and database GUIs typically use a much broader range of features and capabilities than most applications.</p>
+<p>In particular, <code>setupMongooseStudioTablesPlugin()</code> does a few things to make Mongoose Studio work with Data API tables:</p>
+<ol>
+<li>It overrides <code>countDocuments()</code> and <code>estimatedDocumentCount()</code> to use <code>find().select({ _id: 1 }).lean()</code> instead. Data API tables do not currently support <code>countDocuments()</code> or <code>estimatedDocumentCount()</code>, but Mongoose Studio relies on these functions to display document counts in the GUI.</li>
+</ol>
+<img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785339812/Screenshot_from_2026-07-29_11-42-47_jz9yqy.png">
+
+<ol start="2">
+<li><p>It removes <code>$setOnInsert</code> for update calls. Specifically, Mongoose&#39;s timestamps append a <code>$setOnInsert</code> for <code>createdAt</code> when upserting a document, but Data API tables do not support <code>$setOnInsert</code> for update calls. Mongoose adds <code>$setOnInsert</code> for <code>createdAt</code> on updates; the Data API plugin removes these <code>$setOnInsert</code> calls to avoid errors.</p>
+</li>
+<li><p>It replaces atomic <code>findOneAndUpdate()</code> with an <code>updateOne()</code> followed by a <code>find()</code>. Data API tables do not support atomic <code>findOneAndUpdate()</code> calls, but Mongoose Studio relies on <code>findOneAndUpdate()</code> for updating documents through the GUI.</p>
+</li>
+</ol>
+<img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785339977/Screenshot_from_2026-07-29_11-46-05_bhkkm8.png">
+
+<p>The above changes apply to the user&#39;s Mongoose models in the case they are using Mongoose Studio with Data API tables.
+Mongoose Studio works with Data API collections without any further changes.</p>
+<p>The <code>mongooseStudioSetup()</code> function configures Mongoose Studio&#39;s own data store to use Data API tables.
+Like <code>setupMongooseStudioTablesPlugin()</code>, it removes <code>$setOnInsert</code> fields for update calls for all models.
+It also updates several of Mongoose Studio&#39;s internal data structures to work with Data API tables:</p>
+<ul>
+<li>Chat message tool calls and chat message execution results are defined as user-defined types (UDTs). Data API tables only support Mongoose document arrays if they are defined as an array of UDTs, so Mongoose Studio converts the Mongoose document arrays into explicit arrays of UDTs by adding <code>udtName</code> to the schema options.</li>
+<li>Dashboard results, dashboard errors, and chat message tool call inputs are defined as the Mongoose <code>Mixed</code> type, which allows any type of value. Data API tables do not support <code>Mixed</code> types, so <code>mongooseStudioSetup()</code> converts these types to <code>String</code> with getters and setters for serializing the raw data as JSON.</li>
+</ul>
+<p>Once <code>mongooseStudioSetup()</code> updates the schemas, it also uses the <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#Connection+syncTypes"><code>syncTypes()</code> function</a> to sync the new UDTs to the Data API, and <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#Collection+syncTable"><code>syncTable()</code></a> with <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#tabledefinitionfromschema"><code>tableDefinitionFromSchema()</code></a> to create Data API tables with schemas derived from the Mongoose schemas.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Mongoose Studio is a web-based MongoDB GUI for Mongoose.
+With <a href="https://npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin"><code>@mongoosejs/mongoose-studio-data-api-plugin</code></a>, you can also use Mongoose Studio with DataStax Astra DB via the Data API.
+If you want to try it out, start with the <a href="https://github.com/stargate/stargate-mongoose-sample-apps/pull/849">Mongoose Studio integration PR</a> and the <a href="https://github.com/stargate/stargate-mongoose-sample-apps/tree/main/typescript-express-reviews"><code>typescript-express-reviews</code> sample app</a>.
+For more background, see our earlier posts on <a href="/were-working-on-cassandra-support-for-mongoose.html">Cassandra support for Mongoose</a> and <a href="/introducing-astra-mongoose.html">astra-mongoose</a>.
+Try it out and let me know what you think!</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
