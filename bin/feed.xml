@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Wed, 29 Jul 2026 16:02:21 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 31 Jul 2026 15:17:56 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -12,6 +12,13 @@
             <link>http://thecodebarbarian.com</link>
         </image>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[What's New in Mongoose 9.9: Major Performance Improvements]]></title>
+            <link>https://thecodebarbarian.com/mongoose-99-perf.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-99-perf.html</guid>
+            <pubDate>Fri, 31 Jul 2026 04:00:00 GMT</pubDate>
+            
+        </item>
         <item>
             <title><![CDATA[Using Mongoose Studio with Apache Cassandra via Data API]]></title>
             <link>https://thecodebarbarian.com/mongoose-studio-cassandra-data-api.html</link>
