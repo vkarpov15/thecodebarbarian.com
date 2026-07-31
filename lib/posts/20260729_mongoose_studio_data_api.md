@@ -11,7 +11,7 @@ The new [Mongoose Studio Data API plugin](https://www.npmjs.com/package/@mongoos
 
 This [Mongoose Studio integration PR](https://github.com/stargate/stargate-mongoose-sample-apps/pull/849) adds Mongoose Studio to the `typescript-express-reviews` sample app in the stargate-mongoose sample apps repository.
 That PR shows the complete setup, including the small amount of glue needed to connect Studio to Data API tables or collections.
-You can also clone the repo and run the sample app locally.
+You can also clone the repo and run the sample app locally - just follow the instructions in the [updated README.md for the typescript-express-reviews sample app](https://github.com/stargate/stargate-mongoose-sample-apps/tree/040d0584af6b05594fea594d77f4513a3bad16a2/typescript-express-reviews#running-this-example).
 
 Below is a screenshot showing the same data side by side in Mongoose Studio and Astra's CQL console - with a little bit of glue code, you can interact with data in Apache Cassandra using Mongoose Studio.
 
