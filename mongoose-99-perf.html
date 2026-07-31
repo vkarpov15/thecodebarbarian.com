@@ -1,0 +1,171 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>What's New in Mongoose 9.9: Major Performance Improvements | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="What's New in Mongoose 9.9: Major Performance Improvements"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-99-perf"><meta property="og:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785443585/Mongoose_Perf_rvnxnx.png"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Mongoose 9.9 introduces major performance improvements, including a 40% speedup to insertMany() and change tracking improvements that can make save() 10% faster as well."><meta name="twitter:image" content="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785443585/Mongoose_Perf_rvnxnx.png"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">What's New in Mongoose 9.9: Major Performance Improvements</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">July 31, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p><a href="https://github.com/Automattic/mongoose/releases/tag/9.9.0">Mongoose 9.9.0 was released on July 30, 2026</a> and is primarily focused on improving performance.
+We&#39;ve been looking forward to taking a deep dive into JavaScript performance for many years and we&#39;re thrilled to share our first round of improvements.
+These changes reduce overhead in several of Mongoose&#39;s most heavily used code paths and will make most Mongoose apps a little bit faster with no changes required.
+This release includes several optimizations for <code>insertMany()</code>, document validation, and <code>toObject()</code>.</p>
+<p>Most importantly, these changes do not bypass casting, change tracking, validation, middleware, getters, transforms, or any other Mongoose feature that your app relies on.
+Mongoose is just now smarter about the bookkeeping it needs to do to support these features.</p>
+<p>In this blog post, I&#39;ll cover the most important performance improvements in Mongoose 9.9, with a particular focus on <code>insertMany()</code>.</p>
+<h2 id="faster-insertmany">Faster <code>insertMany()</code></h2>
+<p><code>insertMany()</code> is a convenient way to insert a large number of documents while still getting Mongoose casting, defaults, validation, timestamps, and middleware.
+Mongoose does additional work to validate and hydrate each document, but there was also a lot of overhead that we could eliminate.
+All in all, we&#39;ve been able to improve Mongoose&#39;s performance on our <a href="https://github.com/Automattic/mongoose/blob/c14e17edd2e1223b361668774ac4124814d49d06/benchmarks/insertManySimple.js"><code>insertManySimple</code> benchmark</a> by 35%.</p>
+<p><svg viewBox="0 0 760 420" width="100%" role="img" aria-labelledby="fieldnote-title fieldnote-desc" style="font-family: ui-sans-serif, system-ui, sans-serif; overflow: visible;"><text id="fieldnote-title" x="0" y="0" visibility="hidden">Mongoose insertMany() 1500 documents</text><text id="fieldnote-desc" x="0" y="0" visibility="hidden">A bar chart</text><text x="66" y="28" fill="#334155" font-size="20" font-weight="700">Mongoose insertMany() 1500 documents</text><text x="66" y="51" fill="#64748b" font-size="12">Mongoose 9.9.0 vs 9.8.1 vs MongoDB Node.js driver</text><g aria-hidden="true"><line x1="66" y1="344" x2="732" y2="344" stroke="#e5dfdb" stroke-dasharray="0"></line><text x="54" y="348" fill="#64748b" font-size="11" text-anchor="end">0ms</text><line x1="66" y1="292" x2="732" y2="292" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="296" fill="#64748b" font-size="11" text-anchor="end">4ms</text><line x1="66" y1="240" x2="732" y2="240" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="244" fill="#64748b" font-size="11" text-anchor="end">8ms</text><line x1="66" y1="188" x2="732" y2="188" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="192" fill="#64748b" font-size="11" text-anchor="end">12ms</text><line x1="66" y1="136" x2="732" y2="136" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="140" fill="#64748b" font-size="11" text-anchor="end">16ms</text><line x1="66" y1="84" x2="732" y2="84" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="88" fill="#64748b" font-size="11" text-anchor="end">20ms</text></g><g class="fieldnote-bars"><rect x="140" y="167.45999999999998" width="74" height="176.54000000000002" rx="4" fill="#b0202b" tabindex="0" role="img" aria-label="mongoose@9.8.1: 13.58ms"><title><a href="mailto:mongoose@9.8.1">mongoose@9.8.1</a>: 13.58ms</title></rect><text x="177" y="158.45999999999998" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">13.58ms</text><text x="177" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongoose@9.8.1">mongoose@9.8.1</a></text><rect x="362" y="230.25" width="74" height="113.75" rx="4" fill="#c94b55" tabindex="0" role="img" aria-label="mongoose@9.9.0: 8.75ms"><title><a href="mailto:mongoose@9.9.0">mongoose@9.9.0</a>: 8.75ms</title></rect><text x="399" y="221.25" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">8.75ms</text><text x="399" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongoose@9.9.0">mongoose@9.9.0</a></text><rect x="584" y="274.97" width="74" height="69.02999999999999" rx="4" fill="#d98289" tabindex="0" role="img" aria-label="mongodb@7.5.0: 5.31ms"><title><a href="mailto:mongodb@7.5.0">mongodb@7.5.0</a>: 5.31ms</title></rect><text x="621" y="265.97" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">5.31ms</text><text x="621" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongodb@7.5.0">mongodb@7.5.0</a></text></g><text x="15" y="214" fill="#64748b" font-size="11" transform="rotate(-90 15 214)" text-anchor="middle">ms</text></svg></p>
+<p>Here&#39;s some of the biggest pieces of overhead that we were able to eliminate:</p>
+<h4 id="using-empty-objects--instead-of-new-map">Using empty objects <code>{}</code> instead of <code>new Map()</code></h4>
+<p><a href="https://jsbenchmark.com/#eyJjYXNlcyI6W3siaWQiOiJLdmJOdGRtZjlPd2FoRjNaUHE2SlMiLCJjb2RlIjoicmV0dXJuIHsgfSIsIm5hbWUiOiJGaW5kIDk5IiwiZGVwZW5kZW5jaWVzIjpbXX0seyJpZCI6IlFVNFlna0U1MVpHUjVOd3dkRUdXTyIsImNvZGUiOiJyZXR1cm4gbmV3IE1hcCgpIiwibmFtZSI6IkZpbmQgMTk5IiwiZGVwZW5kZW5jaWVzIjpbXX1dLCJjb25maWciOnsibmFtZSI6IkJhc2ljIGV4YW1wbGUiLCJwYXJhbGxlbCI6dHJ1ZSwiZ2xvYmFsVGVzdENvbmZpZyI6eyJkZXBlbmRlbmNpZXMiOltdfSwiZGF0YUNvZGUiOiJyZXR1cm4gWy4uLkFycmF5KDEwMDApLmtleXMoKV0ifX0">Creating a new Map is 10x slower than creating an empty object</a> - creating an empty object is heavily optimized in V8, even faster than using <code>Object.create(null)</code>.</p>
+<p>We also entirely got rid of <code>originalDocIndex</code>, which was one of the maps <code>insertMany()</code> used to track order. I originally started moving toward using <code>new Map()</code> to minimize risk of prototype pollution, but the performance tradeoff is too great to justify in performance-sensitive code.</p>
+<h4 id="leveraging-mongooses-fast-path-toobjectshallow-function-to-avoid-deep-cloning-for-documents-that-only-have-primitives">Leveraging Mongoose&#39;s fast path <code>toObjectShallow()</code> function to avoid deep cloning for documents that only have primitives.</h4>
+<p>Mongoose&#39;s <code>toObject()</code> function deep clones the document. <code>toObjectShallow()</code> is a faster alternative that skips all recursive cloning - about 40% faster than <code>toObject()</code> because it avoids a bunch of unnecessary options, object checks, and recursive cloning.</p>
+<p>We also reuse the check for whether the document has only primitive values to avoid checking for subdocuments when resetting <code>isNew</code>.</p>
+<h4 id="faster-setting-of-versionkey">Faster setting of <code>versionKey</code>.</h4>
+<p>Before, <code>insertMany()</code> would initialize the version key using <code>doc[versionKey] = 0</code>, which looks fine at first glance... until you realize that <code>doc[versionKey]</code> actually triggers Mongoose&#39;s entire <code>set()</code> path, including setters and checking <code>versionKey</code> for <code>.</code> to potentially split the version key path.</p>
+<p>Now, <code>insertMany()</code> uses Mongoose&#39;s internal <code>$__setValue()</code> function with a pre-split version key path to avoid the extra <code>indexOf()</code> check and general <code>set()</code> overhead.
+In particular, Mongoose documents&#39; <code>$__setValue()</code> now has a fast path for when the given path is an array of length 1 - in this case, it simply sets the value directly without any <code>indexOf()</code> or <code>split()</code> overhead.</p>
+<h4 id="faster-parallellimit-without-sets">Faster <code>parallelLimit()</code> without sets</h4>
+<p><code>insertMany()</code> uses a <code>parallelLimit()</code> function to ensure a maximum of <code>options.limit</code> validations can execute concurrently - this is helpful for async validators that make database queries.
+Previously, <code>parallelLimit()</code> used a <code>Set</code> to track pending validations: <code>parallelLimit</code> starts a validation, adds it to the set, waits for the next validation to complete using <code>Promise.race()</code>, and removes the completed validation from the set.
+Below is the old code.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> results = [];
+<span class="hljs-keyword">const</span> executing = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>; index &lt; params.length; index++) {
+  <span class="hljs-keyword">const</span> param = params[index];
+  <span class="hljs-keyword">const</span> p = fn(param, index);
+  results.push(p);
+
+  executing.add(p);
+
+  <span class="hljs-keyword">const</span> clean = () =&gt; executing.delete(p);
+  p.then(clean).catch(clean);
+
+  <span class="hljs-keyword">if</span> (executing.size &gt;= limit) {
+    <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.race(executing);
+  }
+}
+
+<span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(results);</code></pre>
+<p>Like with maps, creating a <code>new Set()</code> is prohibitively slow.
+Also, calling <code>Promise.race()</code> O(n) times is slow because <code>Promise.race()</code> creates a new promise every time <em>and</em> iterates over all pending promises.
+Instead of relying on a set, the new optimized <code>insertMany()</code> kicks off <code>limit</code> &quot;worker&quot; functions.
+Each <code>worker()</code> call executes a single validation, and recursively calls <code>worker()</code> when it succeeds.
+That means no set instantiation and no <code>Promise.race()</code>: <code>parallelLimit()</code> tracks the next validation to execute with a single <code>nextIndex</code> counter.</p>
+<h2 id="change-tracking-improvements">Change tracking improvements</h2>
+<p>Mongoose&#39;s state machine class is simple, but it sits on a very hot path: documents use it on every property set and after a document is persisted in <code>insertMany()</code> or <code>save()</code>.
+The <code>StateMachine</code> class stores:</p>
+<ol>
+<li>A <code>states</code> object that maps state names to a list of paths in that state</li>
+<li>A <code>paths</code> object that maps paths to their state - the inverse of <code>states</code></li>
+</ol>
+<p>The state machine class has a <code>clear()</code> method clears all paths from a given state.</p>
+<pre><code class="language-javascript">StateMachine.prototype.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clear</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.states[state] == <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.states[state]);
+  <span class="hljs-keyword">if</span> (keys.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">this</span>.states[state] = {};
+  <span class="hljs-keyword">let</span> i = keys.length;
+
+  <span class="hljs-keyword">while</span> (i--) {
+    <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.paths[keys[i]];
+  }
+};</code></pre>
+<p>While this function may look inocuous at first glance, it is actually quite expensive.
+Specifically, the <a href="https://dev.to/maxprilutskiy/hidden-classes-the-javascript-performance-secret-that-changed-everything-3p6c#the-delete-disaster"><code>delete</code> in a loop is a massive JIT deopt</a>.
+While the overhead for a single <code>clear()</code> call is negligible, Mongoose calls <code>clear()</code> twice for every single document in the <code>insertMany()</code>.
+When calling <code>insertMany()</code> on 1500 documents 10,000 times this small overhead adds up to a significant performance hit.
+However, we don&#39;t need to call <code>clear()</code> - the idea is that Mongoose calls <code>clear()</code> multiple times to clear <em>almost</em> all the change tracking for each document, minus the <code>init</code> state.
+So instead of calling <code>clear()</code> multiple times, we can define a separate <code>clearAllExcept()</code> method that clears all states except for the given state.
+This avoids the <code>delete</code> deopt.</p>
+<pre><code class="language-javascript">StateMachine.prototype.clearAllExcept = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clearAllExcept</span>(<span class="hljs-params">state</span>) </span>{
+  <span class="hljs-comment">// State buckets are created lazily, so `states[state]` may not exist yet.</span>
+  <span class="hljs-keyword">const</span> bucket = <span class="hljs-keyword">this</span>.states[state];
+  <span class="hljs-keyword">const</span> keys = bucket == <span class="hljs-literal">null</span> ? [] : <span class="hljs-built_in">Object</span>.keys(bucket);
+  <span class="hljs-keyword">if</span> (keys.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">this</span>.paths = {};
+    <span class="hljs-keyword">this</span>.states = {};
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-keyword">this</span>.paths = {};
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> path <span class="hljs-keyword">of</span> keys) {
+    <span class="hljs-keyword">this</span>.paths[path] = state;
+  }
+  <span class="hljs-keyword">this</span>.states = {
+    [state]: <span class="hljs-keyword">this</span>.states[state]
+  };
+};</code></pre>
+<p>The change tracking improvements don&#39;t just apply to <code>insertMany()</code>; <code>save()</code> also calls <code>clear()</code> under the hood.
+Specifically, avoiding <code>clear()</code> combined with some optimizations to getting paths to <code>validate()</code> means creating and saving a new document with 10 properties is now about 10% faster, albeit still 15% slower than the MongoDB Node.js driver.</p>
+<p><svg viewBox="0 0 760 420" width="100%" role="img" aria-labelledby="fieldnote-title fieldnote-desc" style="font-family: ui-sans-serif, system-ui, sans-serif; overflow: visible;"><text id="fieldnote-title" x="0" y="0" visibility="hidden">Mongoose save() vs insertOne()</text><text id="fieldnote-desc" x="0" y="0" visibility="hidden">A bar chart</text><text x="66" y="28" fill="#334155" font-size="20" font-weight="700">Mongoose save() vs insertOne()</text><text x="66" y="51" fill="#64748b" font-size="12">Mongoose 9.9.0 vs 9.8.1 vs raw MongoDB Node driver for creating a new document with 10 properties</text><g aria-hidden="true"><line x1="66" y1="344" x2="732" y2="344" stroke="#e5dfdb" stroke-dasharray="0"></line><text x="54" y="348" fill="#64748b" font-size="11" text-anchor="end">0ms</text><line x1="66" y1="292" x2="732" y2="292" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="296" fill="#64748b" font-size="11" text-anchor="end">1ms</text><line x1="66" y1="240" x2="732" y2="240" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="244" fill="#64748b" font-size="11" text-anchor="end">2ms</text><line x1="66" y1="188" x2="732" y2="188" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="192" fill="#64748b" font-size="11" text-anchor="end">3ms</text><line x1="66" y1="136" x2="732" y2="136" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="140" fill="#64748b" font-size="11" text-anchor="end">4ms</text><line x1="66" y1="84" x2="732" y2="84" stroke="#e5dfdb" stroke-dasharray="3 5"></line><text x="54" y="88" fill="#64748b" font-size="11" text-anchor="end">5ms</text></g><g class="fieldnote-bars"><rect x="140" y="208.28" width="74" height="135.72" rx="4" fill="#b0202b" tabindex="0" role="img" aria-label="mongoose@9.8.1: 2.61ms"><title><a href="mailto:mongoose@9.8.1">mongoose@9.8.1</a>: 2.61ms</title></rect><text x="177" y="199.28" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">2.61ms</text><text x="177" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongoose@9.8.1">mongoose@9.8.1</a></text><rect x="362" y="221.8" width="74" height="122.2" rx="4" fill="#c94b55" tabindex="0" role="img" aria-label="mongoose@9.9.0: 2.35ms"><title><a href="mailto:mongoose@9.9.0">mongoose@9.9.0</a>: 2.35ms</title></rect><text x="399" y="212.8" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">2.35ms</text><text x="399" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongoose@9.9.0">mongoose@9.9.0</a></text><rect x="584" y="240" width="74" height="104" rx="4" fill="#d98289" tabindex="0" role="img" aria-label="mongodb@7.5.0: 2ms"><title><a href="mailto:mongodb@7.5.0">mongodb@7.5.0</a>: 2ms</title></rect><text x="621" y="231" fill="#334155" font-size="12" font-weight="700" text-anchor="middle">2ms</text><text x="621" y="371" fill="#334155" font-size="12" text-anchor="middle"><a href="mailto:mongodb@7.5.0">mongodb@7.5.0</a></text></g><text x="15" y="214" fill="#64748b" font-size="11" transform="rotate(-90 15 214)" text-anchor="middle">ms</text></svg></p>
+<h2 id="more-efficient-toobject">More efficient toObject()</h2>
+<p>Mongoose&#39;s <code>toObject()</code> and <code>toJSON()</code> methods are heavily used even when they aren&#39;t called directly by the application.
+For example, when you call <code>JSON.stringify()</code> on a Mongoose document, <code>JSON.stringify()</code> calls <code>toJSON()</code> internally.
+And Express.js&#39; <code>res.json()</code> calls <code>JSON.stringify()</code> internally.
+Also, the <code>save()</code> function uses <code>toObject()</code> internally when creating a new document.</p>
+<p>First, Mongoose now caches which schema paths have transforms.
+Before, even if your schema had no transforms, <code>toObject()</code> would still scan every path in your schema to check for transforms.
+In the common case where a schema has no transforms, <code>toObject()</code> sees that the list of transforms is <code>null</code> and skips the entire transform check.
+Checking for <code>null</code> is also slightly faster than checking if an array has <code>length === 0</code>.</p>
+<p>Similarly, applying getters now skips paths that do not have getters before checking whether the path is selected by caching which paths have getters.
+Mongoose no longer needs to scan every path in your schema to check for getters.
+This improvement is even more significant when working with complex projections.
+In Mongoose 9.8, Mongoose would scan every path in your schema <em>and check whether the path was included in the projection</em>, which could be O(n*p) where <code>n</code> is the number of paths in your schema and <code>p</code> is the number of paths in the projection.
+Mongoose 9.9 avoids checking whether the path is included in the projection for paths that do not have getters - if your schema still has a lot of getters, like if you use global getters to automatically convert ObjectIds to strings, you would see less of a performance improvement.</p>
+<h2 id="timestamp-updates-only-add-createdat-for-upserts">Timestamp updates only add <code>createdAt</code> for upserts</h2>
+<p>When applying timestamps to an update, Mongoose needs to set <code>updatedAt</code> on every update.
+However, <code>$setOnInsert</code> is guaranteed to be ignored if <code>upsert</code> is not set, so setting <code>createdAt</code> in <code>$setOnInsert</code> without upsert is a waste of memory and bandwidth.
+Mongoose 9.9 now avoids adding <code>$setOnInsert.createdAt</code> to ordinary updates:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({ name: <span class="hljs-built_in">String</span> }, { timestamps: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);
+
+<span class="hljs-comment">// No longer sets `createdAt` in `$setOnInsert`</span>
+<span class="hljs-keyword">await</span> User.updateOne(
+  { name: <span class="hljs-string">'John'</span> },
+  { $set: { name: <span class="hljs-string">'John Smith'</span> } }
+);
+
+<span class="hljs-comment">// Only add `createdAt` to `$setOnInsert` if `upsert: true` is set</span>
+<span class="hljs-keyword">await</span> User.updateOne(
+  { name: <span class="hljs-string">'John'</span> },
+  { $set: { name: <span class="hljs-string">'John Smith'</span> } },
+  { upsert: <span class="hljs-literal">true</span> }
+);</code></pre>
+<p>This produces an update with <code>updatedAt</code>, but does not add a <code>createdAt</code> value that can never be used by the non-upsert operation. For an upsert, Mongoose still adds <code>createdAt</code> to <code>$setOnInsert</code> as expected.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>Mongoose 9.9 features widespread performance improvements that will help most Mongoose apps run a little bit faster.
+The changes we made are all fairly small, but they add up to a noticeable performance boost in <code>insertMany()</code> and document serialization, particularly in documents with no nested paths.</p>
+<p>As always, if you are upgrading a production application, run your existing test suite and test it out for yourself.
+The benchmarks in this release are intentionally simple; schemas with nested documents, custom validators, middleware, getters, and transforms will have different performance characteristics.</p>
+<p>Install Mongoose 9.9 and try it out for yourself!</p>
+<pre><code class="language-bash">npm install mongoose@9.9</code></pre>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>

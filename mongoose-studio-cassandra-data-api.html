@@ -20,7 +20,7 @@ The new <a href="https://www.npmjs.com/package/@mongoosejs/mongoose-studio-data-
 <p>This <a href="https://github.com/stargate/stargate-mongoose-sample-apps/pull/849">Mongoose Studio integration PR</a> adds Mongoose Studio to the <code>typescript-express-reviews</code> sample app in the stargate-mongoose sample apps repository.
 That PR shows the complete setup, including the small amount of glue needed to connect Studio to Data API tables or collections.
 You can also clone the repo and run the sample app locally.</p>
-<p>Below is a screenshot showing the same data side by side in Mongoose Studio and Astra&#39;s CQL console — with a little bit of glue code, you can interact with data in Apache Cassandra using Mongoose Studio.</p>
+<p>Below is a screenshot showing the same data side by side in Mongoose Studio and Astra&#39;s CQL console - with a little bit of glue code, you can interact with data in Apache Cassandra using Mongoose Studio.</p>
 <img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785282596/Screenshot_from_2026-07-28_19-49-28_o422g2.png">
 
 <p>First, install Mongoose Studio alongside the <a href="https://www.npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin"><code>@mongoosejs/mongoose-studio-data-api-plugin</code> package</a>, which is our plugin for connecting Mongoose Studio to Astra&#39;s Data API.</p>
@@ -115,7 +115,7 @@ It also updates several of Mongoose Studio&#39;s internal data structures to wor
 <p>Once <code>mongooseStudioSetup()</code> updates the schemas, it also uses the <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#Connection+syncTypes"><code>syncTypes()</code> function</a> to sync the new UDTs to the Data API, and <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#Collection+syncTable"><code>syncTable()</code></a> with <a href="https://github.com/stargate/stargate-mongoose/blob/main/APIReference.md#tabledefinitionfromschema"><code>tableDefinitionFromSchema()</code></a> to create Data API tables with schemas derived from the Mongoose schemas.</p>
 <h2 id="moving-on">Moving On</h2>
 <p>Mongoose Studio is a web-based MongoDB GUI for Mongoose.
-With <a href="https://npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin"><code>@mongoosejs/mongoose-studio-data-api-plugin</code></a>, you can also use Mongoose Studio with DataStax Astra DB via the Data API.
+With <a href="https://npmjs.com/package/@mongoosejs/mongoose-studio-data-api-plugin"><code>@mongoosejs/mongoose-studio-data-api-plugin</code></a>, you can also use Mongoose Studio with Apache Cassandra via DataStax Astra DB.
 If you want to try it out, start with the <a href="https://github.com/stargate/stargate-mongoose-sample-apps/pull/849">Mongoose Studio integration PR</a> and the <a href="https://github.com/stargate/stargate-mongoose-sample-apps/tree/main/typescript-express-reviews"><code>typescript-express-reviews</code> sample app</a>.
 For more background, see our earlier posts on <a href="/were-working-on-cassandra-support-for-mongoose.html">Cassandra support for Mongoose</a> and <a href="/introducing-astra-mongoose.html">astra-mongoose</a>.
 Try it out and let me know what you think!</p>
