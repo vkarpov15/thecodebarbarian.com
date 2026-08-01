@@ -11,9 +11,11 @@ The new [Mongoose Studio Data API plugin](https://www.npmjs.com/package/@mongoos
 
 This [Mongoose Studio integration PR](https://github.com/stargate/stargate-mongoose-sample-apps/pull/849) adds Mongoose Studio to the `typescript-express-reviews` sample app in the stargate-mongoose sample apps repository.
 That PR shows the complete setup, including the small amount of glue needed to connect Studio to Data API tables or collections.
-You can also clone the repo and run the sample app locally - just follow the instructions in the [updated README.md for the typescript-express-reviews sample app](https://github.com/stargate/stargate-mongoose-sample-apps/tree/040d0584af6b05594fea594d77f4513a3bad16a2/typescript-express-reviews#running-this-example).
+You can also clone the repo and run the sample app locally - just follow the instructions in the [updated README.md for the typescript-express-reviews sample app](https://github.com/stargate/stargate-mongoose-sample-apps/blob/083cc976a1524ef53735fb18f4da06b318f01878/typescript-express-reviews/README.md#running-this-example).
 
 Below is a screenshot showing the same data side by side in Mongoose Studio and Astra's CQL console - with a little bit of glue code, you can interact with data in Apache Cassandra using Mongoose Studio.
+You can also use Mongoose Studio's AI chat tab to use LLMs to generate scripts for inspecting and updating your data, including generating charts and maps.
+You'll need to add your own [OpenAI, Anthropic, or Gemini API key as described here](https://github.com/stargate/stargate-mongoose-sample-apps/blob/083cc976a1524ef53735fb18f4da06b318f01878/typescript-express-reviews/README.md#mongoose-studio-ai-chat) to use the AI chat tab.
 
 <img src="https://res.cloudinary.com/drfhhq8wu/image/upload/v1785282596/Screenshot_from_2026-07-28_19-49-28_o422g2.png">
 
