@@ -32,6 +32,8 @@
     "axios": "^0.19.2",
     "commander": "2.3.0",
     "epub-gen": "^0.1.0",
+    "express": "^5.2.1",
+    "extrovert": "^0.2.1",
     "feed": "0.2.6",
     "file": "0.2.2",
     "forever": "0.13.0",
