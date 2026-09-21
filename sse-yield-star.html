@@ -1,0 +1,179 @@
+<!DOCTYPE html><html><head><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Faster SSE Responses with Async Generators and Promise.race() | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700" rel="stylesheet" type="text/css"><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><script href="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script><script href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script><script href="/javascript/sidebar.js" type="text/javascript"></script><meta property="og:title" content="Faster SSE Responses with Async Generators and Promise.race()"><meta property="og:url" content="http://www.thecodebarbarian.com/sse-yield-star"><meta property="og:image" content="https://plus.unsplash.com/premium_photo-1684522168034-32f22b4b7eef?q=80&amp;w=1332&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Server-sent events (SSE) allows you to send data to the frontend as soon as it is ready, which makes `Promise.all()` a suboptimal pattern. In this blog post, I'll describe a better pattern that yields results as soon as they are ready."><meta name="twitter:image" content="https://plus.unsplash.com/premium_photo-1684522168034-32f22b4b7eef?q=80&amp;w=1332&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"><meta name="twitter:card" content="summary_large_image"></head><body><div class="navbar social-links hidden-sm hidden-xs"><div class="container"><ul class="nav navbar-nav navbar-right"><li><a href="http://www.twitter.com/code_barbarian">twitter</a></li><li><a href="http://www.github.com/vkarpov15">github</a></li><li><a href="http://thecodebarbarian.com/feed.xml">rss</a></li><li><a href="/recommendations">recommendations</a></li></ul></div></div><div class="navbar" id="nav"><div class="container"><div class="navbar-header"><a class="navbar-brand big-brand" href="http://thecodebarbarian.com"><img class="logo" src="/images/Barbarian_Head.png"><span class="site-name">The Code Barbarian</span></a></div><div class="navbar-right collapse navbar-collapse" id="home-nav-mobile"><ul class="nav navbar-nav"><li><a href="/tag/mongodb.html">MongoDB</a></li><li><a href="/tag/nodejs.html">NodeJS</a></li><li><a href="/tag/asyncawait.html">Async/Await</a></li><li><a href="/tag/vue.html">Vue</a></li><li class="hidden-md hidden-lg"><a href="#">@code_barbarian</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Github</a></li><li class="hidden-md hidden-lg"><a href="#">TCB Facebook</a></li></ul></div></div></div><div class="container-fluid"><div class="col-lg-3 col-lg-offset-9 right-bar" id="desktop-right-bar"><div class="right-bar-content-slider pull-right"><div class="row recent-posts right-bar-group"><div class="col-lg-12 articles"><p class="right-bar-label">Most Popular Articles</p><ul class="list-unstyled"><li class="right-bar-li"><a href="/common-async-await-design-patterns-in-node.js.html">Common Async/Await Design Patterns in Node.js</a></li><li class="right-bar-li"><a href="/unhandled-promise-rejections-in-node.js.html">Unhandled Promise Rejections in Node.js</a></li><li class="right-bar-li"><a href="/using-async-await-with-mocha-express-and-mongoose">Using Async/Await with Mocha, Express, and Mongoose</a></li><li class="right-bar-li"><a href="/write-your-own-node-js-promise-library-from-scratch.html">Write Your Own Node.js Promise Library from Scratch</a></li><li class="right-bar-li"><a href="/80-20-guide-to-express-error-handling">The 80/20 Guide to Express Error Handling</a></li></ul></div></div><div class="row recent-posts right-bar-group"><div class="col-lg-12 books"><p class="right-bar-label">Ebooks<div><a href="http://asyncawait.net/?utm_source=thecodebarbarian&amp;utm_campaign=sidebar"><img src="/images/verticalbanner.png"></a></div><div><a href="http://es2015generators.com"><img src="https://i.imgur.com/xvGNKlr.png"><p><i>The 80/20 Guide to ES2015 Generators</i></p></a></div></p></div></div></div></div></div><div class="container-fluid hidden-sm hidden-md hidden-lg" id="mobile-sharing-options"><div class="row"><div class="col-lg-12"><style>#home-nav-mobile {
+  float: left !important;
+  margin-left: 215px !important;
+}
+</style><div class="post-sharing-options"><div class="row"><div class="col-xs-3 twitter-share sharing-option"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter"></i></a></div><div class="col-xs-3 facebook-share sharing-option"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook"></i></a></div><div class="col-xs-3 google-share sharing-option"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus"></i></a></div><div class="col-xs-3 comment sharing-option"><a class="social" href="#disqus_thread"><i class="fa fa-comment"></i></a></div></div></div></div></div></div><div class="post-sharing-options hidden-xs pull-left" id="desktop-sharing-options"><ul class="list-unstyled"><li class="twitter-share"><a class="social" href="https://twitter.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}&amp;via=code_barbarian"><i class="fa fa-twitter sharing-option"></i></a></li><li class="facebook-share"><a class="social" href="https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-facebook sharing-option"></i></a></li><li class="google-share"><a class="social" href="https://plus.google.com/share?url=#{encodeURIComponent('http://www.thecodebarbarian.com/' + post.dest.directory.substr('./bin'.length) + '/' + post.dest.name)}"><i class="fa fa-google-plus sharing-option"></i></a></li></ul></div><div class="container"><div class="col-lg-9 post-text"><div class="row"><div class="title-byline-container"><h1 class="post-title">Faster SSE Responses with Async Generators and Promise.race()</h1><div class="credits"><span class="byline">by Valeri Karpov</span><span class="byhandle"><a href="http://www.twitter.com/code_barbarian">@code_barbarian</a></span><span class="bydate">September 21, 2026</span></div></div></div><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="post-body-text-container"><p><a href="https://thecodebarbarian.com/mongoose-studio-sse.html">Server-sent events (SSE)</a> are a way for HTTP servers to stream data to the client.
+With a traditional HTTP request, there is only one response.
+With SSE, the HTTP server can instead send intermediate responses one at a time.</p>
+<p>In JavaScript, traditional HTTP request handlers are analogous to a standard <code>async function</code>.
+SSEs are analogous to an async generator function - each <code>yield</code> streams some data to the client.</p>
+<h2 id="sses-for-database-queries">SSEs for Database Queries</h2>
+<p>Suppose you have the following Express route handler.
+This route handler makes 2 separate MongoDB queries and returns the result when both of them complete.</p>
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'/messages'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> [user, messages] = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
+      User.findOne(req.query.userId).orFail(),
+      Message
+        .find({ userId: req.query.userId })
+        .limit(<span class="hljs-number">3</span>)
+        .sort({ createdAt: <span class="hljs-number">-1</span> })
+        .orFail()
+    ]);
+    res.json({ user, messages });
+  } <span class="hljs-keyword">catch</span> (err) {
+    res.status(<span class="hljs-number">500</span>).json({ error: err.message });
+  }
+});</code></pre>
+<p>In a traditional HTTP request/response model you have to wait for all the queries to complete before sending the response.
+With SSEs, however, you can get more sophisticated and send the results as soon as they are available.
+The following route handler adds <code>then()</code> to each database query to send an SSE using <code>res.write()</code> when each query is completed.</p>
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'/messages'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  res.set({
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'text/event-stream'</span>,
+    <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'no-cache'</span>,
+    <span class="hljs-string">'Connection'</span>: <span class="hljs-string">'keep-alive'</span>
+  });
+  res.flushHeaders();
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> userQuery = User.findById(req.query.userId).orFail();
+    <span class="hljs-keyword">const</span> messagesQuery = Message
+      .find({
+        userId: req.query.userId,
+        <span class="hljs-comment">// Uncomment the following to make the query intentionally slow</span>
+        <span class="hljs-comment">// $where: 'sleep(1000)|true'</span>
+      })
+      .limit(<span class="hljs-number">3</span>)
+      .sort({ createdAt: <span class="hljs-number">-1</span> })
+      .orFail();
+
+    <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([
+      userQuery.then(user =&gt; {
+        res.write(<span class="hljs-string">`data: <span class="hljs-subst">${JSON.stringify({ user }</span>)}\n\n`</span>)
+      }),
+      messagesQuery.then(messages =&gt; {
+        res.write(<span class="hljs-string">`data: <span class="hljs-subst">${JSON.stringify({ messages }</span>)}\n\n`</span>)
+      })
+    ]);
+  } <span class="hljs-keyword">catch</span> (err) {
+    res.write(<span class="hljs-string">`event: server-error\ndata: <span class="hljs-subst">${JSON.stringify({ error: err.message }</span>)}\n\n`</span>);
+  } <span class="hljs-keyword">finally</span> {
+    res.end();
+  }
+});</code></pre>
+<p>If you uncomment the <code>$where</code> in the above code, you&#39;ll see the 2nd SSE, the one containing <code>messages</code>, is sent about 5 seconds after the first SSE containing <code>user</code>.
+That doesn&#39;t make the messages query any faster.
+The total amount of time it takes for both queries to complete is still the same.
+But it does mean the frontend doesn&#39;t have to wait for the slowest query before it can start doing useful work.
+For example, if the client needs the <code>user</code> to render the user&#39;s profile picture and name, the client can render that data immediately instead of waiting for all <code>messages</code> to load.
+That means faster time-to-useful-content and faster perceived load time for the user.</p>
+<h2 id="tying-in-async-generators">Tying in Async Generators</h2>
+<p>I don&#39;t use vanilla Express route handlers anymore because I&#39;m a big proponent of &quot;framework-free JavaScript&quot; - write your business logic with no explicit dependencies on external frameworks for easier testing and improved portability.
+Instead rely on a small number of globally applied conventions to glue your business logic to your external framework of choice.
+So instead of writing an async function that calls <code>res.write()</code>, I prefer to write an async generator function with the understanding that any <code>yield</code> will get sent as an SSE.
+<a href="https://github.com/meanIT/extrovert#torouteroutehandler">Extrovert&#39;s <code>toRoute()</code> function does just that</a>.</p>
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'/messages'</span>, toRoute(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">getMessages</span>(<span class="hljs-params">{ userId }</span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> User.findById(userId).orFail();
+  <span class="hljs-keyword">yield</span> { user };
+
+  <span class="hljs-keyword">const</span> messages = <span class="hljs-keyword">await</span> Message
+    .find({ userId, $where: <span class="hljs-string">'sleep(1000)|true'</span> })
+    .limit(<span class="hljs-number">3</span>)
+    .sort({ createdAt: <span class="hljs-number">-1</span> })
+    .orFail();
+  <span class="hljs-keyword">yield</span> { messages };
+}));</code></pre>
+<p>The above route handler has no explicit dependency on Express - that&#39;s what makes it framework-free.
+But it does have a small problem: the database queries are executed one at a time, not in parallel.
+<code>Promise.all()</code> executes the two queries in parallel, but you can&#39;t call <code>yield</code> in a callback function.
+<code>User.findById().then(user =&gt; { yield user })</code> is a syntax error.</p>
+<p>But that&#39;s where the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*"><code>yield*</code> operator</a> comes in.
+Effectively, <code>yield*</code> lets one async generator function yield all the values from another generator function.
+The <code>getMessages()</code> route handler with <code>yield*</code> looks like the following:</p>
+<pre><code class="language-javascript">app.get(<span class="hljs-string">'/messages'</span>, toRoute(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">getMessages</span>(<span class="hljs-params">{ userId }</span>) </span>{
+  <span class="hljs-keyword">const</span> userQuery = User.findById(userId).orFail();
+  <span class="hljs-keyword">const</span> messagesQuery = Message
+    .find({ userId, $where: <span class="hljs-string">'sleep(1000)|true'</span> })
+    .limit(<span class="hljs-number">3</span>)
+    .sort({ createdAt: <span class="hljs-number">-1</span> })
+    .orFail();
+
+  <span class="hljs-keyword">yield</span>* asCompleted([
+    userQuery.then(user =&gt; ({ user })),
+    messagesQuery.then(messages =&gt; ({ messages }))
+  ]);
+}));</code></pre>
+<p>The <code>asCompleted()</code> function just needs to take in an array of promises and yield the return value of each promise as it becomes available.
+The general idea for <code>asCompleted()</code> is to call <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race"><code>Promise.race()</code></a> in a loop.</p>
+<p><code>await Promise.race()</code> takes an iterable of promises and returns the value of the first promise to resolve.
+So, while there are still pending promises, call <code>Promise.race()</code> to wait for the next one to resolve, yield the result, remove that promise from the pending set, and repeat.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">asCompleted</span>(<span class="hljs-params">promises</span>) </span>{
+  <span class="hljs-keyword">const</span> pending = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>();
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> promise <span class="hljs-keyword">of</span> promises) {
+    <span class="hljs-keyword">let</span> wrapped;
+    <span class="hljs-comment">// Because `Promise.race()` returns the resolved promise value,</span>
+    <span class="hljs-comment">// not the promise itself, make the promise resolve to a value</span>
+    <span class="hljs-comment">// that has a reference to the original promise `wrapped`.</span>
+    wrapped = <span class="hljs-built_in">Promise</span>.resolve(promise)
+      .then(value =&gt; ({ value, wrapped }));
+    pending.add(wrapped);
+  }
+
+  <span class="hljs-keyword">while</span> (pending.size &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-comment">// `wrapped` is the promise value, so we can delete it from the set.</span>
+    <span class="hljs-keyword">const</span> { value, wrapped } = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.race(pending);
+    pending.delete(wrapped);
+    <span class="hljs-keyword">yield</span> value;
+  }
+}</code></pre>
+<p><code>asCompleted()</code> is useful beyond SSEs because it provides a different way to iterate over a set of asynchronous operations.
+<code>Promise.all()</code> gives you a promise that waits for all the promises to complete and gives you the results as an array in the original order - <code>Promise.all([A, B, C])</code> always gives you an array in the same order as the input.</p>
+<p><code>asCompleted()</code> instead gives you an async iterable over the promises in the order they are completed - a meaningfully different abstraction.
+Sometimes you don&#39;t care about the original order of <code>A, B, C</code>, just which order they complete.
+For example, suppose you have some <code>processFile()</code> function that does some async processing on a bunch of files.
+<code>asCompleted()</code> gives you a neat way to loop over the <code>processFile()</code> tasks in the order they&#39;re completed.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> jobs = files.map(file =&gt; processFile(file));
+
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> result <span class="hljs-keyword">of</span> asCompleted(jobs)) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Finished:'</span>, result.filename);
+}</code></pre>
+<h2 id="moving-on">Moving On</h2>
+<p><code>Promise.all()</code> is great when you need all your data before you can do anything with it.
+But that&#39;s not always the case, especially with SSEs.
+With SSEs, you can send query results as soon as they are ready - no need for the client to spin waiting for a slow query when some results are already available.</p>
+<p>The tricky part with async generators is that you can&#39;t yield from inside a <code>then()</code> callback.
+The neat <code>yield*</code> operator plus a small <code>asCompleted()</code> async generator fills that gap nicely:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">yield</span>* asCompleted([
+  getUser().then(user =&gt; ({ user })),
+  getMessages().then(messages =&gt; ({ messages })),
+  getNotifications().then(notifications =&gt; ({ notifications }))
+]);</code></pre>
+<p>So all 3 operations start in parallel, and whichever one finishes first gets yielded first.
+That means SSEs can send data immediately as it becomes available.</p>
+</div><div style="color: #666666; border-top: 1px dashed #666666; margin: 25px; text-align: center; padding-top: 10px"><em>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/#{post.src.substr('./lib/posts/'.length)}">Github</a></em></div><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></div></div><div style="padding-bottom: 100px">&nbsp;</div><script type="text/javascript">var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {};
+xhr.send(JSON.stringify({
+  path: window.location.pathname,
+  hostname: window.location.hostname
+}));</script><link rel="stylesheet" href="/style/inlinecpc.css"></body></html>
