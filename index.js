@@ -26,6 +26,24 @@ markdown.setOptions({
 const posts = require('./lib/posts');
 const postsConfig = [].concat(posts).reverse();
 
+// Display names for tags. A post with several tags shows the first one listed
+// here as its topic, so more specific topics come first.
+const topicLabels = {
+  asyncawait: 'Async/Await',
+  Vue: 'Vue',
+  AngularJS: 'AngularJS',
+  MongoDB: 'MongoDB',
+  NodeJS: 'Node.js',
+  Paleo: 'Paleo',
+  Random: 'Random'
+};
+
+for (const post of posts) {
+  post.url = (post.dest.directory.substr('./bin'.length) + '/' + post.dest.name + '.html').replace(/\/+/g, '/');
+  const topic = Object.keys(topicLabels).find(tag => (post.tags || []).includes(tag));
+  post.topic = topicLabels[topic];
+}
+
 async function getPosts() {
   const tests = [
     ...acquit.parse(fs.readFileSync('./test/20180621.test.js').toString()),
@@ -58,6 +76,29 @@ posts.forEach(function(post) {
   });
 });
 
+// Plain text for post cards. Cards are links, so summaries can't contain the
+// links and other markup that markdown renders. The result stays HTML-escaped.
+function getSummary(post) {
+  const sources = [post.previewText].concat(post.md.split(/\n\s*\n/)).filter(Boolean);
+  for (const source of sources) {
+    const text = markdown(source).replace(/<[^>]*>/g, '').trim();
+    if (text.length > 0) {
+      return text;
+    }
+  }
+  return '';
+}
+
+// The post's top-level headings, for the "On this page" table of contents. Newer
+// posts divide into sections with h2s and some older ones use h1s.
+function getTableOfContents(html) {
+  const headings = Array.from(html.matchAll(/<h([1-6]) id="([^"]+)">([\s\S]*?)<\/h\1>/g)).
+    map(match => ({ level: +match[1], id: match[2], text: match[3].replace(/<[^>]*>/g, '').trim() }));
+  const topLevel = Math.min(...headings.map(heading => heading.level));
+
+  return headings.filter(heading => heading.level === topLevel);
+}
+
 async function getCompiledPosts() {
   const posts = await getPosts();
 
@@ -66,12 +107,14 @@ async function getCompiledPosts() {
 
   for (const post of posts) {
     post.rawPreview = post.md.substr(0, post.md.indexOf('\n'));
-    post.preview = markdown(post.md.substr(0, post.md.indexOf('\n')));
+    post.summary = getSummary(post);
 
+    const content = markdown(post.md.toString());
     const output = postTemplate({
       post: post,
-      content: markdown(post.md.toString()),
-      allPosts: postsConfig
+      content,
+      allPosts: postsConfig,
+      toc: getTableOfContents(content)
     });
 
     post.compiled = output;
@@ -92,12 +135,14 @@ async function generatePosts() {
 }
 
 async function generateTags() {
+  await getCompiledPosts();
+
   const filename = './lib/views/list.pug';
   const listTemplate = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
   for (const key of Object.keys(tags)) {
     const output = listTemplate({
-      tag: key,
+      tag: topicLabels[key] || key,
       posts: [].concat(tags[key]),
       allPosts: postsConfig,
       pageNum: 0,
@@ -117,24 +162,57 @@ async function generateIndex() {
   const posts = [].concat(compiledPosts).reverse();
   const output = index({
     posts,
-    allPosts: postsConfig
+    allPosts: postsConfig,
+    current: 'home'
   });
 
   fs.writeFileSync('./bin/index.html', output);
   fs.writeFileSync('./bin/CNAME', 'thecodebarbarian.com');
 }
 
-async function generateRecommendations() {
-  const filename = './lib/views/recommendations.pug';
-  const options = { filename };
-  options.filters = {
-    markdown: function(block) {
-      return markdown(block);
-    }
-  };
-  const recommendations = pug.compile(fs.readFileSync(filename, 'utf8'), options);
+async function generateAllPosts() {
+  const filename = './lib/views/posts.pug';
+  const template = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
-  fs.writeFileSync('./bin/recommendations.html', recommendations(options));
+  const years = [];
+  const byDate = [].concat(posts).sort((a, b) => b.date - a.date);
+  for (const post of byDate) {
+    const year = post.date.year();
+    if (years.length === 0 || years[years.length - 1].year !== year) {
+      years.push({ year, posts: [] });
+    }
+    years[years.length - 1].posts.push(post);
+  }
+
+  const topics = Object.keys(tags).
+    sort((a, b) => tags[b].length - tags[a].length).
+    map(tag => ({ label: topicLabels[tag] || tag, url: '/tag/' + tag.toLowerCase() + '.html' }));
+
+  fs.writeFileSync('./bin/posts.html', template({
+    years,
+    topics,
+    postCount: posts.length,
+    current: 'posts'
+  }));
+}
+
+async function generateEbooks() {
+  const filename = './lib/views/ebooks.pug';
+  const ebooks = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
+
+  fs.writeFileSync('./bin/ebooks.html', ebooks());
+}
+
+// Posts that moved list their old paths as `aliases`, so old links keep working.
+async function generateRedirects() {
+  const filename = './lib/views/redirect.pug';
+  const redirect = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
+
+  for (const post of posts) {
+    for (const alias of post.aliases || []) {
+      fs.writeFileSync(alias, redirect({ post }));
+    }
+  }
 }
 
 async function generatePages() {
@@ -194,7 +272,9 @@ async function run() {
     generatePosts(),
     generateTags(),
     generateIndex(),
-    generateRecommendations(),
+    generateAllPosts(),
+    generateEbooks(),
+    generateRedirects(),
     generatePages(),
     generateFeed()
   ]);

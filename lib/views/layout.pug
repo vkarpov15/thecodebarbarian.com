@@ -1,6 +1,8 @@
 doctype html
-html
+include mixins
+html(lang="en")
   head
+    meta(charset="utf-8")
     script(type="text/javascript").
       var _sf_startpt=(new Date()).getTime()
     script(async, src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E")
@@ -14,116 +16,36 @@ html
     block title
       title www.thecodebarbarian.com
     meta( name="viewport" content="width=device-width, initial-scale=1")
-    link( href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css",
-          rel="stylesheet"
-          type="text/css")
-    link( href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600',
+    link( href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap',
           rel='stylesheet',
           type='text/css')
-    link( href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,600,700',
-          rel='stylesheet',
-          type='text/css')
-    link( href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css',
-          rel='stylesheet')
     link( href="/style/style.css",
           rel="stylesheet"
           type="text/css")
     link( href="/style/github.css",
           rel="stylesheet"
           type="text/css")
-    script( href='http://code.jquery.com/jquery-2.1.1.min.js', type='text/javascript')
-    script( href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js', type='text/javascript')
-    script( href='/javascript/sidebar.js', type='text/javascript')
 
     block opengraphTags
 
   body
-    .navbar.social-links.hidden-sm.hidden-xs
-      div.container
-        ul.nav.navbar-nav.navbar-right
-            li
-              a(href="http://www.twitter.com/code_barbarian") twitter
-            li
-              a(href="http://www.github.com/vkarpov15") github
-            li
-              a(href="http://thecodebarbarian.com/feed.xml") rss
-            li
-              a(href="/recommendations") recommendations
+    header.site-header
+      .site-header-inner
+        a.site-brand(href="/")
+          img.site-logo(src='/images/Barbarian_Head.png', alt="")
+          span.site-name The Code Barbarian
+        nav.site-nav
+          a.site-nav-link(href="/", class={ 'is-current': current === 'home' }) Home
+          a.site-nav-link(href="/posts.html", class={ 'is-current': current === 'posts' }) All posts
 
-    #nav.navbar
-      .container
-        .navbar-header
-          a.navbar-brand.big-brand(href="http://thecodebarbarian.com")
-            img.logo(src='/images/Barbarian_Head.png')
-            span.site-name The Code Barbarian
-        .navbar-right.collapse.navbar-collapse#home-nav-mobile
-          ul.nav.navbar-nav
-            li
-              a(href='/tag/mongodb.html') MongoDB
-            li
-              a(href='/tag/nodejs.html') NodeJS
-            li
-              a(href='/tag/asyncawait.html') Async/Await
-            li
-              a(href='/tag/vue.html') Vue
-            li.hidden-md.hidden-lg
-              a(href='#') @code_barbarian
-            li.hidden-md.hidden-lg
-              a(href='#') TCB Github
-            li.hidden-md.hidden-lg
-              a(href='#') TCB Facebook
+    main.site-main
+      block content
 
-    div.container-fluid
-      - if (!!post)
-        div.col-lg-3.col-lg-offset-9.right-bar#desktop-right-bar
-          .right-bar-content-slider.pull-right
-            .row.recent-posts.right-bar-group
-              .col-lg-12.articles
-                p.right-bar-label Most Popular Articles
-                ul.list-unstyled
-                  li.right-bar-li
-                    a(href="/common-async-await-design-patterns-in-node.js.html")
-                      | Common Async/Await Design Patterns in Node.js
-                  li.right-bar-li
-                    a(href="/unhandled-promise-rejections-in-node.js.html")
-                      | Unhandled Promise Rejections in Node.js
-                  li.right-bar-li
-                    a(href="/using-async-await-with-mocha-express-and-mongoose")
-                      | Using Async/Await with Mocha, Express, and Mongoose
-                  li.right-bar-li
-                    a(href="/write-your-own-node-js-promise-library-from-scratch.html")
-                      | Write Your Own Node.js Promise Library from Scratch
-                  li.right-bar-li
-                    a(href="/80-20-guide-to-express-error-handling")
-                      | The 80/20 Guide to Express Error Handling
-            .row.recent-posts.right-bar-group
-              .col-lg-12.books
-                p.right-bar-label Ebooks
-                  div
-                    a(href="http://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=sidebar")
-                      img(src="/images/verticalbanner.png")
-                  div
-                    a(href="http://es2015generators.com")
-                      img(src="https://i.imgur.com/xvGNKlr.png")
-                      p
-                        i The 80/20 Guide to ES2015 Generators
-
-    div.container-fluid.hidden-sm.hidden-md.hidden-lg#mobile-sharing-options
-      .row
-        .col-lg-12
-          block mobile_sharing
-
-    block content
-
-    div(style="padding-bottom: 100px") &nbsp;
-
-    block analytics
-      script(type="text/javascript").
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://g0a3nbw0xa.execute-api.us-east-1.amazonaws.com/prod/track', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function() {};
-        xhr.send(JSON.stringify({
-          path: window.location.pathname,
-          hostname: window.location.hostname
-        }));
+    footer.site-footer
+      .site-footer-inner
+        span Written by Valeri Karpov
+        span.site-footer-links
+          a(href="https://www.twitter.com/code_barbarian") Twitter
+          a(href="https://www.github.com/vkarpov15") GitHub
+          a(href="/feed.xml") RSS
+          a(href="/ebooks.html") Ebooks

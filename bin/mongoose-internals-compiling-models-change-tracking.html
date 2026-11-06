@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-TE4SWRGR9E"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-TE4SWRGR9E');
+</script><title>Mongoose Internals: Compiling Models and Change Tracking | www.thecodebarbarian.com</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" type="text/css"><link href="/style/style.css" rel="stylesheet" type="text/css"><link href="/style/github.css" rel="stylesheet" type="text/css"><meta property="og:title" content="Mongoose Internals: Compiling Models and Change Tracking"><meta property="og:url" content="http://www.thecodebarbarian.com/mongoose-internals-compiling-models-change-tracking"><meta property="og:image" content="https://codebarbarian-images.s3.amazonaws.com/IMG-0754.jpg"><meta property="og:site_name" content="The Code Barbarian"><meta property="description" content="Looking to start contributing to Mongoose but confused by `this.$__.activePaths`? Here's how change tracking works internally in Mongoose."><meta name="twitter:image" content="https://codebarbarian-images.s3.amazonaws.com/IMG-0754.jpg"><meta name="twitter:card" content="summary_large_image"></head><body><header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/"><img class="site-logo" src="/images/Barbarian_Head.png" alt=""><span class="site-name">The Code Barbarian</span></a><nav class="site-nav"><a class="site-nav-link" href="/">Home</a><a class="site-nav-link" href="/posts.html">All posts</a></nav></div></header><main class="site-main"><div class="post-layout"><article class="post"><header class="post-header"><p class="post-meta"><span>June 14, 2021</span><span aria-hidden="true">|</span><span>MongoDB</span></p><h1 class="post-title">Mongoose Internals: Compiling Models and Change Tracking</h1><p class="post-byline">by Valeri Karpov</p></header><script type="text/javascript" src="/js/native.js"></script><div><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+
+<div class="native-banner"></div>
+</div><script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom" id="_carbonads_js"></script><div class="prose"><p>I&#39;ve gotten a lot of requests for a guide to Mongoose internals, because it&#39;s hard to contribute unless you have the
+time and patience to read through the codebase. In this series of tutorials, I&#39;ll provide an overview of how Mongoose
+works geared towards developers that want to contribute to the project.</p>
+<p>In <a href="/mongoose-internals-schemas-options-models.html">part 1</a>, I covered how the <a href="https://mongoosejs.com/docs/guide.html">Schema class</a> works.
+In this tutorial, I&#39;ll cover how Mongoose does change tracking: how Mongoose determines what properties changed on a document.</p>
+<h2 id="compiling-a-schema">Compiling a Schema</h2>
+<p>Calling <code>mongoose.model(name, schema)</code> tells Mongoose to <em>compile</em> a model based on <code>schema</code>. <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/index.js#L582">Here&#39;s where <code>mongoose.model()</code> calls <code>Model.compile()</code></a> and <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/model.js#L4701">here&#39;s the implementation of <code>Model.compile()</code></a>.
+The <code>Model.compile()</code> function <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/model.js#L4719">creates a new model class</a> that extends from Mongoose&#39;s built in Mongoose class, and applies <a href="https://mongoosejs.com/docs/middleware.html">middleware</a> and <a href="http://thecodebarbarian.com/mongoose-custom-query-methods.html">query helpers</a> to the new class.
+But it also calls the <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/model.js#L4761"><code>$__setSchema()</code> function</a> to tell the new model class which paths to watch for changes on.</p>
+<p>First, let&#39;s take a quick look at how change tracking looks from a user perspective.
+Suppose you have a simple model with 2 properties: <code>name</code> and <code>age</code>.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> UserModel = mongoose.model(<span class="hljs-string">'User'</span>, mongoose.Schema({ name: <span class="hljs-built_in">String</span>, age: <span class="hljs-built_in">String</span> }));</code></pre>
+<p>Suppose you load a user from the database and change the user&#39;s <code>name</code>, but not their <code>age</code>.
+Mongoose tracks this change and only sends the changed <code>name</code> when you call <code>save()</code>.
+You can check what Mongoose will send to MongoDB when you call <code>save()</code> using the <code>getChanges()</code> method:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { _id } = <span class="hljs-keyword">await</span> UserModel.create({ name: <span class="hljs-string">'test'</span>, age: <span class="hljs-number">29</span> });
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> UserModel.findOne({ _id });
+user.name = <span class="hljs-string">'test2'</span>;
+
+user.getChanges(); <span class="hljs-comment">// { $set: { name: 'test2' }, $unset: {} }</span></code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/98519de1e8f3144353e95400e89adb3ffcbd7156/lib/document.js#L3043"><code>$__setSchema()</code> method</a> calls the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/helpers/document/compile.js"><code>compile()</code> helper</a>, which is responsible for calling <code>Object.defineProperty()</code> on every path in the schema so Mongoose can watch for changes.
+Below is some simplified pseudo-code that demonstrates how <code>compile()</code> works, excluding recursion and nested paths.</p>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compile</span>(<span class="hljs-params">schema, model</span>) </span>{
+  <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(schema.tree); <span class="hljs-comment">// `tree` contains the paths of the schema as a nested structure</span>
+  <span class="hljs-keyword">const</span> len = keys.length;
+  <span class="hljs-keyword">let</span> limb;
+  <span class="hljs-keyword">let</span> key;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len; ++i) {
+    key = keys[i];
+
+    defineKey(model, key);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineKey</span>(<span class="hljs-params">model, key</span>) </span>{
+  <span class="hljs-built_in">Object</span>.defineProperty(model.prototype, key, {
+    enumerable: <span class="hljs-literal">true</span>,
+    configurable: <span class="hljs-literal">true</span>,
+    get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// `this` refers to the `UserModel` instance, like `user` in the previous example</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(path);
+    },
+    set: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>{
+      <span class="hljs-keyword">this</span>.set(key, v);
+    }
+  });
+}</code></pre>
+<p>The key lesson here is that, excluding nested paths, <code>user.name = &#39;test2&#39;</code> is equivalent to <code>user.set(&#39;name&#39;, &#39;test2&#39;)</code> because Mongoose registers a <code>name</code> property on <code>UserModel.prototype</code> that calls <code>this.set(&#39;name&#39;, v)</code> whenever someone assigns a value to <code>user.name</code>.</p>
+<p>From a performance perspective, <a href="https://humanwhocodes.com/blog/2015/11/performance-implication-object-defineproperty/"><code>Object.defineProperty()</code> is very slow</a>. Mongoose mostly avoids this performance impact by only calling <code>Object.defineProperty()</code> <em>when compiling the schema into a model</em> (again excluding nested paths). We assume that developers will typically only compile models once when the process starts, as opposed to compiling models on every request, which would be very slow. Once we&#39;ve defined a property on the model class&#39;s prototype, we get change tracking for every instance of this model class without having to run <code>defineProperty()</code> every time we create a new instance of <code>UserModel</code>.</p>
+<h2 id="path-state">Path State</h2>
+<p>So the <code>compile()</code> function is responsible for compiling a schema into a model class that has built-in change tracking, and change tracking works by watching all paths in the schema and calling <code>get()</code> / <code>set()</code> whenever someone accesses or assigns to a particular property. So the core logic of change tracking is really the <code>set()</code> method.</p>
+<p>The <code>lib/document.js</code> file defines a <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L911"><code>$set()</code> method</a>. It&#39;s called <code>$set()</code> as opposed to <code>set()</code> to allow people to use <code>set</code> as a schema path name, although <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1414"><code>set()</code> is an alias for <code>$set()</code> by default</a>.</p>
+<p>The <code>$set()</code> function is pretty complex because it has support for setting multiple paths, setting nested paths, manual population, adhoc paths, strict mode, immutable paths, and numerous other features. But for the purposes of this tutorial, it is responsible for:</p>
+<ol>
+<li><a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1141">Getting the SchemaType of the path being set</a></li>
+<li><a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1186-L1194">Getting the current value of the path</a></li>
+<li><a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1280">Casting the value we&#39;re trying to set to the schematype</a></li>
+<li><a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1326">Storing any error that occurred</a></li>
+<li><a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1461-L1469">Determining whether the value changed and setting the value on <code>_doc</code></a> (via <code>$__set()</code> and <code>$__shouldModify()</code>)</li>
+</ol>
+<p>Below is a heavily simplified pseudocode implementation of <code>$set()</code>:</p>
+<pre><code class="language-javascript">Document.prototype.$set = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path, val</span>) </span>{
+  <span class="hljs-comment">// 1. Get the current SchemaType</span>
+  <span class="hljs-keyword">const</span> schematype = <span class="hljs-keyword">this</span>.$__path(path);
+
+  <span class="hljs-comment">// 2. Get the current value</span>
+  <span class="hljs-keyword">const</span> priorVal = <span class="hljs-keyword">this</span>.$__getValue(path);
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// 3. Cast the value we're setting</span>
+    val = schema.applySetters(val, <span class="hljs-keyword">this</span>, <span class="hljs-literal">false</span>, priorVal);
+
+    <span class="hljs-keyword">this</span>.$markValid(path);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-comment">// 4. If an error occurred when casting, store the error internally and return</span>
+    <span class="hljs-keyword">this</span>.invalidate(path, <span class="hljs-keyword">new</span> mongoose.CastError(schema.instance, val, path, err));
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-comment">// 5. If value changed, mark the path as modified</span>
+  <span class="hljs-keyword">if</span> (val !== priorVal) {
+    <span class="hljs-keyword">this</span>.markModified(path);
+  }
+}</code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1695"><code>Document#markModified()</code> method</a> is responsible for marking a path as modified. Modulo subdocuments, <code>this.markModified(path)</code> is equivalent to <code>this.$__.activePaths.modify(path)</code>.</p>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L91"><code>this.$__</code> property</a> is an instance of Mongoose&#39;s <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/internal.js"><code>InternalCache</code> class in <code>lib/internal.js</code></a>.
+This property stores the Mongoose document&#39;s internal state, including change tracking.
+Mongoose often checks for the presence of <code>$__</code> to check if an arbitrary object is a document.
+The <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/internal.js#L29"><code>activePaths</code> property</a> is an instance of the <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/internal.js#L8"><code>ActiveRoster</code> class</a>, which is a <a href="https://masteringjs.io/tutorials/fundamentals/state-machines">state machine</a> that tracks the state of every path in the document.</p>
+<p>Calling <code>this.$__.activePaths.modify(path)</code> tells the active roster that <code>path</code> is now in the &#39;modified&#39; state. A path can be in one of 5 states:</p>
+<ol>
+<li>&#39;require&#39;</li>
+<li>&#39;modify&#39;</li>
+<li>&#39;init&#39;</li>
+<li>&#39;default&#39;</li>
+<li>&#39;ignore&#39;</li>
+</ol>
+<p>To check whether a path is modified, you check <code>this.$__.activePaths.states.modify.hasOwnProperty(path)</code>.
+Note that this is a check for whether a path is &quot;direct modified&quot; if you have subdocuments or nested paths: if you set <code>doc.a</code>, <code>doc.a.b</code> is modified even though you haven&#39;t directly modified <code>doc.a.b</code>. We consider a path <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L2009">direct modified</a> if <code>this.$__.activePaths.states.modify.hasOwnProperty(path)</code>. Similarly, to see what paths are direct modified, you use <code>Object.keys(this.$__.activePaths.states.modify)</code>.</p>
+<h2 id="casting-and-cast-errors">Casting and Cast Errors</h2>
+<p>In Mongoose, <em>casting</em> is the process of converting an arbitrary value to the type specified in the schema.
+For example, if you set a number path to the string <code>&#39;42&#39;</code>, Mongoose is smart enough to cast that string to the number <code>42</code>.</p>
+<p>One of the key nuances of <code>$set()</code> is that it does <strong>not</strong> throw an error if casting failed.
+For example, if you try to set a number path to a string, you don&#39;t get any errors.</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, Schema({ name: <span class="hljs-built_in">String</span>, age: <span class="hljs-built_in">Number</span> }));
+
+<span class="hljs-keyword">const</span> doc = <span class="hljs-keyword">await</span> User.create({ name: <span class="hljs-string">'Jean-Luc Picard'</span>, age: <span class="hljs-number">59</span> });
+
+<span class="hljs-comment">// Doesn't throw an error</span>
+doc.$set(<span class="hljs-string">'age'</span>, <span class="hljs-string">'oops!'</span>);
+
+doc.age; <span class="hljs-comment">// 59, Mongoose doesn't overwrite the current value if an error occurred.</span>
+
+<span class="hljs-keyword">await</span> doc.validate(); <span class="hljs-comment">// Throws ValidationError</span></code></pre>
+<p>Remember that <code>$set()</code> wraps <code>applySetters()</code>, which is responsible for casting, and calls the <code>invalidate()</code> method if casting or setters throw an error.</p>
+<pre><code class="language-javascript">  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// 3. Cast the value we're setting</span>
+    val = schema.applySetters(val, <span class="hljs-keyword">this</span>, <span class="hljs-literal">false</span>, priorVal);
+
+    <span class="hljs-keyword">this</span>.$markValid(path);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-comment">// 4. If an error occurred when casting, store the error internally and return</span>
+    <span class="hljs-keyword">this</span>.invalidate(path, <span class="hljs-keyword">new</span> mongoose.CastError(schema.instance, val, path, err));
+    <span class="hljs-keyword">return</span>;
+  }</code></pre>
+<p>The <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L2702"><code>Document#invalidate()</code> method</a> is responsible for marking paths as invalid. Below is the implementation of <code>invalidate()</code>:</p>
+<pre><code class="language-javascript">Document.prototype.invalidate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path, err, val, kind</span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.$__.validationError) {
+    <span class="hljs-keyword">this</span>.$__.validationError = <span class="hljs-keyword">new</span> ValidationError(<span class="hljs-keyword">this</span>);
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$__.validationError.errors[path]) {
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">if</span> (!err || <span class="hljs-keyword">typeof</span> err === <span class="hljs-string">'string'</span>) {
+    err = <span class="hljs-keyword">new</span> ValidatorError({
+      path: path,
+      message: err,
+      type: kind || <span class="hljs-string">'user defined'</span>,
+      value: val
+    });
+  }
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$__.validationError === err) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$__.validationError;
+  }
+
+  <span class="hljs-keyword">this</span>.$__.validationError.addError(path, err);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.$__.validationError;
+};</code></pre>
+<p>The <code>invalidate()</code> function is responsible for setting properties on <code>this.$__.validationError.errors</code>, which is where Mongoose stores all paths that had failed <code>$set()</code> calls.
+This property also stores validation errors, which we&#39;ll explain in a future tutorial.
+But, for now, all you need to know is that, when you run <code>validate()</code>, <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L2654-L2668">Mongoose returns <code>this.$__.validatorError</code></a>.
+So if casting fails, <code>await doc.validate()</code> will throw an error.</p>
+<h2 id="get-and-_doc"><code>get()</code> and <code>_doc</code></h2>
+<p>That&#39;s the overview of how the <code>set()</code> function and setting a property works.
+What about <code>get()</code>?
+Mongoose documents have a <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1593"><code>get()</code> method</a> that returns the current value for a given path.</p>
+<p>The <code>get()</code> function supports several advanced features, like dotted paths and adhoc types.
+But, for the purposes of this tutorial, below is a heavily simplified version.</p>
+<pre><code class="language-javascript">Document.prototype.get = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>) </span>{
+  <span class="hljs-keyword">const</span> val = <span class="hljs-keyword">this</span>._doc[path];
+
+  <span class="hljs-keyword">const</span> schema = <span class="hljs-keyword">this</span>.$__path(path);
+  <span class="hljs-keyword">if</span> (schema != <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">return</span> schema.applyGetters(val, <span class="hljs-keyword">this</span>);
+  }
+
+  <span class="hljs-keyword">return</span> val;
+};</code></pre>
+<p>The <code>_doc</code> property is where Mongoose stores the &quot;raw&quot; value of the document.
+A document itself has getters/setters, the <code>$__</code> property, etc.
+But <code>_doc</code> is just a <a href="https://masteringjs.io/tutorials/fundamentals/pojo">POJO</a> representation of the document, with no getters/setters, methods, or anything Mongoose-specific.
+The only difference is that single nested subdocuments are still fully fledged Mongoose documents in <code>_doc</code>.</p>
+<p>You might also be wondering where the <code>$set()</code> function modifies <code>_doc</code>.
+There&#39;s a <code>$__set()</code> method that&#39;s <a href="https://github.com/Automattic/mongoose/blob/5.12.5/lib/document.js#L1514-L1532">responsible for the internals of setting the value on the <code>_doc</code> property</a>.</p>
+<h2 id="moving-on">Moving On</h2>
+<p>So far, we&#39;ve looked at the basics of Schemas and how Mongoose compiles a schema into a model with change tracking.
+But we&#39;ve only looked at simple schemas so far: schema paths so far have been strings and numbers, not objects or <a href="http://thecodebarbarian.com/the-80-20-guide-to-javascript-arrays.html">arrays</a>.
+Next up, we&#39;ll take a look at nested paths, subdocuments, arrays, and other more complex schemas.</p>
+</div><footer class="post-footer"><p>Found a typo or error? Open up a pull request! This post is
+available as markdown on&nbsp;<a href="https://github.com/vkarpov15/thecodebarbarian.com/blob/master/lib/posts/20210614_mongoose_internals_change_tracking.md">GitHub</a></p><p class="post-share"><span>Share</span><a href="https://twitter.com/share?url=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-internals-compiling-models-change-tracking.html&amp;via=code_barbarian">Twitter</a><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.thecodebarbarian.com%2Fmongoose-internals-compiling-models-change-tracking.html">Facebook</a><a href="#disqus_thread">Comments</a></p></footer><div id="disqus_thread"></div><script type="text/javascript">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'codebarbarian'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a class="dsq-brlink" href="http://disqus.com">comments powered by <span class="logo-disqus">Disqus</span></a></article><nav class="post-toc" aria-label="On this page"><h2 class="post-toc-label">On this page</h2><ol class="post-toc-list"><li><a href="#compiling-a-schema">Compiling a Schema</a></li><li><a href="#path-state">Path State</a></li><li><a href="#casting-and-cast-errors">Casting and Cast Errors</a></li><li><a href="#get-and-_doc">get() and _doc</a></li><li><a href="#moving-on">Moving On</a></li></ol></nav></div><link rel="stylesheet" href="/style/inlinecpc.css"><script type="text/javascript" src="/js/copy-code.js"></script><script type="text/javascript" src="/js/post-toc.js"></script></main><footer class="site-footer"><div class="site-footer-inner"><span>Written by Valeri Karpov</span><span class="site-footer-links"><a href="https://www.twitter.com/code_barbarian">Twitter</a><a href="https://www.github.com/vkarpov15">GitHub</a><a href="/feed.xml">RSS</a><a href="/ebooks.html">Ebooks</a></span></div></footer></body></html>

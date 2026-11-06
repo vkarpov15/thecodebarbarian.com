@@ -4,7 +4,7 @@
         <title>TheCodeBarbarian.com</title>
         <description>Detailed articles about the MEAN stack and related topics</description>
         <link>http://thecodebarbarian.com</link>
-        <lastBuildDate>Mon, 21 Sep 2026 21:14:59 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Nov 2026 23:31:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <image>
             <title>TheCodeBarbarian.com</title>
@@ -196,8 +196,8 @@
         </item>
         <item>
             <title><![CDATA[Mongoose Internals: Compiling Models and Change Tracking]]></title>
-            <link>https://thecodebarbarian.com/mongoose-internals-schemas-options-models.html</link>
-            <guid>https://thecodebarbarian.com/mongoose-internals-schemas-options-models.html</guid>
+            <link>https://thecodebarbarian.com/mongoose-internals-compiling-models-change-tracking.html</link>
+            <guid>https://thecodebarbarian.com/mongoose-internals-compiling-models-change-tracking.html</guid>
             <pubDate>Mon, 14 Jun 2021 04:00:00 GMT</pubDate>
             
         </item>
@@ -1144,6 +1144,13 @@
             <link>https://thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html</link>
             <guid>https://thecodebarbarian.com/managing-connections-with-the-mongodb-node-driver.html</guid>
             <pubDate>Wed, 27 Sep 2017 04:00:00 GMT</pubDate>
+            
+        </item>
+        <item>
+            <title><![CDATA[The node-static Debacle: A Semver Parable]]></title>
+            <link>https://thecodebarbarian.com/node-static-a-semver-parable.html</link>
+            <guid>https://thecodebarbarian.com/node-static-a-semver-parable.html</guid>
+            <pubDate>Fri, 15 Sep 2017 04:00:00 GMT</pubDate>
             
         </item>
         <item>

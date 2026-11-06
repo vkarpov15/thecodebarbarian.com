@@ -1,0 +1,24 @@
+extends layout
+
+block title
+  title All posts | www.thecodebarbarian.com
+
+block content
+  section.page-intro
+    h1.page-title All posts
+    p.page-lede #{postCount} posts since #{years[years.length - 1].year}, newest first.
+    ul.topic-links
+      each topic in topics
+        li
+          a.topic-link(href=topic.url)= topic.label
+
+  each group in years
+    section.archive-year
+      h2.section-title.archive-heading= group.year
+      ol.archive-list
+        each post in group.posts
+          li
+            a.archive-entry(href=post.url)
+              time.archive-date(datetime=post.date.format('YYYY-MM-DD'))= post.date.format('MMM D')
+              span.archive-title= post.title
+              span.archive-topic= post.topic

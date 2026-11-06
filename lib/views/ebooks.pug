@@ -1,0 +1,36 @@
+extends layout
+
+block title
+  title Ebooks | www.thecodebarbarian.com
+
+block opengraphTags
+  meta( property="og:title",
+        content="Ebooks")
+  meta( property="og:image",
+        content="/images/Barbarian_Head.png")
+  meta( property="og:site_name",
+        content="The Code Barbarian")
+
+mixin ebook(title, url, cover, announcement)
+  article.ebook
+    .ebook-body
+      h2.ebook-title
+        a(href=url)= title
+      p.ebook-summary
+        block
+      p.ebook-links
+        a.section-link(href=url) Get the ebook &rarr;
+        a.section-link(href=announcement) Read the announcement &rarr;
+    a.ebook-cover(href=url)
+      img(src=cover, alt=title + ' cover')
+
+block content
+  section.page-intro
+    h1.page-title Ebooks
+    p.page-lede Focused, concise guides to the tools I write about here.
+
+  +ebook('Mastering Mongoose', 'https://masteringjs.io/ebooks/mastering-mongoose', 'https://masteringmongoose.com/images/mastering-mongoose.jpg', '/new-ebook-mastering-mongoose.html')
+    | A carefully curated guide that explains the fundamentals of Mongoose and how they relate to building apps in different frameworks. It distills years of experience building Mongoose apps with wildly different frameworks, team compositions, and budgets, and comes with sample apps that show how the lessons come together.
+
+  +ebook('Mastering Async/Await', 'https://asyncawait.net/?utm_source=thecodebarbarian&utm_campaign=ebooks', 'https://asyncawait.net/images/cover_400.png', '/new-ebook-mastering-async-await.html')
+    | Learning async/await shouldn't mean cobbling together blog posts and outdated StackOverflow answers. This focused, concise ebook takes you from cursory knowledge to mastery in a few hours, and gives you a mental framework for figuring out the rest for yourself.

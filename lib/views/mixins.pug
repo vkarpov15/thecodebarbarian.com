@@ -1,0 +1,9 @@
+mixin postCard(post)
+  li.post-card
+    a.post-card-link(href=post.url)
+      .post-card-image
+        img(src=post.image || '/images/Barbarian_Head.png', alt="", loading="lazy")
+      p.post-card-topic= post.topic
+      h3.post-card-title= post.title
+      p.post-card-summary !{post.summary}
+      p.post-card-date= post.date.format('MMMM D, YYYY')

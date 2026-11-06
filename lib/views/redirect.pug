@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title= post.title
+    link(rel="canonical", href='https://thecodebarbarian.com' + post.url)
+    meta(http-equiv="refresh", content='0; url=' + post.url)
+  body
+    p
+      | This post has moved to&nbsp;
+      a(href=post.url)= post.title

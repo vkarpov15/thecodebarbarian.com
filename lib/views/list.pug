@@ -3,39 +3,24 @@ extends layout
 block title
   title #{tag} | www.thecodebarbarian.com
 
-append analytics
-  link(rel="stylesheet", href="/style/flexcpc.css")
-
 block content
-  div#carbonads-fixed
-    script( type="text/javascript"
-            src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom"
-            id="_carbonads_js")
-  div.container
-    div.row
-      div.col-lg-9
-        each post in posts
-          div.container-fluid
-            div.row
-              h2
-                a(href=post.dest.directory.substr('./bin'.length) + '/' + post.dest.name + '.html')
-                  | #{post.title}
-              div.title-byline-container
-                div.credits
-                  | #{post.date.format('MMMM DD, YYYY')}
-            div.row
-              div.col-lg-3
-                img(src=post.image || '/images/Barbarian_Head.png',
-                    style="width: 100%")
-              div.col-lg-9
-                em !{post.preview}
-    div.row
-      - if (pageNum > 1)
-        div.pull-left
-          a(href='/page/' + (pageNum - 1) + '.html') << Newer Articles
-      - if (pageNum && !isLastPage)
-        div.pull-right
-          a(href='/page/' + (pageNum + 1) + '.html') Older Articles >>
+  section.page-intro
+    div#carbonads-fixed
+      script( type="text/javascript"
+              src="//cdn.carbonads.com/carbon.js?serve=CKYI5K3Y&placement=thecodebarbariancom"
+              id="_carbonads_js")
+    h1.page-title= tag
+    p.page-lede #{posts.length} posts
+
+  ul.post-grid
+    each post in posts
+      +postCard(post)
+
+  nav.pagination
+    if pageNum > 1
+      a.section-link(href='/page/' + (pageNum - 1) + '.html') &larr; Newer posts
+    if pageNum && !isLastPage
+      a.section-link.pagination-next(href='/page/' + (pageNum + 1) + '.html') Older posts &rarr;
 
   style.
     .native-js {
@@ -209,3 +194,5 @@ block content
       </div>
       <span class="native-cta">#native_cta#</span>
     </a>
+
+  link(rel="stylesheet", href="/style/flexcpc.css")
