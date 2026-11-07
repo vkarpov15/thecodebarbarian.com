@@ -940,7 +940,7 @@ textarea {
   background-color: hsl(0, 0%, 98%);
 }
 
-@media only screen and (min-width: 320px) and (max-width: 759px) {
+@media only screen and (min-width: 320px) and (max-width: 967px) {
   #carbonads {
     float: none;
     position: relative;
@@ -978,8 +978,8 @@ textarea {
   }
 }
 
-/* Pinned to the corner of the screen, except on phones in either orientation */
-@media (min-width: 760px) and (min-height: 500px) {
+/* Pinned to the corner of the screen on larger windows, inline on anything smaller */
+@media (min-width: 968px) and (min-height: 500px) {
   #carbonads {
     position: fixed;
     right: 24px;
@@ -999,7 +999,7 @@ textarea {
 
 /* Where the ad overlaps the content, leave room to scroll the footer and
    pagination links clear of it. Wider screens have room beside the content. */
-@media (min-width: 760px) and (max-width: 1363px) and (min-height: 500px) {
+@media (min-width: 968px) and (max-width: 1363px) and (min-height: 500px) {
   body {
     padding-bottom: 264px;
   }
