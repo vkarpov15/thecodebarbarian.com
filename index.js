@@ -153,7 +153,51 @@ async function generateTags() {
   }
 }
 
+// Home page sponsors: active Open Collective sponsors, downloaded by
+// `npm run sponsors`, with hand-maintained changes from sponsors-overrides.json.
+// Both files are gitignored. The overrides file has:
+//
+// - `overrides`: fields to replace on an Open Collective sponsor, keyed by the
+//   sponsor's `profile` URL, like a different `website` to link to.
+// - `additionalSponsors`: sponsors who aren't on Open Collective, like ones who
+//   pay directly through Stripe, with `name`, `website` and `image`.
+//
+// Either can set `alt` for the logo's alt text and tooltip, which defaults to `name`.
+function getSponsors() {
+  const openCollective = readSponsors('./data/opencollective.json',
+    'Run `npm run sponsors` to download it.');
+  const { overrides = {}, additionalSponsors = [] } = readSponsors('./data/sponsors-overrides.json',
+    'Create it with `overrides` and `additionalSponsors`, or {} if there are none.');
+
+  for (const profile of Object.keys(overrides)) {
+    if (!openCollective.some(member => member.profile === profile)) {
+      console.warn('Sponsor override for ' + profile + ' matches no active Open Collective sponsor');
+    }
+  }
+
+  return openCollective.
+    map(member => Object.assign({}, member, overrides[member.profile])).
+    concat(additionalSponsors).
+    map(sponsor => ({
+      name: sponsor.name,
+      href: sponsor.website || sponsor.profile,
+      image: sponsor.image,
+      alt: sponsor.alt || sponsor.name
+    }));
+}
+
+// Fails rather than rendering without the file's sponsors, so a fresh clone
+// can't silently compile a home page that's missing them.
+function readSponsors(filename, help) {
+  if (!fs.existsSync(filename)) {
+    throw new Error(filename + ' not found. ' + help);
+  }
+  return JSON.parse(fs.readFileSync(filename, 'utf8'));
+}
+
 async function generateIndex() {
+  const sponsors = getSponsors();
+
   const filename = './lib/views/index.pug';
   const index = pug.compile(fs.readFileSync(filename, 'utf8'), { filename });
 
@@ -162,6 +206,7 @@ async function generateIndex() {
   const posts = [].concat(compiledPosts).reverse();
   const output = index({
     posts,
+    sponsors,
     allPosts: postsConfig,
     current: 'home'
   });

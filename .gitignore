@@ -4,3 +4,8 @@ npm-debug.log
 *.mp3
 
 package-lock.json
+
+# Sponsors downloaded by `npm run sponsors`
+data/opencollective.json
+# Hand-maintained sponsor link overrides and non-Open Collective sponsors
+data/sponsors-overrides.json

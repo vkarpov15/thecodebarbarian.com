@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "node .",
+    "sponsors": "node ./fetch-sponsors.js",
     "deploy": "git subtree push --prefix bin . gh-pages && git push origin gh-pages",
     "test": "mocha test/*.test.js",
     "start": "node ./server.js",
