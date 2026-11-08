@@ -288,35 +288,72 @@ textarea {
   text-decoration: underline;
 }
 
+/* Sponsors come after the reading: a small heading, and logos muted until hovered */
+
 .sponsors {
-  margin-top: 80px;
+  margin-top: 96px;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 32px;
 }
 
-.sponsor-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
-  align-items: center;
-  margin-top: 32px;
-  text-align: center;
+.sponsors-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.sponsor img {
-  max-height: 100px;
-}
-
-.sponsor-note {
-  margin-top: 32px;
-  font-size: 15px;
+.sponsors-title {
+  font-size: 14px;
+  font-weight: 500;
   color: var(--color-muted);
 }
 
-.sponsor-note a {
-  color: var(--color-accent);
+.sponsors-link {
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--color-muted);
+  text-underline-offset: 4px;
 }
 
-.sponsor-note a:hover {
+.sponsors-link:hover {
+  color: var(--color-ink);
   text-decoration: underline;
+}
+
+.sponsor-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px 40px;
+  margin-top: 24px;
+}
+
+/* Lets a logo wider than the screen shrink instead of overflowing */
+.sponsor-list li {
+  max-width: 100%;
+}
+
+.sponsor {
+  display: block;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1), filter 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sponsor:hover,
+.sponsor:focus-visible {
+  opacity: 1;
+  filter: none;
+}
+
+/* Logos come in any aspect ratio, so they're drawn 100px tall at their natural width */
+.sponsor img {
+  display: block;
+  height: 100px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 /* Post cards */
@@ -1034,10 +1071,6 @@ textarea {
 @media (min-width: 640px) {
   .post-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .sponsor-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .archive-entry {
